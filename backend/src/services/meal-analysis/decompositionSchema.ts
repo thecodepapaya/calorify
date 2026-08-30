@@ -123,7 +123,7 @@ export const nonFoodItemSchema = z.object({
   portion: z.null().describe('Null for a non-food item.'),
 }).strict();
 
-export const generatedDecompositionOutputV2Schema = z.object({
+export const generatedDecompositionOutputV3Schema = z.object({
   outcome: z.enum(['FOOD', 'NO_FOOD']).describe(
     'Workflow-controlling result: FOOD when at least one item belongs to the meal, otherwise terminal NO_FOOD.'
   ),
@@ -160,8 +160,8 @@ export const generatedDecompositionOutputV2Schema = z.object({
   }
 });
 
-export type GeneratedDecompositionOutputV2 = z.infer<typeof generatedDecompositionOutputV2Schema>;
-export type FoodItemV2 = z.infer<typeof foodItemSchema>;
+export type GeneratedDecompositionOutputV3 = z.infer<typeof generatedDecompositionOutputV3Schema>;
+export type FoodItemV3 = z.infer<typeof foodItemSchema>;
 
 function normalizeNumericExclusiveBounds(value: unknown): void {
   if (value == null || typeof value !== 'object') return;
@@ -174,13 +174,13 @@ function normalizeNumericExclusiveBounds(value: unknown): void {
 }
 
 const decompositionSchema = zodToJsonSchema(
-  generatedDecompositionOutputV2Schema,
+  generatedDecompositionOutputV3Schema,
   { $refStrategy: 'none', target: 'openAi' }
 ) as Record<string, unknown>;
 normalizeNumericExclusiveBounds(decompositionSchema);
 
 export const DECOMPOSITION_SCHEMA = decompositionSchema;
 
-export function parseGeneratedDecompositionOutput(value: unknown): GeneratedDecompositionOutputV2 {
-  return generatedDecompositionOutputV2Schema.parse(value);
+export function parseGeneratedDecompositionOutput(value: unknown): GeneratedDecompositionOutputV3 {
+  return generatedDecompositionOutputV3Schema.parse(value);
 }

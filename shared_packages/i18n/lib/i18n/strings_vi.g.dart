@@ -57,7 +57,6 @@ class TranslationsVi extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$vi notifications = _Translations$notifications$vi._(_root);
 	@override late final _Translations$login$vi login = _Translations$login$vi._(_root);
 	@override late final _Translations$disclaimer$vi disclaimer = _Translations$disclaimer$vi._(_root);
-	@override late final _Translations$localNutritionPhase4$vi localNutritionPhase4 = _Translations$localNutritionPhase4$vi._(_root);
 	@override late final _Translations$watch$vi watch = _Translations$watch$vi._(_root);
 	@override late final _Translations$common$vi common = _Translations$common$vi._(_root);
 	@override late final _Translations$feedbackRating$vi feedbackRating = _Translations$feedbackRating$vi._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$vi extends Translations$meal$en {
 	@override String get skip => 'Bỏ qua';
 	@override late final _Translations$meal$questionFlow$vi questionFlow = _Translations$meal$questionFlow$vi._(_root);
 	@override late final _Translations$meal$analysis$vi analysis = _Translations$meal$analysis$vi._(_root);
-	@override late final _Translations$meal$localInference$vi localInference = _Translations$meal$localInference$vi._(_root);
 	@override late final _Translations$meal$feedback$vi feedback = _Translations$meal$feedback$vi._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$vi extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$vi heightUnit = _Translations$settings$heightUnit$vi._(_root);
 	@override late final _Translations$settings$weightUnit$vi weightUnit = _Translations$settings$weightUnit$vi._(_root);
 	@override late final _Translations$settings$mealReminders$vi mealReminders = _Translations$settings$mealReminders$vi._(_root);
-	@override late final _Translations$settings$localInference$vi localInference = _Translations$settings$localInference$vi._(_root);
 	@override late final _Translations$settings$theme$vi theme = _Translations$settings$theme$vi._(_root);
 	@override late final _Translations$settings$sendFeedback$vi sendFeedback = _Translations$settings$sendFeedback$vi._(_root);
 	@override late final _Translations$settings$exportMealHistory$vi exportMealHistory = _Translations$settings$exportMealHistory$vi._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$vi extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$vi weightEstimate = _Translations$disclaimer$weightEstimate$vi._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$vi healthMetrics = _Translations$disclaimer$healthMetrics$vi._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$vi calorieExpenditure = _Translations$disclaimer$calorieExpenditure$vi._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$vi extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$vi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'Nhỏ hơn';
-	@override String get portionEstimated => 'Ước tính';
-	@override String get portionLarger => 'Lớn hơn';
-	@override String portionQuestion({required Object ingredient}) => 'Khẩu phần nào gần nhất với ${ingredient}?';
-	@override String get mealTypeQuestion => 'Đây là bữa ăn nào?';
-	@override String get localNutritionTip => 'Được tính từ dữ liệu dinh dưỡng cục bộ đã xác minh.';
-	@override String get offlineNutritionTitle => 'Tải dữ liệu dinh dưỡng';
-	@override String get offlineNutritionSubtitle => 'Sử dụng các hàng USDA đã xác minh và phép tính xác định trên thiết bị này khi mọi nguyên liệu đều được hỗ trợ.';
-	@override String get offlineNutritionUnavailable => 'Dữ liệu dinh dưỡng cục bộ không khả dụng cho bản phát hành ứng dụng này.';
-	@override String get offlineNutritionNotDownloaded => 'Chưa tải xuống gói dinh dưỡng đã xác minh nào.';
-	@override String get offlineNutritionInstalling => 'Đang tải xuống và xác minh dữ liệu dinh dưỡng…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Gói ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} hàng USDA đã lưu đệm · ${size}';
-	@override String get offlineNutritionUpdate => 'Kiểm tra bản cập nhật';
-	@override String get offlineNutritionClear => 'Xóa dữ liệu dinh dưỡng cục bộ';
-	@override String get offlineNutritionClearTitle => 'Xóa dữ liệu dinh dưỡng cục bộ?';
-	@override String get offlineNutritionClearBody => 'Thao tác này xóa gói USDA đã tải xuống và bộ nhớ đệm tra cứu. Các bữa ăn đã ghi vẫn giữ ảnh chụp dinh dưỡng chính xác được dùng khi lưu.';
-	@override String get offlineNutritionClearConfirm => 'Xóa dữ liệu';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Không thể tải xuống và xác minh dữ liệu dinh dưỡng cục bộ: ${error}';
-	@override String get offlineNutritionCleared => 'Đã xóa dữ liệu dinh dưỡng cục bộ';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$vi extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'Nhỏ hơn';
 	@override String get optionTypical => 'Điển hình';
 	@override String get optionLarger => 'Lớn hơn';
+	@override String get useEstimate => 'Sử dụng ước tính';
+	@override String numberRange({required Object min, required Object max, required Object step}) => 'Từ ${min} đến ${max}, với bước ${step}';
+	@override String get invalidNumber => 'Nhập một giá trị trong phạm vi cho phép';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$vi extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => 'Phát hiện ${count} nguyên liệu';
 	@override String get ingredientsPending => 'Đang quét nguyên liệu…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => 'Khoảng ước tính: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'Mẹo: Kiên trì còn hơn hoàn hảo—ghi chép đều đặn sẽ cho thấy các mô hình quan trọng.';
 	@override String get offlineTip1 => 'Mẹo: Với ảnh, ánh sáng tự nhiên và góc chụp từ trên xuống giúp xác định khẩu phần chính xác hơn.';
 	@override String get offlineTip2 => 'Mẹo: Nhắc đến đồ uống, nước sốt và dầu ăn—chúng thêm calo mà thường bị quên.';
 	@override String get offlineTip3 => 'Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.';
 	@override String get offlineTip4 => 'Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.';
 	@override String get offlineTip5 => 'Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$vi extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$vi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'Xem lại các thành phần đã nhận diện';
-	@override String get reviewSubtitle => 'Nội dung này được phân tích trên thiết bị của bạn. Hãy chỉnh sửa tên hoặc định lượng trước khi tính toán dinh dưỡng.';
-	@override String get mealName => 'Tên bữa ăn';
-	@override String get ingredient => 'Thành phần';
-	@override String get grams => 'Số gam ước tính';
-	@override String get removeIngredient => 'Xóa thành phần';
-	@override String get continueLabel => 'Tiếp tục';
-	@override String get invalidProposal => 'Vui lòng thêm ít nhất một thành phần và nhập số gam là số dương.';
-	@override String get localUnavailable => 'Tính năng phân tích trên thiết bị hiện không khả dụng.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$vi extends Translations$settings$sections$
 	@override String get localization => 'NGÔN NGỮ';
 	@override String get notifications => 'THÔNG BÁO';
 	@override String get healthConnect => 'TÍCH HỢP HEALTH CONNECT';
-	@override String get localInference => 'PHÂN TÍCH TRÊN THIẾT BỊ';
 	@override String get supportAndLegal => 'HỖ TRỢ & PHÁP LÝ';
 	@override String get about => 'VỀ ỨNG DỤNG';
 	@override String get dangerZone => 'KHU VỰC NGUY HIỂM';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$vi extends Translations$settings$meal
 	// Translations
 	@override String get title => 'Nhắc bữa ăn';
 	@override String get subtitle => 'Giữ đúng lịch với thông báo kịp thời';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$vi extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$vi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Phân tích bữa ăn trên thiết bị';
-	@override String get subtitle => 'Sử dụng Gemini Nano để phân tích các bữa ăn được hỗ trợ trước khi tính toán dinh dưỡng';
-	@override String get unavailable => 'Không khả dụng trên thiết bị này';
-	@override String get rolloutUnavailable => 'Tìm thấy phần cứng tương thích, nhưng tính năng này chưa được kích hoạt cho phiên bản ứng dụng này';
-	@override String get modelSetup => 'Gemini Nano cần hoàn tất tải xuống trước khi có thể kích hoạt tính năng này';
-	@override String get useLocalTitle => 'Sử dụng phân tích trên thiết bị';
-	@override String get useLocalSubtitle => 'Kết quả có thể ít đáng tin cậy hơn đối với các bữa ăn phức tạp.';
-	@override String get disclosureTitle => 'Trước khi bạn bật phân tích trên thiết bị';
-	@override String get disclosureBody => 'Gemini Nano có thể nhận diện thành phần và ước tính định lượng trên các thiết bị Android được hỗ trợ. Đề xuất thành phần sau khi bạn xem lại sẽ được gửi đến Calorify để đối chiếu dữ liệu dinh dưỡng USDA và tính toán.';
-	@override String get disclosureLimit1 => 'Các món ăn phức tạp, thành phần ẩn và kích thước phần ăn có thể bị nhận diện sai.';
-	@override String get disclosureLimit2 => 'Mô hình có thể không khả dụng khi đang tải xuống, đang bận, chạy ngầm hoặc bị giới hạn bởi thiết bị.';
-	@override String get disclosureLimit3 => 'Nếu phân tích cục bộ không thể hoàn tất, bản beta này sẽ tự động gửi mô tả bữa ăn gốc của bạn đến Calorify để phân tích trên đám mây.';
-	@override String get acknowledgement => 'Tôi hiểu rằng tôi nên xem lại các thành phần và định lượng đã nhận diện.';
-	@override String get enable => 'Xác nhận và kích hoạt';
-	@override String get cancel => 'Hủy';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsVi {
 			'meal.questionFlow.optionSmaller' => 'Nhỏ hơn',
 			'meal.questionFlow.optionTypical' => 'Điển hình',
 			'meal.questionFlow.optionLarger' => 'Lớn hơn',
+			'meal.questionFlow.useEstimate' => 'Sử dụng ước tính',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'Từ ${min} đến ${max}, với bước ${step}',
+			'meal.questionFlow.invalidNumber' => 'Nhập một giá trị trong phạm vi cho phép',
 			'meal.analysis.title' => 'Đang phân tích bữa ăn của bạn',
 			'meal.analysis.stepStarted' => 'Bắt đầu…',
 			'meal.analysis.stepDecomposition' => 'Hiểu bữa ăn của bạn…',
@@ -2308,21 +2240,13 @@ extension on TranslationsVi {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Phát hiện ${count} nguyên liệu',
 			'meal.analysis.ingredientsPending' => 'Đang quét nguyên liệu…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'Khoảng ước tính: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'Mẹo: Kiên trì còn hơn hoàn hảo—ghi chép đều đặn sẽ cho thấy các mô hình quan trọng.',
 			'meal.analysis.offlineTip1' => 'Mẹo: Với ảnh, ánh sáng tự nhiên và góc chụp từ trên xuống giúp xác định khẩu phần chính xác hơn.',
 			'meal.analysis.offlineTip2' => 'Mẹo: Nhắc đến đồ uống, nước sốt và dầu ăn—chúng thêm calo mà thường bị quên.',
 			'meal.analysis.offlineTip3' => 'Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.',
 			'meal.analysis.offlineTip4' => 'Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.',
 			'meal.analysis.offlineTip5' => 'Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng).',
-			'meal.localInference.reviewTitle' => 'Xem lại các thành phần đã nhận diện',
-			'meal.localInference.reviewSubtitle' => 'Nội dung này được phân tích trên thiết bị của bạn. Hãy chỉnh sửa tên hoặc định lượng trước khi tính toán dinh dưỡng.',
-			'meal.localInference.mealName' => 'Tên bữa ăn',
-			'meal.localInference.ingredient' => 'Thành phần',
-			'meal.localInference.grams' => 'Số gam ước tính',
-			'meal.localInference.removeIngredient' => 'Xóa thành phần',
-			'meal.localInference.continueLabel' => 'Tiếp tục',
-			'meal.localInference.invalidProposal' => 'Vui lòng thêm ít nhất một thành phần và nhập số gam là số dương.',
-			'meal.localInference.localUnavailable' => 'Tính năng phân tích trên thiết bị hiện không khả dụng.',
 			'meal.feedback.title' => 'Có gì sai?',
 			'meal.feedback.subtitle' => 'Giúp chúng tôi cải thiện phân tích bằng cách chọn một hoặc nhiều vấn đề.',
 			'meal.feedback.tellUsMore' => 'Nói thêm cho chúng tôi',
@@ -2420,7 +2344,6 @@ extension on TranslationsVi {
 			'settings.sections.localization' => 'NGÔN NGỮ',
 			'settings.sections.notifications' => 'THÔNG BÁO',
 			'settings.sections.healthConnect' => 'TÍCH HỢP HEALTH CONNECT',
-			'settings.sections.localInference' => 'PHÂN TÍCH TRÊN THIẾT BỊ',
 			'settings.sections.supportAndLegal' => 'HỖ TRỢ & PHÁP LÝ',
 			'settings.sections.about' => 'VỀ ỨNG DỤNG',
 			'settings.sections.dangerZone' => 'KHU VỰC NGUY HIỂM',
@@ -2435,21 +2358,6 @@ extension on TranslationsVi {
 			'settings.weightUnit.title' => 'Đơn vị cân nặng',
 			'settings.mealReminders.title' => 'Nhắc bữa ăn',
 			'settings.mealReminders.subtitle' => 'Giữ đúng lịch với thông báo kịp thời',
-			'settings.localInference.title' => 'Phân tích bữa ăn trên thiết bị',
-			'settings.localInference.subtitle' => 'Sử dụng Gemini Nano để phân tích các bữa ăn được hỗ trợ trước khi tính toán dinh dưỡng',
-			'settings.localInference.unavailable' => 'Không khả dụng trên thiết bị này',
-			'settings.localInference.rolloutUnavailable' => 'Tìm thấy phần cứng tương thích, nhưng tính năng này chưa được kích hoạt cho phiên bản ứng dụng này',
-			'settings.localInference.modelSetup' => 'Gemini Nano cần hoàn tất tải xuống trước khi có thể kích hoạt tính năng này',
-			'settings.localInference.useLocalTitle' => 'Sử dụng phân tích trên thiết bị',
-			'settings.localInference.useLocalSubtitle' => 'Kết quả có thể ít đáng tin cậy hơn đối với các bữa ăn phức tạp.',
-			'settings.localInference.disclosureTitle' => 'Trước khi bạn bật phân tích trên thiết bị',
-			'settings.localInference.disclosureBody' => 'Gemini Nano có thể nhận diện thành phần và ước tính định lượng trên các thiết bị Android được hỗ trợ. Đề xuất thành phần sau khi bạn xem lại sẽ được gửi đến Calorify để đối chiếu dữ liệu dinh dưỡng USDA và tính toán.',
-			'settings.localInference.disclosureLimit1' => 'Các món ăn phức tạp, thành phần ẩn và kích thước phần ăn có thể bị nhận diện sai.',
-			'settings.localInference.disclosureLimit2' => 'Mô hình có thể không khả dụng khi đang tải xuống, đang bận, chạy ngầm hoặc bị giới hạn bởi thiết bị.',
-			'settings.localInference.disclosureLimit3' => 'Nếu phân tích cục bộ không thể hoàn tất, bản beta này sẽ tự động gửi mô tả bữa ăn gốc của bạn đến Calorify để phân tích trên đám mây.',
-			'settings.localInference.acknowledgement' => 'Tôi hiểu rằng tôi nên xem lại các thành phần và định lượng đã nhận diện.',
-			'settings.localInference.enable' => 'Xác nhận và kích hoạt',
-			'settings.localInference.cancel' => 'Hủy',
 			'settings.theme.title' => 'Giao diện',
 			'settings.theme.light' => 'Sáng',
 			'settings.theme.dark' => 'Tối',
@@ -2561,8 +2469,6 @@ extension on TranslationsVi {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Lỗi khi hoàn tất thiết lập: ${error}',
 			'notifications.breakfast.title' => 'Đến giờ ăn sáng! 🍳',
 			'notifications.breakfast.body' => 'Đừng quên ghi bữa sáng của bạn',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'Đến giờ ăn trưa! 🥗',
 			'notifications.lunch.body' => 'Đã đến lúc ghi bữa trưa',
 			'notifications.dinner.title' => 'Đến giờ ăn tối! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsVi {
 			'disclaimer.snap.databaseLimitations.title' => 'Hạn chế cơ sở dữ liệu',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất rộng nhưng có thể không bao gồm mọi món hoặc biến thể.',
 			'disclaimer.weightEstimate.title' => 'Về ước tính cân nặng',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Thay đổi cân nặng dự đoán là ước tính lý thuyết dựa trên mô hình calo vào vs calo ra đơn giản. Nó nhằm mục đích truyền cảm hứng, không phải dự đoán cân nặng thực tế của bạn.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Độ chính xác calo',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ước tính này chỉ chính xác bằng việc bạn ghi chép chính xác lượng calo nạp và tiêu hao. Ghi không chính xác sẽ dẫn đến dự đoán sai.',
@@ -2606,26 +2514,6 @@ extension on TranslationsVi {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Chúng tôi tính TDEE của bạn (dựa trên hồ sơ) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính calo đã tiêu hao cho đến nay.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Hướng dẫn chuyên môn',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Đừng dùng ước tính này để đưa ra quyết định y tế. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng để được tư vấn quản lý cân nặng cá nhân.',
-			'localNutritionPhase4.portionSmaller' => 'Nhỏ hơn',
-			'localNutritionPhase4.portionEstimated' => 'Ước tính',
-			'localNutritionPhase4.portionLarger' => 'Lớn hơn',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Khẩu phần nào gần nhất với ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Đây là bữa ăn nào?',
-			'localNutritionPhase4.localNutritionTip' => 'Được tính từ dữ liệu dinh dưỡng cục bộ đã xác minh.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Tải dữ liệu dinh dưỡng',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Sử dụng các hàng USDA đã xác minh và phép tính xác định trên thiết bị này khi mọi nguyên liệu đều được hỗ trợ.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Dữ liệu dinh dưỡng cục bộ không khả dụng cho bản phát hành ứng dụng này.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'Chưa tải xuống gói dinh dưỡng đã xác minh nào.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Đang tải xuống và xác minh dữ liệu dinh dưỡng…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Gói ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} hàng USDA đã lưu đệm · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Kiểm tra bản cập nhật',
-			'localNutritionPhase4.offlineNutritionClear' => 'Xóa dữ liệu dinh dưỡng cục bộ',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Xóa dữ liệu dinh dưỡng cục bộ?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'Thao tác này xóa gói USDA đã tải xuống và bộ nhớ đệm tra cứu. Các bữa ăn đã ghi vẫn giữ ảnh chụp dinh dưỡng chính xác được dùng khi lưu.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Xóa dữ liệu',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Không thể tải xuống và xác minh dữ liệu dinh dưỡng cục bộ: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Đã xóa dữ liệu dinh dưỡng cục bộ',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'Quay lại',
 			'watch.common.cancel' => 'Hủy',

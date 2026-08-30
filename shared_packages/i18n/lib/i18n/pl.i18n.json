@@ -321,7 +321,10 @@
       "optionHeavy": "Ciężki",
       "optionSmaller": "Mniejszy",
       "optionTypical": "Typowy",
-      "optionLarger": "Większy"
+      "optionLarger": "Większy",
+      "useEstimate": "Użyj wartości szacunkowej",
+      "numberRange": "Od {min} do {max}, co {step}",
+      "invalidNumber": "Wprowadź wartość z dozwolonego zakresu"
     },
     "analysis": {
       "title": "Analiza Twojego posiłku",
@@ -344,23 +347,13 @@
       "ingredientsLine": "Wykryto {count} składników",
       "ingredientsPending": "Skanowanie składników…",
       "mealPreviewDescription": "„{text}”",
+      "calorieRange": "Szacowany zakres: {min}–{max} kcal",
       "offlineTip0": "Wskazówka: Konsekwencja jest ważniejsza niż perfekcja — regularne zapisy ujawniają istotne wzorce.",
       "offlineTip1": "Wskazówka: Do zdjęć najlepiej naturalne światło i ujęcie z góry — pomagają w ocenie porcji.",
       "offlineTip2": "Wskazówka: Wspomnij o napojach, sosach i oleju do smażenia — to kalorie, które często są pomijane.",
       "offlineTip3": "Wskazówka: Krótka informacja o porcji (1 miska, duża kawa) znacznie poprawia dokładność.",
       "offlineTip4": "Wskazówka: Zapis po posiłku też buduje nawyk; perfekcja nie jest obowiązkowa.",
       "offlineTip5": "Wskazówka: Powiedz, jak jedzenie było przygotowane, jeśli to znacząco zmienia kalorie (smażone vs pieczone)."
-    },
-    "localInference": {
-      "reviewTitle": "Sprawdź wykryte składniki",
-      "reviewSubtitle": "Dane zostały zinterpretowane na Twoim urządzeniu. Popraw nazwy lub porcje przed obliczeniem wartości odżywczych.",
-      "mealName": "Nazwa posiłku",
-      "ingredient": "Składnik",
-      "grams": "Szacowana waga (g)",
-      "removeIngredient": "Usuń składnik",
-      "continueLabel": "Kontynuuj",
-      "invalidProposal": "Dodaj co najmniej jeden składnik i podaj dodatnią wartość gramów.",
-      "localUnavailable": "Analiza na urządzeniu jest obecnie niedostępna."
     },
     "feedback": {
       "title": "Co wygląda nie tak?",
@@ -502,7 +495,6 @@
       "localization": "LOKALIZACJA",
       "notifications": "POWIADOMIENIA",
       "healthConnect": "Health Connect",
-      "localInference": "ANALIZA NA URZĄDZENIU",
       "supportAndLegal": "POMOC I DANE PRAWNE",
       "about": "O APLIKACJI",
       "dangerZone": "STREFA RYZYKA",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Przypomnienia o posiłkach",
       "subtitle": "Pozostań na ścieżce dzięki przypomnieniom"
-    },
-    "localInference": {
-      "title": "Analiza posiłków na urządzeniu",
-      "subtitle": "Interpretuj obsługiwane posiłki za pomocą Gemini Nano przed obliczeniem wartości odżywczych",
-      "unavailable": "Niedostępne na tym urządzeniu",
-      "rolloutUnavailable": "Wykryto odpowiedni sprzęt, ale ta funkcja nie jest włączona w tej wersji aplikacji",
-      "modelSetup": "Gemini Nano musi zakończyć pobieranie, zanim będzie można to włączyć",
-      "useLocalTitle": "Używaj analizy na urządzeniu",
-      "useLocalSubtitle": "Wyniki mogą być mniej wiarygodne w przypadku złożonych posiłków.",
-      "disclosureTitle": "Zanim włączysz analizę na urządzeniu",
-      "disclosureBody": "Gemini Nano potrafi identyfikować składniki i szacować porcje na obsługiwanych urządzeniach Android. Twoja zweryfikowana propozycja składników jest wysyłana do Calorify w celu weryfikacji wartości odżywczych USDA i obliczeń.",
-      "disclosureLimit1": "Złożone dania, ukryte składniki i wielkość porcji mogą zostać błędnie zidentyfikowane.",
-      "disclosureLimit2": "Model może być niedostępny podczas pobierania, gdy jest zajęty, działa w tle lub jest ograniczony przez urządzenie.",
-      "disclosureLimit3": "Jeśli interpretacja lokalna nie może zostać zakończona, ta wersja beta automatycznie wysyła oryginalny opis posiłku do Calorify w celu analizy w chmurze.",
-      "acknowledgement": "Rozumiem, że powinienem sprawdzać wykryte składniki i porcje.",
-      "enable": "Potwierdź i włącz",
-      "cancel": "Anuluj"
     },
     "theme": {
       "title": "Motyw",
@@ -787,28 +762,6 @@
         "description": "Nie używaj tego oszacowania do podejmowania decyzji medycznych. Zawsze konsultuj się z lekarzem lub zarejestrowanym dietetykiem w sprawie zarządzania wagą."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Mniejsza",
-    "portionEstimated": "Szacowana",
-    "portionLarger": "Większa",
-    "portionQuestion": "Która porcja była najbliższa dla {ingredient}?",
-    "mealTypeQuestion": "Który to był posiłek?",
-    "localNutritionTip": "Obliczono na podstawie zweryfikowanych lokalnych danych żywieniowych.",
-    "offlineNutritionTitle": "Pobierz dane żywieniowe",
-    "offlineNutritionSubtitle": "Używaj zweryfikowanych wierszy USDA i deterministycznych obliczeń na tym urządzeniu, gdy wszystkie składniki są objęte.",
-    "offlineNutritionUnavailable": "Lokalne dane żywieniowe nie są dostępne dla tej wersji aplikacji.",
-    "offlineNutritionNotDownloaded": "Nie pobrano zweryfikowanego pakietu danych żywieniowych.",
-    "offlineNutritionInstalling": "Pobieranie i weryfikowanie danych żywieniowych…",
-    "offlineNutritionStatus": "Pakiet {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} wierszy USDA w pamięci podręcznej · {size}",
-    "offlineNutritionUpdate": "Sprawdź aktualizacje",
-    "offlineNutritionClear": "Wyczyść lokalne dane żywieniowe",
-    "offlineNutritionClearTitle": "Wyczyścić lokalne dane żywieniowe?",
-    "offlineNutritionClearBody": "Spowoduje to usunięcie pobranego pakietu USDA i pamięci podręcznej wyszukiwania. Zapisane posiłki zachowają dokładną migawkę wartości odżywczych użytą podczas zapisywania.",
-    "offlineNutritionClearConfirm": "Wyczyść dane",
-    "offlineNutritionInstallFailed": "Nie udało się pobrać i zweryfikować lokalnych danych żywieniowych: {error}",
-    "offlineNutritionCleared": "Lokalne dane żywieniowe zostały wyczyszczone"
   },
   "watch": {
     "appTitle": "Calorify Watch",

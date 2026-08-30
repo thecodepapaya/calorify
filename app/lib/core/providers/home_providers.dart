@@ -7,9 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:models/models.dart';
 import 'package:i18n/i18n.dart';
 
-// local-inference consumers are intentionally outside this change and still
-// import this library for database access. Keep object identity while avoiding
-// the former broad re-export of every application dependency.
 final databaseInterfaceProvider = app_dependencies.databaseInterfaceProvider;
 
 final foodRepositoryProvider = Provider<FoodRepository>((ref) {

@@ -321,7 +321,10 @@
       "optionHeavy": "Lourd",
       "optionSmaller": "Plus petit",
       "optionTypical": "Typique",
-      "optionLarger": "Plus grand"
+      "optionLarger": "Plus grand",
+      "useEstimate": "Utiliser l'estimation",
+      "numberRange": "De {min} à {max}, par incréments de {step}",
+      "invalidNumber": "Saisissez une valeur comprise dans la plage autorisée"
     },
     "analysis": {
       "title": "Analyse de votre repas",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} ingrédients détectés",
       "ingredientsPending": "Analyse des ingrédients…",
       "mealPreviewDescription": "« {text} »",
+      "calorieRange": "Plage estimée : {min}–{max} kcal",
       "offlineTip0": "Astuce : La régularité vaut mieux que la perfection—les enregistrements réguliers montrent les tendances importantes.",
       "offlineTip1": "Astuce : Pour les photos, la lumière naturelle et une vue de dessus aident à estimer les portions.",
       "offlineTip2": "Astuce : Mentionnez les boissons, sauces et huiles de cuisson—elles ajoutent souvent des calories oubliées.",
       "offlineTip3": "Astuce : Une brève indication de portion (1 bol, grand café) améliore nettement les estimations.",
       "offlineTip4": "Astuce : Enregistrer après le repas aide aussi à créer l'habitude ; la perfection est optionnelle.",
       "offlineTip5": "Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four)."
-    },
-    "localInference": {
-      "reviewTitle": "Vérifier les ingrédients détectés",
-      "reviewSubtitle": "Ceci a été interprété sur votre appareil. Corrigez les noms ou les portions avant le calcul nutritionnel.",
-      "mealName": "Nom du repas",
-      "ingredient": "Ingrédient",
-      "grams": "Grammes estimés",
-      "removeIngredient": "Supprimer l'ingrédient",
-      "continueLabel": "Continuer",
-      "invalidProposal": "Ajoutez au moins un ingrédient et utilisez une quantité de grammes positive.",
-      "localUnavailable": "L'analyse sur l'appareil est actuellement indisponible."
     },
     "feedback": {
       "title": "Qu'est‑ce qui cloche ?",
@@ -502,7 +495,6 @@
       "localization": "LOCALISATION",
       "notifications": "AVIS",
       "healthConnect": "CONNEXION HEALTH CONNECT",
-      "localInference": "ANALYSE SUR L'APPAREIL",
       "supportAndLegal": "SUPPORT & LÉGAL",
       "about": "À PROPOS",
       "dangerZone": "ZONE DANGEREUSE",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Rappels de repas",
       "subtitle": "Restez sur la bonne voie grâce à des alertes ponctuelles"
-    },
-    "localInference": {
-      "title": "Analyse des repas sur l'appareil",
-      "subtitle": "Interpréter les repas compatibles avec Gemini Nano avant le calcul nutritionnel",
-      "unavailable": "Non disponible sur cet appareil",
-      "rolloutUnavailable": "Matériel compatible trouvé, mais cette fonctionnalité n'est pas activée pour cette version de l'application",
-      "modelSetup": "Gemini Nano doit terminer son téléchargement avant de pouvoir être activé",
-      "useLocalTitle": "Utiliser l'analyse sur l'appareil",
-      "useLocalSubtitle": "Les résultats peuvent être moins fiables pour les repas complexes.",
-      "disclosureTitle": "Avant d'activer l'analyse sur l'appareil",
-      "disclosureBody": "Gemini Nano peut identifier les ingrédients et estimer les portions sur les appareils Android compatibles. Votre proposition d'ingrédients vérifiée est envoyée à Calorify pour l'ancrage nutritionnel USDA et le calcul.",
-      "disclosureLimit1": "Les plats complexes, les ingrédients cachés et la taille des portions peuvent être identifiés incorrectement.",
-      "disclosureLimit2": "Le modèle peut être indisponible pendant le téléchargement, s'il est occupé, en arrière-plan ou limité par l'appareil.",
-      "disclosureLimit3": "Si l'interprétation locale ne peut pas se terminer, cette version bêta envoie automatiquement la description originale de votre repas à Calorify pour une analyse cloud.",
-      "acknowledgement": "Je comprends que je dois vérifier les ingrédients et les portions détectés.",
-      "enable": "Accepter et activer",
-      "cancel": "Annuler"
     },
     "theme": {
       "title": "Thème",
@@ -787,28 +762,6 @@
         "description": "N'utilisez pas cette estimation pour prendre des décisions médicales. Consultez toujours un professionnel de santé ou un diététicien diplômé pour des conseils personnalisés en gestion du poids."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Plus petite",
-    "portionEstimated": "Estimée",
-    "portionLarger": "Plus grande",
-    "portionQuestion": "Quelle portion était la plus proche pour {ingredient} ?",
-    "mealTypeQuestion": "De quel repas s’agissait-il ?",
-    "localNutritionTip": "Calculé à partir de données nutritionnelles locales vérifiées.",
-    "offlineNutritionTitle": "Télécharger les données nutritionnelles",
-    "offlineNutritionSubtitle": "Utilisez des lignes USDA vérifiées et un calcul déterministe sur cet appareil lorsque tous les ingrédients sont couverts.",
-    "offlineNutritionUnavailable": "Les données nutritionnelles locales ne sont pas disponibles pour cette version de l’application.",
-    "offlineNutritionNotDownloaded": "Aucun pack nutritionnel vérifié n’est téléchargé.",
-    "offlineNutritionInstalling": "Téléchargement et vérification des données nutritionnelles…",
-    "offlineNutritionStatus": "Paquet {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} lignes USDA en cache · {size}",
-    "offlineNutritionUpdate": "Rechercher une mise à jour",
-    "offlineNutritionClear": "Effacer les données nutritionnelles locales",
-    "offlineNutritionClearTitle": "Effacer les données nutritionnelles locales ?",
-    "offlineNutritionClearBody": "Cette action supprime le pack USDA téléchargé et le cache de recherche. Les repas enregistrés conservent l’instantané nutritionnel exact utilisé lors de leur sauvegarde.",
-    "offlineNutritionClearConfirm": "Effacer les données",
-    "offlineNutritionInstallFailed": "Impossible de télécharger et de vérifier les données nutritionnelles locales : {error}",
-    "offlineNutritionCleared": "Données nutritionnelles locales effacées"
   },
   "watch": {
     "appTitle": "Calorify Montre",

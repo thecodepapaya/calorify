@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
+import 'package:calorify/features/home/utils/meal_analysis_v3_flow.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:models/models.dart';
@@ -198,9 +199,14 @@ class WearOsService {
         );
       }
 
-      final response = await _analyzeTextV2(textDescription.trim());
+      final response = await _analyzeTextV3(textDescription.trim());
 
       return {'success': true, 'response': response.toProto3Json()};
+    } on _WearServiceException catch (error) {
+      return {
+        ..._legacyFailure(error.message, error.code),
+        if (error.analysisId != null) 'analysisId': error.analysisId,
+      };
     } catch (e) {
       _logFailure('Watch text analysis', e);
       return _legacyFailure(
@@ -282,32 +288,37 @@ class WearOsService {
         .timeout(const Duration(seconds: 5));
   }
 
-  Future<MealDetectionResponse> _analyzeTextV2(String description) async {
+  Future<MealDetectionResponse> _analyzeTextV3(String description) async {
     final analysisId = const Uuid().v4();
-    final events = await _foodRepository.analyzeTextV2(
+    final requestContext = await createMealAnalysisV3Context();
+    final events = await _foodRepository.analyzeTextV3(
       analysisId: analysisId,
-      textDescription: description,
+      text: description,
+      context: requestContext,
     );
 
     await for (final event in events) {
-      if (event.step == PipelineStep.RESULT && event.result != null) {
-        final context = MealAnalysisPipelineSessionContext(
-          result: event.result,
-          textDescription: description,
+      if (event.kind == MealAnalysisV3EventKind.complete &&
+          event.result != null) {
+        return MealDetectionResponse(
+          result: event.result!.toMealDetectionResult(
+            textDescription: description,
+          ),
         );
-        return MealDetectionResponse(result: context.toMealDetectionResult());
       }
-      if (event.step == PipelineStep.UNCERTAINTY ||
-          event.step == PipelineStep.MEAL_TYPE_QUESTION) {
-        throw const _WearServiceException(
-          'rejected',
+      if (event.kind == MealAnalysisV3EventKind.needsInput) {
+        throw _WearServiceException(
+          'requires_phone',
           'Complete this meal analysis on the phone',
+          analysisId: analysisId,
         );
       }
-      if (event.step == PipelineStep.ERROR) {
+      if (event.kind == MealAnalysisV3EventKind.error ||
+          event.kind == MealAnalysisV3EventKind.unresolved ||
+          event.kind == MealAnalysisV3EventKind.noFood) {
         throw _WearServiceException(
           'internal',
-          event.retryable
+          event.issue?.retryable == true
               ? 'Meal analysis is temporarily unavailable'
               : 'Meal analysis failed',
         );
@@ -346,8 +357,9 @@ class WearOsService {
 }
 
 final class _WearServiceException implements Exception {
-  const _WearServiceException(this.code, this.message);
+  const _WearServiceException(this.code, this.message, {this.analysisId});
 
   final String code;
   final String message;
+  final String? analysisId;
 }

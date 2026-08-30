@@ -321,7 +321,10 @@
       "optionHeavy": "重份",
       "optionSmaller": "偏小份",
       "optionTypical": "常规份",
-      "optionLarger": "偏大份"
+      "optionLarger": "偏大份",
+      "useEstimate": "使用估算",
+      "numberRange": "从 {min} 到 {max}，步长为 {step}",
+      "invalidNumber": "请输入允许范围内的数值"
     },
     "analysis": {
       "title": "正在分析你的餐食",
@@ -344,23 +347,13 @@
       "ingredientsLine": "检测到 {count} 种食材",
       "ingredientsPending": "扫描食材中…",
       "mealPreviewDescription": "“{text}”",
+      "calorieRange": "估算范围：{min}–{max} 千卡",
       "offlineTip0": "提示：持续记录比追求完美更重要——规律的记录能揭示真正有用的模式。",
       "offlineTip1": "提示：拍照时使用自然光并从俯视角度拍摄，有助于提升分量估算准确性。",
       "offlineTip2": "提示：记得说明饮料、酱汁和食用油——这些常被忽略但会增加热量。",
       "offlineTip3": "提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。",
       "offlineTip4": "提示：饭后记录同样能培养习惯；不必追求完美。",
       "offlineTip5": "提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。"
-    },
-    "localInference": {
-      "reviewTitle": "核对检测到的食材",
-      "reviewSubtitle": "此内容由您的设备解析。在计算营养成分前，请修正名称或分量。",
-      "mealName": "餐食名称",
-      "ingredient": "食材",
-      "grams": "预计克数",
-      "removeIngredient": "移除食材",
-      "continueLabel": "继续",
-      "invalidProposal": "请至少添加一种食材，并输入正数的克数。",
-      "localUnavailable": "目前无法使用设备端分析。"
     },
     "feedback": {
       "title": "哪里看起来不对？",
@@ -502,7 +495,6 @@
       "localization": "本地化",
       "notifications": "通知",
       "healthConnect": "Health Connect",
-      "localInference": "设备端分析",
       "supportAndLegal": "支持与法律",
       "about": "关于",
       "dangerZone": "危险操作",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "餐食提醒",
       "subtitle": "用及时提醒帮助你保持记录"
-    },
-    "localInference": {
-      "title": "设备端餐食分析",
-      "subtitle": "在计算营养成分前，使用 Gemini Nano 解析支持的餐食",
-      "unavailable": "此设备不支持",
-      "rolloutUnavailable": "检测到可用硬件，但此功能在当前应用版本中尚未启用",
-      "modelSetup": "Gemini Nano 需要完成下载后才能启用此功能",
-      "useLocalTitle": "使用设备端分析",
-      "useLocalSubtitle": "对于复杂的餐食，结果可能不太可靠。",
-      "disclosureTitle": "在启用设备端分析之前",
-      "disclosureBody": "Gemini Nano 可以在支持的 Android 设备上识别食材并估算分量。您核对后的食材方案将发送至 Calorify，以便进行 USDA 营养数据比对和计算。",
-      "disclosureLimit1": "复杂菜肴、隐藏食材和分量大小可能会被错误识别。",
-      "disclosureLimit2": "模型在下载中、繁忙、处于后台或受设备限制时可能无法使用。",
-      "disclosureLimit3": "如果本地解析无法完成，此 Beta 版本会自动将您的原始餐食描述发送至 Calorify 进行云端分析。",
-      "acknowledgement": "我明白我应当核对检测到的食材和分量。",
-      "enable": "确认并启用",
-      "cancel": "取消"
     },
     "theme": {
       "title": "主题",
@@ -787,28 +762,6 @@
         "description": "不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。"
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "较小",
-    "portionEstimated": "估算",
-    "portionLarger": "较大",
-    "portionQuestion": "{ingredient} 最接近哪个份量？",
-    "mealTypeQuestion": "这是哪一餐？",
-    "localNutritionTip": "根据已验证的本地营养数据计算。",
-    "offlineNutritionTitle": "下载营养数据",
-    "offlineNutritionSubtitle": "当所有食材均有数据时，在此设备上使用已验证的 USDA 数据行和确定性计算。",
-    "offlineNutritionUnavailable": "此应用版本不提供本地营养数据。",
-    "offlineNutritionNotDownloaded": "尚未下载已验证的营养数据包。",
-    "offlineNutritionInstalling": "正在下载并验证营养数据…",
-    "offlineNutritionStatus": "数据包 {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} 条已缓存的 USDA 数据行 · {size}",
-    "offlineNutritionUpdate": "检查更新",
-    "offlineNutritionClear": "清除本地营养数据",
-    "offlineNutritionClearTitle": "清除本地营养数据？",
-    "offlineNutritionClearBody": "这将移除已下载的 USDA 数据包和查询缓存。已记录的餐食会保留保存时使用的准确营养快照。",
-    "offlineNutritionClearConfirm": "清除数据",
-    "offlineNutritionInstallFailed": "无法下载并验证本地营养数据：{error}",
-    "offlineNutritionCleared": "已清除本地营养数据"
   },
   "watch": {
     "appTitle": "Calorify 手表",

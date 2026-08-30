@@ -57,7 +57,6 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$id notifications = _Translations$notifications$id._(_root);
 	@override late final _Translations$login$id login = _Translations$login$id._(_root);
 	@override late final _Translations$disclaimer$id disclaimer = _Translations$disclaimer$id._(_root);
-	@override late final _Translations$localNutritionPhase4$id localNutritionPhase4 = _Translations$localNutritionPhase4$id._(_root);
 	@override late final _Translations$watch$id watch = _Translations$watch$id._(_root);
 	@override late final _Translations$common$id common = _Translations$common$id._(_root);
 	@override late final _Translations$feedbackRating$id feedbackRating = _Translations$feedbackRating$id._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$id extends Translations$meal$en {
 	@override String get skip => 'Lewati';
 	@override late final _Translations$meal$questionFlow$id questionFlow = _Translations$meal$questionFlow$id._(_root);
 	@override late final _Translations$meal$analysis$id analysis = _Translations$meal$analysis$id._(_root);
-	@override late final _Translations$meal$localInference$id localInference = _Translations$meal$localInference$id._(_root);
 	@override late final _Translations$meal$feedback$id feedback = _Translations$meal$feedback$id._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$id heightUnit = _Translations$settings$heightUnit$id._(_root);
 	@override late final _Translations$settings$weightUnit$id weightUnit = _Translations$settings$weightUnit$id._(_root);
 	@override late final _Translations$settings$mealReminders$id mealReminders = _Translations$settings$mealReminders$id._(_root);
-	@override late final _Translations$settings$localInference$id localInference = _Translations$settings$localInference$id._(_root);
 	@override late final _Translations$settings$theme$id theme = _Translations$settings$theme$id._(_root);
 	@override late final _Translations$settings$sendFeedback$id sendFeedback = _Translations$settings$sendFeedback$id._(_root);
 	@override late final _Translations$settings$exportMealHistory$id exportMealHistory = _Translations$settings$exportMealHistory$id._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$id extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$id weightEstimate = _Translations$disclaimer$weightEstimate$id._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$id healthMetrics = _Translations$disclaimer$healthMetrics$id._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$id calorieExpenditure = _Translations$disclaimer$calorieExpenditure$id._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$id extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$id._(TranslationsId root) : this._root = root, super.internal(root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'Lebih kecil';
-	@override String get portionEstimated => 'Perkiraan';
-	@override String get portionLarger => 'Lebih besar';
-	@override String portionQuestion({required Object ingredient}) => 'Porsi mana yang paling mendekati untuk ${ingredient}?';
-	@override String get mealTypeQuestion => 'Ini termasuk waktu makan apa?';
-	@override String get localNutritionTip => 'Dihitung dari data nutrisi lokal yang terverifikasi.';
-	@override String get offlineNutritionTitle => 'Unduh data nutrisi';
-	@override String get offlineNutritionSubtitle => 'Gunakan baris USDA terverifikasi dan penghitungan deterministik di perangkat ini saat semua bahan tercakup.';
-	@override String get offlineNutritionUnavailable => 'Data nutrisi lokal tidak tersedia untuk rilis aplikasi ini.';
-	@override String get offlineNutritionNotDownloaded => 'Belum ada paket nutrisi terverifikasi yang diunduh.';
-	@override String get offlineNutritionInstalling => 'Mengunduh dan memverifikasi data nutrisi…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Paket ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} baris USDA di-cache · ${size}';
-	@override String get offlineNutritionUpdate => 'Periksa pembaruan';
-	@override String get offlineNutritionClear => 'Hapus data nutrisi lokal';
-	@override String get offlineNutritionClearTitle => 'Hapus data nutrisi lokal?';
-	@override String get offlineNutritionClearBody => 'Tindakan ini menghapus paket USDA yang diunduh dan cache pencarian. Makanan yang dicatat tetap menyimpan snapshot nutrisi persis yang digunakan saat disimpan.';
-	@override String get offlineNutritionClearConfirm => 'Hapus data';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Tidak dapat mengunduh dan memverifikasi data nutrisi lokal: ${error}';
-	@override String get offlineNutritionCleared => 'Data nutrisi lokal dihapus';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$id extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'Lebih kecil';
 	@override String get optionTypical => 'Tipikal';
 	@override String get optionLarger => 'Lebih besar';
+	@override String get useEstimate => 'Gunakan perkiraan';
+	@override String numberRange({required Object min, required Object max, required Object step}) => 'Dari ${min} hingga ${max}, dengan kenaikan ${step}';
+	@override String get invalidNumber => 'Masukkan nilai dalam rentang yang diperbolehkan';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$id extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count} bahan terdeteksi';
 	@override String get ingredientsPending => 'Memindai bahan…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => 'Rentang perkiraan: ${min}–${max} kkal';
 	@override String get offlineTip0 => 'Tip: Konsistensi lebih penting daripada kesempurnaan—catatan rutin mengungkap pola yang berarti.';
 	@override String get offlineTip1 => 'Tip: Untuk foto, cahaya alami dan sudut atas membantu akurasi porsi.';
 	@override String get offlineTip2 => 'Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.';
 	@override String get offlineTip3 => 'Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.';
 	@override String get offlineTip4 => 'Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.';
 	@override String get offlineTip5 => 'Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$id extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$id._(TranslationsId root) : this._root = root, super.internal(root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'Tinjau bahan yang terdeteksi';
-	@override String get reviewSubtitle => 'Ini diinterpretasikan pada perangkat Anda. Perbaiki nama atau porsi sebelum nutrisi dihitung.';
-	@override String get mealName => 'Nama makanan';
-	@override String get ingredient => 'Bahan';
-	@override String get grams => 'Estimasi gram';
-	@override String get removeIngredient => 'Hapus bahan';
-	@override String get continueLabel => 'Lanjutkan';
-	@override String get invalidProposal => 'Tambahkan setidaknya satu bahan dan gunakan jumlah gram yang positif.';
-	@override String get localUnavailable => 'Analisis pada perangkat saat ini tidak tersedia.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$id extends Translations$settings$sections$
 	@override String get localization => 'LOKALISASI';
 	@override String get notifications => 'NOTIFIKASI';
 	@override String get healthConnect => 'INTEGRASI HEALTH CONNECT';
-	@override String get localInference => 'ANALISIS PADA PERANGKAT';
 	@override String get supportAndLegal => 'DUKUNGAN & HUKUM';
 	@override String get about => 'TENTANG';
 	@override String get dangerZone => 'AREA BERISIKO';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$id extends Translations$settings$meal
 	// Translations
 	@override String get title => 'Pengingat Makan';
 	@override String get subtitle => 'Tetap pada jalur dengan pengingat tepat waktu';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$id extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$id._(TranslationsId root) : this._root = root, super.internal(root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Analisis makanan pada perangkat';
-	@override String get subtitle => 'Interpretasikan makanan yang didukung dengan Gemini Nano sebelum nutrisi dihitung';
-	@override String get unavailable => 'Tidak tersedia pada perangkat ini';
-	@override String get rolloutUnavailable => 'Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini';
-	@override String get modelSetup => 'Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan';
-	@override String get useLocalTitle => 'Gunakan analisis pada perangkat';
-	@override String get useLocalSubtitle => 'Hasil mungkin kurang dapat diandalkan untuk makanan yang kompleks.';
-	@override String get disclosureTitle => 'Sebelum Anda mengaktifkan analisis pada perangkat';
-	@override String get disclosureBody => 'Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.';
-	@override String get disclosureLimit1 => 'Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.';
-	@override String get disclosureLimit2 => 'Model mungkin tidak tersedia saat mengunduh, sedang sibuk, berjalan di latar belakang, atau dibatasi oleh perangkat.';
-	@override String get disclosureLimit3 => 'Jika interpretasi lokal tidak dapat selesai, versi beta ini secara otomatis mengirimkan deskripsi makanan asli Anda ke Calorify untuk analisis cloud.';
-	@override String get acknowledgement => 'Saya mengerti bahwa saya harus meninjau bahan dan porsi yang terdeteksi.';
-	@override String get enable => 'Setujui dan aktifkan';
-	@override String get cancel => 'Batal';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsId {
 			'meal.questionFlow.optionSmaller' => 'Lebih kecil',
 			'meal.questionFlow.optionTypical' => 'Tipikal',
 			'meal.questionFlow.optionLarger' => 'Lebih besar',
+			'meal.questionFlow.useEstimate' => 'Gunakan perkiraan',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'Dari ${min} hingga ${max}, dengan kenaikan ${step}',
+			'meal.questionFlow.invalidNumber' => 'Masukkan nilai dalam rentang yang diperbolehkan',
 			'meal.analysis.title' => 'Menganalisis makanan Anda',
 			'meal.analysis.stepStarted' => 'Memulai…',
 			'meal.analysis.stepDecomposition' => 'Memahami makanan Anda…',
@@ -2308,21 +2240,13 @@ extension on TranslationsId {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} bahan terdeteksi',
 			'meal.analysis.ingredientsPending' => 'Memindai bahan…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'Rentang perkiraan: ${min}–${max} kkal',
 			'meal.analysis.offlineTip0' => 'Tip: Konsistensi lebih penting daripada kesempurnaan—catatan rutin mengungkap pola yang berarti.',
 			'meal.analysis.offlineTip1' => 'Tip: Untuk foto, cahaya alami dan sudut atas membantu akurasi porsi.',
 			'meal.analysis.offlineTip2' => 'Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.',
 			'meal.analysis.offlineTip3' => 'Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.',
 			'meal.analysis.offlineTip4' => 'Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.',
 			'meal.analysis.offlineTip5' => 'Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).',
-			'meal.localInference.reviewTitle' => 'Tinjau bahan yang terdeteksi',
-			'meal.localInference.reviewSubtitle' => 'Ini diinterpretasikan pada perangkat Anda. Perbaiki nama atau porsi sebelum nutrisi dihitung.',
-			'meal.localInference.mealName' => 'Nama makanan',
-			'meal.localInference.ingredient' => 'Bahan',
-			'meal.localInference.grams' => 'Estimasi gram',
-			'meal.localInference.removeIngredient' => 'Hapus bahan',
-			'meal.localInference.continueLabel' => 'Lanjutkan',
-			'meal.localInference.invalidProposal' => 'Tambahkan setidaknya satu bahan dan gunakan jumlah gram yang positif.',
-			'meal.localInference.localUnavailable' => 'Analisis pada perangkat saat ini tidak tersedia.',
 			'meal.feedback.title' => 'Apa yang kelihatan salah?',
 			'meal.feedback.subtitle' => 'Bantu kami meningkatkan analisis dengan memilih satu atau beberapa masalah.',
 			'meal.feedback.tellUsMore' => 'Ceritakan lebih lanjut',
@@ -2420,7 +2344,6 @@ extension on TranslationsId {
 			'settings.sections.localization' => 'LOKALISASI',
 			'settings.sections.notifications' => 'NOTIFIKASI',
 			'settings.sections.healthConnect' => 'INTEGRASI HEALTH CONNECT',
-			'settings.sections.localInference' => 'ANALISIS PADA PERANGKAT',
 			'settings.sections.supportAndLegal' => 'DUKUNGAN & HUKUM',
 			'settings.sections.about' => 'TENTANG',
 			'settings.sections.dangerZone' => 'AREA BERISIKO',
@@ -2435,21 +2358,6 @@ extension on TranslationsId {
 			'settings.weightUnit.title' => 'Satuan Berat',
 			'settings.mealReminders.title' => 'Pengingat Makan',
 			'settings.mealReminders.subtitle' => 'Tetap pada jalur dengan pengingat tepat waktu',
-			'settings.localInference.title' => 'Analisis makanan pada perangkat',
-			'settings.localInference.subtitle' => 'Interpretasikan makanan yang didukung dengan Gemini Nano sebelum nutrisi dihitung',
-			'settings.localInference.unavailable' => 'Tidak tersedia pada perangkat ini',
-			'settings.localInference.rolloutUnavailable' => 'Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini',
-			'settings.localInference.modelSetup' => 'Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan',
-			'settings.localInference.useLocalTitle' => 'Gunakan analisis pada perangkat',
-			'settings.localInference.useLocalSubtitle' => 'Hasil mungkin kurang dapat diandalkan untuk makanan yang kompleks.',
-			'settings.localInference.disclosureTitle' => 'Sebelum Anda mengaktifkan analisis pada perangkat',
-			'settings.localInference.disclosureBody' => 'Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.',
-			'settings.localInference.disclosureLimit1' => 'Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.',
-			'settings.localInference.disclosureLimit2' => 'Model mungkin tidak tersedia saat mengunduh, sedang sibuk, berjalan di latar belakang, atau dibatasi oleh perangkat.',
-			'settings.localInference.disclosureLimit3' => 'Jika interpretasi lokal tidak dapat selesai, versi beta ini secara otomatis mengirimkan deskripsi makanan asli Anda ke Calorify untuk analisis cloud.',
-			'settings.localInference.acknowledgement' => 'Saya mengerti bahwa saya harus meninjau bahan dan porsi yang terdeteksi.',
-			'settings.localInference.enable' => 'Setujui dan aktifkan',
-			'settings.localInference.cancel' => 'Batal',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Terang',
 			'settings.theme.dark' => 'Gelap',
@@ -2561,8 +2469,6 @@ extension on TranslationsId {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Kesalahan menyelesaikan pengaturan: ${error}',
 			'notifications.breakfast.title' => 'Waktunya Sarapan! 🍳',
 			'notifications.breakfast.body' => 'Jangan lupa mencatat sarapan Anda',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'Waktunya Makan Siang! 🥗',
 			'notifications.lunch.body' => 'Saatnya mencatat makan siang Anda',
 			'notifications.dinner.title' => 'Waktunya Makan Malam! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsId {
 			'disclaimer.snap.databaseLimitations.title' => 'Batasan Basis Data',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Basis data makanan ${appLabel} luas tetapi mungkin tidak mencakup setiap item makanan atau variasinya.',
 			'disclaimer.weightEstimate.title' => 'Tentang Perkiraan Berat',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Perubahan berat yang diproyeksikan adalah perkiraan teoretis berdasarkan model kalori masuk vs keluar sederhana. Ini dimaksudkan untuk panduan motivasi saja, bukan prediksi berat aktual Anda.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Akurasi Kalori',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Perkiraan ini hanya seakurat pencatatan asupan dan pengeluaran kalori Anda. Pencatatan yang tidak akurat akan menghasilkan proyeksi yang tidak akurat.',
@@ -2606,26 +2514,6 @@ extension on TranslationsId {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kami menghitung TDEE Anda (berdasarkan profil Anda) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang terbakar sejauh ini.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Panduan Profesional',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan profesional kesehatan atau ahli diet terdaftar untuk saran manajemen berat personal.',
-			'localNutritionPhase4.portionSmaller' => 'Lebih kecil',
-			'localNutritionPhase4.portionEstimated' => 'Perkiraan',
-			'localNutritionPhase4.portionLarger' => 'Lebih besar',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Porsi mana yang paling mendekati untuk ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Ini termasuk waktu makan apa?',
-			'localNutritionPhase4.localNutritionTip' => 'Dihitung dari data nutrisi lokal yang terverifikasi.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Unduh data nutrisi',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Gunakan baris USDA terverifikasi dan penghitungan deterministik di perangkat ini saat semua bahan tercakup.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Data nutrisi lokal tidak tersedia untuk rilis aplikasi ini.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'Belum ada paket nutrisi terverifikasi yang diunduh.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Mengunduh dan memverifikasi data nutrisi…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Paket ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} baris USDA di-cache · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Periksa pembaruan',
-			'localNutritionPhase4.offlineNutritionClear' => 'Hapus data nutrisi lokal',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Hapus data nutrisi lokal?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'Tindakan ini menghapus paket USDA yang diunduh dan cache pencarian. Makanan yang dicatat tetap menyimpan snapshot nutrisi persis yang digunakan saat disimpan.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Hapus data',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Tidak dapat mengunduh dan memverifikasi data nutrisi lokal: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Data nutrisi lokal dihapus',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'Kembali',
 			'watch.common.cancel' => 'Batal',

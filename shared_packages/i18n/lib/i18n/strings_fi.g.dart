@@ -57,7 +57,6 @@ class TranslationsFi extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$fi notifications = _Translations$notifications$fi._(_root);
 	@override late final _Translations$login$fi login = _Translations$login$fi._(_root);
 	@override late final _Translations$disclaimer$fi disclaimer = _Translations$disclaimer$fi._(_root);
-	@override late final _Translations$localNutritionPhase4$fi localNutritionPhase4 = _Translations$localNutritionPhase4$fi._(_root);
 	@override late final _Translations$watch$fi watch = _Translations$watch$fi._(_root);
 	@override late final _Translations$common$fi common = _Translations$common$fi._(_root);
 	@override late final _Translations$feedbackRating$fi feedbackRating = _Translations$feedbackRating$fi._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$fi extends Translations$meal$en {
 	@override String get skip => 'Ohita';
 	@override late final _Translations$meal$questionFlow$fi questionFlow = _Translations$meal$questionFlow$fi._(_root);
 	@override late final _Translations$meal$analysis$fi analysis = _Translations$meal$analysis$fi._(_root);
-	@override late final _Translations$meal$localInference$fi localInference = _Translations$meal$localInference$fi._(_root);
 	@override late final _Translations$meal$feedback$fi feedback = _Translations$meal$feedback$fi._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$fi extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$fi heightUnit = _Translations$settings$heightUnit$fi._(_root);
 	@override late final _Translations$settings$weightUnit$fi weightUnit = _Translations$settings$weightUnit$fi._(_root);
 	@override late final _Translations$settings$mealReminders$fi mealReminders = _Translations$settings$mealReminders$fi._(_root);
-	@override late final _Translations$settings$localInference$fi localInference = _Translations$settings$localInference$fi._(_root);
 	@override late final _Translations$settings$theme$fi theme = _Translations$settings$theme$fi._(_root);
 	@override late final _Translations$settings$sendFeedback$fi sendFeedback = _Translations$settings$sendFeedback$fi._(_root);
 	@override late final _Translations$settings$exportMealHistory$fi exportMealHistory = _Translations$settings$exportMealHistory$fi._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$fi extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$fi weightEstimate = _Translations$disclaimer$weightEstimate$fi._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$fi healthMetrics = _Translations$disclaimer$healthMetrics$fi._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$fi calorieExpenditure = _Translations$disclaimer$calorieExpenditure$fi._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$fi extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$fi._(TranslationsFi root) : this._root = root, super.internal(root);
-
-	final TranslationsFi _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'Pienempi';
-	@override String get portionEstimated => 'Arvioitu';
-	@override String get portionLarger => 'Suurempi';
-	@override String portionQuestion({required Object ingredient}) => 'Mikä annoskoko vastasi parhaiten ainesta ${ingredient}?';
-	@override String get mealTypeQuestion => 'Mikä ateria tämä oli?';
-	@override String get localNutritionTip => 'Laskettu varmennetuista paikallisista ravintoarvotiedoista.';
-	@override String get offlineNutritionTitle => 'Lataa ravintoarvotiedot';
-	@override String get offlineNutritionSubtitle => 'Käytä varmennettuja USDA-rivejä ja determinististä laskentaa tällä laitteella, kun kaikki ainesosat on katettu.';
-	@override String get offlineNutritionUnavailable => 'Paikallisia ravintoarvotietoja ei ole saatavilla tähän sovellusversioon.';
-	@override String get offlineNutritionNotDownloaded => 'Varmennettua ravintoarvopakettia ei ole ladattu.';
-	@override String get offlineNutritionInstalling => 'Ravintoarvotietoja ladataan ja varmennetaan…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Paketti ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} USDA-riviä välimuistissa · ${size}';
-	@override String get offlineNutritionUpdate => 'Tarkista päivitykset';
-	@override String get offlineNutritionClear => 'Tyhjennä paikalliset ravintoarvotiedot';
-	@override String get offlineNutritionClearTitle => 'Tyhjennetäänkö paikalliset ravintoarvotiedot?';
-	@override String get offlineNutritionClearBody => 'Tämä poistaa ladatun USDA-paketin ja hakuvälimuistin. Kirjatut ateriat säilyttävät täsmällisen ravintoarvotilannekuvan, jota käytettiin tallennettaessa.';
-	@override String get offlineNutritionClearConfirm => 'Tyhjennä tiedot';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Paikallisia ravintoarvotietoja ei voitu ladata ja varmentaa: ${error}';
-	@override String get offlineNutritionCleared => 'Paikalliset ravintoarvotiedot tyhjennettiin';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$fi extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'Pienempi';
 	@override String get optionTypical => 'Tyypillinen';
 	@override String get optionLarger => 'Suurempi';
+	@override String get useEstimate => 'Käytä arviota';
+	@override String numberRange({required Object min, required Object max, required Object step}) => 'Väliltä ${min}–${max}, askelväli ${step}';
+	@override String get invalidNumber => 'Syötä arvo sallitulta väliltä';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$fi extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count} ainesosaa tunnistettu';
 	@override String get ingredientsPending => 'Skannataan ainesosia…';
 	@override String mealPreviewDescription({required Object text}) => '”${text}”';
+	@override String calorieRange({required Object min, required Object max}) => 'Arvioitu vaihteluväli: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.';
 	@override String get offlineTip1 => 'Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.';
 	@override String get offlineTip2 => 'Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.';
 	@override String get offlineTip3 => 'Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.';
 	@override String get offlineTip4 => 'Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.';
 	@override String get offlineTip5 => 'Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$fi extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$fi._(TranslationsFi root) : this._root = root, super.internal(root);
-
-	final TranslationsFi _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'Tarkista tunnistetut ainesosat';
-	@override String get reviewSubtitle => 'Tämä tulkittiin laitteellasi. Korjaa nimet tai annoskoot ennen ravintoarvojen laskemista.';
-	@override String get mealName => 'Aterian nimi';
-	@override String get ingredient => 'Ainesosa';
-	@override String get grams => 'Arvioidut grammat';
-	@override String get removeIngredient => 'Poista ainesosa';
-	@override String get continueLabel => 'Jatka';
-	@override String get invalidProposal => 'Lisää vähintään yksi ainesosa ja käytä positiivista grammamäärää.';
-	@override String get localUnavailable => 'Laitteen oma analyysi ei ole tällä hetkellä käytettävissä.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$fi extends Translations$settings$sections$
 	@override String get localization => 'LOKALISAATIO';
 	@override String get notifications => 'ILMOITUKSET';
 	@override String get healthConnect => 'Health Connect';
-	@override String get localInference => 'LAITTEEN OMA ANALYYSI';
 	@override String get supportAndLegal => 'TUKI & LAINSÄÄDÄNTÖ';
 	@override String get about => 'TIETOA';
 	@override String get dangerZone => 'VAIKUTUSALUE';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$fi extends Translations$settings$meal
 	// Translations
 	@override String get title => 'Ateriamuistutukset';
 	@override String get subtitle => 'Pysy raiteilla ajankohtaisilla muistutuksilla';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$fi extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$fi._(TranslationsFi root) : this._root = root, super.internal(root);
-
-	final TranslationsFi _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Aterioiden paikallinen analyysi';
-	@override String get subtitle => 'Tulkitse tuetut ateriat Gemini Nanolla ennen ravintoarvojen laskemista';
-	@override String get unavailable => 'Ei käytettävissä tällä laitteella';
-	@override String get rolloutUnavailable => 'Yhteensopiva laitteisto löytyi, mutta tämä ominaisuus ei ole käytössä tässä sovellusversiossa';
-	@override String get modelSetup => 'Gemini Nanon latauksen on valmistuttava ennen kuin tämä voidaan ottaa käyttöön';
-	@override String get useLocalTitle => 'Käytä paikallista analyysia';
-	@override String get useLocalSubtitle => 'Tulokset saattavat olla vähemmän luotettavia monimutkaisissa aterioissa.';
-	@override String get disclosureTitle => 'Ennen paikallisen analyysin käyttöönottoa';
-	@override String get disclosureBody => 'Gemini Nano voi tunnistaa ainesosia ja arvioida annoskokoja tuetuilla Android-laitteilla. Tarkistamasi ainesosaehdotus lähetetään Calorifylle USDA-ravintoarvojen vahvistusta ja laskentaa varten.';
-	@override String get disclosureLimit1 => 'Monimutkaiset annokset, piilotetut ainesosat ja annoskoot saatetaan tunnistaa väärin.';
-	@override String get disclosureLimit2 => 'Malli voi olla käytettävissämätön latauksen aikana, kun se on varattu, taustalla tai laitteen rajoitusten vuoksi.';
-	@override String get disclosureLimit3 => 'Jos paikallinen tulkinta ei valmistu, tämä beta-versio lähettää alkuperäisen ateriakuvauksesi automaattisesti Calorifylle pilvianalyysia varten.';
-	@override String get acknowledgement => 'Ymmärrän, että minun tulee tarkistaa tunnistetut ainesosat ja annoskoot.';
-	@override String get enable => 'Hyväksy ja ota käyttöön';
-	@override String get cancel => 'Peruuta';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsFi {
 			'meal.questionFlow.optionSmaller' => 'Pienempi',
 			'meal.questionFlow.optionTypical' => 'Tyypillinen',
 			'meal.questionFlow.optionLarger' => 'Suurempi',
+			'meal.questionFlow.useEstimate' => 'Käytä arviota',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'Väliltä ${min}–${max}, askelväli ${step}',
+			'meal.questionFlow.invalidNumber' => 'Syötä arvo sallitulta väliltä',
 			'meal.analysis.title' => 'Analysoidaan ateriaasi',
 			'meal.analysis.stepStarted' => 'Aloitetaan…',
 			'meal.analysis.stepDecomposition' => 'Ymmärretään ateriaasi…',
@@ -2308,21 +2240,13 @@ extension on TranslationsFi {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ainesosaa tunnistettu',
 			'meal.analysis.ingredientsPending' => 'Skannataan ainesosia…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '”${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'Arvioitu vaihteluväli: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.',
 			'meal.analysis.offlineTip1' => 'Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.',
 			'meal.analysis.offlineTip2' => 'Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.',
 			'meal.analysis.offlineTip3' => 'Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.',
 			'meal.analysis.offlineTip4' => 'Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.',
 			'meal.analysis.offlineTip5' => 'Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).',
-			'meal.localInference.reviewTitle' => 'Tarkista tunnistetut ainesosat',
-			'meal.localInference.reviewSubtitle' => 'Tämä tulkittiin laitteellasi. Korjaa nimet tai annoskoot ennen ravintoarvojen laskemista.',
-			'meal.localInference.mealName' => 'Aterian nimi',
-			'meal.localInference.ingredient' => 'Ainesosa',
-			'meal.localInference.grams' => 'Arvioidut grammat',
-			'meal.localInference.removeIngredient' => 'Poista ainesosa',
-			'meal.localInference.continueLabel' => 'Jatka',
-			'meal.localInference.invalidProposal' => 'Lisää vähintään yksi ainesosa ja käytä positiivista grammamäärää.',
-			'meal.localInference.localUnavailable' => 'Laitteen oma analyysi ei ole tällä hetkellä käytettävissä.',
 			'meal.feedback.title' => 'Mikä näyttää väärältä?',
 			'meal.feedback.subtitle' => 'Auttaaksesi parantamaan analyysiä, valitse yksi tai useampi ongelma.',
 			'meal.feedback.tellUsMore' => 'Kerro lisää',
@@ -2420,7 +2344,6 @@ extension on TranslationsFi {
 			'settings.sections.localization' => 'LOKALISAATIO',
 			'settings.sections.notifications' => 'ILMOITUKSET',
 			'settings.sections.healthConnect' => 'Health Connect',
-			'settings.sections.localInference' => 'LAITTEEN OMA ANALYYSI',
 			'settings.sections.supportAndLegal' => 'TUKI & LAINSÄÄDÄNTÖ',
 			'settings.sections.about' => 'TIETOA',
 			'settings.sections.dangerZone' => 'VAIKUTUSALUE',
@@ -2435,21 +2358,6 @@ extension on TranslationsFi {
 			'settings.weightUnit.title' => 'Painoyksikkö',
 			'settings.mealReminders.title' => 'Ateriamuistutukset',
 			'settings.mealReminders.subtitle' => 'Pysy raiteilla ajankohtaisilla muistutuksilla',
-			'settings.localInference.title' => 'Aterioiden paikallinen analyysi',
-			'settings.localInference.subtitle' => 'Tulkitse tuetut ateriat Gemini Nanolla ennen ravintoarvojen laskemista',
-			'settings.localInference.unavailable' => 'Ei käytettävissä tällä laitteella',
-			'settings.localInference.rolloutUnavailable' => 'Yhteensopiva laitteisto löytyi, mutta tämä ominaisuus ei ole käytössä tässä sovellusversiossa',
-			'settings.localInference.modelSetup' => 'Gemini Nanon latauksen on valmistuttava ennen kuin tämä voidaan ottaa käyttöön',
-			'settings.localInference.useLocalTitle' => 'Käytä paikallista analyysia',
-			'settings.localInference.useLocalSubtitle' => 'Tulokset saattavat olla vähemmän luotettavia monimutkaisissa aterioissa.',
-			'settings.localInference.disclosureTitle' => 'Ennen paikallisen analyysin käyttöönottoa',
-			'settings.localInference.disclosureBody' => 'Gemini Nano voi tunnistaa ainesosia ja arvioida annoskokoja tuetuilla Android-laitteilla. Tarkistamasi ainesosaehdotus lähetetään Calorifylle USDA-ravintoarvojen vahvistusta ja laskentaa varten.',
-			'settings.localInference.disclosureLimit1' => 'Monimutkaiset annokset, piilotetut ainesosat ja annoskoot saatetaan tunnistaa väärin.',
-			'settings.localInference.disclosureLimit2' => 'Malli voi olla käytettävissämätön latauksen aikana, kun se on varattu, taustalla tai laitteen rajoitusten vuoksi.',
-			'settings.localInference.disclosureLimit3' => 'Jos paikallinen tulkinta ei valmistu, tämä beta-versio lähettää alkuperäisen ateriakuvauksesi automaattisesti Calorifylle pilvianalyysia varten.',
-			'settings.localInference.acknowledgement' => 'Ymmärrän, että minun tulee tarkistaa tunnistetut ainesosat ja annoskoot.',
-			'settings.localInference.enable' => 'Hyväksy ja ota käyttöön',
-			'settings.localInference.cancel' => 'Peruuta',
 			'settings.theme.title' => 'Teema',
 			'settings.theme.light' => 'Vaalea',
 			'settings.theme.dark' => 'Tumma',
@@ -2561,8 +2469,6 @@ extension on TranslationsFi {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Virhe asetusten viimeistelyssä: ${error}',
 			'notifications.breakfast.title' => 'Aamupala-aika! 🍳',
 			'notifications.breakfast.body' => 'Muista kirjata aamiaisesi',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'Lounasaika! 🥗',
 			'notifications.lunch.body' => 'On aika kirjata lounas',
 			'notifications.dinner.title' => 'Päivällisaika! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsFi {
 			'disclaimer.snap.databaseLimitations.title' => 'Tietokantaan liittyvät rajoitukset',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}in ruokarekisteri on laaja, mutta se ei välttämättä sisällä jokaista mahdollista ruokaa tai variaatiota.',
 			'disclaimer.weightEstimate.title' => 'Tietoa painoarviosta',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Projektio painonmuutoksesta on teoreettinen arvio perustuen yksinkertaiseen kalorien sisään vs. ulos -malliin. Se on tarkoitettu motivoivaksi ohjaukseksi, ei ennusteeksi todellisesta painostasi.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorien tarkkuus',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tämä arvio on yhtä tarkka kuin kirjaamiesi kulutus- ja polttoarvioiden tarkkuus. Virheellinen kirjaaminen johtaa virheelliseen ennusteeseen.',
@@ -2606,26 +2514,6 @@ extension on TranslationsFi {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Laskemme TDEE:si (profiilisi perusteella) ja kerromme sen kuluneen päivän osuudella (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Ammatillinen ohjaus',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta.',
-			'localNutritionPhase4.portionSmaller' => 'Pienempi',
-			'localNutritionPhase4.portionEstimated' => 'Arvioitu',
-			'localNutritionPhase4.portionLarger' => 'Suurempi',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Mikä annoskoko vastasi parhaiten ainesta ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Mikä ateria tämä oli?',
-			'localNutritionPhase4.localNutritionTip' => 'Laskettu varmennetuista paikallisista ravintoarvotiedoista.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Lataa ravintoarvotiedot',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Käytä varmennettuja USDA-rivejä ja determinististä laskentaa tällä laitteella, kun kaikki ainesosat on katettu.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Paikallisia ravintoarvotietoja ei ole saatavilla tähän sovellusversioon.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'Varmennettua ravintoarvopakettia ei ole ladattu.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Ravintoarvotietoja ladataan ja varmennetaan…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Paketti ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} USDA-riviä välimuistissa · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Tarkista päivitykset',
-			'localNutritionPhase4.offlineNutritionClear' => 'Tyhjennä paikalliset ravintoarvotiedot',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Tyhjennetäänkö paikalliset ravintoarvotiedot?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'Tämä poistaa ladatun USDA-paketin ja hakuvälimuistin. Kirjatut ateriat säilyttävät täsmällisen ravintoarvotilannekuvan, jota käytettiin tallennettaessa.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Tyhjennä tiedot',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Paikallisia ravintoarvotietoja ei voitu ladata ja varmentaa: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Paikalliset ravintoarvotiedot tyhjennettiin',
 			'watch.appTitle' => 'Calorify-kello',
 			'watch.common.back' => 'Takaisin',
 			'watch.common.cancel' => 'Peruuta',

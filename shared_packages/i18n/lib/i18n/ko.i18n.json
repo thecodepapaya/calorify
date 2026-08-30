@@ -321,7 +321,10 @@
       "optionHeavy": "무거움",
       "optionSmaller": "더 작게",
       "optionTypical": "일반",
-      "optionLarger": "더 크게"
+      "optionLarger": "더 크게",
+      "useEstimate": "추정값 사용",
+      "numberRange": "{min}부터 {max}까지, {step} 간격",
+      "invalidNumber": "허용 범위 내의 값을 입력하세요"
     },
     "analysis": {
       "title": "식사 분석 중",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count}개의 재료가 감지되었습니다",
       "ingredientsPending": "재료 스캔 중…",
       "mealPreviewDescription": "“{text}”",
+      "calorieRange": "추정 범위: {min}–{max} kcal",
       "offlineTip0": "팁: 완벽함보다 꾸준함이 중요합니다—정기적인 기록이 중요한 패턴을 드러냅니다.",
       "offlineTip1": "팁: 사진은 자연광과 위에서 내려다보는 구도가 분량 추정에 도움이 됩니다.",
       "offlineTip2": "팁: 음료, 소스, 식용유도 칼로리를 추가하니 꼭 언급하세요.",
       "offlineTip3": "팁: 빠른 분량 표시(예: 1그릇, 큰 커피)는 추정을 훨씬 정확하게 만듭니다.",
       "offlineTip4": "팁: 식사 후 기록해도 습관을 기르는 데 도움이 됩니다; 완벽할 필요는 없습니다.",
       "offlineTip5": "팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요."
-    },
-    "localInference": {
-      "reviewTitle": "감지된 식재료 확인",
-      "reviewSubtitle": "기기에서 분석한 내용입니다. 영양 성분을 계산하기 전에 이름이나 양을 수정해 주세요.",
-      "mealName": "식사 이름",
-      "ingredient": "식재료",
-      "grams": "추정 중량(g)",
-      "removeIngredient": "식재료 삭제",
-      "continueLabel": "계속하기",
-      "invalidProposal": "최소 하나 이상의 식재료를 추가하고, 양을 양수로 입력해 주세요.",
-      "localUnavailable": "현재 기기 내 분석을 사용할 수 없습니다."
     },
     "feedback": {
       "title": "어떤 점이 잘못되었나요?",
@@ -502,7 +495,6 @@
       "localization": "지역화",
       "notifications": "알림",
       "healthConnect": "HEALTH CONNECT 설정",
-      "localInference": "기기 내 분석",
       "supportAndLegal": "지원 및 법적 고지",
       "about": "앱 정보",
       "dangerZone": "위험 구역",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "식사 알림",
       "subtitle": "정시 알림으로 계획을 지키세요"
-    },
-    "localInference": {
-      "title": "기기 내 식사 분석",
-      "subtitle": "영양 성분을 계산하기 전, Gemini Nano를 통해 지원되는 식사를 분석합니다",
-      "unavailable": "이 기기에서는 사용할 수 없습니다",
-      "rolloutUnavailable": "지원 하드웨어가 발견되었으나, 현재 앱 버전에서는 이 기능이 활성화되지 않았습니다",
-      "modelSetup": "이 기능을 활성화하려면 Gemini Nano 다운로드가 완료되어야 합니다",
-      "useLocalTitle": "기기 내 분석 사용",
-      "useLocalSubtitle": "복잡한 식사의 경우 결과의 신뢰성이 떨어질 수 있습니다.",
-      "disclosureTitle": "기기 내 분석을 활성화하기 전에",
-      "disclosureBody": "Gemini Nano는 지원되는 Android 기기에서 식재료를 식별하고 양을 추정할 수 있습니다. 확인된 식재료 제안은 USDA 영양 정보 기반 확인 및 계산을 위해 Calorify로 전송됩니다.",
-      "disclosureLimit1": "복잡한 요리, 숨겨진 식재료 및 분량은 잘못 식별될 수 있습니다.",
-      "disclosureLimit2": "다운로드 중이거나, 기기가 바쁘거나, 백그라운드 상태이거나, 기기 제한이 있는 경우 모델을 사용할 수 없습니다.",
-      "disclosureLimit3": "기기 내 분석을 완료할 수 없는 경우, 이 베타 버전은 원래의 식사 설명을 Calorify로 자동 전송하여 클라우드 분석을 수행합니다.",
-      "acknowledgement": "감지된 식재료와 양을 확인해야 함을 이해했습니다.",
-      "enable": "동의 및 활성화",
-      "cancel": "취소"
     },
     "theme": {
       "title": "테마",
@@ -787,28 +762,6 @@
         "description": "이 추정치를 의료 결정에 사용하지 마세요. 개인화된 체중 관리 조언은 항상 의료 전문가나 공인 영양사와 상담하세요."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "더 적게",
-    "portionEstimated": "추정량",
-    "portionLarger": "더 많이",
-    "portionQuestion": "{ingredient}의 양과 가장 가까운 것은 무엇이었나요?",
-    "mealTypeQuestion": "어떤 식사였나요?",
-    "localNutritionTip": "검증된 로컬 영양 데이터로 계산했습니다.",
-    "offlineNutritionTitle": "영양 데이터 다운로드",
-    "offlineNutritionSubtitle": "모든 재료가 포함될 때 이 기기에서 검증된 USDA 데이터와 결정론적 계산을 사용합니다.",
-    "offlineNutritionUnavailable": "이 앱 릴리스에서는 로컬 영양 데이터를 사용할 수 없습니다.",
-    "offlineNutritionNotDownloaded": "검증된 영양 팩이 다운로드되지 않았습니다.",
-    "offlineNutritionInstalling": "영양 데이터를 다운로드하고 검증하는 중…",
-    "offlineNutritionStatus": "팩 {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "캐시된 USDA 데이터 {count}개 · {size}",
-    "offlineNutritionUpdate": "업데이트 확인",
-    "offlineNutritionClear": "로컬 영양 데이터 지우기",
-    "offlineNutritionClearTitle": "로컬 영양 데이터를 지울까요?",
-    "offlineNutritionClearBody": "다운로드한 USDA 팩과 조회 캐시를 삭제합니다. 기록된 식사는 저장할 때 사용한 정확한 영양 스냅샷을 유지합니다.",
-    "offlineNutritionClearConfirm": "데이터 지우기",
-    "offlineNutritionInstallFailed": "로컬 영양 데이터를 다운로드하고 검증할 수 없습니다: {error}",
-    "offlineNutritionCleared": "로컬 영양 데이터를 지웠습니다"
   },
   "watch": {
     "appTitle": "Calorify Watch",

@@ -321,7 +321,10 @@
       "optionHeavy": "Berat",
       "optionSmaller": "Lebih kecil",
       "optionTypical": "Tipikal",
-      "optionLarger": "Lebih besar"
+      "optionLarger": "Lebih besar",
+      "useEstimate": "Gunakan perkiraan",
+      "numberRange": "Dari {min} hingga {max}, dengan kenaikan {step}",
+      "invalidNumber": "Masukkan nilai dalam rentang yang diperbolehkan"
     },
     "analysis": {
       "title": "Menganalisis makanan Anda",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} bahan terdeteksi",
       "ingredientsPending": "Memindai bahan…",
       "mealPreviewDescription": "“{text}”",
+      "calorieRange": "Rentang perkiraan: {min}–{max} kkal",
       "offlineTip0": "Tip: Konsistensi lebih penting daripada kesempurnaan—catatan rutin mengungkap pola yang berarti.",
       "offlineTip1": "Tip: Untuk foto, cahaya alami dan sudut atas membantu akurasi porsi.",
       "offlineTip2": "Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.",
       "offlineTip3": "Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.",
       "offlineTip4": "Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.",
       "offlineTip5": "Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang)."
-    },
-    "localInference": {
-      "reviewTitle": "Tinjau bahan yang terdeteksi",
-      "reviewSubtitle": "Ini diinterpretasikan pada perangkat Anda. Perbaiki nama atau porsi sebelum nutrisi dihitung.",
-      "mealName": "Nama makanan",
-      "ingredient": "Bahan",
-      "grams": "Estimasi gram",
-      "removeIngredient": "Hapus bahan",
-      "continueLabel": "Lanjutkan",
-      "invalidProposal": "Tambahkan setidaknya satu bahan dan gunakan jumlah gram yang positif.",
-      "localUnavailable": "Analisis pada perangkat saat ini tidak tersedia."
     },
     "feedback": {
       "title": "Apa yang kelihatan salah?",
@@ -502,7 +495,6 @@
       "localization": "LOKALISASI",
       "notifications": "NOTIFIKASI",
       "healthConnect": "INTEGRASI HEALTH CONNECT",
-      "localInference": "ANALISIS PADA PERANGKAT",
       "supportAndLegal": "DUKUNGAN & HUKUM",
       "about": "TENTANG",
       "dangerZone": "AREA BERISIKO",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Pengingat Makan",
       "subtitle": "Tetap pada jalur dengan pengingat tepat waktu"
-    },
-    "localInference": {
-      "title": "Analisis makanan pada perangkat",
-      "subtitle": "Interpretasikan makanan yang didukung dengan Gemini Nano sebelum nutrisi dihitung",
-      "unavailable": "Tidak tersedia pada perangkat ini",
-      "rolloutUnavailable": "Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini",
-      "modelSetup": "Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan",
-      "useLocalTitle": "Gunakan analisis pada perangkat",
-      "useLocalSubtitle": "Hasil mungkin kurang dapat diandalkan untuk makanan yang kompleks.",
-      "disclosureTitle": "Sebelum Anda mengaktifkan analisis pada perangkat",
-      "disclosureBody": "Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.",
-      "disclosureLimit1": "Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.",
-      "disclosureLimit2": "Model mungkin tidak tersedia saat mengunduh, sedang sibuk, berjalan di latar belakang, atau dibatasi oleh perangkat.",
-      "disclosureLimit3": "Jika interpretasi lokal tidak dapat selesai, versi beta ini secara otomatis mengirimkan deskripsi makanan asli Anda ke Calorify untuk analisis cloud.",
-      "acknowledgement": "Saya mengerti bahwa saya harus meninjau bahan dan porsi yang terdeteksi.",
-      "enable": "Setujui dan aktifkan",
-      "cancel": "Batal"
     },
     "theme": {
       "title": "Tema",
@@ -787,28 +762,6 @@
         "description": "Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan profesional kesehatan atau ahli diet terdaftar untuk saran manajemen berat personal."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Lebih kecil",
-    "portionEstimated": "Perkiraan",
-    "portionLarger": "Lebih besar",
-    "portionQuestion": "Porsi mana yang paling mendekati untuk {ingredient}?",
-    "mealTypeQuestion": "Ini termasuk waktu makan apa?",
-    "localNutritionTip": "Dihitung dari data nutrisi lokal yang terverifikasi.",
-    "offlineNutritionTitle": "Unduh data nutrisi",
-    "offlineNutritionSubtitle": "Gunakan baris USDA terverifikasi dan penghitungan deterministik di perangkat ini saat semua bahan tercakup.",
-    "offlineNutritionUnavailable": "Data nutrisi lokal tidak tersedia untuk rilis aplikasi ini.",
-    "offlineNutritionNotDownloaded": "Belum ada paket nutrisi terverifikasi yang diunduh.",
-    "offlineNutritionInstalling": "Mengunduh dan memverifikasi data nutrisi…",
-    "offlineNutritionStatus": "Paket {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} baris USDA di-cache · {size}",
-    "offlineNutritionUpdate": "Periksa pembaruan",
-    "offlineNutritionClear": "Hapus data nutrisi lokal",
-    "offlineNutritionClearTitle": "Hapus data nutrisi lokal?",
-    "offlineNutritionClearBody": "Tindakan ini menghapus paket USDA yang diunduh dan cache pencarian. Makanan yang dicatat tetap menyimpan snapshot nutrisi persis yang digunakan saat disimpan.",
-    "offlineNutritionClearConfirm": "Hapus data",
-    "offlineNutritionInstallFailed": "Tidak dapat mengunduh dan memverifikasi data nutrisi lokal: {error}",
-    "offlineNutritionCleared": "Data nutrisi lokal dihapus"
   },
   "watch": {
     "appTitle": "Calorify Watch",

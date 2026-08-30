@@ -65,7 +65,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$notifications$en notifications = Translations$notifications$en.internal(_root);
 	late final Translations$login$en login = Translations$login$en.internal(_root);
 	late final Translations$disclaimer$en disclaimer = Translations$disclaimer$en.internal(_root);
-	late final Translations$localNutritionPhase4$en localNutritionPhase4 = Translations$localNutritionPhase4$en.internal(_root);
 	late final Translations$watch$en watch = Translations$watch$en.internal(_root);
 	late final Translations$common$en common = Translations$common$en.internal(_root);
 	late final Translations$feedbackRating$en feedbackRating = Translations$feedbackRating$en.internal(_root);
@@ -289,7 +288,6 @@ class Translations$meal$en {
 
 	late final Translations$meal$questionFlow$en questionFlow = Translations$meal$questionFlow$en.internal(_root);
 	late final Translations$meal$analysis$en analysis = Translations$meal$analysis$en.internal(_root);
-	late final Translations$meal$localInference$en localInference = Translations$meal$localInference$en.internal(_root);
 	late final Translations$meal$feedback$en feedback = Translations$meal$feedback$en.internal(_root);
 }
 
@@ -496,7 +494,6 @@ class Translations$settings$en {
 	late final Translations$settings$heightUnit$en heightUnit = Translations$settings$heightUnit$en.internal(_root);
 	late final Translations$settings$weightUnit$en weightUnit = Translations$settings$weightUnit$en.internal(_root);
 	late final Translations$settings$mealReminders$en mealReminders = Translations$settings$mealReminders$en.internal(_root);
-	late final Translations$settings$localInference$en localInference = Translations$settings$localInference$en.internal(_root);
 	late final Translations$settings$theme$en theme = Translations$settings$theme$en.internal(_root);
 	late final Translations$settings$sendFeedback$en sendFeedback = Translations$settings$sendFeedback$en.internal(_root);
 	late final Translations$settings$exportMealHistory$en exportMealHistory = Translations$settings$exportMealHistory$en.internal(_root);
@@ -627,75 +624,6 @@ class Translations$disclaimer$en {
 	late final Translations$disclaimer$weightEstimate$en weightEstimate = Translations$disclaimer$weightEstimate$en.internal(_root);
 	late final Translations$disclaimer$healthMetrics$en healthMetrics = Translations$disclaimer$healthMetrics$en.internal(_root);
 	late final Translations$disclaimer$calorieExpenditure$en calorieExpenditure = Translations$disclaimer$calorieExpenditure$en.internal(_root);
-}
-
-// Path: localNutritionPhase4
-class Translations$localNutritionPhase4$en {
-	Translations$localNutritionPhase4$en.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Smaller'
-	String get portionSmaller => 'Smaller';
-
-	/// en: 'Estimated'
-	String get portionEstimated => 'Estimated';
-
-	/// en: 'Larger'
-	String get portionLarger => 'Larger';
-
-	/// en: 'Which portion was closest for {ingredient}?'
-	String portionQuestion({required Object ingredient}) => 'Which portion was closest for ${ingredient}?';
-
-	/// en: 'Which meal was this?'
-	String get mealTypeQuestion => 'Which meal was this?';
-
-	/// en: 'Calculated from verified local nutrition data.'
-	String get localNutritionTip => 'Calculated from verified local nutrition data.';
-
-	/// en: 'Download nutrition data'
-	String get offlineNutritionTitle => 'Download nutrition data';
-
-	/// en: 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.'
-	String get offlineNutritionSubtitle => 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.';
-
-	/// en: 'Local nutrition data is not available for this app release.'
-	String get offlineNutritionUnavailable => 'Local nutrition data is not available for this app release.';
-
-	/// en: 'No verified nutrition pack is downloaded.'
-	String get offlineNutritionNotDownloaded => 'No verified nutrition pack is downloaded.';
-
-	/// en: 'Downloading and verifying nutrition data…'
-	String get offlineNutritionInstalling => 'Downloading and verifying nutrition data…';
-
-	/// en: 'Pack {version} · {size} · USDA {datasetVersion}'
-	String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Pack ${version} · ${size} · USDA ${datasetVersion}';
-
-	/// en: '{count} cached USDA rows · {size}'
-	String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} cached USDA rows · ${size}';
-
-	/// en: 'Check for update'
-	String get offlineNutritionUpdate => 'Check for update';
-
-	/// en: 'Clear local nutrition data'
-	String get offlineNutritionClear => 'Clear local nutrition data';
-
-	/// en: 'Clear local nutrition data?'
-	String get offlineNutritionClearTitle => 'Clear local nutrition data?';
-
-	/// en: 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.'
-	String get offlineNutritionClearBody => 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.';
-
-	/// en: 'Clear data'
-	String get offlineNutritionClearConfirm => 'Clear data';
-
-	/// en: 'Could not download and verify local nutrition data: {error}'
-	String offlineNutritionInstallFailed({required Object error}) => 'Could not download and verify local nutrition data: ${error}';
-
-	/// en: 'Local nutrition data cleared'
-	String get offlineNutritionCleared => 'Local nutrition data cleared';
 }
 
 // Path: watch
@@ -1439,6 +1367,15 @@ class Translations$meal$questionFlow$en {
 
 	/// en: 'Larger'
 	String get optionLarger => 'Larger';
+
+	/// en: 'Use estimate'
+	String get useEstimate => 'Use estimate';
+
+	/// en: 'From {min} to {max}, in steps of {step}'
+	String numberRange({required Object min, required Object max, required Object step}) => 'From ${min} to ${max}, in steps of ${step}';
+
+	/// en: 'Enter a value in the allowed range'
+	String get invalidNumber => 'Enter a value in the allowed range';
 }
 
 // Path: meal.analysis
@@ -1509,6 +1446,9 @@ class Translations$meal$analysis$en {
 	/// en: '"{text}"'
 	String mealPreviewDescription({required Object text}) => '"${text}"';
 
+	/// en: 'Estimated range: {min}–{max} kcal'
+	String calorieRange({required Object min, required Object max}) => 'Estimated range: ${min}–${max} kcal';
+
 	/// en: 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.'
 	String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
 
@@ -1526,42 +1466,6 @@ class Translations$meal$analysis$en {
 
 	/// en: 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).'
 	String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
-}
-
-// Path: meal.localInference
-class Translations$meal$localInference$en {
-	Translations$meal$localInference$en.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Review detected ingredients'
-	String get reviewTitle => 'Review detected ingredients';
-
-	/// en: 'This was interpreted on your device. Correct names or portions before nutrition is calculated.'
-	String get reviewSubtitle => 'This was interpreted on your device. Correct names or portions before nutrition is calculated.';
-
-	/// en: 'Meal name'
-	String get mealName => 'Meal name';
-
-	/// en: 'Ingredient'
-	String get ingredient => 'Ingredient';
-
-	/// en: 'Estimated grams'
-	String get grams => 'Estimated grams';
-
-	/// en: 'Remove ingredient'
-	String get removeIngredient => 'Remove ingredient';
-
-	/// en: 'Continue'
-	String get continueLabel => 'Continue';
-
-	/// en: 'Add at least one ingredient and use a positive gram amount.'
-	String get invalidProposal => 'Add at least one ingredient and use a positive gram amount.';
-
-	/// en: 'On-device analysis is unavailable right now.'
-	String get localUnavailable => 'On-device analysis is unavailable right now.';
 }
 
 // Path: meal.feedback
@@ -1754,9 +1658,6 @@ class Translations$settings$sections$en {
 	/// en: 'HEALTH CONNECT'
 	String get healthConnect => 'HEALTH CONNECT';
 
-	/// en: 'ON-DEVICE ANALYSIS'
-	String get localInference => 'ON-DEVICE ANALYSIS';
-
 	/// en: 'SUPPORT & LEGAL'
 	String get supportAndLegal => 'SUPPORT & LEGAL';
 
@@ -1843,60 +1744,6 @@ class Translations$settings$mealReminders$en {
 
 	/// en: 'Stay on track with timely alerts'
 	String get subtitle => 'Stay on track with timely alerts';
-}
-
-// Path: settings.localInference
-class Translations$settings$localInference$en {
-	Translations$settings$localInference$en.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'On-device meal analysis'
-	String get title => 'On-device meal analysis';
-
-	/// en: 'Interpret supported meals with Gemini Nano before nutrition is calculated'
-	String get subtitle => 'Interpret supported meals with Gemini Nano before nutrition is calculated';
-
-	/// en: 'Not available on this device'
-	String get unavailable => 'Not available on this device';
-
-	/// en: 'Available hardware found, but this feature is not enabled for this app release'
-	String get rolloutUnavailable => 'Available hardware found, but this feature is not enabled for this app release';
-
-	/// en: 'Gemini Nano needs to finish downloading before this can be enabled'
-	String get modelSetup => 'Gemini Nano needs to finish downloading before this can be enabled';
-
-	/// en: 'Use on-device analysis'
-	String get useLocalTitle => 'Use on-device analysis';
-
-	/// en: 'Results may be less reliable for complex meals.'
-	String get useLocalSubtitle => 'Results may be less reliable for complex meals.';
-
-	/// en: 'Before you enable on-device analysis'
-	String get disclosureTitle => 'Before you enable on-device analysis';
-
-	/// en: 'Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.'
-	String get disclosureBody => 'Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.';
-
-	/// en: 'Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.'
-	String get disclosureLimit1 => 'Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.';
-
-	/// en: 'The model may be unavailable while downloading, busy, in the background, or limited by the device.'
-	String get disclosureLimit2 => 'The model may be unavailable while downloading, busy, in the background, or limited by the device.';
-
-	/// en: 'If local interpretation cannot finish, this beta automatically sends your original meal description to Calorify for cloud analysis.'
-	String get disclosureLimit3 => 'If local interpretation cannot finish, this beta automatically sends your original meal description to Calorify for cloud analysis.';
-
-	/// en: 'I understand that I should review detected ingredients and portions.'
-	String get acknowledgement => 'I understand that I should review detected ingredients and portions.';
-
-	/// en: 'Acknowledge and enable'
-	String get enable => 'Acknowledge and enable';
-
-	/// en: 'Cancel'
-	String get cancel => 'Cancel';
 }
 
 // Path: settings.theme
@@ -3691,6 +3538,9 @@ extension on Translations {
 			'meal.questionFlow.optionSmaller' => 'Smaller',
 			'meal.questionFlow.optionTypical' => 'Typical',
 			'meal.questionFlow.optionLarger' => 'Larger',
+			'meal.questionFlow.useEstimate' => 'Use estimate',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'From ${min} to ${max}, in steps of ${step}',
+			'meal.questionFlow.invalidNumber' => 'Enter a value in the allowed range',
 			'meal.analysis.title' => 'Analyzing your meal',
 			'meal.analysis.stepStarted' => 'Getting started…',
 			'meal.analysis.stepDecomposition' => 'Understanding your meal…',
@@ -3711,21 +3561,13 @@ extension on Translations {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredients detected',
 			'meal.analysis.ingredientsPending' => 'Scanning ingredients…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'Estimated range: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
 			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
 			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.localInference.reviewTitle' => 'Review detected ingredients',
-			'meal.localInference.reviewSubtitle' => 'This was interpreted on your device. Correct names or portions before nutrition is calculated.',
-			'meal.localInference.mealName' => 'Meal name',
-			'meal.localInference.ingredient' => 'Ingredient',
-			'meal.localInference.grams' => 'Estimated grams',
-			'meal.localInference.removeIngredient' => 'Remove ingredient',
-			'meal.localInference.continueLabel' => 'Continue',
-			'meal.localInference.invalidProposal' => 'Add at least one ingredient and use a positive gram amount.',
-			'meal.localInference.localUnavailable' => 'On-device analysis is unavailable right now.',
 			'meal.feedback.title' => 'What looks wrong?',
 			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
 			'meal.feedback.tellUsMore' => 'Tell us more',
@@ -3823,7 +3665,6 @@ extension on Translations {
 			'settings.sections.localization' => 'LOCALIZATION',
 			'settings.sections.notifications' => 'NOTIFICATIONS',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
-			'settings.sections.localInference' => 'ON-DEVICE ANALYSIS',
 			'settings.sections.supportAndLegal' => 'SUPPORT & LEGAL',
 			'settings.sections.about' => 'ABOUT',
 			'settings.sections.dangerZone' => 'DANGER ZONE',
@@ -3838,21 +3679,6 @@ extension on Translations {
 			'settings.weightUnit.title' => 'Weight Unit',
 			'settings.mealReminders.title' => 'Meal Reminders',
 			'settings.mealReminders.subtitle' => 'Stay on track with timely alerts',
-			'settings.localInference.title' => 'On-device meal analysis',
-			'settings.localInference.subtitle' => 'Interpret supported meals with Gemini Nano before nutrition is calculated',
-			'settings.localInference.unavailable' => 'Not available on this device',
-			'settings.localInference.rolloutUnavailable' => 'Available hardware found, but this feature is not enabled for this app release',
-			'settings.localInference.modelSetup' => 'Gemini Nano needs to finish downloading before this can be enabled',
-			'settings.localInference.useLocalTitle' => 'Use on-device analysis',
-			'settings.localInference.useLocalSubtitle' => 'Results may be less reliable for complex meals.',
-			'settings.localInference.disclosureTitle' => 'Before you enable on-device analysis',
-			'settings.localInference.disclosureBody' => 'Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.',
-			'settings.localInference.disclosureLimit1' => 'Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.',
-			'settings.localInference.disclosureLimit2' => 'The model may be unavailable while downloading, busy, in the background, or limited by the device.',
-			'settings.localInference.disclosureLimit3' => 'If local interpretation cannot finish, this beta automatically sends your original meal description to Calorify for cloud analysis.',
-			'settings.localInference.acknowledgement' => 'I understand that I should review detected ingredients and portions.',
-			'settings.localInference.enable' => 'Acknowledge and enable',
-			'settings.localInference.cancel' => 'Cancel',
 			'settings.theme.title' => 'Theme',
 			'settings.theme.light' => 'Light',
 			'settings.theme.dark' => 'Dark',
@@ -3964,8 +3790,6 @@ extension on Translations {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error completing setup: ${error}',
 			'notifications.breakfast.title' => 'Breakfast Time! 🍳',
 			'notifications.breakfast.body' => 'Don\'t forget to log your breakfast',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'Lunch Time! 🥗',
 			'notifications.lunch.body' => 'Time to log your lunch',
 			'notifications.dinner.title' => 'Dinner Time! 🍽️',
@@ -3987,6 +3811,8 @@ extension on Translations {
 			'disclaimer.snap.databaseLimitations.title' => 'Database Limitations',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s food database is extensive but may not include every single food item or variation.',
 			'disclaimer.weightEstimate.title' => 'About Weight Estimate',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Calorie Accuracy',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection.',
@@ -4009,26 +3835,6 @@ extension on Translations {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professional Guidance',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
-			'localNutritionPhase4.portionSmaller' => 'Smaller',
-			'localNutritionPhase4.portionEstimated' => 'Estimated',
-			'localNutritionPhase4.portionLarger' => 'Larger',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Which portion was closest for ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Which meal was this?',
-			'localNutritionPhase4.localNutritionTip' => 'Calculated from verified local nutrition data.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Download nutrition data',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Local nutrition data is not available for this app release.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'No verified nutrition pack is downloaded.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Downloading and verifying nutrition data…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Pack ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} cached USDA rows · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Check for update',
-			'localNutritionPhase4.offlineNutritionClear' => 'Clear local nutrition data',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Clear local nutrition data?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Clear data',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Could not download and verify local nutrition data: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Local nutrition data cleared',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'Back',
 			'watch.common.cancel' => 'Cancel',

@@ -321,7 +321,10 @@
       "optionHeavy": "Pesante",
       "optionSmaller": "Più piccolo",
       "optionTypical": "Tipico",
-      "optionLarger": "Più grande"
+      "optionLarger": "Più grande",
+      "useEstimate": "Usa la stima",
+      "numberRange": "Da {min} a {max}, con incrementi di {step}",
+      "invalidNumber": "Inserisci un valore nell'intervallo consentito"
     },
     "analysis": {
       "title": "Analisi del tuo pasto",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} ingredienti rilevati",
       "ingredientsPending": "Scansione ingredienti…",
       "mealPreviewDescription": "«{text}»",
+      "calorieRange": "Intervallo stimato: {min}–{max} kcal",
       "offlineTip0": "Suggerimento: La costanza batte la perfezione—registrazioni regolari rivelano i modelli che contano.",
       "offlineTip1": "Suggerimento: Per le foto, la luce naturale e una visuale dall'alto aiutano a stimare meglio le porzioni.",
       "offlineTip2": "Suggerimento: Segnala bevande, salse e olio da cucina—aggiungono calorie che spesso si dimenticano.",
       "offlineTip3": "Suggerimento: Una rapida indicazione della porzione (1 ciotola, caffè grande) rende le stime molto più precise.",
       "offlineTip4": "Suggerimento: Registrare dopo il pasto aiuta comunque a costruire l'abitudine; la perfezione è opzionale.",
       "offlineTip5": "Suggerimento: Indica come è stato cucinato il cibo quando influisce molto sulle calorie (fritto vs al forno)."
-    },
-    "localInference": {
-      "reviewTitle": "Revisione ingredienti rilevati",
-      "reviewSubtitle": "L'interpretazione è avvenuta sul tuo dispositivo. Correggi nomi o porzioni prima del calcolo nutrizionale.",
-      "mealName": "Nome pasto",
-      "ingredient": "Ingrediente",
-      "grams": "Grammi stimati",
-      "removeIngredient": "Rimuovi ingrediente",
-      "continueLabel": "Continua",
-      "invalidProposal": "Aggiungi almeno un ingrediente e inserisci una quantità di grammi positiva.",
-      "localUnavailable": "L'analisi sul dispositivo non è disponibile al momento."
     },
     "feedback": {
       "title": "Cosa non va?",
@@ -502,7 +495,6 @@
       "localization": "LOCALIZZAZIONE",
       "notifications": "NOTIFICHE",
       "healthConnect": "CONNESSIONE HEALTH CONNECT",
-      "localInference": "ANALISI SUL DISPOSITIVO",
       "supportAndLegal": "SUPPORTO & LEGALE",
       "about": "INFORMAZIONI",
       "dangerZone": "PERICOLO",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Promemoria pasti",
       "subtitle": "Rimani in carreggiata con avvisi puntuali"
-    },
-    "localInference": {
-      "title": "Analisi dei pasti sul dispositivo",
-      "subtitle": "Interpreta i pasti supportati con Gemini Nano prima del calcolo nutrizionale",
-      "unavailable": "Non disponibile su questo dispositivo",
-      "rolloutUnavailable": "Hardware compatibile trovato, ma questa funzione non è abilitata per questa versione dell'app",
-      "modelSetup": "Gemini Nano deve completare il download prima di poter essere abilitato",
-      "useLocalTitle": "Usa l'analisi sul dispositivo",
-      "useLocalSubtitle": "I risultati potrebbero essere meno affidabili per pasti complessi.",
-      "disclosureTitle": "Prima di abilitare l'analisi sul dispositivo",
-      "disclosureBody": "Gemini Nano può identificare gli ingredienti e stimare le porzioni su dispositivi Android supportati. La proposta di ingredienti revisionata viene inviata a Calorify per il riscontro nutrizionale USDA e il calcolo.",
-      "disclosureLimit1": "Piatti complessi, ingredienti nascosti e dimensioni delle porzioni potrebbero essere identificati in modo errato.",
-      "disclosureLimit2": "Il modello potrebbe non essere disponibile durante il download, se occupato, in background o a causa di limitazioni del dispositivo.",
-      "disclosureLimit3": "Se l'interpretazione locale non può essere completata, questa beta invia automaticamente la descrizione originale del pasto a Calorify per l'analisi in cloud.",
-      "acknowledgement": "Capisco che dovrei revisionare gli ingredienti e le porzioni rilevati.",
-      "enable": "Conferma e abilita",
-      "cancel": "Annulla"
     },
     "theme": {
       "title": "Tema",
@@ -787,28 +762,6 @@
         "description": "Non usare questa stima per decisioni mediche. Consulta sempre un professionista sanitario o un dietista registrato per consigli personalizzati sulla gestione del peso."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Più piccola",
-    "portionEstimated": "Stimata",
-    "portionLarger": "Più grande",
-    "portionQuestion": "Quale porzione era più vicina per {ingredient}?",
-    "mealTypeQuestion": "Di quale pasto si trattava?",
-    "localNutritionTip": "Calcolato da dati nutrizionali locali verificati.",
-    "offlineNutritionTitle": "Scarica dati nutrizionali",
-    "offlineNutritionSubtitle": "Usa righe USDA verificate e un calcolo deterministico su questo dispositivo quando tutti gli ingredienti sono coperti.",
-    "offlineNutritionUnavailable": "I dati nutrizionali locali non sono disponibili per questa versione dell’app.",
-    "offlineNutritionNotDownloaded": "Non è stato scaricato alcun pacchetto nutrizionale verificato.",
-    "offlineNutritionInstalling": "Download e verifica dei dati nutrizionali…",
-    "offlineNutritionStatus": "Pacchetto {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} righe USDA nella cache · {size}",
-    "offlineNutritionUpdate": "Controlla aggiornamenti",
-    "offlineNutritionClear": "Cancella dati nutrizionali locali",
-    "offlineNutritionClearTitle": "Cancellare i dati nutrizionali locali?",
-    "offlineNutritionClearBody": "Questa operazione rimuove il pacchetto USDA scaricato e la cache di ricerca. I pasti registrati conservano l’istantanea nutrizionale esatta utilizzata al momento del salvataggio.",
-    "offlineNutritionClearConfirm": "Cancella dati",
-    "offlineNutritionInstallFailed": "Impossibile scaricare e verificare i dati nutrizionali locali: {error}",
-    "offlineNutritionCleared": "Dati nutrizionali locali cancellati"
   },
   "watch": {
     "appTitle": "Calorify Orologio",

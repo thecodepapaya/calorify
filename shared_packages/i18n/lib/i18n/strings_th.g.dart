@@ -57,7 +57,6 @@ class TranslationsTh extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$th notifications = _Translations$notifications$th._(_root);
 	@override late final _Translations$login$th login = _Translations$login$th._(_root);
 	@override late final _Translations$disclaimer$th disclaimer = _Translations$disclaimer$th._(_root);
-	@override late final _Translations$localNutritionPhase4$th localNutritionPhase4 = _Translations$localNutritionPhase4$th._(_root);
 	@override late final _Translations$watch$th watch = _Translations$watch$th._(_root);
 	@override late final _Translations$common$th common = _Translations$common$th._(_root);
 	@override late final _Translations$feedbackRating$th feedbackRating = _Translations$feedbackRating$th._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$th extends Translations$meal$en {
 	@override String get skip => 'ข้าม';
 	@override late final _Translations$meal$questionFlow$th questionFlow = _Translations$meal$questionFlow$th._(_root);
 	@override late final _Translations$meal$analysis$th analysis = _Translations$meal$analysis$th._(_root);
-	@override late final _Translations$meal$localInference$th localInference = _Translations$meal$localInference$th._(_root);
 	@override late final _Translations$meal$feedback$th feedback = _Translations$meal$feedback$th._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$th extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$th heightUnit = _Translations$settings$heightUnit$th._(_root);
 	@override late final _Translations$settings$weightUnit$th weightUnit = _Translations$settings$weightUnit$th._(_root);
 	@override late final _Translations$settings$mealReminders$th mealReminders = _Translations$settings$mealReminders$th._(_root);
-	@override late final _Translations$settings$localInference$th localInference = _Translations$settings$localInference$th._(_root);
 	@override late final _Translations$settings$theme$th theme = _Translations$settings$theme$th._(_root);
 	@override late final _Translations$settings$sendFeedback$th sendFeedback = _Translations$settings$sendFeedback$th._(_root);
 	@override late final _Translations$settings$exportMealHistory$th exportMealHistory = _Translations$settings$exportMealHistory$th._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$th extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$th weightEstimate = _Translations$disclaimer$weightEstimate$th._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$th healthMetrics = _Translations$disclaimer$healthMetrics$th._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$th calorieExpenditure = _Translations$disclaimer$calorieExpenditure$th._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$th extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$th._(TranslationsTh root) : this._root = root, super.internal(root);
-
-	final TranslationsTh _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'น้อยกว่า';
-	@override String get portionEstimated => 'โดยประมาณ';
-	@override String get portionLarger => 'มากกว่า';
-	@override String portionQuestion({required Object ingredient}) => 'ปริมาณใดใกล้เคียงที่สุดสำหรับ ${ingredient}?';
-	@override String get mealTypeQuestion => 'นี่เป็นมื้อใด?';
-	@override String get localNutritionTip => 'คำนวณจากข้อมูลโภชนาการในเครื่องที่ผ่านการตรวจสอบแล้ว';
-	@override String get offlineNutritionTitle => 'ดาวน์โหลดข้อมูลโภชนาการ';
-	@override String get offlineNutritionSubtitle => 'ใช้แถว USDA ที่ผ่านการตรวจสอบและการคำนวณแบบกำหนดแน่นอนบนอุปกรณ์นี้เมื่อครอบคลุมส่วนผสมทั้งหมด';
-	@override String get offlineNutritionUnavailable => 'ข้อมูลโภชนาการในเครื่องไม่พร้อมใช้งานสำหรับแอปรุ่นนี้';
-	@override String get offlineNutritionNotDownloaded => 'ยังไม่ได้ดาวน์โหลดแพ็กโภชนาการที่ผ่านการตรวจสอบ';
-	@override String get offlineNutritionInstalling => 'กำลังดาวน์โหลดและตรวจสอบข้อมูลโภชนาการ…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'แพ็ก ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => 'แถว USDA ที่แคชไว้ ${count} แถว · ${size}';
-	@override String get offlineNutritionUpdate => 'ตรวจหาการอัปเดต';
-	@override String get offlineNutritionClear => 'ล้างข้อมูลโภชนาการในเครื่อง';
-	@override String get offlineNutritionClearTitle => 'ล้างข้อมูลโภชนาการในเครื่องหรือไม่?';
-	@override String get offlineNutritionClearBody => 'การดำเนินการนี้จะลบแพ็ก USDA ที่ดาวน์โหลดและแคชการค้นหา มื้ออาหารที่บันทึกไว้จะเก็บสแนปช็อตโภชนาการที่ใช้ตอนบันทึกไว้อย่างถูกต้อง';
-	@override String get offlineNutritionClearConfirm => 'ล้างข้อมูล';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'ดาวน์โหลดและตรวจสอบข้อมูลโภชนาการในเครื่องไม่ได้: ${error}';
-	@override String get offlineNutritionCleared => 'ล้างข้อมูลโภชนาการในเครื่องแล้ว';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$th extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'เล็กกว่า';
 	@override String get optionTypical => 'ทั่วไป';
 	@override String get optionLarger => 'ใหญ่กว่า';
+	@override String get useEstimate => 'ใช้ค่าประมาณ';
+	@override String numberRange({required Object min, required Object max, required Object step}) => 'ตั้งแต่ ${min} ถึง ${max} เพิ่มทีละ ${step}';
+	@override String get invalidNumber => 'กรอกค่าภายในช่วงที่กำหนด';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$th extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => 'ตรวจพบ ${count} ส่วนผสม';
 	@override String get ingredientsPending => 'กำลังสแกนส่วนผสม…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => 'ช่วงโดยประมาณ: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'เคล็ดลับ: ความสม่ำเสมอกำลังกว่าความสมบูรณ์ — การบันทึกสม่ำเสมอเผยรูปแบบที่สำคัญ';
 	@override String get offlineTip1 => 'เคล็ดลับ: สำหรับรูป ให้ใช้แสงธรรมชาติและมุมมองจากด้านบนเพื่อความแม่นยำของปริมาณ';
 	@override String get offlineTip2 => 'เคล็ดลับ: ระบุเครื่องดื่ม น้ำจิ้ม และน้ำมันที่ใช้ปรุง — สิ่งเหล่านี้เพิ่มแคลอรีที่คนมักลืม';
 	@override String get offlineTip3 => 'เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น';
 	@override String get offlineTip4 => 'เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น';
 	@override String get offlineTip5 => 'เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$th extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$th._(TranslationsTh root) : this._root = root, super.internal(root);
-
-	final TranslationsTh _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'ตรวจสอบส่วนผสมที่ตรวจพบ';
-	@override String get reviewSubtitle => 'ข้อมูลนี้ถูกวิเคราะห์บนอุปกรณ์ของคุณ โปรดแก้ไขชื่อหรือปริมาณก่อนคำนวณคุณค่าทางโภชนาการ';
-	@override String get mealName => 'ชื่อมื้ออาหาร';
-	@override String get ingredient => 'ส่วนผสม';
-	@override String get grams => 'ปริมาณกรัมโดยประมาณ';
-	@override String get removeIngredient => 'ลบส่วนผสม';
-	@override String get continueLabel => 'ดำเนินการต่อ';
-	@override String get invalidProposal => 'โปรดเพิ่มส่วนผสมอย่างน้อยหนึ่งรายการและระบุปริมาณกรัมเป็นค่าบวก';
-	@override String get localUnavailable => 'ไม่สามารถใช้งานการวิเคราะห์บนอุปกรณ์ได้ในขณะนี้';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$th extends Translations$settings$sections$
 	@override String get localization => 'การตั้งค่าภาษา';
 	@override String get notifications => 'การแจ้งเตือน';
 	@override String get healthConnect => 'Health Connect';
-	@override String get localInference => 'การวิเคราะห์บนอุปกรณ์';
 	@override String get supportAndLegal => 'การสนับสนุน & กฎหมาย';
 	@override String get about => 'เกี่ยวกับ';
 	@override String get dangerZone => 'โซนอันตราย';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$th extends Translations$settings$meal
 	// Translations
 	@override String get title => 'การแจ้งเตือนมื้ออาหาร';
 	@override String get subtitle => 'เตือนให้บันทึกมื้ออย่างสม่ำเสมอ';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$th extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$th._(TranslationsTh root) : this._root = root, super.internal(root);
-
-	final TranslationsTh _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'การวิเคราะห์มื้ออาหารบนอุปกรณ์';
-	@override String get subtitle => 'วิเคราะห์มื้ออาหารที่รองรับด้วย Gemini Nano ก่อนคำนวณคุณค่าทางโภชนาการ';
-	@override String get unavailable => 'ไม่รองรับบนอุปกรณ์นี้';
-	@override String get rolloutUnavailable => 'พบฮาร์ดแวร์ที่รองรับ แต่ฟีเจอร์นี้ยังไม่เปิดใช้งานสำหรับแอปเวอร์ชันนี้';
-	@override String get modelSetup => 'Gemini Nano จำเป็นต้องดาวน์โหลดให้เสร็จสิ้นก่อนจึงจะเปิดใช้งานได้';
-	@override String get useLocalTitle => 'ใช้การวิเคราะห์บนอุปกรณ์';
-	@override String get useLocalSubtitle => 'ผลลัพธ์อาจมีความแม่นยำน้อยลงสำหรับมื้ออาหารที่ซับซ้อน';
-	@override String get disclosureTitle => 'ก่อนเปิดใช้งานการวิเคราะห์บนอุปกรณ์';
-	@override String get disclosureBody => 'Gemini Nano สามารถระบุส่วนผสมและประมาณปริมาณบนอุปกรณ์ Android ที่รองรับ โดยรายการส่วนผสมที่คุณตรวจสอบแล้วจะถูกส่งไปยัง Calorify เพื่ออ้างอิงข้อมูลโภชนาการจาก USDA และคำนวณผล';
-	@override String get disclosureLimit1 => 'อาหารที่ซับซ้อน ส่วนผสมที่ซ่อนอยู่ และขนาดของส่วนแบ่งอาจถูกระบุไม่ถูกต้อง';
-	@override String get disclosureLimit2 => 'โมเดลอาจไม่พร้อมใช้งานขณะดาวน์โหลด กำลังประมวลผล ทำงานเบื้องหลัง หรือถูกจำกัดโดยอุปกรณ์';
-	@override String get disclosureLimit3 => 'หากการวิเคราะห์บนอุปกรณ์ไม่สำเร็จ ระบบเบต้าจะส่งคำอธิบายมื้ออาหารต้นฉบับของคุณไปยัง Calorify เพื่อวิเคราะห์ผ่านคลาวด์โดยอัตโนมัติ';
-	@override String get acknowledgement => 'ฉันเข้าใจว่าควรตรวจสอบส่วนผสมและปริมาณที่ตรวจพบ';
-	@override String get enable => 'ยอมรับและเปิดใช้งาน';
-	@override String get cancel => 'ยกเลิก';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsTh {
 			'meal.questionFlow.optionSmaller' => 'เล็กกว่า',
 			'meal.questionFlow.optionTypical' => 'ทั่วไป',
 			'meal.questionFlow.optionLarger' => 'ใหญ่กว่า',
+			'meal.questionFlow.useEstimate' => 'ใช้ค่าประมาณ',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'ตั้งแต่ ${min} ถึง ${max} เพิ่มทีละ ${step}',
+			'meal.questionFlow.invalidNumber' => 'กรอกค่าภายในช่วงที่กำหนด',
 			'meal.analysis.title' => 'กำลังวิเคราะห์มื้อของคุณ',
 			'meal.analysis.stepStarted' => 'เริ่มต้น…',
 			'meal.analysis.stepDecomposition' => 'กำลังทำความเข้าใจมื้อ…',
@@ -2308,21 +2240,13 @@ extension on TranslationsTh {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'ตรวจพบ ${count} ส่วนผสม',
 			'meal.analysis.ingredientsPending' => 'กำลังสแกนส่วนผสม…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'ช่วงโดยประมาณ: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'เคล็ดลับ: ความสม่ำเสมอกำลังกว่าความสมบูรณ์ — การบันทึกสม่ำเสมอเผยรูปแบบที่สำคัญ',
 			'meal.analysis.offlineTip1' => 'เคล็ดลับ: สำหรับรูป ให้ใช้แสงธรรมชาติและมุมมองจากด้านบนเพื่อความแม่นยำของปริมาณ',
 			'meal.analysis.offlineTip2' => 'เคล็ดลับ: ระบุเครื่องดื่ม น้ำจิ้ม และน้ำมันที่ใช้ปรุง — สิ่งเหล่านี้เพิ่มแคลอรีที่คนมักลืม',
 			'meal.analysis.offlineTip3' => 'เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น',
 			'meal.analysis.offlineTip4' => 'เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น',
 			'meal.analysis.offlineTip5' => 'เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)',
-			'meal.localInference.reviewTitle' => 'ตรวจสอบส่วนผสมที่ตรวจพบ',
-			'meal.localInference.reviewSubtitle' => 'ข้อมูลนี้ถูกวิเคราะห์บนอุปกรณ์ของคุณ โปรดแก้ไขชื่อหรือปริมาณก่อนคำนวณคุณค่าทางโภชนาการ',
-			'meal.localInference.mealName' => 'ชื่อมื้ออาหาร',
-			'meal.localInference.ingredient' => 'ส่วนผสม',
-			'meal.localInference.grams' => 'ปริมาณกรัมโดยประมาณ',
-			'meal.localInference.removeIngredient' => 'ลบส่วนผสม',
-			'meal.localInference.continueLabel' => 'ดำเนินการต่อ',
-			'meal.localInference.invalidProposal' => 'โปรดเพิ่มส่วนผสมอย่างน้อยหนึ่งรายการและระบุปริมาณกรัมเป็นค่าบวก',
-			'meal.localInference.localUnavailable' => 'ไม่สามารถใช้งานการวิเคราะห์บนอุปกรณ์ได้ในขณะนี้',
 			'meal.feedback.title' => 'อะไรที่ดูผิดพลาด?',
 			'meal.feedback.subtitle' => 'ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกปัญหาหนึ่งข้อหรือหลายข้อ',
 			'meal.feedback.tellUsMore' => 'บอกเพิ่มเติม',
@@ -2420,7 +2344,6 @@ extension on TranslationsTh {
 			'settings.sections.localization' => 'การตั้งค่าภาษา',
 			'settings.sections.notifications' => 'การแจ้งเตือน',
 			'settings.sections.healthConnect' => 'Health Connect',
-			'settings.sections.localInference' => 'การวิเคราะห์บนอุปกรณ์',
 			'settings.sections.supportAndLegal' => 'การสนับสนุน & กฎหมาย',
 			'settings.sections.about' => 'เกี่ยวกับ',
 			'settings.sections.dangerZone' => 'โซนอันตราย',
@@ -2435,21 +2358,6 @@ extension on TranslationsTh {
 			'settings.weightUnit.title' => 'หน่วยน้ำหนัก',
 			'settings.mealReminders.title' => 'การแจ้งเตือนมื้ออาหาร',
 			'settings.mealReminders.subtitle' => 'เตือนให้บันทึกมื้ออย่างสม่ำเสมอ',
-			'settings.localInference.title' => 'การวิเคราะห์มื้ออาหารบนอุปกรณ์',
-			'settings.localInference.subtitle' => 'วิเคราะห์มื้ออาหารที่รองรับด้วย Gemini Nano ก่อนคำนวณคุณค่าทางโภชนาการ',
-			'settings.localInference.unavailable' => 'ไม่รองรับบนอุปกรณ์นี้',
-			'settings.localInference.rolloutUnavailable' => 'พบฮาร์ดแวร์ที่รองรับ แต่ฟีเจอร์นี้ยังไม่เปิดใช้งานสำหรับแอปเวอร์ชันนี้',
-			'settings.localInference.modelSetup' => 'Gemini Nano จำเป็นต้องดาวน์โหลดให้เสร็จสิ้นก่อนจึงจะเปิดใช้งานได้',
-			'settings.localInference.useLocalTitle' => 'ใช้การวิเคราะห์บนอุปกรณ์',
-			'settings.localInference.useLocalSubtitle' => 'ผลลัพธ์อาจมีความแม่นยำน้อยลงสำหรับมื้ออาหารที่ซับซ้อน',
-			'settings.localInference.disclosureTitle' => 'ก่อนเปิดใช้งานการวิเคราะห์บนอุปกรณ์',
-			'settings.localInference.disclosureBody' => 'Gemini Nano สามารถระบุส่วนผสมและประมาณปริมาณบนอุปกรณ์ Android ที่รองรับ โดยรายการส่วนผสมที่คุณตรวจสอบแล้วจะถูกส่งไปยัง Calorify เพื่ออ้างอิงข้อมูลโภชนาการจาก USDA และคำนวณผล',
-			'settings.localInference.disclosureLimit1' => 'อาหารที่ซับซ้อน ส่วนผสมที่ซ่อนอยู่ และขนาดของส่วนแบ่งอาจถูกระบุไม่ถูกต้อง',
-			'settings.localInference.disclosureLimit2' => 'โมเดลอาจไม่พร้อมใช้งานขณะดาวน์โหลด กำลังประมวลผล ทำงานเบื้องหลัง หรือถูกจำกัดโดยอุปกรณ์',
-			'settings.localInference.disclosureLimit3' => 'หากการวิเคราะห์บนอุปกรณ์ไม่สำเร็จ ระบบเบต้าจะส่งคำอธิบายมื้ออาหารต้นฉบับของคุณไปยัง Calorify เพื่อวิเคราะห์ผ่านคลาวด์โดยอัตโนมัติ',
-			'settings.localInference.acknowledgement' => 'ฉันเข้าใจว่าควรตรวจสอบส่วนผสมและปริมาณที่ตรวจพบ',
-			'settings.localInference.enable' => 'ยอมรับและเปิดใช้งาน',
-			'settings.localInference.cancel' => 'ยกเลิก',
 			'settings.theme.title' => 'ธีม',
 			'settings.theme.light' => 'สว่าง',
 			'settings.theme.dark' => 'มืด',
@@ -2561,8 +2469,6 @@ extension on TranslationsTh {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะทำการตั้งค่าให้เสร็จ: ${error}',
 			'notifications.breakfast.title' => 'เวลาอาหารเช้า! 🍳',
 			'notifications.breakfast.body' => 'อย่าลืมบันทึกมื้อเช้าของคุณ',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'เวลาอาหารกลางวัน! 🥗',
 			'notifications.lunch.body' => 'ถึงเวลาบันทึกมื้อกลางวันแล้ว',
 			'notifications.dinner.title' => 'เวลามื้อเย็น! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsTh {
 			'disclaimer.snap.databaseLimitations.title' => 'ข้อจำกัดของฐานข้อมูล',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'ฐานข้อมูลอาหารของ ${appLabel} มีความหลากหลายแต่ไม่ครอบคลุมทุกรายการอาหารหรือความแตกต่างทั้งหมด',
 			'disclaimer.weightEstimate.title' => 'เกี่ยวกับการประเมินน้ำหนัก',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'การคาดการณ์การเปลี่ยนแปลงน้ำหนักเป็นการประมาณทางทฤษฎีโดยอิงจากโมเดลง่ายๆ ของแคลอรีเข้าเทียบกับแคลอรีออก ตั้งใจให้เป็นแนวทางให้กำลังใจ ไม่ใช่การทำนายผลน้ำหนักจริง',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'ความแม่นยำของแคลอรี',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'การประมาณนี้มีความแม่นยำขึ้นกับการบันทึกการรับและการใช้พลังงานของคุณ หากบันทึกไม่แม่นยำ การคาดการณ์ก็จะคลาดเคลื่อน',
@@ -2606,26 +2514,6 @@ extension on TranslationsTh {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'เราคำนวณ TDEE (จากโปรไฟล์ของคุณ) แล้วคูณด้วยสัดส่วนของวันที่ผ่านไป (ชั่วโมง + นาที) / 24 เพื่อประมาณแคลอรีที่เผาผลาญไปแล้ว',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'คำแนะนำจากผู้เชี่ยวชาญ',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'อย่าใช้การประมาณนี้เพื่อการตัดสินใจทางการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือนักโภชนาการที่ลงทะเบียนสำหรับคำแนะนำเฉพาะบุคคล',
-			'localNutritionPhase4.portionSmaller' => 'น้อยกว่า',
-			'localNutritionPhase4.portionEstimated' => 'โดยประมาณ',
-			'localNutritionPhase4.portionLarger' => 'มากกว่า',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'ปริมาณใดใกล้เคียงที่สุดสำหรับ ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'นี่เป็นมื้อใด?',
-			'localNutritionPhase4.localNutritionTip' => 'คำนวณจากข้อมูลโภชนาการในเครื่องที่ผ่านการตรวจสอบแล้ว',
-			'localNutritionPhase4.offlineNutritionTitle' => 'ดาวน์โหลดข้อมูลโภชนาการ',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'ใช้แถว USDA ที่ผ่านการตรวจสอบและการคำนวณแบบกำหนดแน่นอนบนอุปกรณ์นี้เมื่อครอบคลุมส่วนผสมทั้งหมด',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'ข้อมูลโภชนาการในเครื่องไม่พร้อมใช้งานสำหรับแอปรุ่นนี้',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'ยังไม่ได้ดาวน์โหลดแพ็กโภชนาการที่ผ่านการตรวจสอบ',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'กำลังดาวน์โหลดและตรวจสอบข้อมูลโภชนาการ…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'แพ็ก ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => 'แถว USDA ที่แคชไว้ ${count} แถว · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'ตรวจหาการอัปเดต',
-			'localNutritionPhase4.offlineNutritionClear' => 'ล้างข้อมูลโภชนาการในเครื่อง',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'ล้างข้อมูลโภชนาการในเครื่องหรือไม่?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'การดำเนินการนี้จะลบแพ็ก USDA ที่ดาวน์โหลดและแคชการค้นหา มื้ออาหารที่บันทึกไว้จะเก็บสแนปช็อตโภชนาการที่ใช้ตอนบันทึกไว้อย่างถูกต้อง',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'ล้างข้อมูล',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'ดาวน์โหลดและตรวจสอบข้อมูลโภชนาการในเครื่องไม่ได้: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'ล้างข้อมูลโภชนาการในเครื่องแล้ว',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'ย้อนกลับ',
 			'watch.common.cancel' => 'ยกเลิก',

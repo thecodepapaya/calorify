@@ -132,7 +132,7 @@ export async function buildApp(options: BuildAppOptions = {}) {
   });
 
   // Record Prometheus HTTP metrics. Uses onResponse (not onSend) so the statusCode is final.
-  // We label by the Fastify route pattern (e.g. `/api/v2/food/analyze-text`) rather than the raw
+  // We label by the Fastify route pattern (e.g. `/api/v3/food/analyze-text`) rather than the raw
   // URL to avoid unbounded label cardinality from path params / query strings.
   fastify.addHook('onResponse', async (request, reply) => {
     // Don't count the scrape endpoint itself — it would inflate request counts and skew dashboards.

@@ -321,7 +321,10 @@
       "optionHeavy": "ثقيل",
       "optionSmaller": "أصغر",
       "optionTypical": "نموذجي",
-      "optionLarger": "أكبر"
+      "optionLarger": "أكبر",
+      "useEstimate": "استخدم التقدير",
+      "numberRange": "من {min} إلى {max}، بزيادات مقدارها {step}",
+      "invalidNumber": "أدخل قيمة ضمن النطاق المسموح به"
     },
     "analysis": {
       "title": "جارٍ تحليل وجبتك",
@@ -344,23 +347,13 @@
       "ingredientsLine": "تم اكتشاف {count} مكونات",
       "ingredientsPending": "جارٍ مسح المكونات…",
       "mealPreviewDescription": "«{text}»",
+      "calorieRange": "النطاق التقديري: {min}–{max} سعرة حرارية",
       "offlineTip0": "نصيحة: الاستمرارية أفضل من الكمال—التسجيل المنتظم يكشف الأنماط المهمة.",
       "offlineTip1": "نصيحة: للصور، الضوء الطبيعي والمنظور العلوي يساعدان على دقة تقدير الحصص.",
       "offlineTip2": "نصيحة: اذكر المشروبات والصلصات وزيت الطهي—إضافات سعرات تُنسَى غالبًا.",
       "offlineTip3": "نصيحة: ملاحظة سريعة عن الحصة (وعاء واحد، قهوة كبيرة) تجعل التقديرات أدق.",
       "offlineTip4": "نصيحة: التسجيل بعد الوجبة ما زال يبني العادة؛ الكمال اختياري.",
       "offlineTip5": "نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز)."
-    },
-    "localInference": {
-      "reviewTitle": "مراجعة المكونات المكتشفة",
-      "reviewSubtitle": "تم تحليل هذه البيانات على جهازك. يرجى تصحيح الأسماء أو الكميات قبل حساب القيم الغذائية.",
-      "mealName": "اسم الوجبة",
-      "ingredient": "المكون",
-      "grams": "الجرامات التقديرية",
-      "removeIngredient": "إزالة المكون",
-      "continueLabel": "متابعة",
-      "invalidProposal": "يرجى إضافة مكون واحد على الأقل واستخدام كمية جرامات موجبة.",
-      "localUnavailable": "التحليل على الجهاز غير متاح حالياً."
     },
     "feedback": {
       "title": "ما الخطأ في التقدير؟",
@@ -502,7 +495,6 @@
       "localization": "اللغة",
       "notifications": "الإشعارات",
       "healthConnect": "Health Connect",
-      "localInference": "التحليل على الجهاز",
       "supportAndLegal": "الدعم والقانونية",
       "about": "حول",
       "dangerZone": "منطقة الخطر",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "تذكيرات الوجبات",
       "subtitle": "ابقَ على الطريق مع تنبيهات في الوقت المناسب"
-    },
-    "localInference": {
-      "title": "تحليل الوجبات على الجهاز",
-      "subtitle": "تحليل الوجبات المدعومة باستخدام Gemini Nano قبل حساب القيم الغذائية",
-      "unavailable": "غير متاح على هذا الجهاز",
-      "rolloutUnavailable": "تم العثور على الأجهزة المتوافقة، ولكن هذه الميزة غير مفعلة في هذا الإصدار من التطبيق",
-      "modelSetup": "يجب أن ينتهي تحميل Gemini Nano قبل تفعيل هذه الميزة",
-      "useLocalTitle": "استخدام التحليل على الجهاز",
-      "useLocalSubtitle": "قد تكون النتائج أقل موثوقية بالنسبة للوجبات المعقّدة.",
-      "disclosureTitle": "قبل تفعيل التحليل على الجهاز",
-      "disclosureBody": "يمكن لـ Gemini Nano تحديد المكونات وتقدير الكميات على أجهزة Android المدعومة. يتم إرسال مقترح المكونات الذي تراجعه إلى Calorify لربطه بالقيم الغذائية من USDA وحسابها.",
-      "disclosureLimit1": "قد يتم تحديد الأطباق المعقدة، والمكونات المخفية، وأحجام الحصص بشكل غير صحيح.",
-      "disclosureLimit2": "قد يكون النموذج غير متاح أثناء التحميل، أو عند انشغاله، أو في الخلفية، أو بسبب قيود الجهاز.",
-      "disclosureLimit3": "إذا تعذر إكمال التحليل المحلي، ستقوم هذه النسخة التجريبية تلقائياً بإرسال وصف وجبتك الأصلي إلى Calorify للتحليل السحابي.",
-      "acknowledgement": "أدرك أنه يجب علي مراجعة المكونات والكميات المكتشفة.",
-      "enable": "موافق وتفعيل",
-      "cancel": "إلغاء"
     },
     "theme": {
       "title": "المظهر",
@@ -787,28 +762,6 @@
         "description": "لا تستخدم هذا التقدير لاتخاذ قرارات طبية. استشر دائمًا مختص رعاية صحية أو أخصائي تغذية مسجل لإدارة الوزن بشكل شخصي."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "أصغر",
-    "portionEstimated": "تقديرية",
-    "portionLarger": "أكبر",
-    "portionQuestion": "أي حصة كانت الأقرب لـ {ingredient}؟",
-    "mealTypeQuestion": "أي وجبة كانت هذه؟",
-    "localNutritionTip": "حُسبت باستخدام بيانات تغذية محلية موثّقة.",
-    "offlineNutritionTitle": "تنزيل بيانات التغذية",
-    "offlineNutritionSubtitle": "استخدم صفوف USDA الموثّقة والحساب الحتمي على هذا الجهاز عندما تكون جميع المكونات مشمولة.",
-    "offlineNutritionUnavailable": "بيانات التغذية المحلية غير متاحة لهذا الإصدار من التطبيق.",
-    "offlineNutritionNotDownloaded": "لم يتم تنزيل أي حزمة تغذية موثّقة.",
-    "offlineNutritionInstalling": "جارٍ تنزيل بيانات التغذية والتحقق منها…",
-    "offlineNutritionStatus": "الحزمة {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} من صفوف USDA المخزنة مؤقتًا · {size}",
-    "offlineNutritionUpdate": "التحقق من وجود تحديث",
-    "offlineNutritionClear": "مسح بيانات التغذية المحلية",
-    "offlineNutritionClearTitle": "مسح بيانات التغذية المحلية؟",
-    "offlineNutritionClearBody": "يؤدي هذا إلى إزالة حزمة USDA المنزّلة وذاكرة البحث المؤقتة. تحتفظ الوجبات المسجّلة بلقطة التغذية الدقيقة المستخدمة عند حفظها.",
-    "offlineNutritionClearConfirm": "مسح البيانات",
-    "offlineNutritionInstallFailed": "تعذّر تنزيل بيانات التغذية المحلية والتحقق منها: {error}",
-    "offlineNutritionCleared": "تم مسح بيانات التغذية المحلية"
   },
   "watch": {
     "appTitle": "Calorify للساعة",

@@ -57,7 +57,6 @@ class TranslationsDa extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$da notifications = _Translations$notifications$da._(_root);
 	@override late final _Translations$login$da login = _Translations$login$da._(_root);
 	@override late final _Translations$disclaimer$da disclaimer = _Translations$disclaimer$da._(_root);
-	@override late final _Translations$localNutritionPhase4$da localNutritionPhase4 = _Translations$localNutritionPhase4$da._(_root);
 	@override late final _Translations$watch$da watch = _Translations$watch$da._(_root);
 	@override late final _Translations$common$da common = _Translations$common$da._(_root);
 	@override late final _Translations$feedbackRating$da feedbackRating = _Translations$feedbackRating$da._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$da extends Translations$meal$en {
 	@override String get skip => 'Spring over';
 	@override late final _Translations$meal$questionFlow$da questionFlow = _Translations$meal$questionFlow$da._(_root);
 	@override late final _Translations$meal$analysis$da analysis = _Translations$meal$analysis$da._(_root);
-	@override late final _Translations$meal$localInference$da localInference = _Translations$meal$localInference$da._(_root);
 	@override late final _Translations$meal$feedback$da feedback = _Translations$meal$feedback$da._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$da extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$da heightUnit = _Translations$settings$heightUnit$da._(_root);
 	@override late final _Translations$settings$weightUnit$da weightUnit = _Translations$settings$weightUnit$da._(_root);
 	@override late final _Translations$settings$mealReminders$da mealReminders = _Translations$settings$mealReminders$da._(_root);
-	@override late final _Translations$settings$localInference$da localInference = _Translations$settings$localInference$da._(_root);
 	@override late final _Translations$settings$theme$da theme = _Translations$settings$theme$da._(_root);
 	@override late final _Translations$settings$sendFeedback$da sendFeedback = _Translations$settings$sendFeedback$da._(_root);
 	@override late final _Translations$settings$exportMealHistory$da exportMealHistory = _Translations$settings$exportMealHistory$da._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$da extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$da weightEstimate = _Translations$disclaimer$weightEstimate$da._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$da healthMetrics = _Translations$disclaimer$healthMetrics$da._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$da calorieExpenditure = _Translations$disclaimer$calorieExpenditure$da._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$da extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$da._(TranslationsDa root) : this._root = root, super.internal(root);
-
-	final TranslationsDa _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'Mindre';
-	@override String get portionEstimated => 'Anslået';
-	@override String get portionLarger => 'Større';
-	@override String portionQuestion({required Object ingredient}) => 'Hvilken portion passede bedst til ${ingredient}?';
-	@override String get mealTypeQuestion => 'Hvilket måltid var det?';
-	@override String get localNutritionTip => 'Beregnet ud fra verificerede lokale ernæringsdata.';
-	@override String get offlineNutritionTitle => 'Download ernæringsdata';
-	@override String get offlineNutritionSubtitle => 'Brug verificerede USDA-rækker og deterministisk beregning på denne enhed, når alle ingredienser er dækket.';
-	@override String get offlineNutritionUnavailable => 'Lokale ernæringsdata er ikke tilgængelige for denne appversion.';
-	@override String get offlineNutritionNotDownloaded => 'Ingen verificeret ernæringspakke er downloadet.';
-	@override String get offlineNutritionInstalling => 'Downloader og verificerer ernæringsdata…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Pakke ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} cachede USDA-rækker · ${size}';
-	@override String get offlineNutritionUpdate => 'Søg efter opdatering';
-	@override String get offlineNutritionClear => 'Ryd lokale ernæringsdata';
-	@override String get offlineNutritionClearTitle => 'Ryd lokale ernæringsdata?';
-	@override String get offlineNutritionClearBody => 'Dette fjerner den downloadede USDA-pakke og opslagscachen. Gemte måltider beholder det nøjagtige øjebliksbillede af ernæringsdata, der blev brugt ved lagring.';
-	@override String get offlineNutritionClearConfirm => 'Ryd data';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Kunne ikke downloade og verificere lokale ernæringsdata: ${error}';
-	@override String get offlineNutritionCleared => 'Lokale ernæringsdata er ryddet';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$da extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'Mindre';
 	@override String get optionTypical => 'Typisk';
 	@override String get optionLarger => 'Større';
+	@override String get useEstimate => 'Brug estimat';
+	@override String numberRange({required Object min, required Object max, required Object step}) => 'Fra ${min} til ${max}, med trin på ${step}';
+	@override String get invalidNumber => 'Indtast en værdi inden for det tilladte område';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$da extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count} ingredienser registreret';
 	@override String get ingredientsPending => 'Scanner ingredienser…';
 	@override String mealPreviewDescription({required Object text}) => '»${text}«';
+	@override String calorieRange({required Object min, required Object max}) => 'Anslået interval: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'Tip: Konsistens slår perfektion—regelmæssige registreringer afslører de vigtige mønstre.';
 	@override String get offlineTip1 => 'Tip: Til fotos hjælper naturligt lys og et top-down-perspektiv med portionsnøjagtigheden.';
 	@override String get offlineTip2 => 'Tip: Angiv drikkevarer, saucer og madolie—de tilføjer kalorier, som mange glemmer.';
 	@override String get offlineTip3 => 'Tip: En hurtig portionsnote (1 skål, stor kaffe) gør estimaterne meget skarpere.';
 	@override String get offlineTip4 => 'Tip: At registrere efter måltidet bygger stadig vanen; perfektion er valgfrit.';
 	@override String get offlineTip5 => 'Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$da extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$da._(TranslationsDa root) : this._root = root, super.internal(root);
-
-	final TranslationsDa _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'Gennemse detekterede ingredienser';
-	@override String get reviewSubtitle => 'Dette blev fortolket på din enhed. Ret navne eller portioner, før næringsindholdet beregnes.';
-	@override String get mealName => 'Måltidets navn';
-	@override String get ingredient => 'Ingrediens';
-	@override String get grams => 'Estimeret antal gram';
-	@override String get removeIngredient => 'Fjern ingrediens';
-	@override String get continueLabel => 'Fortsæt';
-	@override String get invalidProposal => 'Tilføj mindst én ingrediens og brug et positivt antal gram.';
-	@override String get localUnavailable => 'Analyse på enheden er ikke tilgængelig lige nu.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$da extends Translations$settings$sections$
 	@override String get localization => 'LOKALISERING';
 	@override String get notifications => 'NOTIFIKATIONER';
 	@override String get healthConnect => 'Health Connect';
-	@override String get localInference => 'ANALYSE PÅ ENHED';
 	@override String get supportAndLegal => 'SUPPORT & JURA';
 	@override String get about => 'OM';
 	@override String get dangerZone => 'FARLIG ZONE';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$da extends Translations$settings$meal
 	// Translations
 	@override String get title => 'Måltidspåmindelser';
 	@override String get subtitle => 'Hold dig på sporet med rettidige påmindelser';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$da extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$da._(TranslationsDa root) : this._root = root, super.internal(root);
-
-	final TranslationsDa _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Måltidsanalyse på enheden';
-	@override String get subtitle => 'Fortolk understøttede måltider med Gemini Nano, før næringsindholdet beregnes';
-	@override String get unavailable => 'Ikke tilgængelig på denne enhed';
-	@override String get rolloutUnavailable => 'Understøttet hardware fundet, men denne funktion er ikke aktiveret for denne app-version';
-	@override String get modelSetup => 'Gemini Nano skal færdiggøre download, før dette kan aktiveres';
-	@override String get useLocalTitle => 'Brug analyse på enheden';
-	@override String get useLocalSubtitle => 'Resultaterne kan være mindre pålidelige for komplekse måltider.';
-	@override String get disclosureTitle => 'Før du aktiverer analyse på enheden';
-	@override String get disclosureBody => 'Gemini Nano kan identificere ingredienser og estimere portioner på understøttede Android-enheder. Dit gennemsete forslag til ingredienser sendes til Calorify for USDA-næringsvalidering og beregning.';
-	@override String get disclosureLimit1 => 'Komplekse retter, skjulte ingredienser og portionsstørrelser kan blive identificeret forkert.';
-	@override String get disclosureLimit2 => 'Modellen kan være utilgængelig under download, når den er optaget, kører i baggrunden eller er begrænset af enheden.';
-	@override String get disclosureLimit3 => 'Hvis den lokale fortolkning ikke kan færdiggøres, sender denne beta automatisk din oprindelige måltidsbeskrivelse til Calorify for cloud-analyse.';
-	@override String get acknowledgement => 'Jeg forstår, at jeg bør gennemse detekterede ingredienser og portioner.';
-	@override String get enable => 'Bekræft og aktiver';
-	@override String get cancel => 'Annuller';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsDa {
 			'meal.questionFlow.optionSmaller' => 'Mindre',
 			'meal.questionFlow.optionTypical' => 'Typisk',
 			'meal.questionFlow.optionLarger' => 'Større',
+			'meal.questionFlow.useEstimate' => 'Brug estimat',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'Fra ${min} til ${max}, med trin på ${step}',
+			'meal.questionFlow.invalidNumber' => 'Indtast en værdi inden for det tilladte område',
 			'meal.analysis.title' => 'Analyserer dit måltid',
 			'meal.analysis.stepStarted' => 'Starter…',
 			'meal.analysis.stepDecomposition' => 'Forstår dit måltid…',
@@ -2308,21 +2240,13 @@ extension on TranslationsDa {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredienser registreret',
 			'meal.analysis.ingredientsPending' => 'Scanner ingredienser…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '»${text}«',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'Anslået interval: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'Tip: Konsistens slår perfektion—regelmæssige registreringer afslører de vigtige mønstre.',
 			'meal.analysis.offlineTip1' => 'Tip: Til fotos hjælper naturligt lys og et top-down-perspektiv med portionsnøjagtigheden.',
 			'meal.analysis.offlineTip2' => 'Tip: Angiv drikkevarer, saucer og madolie—de tilføjer kalorier, som mange glemmer.',
 			'meal.analysis.offlineTip3' => 'Tip: En hurtig portionsnote (1 skål, stor kaffe) gør estimaterne meget skarpere.',
 			'meal.analysis.offlineTip4' => 'Tip: At registrere efter måltidet bygger stadig vanen; perfektion er valgfrit.',
 			'meal.analysis.offlineTip5' => 'Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt).',
-			'meal.localInference.reviewTitle' => 'Gennemse detekterede ingredienser',
-			'meal.localInference.reviewSubtitle' => 'Dette blev fortolket på din enhed. Ret navne eller portioner, før næringsindholdet beregnes.',
-			'meal.localInference.mealName' => 'Måltidets navn',
-			'meal.localInference.ingredient' => 'Ingrediens',
-			'meal.localInference.grams' => 'Estimeret antal gram',
-			'meal.localInference.removeIngredient' => 'Fjern ingrediens',
-			'meal.localInference.continueLabel' => 'Fortsæt',
-			'meal.localInference.invalidProposal' => 'Tilføj mindst én ingrediens og brug et positivt antal gram.',
-			'meal.localInference.localUnavailable' => 'Analyse på enheden er ikke tilgængelig lige nu.',
 			'meal.feedback.title' => 'Hvad ser forkert ud?',
 			'meal.feedback.subtitle' => 'Hjælp os med at forbedre analysen ved at vælge ét eller flere problemer.',
 			'meal.feedback.tellUsMore' => 'Fortæl os mere',
@@ -2420,7 +2344,6 @@ extension on TranslationsDa {
 			'settings.sections.localization' => 'LOKALISERING',
 			'settings.sections.notifications' => 'NOTIFIKATIONER',
 			'settings.sections.healthConnect' => 'Health Connect',
-			'settings.sections.localInference' => 'ANALYSE PÅ ENHED',
 			'settings.sections.supportAndLegal' => 'SUPPORT & JURA',
 			'settings.sections.about' => 'OM',
 			'settings.sections.dangerZone' => 'FARLIG ZONE',
@@ -2435,21 +2358,6 @@ extension on TranslationsDa {
 			'settings.weightUnit.title' => 'Vægtenhed',
 			'settings.mealReminders.title' => 'Måltidspåmindelser',
 			'settings.mealReminders.subtitle' => 'Hold dig på sporet med rettidige påmindelser',
-			'settings.localInference.title' => 'Måltidsanalyse på enheden',
-			'settings.localInference.subtitle' => 'Fortolk understøttede måltider med Gemini Nano, før næringsindholdet beregnes',
-			'settings.localInference.unavailable' => 'Ikke tilgængelig på denne enhed',
-			'settings.localInference.rolloutUnavailable' => 'Understøttet hardware fundet, men denne funktion er ikke aktiveret for denne app-version',
-			'settings.localInference.modelSetup' => 'Gemini Nano skal færdiggøre download, før dette kan aktiveres',
-			'settings.localInference.useLocalTitle' => 'Brug analyse på enheden',
-			'settings.localInference.useLocalSubtitle' => 'Resultaterne kan være mindre pålidelige for komplekse måltider.',
-			'settings.localInference.disclosureTitle' => 'Før du aktiverer analyse på enheden',
-			'settings.localInference.disclosureBody' => 'Gemini Nano kan identificere ingredienser og estimere portioner på understøttede Android-enheder. Dit gennemsete forslag til ingredienser sendes til Calorify for USDA-næringsvalidering og beregning.',
-			'settings.localInference.disclosureLimit1' => 'Komplekse retter, skjulte ingredienser og portionsstørrelser kan blive identificeret forkert.',
-			'settings.localInference.disclosureLimit2' => 'Modellen kan være utilgængelig under download, når den er optaget, kører i baggrunden eller er begrænset af enheden.',
-			'settings.localInference.disclosureLimit3' => 'Hvis den lokale fortolkning ikke kan færdiggøres, sender denne beta automatisk din oprindelige måltidsbeskrivelse til Calorify for cloud-analyse.',
-			'settings.localInference.acknowledgement' => 'Jeg forstår, at jeg bør gennemse detekterede ingredienser og portioner.',
-			'settings.localInference.enable' => 'Bekræft og aktiver',
-			'settings.localInference.cancel' => 'Annuller',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Lyst',
 			'settings.theme.dark' => 'Mørkt',
@@ -2561,8 +2469,6 @@ extension on TranslationsDa {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Fejl ved fuldførelse af opsætning: ${error}',
 			'notifications.breakfast.title' => 'Morgenmadstid! 🍳',
 			'notifications.breakfast.body' => 'Glem ikke at registrere din morgenmad',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'Frokosttid! 🥗',
 			'notifications.lunch.body' => 'Tid til at registrere din frokost',
 			'notifications.dinner.title' => 'Aftensmadstid! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsDa {
 			'disclaimer.snap.databaseLimitations.title' => 'Databasebegrænsninger',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s fødevaredatabase er omfattende, men indeholder muligvis ikke alle fødevarer eller variationer.',
 			'disclaimer.weightEstimate.title' => 'Om vægtestimatet',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Den prognosticerede vægtændring er et teoretisk estimat baseret på en simpel kalorie-ind vs. kalorie-ud-model. Den er kun tænkt som motivationsvejledning, ikke som en forudsigelse af din faktiske vægt.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorienøjagtighed',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Dette estimat er kun så nøjagtigt som din registrerede kalorieindtagelse og -forbrug. Unøjagtig registrering giver et unøjagtigt skøn.',
@@ -2606,26 +2514,6 @@ extension on TranslationsDa {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vi beregner din TDEE (baseret på din profil) og ganger den med den passerede del af dagen (timer + minutter) / 24 for at estimere forbrændte kalorier indtil nu.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionel vejledning',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Brug ikke dette estimat til medicinske beslutninger. Kontakt altid en sundhedsprofessionel eller registreret diætist for personlig vægtstyringsrådgivning.',
-			'localNutritionPhase4.portionSmaller' => 'Mindre',
-			'localNutritionPhase4.portionEstimated' => 'Anslået',
-			'localNutritionPhase4.portionLarger' => 'Større',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Hvilken portion passede bedst til ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Hvilket måltid var det?',
-			'localNutritionPhase4.localNutritionTip' => 'Beregnet ud fra verificerede lokale ernæringsdata.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Download ernæringsdata',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Brug verificerede USDA-rækker og deterministisk beregning på denne enhed, når alle ingredienser er dækket.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Lokale ernæringsdata er ikke tilgængelige for denne appversion.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'Ingen verificeret ernæringspakke er downloadet.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Downloader og verificerer ernæringsdata…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Pakke ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} cachede USDA-rækker · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Søg efter opdatering',
-			'localNutritionPhase4.offlineNutritionClear' => 'Ryd lokale ernæringsdata',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Ryd lokale ernæringsdata?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'Dette fjerner den downloadede USDA-pakke og opslagscachen. Gemte måltider beholder det nøjagtige øjebliksbillede af ernæringsdata, der blev brugt ved lagring.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Ryd data',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Kunne ikke downloade og verificere lokale ernæringsdata: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Lokale ernæringsdata er ryddet',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'Tilbage',
 			'watch.common.cancel' => 'Annuller',

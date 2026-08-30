@@ -321,7 +321,10 @@
       "optionHeavy": "重",
       "optionSmaller": "較小",
       "optionTypical": "典型",
-      "optionLarger": "較大"
+      "optionLarger": "較大",
+      "useEstimate": "使用估算",
+      "numberRange": "從 {min} 到 {max}，每次以 {step} 為單位",
+      "invalidNumber": "請輸入允許範圍內的數值"
     },
     "analysis": {
       "title": "正在分析您的餐點",
@@ -344,23 +347,13 @@
       "ingredientsLine": "偵測到 {count} 種成分",
       "ingredientsPending": "掃描成分中…",
       "mealPreviewDescription": "「{text}」",
+      "calorieRange": "估算範圍：{min}–{max} kcal",
       "offlineTip0": "提示：持續紀錄比追求完美更重要——規律的紀錄能揭露重要模式。",
       "offlineTip1": "提示：拍照時使用自然光與俯拍有助於估算份量。",
       "offlineTip2": "提示：記得提到飲料、醬汁與烹調用油——這些通常會額外增加熱量。",
       "offlineTip3": "提示：簡單的份量說明（1 碗、大杯咖啡）會讓估算更準確。",
       "offlineTip4": "提示：餐後紀錄仍能建立習慣；不必追求完美。",
       "offlineTip5": "提示：當烹調方式差異會顯著影響熱量時，請說明烹調方式（油炸 vs 烘烤）。"
-    },
-    "localInference": {
-      "reviewTitle": "確認偵測到的食材",
-      "reviewSubtitle": "此內容由您的裝置解析。請在計算營養價值前修正名稱或份量。",
-      "mealName": "餐點名稱",
-      "ingredient": "食材",
-      "grams": "預估克數",
-      "removeIngredient": "移除食材",
-      "continueLabel": "繼續",
-      "invalidProposal": "請至少新增一項食材，且克數必須為正數。",
-      "localUnavailable": "目前無法使用裝置端分析。"
     },
     "feedback": {
       "title": "哪裡看起來不對？",
@@ -502,7 +495,6 @@
       "localization": "在地化",
       "notifications": "通知",
       "healthConnect": "Health Connect",
-      "localInference": "裝置端分析",
       "supportAndLegal": "支援與法律",
       "about": "關於",
       "dangerZone": "危險區",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "用餐提醒",
       "subtitle": "透過定時提醒保持紀錄習慣"
-    },
-    "localInference": {
-      "title": "裝置端餐點分析",
-      "subtitle": "在計算營養價值前，使用 Gemini Nano 解析支援的餐點",
-      "unavailable": "此裝置不支援",
-      "rolloutUnavailable": "偵測到支援的硬體，但此功能尚未在此版本中啟用",
-      "modelSetup": "Gemini Nano 需完成下載後才能啟用此功能",
-      "useLocalTitle": "使用裝置端分析",
-      "useLocalSubtitle": "對於複雜或混合的餐點，結果可能較不準確。",
-      "disclosureTitle": "在啟用裝置端分析之前",
-      "disclosureBody": "Gemini Nano 可在支援的 Android 裝置上識別食材並預估份量。您審核後的食材建議將傳送至 Calorify，以進行 USDA 營養對照與計算。",
-      "disclosureLimit1": "複雜料理、隱藏食材及份量大小可能會被錯誤識別。",
-      "disclosureLimit2": "模型在下載中、忙碌、處於背景執行或受裝置限制時可能無法使用。",
-      "disclosureLimit3": "若本地解析無法完成，此 Beta 版本會自動將您的原始餐點描述傳送至 Calorify 進行雲端分析。",
-      "acknowledgement": "我了解我應該審核偵測到的食材與份量。",
-      "enable": "確認並啟用",
-      "cancel": "取消"
     },
     "theme": {
       "title": "主題",
@@ -787,28 +762,6 @@
         "description": "請勿以此估算作為醫療決策。若需個人化體重管理建議，務必諮詢醫療或註冊營養師。"
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "較小",
-    "portionEstimated": "估算",
-    "portionLarger": "較大",
-    "portionQuestion": "{ingredient} 最接近哪個份量？",
-    "mealTypeQuestion": "這是哪一餐？",
-    "localNutritionTip": "根據已驗證的本機營養資料計算。",
-    "offlineNutritionTitle": "下載營養資料",
-    "offlineNutritionSubtitle": "當所有食材都有資料時，在此裝置上使用已驗證的 USDA 資料列和確定性計算。",
-    "offlineNutritionUnavailable": "此應用程式版本不提供本機營養資料。",
-    "offlineNutritionNotDownloaded": "尚未下載已驗證的營養資料包。",
-    "offlineNutritionInstalling": "正在下載並驗證營養資料…",
-    "offlineNutritionStatus": "資料包 {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} 筆已快取的 USDA 資料列 · {size}",
-    "offlineNutritionUpdate": "檢查更新",
-    "offlineNutritionClear": "清除本機營養資料",
-    "offlineNutritionClearTitle": "清除本機營養資料？",
-    "offlineNutritionClearBody": "這將移除已下載的 USDA 資料包和查詢快取。已記錄的餐點會保留儲存時使用的精確營養快照。",
-    "offlineNutritionClearConfirm": "清除資料",
-    "offlineNutritionInstallFailed": "無法下載並驗證本機營養資料：{error}",
-    "offlineNutritionCleared": "已清除本機營養資料"
   },
   "watch": {
     "appTitle": "Calorify 手錶",

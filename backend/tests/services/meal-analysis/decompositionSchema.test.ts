@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import {
   DECOMPOSITION_SCHEMA,
@@ -38,7 +37,7 @@ const food = {
   meal_type_confident: true,
 };
 
-test('V2 generated decomposition accepts valid food and no-food outputs', () => {
+test('V3 generated decomposition accepts valid food and no-food outputs', () => {
   assert.equal(parseGeneratedDecompositionOutput(food).outcome, 'FOOD');
   assert.equal(parseGeneratedDecompositionOutput({
     outcome: 'NO_FOOD',
@@ -59,7 +58,7 @@ test('V2 generated decomposition accepts valid food and no-food outputs', () => 
   }).outcome, 'NO_FOOD');
 });
 
-test('V2 generated decomposition rejects unknown fields and inconsistent bounds', () => {
+test('V3 generated decomposition rejects unknown fields and inconsistent bounds', () => {
   assert.throws(() => parseGeneratedDecompositionOutput({ ...food, extra: true }));
   const broken = structuredClone(food);
   broken.items[0]!.portion.min_grams = 130;
@@ -106,27 +105,4 @@ test('provider schema uses numeric exclusive bounds accepted by current OpenAI r
     for (const [name, child] of Object.entries(record)) visit(child, `${path}.${name}`);
   };
   visit(DECOMPOSITION_SCHEMA, 'root');
-});
-
-test('on-device schema describes the same generated V2 semantic fields', async () => {
-  const kotlin = await readFile(new URL(
-    '../../../../app/android/app/src/main/kotlin/dev/thecodepapaya/calorify/LocalMealProposalSchema.kt',
-    import.meta.url
-  ), 'utf8');
-  const fields = [
-    'outcome', 'outcomeReason', 'outcomeConfidence', 'mealName', 'items',
-    'inferredMealType', 'mealTypeReason', 'mealTypeConfident', 'rawName',
-    'isFood', 'isFoodReason', 'isFoodConfidence', 'usdaLookup', 'portion',
-    'proposedCanonicalName', 'aliases', 'preparationStates', 'kind',
-    'gramsEstimated', 'minGrams', 'maxGrams', 'count', 'perUnitGrams',
-    'perUnitMinGrams', 'perUnitMaxGrams', 'sizeSpecifiedByUser',
-  ];
-  for (const field of fields) {
-    assert.match(
-      kotlin,
-      new RegExp(`@param:Guide\\(description = "[^"]+"[^)]*\\)\\s+val ${field}:`),
-      `${field} needs a non-empty ML Kit description`
-    );
-  }
-  assert.doesNotMatch(kotlin, /val (schemaVersion|proposalId|rowId):/);
 });

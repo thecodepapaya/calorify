@@ -81,7 +81,6 @@ npm start
 
 npm run meal-analysis -- --text "dal and rice"
 npm run meal-analysis:eval -- --model openai/gpt-5.6-luna
-npm run user:inspect -- --user-id FIREBASE_UID
 npm run usda:migrate    # schema only; never downloads a USDA archive
 npm run usda:bootstrap
 npm run usda:refresh
@@ -122,13 +121,11 @@ active materialized snapshot exists, prompts for text or image input and
 context, and then runs the same observable CLI.
 
 `meal-analysis:eval` evaluates the two compact LLM passes directly, using one
-exact OpenRouter model without fallbacks. It currently repeats the single
-`4 roti daal` case five times and reports assertion-level pass rates without a
-release threshold. USDA, calories, macros, clarification, and presentation are
-outside this eval. See the [meal-analysis eval guide](evals/README.md) for
-scoring, options, and artifacts.
-
-`user:inspect` is a read-only, user-scoped diagnostic report. It shows the profile and locale, daily summary request/result history, bounded provider failure metadata, recent meal-analysis results, logged values, and feedback. Add `--json` for complete stored snapshots and result objects, or `--limit 25` to expand each history section. The tool deliberately excludes tokens and uploaded-image URLs.
+exact OpenRouter model without fallbacks. Its 20-case representative global
+stress dataset runs three repetitions per case by default and reports
+assertion-level pass rates without a release threshold. USDA, calories, macros,
+clarification, and presentation are outside this eval. See the
+[meal-analysis eval guide](evals/README.md) for scoring, options, and artifacts.
 
 ## Model routing
 
@@ -159,15 +156,10 @@ number, preventing a stale worker from modifying a newer claim. The phone
 honors `Retry-After`; an unavailable Firebase token stops before any request and
 does not start its failure cooldown.
 
-The validated request, resolved locale, deterministic statistics, bounded
-failure metadata, provider/model, and generated result remain available through
-`npm run user:inspect -- --user-id FIREBASE_UID`. General logs and metrics do
-not contain the meal snapshot. The complete cross-component workflow is
+The validated request, resolved locale, deterministic statistics, and bounded
+failure metadata remain in the application data store. General logs and metrics
+do not contain the meal snapshot. The complete cross-component workflow is
 documented in [Daily AI summaries](../docs/ai-summary.md).
-
-The canonical meal-analysis flow, persistence boundaries, terminal behavior,
-and resume rules are documented in
-[`docs/meal-analysis-state-machine.md`](docs/meal-analysis-state-machine.md).
 
 ## USDA grounding
 
@@ -210,19 +202,19 @@ the shared USDA database, observability, rollback, and storage maintenance.
 - `GET /health` — process liveness only; it does not check dependencies.
 - `GET /ready` — readiness; requires PostgreSQL and an active, materialized USDA dataset.
 - `GET /metrics` — Prometheus exposition.
-- `GET /analysis-history` — password-protected visual history of durable meal
-  layers, provider attempts, USDA grounding, presentation enrichment, audit
-  actions, and final responses; disabled unless `ANALYSIS_HISTORY_PASSWORD` is set.
 - `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
 - `npm run meal-analysis:eval -- --model openai/gpt-5.6-luna` — direct two-pass
   model accuracy and stability diagnostics.
 - `npm run meal-analysis -- --text "dal and rice"` — observable local V3
   hypothesis flow for text or image input.
-- `npm run user:inspect -- --user-id FIREBASE_UID` — user-scoped AI summary, meal-analysis, and feedback diagnostics.
 - `DEPLOYMENT.md` — Loki/Grafana runtime and troubleshooting commands.
 - [`docs/README.md`](docs/README.md) — backend design notes, release evidence,
   metrics, and evaluation references.
 
 ## Contracts
+
+The app uses only the authenticated
+[`/api/v3/food` meal-analysis contract](docs/meal-analysis-v3-api.md). V3
+sessions, question answers, feedback, and log confirmations are durable.
 
 Protobuf definitions live in the repository-level `protos/` directory. After changing a contract, regenerate outputs with `scripts/generate_protos.sh`, run backend checks, and run affected Flutter tests.

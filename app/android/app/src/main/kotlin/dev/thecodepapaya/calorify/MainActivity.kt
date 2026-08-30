@@ -15,15 +15,10 @@ class MainActivity : FlutterFragmentActivity() {
     private val job = SupervisorJob()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
     private var wearOsHandler: WearOsMessageHandler? = null
-    private var localInferenceChannel: LocalInferenceChannel? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         wearOsHandler = WearOsMessageHandler(this, flutterEngine, coroutineScope)
-        localInferenceChannel = LocalInferenceChannel(
-            flutterEngine,
-            coroutineScope,
-        )
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             HEALTH_CONNECT_CHANNEL,
@@ -80,21 +75,9 @@ class MainActivity : FlutterFragmentActivity() {
         false
     }
 
-    override fun onResume() {
-        super.onResume()
-        localInferenceChannel?.setForeground(true)
-    }
-
-    override fun onPause() {
-        localInferenceChannel?.setForeground(false)
-        super.onPause()
-    }
-
     override fun onDestroy() {
         wearOsHandler?.dispose()
         wearOsHandler = null
-        localInferenceChannel?.dispose()
-        localInferenceChannel = null
         job.cancel()
         super.onDestroy()
     }

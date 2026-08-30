@@ -57,7 +57,6 @@ class TranslationsTe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$te notifications = _Translations$notifications$te._(_root);
 	@override late final _Translations$login$te login = _Translations$login$te._(_root);
 	@override late final _Translations$disclaimer$te disclaimer = _Translations$disclaimer$te._(_root);
-	@override late final _Translations$localNutritionPhase4$te localNutritionPhase4 = _Translations$localNutritionPhase4$te._(_root);
 	@override late final _Translations$watch$te watch = _Translations$watch$te._(_root);
 	@override late final _Translations$common$te common = _Translations$common$te._(_root);
 	@override late final _Translations$feedbackRating$te feedbackRating = _Translations$feedbackRating$te._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$te extends Translations$meal$en {
 	@override String get skip => 'దాటవేయి';
 	@override late final _Translations$meal$questionFlow$te questionFlow = _Translations$meal$questionFlow$te._(_root);
 	@override late final _Translations$meal$analysis$te analysis = _Translations$meal$analysis$te._(_root);
-	@override late final _Translations$meal$localInference$te localInference = _Translations$meal$localInference$te._(_root);
 	@override late final _Translations$meal$feedback$te feedback = _Translations$meal$feedback$te._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$te extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$te heightUnit = _Translations$settings$heightUnit$te._(_root);
 	@override late final _Translations$settings$weightUnit$te weightUnit = _Translations$settings$weightUnit$te._(_root);
 	@override late final _Translations$settings$mealReminders$te mealReminders = _Translations$settings$mealReminders$te._(_root);
-	@override late final _Translations$settings$localInference$te localInference = _Translations$settings$localInference$te._(_root);
 	@override late final _Translations$settings$theme$te theme = _Translations$settings$theme$te._(_root);
 	@override late final _Translations$settings$sendFeedback$te sendFeedback = _Translations$settings$sendFeedback$te._(_root);
 	@override late final _Translations$settings$exportMealHistory$te exportMealHistory = _Translations$settings$exportMealHistory$te._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$te extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$te weightEstimate = _Translations$disclaimer$weightEstimate$te._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$te healthMetrics = _Translations$disclaimer$healthMetrics$te._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$te calorieExpenditure = _Translations$disclaimer$calorieExpenditure$te._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$te extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$te._(TranslationsTe root) : this._root = root, super.internal(root);
-
-	final TranslationsTe _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'చిన్నది';
-	@override String get portionEstimated => 'అంచనా';
-	@override String get portionLarger => 'పెద్దది';
-	@override String portionQuestion({required Object ingredient}) => '${ingredient}కు ఏ పరిమాణం అత్యంత దగ్గరగా ఉంది?';
-	@override String get mealTypeQuestion => 'ఇది ఏ భోజనం?';
-	@override String get localNutritionTip => 'ధృవీకరించిన స్థానిక పోషక డేటా నుంచి లెక్కించబడింది.';
-	@override String get offlineNutritionTitle => 'పోషక డేటాను డౌన్‌లోడ్ చేయండి';
-	@override String get offlineNutritionSubtitle => 'ప్రతి పదార్థం అందుబాటులో ఉన్నప్పుడు ఈ పరికరంలో ధృవీకరించిన USDA వరుసలు మరియు నిర్ధారిత లెక్కింపును ఉపయోగించండి.';
-	@override String get offlineNutritionUnavailable => 'ఈ యాప్ విడుదలకు స్థానిక పోషక డేటా అందుబాటులో లేదు.';
-	@override String get offlineNutritionNotDownloaded => 'ధృవీకరించిన పోషక ప్యాక్ ఏదీ డౌన్‌లోడ్ కాలేదు.';
-	@override String get offlineNutritionInstalling => 'పోషక డేటాను డౌన్‌లోడ్ చేసి ధృవీకరిస్తోంది…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'ప్యాక్ ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} క్యాష్ చేసిన USDA వరుసలు · ${size}';
-	@override String get offlineNutritionUpdate => 'అప్‌డేట్ కోసం తనిఖీ చేయండి';
-	@override String get offlineNutritionClear => 'స్థానిక పోషక డేటాను తొలగించండి';
-	@override String get offlineNutritionClearTitle => 'స్థానిక పోషక డేటాను తొలగించాలా?';
-	@override String get offlineNutritionClearBody => 'ఇది డౌన్‌లోడ్ చేసిన USDA ప్యాక్ మరియు శోధన క్యాష్‌ను తొలగిస్తుంది. నమోదు చేసిన భోజనాలు సేవ్ చేసినప్పుడు ఉపయోగించిన ఖచ్చితమైన పోషక స్నాప్‌షాట్‌ను ఉంచుకుంటాయి.';
-	@override String get offlineNutritionClearConfirm => 'డేటాను తొలగించండి';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'స్థానిక పోషక డేటాను డౌన్‌లోడ్ చేసి ధృవీకరించలేకపోయింది: ${error}';
-	@override String get offlineNutritionCleared => 'స్థానిక పోషక డేటా తొలగించబడింది';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$te extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'చిన్నది';
 	@override String get optionTypical => 'సాధారణ';
 	@override String get optionLarger => 'పెద్దది';
+	@override String get useEstimate => 'అంచనాను ఉపయోగించండి';
+	@override String numberRange({required Object min, required Object max, required Object step}) => '${min} నుండి ${max} వరకు, ఒక్కో దశ ${step} చొప్పున';
+	@override String get invalidNumber => 'అనుమతించిన పరిధిలోని విలువను నమోదు చేయండి';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$te extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count} పదార్థాలు గుర్తించబడ్డాయి';
 	@override String get ingredientsPending => 'పదార్థాలను స్కాన్ చేస్తోంది…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => 'అంచనా పరిధి: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'చిట్కా: స్థిరత్వం పరిపూర్ణతను అధిగమిస్తుంది—సాధారణ లాగ్‌లు ముఖ్యమైన నమూనాలను వెల్లడిస్తాయి.';
 	@override String get offlineTip1 => 'చిట్కా: ఫోటోల కోసం, సహజ కాంతి మరియు పై నుండి వీక్షణ భాగం ఖచ్చితత్వానికి సహాయపడతాయి.';
 	@override String get offlineTip2 => 'చిట్కా: పానీయాలు, సాస్‌లు మరియు వంట నూనెను పేర్కొనండి—అవి ప్రజలు తరచుగా మరచిపోయే కేలరీలను జోడిస్తాయి.';
 	@override String get offlineTip3 => 'చిట్కా: త్వరిత భాగం గమనిక (1 గిన్నె, పెద్ద కాఫీ) అంచనాలను చాలా పదునుగా చేస్తుంది.';
 	@override String get offlineTip4 => 'చిట్కా: భోజనం తర్వాత లాగింగ్ చేయడం అలవాటును ఇంకా పెంచుతుంది; పరిపూర్ణత ఐచ్ఛికం.';
 	@override String get offlineTip5 => 'చిట్కా: కేలరీలు చాలా మారినప్పుడు (వేయించినవి vs కాల్చినవి) ఆహారాన్ని ఎలా వండారో చెప్పండి.';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$te extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$te._(TranslationsTe root) : this._root = root, super.internal(root);
-
-	final TranslationsTe _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'గుర్తించిన పదార్థాలను సమీక్షించండి';
-	@override String get reviewSubtitle => 'ఇది మీ పరికరంలో విశ్లేషించబడింది. పోషక విలువలు లెక్కించే ముందు పేర్లను లేదా పరిమాణాలను సరిచేసుకోండి.';
-	@override String get mealName => 'భోజనం పేరు';
-	@override String get ingredient => 'పదార్థం';
-	@override String get grams => 'అంచనా వేసిన గ్రాములు';
-	@override String get removeIngredient => 'పదార్థాన్ని తొలగించు';
-	@override String get continueLabel => 'కొనసాగించు';
-	@override String get invalidProposal => 'కనీసం ఒక పదార్థాన్ని జోడించండి మరియు సరైన గ్రాముల పరిమాణాన్ని ఉపయోగించండి.';
-	@override String get localUnavailable => 'ఆన్-డివైస్ విశ్లేషణ ప్రస్తుతం అందుబాటులో లేదు.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$te extends Translations$settings$sections$
 	@override String get localization => 'స్థానికీకరణ';
 	@override String get notifications => 'నోటిఫికేషన్‌లు';
 	@override String get healthConnect => 'హెల్త్ కనెక్ట్';
-	@override String get localInference => 'ఆన్-డివైస్ విశ్లేషణ';
 	@override String get supportAndLegal => 'మద్దతు & చట్టపరమైన';
 	@override String get about => 'గురించి';
 	@override String get dangerZone => 'డేంజర్ జోన్';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$te extends Translations$settings$meal
 	// Translations
 	@override String get title => 'భోజన రిమైండర్‌లు';
 	@override String get subtitle => 'సమయానుకూల హెచ్చరికలతో ట్రాక్‌లో ఉండండి';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$te extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$te._(TranslationsTe root) : this._root = root, super.internal(root);
-
-	final TranslationsTe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'ఆన్-డివైస్ భోజన విశ్లేషణ';
-	@override String get subtitle => 'పోషక విలువలు లెక్కించే ముందు Gemini Nano తో మద్దతు ఉన్న భోజనాలను విశ్లేషించండి';
-	@override String get unavailable => 'ఈ పరికరంలో అందుబాటులో లేదు';
-	@override String get rolloutUnavailable => 'మద్దతు ఉన్న హార్డ్‌వేర్ ఉంది, కానీ ఈ యాప్ వెర్షన్‌లో ఈ ఫీచర్ ఎనేబుల్ చేయబడలేదు';
-	@override String get modelSetup => 'దీనిని ఎనేబుల్ చేయడానికి ముందు Gemini Nano డౌన్‌లోడ్ పూర్తి కావాలి';
-	@override String get useLocalTitle => 'ఆన్-డివైస్ విశ్లేషణను ఉపయోగించు';
-	@override String get useLocalSubtitle => 'జటిలమైన వంటకాల కోసం ఫలితాలు కొంతమేర తక్కువ విశ్వాసయోగ్యంగా ఉండొచ్చు.';
-	@override String get disclosureTitle => 'ఆన్-డివైస్ విశ్లేషణను ఎనేబుల్ చేసే ముందు';
-	@override String get disclosureBody => 'మద్దతు ఉన్న Android పరికరాలలో Gemini Nano పదార్థాలను గుర్తించగలదు మరియు పరిమాణాలను అంచనా వేయగలదు. మీరు సమీక్షించిన పదార్థాల ప్రతిపాదన USDA పోషక విశ్లేషణ మరియు గణన కోసం Calorifyకి పంపబడుతుంది.';
-	@override String get disclosureLimit1 => 'సంక్లిష్టమైన వంటకాలు, దాగి ఉన్న పదార్థాలు మరియు పరిమాణాలు తప్పుగా గుర్తించబడవచ్చు.';
-	@override String get disclosureLimit2 => 'డౌన్‌లోడ్ అవుతున్నప్పుడు, బిజీగా ఉన్నప్పుడు, బ్యాక్‌గ్రౌండ్‌లో ఉన్నప్పుడు లేదా పరికర పరిమితుల వల్ల మోడల్ అందుబాటులో ఉండకపోవచ్చు.';
-	@override String get disclosureLimit3 => 'స్థానిక విశ్లేషణ పూర్తి కాకపోతే, ఈ బీటా వెర్షన్ మీ అసలు భోజన వివరణను క్లౌడ్ విశ్లేషణ కోసం స్వయంచాలకంగా Calorifyకి పంపుతుంది.';
-	@override String get acknowledgement => 'గుర్తించిన పదార్థాలను మరియు పరిమాణాలను నేను సమీక్షించాలో నాకు అర్థమైంది.';
-	@override String get enable => 'అంగీకరించి ఎనేబుల్ చేయి';
-	@override String get cancel => 'రద్దు చేయి';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsTe {
 			'meal.questionFlow.optionSmaller' => 'చిన్నది',
 			'meal.questionFlow.optionTypical' => 'సాధారణ',
 			'meal.questionFlow.optionLarger' => 'పెద్దది',
+			'meal.questionFlow.useEstimate' => 'అంచనాను ఉపయోగించండి',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => '${min} నుండి ${max} వరకు, ఒక్కో దశ ${step} చొప్పున',
+			'meal.questionFlow.invalidNumber' => 'అనుమతించిన పరిధిలోని విలువను నమోదు చేయండి',
 			'meal.analysis.title' => 'మీ భోజనాన్ని విశ్లేషిస్తోంది',
 			'meal.analysis.stepStarted' => 'ప్రారంభిస్తోంది…',
 			'meal.analysis.stepDecomposition' => 'మీ భోజనాన్ని అర్థం చేసుకుంటోంది…',
@@ -2308,21 +2240,13 @@ extension on TranslationsTe {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} పదార్థాలు గుర్తించబడ్డాయి',
 			'meal.analysis.ingredientsPending' => 'పదార్థాలను స్కాన్ చేస్తోంది…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'అంచనా పరిధి: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'చిట్కా: స్థిరత్వం పరిపూర్ణతను అధిగమిస్తుంది—సాధారణ లాగ్‌లు ముఖ్యమైన నమూనాలను వెల్లడిస్తాయి.',
 			'meal.analysis.offlineTip1' => 'చిట్కా: ఫోటోల కోసం, సహజ కాంతి మరియు పై నుండి వీక్షణ భాగం ఖచ్చితత్వానికి సహాయపడతాయి.',
 			'meal.analysis.offlineTip2' => 'చిట్కా: పానీయాలు, సాస్‌లు మరియు వంట నూనెను పేర్కొనండి—అవి ప్రజలు తరచుగా మరచిపోయే కేలరీలను జోడిస్తాయి.',
 			'meal.analysis.offlineTip3' => 'చిట్కా: త్వరిత భాగం గమనిక (1 గిన్నె, పెద్ద కాఫీ) అంచనాలను చాలా పదునుగా చేస్తుంది.',
 			'meal.analysis.offlineTip4' => 'చిట్కా: భోజనం తర్వాత లాగింగ్ చేయడం అలవాటును ఇంకా పెంచుతుంది; పరిపూర్ణత ఐచ్ఛికం.',
 			'meal.analysis.offlineTip5' => 'చిట్కా: కేలరీలు చాలా మారినప్పుడు (వేయించినవి vs కాల్చినవి) ఆహారాన్ని ఎలా వండారో చెప్పండి.',
-			'meal.localInference.reviewTitle' => 'గుర్తించిన పదార్థాలను సమీక్షించండి',
-			'meal.localInference.reviewSubtitle' => 'ఇది మీ పరికరంలో విశ్లేషించబడింది. పోషక విలువలు లెక్కించే ముందు పేర్లను లేదా పరిమాణాలను సరిచేసుకోండి.',
-			'meal.localInference.mealName' => 'భోజనం పేరు',
-			'meal.localInference.ingredient' => 'పదార్థం',
-			'meal.localInference.grams' => 'అంచనా వేసిన గ్రాములు',
-			'meal.localInference.removeIngredient' => 'పదార్థాన్ని తొలగించు',
-			'meal.localInference.continueLabel' => 'కొనసాగించు',
-			'meal.localInference.invalidProposal' => 'కనీసం ఒక పదార్థాన్ని జోడించండి మరియు సరైన గ్రాముల పరిమాణాన్ని ఉపయోగించండి.',
-			'meal.localInference.localUnavailable' => 'ఆన్-డివైస్ విశ్లేషణ ప్రస్తుతం అందుబాటులో లేదు.',
 			'meal.feedback.title' => 'ఏమి తప్పుగా కనిపిస్తుంది?',
 			'meal.feedback.subtitle' => 'ఒకటి లేదా అంతకంటే ఎక్కువ సమస్యలను ఎంచుకోవడం ద్వారా విశ్లేషణను మెరుగుపరచడంలో మాకు సహాయపడండి.',
 			'meal.feedback.tellUsMore' => 'మరింత చెప్పండి',
@@ -2420,7 +2344,6 @@ extension on TranslationsTe {
 			'settings.sections.localization' => 'స్థానికీకరణ',
 			'settings.sections.notifications' => 'నోటిఫికేషన్‌లు',
 			'settings.sections.healthConnect' => 'హెల్త్ కనెక్ట్',
-			'settings.sections.localInference' => 'ఆన్-డివైస్ విశ్లేషణ',
 			'settings.sections.supportAndLegal' => 'మద్దతు & చట్టపరమైన',
 			'settings.sections.about' => 'గురించి',
 			'settings.sections.dangerZone' => 'డేంజర్ జోన్',
@@ -2435,21 +2358,6 @@ extension on TranslationsTe {
 			'settings.weightUnit.title' => 'బరువు యూనిట్',
 			'settings.mealReminders.title' => 'భోజన రిమైండర్‌లు',
 			'settings.mealReminders.subtitle' => 'సమయానుకూల హెచ్చరికలతో ట్రాక్‌లో ఉండండి',
-			'settings.localInference.title' => 'ఆన్-డివైస్ భోజన విశ్లేషణ',
-			'settings.localInference.subtitle' => 'పోషక విలువలు లెక్కించే ముందు Gemini Nano తో మద్దతు ఉన్న భోజనాలను విశ్లేషించండి',
-			'settings.localInference.unavailable' => 'ఈ పరికరంలో అందుబాటులో లేదు',
-			'settings.localInference.rolloutUnavailable' => 'మద్దతు ఉన్న హార్డ్‌వేర్ ఉంది, కానీ ఈ యాప్ వెర్షన్‌లో ఈ ఫీచర్ ఎనేబుల్ చేయబడలేదు',
-			'settings.localInference.modelSetup' => 'దీనిని ఎనేబుల్ చేయడానికి ముందు Gemini Nano డౌన్‌లోడ్ పూర్తి కావాలి',
-			'settings.localInference.useLocalTitle' => 'ఆన్-డివైస్ విశ్లేషణను ఉపయోగించు',
-			'settings.localInference.useLocalSubtitle' => 'జటిలమైన వంటకాల కోసం ఫలితాలు కొంతమేర తక్కువ విశ్వాసయోగ్యంగా ఉండొచ్చు.',
-			'settings.localInference.disclosureTitle' => 'ఆన్-డివైస్ విశ్లేషణను ఎనేబుల్ చేసే ముందు',
-			'settings.localInference.disclosureBody' => 'మద్దతు ఉన్న Android పరికరాలలో Gemini Nano పదార్థాలను గుర్తించగలదు మరియు పరిమాణాలను అంచనా వేయగలదు. మీరు సమీక్షించిన పదార్థాల ప్రతిపాదన USDA పోషక విశ్లేషణ మరియు గణన కోసం Calorifyకి పంపబడుతుంది.',
-			'settings.localInference.disclosureLimit1' => 'సంక్లిష్టమైన వంటకాలు, దాగి ఉన్న పదార్థాలు మరియు పరిమాణాలు తప్పుగా గుర్తించబడవచ్చు.',
-			'settings.localInference.disclosureLimit2' => 'డౌన్‌లోడ్ అవుతున్నప్పుడు, బిజీగా ఉన్నప్పుడు, బ్యాక్‌గ్రౌండ్‌లో ఉన్నప్పుడు లేదా పరికర పరిమితుల వల్ల మోడల్ అందుబాటులో ఉండకపోవచ్చు.',
-			'settings.localInference.disclosureLimit3' => 'స్థానిక విశ్లేషణ పూర్తి కాకపోతే, ఈ బీటా వెర్షన్ మీ అసలు భోజన వివరణను క్లౌడ్ విశ్లేషణ కోసం స్వయంచాలకంగా Calorifyకి పంపుతుంది.',
-			'settings.localInference.acknowledgement' => 'గుర్తించిన పదార్థాలను మరియు పరిమాణాలను నేను సమీక్షించాలో నాకు అర్థమైంది.',
-			'settings.localInference.enable' => 'అంగీకరించి ఎనేబుల్ చేయి',
-			'settings.localInference.cancel' => 'రద్దు చేయి',
 			'settings.theme.title' => 'థీమ్',
 			'settings.theme.light' => 'లేత',
 			'settings.theme.dark' => 'ముదురు',
@@ -2561,8 +2469,6 @@ extension on TranslationsTe {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'సెటప్‌ను పూర్తి చేయడంలో లోపం: ${error}',
 			'notifications.breakfast.title' => 'అల్పాహారం సమయం! 🍳',
 			'notifications.breakfast.body' => 'మీ అల్పాహారాన్ని లాగ్ చేయడం మర్చిపోవద్దు',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'మధ్యాహ్న భోజనం సమయం! 🥗',
 			'notifications.lunch.body' => 'మీ మధ్యాహ్న భోజనాన్ని లాగ్ చేయడానికి సమయం',
 			'notifications.dinner.title' => 'రాత్రి భోజనం సమయం! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsTe {
 			'disclaimer.snap.databaseLimitations.title' => 'డేటాబేస్ పరిమితులు',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} యొక్క ఆహార డేటాబేస్ విస్తృతమైనది కానీ ప్రతి ఒక్క ఆహార వస్తువు లేదా వైవిధ్యాన్ని కలిగి ఉండకపోవచ్చు.',
 			'disclaimer.weightEstimate.title' => 'బరువు అంచనా గురించి',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'అంచనా వేసిన బరువు మార్పు అనేది సాధారణ క్యాలరీ-ఇన్ వర్సెస్ క్యాలరీ-అవుట్ మోడల్ ఆధారంగా ఒక సైద్ధాంతిక అంచనా. ఇది ప్రేరణాత్మక మార్గదర్శకత్వం కోసం మాత్రమే ఉద్దేశించబడింది, మీ వాస్తవ బరువు యొక్క అంచనాగా కాదు.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'క్యాలరీ ఖచ్చితత్వం',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ఈ అంచనా మీ ట్రాక్ చేయబడిన క్యాలరీ తీసుకోవడం మరియు ఖర్చు చేసినంత ఖచ్చితమైనది. తప్పు లాగింగ్ తప్పు అంచనాకు దారి తీస్తుంది.',
@@ -2606,26 +2514,6 @@ extension on TranslationsTe {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'మేము మీ TDEE (మీ ప్రొఫైల్ ఆధారంగా)ని లెక్కిస్తాము మరియు ఇప్పటివరకు బర్న్ చేసిన కేలరీలను అంచనా వేయడానికి గడిచిన రోజులో (గంటలు + నిమిషాలు) / 24 భిన్నంతో గుణిస్తాము.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'వృత్తిపరమైన మార్గదర్శకత్వం',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'వైద్య నిర్ణయాలు తీసుకోవడానికి ఈ అంచనాను ఉపయోగించవద్దు. వ్యక్తిగతీకరించిన బరువు నిర్వహణ సలహా కోసం ఎల్లప్పుడూ ఆరోగ్య సంరక్షణ నిపుణుడిని లేదా రిజిస్టర్డ్ డైటీషియన్‌ను సంప్రదించండి.',
-			'localNutritionPhase4.portionSmaller' => 'చిన్నది',
-			'localNutritionPhase4.portionEstimated' => 'అంచనా',
-			'localNutritionPhase4.portionLarger' => 'పెద్దది',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => '${ingredient}కు ఏ పరిమాణం అత్యంత దగ్గరగా ఉంది?',
-			'localNutritionPhase4.mealTypeQuestion' => 'ఇది ఏ భోజనం?',
-			'localNutritionPhase4.localNutritionTip' => 'ధృవీకరించిన స్థానిక పోషక డేటా నుంచి లెక్కించబడింది.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'పోషక డేటాను డౌన్‌లోడ్ చేయండి',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'ప్రతి పదార్థం అందుబాటులో ఉన్నప్పుడు ఈ పరికరంలో ధృవీకరించిన USDA వరుసలు మరియు నిర్ధారిత లెక్కింపును ఉపయోగించండి.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'ఈ యాప్ విడుదలకు స్థానిక పోషక డేటా అందుబాటులో లేదు.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'ధృవీకరించిన పోషక ప్యాక్ ఏదీ డౌన్‌లోడ్ కాలేదు.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'పోషక డేటాను డౌన్‌లోడ్ చేసి ధృవీకరిస్తోంది…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'ప్యాక్ ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} క్యాష్ చేసిన USDA వరుసలు · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'అప్‌డేట్ కోసం తనిఖీ చేయండి',
-			'localNutritionPhase4.offlineNutritionClear' => 'స్థానిక పోషక డేటాను తొలగించండి',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'స్థానిక పోషక డేటాను తొలగించాలా?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'ఇది డౌన్‌లోడ్ చేసిన USDA ప్యాక్ మరియు శోధన క్యాష్‌ను తొలగిస్తుంది. నమోదు చేసిన భోజనాలు సేవ్ చేసినప్పుడు ఉపయోగించిన ఖచ్చితమైన పోషక స్నాప్‌షాట్‌ను ఉంచుకుంటాయి.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'డేటాను తొలగించండి',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'స్థానిక పోషక డేటాను డౌన్‌లోడ్ చేసి ధృవీకరించలేకపోయింది: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'స్థానిక పోషక డేటా తొలగించబడింది',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'వెనుకకు',
 			'watch.common.cancel' => 'రద్దు చేయి',

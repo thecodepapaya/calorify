@@ -31,7 +31,7 @@ histogram_quantile(0.95,
 )
 
 ## Firebase Analytics (app)
-Event: mealAnalysisV2Completed
+Event: mealAnalysisV3Completed
 Parameters: duration_ms (int), source (image | text)
 
 See also: backend/docs/meal-analysis-prometheus.md

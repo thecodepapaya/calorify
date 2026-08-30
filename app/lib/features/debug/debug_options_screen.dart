@@ -13,18 +13,15 @@ import 'package:calorify/core/services/wear_os_channel.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
 import 'package:calorify/features/debug/database_inspector_screen.dart';
-import 'package:calorify/features/debug/local_inference_debug_screen.dart';
 import 'package:calorify/features/debug/meal_analysis_observability_screen.dart';
-import 'package:calorify/features/debug/meal_analysis_sheet_debug_previews.dart';
 import 'package:calorify/features/debug/widgets/debug_firebase_token_tile.dart';
 import 'package:calorify/features/debug/widgets/debug_user_id_field.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
+import 'package:calorify/features/home/utils/local_text_meal_analysis_flow.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_easter_egg_test_screen.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_trigger.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -104,11 +101,6 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     final healthConnectOptions = _buildHealthConnectOptions(context);
     final wearOsOptions = _buildWearOsOptions(context);
     final foodApiOptions = _buildFoodApiOptions(context);
-    final localInferenceOptions =
-        kDebugMode ? _buildLocalInferenceOptions(context) : null;
-    final mealAnalysisSheetUiOptions = _buildMealAnalysisSheetUiOptions(
-      context,
-    );
     final mealObsOptions = _buildMealAnalysisObservabilityOptions(context);
     final profileApiOptions = _buildProfileApiOptions(context);
     final feedbackOptions = _buildFeedbackOptions(context);
@@ -172,16 +164,6 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
             if (foodApiOptions != null) ...[
               _buildSectionTitle(context, 'Food API Tests'),
               foodApiOptions,
-              const SizedBox(height: 24),
-            ],
-            if (localInferenceOptions != null) ...[
-              _buildSectionTitle(context, 'Local inference'),
-              localInferenceOptions,
-              const SizedBox(height: 24),
-            ],
-            if (mealAnalysisSheetUiOptions != null) ...[
-              _buildSectionTitle(context, 'Meal analysis sheet'),
-              mealAnalysisSheetUiOptions,
               const SizedBox(height: 24),
             ],
             if (mealObsOptions != null) ...[
@@ -773,12 +755,12 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         'Choose, compress, and upload a gallery image without starting analysis',
       ),
       (
-        'Test Analyze Image (V2)',
-        'Upload + POST /api/v2/food/analyze-image (SSE) → sheet → tip / log',
+        'Test Analyze Image (V3)',
+        'Upload + POST /api/v3/food/analyze-image (NDJSON) → questions → tip / log',
       ),
       (
         'Test meal logging with clarifications',
-        'POST /api/v2/food/analyze-text (SSE) → sheet → tip / log',
+        'POST /api/v3/food/analyze-text (NDJSON) → questions → tip / log',
       ),
     ];
     final items = <Widget>[
@@ -800,19 +782,19 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       ),
       ListTile(
         leading: const Icon(LucideIcons.scanSearch),
-        title: const Text('Test Analyze Image (V2)'),
+        title: const Text('Test Analyze Image (V3)'),
         subtitle: const Text(
-          'Upload + POST /api/v2/food/analyze-image (SSE) → sheet → tip / log',
+          'Upload + POST /api/v3/food/analyze-image (NDJSON) → questions → tip / log',
         ),
-        onTap: _testAnalyzeImageV2,
+        onTap: _testAnalyzeImageV3,
       ),
       ListTile(
         leading: const Icon(LucideIcons.route),
         title: const Text('Test meal logging with clarifications'),
         subtitle: const Text(
-          'POST /api/v2/food/analyze-text (SSE) → sheet → tip / log',
+          'POST /api/v3/food/analyze-text (NDJSON) → questions → tip / log',
         ),
-        onTap: _testMealLoggingWithClarificationsV2,
+        onTap: _testMealLoggingWithClarificationsV3,
       ),
     ];
     final filtered = <Widget>[];
@@ -866,13 +848,13 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
 
       if (!mounted) return;
       _showSnackbar('Uploading compressed image...');
-      final imageUrl = await FoodRepository().uploadMealImage(compressedFile);
+      final upload = await FoodRepository().uploadMealImageV3(compressedFile);
       if (!mounted) return;
 
       _showDataDialog(
         'Image upload succeeded',
         'Uploaded: ${_formatBytes(compressedBytes.length)}\n'
-            'Historical image URL received: ${imageUrl.isNotEmpty ? 'yes' : 'no'}',
+            'Opaque image ID received: ${upload.imageId.isNotEmpty ? 'yes' : 'no'}',
       );
     } catch (error) {
       if (!mounted) return;
@@ -890,107 +872,6 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     if (bytes < 1024) return '$bytes B';
     if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)} KiB';
     return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MiB';
-  }
-
-  Widget? _buildLocalInferenceOptions(BuildContext context) {
-    const section = 'Local inference';
-    const title = 'Gemini Nano one-off tests';
-    if (!_matchesQuery(section, title, 'capability comparison nutrition')) {
-      return null;
-    }
-    return Card(
-      child: ListTile(
-        leading: const Icon(LucideIcons.cpu),
-        title: const Text(title),
-        subtitle: const Text(
-          'Capability, warm-up, local/cloud comparison, and nutrition checks',
-        ),
-        trailing: const Icon(LucideIcons.chevronRight, size: 18),
-        onTap:
-            () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (_) => const LocalInferenceDebugScreen(),
-                settings: const RouteSettings(name: 'localInferenceTests'),
-              ),
-            ),
-      ),
-    );
-  }
-
-  Widget? _buildMealAnalysisSheetUiOptions(BuildContext context) {
-    const section = 'Meal analysis sheet';
-    const titleSubtitle = [
-      (
-        'Sheet: early pipeline',
-        'Progress only — STARTED step (no preview panel)',
-      ),
-      ('Sheet: decomposition', 'Meal title + decomposed ingredient signals'),
-      (
-        'Sheet: ingredients matched',
-        'Resolved ingredient list (INGREDIENTS step)',
-      ),
-      (
-        'Sheet: progress step 3 / 4',
-        'UNCERTAINTY phase — label progressCheck, bar at 75%',
-      ),
-      (
-        'Sheet: with text banner',
-        'Same as decomposition plus logged meal text preview strip',
-      ),
-      (
-        'Sheet: with photo banner',
-        'Downloads sample image — hero strip + pipeline UI',
-      ),
-    ];
-    final items = <Widget>[
-      ListTile(
-        leading: const Icon(LucideIcons.circleDot),
-        title: const Text('Sheet: early pipeline'),
-        subtitle: const Text('Progress only — STARTED step (no preview panel)'),
-        onTap: () => previewMealAnalysisSheetStartedOnly(context),
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.layoutList),
-        title: const Text('Sheet: decomposition'),
-        subtitle: const Text('Meal title + decomposed ingredient signals'),
-        onTap: () => previewMealAnalysisSheetDecomposition(context),
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.listChecks),
-        title: const Text('Sheet: ingredients matched'),
-        subtitle: const Text('Resolved ingredient list (INGREDIENTS step)'),
-        onTap: () => previewMealAnalysisSheetIngredients(context),
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.scale),
-        title: const Text('Sheet: progress step 3 / 4'),
-        subtitle: const Text(
-          'UNCERTAINTY phase — label progressCheck, bar at 75%',
-        ),
-        onTap: () => previewMealAnalysisSheetProgressStep3(context),
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.fileText),
-        title: const Text('Sheet: with text banner'),
-        subtitle: const Text('Plus logged meal text preview strip'),
-        onTap: () => previewMealAnalysisSheetWithTextBanner(context),
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.imagePlus),
-        title: const Text('Sheet: with photo banner'),
-        subtitle: const Text(
-          'Downloads sample image — hero strip + pipeline UI',
-        ),
-        onTap: _previewMealAnalysisSheetWithPhotoBanner,
-      ),
-    ];
-    final filtered = <Widget>[];
-    for (var i = 0; i < items.length; i++) {
-      final (t, s) = titleSubtitle[i];
-      if (_matchesQuery(section, t, s)) filtered.add(items[i]);
-    }
-    if (filtered.isEmpty) return null;
-    return Card(child: Column(children: filtered));
   }
 
   Widget? _buildMealAnalysisObservabilityOptions(BuildContext context) {
@@ -1069,83 +950,21 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     }
   }
 
-  /// Upload sample image, stream [POST /api/v2/food/analyze-image], full V2 sheet → meal tip.
-  Future<void> _testAnalyzeImageV2() async {
-    try {
-      _showSnackbar('Upload + POST /api/v2/food/analyze-image ...');
-
-      final testImageUrl =
-          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
-      final tempDir = Directory.systemTemp;
-      final testImageFile = File(
-        '${tempDir.path}/test_food_image_v2_${DateTime.now().millisecondsSinceEpoch}.jpg',
-      );
-
-      final response = await NetworkClient.instance.client.get<List<int>>(
-        testImageUrl,
-        options: Options(responseType: ResponseType.bytes),
-      );
-      await testImageFile.writeAsBytes(response.data!);
-
-      final repository = FoodRepository();
-      final handle = await repository.analyzeImageV2(imageFile: testImageFile);
-      final bytes = Uint8List.fromList(await testImageFile.readAsBytes());
-
-      try {
-        await testImageFile.delete();
-      } catch (_) {}
-
-      if (!mounted) return;
-
-      await showV2MealAnalysisFlow(
-        context: context,
-        imageBytes: bytes,
-        imageUrl: handle.imageUrl,
-        startAnalysis: (_, _) async => handle.events,
-      );
-    } catch (e) {
-      if (!mounted) return;
-      _showSnackbar('Error: $e');
-    }
+  /// Opens the production V3 image flow entry point.
+  Future<void> _testAnalyzeImageV3() async {
+    _showSnackbar('Use the production camera or gallery action to test V3.');
   }
 
-  /// Full V2 text pipeline: streaming [POST /api/v2/food/analyze-text], pipeline sheet,
-  /// optional clarify / meal-type steps, then meal tip for logging.
-  Future<void> _testMealLoggingWithClarificationsV2() async {
+  /// Full V3 text pipeline, including atomic question bundles and logging.
+  Future<void> _testMealLoggingWithClarificationsV3() async {
     try {
-      _showSnackbar('Streaming POST /api/v2/food/analyze-text ...');
+      _showSnackbar('Streaming POST /api/v3/food/analyze-text ...');
       const testText =
           'I had a bowl with rice, curry, and a white side dish — portion was medium.';
-      final repository = FoodRepository();
-      await showV2MealAnalysisFlow(
+      await showRoutedTextMealAnalysisFlow(
         context: context,
         textDescription: testText,
-        startAnalysis:
-            (cancellation, analysisId) => repository.analyzeTextV2(
-              analysisId: analysisId,
-              textDescription: testText,
-              cancellation: cancellation,
-            ),
       );
-    } catch (e) {
-      if (!mounted) return;
-      _showSnackbar('Error: $e');
-    }
-  }
-
-  Future<void> _previewMealAnalysisSheetWithPhotoBanner() async {
-    try {
-      _showSnackbar('Downloading sample image for sheet preview...');
-      const testImageUrl =
-          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
-      final dio = Dio();
-      final response = await dio.get<List<int>>(
-        testImageUrl,
-        options: Options(responseType: ResponseType.bytes),
-      );
-      final bytes = Uint8List.fromList(response.data!);
-      if (!mounted) return;
-      await previewMealAnalysisSheetWithImageBanner(context, bytes);
     } catch (e) {
       if (!mounted) return;
       _showSnackbar('Error: $e');

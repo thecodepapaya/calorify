@@ -321,7 +321,10 @@
       "optionHeavy": "Ağır",
       "optionSmaller": "Daha küçük",
       "optionTypical": "Tipik",
-      "optionLarger": "Daha büyük"
+      "optionLarger": "Daha büyük",
+      "useEstimate": "Tahmini kullan",
+      "numberRange": "{min} ile {max} arasında, {step} aralıklarla",
+      "invalidNumber": "İzin verilen aralıkta bir değer girin"
     },
     "analysis": {
       "title": "Öğününüz analiz ediliyor",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} içerik tespit edildi",
       "ingredientsPending": "İçerikler taranıyor…",
       "mealPreviewDescription": "“{text}”",
+      "calorieRange": "Tahmini aralık: {min}–{max} kcal",
       "offlineTip0": "İpucu: Tutarlılık mükemmellikten daha önemlidir—düzenli kayıtlar önemli kalıpları ortaya çıkarır.",
       "offlineTip1": "İpucu: Fotoğraflar için doğal ışık ve üstten çekim porsiyon doğruluğuna yardımcı olur.",
       "offlineTip2": "İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.",
       "offlineTip3": "İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.",
       "offlineTip4": "İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.",
       "offlineTip5": "İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama)."
-    },
-    "localInference": {
-      "reviewTitle": "Tespit edilen malzemeleri gözden geçir",
-      "reviewSubtitle": "Bu işlem cihazınızda gerçekleştirildi. Besin değerleri hesaplanmadan önce isimleri veya porsiyonları düzeltin.",
-      "mealName": "Öğün adı",
-      "ingredient": "Malzeme",
-      "grams": "Tahmini gram",
-      "removeIngredient": "Malzemeyi kaldır",
-      "continueLabel": "Devam et",
-      "invalidProposal": "Lütfen en az bir malzeme ekleyin ve pozitif bir gram miktarı girin.",
-      "localUnavailable": "Cihaz içi analiz şu anda kullanılamıyor."
     },
     "feedback": {
       "title": "Neresi yanlış görünüyor?",
@@ -502,7 +495,6 @@
       "localization": "LOKALİZASYON",
       "notifications": "BİLDİRİMLER",
       "healthConnect": "HEALTH CONNECT ENTEGRASYONU",
-      "localInference": "CİHAZ İÇİ ANALİZ",
       "supportAndLegal": "DESTEK & YASAL",
       "about": "HAKKINDA",
       "dangerZone": "TEHLİKELİ BÖLGE",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Öğün Hatırlatıcıları",
       "subtitle": "Zamanında uyarılarla yolda kalın"
-    },
-    "localInference": {
-      "title": "Cihaz içi öğün analizi",
-      "subtitle": "Besin değerleri hesaplanmadan önce desteklenen öğünleri Gemini Nano ile yorumlayın",
-      "unavailable": "Bu cihazda mevcut değil",
-      "rolloutUnavailable": "Uygun donanım bulundu ancak bu özellik bu uygulama sürümü için etkinleştirilmedi",
-      "modelSetup": "Bu özelliğin etkinleştirilebilmesi için Gemini Nano'nun indirme işlemini tamamlaması gerekiyor",
-      "useLocalTitle": "Cihaz içi analizi kullan",
-      "useLocalSubtitle": "Karmaşık öğünlerde sonuçlar daha az güvenilir olabilir.",
-      "disclosureTitle": "Cihaz içi analizi etkinleştirmeden önce",
-      "disclosureBody": "Gemini Nano, desteklenen Android cihazlarda malzemeleri tanımlayabilir ve porsiyonları tahmin edebilir. Gözden geçirdiğiniz malzeme önerisi, USDA besin temellendirmesi ve hesaplama için Calorify'a gönderilir.",
-      "disclosureLimit1": "Karmaşık yemekler, gizli malzemeler ve porsiyon boyutları yanlış tanımlanabilir.",
-      "disclosureLimit2": "Model; indirme sırasında, meşgulken, arka plandayken veya cihaz tarafından sınırlandırıldığında kullanılamayabilir.",
-      "disclosureLimit3": "Yerel yorumlama tamamlanamazsa, bu beta sürümü orijinal öğün açıklamanızı bulut analizi için otomatik olarak Calorify'a gönderir.",
-      "acknowledgement": "Tespit edilen malzemeleri ve porsiyonları gözden geçirmem gerektiğini anlıyorum.",
-      "enable": "Onayla ve etkinleştir",
-      "cancel": "İptal"
     },
     "theme": {
       "title": "Tema",
@@ -787,28 +762,6 @@
         "description": "Tıbbi kararlar için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Daha küçük",
-    "portionEstimated": "Tahmini",
-    "portionLarger": "Daha büyük",
-    "portionQuestion": "{ingredient} için en yakın porsiyon hangisiydi?",
-    "mealTypeQuestion": "Bu hangi öğündü?",
-    "localNutritionTip": "Doğrulanmış yerel besin verilerinden hesaplandı.",
-    "offlineNutritionTitle": "Besin verilerini indir",
-    "offlineNutritionSubtitle": "Tüm malzemeler kapsandığında bu cihazda doğrulanmış USDA satırlarını ve deterministik hesaplamayı kullanın.",
-    "offlineNutritionUnavailable": "Yerel besin verileri bu uygulama sürümü için kullanılamıyor.",
-    "offlineNutritionNotDownloaded": "Doğrulanmış bir besin paketi indirilmedi.",
-    "offlineNutritionInstalling": "Besin verileri indiriliyor ve doğrulanıyor…",
-    "offlineNutritionStatus": "Paket {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} önbelleğe alınmış USDA satırı · {size}",
-    "offlineNutritionUpdate": "Güncellemeyi kontrol et",
-    "offlineNutritionClear": "Yerel besin verilerini temizle",
-    "offlineNutritionClearTitle": "Yerel besin verileri temizlensin mi?",
-    "offlineNutritionClearBody": "Bu işlem indirilen USDA paketini ve arama önbelleğini kaldırır. Kaydedilen öğünler, kaydedilirken kullanılan tam besin anlık görüntüsünü korur.",
-    "offlineNutritionClearConfirm": "Verileri temizle",
-    "offlineNutritionInstallFailed": "Yerel besin verileri indirilemedi ve doğrulanamadı: {error}",
-    "offlineNutritionCleared": "Yerel besin verileri temizlendi"
   },
   "watch": {
     "appTitle": "Calorify Saat",

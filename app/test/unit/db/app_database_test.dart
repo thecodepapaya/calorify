@@ -529,16 +529,8 @@ void main() {
     expect(await database.isHealthConnectPromptDismissed(), isTrue);
   });
 
-  test('local inference preference is off by default and persists', () async {
-    expect((await database.getLocalInferencePreferences()).enabled, isFalse);
-
-    await database.setLocalInferenceEnabled(true);
-
-    expect((await database.getLocalInferencePreferences()).enabled, isTrue);
-  });
-
   test(
-    'v22 upgrade adds default-off local inference and nutrition data',
+    'v22 upgrade preserves historical preference and nutrition columns',
     () async {
       await database.close();
       database = AppDatabase.forTesting(
@@ -554,7 +546,6 @@ void main() {
         ),
       );
 
-      final preferences = await database.getLocalInferencePreferences();
       final columns = await _columnNames(database, 'user_preferences_table');
 
       expect(columns, contains('local_inference_enabled'));
@@ -565,8 +556,6 @@ void main() {
       expect(columns, contains('offline_nutrition_enabled'));
       expect(columns, contains('health_connect_nutrition_sync_enabled'));
       expect(columns, contains('health_connect_prompt_dismissed'));
-      expect(preferences.enabled, isFalse);
-      expect(preferences.offlineNutritionEnabled, isFalse);
       expect(
         await _tableExists(database, 'local_nutrition_cache_table'),
         isTrue,

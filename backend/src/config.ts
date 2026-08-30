@@ -10,21 +10,13 @@ if (existsSync('staging.env')) {
 }
 dotenv.config({ override: true });
 
-interface LocalInferenceConfig {
-    /** Oldest app build allowed to receive local-inference capabilities. */
-    readonly minimumAppBuild: number;
-    readonly textEnabled: boolean;
-    /** Empty disables both pack download and remote resolution. */
-    readonly localNutritionPackObject: string;
-}
-
 interface Config {
     readonly APP_NAME: string;
     /** Version returned at GET /, read from the package bundled in the image. */
     readonly APP_VERSION: string;
     readonly DEBUG: boolean;
     readonly API_V1_STR: string;
-    readonly API_V2_STR: string;
+    readonly API_V3_STR: string;
     readonly DATABASE_URL: string | null;
     /** Shared USDA reference database. Falls back to DATABASE_URL for local development. */
     readonly USDA_DATABASE_URL: string | null;
@@ -53,10 +45,6 @@ interface Config {
     readonly USDA_FTS_ENABLED: boolean;
     /** Optional path to meal analysis rotating tips JSON; default backend/data/meal_analysis_tips.json */
     readonly MEAL_ANALYSIS_TIPS_PATH: string | null;
-    /** Enables the protected meal-analysis history page when configured. */
-    readonly ANALYSIS_HISTORY_PASSWORD: string | null;
-    /** Centralized rollout configuration for on-device meal analysis. */
-    readonly LOCAL_INFERENCE: LocalInferenceConfig;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -169,7 +157,7 @@ const config: Config = {
     APP_VERSION: getAppVersion(),
     DEBUG: getEnvVarBoolean('DEBUG', true),
     API_V1_STR: getEnvVar('API_V1_STR', '/api/v1'),
-    API_V2_STR: getEnvVar('API_V2_STR', '/api/v2'),
+    API_V3_STR: getEnvVar('API_V3_STR', '/api/v3'),
     DATABASE_URL: getEnvVarOptional('DATABASE_URL'),
     USDA_DATABASE_URL: getEnvVarOptional('USDA_DATABASE_URL'),
     FIREBASE_SERVICE_ACCOUNT_PATH: validateFirebaseServiceAccount(
@@ -211,15 +199,6 @@ const config: Config = {
     ),
     USDA_FTS_ENABLED: getEnvVarBoolean('USDA_FTS_ENABLED', true),
     MEAL_ANALYSIS_TIPS_PATH: getEnvVarOptional('MEAL_ANALYSIS_TIPS_PATH'),
-    ANALYSIS_HISTORY_PASSWORD: getEnvVarOptional('ANALYSIS_HISTORY_PASSWORD'),
-    LOCAL_INFERENCE: {
-        minimumAppBuild: getEnvVarNumber('LOCAL_INFERENCE_MIN_APP_BUILD', 48),
-        textEnabled: getEnvVarBoolean('LOCAL_INFERENCE_TEXT_ENABLED', true),
-        localNutritionPackObject: getEnvVar(
-            'LOCAL_NUTRITION_PACK_OBJECT',
-            'local-nutrition/pack.json'
-        ),
-    },
 } as const;
 
 // Validate critical settings in production

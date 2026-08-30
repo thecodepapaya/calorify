@@ -20,10 +20,10 @@ class MealInfoTable extends Table {
   TextColumn get healthScore =>
       text().nullable()(); // 'healthy', 'neutral', 'unhealthy', 'unknown'
   TextColumn get healthScoreReason => text().nullable()();
-  // V2 analysis session or watch operation ID. The unique index makes retry
+  // V3 analysis session or watch operation ID. The unique index makes retry
   // idempotency atomic while SQLite continues to allow multiple null values.
   TextColumn get analysisId => text().nullable()();
-  // Immutable V2 result snapshot. Local nutrition can finish without creating
+  // Immutable V3 result snapshot. Manual meals can omit this value.
   // a backend session, so the exact rows/versions used must live with the meal.
   TextColumn get analysisSnapshotJson => text().nullable()();
 
@@ -34,7 +34,7 @@ class MealInfoTable extends Table {
   IntColumn get healthConnectRecordVersion =>
       integer().withDefault(const Constant(0))();
 
-  /// Local mutation version mirrored onto the owning V2 analysis session.
+  /// Local mutation version mirrored onto the owning V3 analysis session.
   IntColumn get mealLogSyncVersion =>
       integer().withDefault(const Constant(0))();
 

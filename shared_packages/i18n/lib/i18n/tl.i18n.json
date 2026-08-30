@@ -321,7 +321,10 @@
       "optionHeavy": "Mabigat",
       "optionSmaller": "Mas maliit",
       "optionTypical": "Karaniwan",
-      "optionLarger": "Mas malaki"
+      "optionLarger": "Mas malaki",
+      "useEstimate": "Gamitin ang tantya",
+      "numberRange": "Mula {min} hanggang {max}, kada {step}",
+      "invalidNumber": "Maglagay ng halaga sa loob ng pinahihintulutang saklaw"
     },
     "analysis": {
       "title": "Sinusuri ang iyong pagkain",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} na sangkap ang natukoy",
       "ingredientsPending": "Sinusuri ang mga sangkap…",
       "mealPreviewDescription": "“{text}”",
+      "calorieRange": "Tinatayang saklaw: {min}–{max} kcal",
       "offlineTip0": "Tip: Mas mahalaga ang pagiging regular kaysa perpeksiyon—ang regular na pag-log ang nagpapakita ng mga pattern na mahalaga.",
       "offlineTip1": "Tip: Para sa mga larawan, mas nakakatulong ang natural na ilaw at top-down na kuha para sa tumpak na bahagi.",
       "offlineTip2": "Tip: Banggitin ang inumin, sarsa, at mantika sa pagluluto—nagdaragdag sila ng calories na madalas nakakaligtaan.",
       "offlineTip3": "Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.",
       "offlineTip4": "Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.",
       "offlineTip5": "Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno)."
-    },
-    "localInference": {
-      "reviewTitle": "Suriin ang mga nakitang sangkap",
-      "reviewSubtitle": "Binigyang-kahulugan ito sa iyong device. Itama ang mga pangalan o dami bago kalkulahin ang nutrisyon.",
-      "mealName": "Pangalan ng pagkain",
-      "ingredient": "Sangkap",
-      "grams": "Tinatayang gramo",
-      "removeIngredient": "Alisin ang sangkap",
-      "continueLabel": "Magpatuloy",
-      "invalidProposal": "Magdagdag ng kahit isang sangkap at gumamit ng positibong halaga ng gramo.",
-      "localUnavailable": "Hindi available ang on-device analysis sa ngayon."
     },
     "feedback": {
       "title": "Ano ang mali?",
@@ -502,7 +495,6 @@
       "localization": "Wika at Lokalidad",
       "notifications": "Mga Notification",
       "healthConnect": "PAGSASAMA SA HEALTH CONNECT",
-      "localInference": "PAGSUSURI SA DEVICE",
       "supportAndLegal": "SUPORTA & LEGAL",
       "about": "TUNGKOL",
       "dangerZone": "DELIKADONG ZONA",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Paalaala sa Pagkain",
       "subtitle": "Manatiling nasa tamang landas sa tamang oras na mga alerto"
-    },
-    "localInference": {
-      "title": "Pagsusuri ng Pagkain sa Device",
-      "subtitle": "Bigyang-kahulugan ang mga suportadong pagkain gamit ang Gemini Nano bago kalkulahin ang nutrisyon",
-      "unavailable": "Hindi available sa device na ito",
-      "rolloutUnavailable": "May nakitang compatible na hardware, ngunit ang feature na ito ay hindi enabled para sa release na ito ng app",
-      "modelSetup": "Kailangang matapos muna ang pag-download ng Gemini Nano bago ito ma-enable",
-      "useLocalTitle": "Gamitin ang on-device analysis",
-      "useLocalSubtitle": "Maaaring hindi gaanong tumpak ang mga resulta para sa mga kumplikadong pagkain.",
-      "disclosureTitle": "Bago i-enable ang on-device analysis",
-      "disclosureBody": "Kayang tukuyin ng Gemini Nano ang mga sangkap at tantyahin ang mga bahagi sa mga suportadong Android device. Ang iyong sinuring mungkahi ng sangkap ay ipapadala sa Calorify para sa USDA nutrition grounding at kalkulasyon.",
-      "disclosureLimit1": "Ang mga komplikadong putahe, nakatagong sangkap, at laki ng bahagi ay maaaring matukoy nang mali.",
-      "disclosureLimit2": "Maaaring hindi available ang model habang nag-da-download, busy, nasa background, o limitado ng device.",
-      "disclosureLimit3": "Kung hindi matapos ang local interpretation, awtomatikong ipapadala ng beta na ito ang iyong orihinal na paglalarawan ng pagkain sa Calorify para sa cloud analysis.",
-      "acknowledgement": "Naiintindihan ko na dapat kong suriin ang mga nakitang sangkap at bahagi.",
-      "enable": "Kumpirmahin at i-enable",
-      "cancel": "Kanselahin"
     },
     "theme": {
       "title": "Tema",
@@ -787,28 +762,6 @@
         "description": "Huwag gamitin ang pagtatantiyang ito para gumawa ng medikal na desisyon. Laging kumunsulta sa isang healthcare professional o rehistradong dietitian para sa personalisadong payo sa pamamahala ng timbang."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Mas kaunti",
-    "portionEstimated": "Tinataya",
-    "portionLarger": "Mas marami",
-    "portionQuestion": "Aling dami ang pinakamalapit para sa {ingredient}?",
-    "mealTypeQuestion": "Anong meal ito?",
-    "localNutritionTip": "Kinuwenta mula sa beripikadong lokal na nutrition data.",
-    "offlineNutritionTitle": "I-download ang nutrition data",
-    "offlineNutritionSubtitle": "Gumamit ng beripikadong mga row ng USDA at deterministikong pagkukuwenta sa device na ito kapag sakop ang lahat ng sangkap.",
-    "offlineNutritionUnavailable": "Hindi available ang lokal na nutrition data para sa release na ito ng app.",
-    "offlineNutritionNotDownloaded": "Walang na-download na beripikadong nutrition pack.",
-    "offlineNutritionInstalling": "Dina-download at bineberipika ang nutrition data…",
-    "offlineNutritionStatus": "Pakete {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} naka-cache na row ng USDA · {size}",
-    "offlineNutritionUpdate": "Tingnan kung may update",
-    "offlineNutritionClear": "I-clear ang lokal na nutrition data",
-    "offlineNutritionClearTitle": "I-clear ang lokal na nutrition data?",
-    "offlineNutritionClearBody": "Aalisin nito ang na-download na USDA pack at lookup cache. Pananatilihin ng mga naka-log na meal ang eksaktong nutrition snapshot na ginamit noong na-save ang mga ito.",
-    "offlineNutritionClearConfirm": "I-clear ang data",
-    "offlineNutritionInstallFailed": "Hindi ma-download at ma-verify ang lokal na nutrition data: {error}",
-    "offlineNutritionCleared": "Na-clear ang lokal na nutrition data"
   },
   "watch": {
     "appTitle": "Calorify Watch",

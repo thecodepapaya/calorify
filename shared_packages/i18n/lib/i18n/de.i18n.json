@@ -321,7 +321,10 @@
       "optionHeavy": "Reichlich",
       "optionSmaller": "Kleiner",
       "optionTypical": "Typisch",
-      "optionLarger": "Größer"
+      "optionLarger": "Größer",
+      "useEstimate": "Schätzung verwenden",
+      "numberRange": "Von {min} bis {max}, in Schritten von {step}",
+      "invalidNumber": "Bitte einen Wert im zulässigen Bereich eingeben"
     },
     "analysis": {
       "title": "Wir analysieren deine Mahlzeit",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} Zutaten erkannt",
       "ingredientsPending": "Zutaten werden gescannt…",
       "mealPreviewDescription": "„{text}“",
+      "calorieRange": "Geschätzter Bereich: {min}–{max} kcal",
       "offlineTip0": "Tipp: Konstanz schlägt Perfektion – regelmäßige Einträge zeigen die wirklich wichtigen Muster.",
       "offlineTip1": "Tipp: Bei Fotos helfen natürliches Licht und Draufsicht für genauere Portionsschätzungen.",
       "offlineTip2": "Tipp: Erwähne Getränke, Soßen und Öl – sie liefern oft vergessene Kalorien.",
       "offlineTip3": "Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.",
       "offlineTip4": "Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.",
       "offlineTip5": "Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken)."
-    },
-    "localInference": {
-      "reviewTitle": "Erkannte Zutaten prüfen",
-      "reviewSubtitle": "Dies wurde auf Ihrem Gerät interpretiert. Bitte korrigieren Sie Namen oder Mengen, bevor die Nährwerte berechnet werden.",
-      "mealName": "Mahlzeitenname",
-      "ingredient": "Zutat",
-      "grams": "Geschätzte Gramm",
-      "removeIngredient": "Zutat entfernen",
-      "continueLabel": "Weiter",
-      "invalidProposal": "Fügen Sie mindestens eine Zutat hinzu und geben Sie eine positive Grammzahl an.",
-      "localUnavailable": "Die On-Device-Analyse ist derzeit nicht verfügbar."
     },
     "feedback": {
       "title": "Was stimmt hier nicht?",
@@ -502,7 +495,6 @@
       "localization": "LOKALISIERUNG",
       "notifications": "BENACHRICHTIGUNGEN",
       "healthConnect": "Health Connect",
-      "localInference": "ON-DEVICE-ANALYSE",
       "supportAndLegal": "SUPPORT & RECHTLICHES",
       "about": "ÜBER",
       "dangerZone": "RISIKOBEREICH",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Mahlzeit‑Erinnerungen",
       "subtitle": "Bleib mit rechtzeitigen Erinnerungen auf Kurs"
-    },
-    "localInference": {
-      "title": "On-Device-Mahlzeitenanalyse",
-      "subtitle": "Unterstützte Mahlzeiten mit Gemini Nano interpretieren, bevor die Nährwerte berechnet werden",
-      "unavailable": "Auf diesem Gerät nicht verfügbar",
-      "rolloutUnavailable": "Kompatible Hardware gefunden, aber diese Funktion ist für diese App-Version nicht aktiviert",
-      "modelSetup": "Gemini Nano muss den Download abschließen, bevor dies aktiviert werden kann",
-      "useLocalTitle": "On-Device-Analyse verwenden",
-      "useLocalSubtitle": "Bei komplexen Mahlzeiten können die Ergebnisse weniger zuverlässig sein.",
-      "disclosureTitle": "Bevor Sie die On-Device-Analyse aktivieren",
-      "disclosureBody": "Gemini Nano kann Zutaten identifizieren und Portionen auf unterstützten Android-Geräten schätzen. Ihr geprüfter Zutatenvorschlag wird an Calorify zur USDA-Nährwertprüfung und Berechnung gesendet.",
-      "disclosureLimit1": "Komplexe Gerichte, versteckte Zutaten und Portionsgrößen können falsch identifiziert werden.",
-      "disclosureLimit2": "Das Modell kann während des Downloads, bei hoher Auslastung, im Hintergrund oder durch das Gerät eingeschränkt sein.",
-      "disclosureLimit3": "Wenn die lokale Interpretation nicht abgeschlossen werden kann, sendet diese Beta-Version Ihre ursprüngliche Mahlzeitenbeschreibung automatisch an Calorify zur Cloud-Analyse.",
-      "acknowledgement": "Ich verstehe, dass ich die erkannten Zutaten und Portionen prüfen sollte.",
-      "enable": "Bestätigen und aktivieren",
-      "cancel": "Abbrechen"
     },
     "theme": {
       "title": "Design",
@@ -787,28 +762,6 @@
         "description": "Nutze diese Schätzung nicht für medizinische Entscheidungen. Konsultiere stets eine Fachperson oder eine registrierte Ernährungsberaterin/einen registrierten Ernährungsberater für persönliche Gewichtsmanagement‑Beratung."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Kleiner",
-    "portionEstimated": "Geschätzt",
-    "portionLarger": "Größer",
-    "portionQuestion": "Welche Portion passte am besten zu {ingredient}?",
-    "mealTypeQuestion": "Um welche Mahlzeit handelte es sich?",
-    "localNutritionTip": "Anhand verifizierter lokaler Nährwertdaten berechnet.",
-    "offlineNutritionTitle": "Nährwertdaten herunterladen",
-    "offlineNutritionSubtitle": "Verifizierte USDA-Datensätze und deterministische Berechnung auf diesem Gerät verwenden, wenn alle Zutaten abgedeckt sind.",
-    "offlineNutritionUnavailable": "Lokale Nährwertdaten sind für diese App-Version nicht verfügbar.",
-    "offlineNutritionNotDownloaded": "Es wurde kein verifiziertes Nährwertpaket heruntergeladen.",
-    "offlineNutritionInstalling": "Nährwertdaten werden heruntergeladen und überprüft…",
-    "offlineNutritionStatus": "Paket {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} zwischengespeicherte USDA-Datensätze · {size}",
-    "offlineNutritionUpdate": "Nach Update suchen",
-    "offlineNutritionClear": "Lokale Nährwertdaten löschen",
-    "offlineNutritionClearTitle": "Lokale Nährwertdaten löschen?",
-    "offlineNutritionClearBody": "Dadurch werden das heruntergeladene USDA-Paket und der Suchcache entfernt. Protokollierte Mahlzeiten behalten den exakten Nährwert-Schnappschuss, der beim Speichern verwendet wurde.",
-    "offlineNutritionClearConfirm": "Daten löschen",
-    "offlineNutritionInstallFailed": "Lokale Nährwertdaten konnten nicht heruntergeladen und überprüft werden: {error}",
-    "offlineNutritionCleared": "Lokale Nährwertdaten gelöscht"
   },
   "watch": {
     "appTitle": "Calorify Watch",

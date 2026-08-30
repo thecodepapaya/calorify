@@ -321,7 +321,10 @@
       "optionHeavy": "Tung",
       "optionSmaller": "Mindre",
       "optionTypical": "Typisk",
-      "optionLarger": "Større"
+      "optionLarger": "Større",
+      "useEstimate": "Brug estimat",
+      "numberRange": "Fra {min} til {max}, med trin på {step}",
+      "invalidNumber": "Indtast en værdi inden for det tilladte område"
     },
     "analysis": {
       "title": "Analyserer dit måltid",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} ingredienser registreret",
       "ingredientsPending": "Scanner ingredienser…",
       "mealPreviewDescription": "»{text}«",
+      "calorieRange": "Anslået interval: {min}–{max} kcal",
       "offlineTip0": "Tip: Konsistens slår perfektion—regelmæssige registreringer afslører de vigtige mønstre.",
       "offlineTip1": "Tip: Til fotos hjælper naturligt lys og et top-down-perspektiv med portionsnøjagtigheden.",
       "offlineTip2": "Tip: Angiv drikkevarer, saucer og madolie—de tilføjer kalorier, som mange glemmer.",
       "offlineTip3": "Tip: En hurtig portionsnote (1 skål, stor kaffe) gør estimaterne meget skarpere.",
       "offlineTip4": "Tip: At registrere efter måltidet bygger stadig vanen; perfektion er valgfrit.",
       "offlineTip5": "Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt)."
-    },
-    "localInference": {
-      "reviewTitle": "Gennemse detekterede ingredienser",
-      "reviewSubtitle": "Dette blev fortolket på din enhed. Ret navne eller portioner, før næringsindholdet beregnes.",
-      "mealName": "Måltidets navn",
-      "ingredient": "Ingrediens",
-      "grams": "Estimeret antal gram",
-      "removeIngredient": "Fjern ingrediens",
-      "continueLabel": "Fortsæt",
-      "invalidProposal": "Tilføj mindst én ingrediens og brug et positivt antal gram.",
-      "localUnavailable": "Analyse på enheden er ikke tilgængelig lige nu."
     },
     "feedback": {
       "title": "Hvad ser forkert ud?",
@@ -502,7 +495,6 @@
       "localization": "LOKALISERING",
       "notifications": "NOTIFIKATIONER",
       "healthConnect": "Health Connect",
-      "localInference": "ANALYSE PÅ ENHED",
       "supportAndLegal": "SUPPORT & JURA",
       "about": "OM",
       "dangerZone": "FARLIG ZONE",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Måltidspåmindelser",
       "subtitle": "Hold dig på sporet med rettidige påmindelser"
-    },
-    "localInference": {
-      "title": "Måltidsanalyse på enheden",
-      "subtitle": "Fortolk understøttede måltider med Gemini Nano, før næringsindholdet beregnes",
-      "unavailable": "Ikke tilgængelig på denne enhed",
-      "rolloutUnavailable": "Understøttet hardware fundet, men denne funktion er ikke aktiveret for denne app-version",
-      "modelSetup": "Gemini Nano skal færdiggøre download, før dette kan aktiveres",
-      "useLocalTitle": "Brug analyse på enheden",
-      "useLocalSubtitle": "Resultaterne kan være mindre pålidelige for komplekse måltider.",
-      "disclosureTitle": "Før du aktiverer analyse på enheden",
-      "disclosureBody": "Gemini Nano kan identificere ingredienser og estimere portioner på understøttede Android-enheder. Dit gennemsete forslag til ingredienser sendes til Calorify for USDA-næringsvalidering og beregning.",
-      "disclosureLimit1": "Komplekse retter, skjulte ingredienser og portionsstørrelser kan blive identificeret forkert.",
-      "disclosureLimit2": "Modellen kan være utilgængelig under download, når den er optaget, kører i baggrunden eller er begrænset af enheden.",
-      "disclosureLimit3": "Hvis den lokale fortolkning ikke kan færdiggøres, sender denne beta automatisk din oprindelige måltidsbeskrivelse til Calorify for cloud-analyse.",
-      "acknowledgement": "Jeg forstår, at jeg bør gennemse detekterede ingredienser og portioner.",
-      "enable": "Bekræft og aktiver",
-      "cancel": "Annuller"
     },
     "theme": {
       "title": "Tema",
@@ -787,28 +762,6 @@
         "description": "Brug ikke dette estimat til medicinske beslutninger. Kontakt altid en sundhedsprofessionel eller registreret diætist for personlig vægtstyringsrådgivning."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Mindre",
-    "portionEstimated": "Anslået",
-    "portionLarger": "Større",
-    "portionQuestion": "Hvilken portion passede bedst til {ingredient}?",
-    "mealTypeQuestion": "Hvilket måltid var det?",
-    "localNutritionTip": "Beregnet ud fra verificerede lokale ernæringsdata.",
-    "offlineNutritionTitle": "Download ernæringsdata",
-    "offlineNutritionSubtitle": "Brug verificerede USDA-rækker og deterministisk beregning på denne enhed, når alle ingredienser er dækket.",
-    "offlineNutritionUnavailable": "Lokale ernæringsdata er ikke tilgængelige for denne appversion.",
-    "offlineNutritionNotDownloaded": "Ingen verificeret ernæringspakke er downloadet.",
-    "offlineNutritionInstalling": "Downloader og verificerer ernæringsdata…",
-    "offlineNutritionStatus": "Pakke {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} cachede USDA-rækker · {size}",
-    "offlineNutritionUpdate": "Søg efter opdatering",
-    "offlineNutritionClear": "Ryd lokale ernæringsdata",
-    "offlineNutritionClearTitle": "Ryd lokale ernæringsdata?",
-    "offlineNutritionClearBody": "Dette fjerner den downloadede USDA-pakke og opslagscachen. Gemte måltider beholder det nøjagtige øjebliksbillede af ernæringsdata, der blev brugt ved lagring.",
-    "offlineNutritionClearConfirm": "Ryd data",
-    "offlineNutritionInstallFailed": "Kunne ikke downloade og verificere lokale ernæringsdata: {error}",
-    "offlineNutritionCleared": "Lokale ernæringsdata er ryddet"
   },
   "watch": {
     "appTitle": "Calorify Watch",

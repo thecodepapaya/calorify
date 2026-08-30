@@ -54,7 +54,7 @@ class MealQuestionFlowProgressRow extends StatelessWidget {
   }
 }
 
-/// Info icon + bold question title for a V2 clarification step.
+/// Info icon + bold question title for a V3 question step.
 class MealQuestionHeadingRow extends StatelessWidget {
   const MealQuestionHeadingRow({super.key, required this.question});
 

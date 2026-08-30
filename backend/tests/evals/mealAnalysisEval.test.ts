@@ -174,6 +174,36 @@ test('accepts valid ingredient provenance and rejects dangling variations', () =
   );
 });
 
+test('fails when a second-pass ingredient violates an explicit exclusion', () => {
+  const exclusionCase: MealAnalysisEvalCase = {
+    ...evalCase,
+    forbiddenIngredientGroups: [['peanut', 'peanuts', 'groundnut', 'groundnuts']],
+  };
+  const passing = evaluateMealAnalysisRun(exclusionCase, validFirstPass, validSecondPass);
+  assert.equal(passing.passed, true);
+
+  const missingSecondPass = evaluateMealAnalysisRun(exclusionCase, validFirstPass, undefined);
+  assert.equal(
+    missingSecondPass.assertions.find((assertion) =>
+      assertion.id === 'pass2.forbidden-ingredient-1')?.passed,
+    false
+  );
+
+  const incorrect = structuredClone(validSecondPass);
+  incorrect.components[1]!.ingredients.push({
+    ingredientName: 'peanut oil', canonicalIdentity: 'peanut oil',
+    lookupAliases: ['groundnut oil'], retrievalIntent: 'GENERIC_INGREDIENT',
+    amountGrams: { estimate: 5, min: 2, max: 8, origin: 'model_inferred' },
+  });
+
+  const failing = evaluateMealAnalysisRun(exclusionCase, validFirstPass, incorrect);
+  assert.equal(failing.passed, false);
+  assert.equal(
+    failing.assertions.find((assertion) => assertion.id === 'pass2.forbidden-ingredient-1')?.passed,
+    false
+  );
+});
+
 test('reports assertion pass rates without applying a threshold', () => {
   const passing = evaluateMealAnalysisRun(evalCase, validFirstPass, validSecondPass);
   const failingFirstPass = { ...validFirstPass, components: [] };

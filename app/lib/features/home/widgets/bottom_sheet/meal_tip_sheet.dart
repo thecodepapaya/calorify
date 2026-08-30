@@ -13,8 +13,6 @@ import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_feedback_sheet.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
@@ -40,6 +38,8 @@ Future<void> showMealTip({
   int? favoriteId,
   Uint8List? imageBytes,
   MealAnalysisPipelineSessionContext? pipelineContext,
+  MealAnalysisV3CompleteResult? v3Result,
+  String? v3AnalysisId,
   bool previewOnly = false,
 }) {
   final parentContext = context;
@@ -60,6 +60,8 @@ Future<void> showMealTip({
           favoriteId: favoriteId,
           imageBytes: imageBytes,
           pipelineContext: pipelineContext,
+          v3Result: v3Result,
+          v3AnalysisId: v3AnalysisId,
           previewOnly: previewOnly,
         ),
   );
@@ -74,6 +76,8 @@ class _MealTip extends StatefulWidget {
     this.favoriteId,
     this.imageBytes,
     this.pipelineContext,
+    this.v3Result,
+    this.v3AnalysisId,
     this.previewOnly = false,
   }) : assert(mealDetectionResult != null || loggedMeal != null);
 
@@ -84,6 +88,8 @@ class _MealTip extends StatefulWidget {
   final int? favoriteId;
   final Uint8List? imageBytes;
   final MealAnalysisPipelineSessionContext? pipelineContext;
+  final MealAnalysisV3CompleteResult? v3Result;
+  final String? v3AnalysisId;
   final bool previewOnly;
 
   @override
@@ -107,13 +113,13 @@ class _MealTipState extends State<_MealTip> {
 
   bool get _canShowFeedback =>
       widget.purpose == MealDetailsSheetPurpose.mealAddition &&
-      _pipelineContext != null &&
+      widget.v3AnalysisId != null &&
       _mealDetectionResult != null &&
       widget.loggedMeal == null &&
-      _hasServerAnalysisSession &&
-      !_pipelineContext!.isRevised;
+      _hasServerAnalysisSession;
 
   bool get _hasServerAnalysisSession {
+    if (widget.v3AnalysisId != null) return true;
     final result = _pipelineContext?.result;
     return result != null &&
         (!result.hasReceipt() ||
@@ -238,6 +244,16 @@ class _MealTipState extends State<_MealTip> {
                     MealTimestamp(timestamp: timestamp),
                   ],
                 ),
+                if (widget.v3Result case final result?) ...[
+                  const SizedBox(height: 6),
+                  Text(
+                    result.servingSizeText,
+                    key: const ValueKey('v3-serving-size'),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
+                  ),
+                ],
               ],
             ),
           ),
@@ -312,7 +328,9 @@ class _MealTipState extends State<_MealTip> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: meal.macros.calories.toStringAsFixed(0),
+                        text: (widget.v3Result?.macros.calories ??
+                                meal.macros.calories)
+                            .toStringAsFixed(0),
                         style: textTheme.headlineLarge?.copyWith(
                           color: colorScheme.calorieIconColor,
                           fontWeight: FontWeight.bold,
@@ -330,6 +348,19 @@ class _MealTipState extends State<_MealTip> {
                 ),
               ],
             ),
+            if (widget.v3Result case final result?) ...[
+              const SizedBox(height: 4),
+              Text(
+                t.meal.analysis.calorieRange(
+                  min: result.macroRanges.calories.min.toStringAsFixed(0),
+                  max: result.macroRanges.calories.max.toStringAsFixed(0),
+                ),
+                key: const ValueKey('v3-calorie-range'),
+                style: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurface.withValues(alpha: 0.65),
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
             Row(
               spacing: 8,
@@ -408,7 +439,7 @@ class _MealTipState extends State<_MealTip> {
         context,
         detectedMeal.meal,
         parentContext: widget.parentContext,
-        analysisId: _pipelineContext?.result.analysisId,
+        analysisId: widget.v3AnalysisId ?? _pipelineContext?.result.analysisId,
         analysisSnapshot: _pipelineContext?.result,
       );
       if (!mounted) return;
@@ -521,100 +552,36 @@ class _MealTipState extends State<_MealTip> {
   }
 
   Future<void> _submitPositiveFeedback() async {
-    final analysisId = _pipelineContext?.result.analysisId;
-    if (analysisId == null || analysisId.isEmpty) return;
-
-    setState(() {
-      _isFeedbackSubmitting = true;
-    });
-
-    try {
-      await ProviderScope.containerOf(context, listen: false)
-          .read(foodRepositoryProvider)
-          .submitPositiveFeedbackV2(analysisId: analysisId);
-      if (!mounted) return;
-      Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsUp);
-      showFlushbar(t.meal.feedbackThanks, context: context);
-      setState(() {
-        _feedbackValue = true;
-      });
-    } on Exception catch (error) {
-      if (!mounted) return;
-      showFlushbar('$error', context: context);
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isFeedbackSubmitting = false;
-        });
-      }
-    }
+    await _submitV3Feedback(positive: true);
   }
 
   Future<void> _submitNegativeFeedback() async {
-    final analysisId = _pipelineContext?.result.analysisId;
-    if (analysisId == null || analysisId.isEmpty) return;
-
     Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsDownOpened);
-    final feedbackInput = await showV2MealFeedbackSheet(context);
-    if (!mounted || feedbackInput == null) return;
+    await _submitV3Feedback(positive: false);
+  }
 
-    setState(() {
-      _isFeedbackSubmitting = true;
-      _feedbackValue = false;
-    });
-
+  Future<void> _submitV3Feedback({required bool positive}) async {
+    final analysisId = widget.v3AnalysisId;
+    if (analysisId == null || analysisId.isEmpty) return;
+    setState(() => _isFeedbackSubmitting = true);
     try {
-      final nextContext = await resolveV2MealAnalysisFlow(
-        context: context,
-        startAnalysis:
-            (cancellation, newAnalysisId) =>
-                ProviderScope.containerOf(context, listen: false)
-                    .read(foodRepositoryProvider)
-                    .reanalyzeV2(
-                      analysisId: analysisId,
-                      newAnalysisId: newAnalysisId,
-                      issues: feedbackInput.issues,
-                      otherText: feedbackInput.otherText,
-                      cancellation: cancellation,
-                    ),
-        imageBytes: widget.imageBytes,
-        imageUrl: _pipelineContext?.imageUrl,
-        textDescription: _pipelineContext?.textDescription,
-      );
-
+      await ProviderScope.containerOf(context, listen: false)
+          .read(foodRepositoryProvider)
+          .submitFeedbackV3(analysisId: analysisId, positive: positive);
       if (!mounted) return;
-      if (nextContext == null) {
-        throw Exception('No revised result received');
-      }
-
       Analytics.instance.logEvent(
-        AnalyticsEvent.mealFeedbackThumbsDownSubmitted,
+        positive
+            ? AnalyticsEvent.mealFeedbackThumbsUp
+            : AnalyticsEvent.mealFeedbackThumbsDownSubmitted,
       );
-      Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisSucceeded);
-
-      final updatedContext = nextContext.copyWithPipelineSession(
-        isRevised: true,
-      );
-
-      setState(() {
-        _pipelineContext = updatedContext;
-        _mealDetectionResult = updatedContext.toMealDetectionResult();
-        _feedbackValue = null;
-      });
-
-      showFlushbar(t.meal.reanalysisUpdated, context: context);
+      showFlushbar(t.meal.feedbackThanks, context: context);
+      setState(() => _feedbackValue = positive);
     } on Exception catch (error) {
       if (!mounted) return;
-      Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisFailed);
-      setState(() {
-        _feedbackValue = null;
-      });
       showFlushbar('$error', context: context);
     } finally {
       if (mounted) {
-        setState(() {
-          _isFeedbackSubmitting = false;
-        });
+        setState(() => _isFeedbackSubmitting = false);
       }
     }
   }

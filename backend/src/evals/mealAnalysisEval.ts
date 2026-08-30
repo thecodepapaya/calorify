@@ -34,6 +34,7 @@ export interface MealAnalysisEvalCase {
     requiredIngredientGroups: string[][];
     diagnosticIngredientGroups: string[][];
   }>;
+  forbiddenIngredientGroups?: string[][];
 }
 
 export interface MealAnalysisEvalDataset {
@@ -116,6 +117,12 @@ function ingredientCorpus(component: SecondPassResponse['components'][number] | 
       ...ingredient.lookupAliases,
     ])
     .join(' '));
+}
+
+function containsIngredientTerm(corpus: string, term: string): boolean {
+  const normalizedTerm = normalize(term);
+  return normalizedTerm.length > 0
+    && ` ${corpus} `.includes(` ${normalizedTerm} `);
 }
 
 export function evaluateMealAnalysisRun(
@@ -267,6 +274,22 @@ export function evaluateMealAnalysisRun(
     variationReferencesValid,
     'non-null ingredientName must reference an ingredient in the same component'
   );
+
+  const allIngredients = normalize(secondPass?.components.flatMap((component) =>
+    component.ingredients.flatMap((ingredient) => [
+      ingredient.ingredientName,
+      ingredient.canonicalIdentity,
+      ...ingredient.lookupAliases,
+    ])).join(' ') ?? '');
+  evalCase.forbiddenIngredientGroups?.forEach((group, index) => {
+    add(
+      `pass2.forbidden-ingredient-${index + 1}`,
+      'hard',
+      secondPass !== undefined
+        && !group.some((term) => containsIngredientTerm(allIngredients, term)),
+      `forbade: ${group.join(', ')}`
+    );
+  });
 
   for (const expected of evalCase.expectedComponents) {
     const firstComponent = firstComponents.get(expected.key);

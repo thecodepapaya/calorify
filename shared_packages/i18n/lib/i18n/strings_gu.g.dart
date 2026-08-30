@@ -57,7 +57,6 @@ class TranslationsGu extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$gu notifications = _Translations$notifications$gu._(_root);
 	@override late final _Translations$login$gu login = _Translations$login$gu._(_root);
 	@override late final _Translations$disclaimer$gu disclaimer = _Translations$disclaimer$gu._(_root);
-	@override late final _Translations$localNutritionPhase4$gu localNutritionPhase4 = _Translations$localNutritionPhase4$gu._(_root);
 	@override late final _Translations$watch$gu watch = _Translations$watch$gu._(_root);
 	@override late final _Translations$common$gu common = _Translations$common$gu._(_root);
 	@override late final _Translations$feedbackRating$gu feedbackRating = _Translations$feedbackRating$gu._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$gu extends Translations$meal$en {
 	@override String get skip => 'છોડો';
 	@override late final _Translations$meal$questionFlow$gu questionFlow = _Translations$meal$questionFlow$gu._(_root);
 	@override late final _Translations$meal$analysis$gu analysis = _Translations$meal$analysis$gu._(_root);
-	@override late final _Translations$meal$localInference$gu localInference = _Translations$meal$localInference$gu._(_root);
 	@override late final _Translations$meal$feedback$gu feedback = _Translations$meal$feedback$gu._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$gu extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$gu heightUnit = _Translations$settings$heightUnit$gu._(_root);
 	@override late final _Translations$settings$weightUnit$gu weightUnit = _Translations$settings$weightUnit$gu._(_root);
 	@override late final _Translations$settings$mealReminders$gu mealReminders = _Translations$settings$mealReminders$gu._(_root);
-	@override late final _Translations$settings$localInference$gu localInference = _Translations$settings$localInference$gu._(_root);
 	@override late final _Translations$settings$theme$gu theme = _Translations$settings$theme$gu._(_root);
 	@override late final _Translations$settings$sendFeedback$gu sendFeedback = _Translations$settings$sendFeedback$gu._(_root);
 	@override late final _Translations$settings$exportMealHistory$gu exportMealHistory = _Translations$settings$exportMealHistory$gu._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$gu extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$gu weightEstimate = _Translations$disclaimer$weightEstimate$gu._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$gu healthMetrics = _Translations$disclaimer$healthMetrics$gu._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$gu calorieExpenditure = _Translations$disclaimer$calorieExpenditure$gu._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$gu extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$gu._(TranslationsGu root) : this._root = root, super.internal(root);
-
-	final TranslationsGu _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'નાનું';
-	@override String get portionEstimated => 'અંદાજિત';
-	@override String get portionLarger => 'મોટું';
-	@override String portionQuestion({required Object ingredient}) => '${ingredient} માટે કયું પ્રમાણ સૌથી નજીક હતું?';
-	@override String get mealTypeQuestion => 'આ કયું ભોજન હતું?';
-	@override String get localNutritionTip => 'ચકાસેલી સ્થાનિક પોષણ માહિતી પરથી ગણતરી થઈ.';
-	@override String get offlineNutritionTitle => 'પોષણ ડેટા ડાઉનલોડ કરો';
-	@override String get offlineNutritionSubtitle => 'દરેક ઘટક આવરી લેવાયો હોય ત્યારે આ ડિવાઇસ પર ચકાસેલી USDA પંક્તિઓ અને નિર્ધારિત ગણતરી વાપરો.';
-	@override String get offlineNutritionUnavailable => 'આ એપ રિલીઝ માટે સ્થાનિક પોષણ ડેટા ઉપલબ્ધ નથી.';
-	@override String get offlineNutritionNotDownloaded => 'કોઈ ચકાસેલું પોષણ પૅક ડાઉનલોડ થયેલું નથી.';
-	@override String get offlineNutritionInstalling => 'પોષણ ડેટા ડાઉનલોડ અને ચકાસાઈ રહ્યો છે…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'પૅક ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} કૅશ કરેલી USDA પંક્તિઓ · ${size}';
-	@override String get offlineNutritionUpdate => 'અપડેટ માટે તપાસો';
-	@override String get offlineNutritionClear => 'સ્થાનિક પોષણ ડેટા સાફ કરો';
-	@override String get offlineNutritionClearTitle => 'સ્થાનિક પોષણ ડેટા સાફ કરવો?';
-	@override String get offlineNutritionClearBody => 'આ ડાઉનલોડ કરેલું USDA પૅક અને લુકઅપ કૅશ દૂર કરે છે. નોંધાયેલા ભોજનમાં સાચવતી વખતે વપરાયેલ ચોક્કસ પોષણ સ્નૅપશૉટ જળવાઈ રહે છે.';
-	@override String get offlineNutritionClearConfirm => 'ડેટા સાફ કરો';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'સ્થાનિક પોષણ ડેટા ડાઉનલોડ અને ચકાસી શકાયો નહીં: ${error}';
-	@override String get offlineNutritionCleared => 'સ્થાનિક પોષણ ડેટા સાફ થયો';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$gu extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'નાનું';
 	@override String get optionTypical => 'સામાન્ય';
 	@override String get optionLarger => 'મોટું';
+	@override String get useEstimate => 'અંદાજનો ઉપયોગ કરો';
+	@override String numberRange({required Object min, required Object max, required Object step}) => '${min} થી ${max} સુધી, ${step} ના તફાવતમાં';
+	@override String get invalidNumber => 'માન્ય શ્રેણીમાં આવતું મૂલ્ય દાખલ કરો';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$gu extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count} ઘટકો મળ્યા';
 	@override String get ingredientsPending => 'ઘટકો સ્કેન કરી રહ્યા છીએ…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => 'અંદાજિત શ્રેણી: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'ટીપ: સુસંગતતા સંપૂર્ણતા કરતાં વધુ સારી છે—નિયમિત લોગ મહત્વપૂર્ણ પેટર્ન દર્શાવે છે.';
 	@override String get offlineTip1 => 'ટીપ: ફોટા માટે, કુદરતી પ્રકાશ અને ટોપ-ડાઉન દૃશ્ય ભાગની ચોકસાઈમાં મદદ કરે છે.';
 	@override String get offlineTip2 => 'ટીપ: પીણાં, ચટણીઓ અને રસોઈ તેલનો ઉલ્લેખ કરો—તેઓ એવી કેલરી ઉમેરે છે જે લોકો ઘણીવાર ભૂલી જાય છે.';
 	@override String get offlineTip3 => 'ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.';
 	@override String get offlineTip4 => 'ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.';
 	@override String get offlineTip5 => 'ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$gu extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$gu._(TranslationsGu root) : this._root = root, super.internal(root);
-
-	final TranslationsGu _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'શોધાયેલ ઘટકોની સમીક્ષા કરો';
-	@override String get reviewSubtitle => 'આ તમારા ઉપકરણ પર સમજવામાં આવ્યું છે. પોષણની ગણતરી કરતા પહેલા નામ અથવા ભાગો સુધારો.';
-	@override String get mealName => 'જમવાનું નામ';
-	@override String get ingredient => 'ઘટક';
-	@override String get grams => 'અંદાજિત ગ્રામ';
-	@override String get removeIngredient => 'ઘટક દૂર કરો';
-	@override String get continueLabel => 'આગળ વધો';
-	@override String get invalidProposal => 'ઓછામાં ઓછો એક ઘટક ઉમેરો અને ગ્રામની સકારાત્મક રકમનો ઉપયોગ કરો.';
-	@override String get localUnavailable => 'ઓન-ડિવાઇસ વિશ્લેષણ અત્યારે ઉપલબ્ધ નથી.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$gu extends Translations$settings$sections$
 	@override String get localization => 'સ્થાનિકીકરણ';
 	@override String get notifications => 'સૂચનાઓ';
 	@override String get healthConnect => 'હેલ્થ કનેક્ટ';
-	@override String get localInference => 'ઓન-ડિવાઇસ વિશ્લેષણ';
 	@override String get supportAndLegal => 'સપોર્ટ અને કાનૂની';
 	@override String get about => 'વિશે';
 	@override String get dangerZone => 'ડેન્જર ઝોન';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$gu extends Translations$settings$meal
 	// Translations
 	@override String get title => 'ભોજન રીમાઇન્ડર્સ';
 	@override String get subtitle => 'સમયસર ચેતવણીઓ સાથે ટ્રેક પર રહો';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$gu extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$gu._(TranslationsGu root) : this._root = root, super.internal(root);
-
-	final TranslationsGu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'ઓન-ડિવાઇસ મીલ એનાલિસિસ';
-	@override String get subtitle => 'પોષણની ગણતરી કરતા પહેલા Gemini Nano સાથે સમર્થિત ભોજનનું અર્થઘટન કરો';
-	@override String get unavailable => 'આ ઉપકરણ પર ઉપલબ્ધ નથી';
-	@override String get rolloutUnavailable => 'સમર્થિત હાર્ડવેર મળ્યું છે, પરંતુ આ સુવિધા આ એપ રિલીઝ માટે સક્ષમ નથી';
-	@override String get modelSetup => 'આને સક્ષમ કરતા પહેલા Gemini Nano ડાઉનલોડ પૂર્ણ કરવું જરૂરી છે';
-	@override String get useLocalTitle => 'ઓન-ડિવાઇસ વિશ્લેષણનો ઉપયોગ કરો';
-	@override String get useLocalSubtitle => 'જટિલ ભોજન માટે પરિણામો ઓછા વિશ્વસનીય થઈ શકે છે.';
-	@override String get disclosureTitle => 'ઓન-ડિવાઇસ વિશ્લેષણને સક્ષમ કરતા પહેલા';
-	@override String get disclosureBody => 'Gemini Nano સમર્થિત Android ઉપકરણો પર ઘટકોને ઓળખી શકે છે અને ભાગોનો અંદાજ લગાવી શકે છે. તમારી સમીક્ષા કરેલી ઘટક દરખાસ્ત USDA પોષણ ગ્રાઉન્ડિંગ અને ગણતરી માટે Calorify ને મોકલવામાં આવે છે.';
-	@override String get disclosureLimit1 => 'જટિલ વાનગીઓ, છુપાયેલા ઘટકો અને ભાગના કદ ખોટી રીતે ઓળખાઈ શકે છે.';
-	@override String get disclosureLimit2 => 'ડાઉનલોડ કરતી વખતે, વ્યસ્ત હોય ત્યારે, બેકગ્રાઉન્ડમાં અથવા ઉપકરણ દ્વારા મર્યાદિત હોય ત્યારે મોડેલ અનુપલબ્ધ હોઈ શકે છે.';
-	@override String get disclosureLimit3 => 'જો સ્થાનિક અર્થઘટન પૂર્ણ ન થઈ શકે, તો આ બીટા આપમેળે તમારા મૂળ ભોજનના વર્ણનને ક્લાઉડ વિશ્લેષણ માટે Calorify ને મોકલે છે.';
-	@override String get acknowledgement => 'હું સમજું છું કે મારે શોધાયેલા ઘટકો અને ભાગોની સમીક્ષા કરવી જોઈએ.';
-	@override String get enable => 'સ્વીકારો અને સક્ષમ કરો';
-	@override String get cancel => 'રદ કરો';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsGu {
 			'meal.questionFlow.optionSmaller' => 'નાનું',
 			'meal.questionFlow.optionTypical' => 'સામાન્ય',
 			'meal.questionFlow.optionLarger' => 'મોટું',
+			'meal.questionFlow.useEstimate' => 'અંદાજનો ઉપયોગ કરો',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => '${min} થી ${max} સુધી, ${step} ના તફાવતમાં',
+			'meal.questionFlow.invalidNumber' => 'માન્ય શ્રેણીમાં આવતું મૂલ્ય દાખલ કરો',
 			'meal.analysis.title' => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ',
 			'meal.analysis.stepStarted' => 'શરૂઆત કરી રહ્યા છીએ…',
 			'meal.analysis.stepDecomposition' => 'તમારા ભોજનને સમજી રહ્યા છીએ…',
@@ -2308,21 +2240,13 @@ extension on TranslationsGu {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ઘટકો મળ્યા',
 			'meal.analysis.ingredientsPending' => 'ઘટકો સ્કેન કરી રહ્યા છીએ…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'અંદાજિત શ્રેણી: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'ટીપ: સુસંગતતા સંપૂર્ણતા કરતાં વધુ સારી છે—નિયમિત લોગ મહત્વપૂર્ણ પેટર્ન દર્શાવે છે.',
 			'meal.analysis.offlineTip1' => 'ટીપ: ફોટા માટે, કુદરતી પ્રકાશ અને ટોપ-ડાઉન દૃશ્ય ભાગની ચોકસાઈમાં મદદ કરે છે.',
 			'meal.analysis.offlineTip2' => 'ટીપ: પીણાં, ચટણીઓ અને રસોઈ તેલનો ઉલ્લેખ કરો—તેઓ એવી કેલરી ઉમેરે છે જે લોકો ઘણીવાર ભૂલી જાય છે.',
 			'meal.analysis.offlineTip3' => 'ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.',
 			'meal.analysis.offlineTip4' => 'ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.',
 			'meal.analysis.offlineTip5' => 'ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું).',
-			'meal.localInference.reviewTitle' => 'શોધાયેલ ઘટકોની સમીક્ષા કરો',
-			'meal.localInference.reviewSubtitle' => 'આ તમારા ઉપકરણ પર સમજવામાં આવ્યું છે. પોષણની ગણતરી કરતા પહેલા નામ અથવા ભાગો સુધારો.',
-			'meal.localInference.mealName' => 'જમવાનું નામ',
-			'meal.localInference.ingredient' => 'ઘટક',
-			'meal.localInference.grams' => 'અંદાજિત ગ્રામ',
-			'meal.localInference.removeIngredient' => 'ઘટક દૂર કરો',
-			'meal.localInference.continueLabel' => 'આગળ વધો',
-			'meal.localInference.invalidProposal' => 'ઓછામાં ઓછો એક ઘટક ઉમેરો અને ગ્રામની સકારાત્મક રકમનો ઉપયોગ કરો.',
-			'meal.localInference.localUnavailable' => 'ઓન-ડિવાઇસ વિશ્લેષણ અત્યારે ઉપલબ્ધ નથી.',
 			'meal.feedback.title' => 'શું ખોટું લાગે છે?',
 			'meal.feedback.subtitle' => 'એક અથવા વધુ સમસ્યાઓ પસંદ કરીને વિશ્લેષણને સુધારવામાં અમારી સહાય કરો.',
 			'meal.feedback.tellUsMore' => 'વધુ કહો',
@@ -2420,7 +2344,6 @@ extension on TranslationsGu {
 			'settings.sections.localization' => 'સ્થાનિકીકરણ',
 			'settings.sections.notifications' => 'સૂચનાઓ',
 			'settings.sections.healthConnect' => 'હેલ્થ કનેક્ટ',
-			'settings.sections.localInference' => 'ઓન-ડિવાઇસ વિશ્લેષણ',
 			'settings.sections.supportAndLegal' => 'સપોર્ટ અને કાનૂની',
 			'settings.sections.about' => 'વિશે',
 			'settings.sections.dangerZone' => 'ડેન્જર ઝોન',
@@ -2435,21 +2358,6 @@ extension on TranslationsGu {
 			'settings.weightUnit.title' => 'વજનનો એકમ',
 			'settings.mealReminders.title' => 'ભોજન રીમાઇન્ડર્સ',
 			'settings.mealReminders.subtitle' => 'સમયસર ચેતવણીઓ સાથે ટ્રેક પર રહો',
-			'settings.localInference.title' => 'ઓન-ડિવાઇસ મીલ એનાલિસિસ',
-			'settings.localInference.subtitle' => 'પોષણની ગણતરી કરતા પહેલા Gemini Nano સાથે સમર્થિત ભોજનનું અર્થઘટન કરો',
-			'settings.localInference.unavailable' => 'આ ઉપકરણ પર ઉપલબ્ધ નથી',
-			'settings.localInference.rolloutUnavailable' => 'સમર્થિત હાર્ડવેર મળ્યું છે, પરંતુ આ સુવિધા આ એપ રિલીઝ માટે સક્ષમ નથી',
-			'settings.localInference.modelSetup' => 'આને સક્ષમ કરતા પહેલા Gemini Nano ડાઉનલોડ પૂર્ણ કરવું જરૂરી છે',
-			'settings.localInference.useLocalTitle' => 'ઓન-ડિવાઇસ વિશ્લેષણનો ઉપયોગ કરો',
-			'settings.localInference.useLocalSubtitle' => 'જટિલ ભોજન માટે પરિણામો ઓછા વિશ્વસનીય થઈ શકે છે.',
-			'settings.localInference.disclosureTitle' => 'ઓન-ડિવાઇસ વિશ્લેષણને સક્ષમ કરતા પહેલા',
-			'settings.localInference.disclosureBody' => 'Gemini Nano સમર્થિત Android ઉપકરણો પર ઘટકોને ઓળખી શકે છે અને ભાગોનો અંદાજ લગાવી શકે છે. તમારી સમીક્ષા કરેલી ઘટક દરખાસ્ત USDA પોષણ ગ્રાઉન્ડિંગ અને ગણતરી માટે Calorify ને મોકલવામાં આવે છે.',
-			'settings.localInference.disclosureLimit1' => 'જટિલ વાનગીઓ, છુપાયેલા ઘટકો અને ભાગના કદ ખોટી રીતે ઓળખાઈ શકે છે.',
-			'settings.localInference.disclosureLimit2' => 'ડાઉનલોડ કરતી વખતે, વ્યસ્ત હોય ત્યારે, બેકગ્રાઉન્ડમાં અથવા ઉપકરણ દ્વારા મર્યાદિત હોય ત્યારે મોડેલ અનુપલબ્ધ હોઈ શકે છે.',
-			'settings.localInference.disclosureLimit3' => 'જો સ્થાનિક અર્થઘટન પૂર્ણ ન થઈ શકે, તો આ બીટા આપમેળે તમારા મૂળ ભોજનના વર્ણનને ક્લાઉડ વિશ્લેષણ માટે Calorify ને મોકલે છે.',
-			'settings.localInference.acknowledgement' => 'હું સમજું છું કે મારે શોધાયેલા ઘટકો અને ભાગોની સમીક્ષા કરવી જોઈએ.',
-			'settings.localInference.enable' => 'સ્વીકારો અને સક્ષમ કરો',
-			'settings.localInference.cancel' => 'રદ કરો',
 			'settings.theme.title' => 'થીમ',
 			'settings.theme.light' => 'લાઇટ',
 			'settings.theme.dark' => 'ડાર્ક',
@@ -2561,8 +2469,6 @@ extension on TranslationsGu {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'સેટઅપ પૂર્ણ કરવામાં ભૂલ: ${error}',
 			'notifications.breakfast.title' => 'નાસ્તાનો સમય! 🍳',
 			'notifications.breakfast.body' => 'તમારો નાસ્તો લોગ કરવાનું ભૂલશો નહીં',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'બપોરના ભોજનનો સમય! 🥗',
 			'notifications.lunch.body' => 'તમારું બપોરનું ભોજન લોગ કરવાનો સમય',
 			'notifications.dinner.title' => 'રાત્રિભોજનનો સમય! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsGu {
 			'disclaimer.snap.databaseLimitations.title' => 'ડેટાબેઝ મર્યાદાઓ',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} નો ફૂડ ડેટાબેઝ વ્યાપક છે પરંતુ તેમાં દરેક એક ખાદ્ય વસ્તુ અથવા ભિન્નતા શામેલ ન હોઈ શકે.',
 			'disclaimer.weightEstimate.title' => 'વજનના અંદાજ વિશે',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'અંદાજિત વજનમાં ફેરફાર એ સરળ કેલરી-ઇન વિ. કેલરી-આઉટ મોડેલ પર આધારિત સૈદ્ધાંતિક અંદાજ છે. તે ફક્ત પ્રેરક માર્ગદર્શન માટે છે, તમારા વાસ્તવિક વજનની આગાહી તરીકે નહીં.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'કેલરીની ચોકસાઈ',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'આ અંદાજ ફક્ત તમારી ટ્રેક કરેલી કેલરીનું સેવન અને ખર્ચ જેટલો જ સચોટ છે. ખોટું લોગિંગ અચોક્કસ અંદાજમાં પરિણમશે.',
@@ -2606,26 +2514,6 @@ extension on TranslationsGu {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'અમે તમારા TDEE (તમારી પ્રોફાઇલના આધારે) ની ગણતરી કરીએ છીએ અને અત્યાર સુધી બળી ગયેલી કેલરીનો અંદાજ કાઢવા માટે તેને દિવસના વીતી ગયેલા અપૂર્ણાંક (કલાકો + મિનિટ) / 24 વડે ગુણાકાર કરીએ છીએ.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'વ્યાવસાયિક માર્ગદર્શન',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'તબીબી નિર્ણયો લેવા માટે આ અંદાજનો ઉપયોગ કરશો નહીં. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્યસંભાળ વ્યાવસાયિક અથવા નોંધાયેલ આહાર નિષ્ણાતની સલાહ લો.',
-			'localNutritionPhase4.portionSmaller' => 'નાનું',
-			'localNutritionPhase4.portionEstimated' => 'અંદાજિત',
-			'localNutritionPhase4.portionLarger' => 'મોટું',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => '${ingredient} માટે કયું પ્રમાણ સૌથી નજીક હતું?',
-			'localNutritionPhase4.mealTypeQuestion' => 'આ કયું ભોજન હતું?',
-			'localNutritionPhase4.localNutritionTip' => 'ચકાસેલી સ્થાનિક પોષણ માહિતી પરથી ગણતરી થઈ.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'પોષણ ડેટા ડાઉનલોડ કરો',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'દરેક ઘટક આવરી લેવાયો હોય ત્યારે આ ડિવાઇસ પર ચકાસેલી USDA પંક્તિઓ અને નિર્ધારિત ગણતરી વાપરો.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'આ એપ રિલીઝ માટે સ્થાનિક પોષણ ડેટા ઉપલબ્ધ નથી.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'કોઈ ચકાસેલું પોષણ પૅક ડાઉનલોડ થયેલું નથી.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'પોષણ ડેટા ડાઉનલોડ અને ચકાસાઈ રહ્યો છે…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'પૅક ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} કૅશ કરેલી USDA પંક્તિઓ · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'અપડેટ માટે તપાસો',
-			'localNutritionPhase4.offlineNutritionClear' => 'સ્થાનિક પોષણ ડેટા સાફ કરો',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'સ્થાનિક પોષણ ડેટા સાફ કરવો?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'આ ડાઉનલોડ કરેલું USDA પૅક અને લુકઅપ કૅશ દૂર કરે છે. નોંધાયેલા ભોજનમાં સાચવતી વખતે વપરાયેલ ચોક્કસ પોષણ સ્નૅપશૉટ જળવાઈ રહે છે.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'ડેટા સાફ કરો',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'સ્થાનિક પોષણ ડેટા ડાઉનલોડ અને ચકાસી શકાયો નહીં: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'સ્થાનિક પોષણ ડેટા સાફ થયો',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'પાછળ',
 			'watch.common.cancel' => 'રદ કરો',

@@ -57,7 +57,7 @@ export const aiRequestDurationSeconds = new Histogram({
   registers: [registry],
 });
 
-/** Internal meal analysis pipeline and DB steps (from nutritionEngineV2 traceAsync). */
+/** Internal V3 meal-analysis pipeline and database steps. */
 export const mealAnalysisTraceStepSeconds = new Histogram({
   name: 'meal_analysis_trace_step_seconds',
   help:

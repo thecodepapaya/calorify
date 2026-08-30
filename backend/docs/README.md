@@ -1,16 +1,9 @@
 # Backend documentation
 
-- [Historical local-inference phases 1–3 release candidate](local-inference-phases-1-3-release-candidate.md)
-  — V2 workflow foundation through the hybrid text beta.
-- [Historical local-inference Phase 4 release candidate](local-inference-phase-4-release-candidate.md)
-  — paused V2 local USDA data, calculation, and release gates.
-- [Local nutrition pack build and curation](../data/local_nutrition/README.md)
-  — build, publish, freshness, and pure-USDA item selection.
 - [USDA lookup CLI](usda-lookup-cli.md) — inspect selected and partial local
   database matches through the production V3 resolver without modifying data.
-- [Meal-analysis state machine](meal-analysis-state-machine.md) — durable
-  end-to-end V2 flow, data boundaries, no-food termination, leases, stream
-  events, resume behavior, and log confirmation.
+- [Meal-analysis V3 API](meal-analysis-v3-api.md) — authenticated HTTP routes,
+  atomic question bundles, terminal events, and durable session behavior.
 - [Meal-analysis V3 hypothesis CLI](meal-analysis-cli.md) — observable two-pass
   text and image interpretation, derived scenarios, active local USDA grounding,
   per-ingredient generic/branded/ambiguous retrieval routing, bounded questions,
@@ -21,12 +14,7 @@
   two decomposition passes and their semantic bounds.
 - [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — metric
   names and example Grafana queries.
-- [Meal-analysis history page](analysis-history.md) — protected visual
-  inspection of text/image layers, provider attempts, USDA matches,
-  presentation enrichment, audit actions, and final responses.
 
-The product-level local-inference decision record is in
-[`docs/plans/local-inference-meal-analysis.md`](../../docs/plans/local-inference-meal-analysis.md).
 The approved cross-component rewrite is in the
 [meal-analysis backend rewrite plan](../../docs/plans/meal-analysis-reliability.md).
 This directory holds backend-specific implementation and operational evidence;

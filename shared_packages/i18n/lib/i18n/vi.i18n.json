@@ -321,7 +321,10 @@
       "optionHeavy": "Nặng",
       "optionSmaller": "Nhỏ hơn",
       "optionTypical": "Điển hình",
-      "optionLarger": "Lớn hơn"
+      "optionLarger": "Lớn hơn",
+      "useEstimate": "Sử dụng ước tính",
+      "numberRange": "Từ {min} đến {max}, với bước {step}",
+      "invalidNumber": "Nhập một giá trị trong phạm vi cho phép"
     },
     "analysis": {
       "title": "Đang phân tích bữa ăn của bạn",
@@ -344,23 +347,13 @@
       "ingredientsLine": "Phát hiện {count} nguyên liệu",
       "ingredientsPending": "Đang quét nguyên liệu…",
       "mealPreviewDescription": "“{text}”",
+      "calorieRange": "Khoảng ước tính: {min}–{max} kcal",
       "offlineTip0": "Mẹo: Kiên trì còn hơn hoàn hảo—ghi chép đều đặn sẽ cho thấy các mô hình quan trọng.",
       "offlineTip1": "Mẹo: Với ảnh, ánh sáng tự nhiên và góc chụp từ trên xuống giúp xác định khẩu phần chính xác hơn.",
       "offlineTip2": "Mẹo: Nhắc đến đồ uống, nước sốt và dầu ăn—chúng thêm calo mà thường bị quên.",
       "offlineTip3": "Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.",
       "offlineTip4": "Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.",
       "offlineTip5": "Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng)."
-    },
-    "localInference": {
-      "reviewTitle": "Xem lại các thành phần đã nhận diện",
-      "reviewSubtitle": "Nội dung này được phân tích trên thiết bị của bạn. Hãy chỉnh sửa tên hoặc định lượng trước khi tính toán dinh dưỡng.",
-      "mealName": "Tên bữa ăn",
-      "ingredient": "Thành phần",
-      "grams": "Số gam ước tính",
-      "removeIngredient": "Xóa thành phần",
-      "continueLabel": "Tiếp tục",
-      "invalidProposal": "Vui lòng thêm ít nhất một thành phần và nhập số gam là số dương.",
-      "localUnavailable": "Tính năng phân tích trên thiết bị hiện không khả dụng."
     },
     "feedback": {
       "title": "Có gì sai?",
@@ -502,7 +495,6 @@
       "localization": "NGÔN NGỮ",
       "notifications": "THÔNG BÁO",
       "healthConnect": "TÍCH HỢP HEALTH CONNECT",
-      "localInference": "PHÂN TÍCH TRÊN THIẾT BỊ",
       "supportAndLegal": "HỖ TRỢ & PHÁP LÝ",
       "about": "VỀ ỨNG DỤNG",
       "dangerZone": "KHU VỰC NGUY HIỂM",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Nhắc bữa ăn",
       "subtitle": "Giữ đúng lịch với thông báo kịp thời"
-    },
-    "localInference": {
-      "title": "Phân tích bữa ăn trên thiết bị",
-      "subtitle": "Sử dụng Gemini Nano để phân tích các bữa ăn được hỗ trợ trước khi tính toán dinh dưỡng",
-      "unavailable": "Không khả dụng trên thiết bị này",
-      "rolloutUnavailable": "Tìm thấy phần cứng tương thích, nhưng tính năng này chưa được kích hoạt cho phiên bản ứng dụng này",
-      "modelSetup": "Gemini Nano cần hoàn tất tải xuống trước khi có thể kích hoạt tính năng này",
-      "useLocalTitle": "Sử dụng phân tích trên thiết bị",
-      "useLocalSubtitle": "Kết quả có thể ít đáng tin cậy hơn đối với các bữa ăn phức tạp.",
-      "disclosureTitle": "Trước khi bạn bật phân tích trên thiết bị",
-      "disclosureBody": "Gemini Nano có thể nhận diện thành phần và ước tính định lượng trên các thiết bị Android được hỗ trợ. Đề xuất thành phần sau khi bạn xem lại sẽ được gửi đến Calorify để đối chiếu dữ liệu dinh dưỡng USDA và tính toán.",
-      "disclosureLimit1": "Các món ăn phức tạp, thành phần ẩn và kích thước phần ăn có thể bị nhận diện sai.",
-      "disclosureLimit2": "Mô hình có thể không khả dụng khi đang tải xuống, đang bận, chạy ngầm hoặc bị giới hạn bởi thiết bị.",
-      "disclosureLimit3": "Nếu phân tích cục bộ không thể hoàn tất, bản beta này sẽ tự động gửi mô tả bữa ăn gốc của bạn đến Calorify để phân tích trên đám mây.",
-      "acknowledgement": "Tôi hiểu rằng tôi nên xem lại các thành phần và định lượng đã nhận diện.",
-      "enable": "Xác nhận và kích hoạt",
-      "cancel": "Hủy"
     },
     "theme": {
       "title": "Giao diện",
@@ -787,28 +762,6 @@
         "description": "Đừng dùng ước tính này để đưa ra quyết định y tế. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng để được tư vấn quản lý cân nặng cá nhân."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Nhỏ hơn",
-    "portionEstimated": "Ước tính",
-    "portionLarger": "Lớn hơn",
-    "portionQuestion": "Khẩu phần nào gần nhất với {ingredient}?",
-    "mealTypeQuestion": "Đây là bữa ăn nào?",
-    "localNutritionTip": "Được tính từ dữ liệu dinh dưỡng cục bộ đã xác minh.",
-    "offlineNutritionTitle": "Tải dữ liệu dinh dưỡng",
-    "offlineNutritionSubtitle": "Sử dụng các hàng USDA đã xác minh và phép tính xác định trên thiết bị này khi mọi nguyên liệu đều được hỗ trợ.",
-    "offlineNutritionUnavailable": "Dữ liệu dinh dưỡng cục bộ không khả dụng cho bản phát hành ứng dụng này.",
-    "offlineNutritionNotDownloaded": "Chưa tải xuống gói dinh dưỡng đã xác minh nào.",
-    "offlineNutritionInstalling": "Đang tải xuống và xác minh dữ liệu dinh dưỡng…",
-    "offlineNutritionStatus": "Gói {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} hàng USDA đã lưu đệm · {size}",
-    "offlineNutritionUpdate": "Kiểm tra bản cập nhật",
-    "offlineNutritionClear": "Xóa dữ liệu dinh dưỡng cục bộ",
-    "offlineNutritionClearTitle": "Xóa dữ liệu dinh dưỡng cục bộ?",
-    "offlineNutritionClearBody": "Thao tác này xóa gói USDA đã tải xuống và bộ nhớ đệm tra cứu. Các bữa ăn đã ghi vẫn giữ ảnh chụp dinh dưỡng chính xác được dùng khi lưu.",
-    "offlineNutritionClearConfirm": "Xóa dữ liệu",
-    "offlineNutritionInstallFailed": "Không thể tải xuống và xác minh dữ liệu dinh dưỡng cục bộ: {error}",
-    "offlineNutritionCleared": "Đã xóa dữ liệu dinh dưỡng cục bộ"
   },
   "watch": {
     "appTitle": "Calorify Watch",

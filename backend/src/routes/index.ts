@@ -1,9 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { healthRoutes } from './health.js';
 import { foodRoutes } from './v1/food.js';
-import { foodRoutesV2 } from './v2/food.js';
+import { foodRoutesV3 } from './v3/food.js';
 import { userRoutes } from './v1/user.js';
-import { analysisHistoryRoutes } from './analysisHistory.js';
 import config from '../config.js';
 import {
   createFoodRateLimitHooks,
@@ -23,15 +22,14 @@ export async function registerRoutes(
 
   // Health check route
   await fastify.register(healthRoutes);
-  await fastify.register(analysisHistoryRoutes);
 
   // API v1 routes
   await fastify.register(foodRoutes, { prefix: `${config.API_V1_STR}/food` });
   await fastify.register(userRoutes, { prefix: `${config.API_V1_STR}/user` });
 
-  // API v2 routes (streamed nutrition engine)
-  await fastify.register(foodRoutesV2, {
-    prefix: `${config.API_V2_STR}/food`,
+  // API v3 routes (scenario-based meal analysis)
+  await fastify.register(foodRoutesV3, {
+    prefix: `${config.API_V3_STR}/food`,
     foodRateLimitHooks,
   });
 }

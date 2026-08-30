@@ -321,7 +321,10 @@
       "optionHeavy": "כבד",
       "optionSmaller": "קטן יותר",
       "optionTypical": "טיפוסי",
-      "optionLarger": "גדול יותר"
+      "optionLarger": "גדול יותר",
+      "useEstimate": "השתמשו בהערכה",
+      "numberRange": "מ-{min} עד {max}, בקפיצות של {step}",
+      "invalidNumber": "הזינו ערך בטווח המותר"
     },
     "analysis": {
       "title": "מנתחים את הארוחה שלך",
@@ -344,23 +347,13 @@
       "ingredientsLine": "זוהו {count} רכיבים",
       "ingredientsPending": "סורק רכיבים…",
       "mealPreviewDescription": "״{text}״",
+      "calorieRange": "טווח משוער: {min}–{max} קק״ל",
       "offlineTip0": "טיפ: עקביות עדיפה על שלמות — רישומים סדירים מגלים דפוסים חשובים.",
       "offlineTip1": "טיפ: באור טבעי ובמבט מלמעלה מקלים דיוק הכמויות בתמונות.",
       "offlineTip2": "טיפ: ציין משקאות, רטבים ושמן בישול — הם מוסיפים קלוריות שאנשים שוכחים לעתים קרובות.",
       "offlineTip3": "טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.",
       "offlineTip4": "טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.",
       "offlineTip5": "טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי)."
-    },
-    "localInference": {
-      "reviewTitle": "בדיקת רכיבים שזוהו",
-      "reviewSubtitle": "המידע פוענח במכשיר שלך. תקן שמות או כמויות לפני חישוב הערכים התזונתיים.",
-      "mealName": "שם הארוחה",
-      "ingredient": "רכיב",
-      "grams": "גרמים מוערכים",
-      "removeIngredient": "הסר רכיב",
-      "continueLabel": "המשך",
-      "invalidProposal": "הוסף רכיב אחד לפחות והזן כמות גרמים חיובית.",
-      "localUnavailable": "ניתוח מקומי במכשיר אינו זמין כעת."
     },
     "feedback": {
       "title": "מה לא נראה נכון?",
@@ -502,7 +495,6 @@
       "localization": "מיקום שפה",
       "notifications": "התראות",
       "healthConnect": "Health Connect",
-      "localInference": "ניתוח במכשיר",
       "supportAndLegal": "תמיכה & משפטי",
       "about": "אודות",
       "dangerZone": "אזור מסוכן",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "תזכורות ארוחות",
       "subtitle": "הישאר על המסלול עם התראות בזמן"
-    },
-    "localInference": {
-      "title": "ניתוח ארוחות במכשיר",
-      "subtitle": "פענוח ארוחות נתמכות באמצעות Gemini Nano לפני חישוב הערכים התזונתיים",
-      "unavailable": "לא זמין במכשיר זה",
-      "rolloutUnavailable": "חומרה תומכת נמצאה, אך תכונה זו אינה זמינה בגרסה זו של האפליקציה",
-      "modelSetup": "Gemini Nano צריך לסיים את ההורדה לפני שניתן יהיה להפעיל זאת",
-      "useLocalTitle": "השתמש בניתוח במכשיר",
-      "useLocalSubtitle": "ייתכנו תוצאות פחות מדויקות עבור ארוחות מורכבות.",
-      "disclosureTitle": "לפני הפעלת הניתוח במכשיר",
-      "disclosureBody": "Gemini Nano יכול לזהות רכיבים ולהעריך כמויות במכשירי Android נתמכים. הצעת הרכיבים שבדקת נשלחת ל-Calorify לצורך ביסוס ערכים תזונתיים מ-USDA וחישוב.",
-      "disclosureLimit1": "מנות מורכבות, רכיבים נסתרים וגדלי מנות עשויים להיות מזוהים באופן שגוי.",
-      "disclosureLimit2": "המודל עשוי להיות לא זמין בזמן הורדה, כאשר הוא תפוס, ברקע, או בשל מגבלות המכשיר.",
-      "disclosureLimit3": "אם הפענוח המקומי לא יוכל להסתיים, גרסת בטא זו תשלח באופן אוטומטי את תיאור הארוחה המקורי ל-Calorify לצורך ניתוח בענן.",
-      "acknowledgement": "אני מבין/ה שעלי לבדוק את הרכיבים והכמויות שזוהו.",
-      "enable": "אישור והפעלה",
-      "cancel": "ביטול"
     },
     "theme": {
       "title": "נושא",
@@ -787,28 +762,6 @@
         "description": "אל תשתמש/י באומדן זה לקבלת החלטות רפואיות. תמיד התייעץ/י עם איש מקצוע בתחום הבריאות או דיאטן מוסמך לקבלת ייעוץ מותאם."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "קטנה יותר",
-    "portionEstimated": "משוערת",
-    "portionLarger": "גדולה יותר",
-    "portionQuestion": "איזו מנה הייתה הקרובה ביותר עבור {ingredient}?",
-    "mealTypeQuestion": "איזו ארוחה זו הייתה?",
-    "localNutritionTip": "חושב מנתוני תזונה מקומיים מאומתים.",
-    "offlineNutritionTitle": "הורדת נתוני תזונה",
-    "offlineNutritionSubtitle": "השתמשו בשורות USDA מאומתות ובחישוב דטרמיניסטי במכשיר הזה כאשר כל המרכיבים מכוסים.",
-    "offlineNutritionUnavailable": "נתוני תזונה מקומיים אינם זמינים לגרסת האפליקציה הזו.",
-    "offlineNutritionNotDownloaded": "לא הורדה חבילת תזונה מאומתת.",
-    "offlineNutritionInstalling": "נתוני התזונה מורדים ומאומתים…",
-    "offlineNutritionStatus": "חבילה {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} שורות USDA במטמון · {size}",
-    "offlineNutritionUpdate": "בדיקת עדכון",
-    "offlineNutritionClear": "ניקוי נתוני תזונה מקומיים",
-    "offlineNutritionClearTitle": "לנקות את נתוני התזונה המקומיים?",
-    "offlineNutritionClearBody": "פעולה זו מסירה את חבילת USDA שהורדה ואת מטמון החיפוש. ארוחות שנרשמו שומרות את תמונת המצב התזונתית המדויקת ששימשה בעת שמירתן.",
-    "offlineNutritionClearConfirm": "ניקוי נתונים",
-    "offlineNutritionInstallFailed": "לא ניתן היה להוריד ולאמת את נתוני התזונה המקומיים: {error}",
-    "offlineNutritionCleared": "נתוני התזונה המקומיים נוקו"
   },
   "watch": {
     "appTitle": "Calorify Watch",

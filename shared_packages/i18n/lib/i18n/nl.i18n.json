@@ -321,7 +321,10 @@
       "optionHeavy": "Zwaar",
       "optionSmaller": "Kleiner",
       "optionTypical": "Typisch",
-      "optionLarger": "Groter"
+      "optionLarger": "Groter",
+      "useEstimate": "Gebruik de schatting",
+      "numberRange": "Van {min} tot {max}, in stappen van {step}",
+      "invalidNumber": "Voer een waarde binnen het toegestane bereik in"
     },
     "analysis": {
       "title": "Je maaltijd wordt geanalyseerd",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} ingrediënten gedetecteerd",
       "ingredientsPending": "Ingrediënten scannen…",
       "mealPreviewDescription": "‘{text}’",
+      "calorieRange": "Geschat bereik: {min}–{max} kcal",
       "offlineTip0": "Tip: Consistentie is belangrijker dan perfectie—regelmatig loggen onthult de patronen die ertoe doen.",
       "offlineTip1": "Tip: Voor foto's helpen natuurlijk licht en een bovenaanzicht bij de portie-accuraatheid.",
       "offlineTip2": "Tip: Noem drankjes, sauzen en bakolie—ze voegen vaak vergeten calorieën toe.",
       "offlineTip3": "Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.",
       "offlineTip4": "Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.",
       "offlineTip5": "Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken)."
-    },
-    "localInference": {
-      "reviewTitle": "Gedetecteerde ingrediënten controleren",
-      "reviewSubtitle": "Dit is op je apparaat geïnterpreteerd. Corrigeer namen of porties voordat de voedingswaarde wordt berekend.",
-      "mealName": "Maaltijdnaam",
-      "ingredient": "Ingrediënt",
-      "grams": "Geschatte grammen",
-      "removeIngredient": "Ingrediënt verwijderen",
-      "continueLabel": "Doorgaan",
-      "invalidProposal": "Voeg minstens één ingrediënt toe en gebruik een positief aantal grammen.",
-      "localUnavailable": "Analyse op het apparaat is momenteel niet beschikbaar."
     },
     "feedback": {
       "title": "Wat klopt er niet?",
@@ -502,7 +495,6 @@
       "localization": "LOKALISATIE",
       "notifications": "MELDINGEN",
       "healthConnect": "HEALTH CONNECT-KOPPELING",
-      "localInference": "ANALYSE OP APPARAAT",
       "supportAndLegal": "ONDERSTEUNING & JURIDISCH",
       "about": "OVER",
       "dangerZone": "GEVAARZONE",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Maaltijdherinneringen",
       "subtitle": "Blijf op koers met tijdige meldingen"
-    },
-    "localInference": {
-      "title": "Maaltijdanalyse op apparaat",
-      "subtitle": "Ondersteunde maaltijden interpreteren met Gemini Nano voordat de voedingswaarde wordt berekend",
-      "unavailable": "Niet beschikbaar op dit apparaat",
-      "rolloutUnavailable": "Geschikte hardware gevonden, maar deze functie is niet ingeschakeld voor deze app-versie",
-      "modelSetup": "Gemini Nano moet eerst volledig worden gedownload voordat dit kan worden ingeschakeld",
-      "useLocalTitle": "Analyse op apparaat gebruiken",
-      "useLocalSubtitle": "Bij complexe maaltijden kunnen de resultaten minder betrouwbaar zijn.",
-      "disclosureTitle": "Voordat je analyse op apparaat inschakelt",
-      "disclosureBody": "Gemini Nano kan ingrediënten identificeren en porties schatten op ondersteunde Android-apparaten. Je gecontroleerde ingrediëntenvoorstel wordt naar Calorify gestuurd voor USDA-voedingsonderbouwing en berekening.",
-      "disclosureLimit1": "Complexe gerechten, verborgen ingrediënten en portiegroottes kunnen onjuist worden geïdentificeerd.",
-      "disclosureLimit2": "Het model kan onbeschikbaar zijn tijdens het downloaden, wanneer het bezet is, op de achtergrond draait of beperkt wordt door het apparaat.",
-      "disclosureLimit3": "Als de lokale interpretatie niet kan worden voltooid, stuurt deze bèta automatisch je oorspronkelijke maaltijdbeschrijving naar Calorify voor cloudanalyse.",
-      "acknowledgement": "Ik begrijp dat ik de gedetecteerde ingrediënten en porties moet controleren.",
-      "enable": "Bevestigen en inschakelen",
-      "cancel": "Annuleren"
     },
     "theme": {
       "title": "Thema",
@@ -787,28 +762,6 @@
         "description": "Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor persoonlijk gewichtsadvies."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Kleiner",
-    "portionEstimated": "Geschat",
-    "portionLarger": "Groter",
-    "portionQuestion": "Welke portie kwam het dichtst in de buurt voor {ingredient}?",
-    "mealTypeQuestion": "Welke maaltijd was dit?",
-    "localNutritionTip": "Berekend met geverifieerde lokale voedingsgegevens.",
-    "offlineNutritionTitle": "Voedingsgegevens downloaden",
-    "offlineNutritionSubtitle": "Gebruik geverifieerde USDA-rijen en deterministische berekening op dit apparaat wanneer alle ingrediënten gedekt zijn.",
-    "offlineNutritionUnavailable": "Lokale voedingsgegevens zijn niet beschikbaar voor deze appversie.",
-    "offlineNutritionNotDownloaded": "Er is geen geverifieerd voedingspakket gedownload.",
-    "offlineNutritionInstalling": "Voedingsgegevens downloaden en verifiëren…",
-    "offlineNutritionStatus": "Pakket {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} gecachte USDA-rijen · {size}",
-    "offlineNutritionUpdate": "Controleren op update",
-    "offlineNutritionClear": "Lokale voedingsgegevens wissen",
-    "offlineNutritionClearTitle": "Lokale voedingsgegevens wissen?",
-    "offlineNutritionClearBody": "Hiermee worden het gedownloade USDA-pakket en de zoekcache verwijderd. Geregistreerde maaltijden behouden de exacte voedingsmomentopname die bij het opslaan is gebruikt.",
-    "offlineNutritionClearConfirm": "Gegevens wissen",
-    "offlineNutritionInstallFailed": "Lokale voedingsgegevens konden niet worden gedownload en geverifieerd: {error}",
-    "offlineNutritionCleared": "Lokale voedingsgegevens gewist"
   },
   "watch": {
     "appTitle": "Calorify Watch",

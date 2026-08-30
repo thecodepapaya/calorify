@@ -57,7 +57,6 @@ class TranslationsKo extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$ko notifications = _Translations$notifications$ko._(_root);
 	@override late final _Translations$login$ko login = _Translations$login$ko._(_root);
 	@override late final _Translations$disclaimer$ko disclaimer = _Translations$disclaimer$ko._(_root);
-	@override late final _Translations$localNutritionPhase4$ko localNutritionPhase4 = _Translations$localNutritionPhase4$ko._(_root);
 	@override late final _Translations$watch$ko watch = _Translations$watch$ko._(_root);
 	@override late final _Translations$common$ko common = _Translations$common$ko._(_root);
 	@override late final _Translations$feedbackRating$ko feedbackRating = _Translations$feedbackRating$ko._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$ko extends Translations$meal$en {
 	@override String get skip => '건너뛰기';
 	@override late final _Translations$meal$questionFlow$ko questionFlow = _Translations$meal$questionFlow$ko._(_root);
 	@override late final _Translations$meal$analysis$ko analysis = _Translations$meal$analysis$ko._(_root);
-	@override late final _Translations$meal$localInference$ko localInference = _Translations$meal$localInference$ko._(_root);
 	@override late final _Translations$meal$feedback$ko feedback = _Translations$meal$feedback$ko._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$ko extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$ko heightUnit = _Translations$settings$heightUnit$ko._(_root);
 	@override late final _Translations$settings$weightUnit$ko weightUnit = _Translations$settings$weightUnit$ko._(_root);
 	@override late final _Translations$settings$mealReminders$ko mealReminders = _Translations$settings$mealReminders$ko._(_root);
-	@override late final _Translations$settings$localInference$ko localInference = _Translations$settings$localInference$ko._(_root);
 	@override late final _Translations$settings$theme$ko theme = _Translations$settings$theme$ko._(_root);
 	@override late final _Translations$settings$sendFeedback$ko sendFeedback = _Translations$settings$sendFeedback$ko._(_root);
 	@override late final _Translations$settings$exportMealHistory$ko exportMealHistory = _Translations$settings$exportMealHistory$ko._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$ko extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$ko weightEstimate = _Translations$disclaimer$weightEstimate$ko._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$ko healthMetrics = _Translations$disclaimer$healthMetrics$ko._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$ko calorieExpenditure = _Translations$disclaimer$calorieExpenditure$ko._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$ko extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$ko._(TranslationsKo root) : this._root = root, super.internal(root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => '더 적게';
-	@override String get portionEstimated => '추정량';
-	@override String get portionLarger => '더 많이';
-	@override String portionQuestion({required Object ingredient}) => '${ingredient}의 양과 가장 가까운 것은 무엇이었나요?';
-	@override String get mealTypeQuestion => '어떤 식사였나요?';
-	@override String get localNutritionTip => '검증된 로컬 영양 데이터로 계산했습니다.';
-	@override String get offlineNutritionTitle => '영양 데이터 다운로드';
-	@override String get offlineNutritionSubtitle => '모든 재료가 포함될 때 이 기기에서 검증된 USDA 데이터와 결정론적 계산을 사용합니다.';
-	@override String get offlineNutritionUnavailable => '이 앱 릴리스에서는 로컬 영양 데이터를 사용할 수 없습니다.';
-	@override String get offlineNutritionNotDownloaded => '검증된 영양 팩이 다운로드되지 않았습니다.';
-	@override String get offlineNutritionInstalling => '영양 데이터를 다운로드하고 검증하는 중…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => '팩 ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '캐시된 USDA 데이터 ${count}개 · ${size}';
-	@override String get offlineNutritionUpdate => '업데이트 확인';
-	@override String get offlineNutritionClear => '로컬 영양 데이터 지우기';
-	@override String get offlineNutritionClearTitle => '로컬 영양 데이터를 지울까요?';
-	@override String get offlineNutritionClearBody => '다운로드한 USDA 팩과 조회 캐시를 삭제합니다. 기록된 식사는 저장할 때 사용한 정확한 영양 스냅샷을 유지합니다.';
-	@override String get offlineNutritionClearConfirm => '데이터 지우기';
-	@override String offlineNutritionInstallFailed({required Object error}) => '로컬 영양 데이터를 다운로드하고 검증할 수 없습니다: ${error}';
-	@override String get offlineNutritionCleared => '로컬 영양 데이터를 지웠습니다';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$ko extends Translations$meal$questionFlow$
 	@override String get optionSmaller => '더 작게';
 	@override String get optionTypical => '일반';
 	@override String get optionLarger => '더 크게';
+	@override String get useEstimate => '추정값 사용';
+	@override String numberRange({required Object min, required Object max, required Object step}) => '${min}부터 ${max}까지, ${step} 간격';
+	@override String get invalidNumber => '허용 범위 내의 값을 입력하세요';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$ko extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count}개의 재료가 감지되었습니다';
 	@override String get ingredientsPending => '재료 스캔 중…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => '추정 범위: ${min}–${max} kcal';
 	@override String get offlineTip0 => '팁: 완벽함보다 꾸준함이 중요합니다—정기적인 기록이 중요한 패턴을 드러냅니다.';
 	@override String get offlineTip1 => '팁: 사진은 자연광과 위에서 내려다보는 구도가 분량 추정에 도움이 됩니다.';
 	@override String get offlineTip2 => '팁: 음료, 소스, 식용유도 칼로리를 추가하니 꼭 언급하세요.';
 	@override String get offlineTip3 => '팁: 빠른 분량 표시(예: 1그릇, 큰 커피)는 추정을 훨씬 정확하게 만듭니다.';
 	@override String get offlineTip4 => '팁: 식사 후 기록해도 습관을 기르는 데 도움이 됩니다; 완벽할 필요는 없습니다.';
 	@override String get offlineTip5 => '팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요.';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$ko extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$ko._(TranslationsKo root) : this._root = root, super.internal(root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => '감지된 식재료 확인';
-	@override String get reviewSubtitle => '기기에서 분석한 내용입니다. 영양 성분을 계산하기 전에 이름이나 양을 수정해 주세요.';
-	@override String get mealName => '식사 이름';
-	@override String get ingredient => '식재료';
-	@override String get grams => '추정 중량(g)';
-	@override String get removeIngredient => '식재료 삭제';
-	@override String get continueLabel => '계속하기';
-	@override String get invalidProposal => '최소 하나 이상의 식재료를 추가하고, 양을 양수로 입력해 주세요.';
-	@override String get localUnavailable => '현재 기기 내 분석을 사용할 수 없습니다.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$ko extends Translations$settings$sections$
 	@override String get localization => '지역화';
 	@override String get notifications => '알림';
 	@override String get healthConnect => 'HEALTH CONNECT 설정';
-	@override String get localInference => '기기 내 분석';
 	@override String get supportAndLegal => '지원 및 법적 고지';
 	@override String get about => '앱 정보';
 	@override String get dangerZone => '위험 구역';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$ko extends Translations$settings$meal
 	// Translations
 	@override String get title => '식사 알림';
 	@override String get subtitle => '정시 알림으로 계획을 지키세요';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$ko extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$ko._(TranslationsKo root) : this._root = root, super.internal(root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => '기기 내 식사 분석';
-	@override String get subtitle => '영양 성분을 계산하기 전, Gemini Nano를 통해 지원되는 식사를 분석합니다';
-	@override String get unavailable => '이 기기에서는 사용할 수 없습니다';
-	@override String get rolloutUnavailable => '지원 하드웨어가 발견되었으나, 현재 앱 버전에서는 이 기능이 활성화되지 않았습니다';
-	@override String get modelSetup => '이 기능을 활성화하려면 Gemini Nano 다운로드가 완료되어야 합니다';
-	@override String get useLocalTitle => '기기 내 분석 사용';
-	@override String get useLocalSubtitle => '복잡한 식사의 경우 결과의 신뢰성이 떨어질 수 있습니다.';
-	@override String get disclosureTitle => '기기 내 분석을 활성화하기 전에';
-	@override String get disclosureBody => 'Gemini Nano는 지원되는 Android 기기에서 식재료를 식별하고 양을 추정할 수 있습니다. 확인된 식재료 제안은 USDA 영양 정보 기반 확인 및 계산을 위해 Calorify로 전송됩니다.';
-	@override String get disclosureLimit1 => '복잡한 요리, 숨겨진 식재료 및 분량은 잘못 식별될 수 있습니다.';
-	@override String get disclosureLimit2 => '다운로드 중이거나, 기기가 바쁘거나, 백그라운드 상태이거나, 기기 제한이 있는 경우 모델을 사용할 수 없습니다.';
-	@override String get disclosureLimit3 => '기기 내 분석을 완료할 수 없는 경우, 이 베타 버전은 원래의 식사 설명을 Calorify로 자동 전송하여 클라우드 분석을 수행합니다.';
-	@override String get acknowledgement => '감지된 식재료와 양을 확인해야 함을 이해했습니다.';
-	@override String get enable => '동의 및 활성화';
-	@override String get cancel => '취소';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsKo {
 			'meal.questionFlow.optionSmaller' => '더 작게',
 			'meal.questionFlow.optionTypical' => '일반',
 			'meal.questionFlow.optionLarger' => '더 크게',
+			'meal.questionFlow.useEstimate' => '추정값 사용',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => '${min}부터 ${max}까지, ${step} 간격',
+			'meal.questionFlow.invalidNumber' => '허용 범위 내의 값을 입력하세요',
 			'meal.analysis.title' => '식사 분석 중',
 			'meal.analysis.stepStarted' => '시작 중…',
 			'meal.analysis.stepDecomposition' => '식사 파악 중…',
@@ -2308,21 +2240,13 @@ extension on TranslationsKo {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count}개의 재료가 감지되었습니다',
 			'meal.analysis.ingredientsPending' => '재료 스캔 중…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => '추정 범위: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => '팁: 완벽함보다 꾸준함이 중요합니다—정기적인 기록이 중요한 패턴을 드러냅니다.',
 			'meal.analysis.offlineTip1' => '팁: 사진은 자연광과 위에서 내려다보는 구도가 분량 추정에 도움이 됩니다.',
 			'meal.analysis.offlineTip2' => '팁: 음료, 소스, 식용유도 칼로리를 추가하니 꼭 언급하세요.',
 			'meal.analysis.offlineTip3' => '팁: 빠른 분량 표시(예: 1그릇, 큰 커피)는 추정을 훨씬 정확하게 만듭니다.',
 			'meal.analysis.offlineTip4' => '팁: 식사 후 기록해도 습관을 기르는 데 도움이 됩니다; 완벽할 필요는 없습니다.',
 			'meal.analysis.offlineTip5' => '팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요.',
-			'meal.localInference.reviewTitle' => '감지된 식재료 확인',
-			'meal.localInference.reviewSubtitle' => '기기에서 분석한 내용입니다. 영양 성분을 계산하기 전에 이름이나 양을 수정해 주세요.',
-			'meal.localInference.mealName' => '식사 이름',
-			'meal.localInference.ingredient' => '식재료',
-			'meal.localInference.grams' => '추정 중량(g)',
-			'meal.localInference.removeIngredient' => '식재료 삭제',
-			'meal.localInference.continueLabel' => '계속하기',
-			'meal.localInference.invalidProposal' => '최소 하나 이상의 식재료를 추가하고, 양을 양수로 입력해 주세요.',
-			'meal.localInference.localUnavailable' => '현재 기기 내 분석을 사용할 수 없습니다.',
 			'meal.feedback.title' => '어떤 점이 잘못되었나요?',
 			'meal.feedback.subtitle' => '분석 개선을 위해 한 가지 이상 문제를 선택해주세요.',
 			'meal.feedback.tellUsMore' => '자세히 알려주세요',
@@ -2420,7 +2344,6 @@ extension on TranslationsKo {
 			'settings.sections.localization' => '지역화',
 			'settings.sections.notifications' => '알림',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT 설정',
-			'settings.sections.localInference' => '기기 내 분석',
 			'settings.sections.supportAndLegal' => '지원 및 법적 고지',
 			'settings.sections.about' => '앱 정보',
 			'settings.sections.dangerZone' => '위험 구역',
@@ -2435,21 +2358,6 @@ extension on TranslationsKo {
 			'settings.weightUnit.title' => '체중 단위',
 			'settings.mealReminders.title' => '식사 알림',
 			'settings.mealReminders.subtitle' => '정시 알림으로 계획을 지키세요',
-			'settings.localInference.title' => '기기 내 식사 분석',
-			'settings.localInference.subtitle' => '영양 성분을 계산하기 전, Gemini Nano를 통해 지원되는 식사를 분석합니다',
-			'settings.localInference.unavailable' => '이 기기에서는 사용할 수 없습니다',
-			'settings.localInference.rolloutUnavailable' => '지원 하드웨어가 발견되었으나, 현재 앱 버전에서는 이 기능이 활성화되지 않았습니다',
-			'settings.localInference.modelSetup' => '이 기능을 활성화하려면 Gemini Nano 다운로드가 완료되어야 합니다',
-			'settings.localInference.useLocalTitle' => '기기 내 분석 사용',
-			'settings.localInference.useLocalSubtitle' => '복잡한 식사의 경우 결과의 신뢰성이 떨어질 수 있습니다.',
-			'settings.localInference.disclosureTitle' => '기기 내 분석을 활성화하기 전에',
-			'settings.localInference.disclosureBody' => 'Gemini Nano는 지원되는 Android 기기에서 식재료를 식별하고 양을 추정할 수 있습니다. 확인된 식재료 제안은 USDA 영양 정보 기반 확인 및 계산을 위해 Calorify로 전송됩니다.',
-			'settings.localInference.disclosureLimit1' => '복잡한 요리, 숨겨진 식재료 및 분량은 잘못 식별될 수 있습니다.',
-			'settings.localInference.disclosureLimit2' => '다운로드 중이거나, 기기가 바쁘거나, 백그라운드 상태이거나, 기기 제한이 있는 경우 모델을 사용할 수 없습니다.',
-			'settings.localInference.disclosureLimit3' => '기기 내 분석을 완료할 수 없는 경우, 이 베타 버전은 원래의 식사 설명을 Calorify로 자동 전송하여 클라우드 분석을 수행합니다.',
-			'settings.localInference.acknowledgement' => '감지된 식재료와 양을 확인해야 함을 이해했습니다.',
-			'settings.localInference.enable' => '동의 및 활성화',
-			'settings.localInference.cancel' => '취소',
 			'settings.theme.title' => '테마',
 			'settings.theme.light' => '라이트',
 			'settings.theme.dark' => '다크',
@@ -2561,8 +2469,6 @@ extension on TranslationsKo {
 			'reminders.errorCompletingSetup' => ({required Object error}) => '설정 완료 오류: ${error}',
 			'notifications.breakfast.title' => '아침 시간이에요! 🍳',
 			'notifications.breakfast.body' => '아침 기록하는 것을 잊지 마세요',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => '점심 시간이에요! 🥗',
 			'notifications.lunch.body' => '점심을 기록할 시간이에요',
 			'notifications.dinner.title' => '저녁 시간이에요! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsKo {
 			'disclaimer.snap.databaseLimitations.title' => '데이터베이스 한계',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}의 음식 데이터베이스는 광범위하지만 모든 음식 항목이나 변형을 포함하지 않을 수 있습니다.',
 			'disclaimer.weightEstimate.title' => '체중 예측에 관하여',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => '예상 체중 변화는 단순한 칼로리 소비 vs 섭취 모델에 기반한 이론적 추정치입니다. 이는 동기부여용 안내이며 실제 체중 예측을 위한 수단이 아닙니다.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => '칼로리 정확도',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => '이 추정치는 기록된 칼로리 섭취 및 소비의 정확성에 따라 달라집니다. 부정확한 기록은 부정확한 예측을 초래합니다.',
@@ -2606,26 +2514,6 @@ extension on TranslationsKo {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '프로필을 기반으로 TDEE를 계산하고 경과한 시간(시 + 분) / 24를 곱해 지금까지 소모한 칼로리를 추정합니다.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '전문가 조언',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '이 추정치를 의료 결정에 사용하지 마세요. 개인화된 체중 관리 조언은 항상 의료 전문가나 공인 영양사와 상담하세요.',
-			'localNutritionPhase4.portionSmaller' => '더 적게',
-			'localNutritionPhase4.portionEstimated' => '추정량',
-			'localNutritionPhase4.portionLarger' => '더 많이',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => '${ingredient}의 양과 가장 가까운 것은 무엇이었나요?',
-			'localNutritionPhase4.mealTypeQuestion' => '어떤 식사였나요?',
-			'localNutritionPhase4.localNutritionTip' => '검증된 로컬 영양 데이터로 계산했습니다.',
-			'localNutritionPhase4.offlineNutritionTitle' => '영양 데이터 다운로드',
-			'localNutritionPhase4.offlineNutritionSubtitle' => '모든 재료가 포함될 때 이 기기에서 검증된 USDA 데이터와 결정론적 계산을 사용합니다.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => '이 앱 릴리스에서는 로컬 영양 데이터를 사용할 수 없습니다.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => '검증된 영양 팩이 다운로드되지 않았습니다.',
-			'localNutritionPhase4.offlineNutritionInstalling' => '영양 데이터를 다운로드하고 검증하는 중…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => '팩 ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '캐시된 USDA 데이터 ${count}개 · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => '업데이트 확인',
-			'localNutritionPhase4.offlineNutritionClear' => '로컬 영양 데이터 지우기',
-			'localNutritionPhase4.offlineNutritionClearTitle' => '로컬 영양 데이터를 지울까요?',
-			'localNutritionPhase4.offlineNutritionClearBody' => '다운로드한 USDA 팩과 조회 캐시를 삭제합니다. 기록된 식사는 저장할 때 사용한 정확한 영양 스냅샷을 유지합니다.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => '데이터 지우기',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => '로컬 영양 데이터를 다운로드하고 검증할 수 없습니다: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => '로컬 영양 데이터를 지웠습니다',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => '뒤로',
 			'watch.common.cancel' => '취소',

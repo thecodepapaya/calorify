@@ -321,7 +321,10 @@
       "optionHeavy": "Berat",
       "optionSmaller": "Lebih kecil",
       "optionTypical": "Biasa",
-      "optionLarger": "Lebih besar"
+      "optionLarger": "Lebih besar",
+      "useEstimate": "Guna anggaran",
+      "numberRange": "Dari {min} hingga {max}, dengan kenaikan {step}",
+      "invalidNumber": "Masukkan nilai dalam julat yang dibenarkan"
     },
     "analysis": {
       "title": "Menganalisis hidangan anda",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} bahan dikesan",
       "ingredientsPending": "Mengimbas bahan…",
       "mealPreviewDescription": "“{text}”",
+      "calorieRange": "Julat anggaran: {min}–{max} kcal",
       "offlineTip0": "Tip: Konsistensi lebih penting daripada kesempurnaan—log secara tetap mendedahkan corak yang bermakna.",
       "offlineTip1": "Tip: Untuk foto, cahaya semula jadi dan pandangan dari atas membantu ketepatan bahagian.",
       "offlineTip2": "Tip: Nyatakan minuman, sos, dan minyak masak—mereka menambah kalori yang sering terlupa.",
       "offlineTip3": "Tip: Nota bahagian ringkas (1 mangkuk, kopi besar) menjadikan anggaran lebih tepat.",
       "offlineTip4": "Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.",
       "offlineTip5": "Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar)."
-    },
-    "localInference": {
-      "reviewTitle": "Semak ramuan yang dikesan",
-      "reviewSubtitle": "Ini ditafsirkan pada peranti anda. Betulkan nama atau bahagian sebelum pemakanan dikira.",
-      "mealName": "Nama hidangan",
-      "ingredient": "Ramuan",
-      "grams": "Anggaran gram",
-      "removeIngredient": "Alih keluar ramuan",
-      "continueLabel": "Teruskan",
-      "invalidProposal": "Tambah sekurang-kurangnya satu ramuan dan gunakan jumlah gram yang positif.",
-      "localUnavailable": "Analisis pada peranti tidak tersedia buat masa ini."
     },
     "feedback": {
       "title": "Apa yang kelihatan salah?",
@@ -502,7 +495,6 @@
       "localization": "PENENTUAN LOKAL",
       "notifications": "PEMBERITAHUAN",
       "healthConnect": "INTEGRASI HEALTH CONNECT",
-      "localInference": "ANALISIS PADA PERANTI",
       "supportAndLegal": "SOKONGAN & UNDANG-UNDANG",
       "about": "TENTANG",
       "dangerZone": "ZON BERISIKO",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Peringatan Hidangan",
       "subtitle": "Kekal pada landasan dengan amaran tepat pada masanya"
-    },
-    "localInference": {
-      "title": "Analisis hidangan pada peranti",
-      "subtitle": "Tafsir hidangan yang disokong dengan Gemini Nano sebelum pemakanan dikira",
-      "unavailable": "Tidak tersedia pada peranti ini",
-      "rolloutUnavailable": "Perkakasan yang tersedia ditemui, tetapi ciri ini tidak didayakan untuk versi aplikasi ini",
-      "modelSetup": "Gemini Nano perlu selesai dimuat turun sebelum ini boleh didayakan",
-      "useLocalTitle": "Gunakan analisis pada peranti",
-      "useLocalSubtitle": "Keputusan mungkin kurang boleh dipercayai untuk hidangan yang kompleks.",
-      "disclosureTitle": "Sebelum anda mendayakan analisis pada peranti",
-      "disclosureBody": "Gemini Nano boleh mengenal pasti ramuan dan menganggar bahagian pada peranti Android yang disokong. Cadangan ramuan yang anda semak akan dihantar ke Calorify untuk pengesahan pemakanan USDA dan pengiraan.",
-      "disclosureLimit1": "Hidangan kompleks, ramuan tersembunyi, dan saiz bahagian mungkin dikenal pasti secara tidak tepat.",
-      "disclosureLimit2": "Model mungkin tidak tersedia semasa memuat turun, sibuk, berada di latar belakang, atau dihadkan oleh peranti.",
-      "disclosureLimit3": "Jika tafsiran tempatan tidak dapat diselesaikan, versi beta ini secara automatik menghantar huraian asal hidangan anda ke Calorify untuk analisis awan.",
-      "acknowledgement": "Saya faham bahawa saya perlu menyemak ramuan dan bahagian yang dikesan.",
-      "enable": "Sahkan dan dayakan",
-      "cancel": "Batal"
     },
     "theme": {
       "title": "Tema",
@@ -787,28 +762,6 @@
         "description": "Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa rujuk profesional kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat peribadi."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Lebih kecil",
-    "portionEstimated": "Anggaran",
-    "portionLarger": "Lebih besar",
-    "portionQuestion": "Saiz hidangan manakah paling hampir untuk {ingredient}?",
-    "mealTypeQuestion": "Ini hidangan yang mana?",
-    "localNutritionTip": "Dikira daripada data pemakanan tempatan yang disahkan.",
-    "offlineNutritionTitle": "Muat turun data pemakanan",
-    "offlineNutritionSubtitle": "Gunakan baris USDA yang disahkan dan pengiraan deterministik pada peranti ini apabila semua bahan diliputi.",
-    "offlineNutritionUnavailable": "Data pemakanan tempatan tidak tersedia untuk keluaran aplikasi ini.",
-    "offlineNutritionNotDownloaded": "Tiada pek pemakanan yang disahkan telah dimuat turun.",
-    "offlineNutritionInstalling": "Memuat turun dan mengesahkan data pemakanan…",
-    "offlineNutritionStatus": "Pek {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} baris USDA dicache · {size}",
-    "offlineNutritionUpdate": "Semak kemas kini",
-    "offlineNutritionClear": "Kosongkan data pemakanan tempatan",
-    "offlineNutritionClearTitle": "Kosongkan data pemakanan tempatan?",
-    "offlineNutritionClearBody": "Ini mengalih keluar pek USDA yang dimuat turun dan cache carian. Hidangan yang direkodkan mengekalkan petikan pemakanan tepat yang digunakan semasa disimpan.",
-    "offlineNutritionClearConfirm": "Kosongkan data",
-    "offlineNutritionInstallFailed": "Tidak dapat memuat turun dan mengesahkan data pemakanan tempatan: {error}",
-    "offlineNutritionCleared": "Data pemakanan tempatan dikosongkan"
   },
   "watch": {
     "appTitle": "Calorify Watch",

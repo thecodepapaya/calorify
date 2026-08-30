@@ -57,7 +57,6 @@ class TranslationsTl extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$tl notifications = _Translations$notifications$tl._(_root);
 	@override late final _Translations$login$tl login = _Translations$login$tl._(_root);
 	@override late final _Translations$disclaimer$tl disclaimer = _Translations$disclaimer$tl._(_root);
-	@override late final _Translations$localNutritionPhase4$tl localNutritionPhase4 = _Translations$localNutritionPhase4$tl._(_root);
 	@override late final _Translations$watch$tl watch = _Translations$watch$tl._(_root);
 	@override late final _Translations$common$tl common = _Translations$common$tl._(_root);
 	@override late final _Translations$feedbackRating$tl feedbackRating = _Translations$feedbackRating$tl._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$tl extends Translations$meal$en {
 	@override String get skip => 'Laktawan';
 	@override late final _Translations$meal$questionFlow$tl questionFlow = _Translations$meal$questionFlow$tl._(_root);
 	@override late final _Translations$meal$analysis$tl analysis = _Translations$meal$analysis$tl._(_root);
-	@override late final _Translations$meal$localInference$tl localInference = _Translations$meal$localInference$tl._(_root);
 	@override late final _Translations$meal$feedback$tl feedback = _Translations$meal$feedback$tl._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$tl extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$tl heightUnit = _Translations$settings$heightUnit$tl._(_root);
 	@override late final _Translations$settings$weightUnit$tl weightUnit = _Translations$settings$weightUnit$tl._(_root);
 	@override late final _Translations$settings$mealReminders$tl mealReminders = _Translations$settings$mealReminders$tl._(_root);
-	@override late final _Translations$settings$localInference$tl localInference = _Translations$settings$localInference$tl._(_root);
 	@override late final _Translations$settings$theme$tl theme = _Translations$settings$theme$tl._(_root);
 	@override late final _Translations$settings$sendFeedback$tl sendFeedback = _Translations$settings$sendFeedback$tl._(_root);
 	@override late final _Translations$settings$exportMealHistory$tl exportMealHistory = _Translations$settings$exportMealHistory$tl._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$tl extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$tl weightEstimate = _Translations$disclaimer$weightEstimate$tl._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$tl healthMetrics = _Translations$disclaimer$healthMetrics$tl._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$tl calorieExpenditure = _Translations$disclaimer$calorieExpenditure$tl._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$tl extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$tl._(TranslationsTl root) : this._root = root, super.internal(root);
-
-	final TranslationsTl _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'Mas kaunti';
-	@override String get portionEstimated => 'Tinataya';
-	@override String get portionLarger => 'Mas marami';
-	@override String portionQuestion({required Object ingredient}) => 'Aling dami ang pinakamalapit para sa ${ingredient}?';
-	@override String get mealTypeQuestion => 'Anong meal ito?';
-	@override String get localNutritionTip => 'Kinuwenta mula sa beripikadong lokal na nutrition data.';
-	@override String get offlineNutritionTitle => 'I-download ang nutrition data';
-	@override String get offlineNutritionSubtitle => 'Gumamit ng beripikadong mga row ng USDA at deterministikong pagkukuwenta sa device na ito kapag sakop ang lahat ng sangkap.';
-	@override String get offlineNutritionUnavailable => 'Hindi available ang lokal na nutrition data para sa release na ito ng app.';
-	@override String get offlineNutritionNotDownloaded => 'Walang na-download na beripikadong nutrition pack.';
-	@override String get offlineNutritionInstalling => 'Dina-download at bineberipika ang nutrition data…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Pakete ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} naka-cache na row ng USDA · ${size}';
-	@override String get offlineNutritionUpdate => 'Tingnan kung may update';
-	@override String get offlineNutritionClear => 'I-clear ang lokal na nutrition data';
-	@override String get offlineNutritionClearTitle => 'I-clear ang lokal na nutrition data?';
-	@override String get offlineNutritionClearBody => 'Aalisin nito ang na-download na USDA pack at lookup cache. Pananatilihin ng mga naka-log na meal ang eksaktong nutrition snapshot na ginamit noong na-save ang mga ito.';
-	@override String get offlineNutritionClearConfirm => 'I-clear ang data';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Hindi ma-download at ma-verify ang lokal na nutrition data: ${error}';
-	@override String get offlineNutritionCleared => 'Na-clear ang lokal na nutrition data';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$tl extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'Mas maliit';
 	@override String get optionTypical => 'Karaniwan';
 	@override String get optionLarger => 'Mas malaki';
+	@override String get useEstimate => 'Gamitin ang tantya';
+	@override String numberRange({required Object min, required Object max, required Object step}) => 'Mula ${min} hanggang ${max}, kada ${step}';
+	@override String get invalidNumber => 'Maglagay ng halaga sa loob ng pinahihintulutang saklaw';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$tl extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count} na sangkap ang natukoy';
 	@override String get ingredientsPending => 'Sinusuri ang mga sangkap…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => 'Tinatayang saklaw: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'Tip: Mas mahalaga ang pagiging regular kaysa perpeksiyon—ang regular na pag-log ang nagpapakita ng mga pattern na mahalaga.';
 	@override String get offlineTip1 => 'Tip: Para sa mga larawan, mas nakakatulong ang natural na ilaw at top-down na kuha para sa tumpak na bahagi.';
 	@override String get offlineTip2 => 'Tip: Banggitin ang inumin, sarsa, at mantika sa pagluluto—nagdaragdag sila ng calories na madalas nakakaligtaan.';
 	@override String get offlineTip3 => 'Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.';
 	@override String get offlineTip4 => 'Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.';
 	@override String get offlineTip5 => 'Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$tl extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$tl._(TranslationsTl root) : this._root = root, super.internal(root);
-
-	final TranslationsTl _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'Suriin ang mga nakitang sangkap';
-	@override String get reviewSubtitle => 'Binigyang-kahulugan ito sa iyong device. Itama ang mga pangalan o dami bago kalkulahin ang nutrisyon.';
-	@override String get mealName => 'Pangalan ng pagkain';
-	@override String get ingredient => 'Sangkap';
-	@override String get grams => 'Tinatayang gramo';
-	@override String get removeIngredient => 'Alisin ang sangkap';
-	@override String get continueLabel => 'Magpatuloy';
-	@override String get invalidProposal => 'Magdagdag ng kahit isang sangkap at gumamit ng positibong halaga ng gramo.';
-	@override String get localUnavailable => 'Hindi available ang on-device analysis sa ngayon.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$tl extends Translations$settings$sections$
 	@override String get localization => 'Wika at Lokalidad';
 	@override String get notifications => 'Mga Notification';
 	@override String get healthConnect => 'PAGSASAMA SA HEALTH CONNECT';
-	@override String get localInference => 'PAGSUSURI SA DEVICE';
 	@override String get supportAndLegal => 'SUPORTA & LEGAL';
 	@override String get about => 'TUNGKOL';
 	@override String get dangerZone => 'DELIKADONG ZONA';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$tl extends Translations$settings$meal
 	// Translations
 	@override String get title => 'Paalaala sa Pagkain';
 	@override String get subtitle => 'Manatiling nasa tamang landas sa tamang oras na mga alerto';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$tl extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$tl._(TranslationsTl root) : this._root = root, super.internal(root);
-
-	final TranslationsTl _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Pagsusuri ng Pagkain sa Device';
-	@override String get subtitle => 'Bigyang-kahulugan ang mga suportadong pagkain gamit ang Gemini Nano bago kalkulahin ang nutrisyon';
-	@override String get unavailable => 'Hindi available sa device na ito';
-	@override String get rolloutUnavailable => 'May nakitang compatible na hardware, ngunit ang feature na ito ay hindi enabled para sa release na ito ng app';
-	@override String get modelSetup => 'Kailangang matapos muna ang pag-download ng Gemini Nano bago ito ma-enable';
-	@override String get useLocalTitle => 'Gamitin ang on-device analysis';
-	@override String get useLocalSubtitle => 'Maaaring hindi gaanong tumpak ang mga resulta para sa mga kumplikadong pagkain.';
-	@override String get disclosureTitle => 'Bago i-enable ang on-device analysis';
-	@override String get disclosureBody => 'Kayang tukuyin ng Gemini Nano ang mga sangkap at tantyahin ang mga bahagi sa mga suportadong Android device. Ang iyong sinuring mungkahi ng sangkap ay ipapadala sa Calorify para sa USDA nutrition grounding at kalkulasyon.';
-	@override String get disclosureLimit1 => 'Ang mga komplikadong putahe, nakatagong sangkap, at laki ng bahagi ay maaaring matukoy nang mali.';
-	@override String get disclosureLimit2 => 'Maaaring hindi available ang model habang nag-da-download, busy, nasa background, o limitado ng device.';
-	@override String get disclosureLimit3 => 'Kung hindi matapos ang local interpretation, awtomatikong ipapadala ng beta na ito ang iyong orihinal na paglalarawan ng pagkain sa Calorify para sa cloud analysis.';
-	@override String get acknowledgement => 'Naiintindihan ko na dapat kong suriin ang mga nakitang sangkap at bahagi.';
-	@override String get enable => 'Kumpirmahin at i-enable';
-	@override String get cancel => 'Kanselahin';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsTl {
 			'meal.questionFlow.optionSmaller' => 'Mas maliit',
 			'meal.questionFlow.optionTypical' => 'Karaniwan',
 			'meal.questionFlow.optionLarger' => 'Mas malaki',
+			'meal.questionFlow.useEstimate' => 'Gamitin ang tantya',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'Mula ${min} hanggang ${max}, kada ${step}',
+			'meal.questionFlow.invalidNumber' => 'Maglagay ng halaga sa loob ng pinahihintulutang saklaw',
 			'meal.analysis.title' => 'Sinusuri ang iyong pagkain',
 			'meal.analysis.stepStarted' => 'Nagsisimula…',
 			'meal.analysis.stepDecomposition' => 'Iniintindi ang iyong pagkain…',
@@ -2308,21 +2240,13 @@ extension on TranslationsTl {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} na sangkap ang natukoy',
 			'meal.analysis.ingredientsPending' => 'Sinusuri ang mga sangkap…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'Tinatayang saklaw: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'Tip: Mas mahalaga ang pagiging regular kaysa perpeksiyon—ang regular na pag-log ang nagpapakita ng mga pattern na mahalaga.',
 			'meal.analysis.offlineTip1' => 'Tip: Para sa mga larawan, mas nakakatulong ang natural na ilaw at top-down na kuha para sa tumpak na bahagi.',
 			'meal.analysis.offlineTip2' => 'Tip: Banggitin ang inumin, sarsa, at mantika sa pagluluto—nagdaragdag sila ng calories na madalas nakakaligtaan.',
 			'meal.analysis.offlineTip3' => 'Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.',
 			'meal.analysis.offlineTip4' => 'Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.',
 			'meal.analysis.offlineTip5' => 'Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno).',
-			'meal.localInference.reviewTitle' => 'Suriin ang mga nakitang sangkap',
-			'meal.localInference.reviewSubtitle' => 'Binigyang-kahulugan ito sa iyong device. Itama ang mga pangalan o dami bago kalkulahin ang nutrisyon.',
-			'meal.localInference.mealName' => 'Pangalan ng pagkain',
-			'meal.localInference.ingredient' => 'Sangkap',
-			'meal.localInference.grams' => 'Tinatayang gramo',
-			'meal.localInference.removeIngredient' => 'Alisin ang sangkap',
-			'meal.localInference.continueLabel' => 'Magpatuloy',
-			'meal.localInference.invalidProposal' => 'Magdagdag ng kahit isang sangkap at gumamit ng positibong halaga ng gramo.',
-			'meal.localInference.localUnavailable' => 'Hindi available ang on-device analysis sa ngayon.',
 			'meal.feedback.title' => 'Ano ang mali?',
 			'meal.feedback.subtitle' => 'Tulungan kaming pagbutihin ang pagsusuri sa pamamagitan ng pagpili ng isa o higit pang isyu.',
 			'meal.feedback.tellUsMore' => 'Sabihin pa',
@@ -2420,7 +2344,6 @@ extension on TranslationsTl {
 			'settings.sections.localization' => 'Wika at Lokalidad',
 			'settings.sections.notifications' => 'Mga Notification',
 			'settings.sections.healthConnect' => 'PAGSASAMA SA HEALTH CONNECT',
-			'settings.sections.localInference' => 'PAGSUSURI SA DEVICE',
 			'settings.sections.supportAndLegal' => 'SUPORTA & LEGAL',
 			'settings.sections.about' => 'TUNGKOL',
 			'settings.sections.dangerZone' => 'DELIKADONG ZONA',
@@ -2435,21 +2358,6 @@ extension on TranslationsTl {
 			'settings.weightUnit.title' => 'Yunit ng Timbang',
 			'settings.mealReminders.title' => 'Paalaala sa Pagkain',
 			'settings.mealReminders.subtitle' => 'Manatiling nasa tamang landas sa tamang oras na mga alerto',
-			'settings.localInference.title' => 'Pagsusuri ng Pagkain sa Device',
-			'settings.localInference.subtitle' => 'Bigyang-kahulugan ang mga suportadong pagkain gamit ang Gemini Nano bago kalkulahin ang nutrisyon',
-			'settings.localInference.unavailable' => 'Hindi available sa device na ito',
-			'settings.localInference.rolloutUnavailable' => 'May nakitang compatible na hardware, ngunit ang feature na ito ay hindi enabled para sa release na ito ng app',
-			'settings.localInference.modelSetup' => 'Kailangang matapos muna ang pag-download ng Gemini Nano bago ito ma-enable',
-			'settings.localInference.useLocalTitle' => 'Gamitin ang on-device analysis',
-			'settings.localInference.useLocalSubtitle' => 'Maaaring hindi gaanong tumpak ang mga resulta para sa mga kumplikadong pagkain.',
-			'settings.localInference.disclosureTitle' => 'Bago i-enable ang on-device analysis',
-			'settings.localInference.disclosureBody' => 'Kayang tukuyin ng Gemini Nano ang mga sangkap at tantyahin ang mga bahagi sa mga suportadong Android device. Ang iyong sinuring mungkahi ng sangkap ay ipapadala sa Calorify para sa USDA nutrition grounding at kalkulasyon.',
-			'settings.localInference.disclosureLimit1' => 'Ang mga komplikadong putahe, nakatagong sangkap, at laki ng bahagi ay maaaring matukoy nang mali.',
-			'settings.localInference.disclosureLimit2' => 'Maaaring hindi available ang model habang nag-da-download, busy, nasa background, o limitado ng device.',
-			'settings.localInference.disclosureLimit3' => 'Kung hindi matapos ang local interpretation, awtomatikong ipapadala ng beta na ito ang iyong orihinal na paglalarawan ng pagkain sa Calorify para sa cloud analysis.',
-			'settings.localInference.acknowledgement' => 'Naiintindihan ko na dapat kong suriin ang mga nakitang sangkap at bahagi.',
-			'settings.localInference.enable' => 'Kumpirmahin at i-enable',
-			'settings.localInference.cancel' => 'Kanselahin',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Liwanag',
 			'settings.theme.dark' => 'Madilim',
@@ -2561,8 +2469,6 @@ extension on TranslationsTl {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error sa pagkompleto ng setup: ${error}',
 			'notifications.breakfast.title' => 'Oras na para sa Almusal! 🍳',
 			'notifications.breakfast.body' => 'Huwag kalimutan i-log ang iyong almusal',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'Oras na para sa Tanghalian! 🥗',
 			'notifications.lunch.body' => 'Oras na para i-log ang iyong tanghalian',
 			'notifications.dinner.title' => 'Oras na para sa Hapunan! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsTl {
 			'disclaimer.snap.databaseLimitations.title' => 'Limitasyon ng Database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Malawak ang food database ng ${appLabel} ngunit maaaring hindi nito maisama ang bawat isang pagkain o baryasyon.',
 			'disclaimer.weightEstimate.title' => 'Tungkol sa Tantiya ng Timbang',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Ang inaasahang pagbabago ng timbang ay isang teoretikal na pagtatantiya batay sa simpleng calorie-in vs. calorie-out na modelo. Ito ay nilalayong magbigay ng motibasyon lamang, hindi prediksyon ng iyong aktwal na timbang.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Katumpakan ng Calorie',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tumpak lamang ang pagtatantiyang ito kung tumpak ang iyong na-log na calorie intake at expenditure. Ang maling pag-log ay magreresulta sa maling pagtatantiya.',
@@ -2606,26 +2514,6 @@ extension on TranslationsTl {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kinukuwenta namin ang iyong TDEE (batay sa iyong profile) at minumultiply ito sa fraction ng araw na lumipas (oras + minuto) / 24 upang tantiyahin ang calories na nasunog hanggang ngayon.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Propesyonal na Gabay',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Huwag gamitin ang pagtatantiyang ito para gumawa ng medikal na desisyon. Laging kumunsulta sa isang healthcare professional o rehistradong dietitian para sa personalisadong payo sa pamamahala ng timbang.',
-			'localNutritionPhase4.portionSmaller' => 'Mas kaunti',
-			'localNutritionPhase4.portionEstimated' => 'Tinataya',
-			'localNutritionPhase4.portionLarger' => 'Mas marami',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Aling dami ang pinakamalapit para sa ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Anong meal ito?',
-			'localNutritionPhase4.localNutritionTip' => 'Kinuwenta mula sa beripikadong lokal na nutrition data.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'I-download ang nutrition data',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Gumamit ng beripikadong mga row ng USDA at deterministikong pagkukuwenta sa device na ito kapag sakop ang lahat ng sangkap.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Hindi available ang lokal na nutrition data para sa release na ito ng app.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'Walang na-download na beripikadong nutrition pack.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Dina-download at bineberipika ang nutrition data…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Pakete ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} naka-cache na row ng USDA · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Tingnan kung may update',
-			'localNutritionPhase4.offlineNutritionClear' => 'I-clear ang lokal na nutrition data',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'I-clear ang lokal na nutrition data?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'Aalisin nito ang na-download na USDA pack at lookup cache. Pananatilihin ng mga naka-log na meal ang eksaktong nutrition snapshot na ginamit noong na-save ang mga ito.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'I-clear ang data',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Hindi ma-download at ma-verify ang lokal na nutrition data: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Na-clear ang lokal na nutrition data',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'Bumalik',
 			'watch.common.cancel' => 'Kanselahin',

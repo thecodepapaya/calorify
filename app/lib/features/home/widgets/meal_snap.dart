@@ -8,7 +8,7 @@ import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getSnapDisclaimer;
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
+import 'package:calorify/features/home/utils/meal_analysis_v3_flow.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,7 +72,7 @@ class _MealSnapState extends State<MealSnap> {
       onTap: () async {
         final image = await ImagePickerService().pickImageFromCamera();
         if (image == null) return;
-        await _onSelectImage(image);
+        await _onSelectImage(image, imageOrigin: 'CAMERA_NOW');
       },
       borderRadius: globalRadius,
       child: Container(
@@ -181,7 +181,7 @@ class _MealSnapState extends State<MealSnap> {
             onPressed: () async {
               final image = await ImagePickerService().pickImageFromCamera();
               if (image == null) return;
-              await _onSelectImage(image);
+              await _onSelectImage(image, imageOrigin: 'CAMERA_NOW');
             },
           ),
         ),
@@ -197,7 +197,7 @@ class _MealSnapState extends State<MealSnap> {
             onPressed: () async {
               final image = await ImagePickerService().pickImageFromGallery();
               if (image == null) return;
-              await _onSelectImage(image);
+              await _onSelectImage(image, imageOrigin: 'GALLERY');
             },
           ),
         ),
@@ -243,7 +243,7 @@ class _MealSnapState extends State<MealSnap> {
     );
   }
 
-  Future<void> _onSelectImage(File image) async {
+  Future<void> _onSelectImage(File image, {required String imageOrigin}) async {
     final container = ProviderScope.containerOf(context, listen: false);
     // Show loading state immediately for better UX
     setState(() {
@@ -282,18 +282,20 @@ class _MealSnapState extends State<MealSnap> {
       try {
         final repository = container.read(foodRepositoryProvider);
         setState(() => _isUploadingImage = true);
-        final imageUrl = await repository.uploadMealImage(compressedFile);
+        final upload = await repository.uploadMealImageV3(compressedFile);
         if (!mounted) return;
-        await showV2MealAnalysisFlow(
+        await showMealAnalysisV3Flow(
           context: context,
-          startAnalysis:
-              (cancellation, analysisId) => repository.analyzeImageFromUrlV2(
-                analysisId: analysisId,
-                imageUrl: imageUrl,
-                cancellation: cancellation,
-              ),
+          start:
+              (analysisId, requestContext, cancellation) =>
+                  repository.analyzeImageV3(
+                    analysisId: analysisId,
+                    imageId: upload.imageId,
+                    imageOrigin: imageOrigin,
+                    context: requestContext,
+                    cancellation: cancellation,
+                  ),
           imageBytes: compressedImageByte,
-          imageUrl: imageUrl,
         );
       } on MealImageTooLargeException {
         Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);

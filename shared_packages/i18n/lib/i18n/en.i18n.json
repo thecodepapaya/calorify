@@ -321,7 +321,10 @@
       "optionHeavy": "Heavy",
       "optionSmaller": "Smaller",
       "optionTypical": "Typical",
-      "optionLarger": "Larger"
+      "optionLarger": "Larger",
+      "useEstimate": "Use estimate",
+      "numberRange": "From {min} to {max}, in steps of {step}",
+      "invalidNumber": "Enter a value in the allowed range"
     },
     "analysis": {
       "title": "Analyzing your meal",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} ingredients detected",
       "ingredientsPending": "Scanning ingredients…",
       "mealPreviewDescription": "\"{text}\"",
+      "calorieRange": "Estimated range: {min}–{max} kcal",
       "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
       "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
       "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
       "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
       "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
       "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
-    },
-    "localInference": {
-      "reviewTitle": "Review detected ingredients",
-      "reviewSubtitle": "This was interpreted on your device. Correct names or portions before nutrition is calculated.",
-      "mealName": "Meal name",
-      "ingredient": "Ingredient",
-      "grams": "Estimated grams",
-      "removeIngredient": "Remove ingredient",
-      "continueLabel": "Continue",
-      "invalidProposal": "Add at least one ingredient and use a positive gram amount.",
-      "localUnavailable": "On-device analysis is unavailable right now."
     },
     "feedback": {
       "title": "What looks wrong?",
@@ -502,7 +495,6 @@
       "localization": "LOCALIZATION",
       "notifications": "NOTIFICATIONS",
       "healthConnect": "HEALTH CONNECT",
-      "localInference": "ON-DEVICE ANALYSIS",
       "supportAndLegal": "SUPPORT & LEGAL",
       "about": "ABOUT",
       "dangerZone": "DANGER ZONE",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Meal Reminders",
       "subtitle": "Stay on track with timely alerts"
-    },
-    "localInference": {
-      "title": "On-device meal analysis",
-      "subtitle": "Interpret supported meals with Gemini Nano before nutrition is calculated",
-      "unavailable": "Not available on this device",
-      "rolloutUnavailable": "Available hardware found, but this feature is not enabled for this app release",
-      "modelSetup": "Gemini Nano needs to finish downloading before this can be enabled",
-      "useLocalTitle": "Use on-device analysis",
-      "useLocalSubtitle": "Results may be less reliable for complex meals.",
-      "disclosureTitle": "Before you enable on-device analysis",
-      "disclosureBody": "Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.",
-      "disclosureLimit1": "Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.",
-      "disclosureLimit2": "The model may be unavailable while downloading, busy, in the background, or limited by the device.",
-      "disclosureLimit3": "If local interpretation cannot finish, this beta automatically sends your original meal description to Calorify for cloud analysis.",
-      "acknowledgement": "I understand that I should review detected ingredients and portions.",
-      "enable": "Acknowledge and enable",
-      "cancel": "Cancel"
     },
     "theme": {
       "title": "Theme",
@@ -787,28 +762,6 @@
         "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Smaller",
-    "portionEstimated": "Estimated",
-    "portionLarger": "Larger",
-    "portionQuestion": "Which portion was closest for {ingredient}?",
-    "mealTypeQuestion": "Which meal was this?",
-    "localNutritionTip": "Calculated from verified local nutrition data.",
-    "offlineNutritionTitle": "Download nutrition data",
-    "offlineNutritionSubtitle": "Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.",
-    "offlineNutritionUnavailable": "Local nutrition data is not available for this app release.",
-    "offlineNutritionNotDownloaded": "No verified nutrition pack is downloaded.",
-    "offlineNutritionInstalling": "Downloading and verifying nutrition data…",
-    "offlineNutritionStatus": "Pack {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} cached USDA rows · {size}",
-    "offlineNutritionUpdate": "Check for update",
-    "offlineNutritionClear": "Clear local nutrition data",
-    "offlineNutritionClearTitle": "Clear local nutrition data?",
-    "offlineNutritionClearBody": "This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.",
-    "offlineNutritionClearConfirm": "Clear data",
-    "offlineNutritionInstallFailed": "Could not download and verify local nutrition data: {error}",
-    "offlineNutritionCleared": "Local nutrition data cleared"
   },
   "watch": {
     "appTitle": "Calorify Watch",

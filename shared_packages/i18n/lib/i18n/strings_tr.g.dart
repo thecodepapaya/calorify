@@ -57,7 +57,6 @@ class TranslationsTr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$tr notifications = _Translations$notifications$tr._(_root);
 	@override late final _Translations$login$tr login = _Translations$login$tr._(_root);
 	@override late final _Translations$disclaimer$tr disclaimer = _Translations$disclaimer$tr._(_root);
-	@override late final _Translations$localNutritionPhase4$tr localNutritionPhase4 = _Translations$localNutritionPhase4$tr._(_root);
 	@override late final _Translations$watch$tr watch = _Translations$watch$tr._(_root);
 	@override late final _Translations$common$tr common = _Translations$common$tr._(_root);
 	@override late final _Translations$feedbackRating$tr feedbackRating = _Translations$feedbackRating$tr._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$tr extends Translations$meal$en {
 	@override String get skip => 'Atla';
 	@override late final _Translations$meal$questionFlow$tr questionFlow = _Translations$meal$questionFlow$tr._(_root);
 	@override late final _Translations$meal$analysis$tr analysis = _Translations$meal$analysis$tr._(_root);
-	@override late final _Translations$meal$localInference$tr localInference = _Translations$meal$localInference$tr._(_root);
 	@override late final _Translations$meal$feedback$tr feedback = _Translations$meal$feedback$tr._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$tr extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$tr heightUnit = _Translations$settings$heightUnit$tr._(_root);
 	@override late final _Translations$settings$weightUnit$tr weightUnit = _Translations$settings$weightUnit$tr._(_root);
 	@override late final _Translations$settings$mealReminders$tr mealReminders = _Translations$settings$mealReminders$tr._(_root);
-	@override late final _Translations$settings$localInference$tr localInference = _Translations$settings$localInference$tr._(_root);
 	@override late final _Translations$settings$theme$tr theme = _Translations$settings$theme$tr._(_root);
 	@override late final _Translations$settings$sendFeedback$tr sendFeedback = _Translations$settings$sendFeedback$tr._(_root);
 	@override late final _Translations$settings$exportMealHistory$tr exportMealHistory = _Translations$settings$exportMealHistory$tr._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$tr extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$tr weightEstimate = _Translations$disclaimer$weightEstimate$tr._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$tr healthMetrics = _Translations$disclaimer$healthMetrics$tr._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$tr calorieExpenditure = _Translations$disclaimer$calorieExpenditure$tr._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$tr extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$tr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'Daha küçük';
-	@override String get portionEstimated => 'Tahmini';
-	@override String get portionLarger => 'Daha büyük';
-	@override String portionQuestion({required Object ingredient}) => '${ingredient} için en yakın porsiyon hangisiydi?';
-	@override String get mealTypeQuestion => 'Bu hangi öğündü?';
-	@override String get localNutritionTip => 'Doğrulanmış yerel besin verilerinden hesaplandı.';
-	@override String get offlineNutritionTitle => 'Besin verilerini indir';
-	@override String get offlineNutritionSubtitle => 'Tüm malzemeler kapsandığında bu cihazda doğrulanmış USDA satırlarını ve deterministik hesaplamayı kullanın.';
-	@override String get offlineNutritionUnavailable => 'Yerel besin verileri bu uygulama sürümü için kullanılamıyor.';
-	@override String get offlineNutritionNotDownloaded => 'Doğrulanmış bir besin paketi indirilmedi.';
-	@override String get offlineNutritionInstalling => 'Besin verileri indiriliyor ve doğrulanıyor…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Paket ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} önbelleğe alınmış USDA satırı · ${size}';
-	@override String get offlineNutritionUpdate => 'Güncellemeyi kontrol et';
-	@override String get offlineNutritionClear => 'Yerel besin verilerini temizle';
-	@override String get offlineNutritionClearTitle => 'Yerel besin verileri temizlensin mi?';
-	@override String get offlineNutritionClearBody => 'Bu işlem indirilen USDA paketini ve arama önbelleğini kaldırır. Kaydedilen öğünler, kaydedilirken kullanılan tam besin anlık görüntüsünü korur.';
-	@override String get offlineNutritionClearConfirm => 'Verileri temizle';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Yerel besin verileri indirilemedi ve doğrulanamadı: ${error}';
-	@override String get offlineNutritionCleared => 'Yerel besin verileri temizlendi';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$tr extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'Daha küçük';
 	@override String get optionTypical => 'Tipik';
 	@override String get optionLarger => 'Daha büyük';
+	@override String get useEstimate => 'Tahmini kullan';
+	@override String numberRange({required Object min, required Object max, required Object step}) => '${min} ile ${max} arasında, ${step} aralıklarla';
+	@override String get invalidNumber => 'İzin verilen aralıkta bir değer girin';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$tr extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count} içerik tespit edildi';
 	@override String get ingredientsPending => 'İçerikler taranıyor…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => 'Tahmini aralık: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'İpucu: Tutarlılık mükemmellikten daha önemlidir—düzenli kayıtlar önemli kalıpları ortaya çıkarır.';
 	@override String get offlineTip1 => 'İpucu: Fotoğraflar için doğal ışık ve üstten çekim porsiyon doğruluğuna yardımcı olur.';
 	@override String get offlineTip2 => 'İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.';
 	@override String get offlineTip3 => 'İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.';
 	@override String get offlineTip4 => 'İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.';
 	@override String get offlineTip5 => 'İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$tr extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$tr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'Tespit edilen malzemeleri gözden geçir';
-	@override String get reviewSubtitle => 'Bu işlem cihazınızda gerçekleştirildi. Besin değerleri hesaplanmadan önce isimleri veya porsiyonları düzeltin.';
-	@override String get mealName => 'Öğün adı';
-	@override String get ingredient => 'Malzeme';
-	@override String get grams => 'Tahmini gram';
-	@override String get removeIngredient => 'Malzemeyi kaldır';
-	@override String get continueLabel => 'Devam et';
-	@override String get invalidProposal => 'Lütfen en az bir malzeme ekleyin ve pozitif bir gram miktarı girin.';
-	@override String get localUnavailable => 'Cihaz içi analiz şu anda kullanılamıyor.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$tr extends Translations$settings$sections$
 	@override String get localization => 'LOKALİZASYON';
 	@override String get notifications => 'BİLDİRİMLER';
 	@override String get healthConnect => 'HEALTH CONNECT ENTEGRASYONU';
-	@override String get localInference => 'CİHAZ İÇİ ANALİZ';
 	@override String get supportAndLegal => 'DESTEK & YASAL';
 	@override String get about => 'HAKKINDA';
 	@override String get dangerZone => 'TEHLİKELİ BÖLGE';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$tr extends Translations$settings$meal
 	// Translations
 	@override String get title => 'Öğün Hatırlatıcıları';
 	@override String get subtitle => 'Zamanında uyarılarla yolda kalın';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$tr extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$tr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Cihaz içi öğün analizi';
-	@override String get subtitle => 'Besin değerleri hesaplanmadan önce desteklenen öğünleri Gemini Nano ile yorumlayın';
-	@override String get unavailable => 'Bu cihazda mevcut değil';
-	@override String get rolloutUnavailable => 'Uygun donanım bulundu ancak bu özellik bu uygulama sürümü için etkinleştirilmedi';
-	@override String get modelSetup => 'Bu özelliğin etkinleştirilebilmesi için Gemini Nano\'nun indirme işlemini tamamlaması gerekiyor';
-	@override String get useLocalTitle => 'Cihaz içi analizi kullan';
-	@override String get useLocalSubtitle => 'Karmaşık öğünlerde sonuçlar daha az güvenilir olabilir.';
-	@override String get disclosureTitle => 'Cihaz içi analizi etkinleştirmeden önce';
-	@override String get disclosureBody => 'Gemini Nano, desteklenen Android cihazlarda malzemeleri tanımlayabilir ve porsiyonları tahmin edebilir. Gözden geçirdiğiniz malzeme önerisi, USDA besin temellendirmesi ve hesaplama için Calorify\'a gönderilir.';
-	@override String get disclosureLimit1 => 'Karmaşık yemekler, gizli malzemeler ve porsiyon boyutları yanlış tanımlanabilir.';
-	@override String get disclosureLimit2 => 'Model; indirme sırasında, meşgulken, arka plandayken veya cihaz tarafından sınırlandırıldığında kullanılamayabilir.';
-	@override String get disclosureLimit3 => 'Yerel yorumlama tamamlanamazsa, bu beta sürümü orijinal öğün açıklamanızı bulut analizi için otomatik olarak Calorify\'a gönderir.';
-	@override String get acknowledgement => 'Tespit edilen malzemeleri ve porsiyonları gözden geçirmem gerektiğini anlıyorum.';
-	@override String get enable => 'Onayla ve etkinleştir';
-	@override String get cancel => 'İptal';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsTr {
 			'meal.questionFlow.optionSmaller' => 'Daha küçük',
 			'meal.questionFlow.optionTypical' => 'Tipik',
 			'meal.questionFlow.optionLarger' => 'Daha büyük',
+			'meal.questionFlow.useEstimate' => 'Tahmini kullan',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => '${min} ile ${max} arasında, ${step} aralıklarla',
+			'meal.questionFlow.invalidNumber' => 'İzin verilen aralıkta bir değer girin',
 			'meal.analysis.title' => 'Öğününüz analiz ediliyor',
 			'meal.analysis.stepStarted' => 'Başlanıyor…',
 			'meal.analysis.stepDecomposition' => 'Öğününüz anlaşılıyor…',
@@ -2308,21 +2240,13 @@ extension on TranslationsTr {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} içerik tespit edildi',
 			'meal.analysis.ingredientsPending' => 'İçerikler taranıyor…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'Tahmini aralık: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'İpucu: Tutarlılık mükemmellikten daha önemlidir—düzenli kayıtlar önemli kalıpları ortaya çıkarır.',
 			'meal.analysis.offlineTip1' => 'İpucu: Fotoğraflar için doğal ışık ve üstten çekim porsiyon doğruluğuna yardımcı olur.',
 			'meal.analysis.offlineTip2' => 'İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.',
 			'meal.analysis.offlineTip3' => 'İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.',
 			'meal.analysis.offlineTip4' => 'İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.',
 			'meal.analysis.offlineTip5' => 'İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama).',
-			'meal.localInference.reviewTitle' => 'Tespit edilen malzemeleri gözden geçir',
-			'meal.localInference.reviewSubtitle' => 'Bu işlem cihazınızda gerçekleştirildi. Besin değerleri hesaplanmadan önce isimleri veya porsiyonları düzeltin.',
-			'meal.localInference.mealName' => 'Öğün adı',
-			'meal.localInference.ingredient' => 'Malzeme',
-			'meal.localInference.grams' => 'Tahmini gram',
-			'meal.localInference.removeIngredient' => 'Malzemeyi kaldır',
-			'meal.localInference.continueLabel' => 'Devam et',
-			'meal.localInference.invalidProposal' => 'Lütfen en az bir malzeme ekleyin ve pozitif bir gram miktarı girin.',
-			'meal.localInference.localUnavailable' => 'Cihaz içi analiz şu anda kullanılamıyor.',
 			'meal.feedback.title' => 'Neresi yanlış görünüyor?',
 			'meal.feedback.subtitle' => 'Analizi geliştirmemize yardımcı olmak için bir veya birden fazla sorun seçin.',
 			'meal.feedback.tellUsMore' => 'Daha fazla anlatın',
@@ -2420,7 +2344,6 @@ extension on TranslationsTr {
 			'settings.sections.localization' => 'LOKALİZASYON',
 			'settings.sections.notifications' => 'BİLDİRİMLER',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT ENTEGRASYONU',
-			'settings.sections.localInference' => 'CİHAZ İÇİ ANALİZ',
 			'settings.sections.supportAndLegal' => 'DESTEK & YASAL',
 			'settings.sections.about' => 'HAKKINDA',
 			'settings.sections.dangerZone' => 'TEHLİKELİ BÖLGE',
@@ -2435,21 +2358,6 @@ extension on TranslationsTr {
 			'settings.weightUnit.title' => 'Kilo Birimi',
 			'settings.mealReminders.title' => 'Öğün Hatırlatıcıları',
 			'settings.mealReminders.subtitle' => 'Zamanında uyarılarla yolda kalın',
-			'settings.localInference.title' => 'Cihaz içi öğün analizi',
-			'settings.localInference.subtitle' => 'Besin değerleri hesaplanmadan önce desteklenen öğünleri Gemini Nano ile yorumlayın',
-			'settings.localInference.unavailable' => 'Bu cihazda mevcut değil',
-			'settings.localInference.rolloutUnavailable' => 'Uygun donanım bulundu ancak bu özellik bu uygulama sürümü için etkinleştirilmedi',
-			'settings.localInference.modelSetup' => 'Bu özelliğin etkinleştirilebilmesi için Gemini Nano\'nun indirme işlemini tamamlaması gerekiyor',
-			'settings.localInference.useLocalTitle' => 'Cihaz içi analizi kullan',
-			'settings.localInference.useLocalSubtitle' => 'Karmaşık öğünlerde sonuçlar daha az güvenilir olabilir.',
-			'settings.localInference.disclosureTitle' => 'Cihaz içi analizi etkinleştirmeden önce',
-			'settings.localInference.disclosureBody' => 'Gemini Nano, desteklenen Android cihazlarda malzemeleri tanımlayabilir ve porsiyonları tahmin edebilir. Gözden geçirdiğiniz malzeme önerisi, USDA besin temellendirmesi ve hesaplama için Calorify\'a gönderilir.',
-			'settings.localInference.disclosureLimit1' => 'Karmaşık yemekler, gizli malzemeler ve porsiyon boyutları yanlış tanımlanabilir.',
-			'settings.localInference.disclosureLimit2' => 'Model; indirme sırasında, meşgulken, arka plandayken veya cihaz tarafından sınırlandırıldığında kullanılamayabilir.',
-			'settings.localInference.disclosureLimit3' => 'Yerel yorumlama tamamlanamazsa, bu beta sürümü orijinal öğün açıklamanızı bulut analizi için otomatik olarak Calorify\'a gönderir.',
-			'settings.localInference.acknowledgement' => 'Tespit edilen malzemeleri ve porsiyonları gözden geçirmem gerektiğini anlıyorum.',
-			'settings.localInference.enable' => 'Onayla ve etkinleştir',
-			'settings.localInference.cancel' => 'İptal',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Açık',
 			'settings.theme.dark' => 'Koyu',
@@ -2561,8 +2469,6 @@ extension on TranslationsTr {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Kurulum tamamlanırken hata: ${error}',
 			'notifications.breakfast.title' => 'Kahvaltı Zamanı! 🍳',
 			'notifications.breakfast.body' => 'Kahvaltınızı kaydetmeyi unutmayın',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'Öğle Vakti! 🥗',
 			'notifications.lunch.body' => 'Öğlen yemeğinizi kaydetme zamanı',
 			'notifications.dinner.title' => 'Akşam Yemeği Zamanı! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsTr {
 			'disclaimer.snap.databaseLimitations.title' => 'Veritabanı Sınırlamaları',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'in gıda veritabanı kapsamlıdır ancak her bir yiyecek öğesini veya varyasyonunu içermeyebilir.',
 			'disclaimer.weightEstimate.title' => 'Kilo Tahmini Hakkında',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Projeksiyon olarak verilen kilo değişimi basit kalori içeriği vs harcama modeli üzerine kurulu teorik bir tahmindir. Motivasyon kaynağı olarak düşünülmelidir, gerçek ağırlığın bir tahmini değildir.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalori Doğruluğu',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Bu tahmin, izlediğiniz kalori alımı ve harcamasının doğruluğuna bağlıdır. Hatalı kayıtlar tahminin yanlış olmasına neden olur.',
@@ -2606,26 +2514,6 @@ extension on TranslationsTr {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'TDEE\'nizi (profilinize göre) hesaplıyoruz ve günün geçen kısmının kesriyle (saat + dakika) / 24 çarparak şu ana kadar yakılan kalorileri tahmin ediyoruz.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Uzman Rehberliği',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Tıbbi kararlar için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın.',
-			'localNutritionPhase4.portionSmaller' => 'Daha küçük',
-			'localNutritionPhase4.portionEstimated' => 'Tahmini',
-			'localNutritionPhase4.portionLarger' => 'Daha büyük',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => '${ingredient} için en yakın porsiyon hangisiydi?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Bu hangi öğündü?',
-			'localNutritionPhase4.localNutritionTip' => 'Doğrulanmış yerel besin verilerinden hesaplandı.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Besin verilerini indir',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Tüm malzemeler kapsandığında bu cihazda doğrulanmış USDA satırlarını ve deterministik hesaplamayı kullanın.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Yerel besin verileri bu uygulama sürümü için kullanılamıyor.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'Doğrulanmış bir besin paketi indirilmedi.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Besin verileri indiriliyor ve doğrulanıyor…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Paket ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} önbelleğe alınmış USDA satırı · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Güncellemeyi kontrol et',
-			'localNutritionPhase4.offlineNutritionClear' => 'Yerel besin verilerini temizle',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Yerel besin verileri temizlensin mi?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'Bu işlem indirilen USDA paketini ve arama önbelleğini kaldırır. Kaydedilen öğünler, kaydedilirken kullanılan tam besin anlık görüntüsünü korur.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Verileri temizle',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Yerel besin verileri indirilemedi ve doğrulanamadı: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Yerel besin verileri temizlendi',
 			'watch.appTitle' => 'Calorify Saat',
 			'watch.common.back' => 'Geri',
 			'watch.common.cancel' => 'İptal',

@@ -321,7 +321,10 @@
       "optionHeavy": "Painava",
       "optionSmaller": "Pienempi",
       "optionTypical": "Tyypillinen",
-      "optionLarger": "Suurempi"
+      "optionLarger": "Suurempi",
+      "useEstimate": "Käytä arviota",
+      "numberRange": "Väliltä {min}–{max}, askelväli {step}",
+      "invalidNumber": "Syötä arvo sallitulta väliltä"
     },
     "analysis": {
       "title": "Analysoidaan ateriaasi",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} ainesosaa tunnistettu",
       "ingredientsPending": "Skannataan ainesosia…",
       "mealPreviewDescription": "”{text}”",
+      "calorieRange": "Arvioitu vaihteluväli: {min}–{max} kcal",
       "offlineTip0": "Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.",
       "offlineTip1": "Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.",
       "offlineTip2": "Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.",
       "offlineTip3": "Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.",
       "offlineTip4": "Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.",
       "offlineTip5": "Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa)."
-    },
-    "localInference": {
-      "reviewTitle": "Tarkista tunnistetut ainesosat",
-      "reviewSubtitle": "Tämä tulkittiin laitteellasi. Korjaa nimet tai annoskoot ennen ravintoarvojen laskemista.",
-      "mealName": "Aterian nimi",
-      "ingredient": "Ainesosa",
-      "grams": "Arvioidut grammat",
-      "removeIngredient": "Poista ainesosa",
-      "continueLabel": "Jatka",
-      "invalidProposal": "Lisää vähintään yksi ainesosa ja käytä positiivista grammamäärää.",
-      "localUnavailable": "Laitteen oma analyysi ei ole tällä hetkellä käytettävissä."
     },
     "feedback": {
       "title": "Mikä näyttää väärältä?",
@@ -502,7 +495,6 @@
       "localization": "LOKALISAATIO",
       "notifications": "ILMOITUKSET",
       "healthConnect": "Health Connect",
-      "localInference": "LAITTEEN OMA ANALYYSI",
       "supportAndLegal": "TUKI & LAINSÄÄDÄNTÖ",
       "about": "TIETOA",
       "dangerZone": "VAIKUTUSALUE",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "Ateriamuistutukset",
       "subtitle": "Pysy raiteilla ajankohtaisilla muistutuksilla"
-    },
-    "localInference": {
-      "title": "Aterioiden paikallinen analyysi",
-      "subtitle": "Tulkitse tuetut ateriat Gemini Nanolla ennen ravintoarvojen laskemista",
-      "unavailable": "Ei käytettävissä tällä laitteella",
-      "rolloutUnavailable": "Yhteensopiva laitteisto löytyi, mutta tämä ominaisuus ei ole käytössä tässä sovellusversiossa",
-      "modelSetup": "Gemini Nanon latauksen on valmistuttava ennen kuin tämä voidaan ottaa käyttöön",
-      "useLocalTitle": "Käytä paikallista analyysia",
-      "useLocalSubtitle": "Tulokset saattavat olla vähemmän luotettavia monimutkaisissa aterioissa.",
-      "disclosureTitle": "Ennen paikallisen analyysin käyttöönottoa",
-      "disclosureBody": "Gemini Nano voi tunnistaa ainesosia ja arvioida annoskokoja tuetuilla Android-laitteilla. Tarkistamasi ainesosaehdotus lähetetään Calorifylle USDA-ravintoarvojen vahvistusta ja laskentaa varten.",
-      "disclosureLimit1": "Monimutkaiset annokset, piilotetut ainesosat ja annoskoot saatetaan tunnistaa väärin.",
-      "disclosureLimit2": "Malli voi olla käytettävissämätön latauksen aikana, kun se on varattu, taustalla tai laitteen rajoitusten vuoksi.",
-      "disclosureLimit3": "Jos paikallinen tulkinta ei valmistu, tämä beta-versio lähettää alkuperäisen ateriakuvauksesi automaattisesti Calorifylle pilvianalyysia varten.",
-      "acknowledgement": "Ymmärrän, että minun tulee tarkistaa tunnistetut ainesosat ja annoskoot.",
-      "enable": "Hyväksy ja ota käyttöön",
-      "cancel": "Peruuta"
     },
     "theme": {
       "title": "Teema",
@@ -787,28 +762,6 @@
         "description": "Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "Pienempi",
-    "portionEstimated": "Arvioitu",
-    "portionLarger": "Suurempi",
-    "portionQuestion": "Mikä annoskoko vastasi parhaiten ainesta {ingredient}?",
-    "mealTypeQuestion": "Mikä ateria tämä oli?",
-    "localNutritionTip": "Laskettu varmennetuista paikallisista ravintoarvotiedoista.",
-    "offlineNutritionTitle": "Lataa ravintoarvotiedot",
-    "offlineNutritionSubtitle": "Käytä varmennettuja USDA-rivejä ja determinististä laskentaa tällä laitteella, kun kaikki ainesosat on katettu.",
-    "offlineNutritionUnavailable": "Paikallisia ravintoarvotietoja ei ole saatavilla tähän sovellusversioon.",
-    "offlineNutritionNotDownloaded": "Varmennettua ravintoarvopakettia ei ole ladattu.",
-    "offlineNutritionInstalling": "Ravintoarvotietoja ladataan ja varmennetaan…",
-    "offlineNutritionStatus": "Paketti {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} USDA-riviä välimuistissa · {size}",
-    "offlineNutritionUpdate": "Tarkista päivitykset",
-    "offlineNutritionClear": "Tyhjennä paikalliset ravintoarvotiedot",
-    "offlineNutritionClearTitle": "Tyhjennetäänkö paikalliset ravintoarvotiedot?",
-    "offlineNutritionClearBody": "Tämä poistaa ladatun USDA-paketin ja hakuvälimuistin. Kirjatut ateriat säilyttävät täsmällisen ravintoarvotilannekuvan, jota käytettiin tallennettaessa.",
-    "offlineNutritionClearConfirm": "Tyhjennä tiedot",
-    "offlineNutritionInstallFailed": "Paikallisia ravintoarvotietoja ei voitu ladata ja varmentaa: {error}",
-    "offlineNutritionCleared": "Paikalliset ravintoarvotiedot tyhjennettiin"
   },
   "watch": {
     "appTitle": "Calorify-kello",

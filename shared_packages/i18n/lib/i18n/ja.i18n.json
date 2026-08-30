@@ -321,7 +321,10 @@
       "optionHeavy": "ヘビー",
       "optionSmaller": "小さい",
       "optionTypical": "標準",
-      "optionLarger": "大きい"
+      "optionLarger": "大きい",
+      "useEstimate": "推定値を使用",
+      "numberRange": "範囲: {min}～{max} ({step}刻み)",
+      "invalidNumber": "指定された範囲内の数値を入力してください"
     },
     "analysis": {
       "title": "食事を分析中",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count}件の材料を検出",
       "ingredientsPending": "材料をスキャン中…",
       "mealPreviewDescription": "「{text}」",
+      "calorieRange": "推定範囲: {min}～{max}kcal",
       "offlineTip0": "ヒント：完璧さより継続が大事—定期的な記録が重要な傾向を明らかにします。",
       "offlineTip1": "ヒント：写真は自然光で上から撮ると分量推定が向上します。",
       "offlineTip2": "ヒント：飲み物、ソース、調理油も伝えてください—見落としがちなカロリーが含まれます。",
       "offlineTip3": "ヒント：分量の簡単なメモ（例：1杯、大きめのコーヒー）が推定を大きく改善します。",
       "offlineTip4": "ヒント：食後に記録しても習慣化になります。完璧である必要はありません。",
       "offlineTip5": "ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。"
-    },
-    "localInference": {
-      "reviewTitle": "検出された食材を確認",
-      "reviewSubtitle": "これはデバイス上で解析されました。栄養計算の前に、名称や分量を修正してください。",
-      "mealName": "食事名",
-      "ingredient": "食材",
-      "grams": "推定重量 (g)",
-      "removeIngredient": "食材を削除",
-      "continueLabel": "次へ",
-      "invalidProposal": "少なくとも1つの食材を追加し、正の数値を入力してください。",
-      "localUnavailable": "現在、デバイス上での解析は利用できません。"
     },
     "feedback": {
       "title": "どこが違いますか？",
@@ -502,7 +495,6 @@
       "localization": "ローカリゼーション",
       "notifications": "通知",
       "healthConnect": "Health Connect",
-      "localInference": "デバイス上での解析",
       "supportAndLegal": "サポートと法務",
       "about": "このアプリについて",
       "dangerZone": "危険領域",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "食事リマインダー",
       "subtitle": "タイムリーな通知で軌道に乗りましょう"
-    },
-    "localInference": {
-      "title": "デバイス上での食事解析",
-      "subtitle": "栄養計算の前に、Gemini Nanoを使用して対応している食事を解析します",
-      "unavailable": "このデバイスでは利用できません",
-      "rolloutUnavailable": "対応ハードウェアは見つかりましたが、このアプリのバージョンでは機能が有効になっていません",
-      "modelSetup": "有効にする前にGemini Nanoのダウンロードを完了させる必要があります",
-      "useLocalTitle": "デバイス上での解析を使用",
-      "useLocalSubtitle": "複雑な食事では、結果の精度が低くなる場合があります。",
-      "disclosureTitle": "デバイス上での解析を有効にする前に",
-      "disclosureBody": "Gemini Nanoは、対応するAndroidデバイスで食材の特定と分量の推定が可能です。確認済みの食材案は、USDAの栄養データに基づいた計算のためCalorifyに送信されます。",
-      "disclosureLimit1": "複雑な料理、隠れた食材、分量の特定が正しく行われない場合があります。",
-      "disclosureLimit2": "ダウンロード中、ビジー状態、バックグラウンド動作中、またはデバイスの制限により、モデルが利用できない場合があります。",
-      "disclosureLimit3": "ローカルでの解析が完了できない場合、このベータ版では元の食事内容が自動的にCalorifyに送信され、クラウドで解析されます。",
-      "acknowledgement": "検出された食材と分量を確認する必要があることを理解しました。",
-      "enable": "同意して有効にする",
-      "cancel": "キャンセル"
     },
     "theme": {
       "title": "テーマ",
@@ -787,28 +762,6 @@
         "description": "この推定を医療上の判断に使用しないでください。個別の体重管理については医療専門家や登録栄養士に必ず相談してください。"
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "少なめ",
-    "portionEstimated": "推定量",
-    "portionLarger": "多め",
-    "portionQuestion": "{ingredient}の量に最も近いものはどれでしたか？",
-    "mealTypeQuestion": "どの食事でしたか？",
-    "localNutritionTip": "検証済みのローカル栄養データから計算しました。",
-    "offlineNutritionTitle": "栄養データをダウンロード",
-    "offlineNutritionSubtitle": "すべての食材が対象の場合、この端末で検証済みのUSDAデータと決定論的計算を使用します。",
-    "offlineNutritionUnavailable": "このアプリのリリースではローカル栄養データを利用できません。",
-    "offlineNutritionNotDownloaded": "検証済みの栄養パックはダウンロードされていません。",
-    "offlineNutritionInstalling": "栄養データをダウンロードして検証しています…",
-    "offlineNutritionStatus": "パック {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "キャッシュ済みUSDAデータ {count}件 · {size}",
-    "offlineNutritionUpdate": "更新を確認",
-    "offlineNutritionClear": "ローカル栄養データを消去",
-    "offlineNutritionClearTitle": "ローカル栄養データを消去しますか？",
-    "offlineNutritionClearBody": "ダウンロード済みのUSDAパックと検索キャッシュを削除します。記録済みの食事には、保存時に使用した正確な栄養スナップショットが保持されます。",
-    "offlineNutritionClearConfirm": "データを消去",
-    "offlineNutritionInstallFailed": "ローカル栄養データをダウンロードして検証できませんでした: {error}",
-    "offlineNutritionCleared": "ローカル栄養データを消去しました"
   },
   "watch": {
     "appTitle": "Calorify ウォッチ",

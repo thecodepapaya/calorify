@@ -13,6 +13,33 @@ class MockDatabaseInterface extends Mock implements DatabaseInterface {}
 
 class MockFoodRepository extends Mock implements FoodRepository {}
 
+MealAnalysisV3Event completeEvent() => MealAnalysisV3Event.fromJson({
+  'event': 'COMPLETE',
+  'analysisId': 'analysis-watch',
+  'data': {
+    'mealName': 'Avocado Toast',
+    'servingSizeText': '2 slices',
+    'tip': '',
+    'mealType': {'value': 'BREAKFAST'},
+    'macros': {
+      'calories': 360,
+      'protein': 10,
+      'carbs': 40,
+      'fat': 18,
+      'fiber': 8,
+    },
+    'macroRanges': {
+      'calories': {'min': 320, 'max': 400},
+      'protein': {'min': 8, 'max': 12},
+      'carbs': {'min': 35, 'max': 45},
+      'fat': {'min': 15, 'max': 21},
+      'fiber': {'min': 6, 'max': 10},
+    },
+    'components': [{}],
+    'receipt': {},
+  },
+});
+
 void main() {
   late MockDatabaseInterface database;
   late MockFoodRepository foodRepository;
@@ -20,6 +47,14 @@ void main() {
   setUpAll(() {
     setupAllTests();
     registerFallbackValue(Meal());
+    registerFallbackValue(
+      MealAnalysisV3RequestContext(
+        locale: 'en-US',
+        countryCode: 'US',
+        timeZone: 'UTC',
+        capturedAt: DateTime.utc(2026),
+      ),
+    );
   });
 
   setUp(() {
@@ -116,31 +151,17 @@ void main() {
     expect(goal, {'success': true, 'goal': 2100});
     final favoriteJson =
         (favorites!['favorites'] as List).single as Map<String, dynamic>;
-    expect(
-      (favoriteJson['meal_info'] as Map)['meal_name'],
-      'Dosa',
-    );
+    expect((favoriteJson['meal_info'] as Map)['meal_name'], 'Dosa');
   });
 
   test('text analysis stays phone-proxied over JSON', () async {
     when(
-      () => foodRepository.analyzeTextV2(
+      () => foodRepository.analyzeTextV3(
         analysisId: any(named: 'analysisId'),
-        textDescription: 'two slices of avocado toast',
+        text: 'two slices of avocado toast',
+        context: any(named: 'context'),
       ),
-    ).thenAnswer(
-      (_) async => Stream.value(
-        MealAnalysisPipelineEvent(
-          step: PipelineStep.RESULT,
-          analysisId: 'analysis-watch',
-          result: PipelineResultData(
-            analysisId: 'analysis-watch',
-            mealName: 'Avocado Toast',
-            macros: PipelineMacros(calories: 360),
-          ),
-        ),
-      ),
-    );
+    ).thenAnswer((_) async => Stream.value(completeEvent()));
 
     final response = await WearOsService.instance.handleWatchMessage(
       path: '/analysis/detect-text',
@@ -158,9 +179,10 @@ void main() {
 
   test('JSON failures and debug history stay redacted', () async {
     when(
-      () => foodRepository.analyzeTextV2(
+      () => foodRepository.analyzeTextV3(
         analysisId: any(named: 'analysisId'),
-        textDescription: 'private meal description',
+        text: 'private meal description',
+        context: any(named: 'context'),
       ),
     ).thenThrow(StateError('Bearer secret-token: private backend response'));
 

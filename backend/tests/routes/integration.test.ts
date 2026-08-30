@@ -12,7 +12,7 @@ await mock.module('../../src/config.js', {
   defaultExport: {
     APP_VERSION: '1.0.0-test',
     API_V1_STR: '/api/v1',
-    API_V2_STR: '/api/v2',
+    API_V3_STR: '/api/v3',
     DATABASE_URL: 'postgres://mock',
     DEBUG: false,
     TRUST_PROXY: false,
@@ -21,11 +21,6 @@ await mock.module('../../src/config.js', {
     USDA_DATA_DIR: '/tmp/usda',
     USDA_DATASET_VERSION: null,
     USDA_SOURCE_RELEASE_DATE: null,
-    LOCAL_INFERENCE: {
-      minimumAppBuild: 48,
-      textEnabled: false,
-      localNutritionPackObject: '',
-    },
     ORACLE_BUCKET_DOWNLOAD_URL:
       'https://objectstorage.example.com/n/ns/b/bucket/o/',
     ORACLE_BUCKET_UPLOAD_URL:
@@ -65,65 +60,12 @@ await mock.module('../../src/services/infrastructure/database.js', {
   },
 });
 
-await mock.module('../../src/services/meal-analysis/engine.js', {
+await mock.module('../../src/services/meal-analysis-v3/pipeline.js', {
   namedExports: {
-    createAnalysisTrace: mock.fn(() => ({
-      startedAt: Date.now(), steps: [], artifacts: [], llmAttempts: [],
-      llmCallCount: 0, usdaLookupCount: 0, dbWriteCount: 0,
+    runMealAnalysisV3: mock.fn(async () => ({
+      outcome: 'NO_FOOD',
+      reason: 'test',
     })),
-    analyzeTextMeal: mock.fn(async function* () {
-      yield {
-        step: 'RESULT',
-        data: {
-          meal_name: 'Test',
-          macros: {},
-          calorie_confidence: 'HIGH',
-          calorie_band: { min: 100, max: 200 },
-          ingredients: [],
-        },
-      };
-    }),
-    analyzeImageMeal: mock.fn(async function* () {
-      yield { step: 'RESULT', data: {} };
-    }),
-    analyzeIngredientProposal: mock.fn(async function* () {
-      yield { step: 'RESULT', data: {} };
-    }),
-    continueMealAnalysis: mock.fn(async function* () {
-      yield { step: 'RESULT', data: {} };
-    }),
-    continueMealAnalysisWithMealType: mock.fn(async function* () {
-      yield { step: 'RESULT', data: {} };
-    }),
-    resumeMealAnalysis: mock.fn(async function* () {
-      yield { step: 'RESULT', data: {} };
-    }),
-    reanalyzeMeal: mock.fn(async function* () {
-      yield { step: 'RESULT', data: {} };
-    }),
-    FEEDBACK_ISSUES: [
-      'FOOD_IDENTIFICATION',
-      'PORTION_SIZE',
-      'CALORIE_DISTRIBUTION',
-      'MACROS_WRONG',
-      'MISSING_ITEMS',
-      'EXTRA_ITEMS',
-      'OTHER',
-    ],
-    MEAL_TYPES: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'],
-  },
-});
-
-await mock.module('../../src/services/meal-analysis/store.js', {
-  namedExports: {
-    upsertMealAnalysisSession: mock.fn(async () => {}),
-    getMealAnalysisSession: mock.fn(async () => null),
-    recordMealAnalysisClarification: mock.fn(async () => {}),
-    recordMealAnalysisMealType: mock.fn(async () => {}),
-    recordMealAnalysisFeedback: mock.fn(async () => {}),
-    confirmMealAnalysisLogged: mock.fn(async () => true),
-    clearMealAnalysisLogged: mock.fn(async () => true),
-    isMealAnalysisSessionOwnedByUser: mock.fn(async () => true),
   },
 });
 
@@ -241,10 +183,10 @@ describe('Route registration', () => {
     assert.equal(res.statusCode, 401);
   });
 
-  it('POST /api/v2/food/analyze-text with missing body returns 400', async () => {
+  it('POST /api/v3/food/analyze-text with missing body returns 400', async () => {
     const res = await app.inject({
       method: 'POST',
-      url: '/api/v2/food/analyze-text',
+      url: '/api/v3/food/analyze-text',
       headers: {
         'content-type': 'application/json',
         authorization: 'Bearer valid-token',
@@ -254,10 +196,10 @@ describe('Route registration', () => {
     assert.equal(res.statusCode, 400);
   });
 
-  it('POST /api/v2/food/clarify with missing body returns 400', async () => {
+  it('POST /api/v3/food/answer with missing body returns 400', async () => {
     const res = await app.inject({
       method: 'POST',
-      url: '/api/v2/food/clarify',
+      url: '/api/v3/food/answer',
       headers: {
         'content-type': 'application/json',
         authorization: 'Bearer valid-token',
@@ -267,10 +209,10 @@ describe('Route registration', () => {
     assert.equal(res.statusCode, 400);
   });
 
-  it('POST /api/v2/food/resume with missing body returns 400', async () => {
+  it('POST /api/v3/food/resume with missing body returns 400', async () => {
     const res = await app.inject({
       method: 'POST',
-      url: '/api/v2/food/resume',
+      url: '/api/v3/food/resume',
       headers: {
         'content-type': 'application/json',
         authorization: 'Bearer valid-token',
@@ -280,71 +222,19 @@ describe('Route registration', () => {
     assert.equal(res.statusCode, 400);
   });
 
-  it('POST /api/v2/food/feedback with missing body returns 400', async () => {
+  it('POST /api/v3/food/analyze-text without auth returns 401', async () => {
     const res = await app.inject({
       method: 'POST',
-      url: '/api/v2/food/feedback',
-      headers: {
-        'content-type': 'application/json',
-        authorization: 'Bearer valid-token',
-      },
-      payload: JSON.stringify({}),
-    });
-    assert.equal(res.statusCode, 400);
-  });
-
-  it('POST /api/v2/food/meal-type with missing body returns 400', async () => {
-    const res = await app.inject({
-      method: 'POST',
-      url: '/api/v2/food/meal-type',
-      headers: {
-        'content-type': 'application/json',
-        authorization: 'Bearer valid-token',
-      },
-      payload: JSON.stringify({}),
-    });
-    assert.equal(res.statusCode, 400);
-  });
-
-  it('POST /api/v2/food/reanalyze with missing body returns 400', async () => {
-    const res = await app.inject({
-      method: 'POST',
-      url: '/api/v2/food/reanalyze',
-      headers: {
-        'content-type': 'application/json',
-        authorization: 'Bearer valid-token',
-      },
-      payload: JSON.stringify({}),
-    });
-    assert.equal(res.statusCode, 400);
-  });
-
-  it('POST /api/v2/food/confirm-log with missing body returns 400', async () => {
-    const res = await app.inject({
-      method: 'POST',
-      url: '/api/v2/food/confirm-log',
-      headers: {
-        'content-type': 'application/json',
-        authorization: 'Bearer valid-token',
-      },
-      payload: JSON.stringify({}),
-    });
-    assert.equal(res.statusCode, 400);
-  });
-
-  it('POST /api/v2/food/analyze-text without auth returns 401', async () => {
-    const res = await app.inject({
-      method: 'POST',
-      url: '/api/v2/food/analyze-text',
-      payload: { textDescription: 'dal rice' },
+      url: '/api/v3/food/analyze-text',
+      payload: { text: 'dal rice' },
     });
     assert.equal(res.statusCode, 401);
   });
 
-  it('POST /api/v2/food/image-upload authenticates before parsing the binary body', async () => {
+  it('POST /api/v3/food/image-upload authenticates before parsing the binary body', async () => {
     const res = await app.inject({
       method: 'POST',
-      url: '/api/v2/food/image-upload',
+      url: '/api/v3/food/image-upload',
       headers: { 'content-type': 'application/octet-stream' },
       payload: Buffer.from('unauthenticated-body'),
     });
@@ -369,10 +259,10 @@ describe('CORS headers', () => {
     );
   });
 
-  it('OPTIONS preflight on POST /api/v2/food/analyze-text returns 204 with CORS headers', async () => {
+  it('OPTIONS preflight on POST /api/v3/food/analyze-text returns 204 with CORS headers', async () => {
     const res = await app.inject({
       method: 'OPTIONS',
-      url: '/api/v2/food/analyze-text',
+      url: '/api/v3/food/analyze-text',
       headers: {
         origin: 'https://example.com',
         'access-control-request-method': 'POST',
@@ -510,12 +400,21 @@ describe('Rate limit response format', () => {
     const limitedApp = await buildTestApp(1_000);
     const analyze = () => limitedApp.inject({
       method: 'POST',
-      url: '/api/v2/food/analyze-text',
+      url: '/api/v3/food/analyze-text',
       headers: {
         authorization: 'Bearer valid-token',
         'content-type': 'application/json',
       },
-      payload: { textDescription: 'rice and dal' },
+      payload: {
+        analysisId: '00000000-0000-4000-8000-000000000001',
+        text: 'rice and dal',
+        context: {
+          locale: 'en-US',
+          countryCode: 'US',
+          timeZone: 'America/New_York',
+          capturedAt: '2026-08-30T12:00:00.000Z',
+        },
+      },
     });
 
     try {
@@ -541,7 +440,6 @@ describe('Rate limit response format', () => {
       // the 30-per-hour / 100-per-day budget reserved for analysis starts.
       for (let requestNumber = 1; requestNumber <= 50; requestNumber += 1) {
         assert.equal((await requestFood('/api/v1/food/meal-analysis-tips')).statusCode, 200);
-        assert.equal((await requestFood('/api/v2/food/local-capabilities')).statusCode, 200);
       }
     } finally {
       await limitedApp.close();
@@ -630,9 +528,18 @@ describe('Request logging privacy', () => {
 
       const meal = await logApp.inject({
         method: 'POST',
-        url: '/api/v2/food/analyze-text',
+        url: '/api/v3/food/analyze-text',
         headers: { authorization: 'Bearer valid-token' },
-        payload: { textDescription: mealSecret },
+        payload: {
+          analysisId: '00000000-0000-4000-8000-000000000002',
+          text: mealSecret,
+          context: {
+            locale: 'en-US',
+            countryCode: 'US',
+            timeZone: 'America/New_York',
+            capturedAt: '2026-08-30T12:00:00.000Z',
+          },
+        },
       });
       assert.equal(meal.statusCode, 200);
 

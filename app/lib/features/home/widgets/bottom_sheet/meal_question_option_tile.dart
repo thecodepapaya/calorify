@@ -2,7 +2,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-/// Tappable option control used by the V2 meal clarification flow.
+/// Tappable option control used by the V3 meal question flow.
 class MealQuestionOptionTile extends StatefulWidget {
   const MealQuestionOptionTile({
     super.key,

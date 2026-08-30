@@ -29,7 +29,7 @@ const mockConfig = {
   ORACLE_BUCKET_DOWNLOAD_URL:
     'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/',
   API_V1_STR: '/api/v1',
-  API_V2_STR: '/api/v2',
+  API_V3_STR: '/api/v3',
   DEBUG: false,
   ENVIRONMENT: 'development',
   MEAL_ANALYSIS_TIPS_PATH: null as string | null,

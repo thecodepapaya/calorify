@@ -18,7 +18,7 @@ class MealLogSyncResult {
   final int failed;
 }
 
-/// Replays the transactional outbox for the existing V2 confirm-log contract.
+/// Replays the transactional outbox for the V3 confirm-log contract.
 class MealLogSyncService {
   MealLogSyncService({
     required DatabaseInterface database,
@@ -50,13 +50,13 @@ class MealLogSyncService {
             if (meal == null || loggedAt == null) {
               throw StateError('Meal log upsert is missing its snapshot');
             }
-            await _foodRepository.confirmMealLogV2(
+            await _foodRepository.confirmMealLogV3(
               analysisId: operation.analysisId,
               meal: meal,
               loggedAt: loggedAt,
             );
           case MealLogSyncOperation.delete:
-            await _foodRepository.deleteMealLogV2(
+            await _foodRepository.deleteMealLogV3(
               analysisId: operation.analysisId,
             );
         }

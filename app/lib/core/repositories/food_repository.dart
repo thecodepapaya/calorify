@@ -1,23 +1,15 @@
 import 'dart:io';
 
-import 'package:fixnum/fixnum.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:dio/dio.dart';
+import 'package:models/models.dart';
 import 'package:services/services.dart';
-import 'package:uuid/uuid.dart';
 
-class V2ImageAnalysisHandle {
-  const V2ImageAnalysisHandle({
-    required this.analysisId,
-    required this.imageUrl,
-    required this.events,
-  });
+class V3ImageUpload {
+  const V3ImageUpload({required this.imageId});
 
-  final String analysisId;
-  final String imageUrl;
-  final Stream<MealAnalysisPipelineEvent> events;
+  final String imageId;
 }
 
 class FoodRepository {
@@ -26,250 +18,119 @@ class FoodRepository {
 
   final NetworkClient _networkClient;
 
-  Future<Stream<MealAnalysisPipelineEvent>> analyzeTextV2({
+  Future<Stream<MealAnalysisV3Event>> analyzeTextV3({
     required String analysisId,
-    required String textDescription,
-    bool? localAttempted,
-    MealAnalysisFallbackReason? fallbackReason,
-    String? localAttemptId,
-    DateTime? localAttemptStartedAt,
-    DateTime? localAttemptCompletedAt,
+    required String text,
+    required MealAnalysisV3RequestContext context,
     NetworkRequestCancellation? cancellation,
   }) {
-    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
-      '/api/v2/food/analyze-text',
-      MealAnalysisPipelineEvent.fromJson,
-      data: MealAnalysisTextRequest(
-        analysisId: analysisId,
-        textDescription: textDescription,
-        localAttempted: localAttempted,
-        fallbackReason: fallbackReason,
-        localAttemptId: localAttemptId,
-        localAttemptStartedAtEpochMs:
-            localAttemptStartedAt == null
-                ? null
-                : Int64(localAttemptStartedAt.toUtc().millisecondsSinceEpoch),
-        localAttemptCompletedAtEpochMs:
-            localAttemptCompletedAt == null
-                ? null
-                : Int64(localAttemptCompletedAt.toUtc().millisecondsSinceEpoch),
-      ),
+    return _networkClient.streamPost<MealAnalysisV3Event>(
+      '/api/v3/food/analyze-text',
+      MealAnalysisV3Event.fromJson,
+      data: {
+        'analysisId': analysisId,
+        'text': text,
+        'context': context.toJson(),
+      },
       cancellation: cancellation,
     );
   }
 
-  /// Uploads a WebP meal image through the authenticated backend and returns its read URL.
-  Future<String> uploadMealImage(File imageFile) => _uploadImage(imageFile);
-
-  /// Streams analysis events for an image already stored at [imageUrl].
-  Future<Stream<MealAnalysisPipelineEvent>> analyzeImageFromUrlV2({
+  Future<Stream<MealAnalysisV3Event>> analyzeImageV3({
     required String analysisId,
-    required String imageUrl,
+    required String imageId,
+    required String imageOrigin,
+    required MealAnalysisV3RequestContext context,
     NetworkRequestCancellation? cancellation,
   }) {
-    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
-      '/api/v2/food/analyze-image',
-      MealAnalysisPipelineEvent.fromJson,
-      data: MealAnalysisImageRequest(
-        analysisId: analysisId,
-        imageUrl: imageUrl,
-      ),
+    return _networkClient.streamPost<MealAnalysisV3Event>(
+      '/api/v3/food/analyze-image',
+      MealAnalysisV3Event.fromJson,
+      data: {
+        'analysisId': analysisId,
+        'imageId': imageId,
+        'imageOrigin': imageOrigin,
+        'context': context.toJson(),
+      },
       cancellation: cancellation,
     );
   }
 
-  Future<V2ImageAnalysisHandle> analyzeImageV2({
-    required File imageFile,
-  }) async {
-    final analysisId = const Uuid().v4();
-    final imageUrl = await _uploadImage(imageFile);
-    final events = await analyzeImageFromUrlV2(
-      analysisId: analysisId,
-      imageUrl: imageUrl,
-    );
-    return V2ImageAnalysisHandle(
-      analysisId: analysisId,
-      imageUrl: imageUrl,
-      events: events,
-    );
-  }
-
-  Future<Stream<MealAnalysisPipelineEvent>> analyzeProposalV2({
+  Future<Stream<MealAnalysisV3Event>> answerV3({
     required String analysisId,
-    required IngredientProposalV2 proposal,
-    required String localAttemptId,
-    required DateTime localAttemptStartedAt,
-    required DateTime localAttemptCompletedAt,
-    MealAnalysisFallbackReason fallbackReason =
-        MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+    required MealAnalysisV3AnswerBundle bundle,
     NetworkRequestCancellation? cancellation,
   }) {
-    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
-      '/api/v2/food/analyze-proposal',
-      MealAnalysisPipelineEvent.fromJson,
-      data: MealAnalysisProposalRequest(
-        analysisId: analysisId,
-        proposal: proposal,
-        localAttemptId: localAttemptId,
-        localAttemptStartedAtEpochMs: Int64(
-          localAttemptStartedAt.toUtc().millisecondsSinceEpoch,
-        ),
-        localAttemptCompletedAtEpochMs: Int64(
-          localAttemptCompletedAt.toUtc().millisecondsSinceEpoch,
-        ),
-        fallbackReason: fallbackReason,
-      ),
+    return _networkClient.streamPost<MealAnalysisV3Event>(
+      '/api/v3/food/answer',
+      MealAnalysisV3Event.fromJson,
+      data: bundle.toJson(analysisId),
       cancellation: cancellation,
     );
   }
 
-  Future<LocalInferenceCapabilityPolicy> getLocalInferencePolicy() {
-    return _networkClient.apiCall<ApiResult, LocalInferenceCapabilityPolicy>(
-      '/api/v2/food/local-capabilities',
-      LocalInferenceCapabilityPolicy.new,
-    );
-  }
-
-  Future<LocalNutritionResolveResponse> resolveLocalNutrition({
+  Future<Stream<MealAnalysisV3Event>> resumeV3({
     required String analysisId,
-    required List<LocalNutritionLookup> lookups,
-  }) {
-    return _networkClient
-        .apiCall<LocalNutritionResolveRequest, LocalNutritionResolveResponse>(
-          '/api/v2/food/resolve-local-nutrition',
-          LocalNutritionResolveResponse.new,
-          request: LocalNutritionResolveRequest(
-            analysisId: analysisId,
-            lookups: lookups,
-          ),
-        );
-  }
-
-  Future<Stream<MealAnalysisPipelineEvent>> clarifyV2({
-    required String analysisId,
-    required List<MealClarificationAnswer> answers,
     NetworkRequestCancellation? cancellation,
   }) {
-    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
-      '/api/v2/food/clarify',
-      MealAnalysisPipelineEvent.fromJson,
-      data: MealAnalysisClarifyRequest(
-        analysisId: analysisId,
-        answers: answers,
-      ),
+    return _networkClient.streamPost<MealAnalysisV3Event>(
+      '/api/v3/food/resume',
+      MealAnalysisV3Event.fromJson,
+      data: {'analysisId': analysisId},
       cancellation: cancellation,
     );
   }
 
-  Future<Stream<MealAnalysisPipelineEvent>> resumeV2({
-    required String analysisId,
-    NetworkRequestCancellation? cancellation,
-  }) {
-    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
-      '/api/v2/food/resume',
-      MealAnalysisPipelineEvent.fromJson,
-      data: MealAnalysisResumeRequest(analysisId: analysisId),
-      cancellation: cancellation,
-    );
-  }
-
-  Future<Stream<MealAnalysisPipelineEvent>> submitMealTypeV2({
-    required String analysisId,
-    required MealType mealType,
-    NetworkRequestCancellation? cancellation,
-  }) {
-    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
-      '/api/v2/food/meal-type',
-      MealAnalysisPipelineEvent.fromJson,
-      data: MealAnalysisMealTypeRequest(
-        analysisId: analysisId,
-        mealType: mealType,
-      ),
-      cancellation: cancellation,
-    );
-  }
-
-  Future<void> submitPositiveFeedbackV2({required String analysisId}) async {
-    await _networkClient.apiCall<MealAnalysisFeedbackRequest, ApiResult>(
-      '/api/v2/food/feedback',
-      ApiResult.new,
-      request: MealAnalysisFeedbackRequest(
-        analysisId: analysisId,
-        signal: MealAnalysisFeedbackSignal.UP,
-      ),
-    );
-  }
-
-  Future<void> confirmMealLogV2({
-    required String analysisId,
-    required Meal meal,
-    required DateTime loggedAt,
-  }) async {
-    await _networkClient.apiCall<MealAnalysisConfirmLogRequest, ApiResult>(
-      '/api/v2/food/confirm-log',
-      ApiResult.new,
-      request: MealAnalysisConfirmLogRequest(
-        analysisId: analysisId,
-        loggedAt: loggedAt.toUtc().toIso8601String(),
-        meal: meal,
-      ),
-    );
-  }
-
-  Future<void> deleteMealLogV2({required String analysisId}) async {
-    await _networkClient.apiCall<MealAnalysisConfirmLogRequest, ApiResult>(
-      '/api/v2/food/confirm-log',
-      ApiResult.new,
-      request: MealAnalysisConfirmLogRequest(
-        analysisId: analysisId,
-        deleted: true,
-      ),
-    );
-  }
-
-  Future<Stream<MealAnalysisPipelineEvent>> reanalyzeV2({
-    required String analysisId,
-    required String newAnalysisId,
-    required List<MealReanalyzeFeedbackIssue> issues,
-    String? otherText,
-    NetworkRequestCancellation? cancellation,
-  }) {
-    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
-      '/api/v2/food/reanalyze',
-      MealAnalysisPipelineEvent.fromJson,
-      data: MealAnalysisReanalyzeRequest(
-        analysisId: analysisId,
-        newAnalysisId: newAnalysisId,
-        issues: issues,
-        otherText: otherText,
-      ),
-      cancellation: cancellation,
-    );
-  }
-
-  Future<String> _uploadImage(File imageFile) async {
+  Future<V3ImageUpload> uploadMealImageV3(File imageFile) async {
     final imageBytes = await imageFile.readAsBytes();
     validateMealImageUploadSize(imageBytes);
     final response = await _networkClient.client.post<Map<String, dynamic>>(
-      '/api/v2/food/image-upload',
+      '/api/v3/food/image-upload',
       data: imageBytes,
       options: Options(
         contentType: 'image/webp',
         headers: {Headers.contentLengthHeader: imageBytes.length},
       ),
     );
-    final imageUrl = response.data?['imageUrl'];
-    if (imageUrl is! String || imageUrl.isEmpty) {
-      throw const FormatException('Image upload response is missing imageUrl');
+    final imageId = response.data?['imageId'];
+    if (imageId is! String || imageId.isEmpty) {
+      throw const FormatException('Image upload response is missing imageId');
     }
-    return imageUrl;
+    return V3ImageUpload(imageId: imageId);
   }
 
-  /// Server-driven tips for the meal-analysis loading UI (no app update needed to change copy).
-  /// Returns an empty list on failure; callers should fall back to bundled tips.
-  ///
-  /// When [count] is set, the server returns at most that many tips chosen at random
-  /// (`GET ...?count=`).
+  Future<void> submitFeedbackV3({
+    required String analysisId,
+    required bool positive,
+  }) async {
+    await _networkClient.client.post<Map<String, dynamic>>(
+      '/api/v3/food/feedback',
+      data: {'analysisId': analysisId, 'signal': positive ? 'UP' : 'DOWN'},
+    );
+  }
+
+  Future<void> confirmMealLogV3({
+    required String analysisId,
+    required Meal meal,
+    required DateTime loggedAt,
+  }) async {
+    await _networkClient.client.post<Map<String, dynamic>>(
+      '/api/v3/food/confirm-log',
+      data: {
+        'analysisId': analysisId,
+        'loggedAt': loggedAt.toUtc().toIso8601String(),
+        'meal': meal.toProto3Json(),
+      },
+    );
+  }
+
+  Future<void> deleteMealLogV3({required String analysisId}) async {
+    await _networkClient.client.post<Map<String, dynamic>>(
+      '/api/v3/food/confirm-log',
+      data: {'analysisId': analysisId, 'deleted': true},
+    );
+  }
+
   Future<List<String>> getMealAnalysisTips({int? count}) async {
     try {
       final endpoint =
@@ -282,8 +143,8 @@ class FoodRepository {
             MealAnalysisTipsResponse.new,
           );
       return proto.tips
-          .map((s) => s.trim())
-          .where((s) => s.isNotEmpty)
+          .map((value) => value.trim())
+          .where((value) => value.isNotEmpty)
           .toList();
     } on DioException {
       return const [];

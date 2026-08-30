@@ -1,158 +1,1924 @@
 {
-  "version": 1,
-  "description": "Two-pass meal interpretation evals. USDA resolution, calories, macros, clarification, and presentation are intentionally excluded.",
+  "version": 2,
+  "description": "Representative global stress evals for the two meal-decomposition passes. USDA resolution, calories, macros, clarification, final meal-type resolution, and presentation are intentionally excluded.",
   "cases": [
     {
-      "id": "four-roti-daal",
+      "id": "indian-masala-dosa-breakfast",
       "input": {
-        "text": "4 roti daal",
+        "text": "Breakfast: 2 masala dosa, 200 g sambar, and 3 tbsp coconut chutney",
         "locale": "en-IN",
         "countryCode": "IN",
         "timeZone": "Asia/Kolkata",
-        "capturedAt": "2026-08-30T07:00:00.000Z"
+        "capturedAt": "2026-08-30T03:00:00.000Z"
       },
       "expectedComponents": [
         {
-          "key": "roti",
-          "aliases": ["roti", "chapati"],
+          "key": "masala-dosa",
+          "aliases": [
+            "masala dosa",
+            "dosa"
+          ],
           "portion": {
             "kind": "COUNT",
-            "exact": 4,
+            "exact": 2,
             "origin": "user_text",
             "perUnitGrams": {
-              "estimateMin": 25,
-              "estimateMax": 80,
+              "estimateMin": 100,
+              "estimateMax": 350,
               "origin": "model_inferred"
             }
           },
           "requiredIngredientGroups": [
-            ["flour", "wheat", "atta"]
+            [
+              "rice"
+            ],
+            [
+              "urad",
+              "black gram",
+              "lentil"
+            ],
+            [
+              "potato",
+              "aloo"
+            ]
           ],
           "diagnosticIngredientGroups": [
-            ["oil", "ghee", "butter", "fat"]
+            [
+              "oil",
+              "ghee",
+              "butter",
+              "fat"
+            ]
           ]
         },
         {
-          "key": "daal",
-          "aliases": ["daal", "dal", "lentil", "pulse", "toor", "moong", "masoor"],
+          "key": "sambar",
+          "aliases": [
+            "sambar",
+            "sambhar"
+          ],
           "portion": {
             "kind": "AMOUNT",
-            "estimateMin": 80,
-            "estimateMax": 400,
-            "origin": "model_inferred"
+            "exact": 200,
+            "origin": "user_text"
           },
           "requiredIngredientGroups": [
-            ["daal", "dal", "lentil", "pulse", "toor", "moong", "masoor", "chana"]
+            [
+              "lentil",
+              "toor",
+              "pigeon pea",
+              "dal"
+            ],
+            [
+              "tamarind"
+            ],
+            [
+              "vegetable",
+              "vegetables",
+              "drumstick",
+              "onion",
+              "tomato"
+            ]
           ],
           "diagnosticIngredientGroups": [
-            ["oil", "ghee", "butter", "fat"],
-            ["spice", "masala", "turmeric", "cumin"]
+            [
+              "oil",
+              "ghee",
+              "fat"
+            ],
+            [
+              "spice",
+              "mustard",
+              "curry leaf",
+              "turmeric"
+            ]
+          ]
+        },
+        {
+          "key": "coconut-chutney",
+          "aliases": [
+            "coconut chutney",
+            "chutney"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 30,
+            "estimateMax": 70,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "coconut"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "chili",
+              "chilli",
+              "green pepper"
+            ],
+            [
+              "oil",
+              "fat"
+            ]
           ]
         }
       ]
     },
     {
-      "id": "optimum-nutrition-whey-with-milk",
+      "id": "japanese-onigiri-miso-breakfast",
       "input": {
-        "text": "one serving optimum nutrition whey protein with milk",
-        "locale": "en-IN",
-        "countryCode": "IN",
-        "timeZone": "Asia/Kolkata",
-        "capturedAt": "2026-08-30T07:00:00.000Z"
+        "text": "朝食：鮭おにぎり2個、味噌汁180ml",
+        "locale": "ja-JP",
+        "countryCode": "JP",
+        "timeZone": "Asia/Tokyo",
+        "capturedAt": "2026-08-29T22:30:00.000Z"
       },
       "expectedComponents": [
         {
-          "key": "optimum-nutrition-whey",
-          "aliases": ["optimum nutrition", "whey protein", "whey"],
+          "key": "salmon-onigiri",
+          "aliases": [
+            "salmon onigiri",
+            "onigiri",
+            "rice ball"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 2,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 70,
+              "estimateMax": 160,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "rice"
+            ],
+            [
+              "salmon"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "nori",
+              "seaweed"
+            ]
+          ]
+        },
+        {
+          "key": "miso-soup",
+          "aliases": [
+            "miso soup"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 180,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "miso"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "dashi",
+              "stock"
+            ],
+            [
+              "tofu",
+              "wakame",
+              "seaweed"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chinese-chongqing-noodles",
+      "input": {
+        "text": "夜宵：重庆小面350克，加1个煎蛋，不要花生 (no peanuts)",
+        "locale": "zh-CN",
+        "countryCode": "CN",
+        "timeZone": "Asia/Shanghai",
+        "capturedAt": "2026-08-30T15:30:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "chongqing-noodles",
+          "aliases": [
+            "chongqing noodles",
+            "xiaomian",
+            "spicy noodles"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 350,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "noodle",
+              "noodles",
+              "wheat"
+            ],
+            [
+              "chili",
+              "chilli",
+              "red pepper"
+            ],
+            [
+              "sesame",
+              "sesame oil"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "soy sauce",
+              "soy"
+            ]
+          ]
+        },
+        {
+          "key": "fried-egg",
+          "aliases": [
+            "fried egg",
+            "egg"
+          ],
           "portion": {
             "kind": "COUNT",
             "exact": 1,
             "origin": "user_text",
             "perUnitGrams": {
-              "estimateMin": 20,
-              "estimateMax": 60,
+              "estimateMin": 35,
+              "estimateMax": 80,
               "origin": "model_inferred"
             }
           },
           "requiredIngredientGroups": [
-            ["whey", "protein"]
+            [
+              "egg",
+              "eggs"
+            ]
           ],
           "diagnosticIngredientGroups": [
-            ["milk"]
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        }
+      ],
+      "forbiddenIngredientGroups": [
+        [
+          "peanut",
+          "peanuts",
+          "groundnut",
+          "groundnuts"
+        ]
+      ]
+    },
+    {
+      "id": "korean-shin-ramyun-set",
+      "input": {
+        "text": "점심: 농심 신라면 큰사발 114g을 물 300ml로 조리; 사이드로 계란 1개와 김치 50g",
+        "locale": "ko-KR",
+        "countryCode": "KR",
+        "timeZone": "Asia/Seoul",
+        "capturedAt": "2026-08-30T03:30:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "shin-ramyun",
+          "aliases": [
+            "nongshim shin ramyun",
+            "shin ramyun",
+            "ramyun",
+            "ramen"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 414,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "shin ramyun",
+              "ramyun",
+              "ramen",
+              "instant noodle",
+              "instant noodles"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "seasoning",
+              "soup base",
+              "spice"
+            ]
           ]
         },
         {
-          "key": "milk",
-          "aliases": ["milk", "cow's milk", "dairy milk"],
+          "key": "egg",
+          "aliases": [
+            "egg",
+            "fried egg",
+            "boiled egg"
+          ],
           "portion": {
-            "kind": "AMOUNT",
-            "estimateMin": 100,
-            "estimateMax": 500,
-            "origin": "model_inferred"
+            "kind": "COUNT",
+            "exact": 1,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 35,
+              "estimateMax": 80,
+              "origin": "model_inferred"
+            }
           },
           "requiredIngredientGroups": [
-            ["milk"]
+            [
+              "egg",
+              "eggs"
+            ]
           ],
           "diagnosticIngredientGroups": []
+        },
+        {
+          "key": "kimchi",
+          "aliases": [
+            "kimchi"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 50,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "kimchi",
+              "cabbage"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "chili",
+              "chilli",
+              "red pepper"
+            ]
+          ]
         }
       ]
     },
     {
-      "id": "pepsi-250ml",
+      "id": "thai-mango-sticky-rice",
       "input": {
-        "text": "pepsi 250ml",
-        "locale": "en-IN",
-        "countryCode": "IN",
-        "timeZone": "Asia/Kolkata",
-        "capturedAt": "2026-08-30T12:00:00.000Z"
+        "text": "ของหวาน: ข้าวเหนียวมะม่วง 250 กรัม ราดกะทิ ไม่ใส่ถั่วทอง",
+        "locale": "th-TH",
+        "countryCode": "TH",
+        "timeZone": "Asia/Bangkok",
+        "capturedAt": "2026-08-30T09:00:00.000Z"
       },
       "expectedComponents": [
         {
-          "key": "pepsi",
-          "aliases": ["pepsi"],
+          "key": "mango-sticky-rice",
+          "aliases": [
+            "mango sticky rice",
+            "sticky rice with mango"
+          ],
           "portion": {
             "kind": "AMOUNT",
             "exact": 250,
             "origin": "user_text"
           },
           "requiredIngredientGroups": [
-            ["pepsi", "cola"]
+            [
+              "sticky rice",
+              "glutinous rice",
+              "rice"
+            ],
+            [
+              "mango"
+            ],
+            [
+              "coconut milk",
+              "coconut cream",
+              "coconut"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "sugar",
+              "syrup"
+            ]
+          ]
+        }
+      ],
+      "forbiddenIngredientGroups": [
+        [
+          "mung bean",
+          "mung beans"
+        ]
+      ]
+    },
+    {
+      "id": "vietnamese-banh-xeo-lunch",
+      "input": {
+        "text": "Bữa trưa: 2 bánh xèo nhân tôm thịt; ăn riêng với 50 g rau sống và 60 g nước mắm chua ngọt",
+        "locale": "vi-VN",
+        "countryCode": "VN",
+        "timeZone": "Asia/Ho_Chi_Minh",
+        "capturedAt": "2026-08-30T05:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "banh-xeo",
+          "aliases": [
+            "bánh xèo",
+            "banh xeo",
+            "vietnamese crepe",
+            "vietnamese pancake"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 2,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 100,
+              "estimateMax": 300,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "rice flour",
+              "rice"
+            ],
+            [
+              "shrimp",
+              "prawn",
+              "tôm"
+            ],
+            [
+              "pork",
+              "thịt"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "coconut milk",
+              "coconut"
+            ],
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "fresh-herbs",
+          "aliases": [
+            "rau sống",
+            "fresh herbs",
+            "raw vegetables",
+            "herbs"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 50,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "herb",
+              "herbs",
+              "lettuce",
+              "mint",
+              "vegetable",
+              "vegetables"
+            ]
+          ],
+          "diagnosticIngredientGroups": []
+        },
+        {
+          "key": "fish-sauce-dip",
+          "aliases": [
+            "nước mắm chua ngọt",
+            "nuoc cham",
+            "fish sauce dip",
+            "dipping sauce"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 60,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "fish sauce",
+              "nước mắm"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "sugar"
+            ],
+            [
+              "lime",
+              "lemon",
+              "citrus"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "indonesian-nasi-padang",
+      "input": {
+        "text": "Makan malam nasi Padang: nasi putih 180 g, rendang sapi 120 g, daun singkong 80 g, sambal ijo 2 sdm",
+        "locale": "id-ID",
+        "countryCode": "ID",
+        "timeZone": "Asia/Jakarta",
+        "capturedAt": "2026-08-30T12:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "steamed-rice",
+          "aliases": [
+            "nasi putih",
+            "steamed rice",
+            "white rice",
+            "rice"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 180,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "rice",
+              "nasi"
+            ]
+          ],
+          "diagnosticIngredientGroups": []
+        },
+        {
+          "key": "beef-rendang",
+          "aliases": [
+            "rendang sapi",
+            "beef rendang",
+            "rendang"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 120,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "beef",
+              "sapi"
+            ],
+            [
+              "coconut milk",
+              "coconut cream",
+              "coconut"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "spice",
+              "chili",
+              "chilli",
+              "ginger",
+              "galangal"
+            ]
+          ]
+        },
+        {
+          "key": "cassava-leaves",
+          "aliases": [
+            "daun singkong",
+            "cassava leaves",
+            "cassava greens"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 80,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "cassava leaf",
+              "cassava leaves",
+              "cassava greens",
+              "singkong"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "coconut milk",
+              "coconut"
+            ]
+          ]
+        },
+        {
+          "key": "green-sambal",
+          "aliases": [
+            "sambal ijo",
+            "green sambal",
+            "sambal"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 20,
+            "estimateMax": 50,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "chili",
+              "chilli",
+              "green pepper",
+              "sambal"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lebanese-shawarma-ayran",
+      "input": {
+        "text": "غداء: لفافة شاورما دجاج واحدة بخبز الصاج مع ثوم ومخلل وبطاطا، بدون طحينة، وعيران 200 مل",
+        "locale": "ar-LB",
+        "countryCode": "LB",
+        "timeZone": "Asia/Beirut",
+        "capturedAt": "2026-08-30T10:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "chicken-shawarma-wrap",
+          "aliases": [
+            "chicken shawarma",
+            "shawarma wrap",
+            "shawarma"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 1,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 250,
+              "estimateMax": 650,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "chicken"
+            ],
+            [
+              "saj",
+              "flatbread",
+              "bread",
+              "pita"
+            ],
+            [
+              "garlic",
+              "toum"
+            ],
+            [
+              "potato",
+              "fries"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "pickle",
+              "pickles"
+            ]
+          ]
+        },
+        {
+          "key": "ayran",
+          "aliases": [
+            "ayran",
+            "yogurt drink"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 200,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "yogurt",
+              "yoghurt",
+              "ayran"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "salt"
+            ]
+          ]
+        }
+      ],
+      "forbiddenIngredientGroups": [
+        [
+          "tahini",
+          "sesame paste"
+        ]
+      ]
+    },
+    {
+      "id": "moroccan-chicken-tagine",
+      "input": {
+        "text": "Dîner : tajine de poulet 350 g au citron confit et olives, avec couscous cuit 120 g",
+        "locale": "fr-MA",
+        "countryCode": "MA",
+        "timeZone": "Africa/Casablanca",
+        "capturedAt": "2026-08-30T19:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "chicken-tagine",
+          "aliases": [
+            "tajine de poulet",
+            "chicken tagine",
+            "tagine",
+            "tajine"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 350,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "chicken",
+              "poulet"
+            ],
+            [
+              "preserved lemon",
+              "lemon",
+              "citron confit",
+              "citron"
+            ],
+            [
+              "olive",
+              "olives"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "olive oil",
+              "fat"
+            ],
+            [
+              "spice",
+              "ginger",
+              "turmeric",
+              "saffron"
+            ]
+          ]
+        },
+        {
+          "key": "couscous",
+          "aliases": [
+            "couscous cuit",
+            "cooked couscous",
+            "couscous"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 120,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "couscous",
+              "semolina",
+              "wheat"
+            ]
           ],
           "diagnosticIngredientGroups": []
         }
       ]
     },
     {
-      "id": "medium-veggie-pizza",
+      "id": "ethiopian-vegan-beyaynetu",
       "input": {
-        "text": "one medium veggie pizza",
-        "locale": "en-IN",
-        "countryCode": "IN",
-        "timeZone": "Asia/Kolkata",
+        "text": "Vegan beyaynetu: 2 injera, 120 g misir wat, 100 g shiro, and 80 g gomen",
+        "locale": "en-ET",
+        "countryCode": "ET",
+        "timeZone": "Africa/Addis_Ababa",
+        "capturedAt": "2026-08-30T16:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "injera",
+          "aliases": [
+            "injera",
+            "ethiopian flatbread"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 2,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 60,
+              "estimateMax": 180,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "teff"
+            ]
+          ],
+          "diagnosticIngredientGroups": []
+        },
+        {
+          "key": "misir-wat",
+          "aliases": [
+            "misir wat",
+            "misir wot",
+            "red lentil stew",
+            "lentil stew"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 120,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "lentil",
+              "lentils",
+              "misir"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "berbere",
+              "spice",
+              "chili",
+              "chilli"
+            ]
+          ]
+        },
+        {
+          "key": "shiro",
+          "aliases": [
+            "shiro",
+            "chickpea stew",
+            "chickpea puree"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 100,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "chickpea",
+              "chickpeas",
+              "shiro"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "berbere",
+              "spice"
+            ]
+          ]
+        },
+        {
+          "key": "gomen",
+          "aliases": [
+            "gomen",
+            "collard greens",
+            "ethiopian greens"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 80,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "collard",
+              "greens",
+              "kale",
+              "gomen"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nigerian-jollof-party-plate",
+      "input": {
+        "text": "Lunch: 1½ cups party jollof rice, 1 fried chicken thigh, 2 fried plantain slices, and 1 moi moi",
+        "locale": "en-NG",
+        "countryCode": "NG",
+        "timeZone": "Africa/Lagos",
+        "capturedAt": "2026-08-30T12:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "jollof-rice",
+          "aliases": [
+            "party jollof rice",
+            "jollof rice",
+            "jollof"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 250,
+            "estimateMax": 500,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "rice"
+            ],
+            [
+              "tomato",
+              "tomatoes",
+              "tomato paste"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "pepper",
+              "chili",
+              "chilli"
+            ],
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "fried-chicken-thigh",
+          "aliases": [
+            "fried chicken thigh",
+            "chicken thigh",
+            "fried chicken"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 1,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 100,
+              "estimateMax": 300,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "chicken"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "fried-plantain",
+          "aliases": [
+            "fried plantain slices",
+            "fried plantain",
+            "plantain"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 2,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 15,
+              "estimateMax": 60,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "plantain"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "moi-moi",
+          "aliases": [
+            "moi moi",
+            "moin moin",
+            "bean pudding"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 1,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 80,
+              "estimateMax": 250,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "bean",
+              "beans",
+              "black eyed pea",
+              "black eyed peas",
+              "cowpea",
+              "cowpeas"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "french-croque-madame-breakfast",
+      "input": {
+        "text": "Petit-déjeuner : 1 croque-madame sans béchamel et environ 2,5 dl de café au lait d’avoine",
+        "locale": "fr-FR",
+        "countryCode": "FR",
+        "timeZone": "Europe/Paris",
+        "capturedAt": "2026-08-30T06:30:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "croque-madame",
+          "aliases": [
+            "croque-madame",
+            "ham cheese egg sandwich"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 1,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 180,
+              "estimateMax": 450,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "bread",
+              "pain"
+            ],
+            [
+              "ham",
+              "jambon"
+            ],
+            [
+              "cheese",
+              "fromage",
+              "gruyere"
+            ],
+            [
+              "egg",
+              "eggs",
+              "oeuf"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "butter",
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "oat-cafe-au-lait",
+          "aliases": [
+            "cafe au lait d avoine",
+            "oat cafe au lait",
+            "oat milk coffee"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 200,
+            "estimateMax": 300,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "coffee",
+              "cafe"
+            ],
+            [
+              "oat milk",
+              "oat beverage",
+              "avoine"
+            ]
+          ],
+          "diagnosticIngredientGroups": []
+        }
+      ],
+      "forbiddenIngredientGroups": [
+        [
+          "bechamel",
+          "béchamel"
+        ]
+      ]
+    },
+    {
+      "id": "spanish-tapas-trio",
+      "input": {
+        "text": "Tapas: 4 croquetas de jamón, 6 gambas al ajillo y 2 pinchos de tortilla española",
+        "locale": "es-ES",
+        "countryCode": "ES",
+        "timeZone": "Europe/Madrid",
+        "capturedAt": "2026-08-30T19:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "ham-croquettes",
+          "aliases": [
+            "croquetas de jamon",
+            "ham croquettes",
+            "croquettes",
+            "croquetas"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 4,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 20,
+              "estimateMax": 80,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "ham",
+              "jamon"
+            ],
+            [
+              "flour",
+              "breadcrumb",
+              "breadcrumbs",
+              "bread"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "milk",
+              "bechamel"
+            ],
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "garlic-shrimp",
+          "aliases": [
+            "gambas al ajillo",
+            "garlic shrimp",
+            "garlic prawns",
+            "gambas"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 6,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 10,
+              "estimateMax": 40,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "shrimp",
+              "prawn",
+              "prawns",
+              "gamba",
+              "gambas"
+            ],
+            [
+              "garlic",
+              "ajo"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "olive oil",
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "spanish-tortilla",
+          "aliases": [
+            "tortilla espanola",
+            "spanish tortilla",
+            "potato omelette",
+            "tortilla"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 2,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 50,
+              "estimateMax": 150,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "egg",
+              "eggs",
+              "huevo"
+            ],
+            [
+              "potato",
+              "potatoes",
+              "patata"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "onion",
+              "cebolla"
+            ],
+            [
+              "olive oil",
+              "oil",
+              "fat"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "italian-carbonara-no-cream",
+      "input": {
+        "text": "Cena: 350 g di spaghetti alla carbonara con guanciale, uovo e pecorino, senza panna",
+        "locale": "it-IT",
+        "countryCode": "IT",
+        "timeZone": "Europe/Rome",
+        "capturedAt": "2026-08-30T18:30:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "spaghetti-carbonara",
+          "aliases": [
+            "spaghetti alla carbonara",
+            "spaghetti carbonara",
+            "carbonara"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 350,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "spaghetti",
+              "pasta"
+            ],
+            [
+              "guanciale",
+              "pork jowl",
+              "pork cheek"
+            ],
+            [
+              "egg",
+              "eggs",
+              "uovo"
+            ],
+            [
+              "pecorino",
+              "cheese",
+              "formaggio"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "black pepper",
+              "pepper"
+            ]
+          ]
+        }
+      ],
+      "forbiddenIngredientGroups": [
+        [
+          "cream",
+          "heavy cream"
+        ]
+      ]
+    },
+    {
+      "id": "mexican-tacos-al-pastor",
+      "input": {
+        "text": "Comida: 3 tacos al pastor en tortilla de maíz con piña y cebolla, sin queso",
+        "locale": "es-MX",
+        "countryCode": "MX",
+        "timeZone": "America/Mexico_City",
+        "capturedAt": "2026-08-30T20:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "tacos-al-pastor",
+          "aliases": [
+            "tacos al pastor",
+            "taco al pastor",
+            "al pastor tacos"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 3,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 60,
+              "estimateMax": 180,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "pork",
+              "cerdo"
+            ],
+            [
+              "corn tortilla",
+              "maize tortilla",
+              "tortilla de maiz"
+            ],
+            [
+              "pineapple",
+              "pina"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "onion",
+              "cebolla"
+            ],
+            [
+              "chili",
+              "chilli",
+              "adobo",
+              "achiote"
+            ]
+          ]
+        }
+      ],
+      "forbiddenIngredientGroups": [
+        [
+          "cheese",
+          "queso"
+        ]
+      ]
+    },
+    {
+      "id": "brazilian-feijoada-plate",
+      "input": {
+        "text": "Almoço: feijoada 300 g, arroz 1 xícara, farofa 40 g, couve 60 g e 3 rodelas de laranja",
+        "locale": "pt-BR",
+        "countryCode": "BR",
+        "timeZone": "America/Sao_Paulo",
+        "capturedAt": "2026-08-30T16:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "feijoada",
+          "aliases": [
+            "feijoada",
+            "black bean stew"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 300,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "black bean",
+              "black beans",
+              "bean",
+              "beans",
+              "feijao"
+            ],
+            [
+              "pork",
+              "beef",
+              "sausage",
+              "linguica"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "rice",
+          "aliases": [
+            "arroz",
+            "rice",
+            "white rice"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 150,
+            "estimateMax": 300,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "rice",
+              "arroz"
+            ]
+          ],
+          "diagnosticIngredientGroups": []
+        },
+        {
+          "key": "farofa",
+          "aliases": [
+            "farofa",
+            "toasted cassava flour"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 40,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "cassava flour",
+              "manioc flour",
+              "farinha de mandioca",
+              "cassava"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "butter",
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "collard-greens",
+          "aliases": [
+            "couve",
+            "collard greens",
+            "greens"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 60,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "collard",
+              "greens",
+              "kale",
+              "couve"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "orange-slices",
+          "aliases": [
+            "rodelas de laranja",
+            "orange slices",
+            "orange",
+            "laranja"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 3,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 10,
+              "estimateMax": 40,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "orange",
+              "laranja"
+            ]
+          ],
+          "diagnosticIngredientGroups": []
+        }
+      ]
+    },
+    {
+      "id": "peruvian-mixed-ceviche",
+      "input": {
+        "text": "Almuerzo: 250 g de ceviche mixto con pescado, pulpo, camarón, camote, choclo y leche de tigre",
+        "locale": "es-PE",
+        "countryCode": "PE",
+        "timeZone": "America/Lima",
         "capturedAt": "2026-08-30T18:00:00.000Z"
       },
       "expectedComponents": [
         {
-          "key": "veggie-pizza",
-          "aliases": ["veggie pizza", "vegetable pizza", "pizza"],
+          "key": "mixed-ceviche",
+          "aliases": [
+            "ceviche mixto",
+            "mixed ceviche",
+            "ceviche"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 250,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "fish",
+              "pescado"
+            ],
+            [
+              "octopus",
+              "pulpo"
+            ],
+            [
+              "shrimp",
+              "prawn",
+              "camaron"
+            ],
+            [
+              "sweet potato",
+              "camote"
+            ],
+            [
+              "corn",
+              "maize",
+              "choclo"
+            ],
+            [
+              "lime",
+              "citrus",
+              "leche de tigre"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "onion",
+              "cebolla"
+            ],
+            [
+              "chili",
+              "chilli",
+              "aji"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jamaican-jerk-dinner",
+      "input": {
+        "text": "Dinner: 1 jerk chicken leg quarter, 1 cup rice and peas, 1 festival, and 330 ml Ting grapefruit soda",
+        "locale": "en-JM",
+        "countryCode": "JM",
+        "timeZone": "America/Jamaica",
+        "capturedAt": "2026-08-31T00:30:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "jerk-chicken",
+          "aliases": [
+            "jerk chicken leg quarter",
+            "jerk chicken",
+            "chicken leg quarter"
+          ],
           "portion": {
             "kind": "COUNT",
             "exact": 1,
             "origin": "user_text",
             "perUnitGrams": {
               "estimateMin": 200,
-              "estimateMax": 1000,
+              "estimateMax": 500,
               "origin": "model_inferred"
             }
           },
           "requiredIngredientGroups": [
-            ["flour", "wheat", "dough"],
-            ["cheese"],
-            ["vegetable", "pepper", "onion", "mushroom", "corn", "tomato"]
+            [
+              "chicken"
+            ]
           ],
           "diagnosticIngredientGroups": [
-            ["tomato", "sauce"]
+            [
+              "allspice",
+              "pimento",
+              "jerk seasoning",
+              "spice"
+            ],
+            [
+              "scotch bonnet",
+              "chili",
+              "chilli"
+            ]
           ]
+        },
+        {
+          "key": "rice-and-peas",
+          "aliases": [
+            "rice and peas",
+            "rice with beans",
+            "rice and beans"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 150,
+            "estimateMax": 350,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "rice"
+            ],
+            [
+              "kidney bean",
+              "kidney beans",
+              "bean",
+              "beans",
+              "pigeon pea",
+              "pigeon peas"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "coconut milk",
+              "coconut"
+            ]
+          ]
+        },
+        {
+          "key": "festival",
+          "aliases": [
+            "festival",
+            "jamaican festival",
+            "fried dumpling"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 1,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 50,
+              "estimateMax": 150,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "flour",
+              "cornmeal",
+              "maize flour"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "sugar"
+            ],
+            [
+              "oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "ting-soda",
+          "aliases": [
+            "ting grapefruit soda",
+            "ting soda",
+            "ting",
+            "grapefruit soda"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 330,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "ting",
+              "grapefruit",
+              "soda"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "sugar",
+              "sweetener"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "us-chipotle-fractional-bowl",
+      "input": {
+        "text": "Lunch: my 680 g Chipotle burrito bowl had double chicken, brown rice, black beans, fajita vegetables, queso and guacamole, no sour cream; I ate three quarters",
+        "locale": "en-US",
+        "countryCode": "US",
+        "timeZone": "America/Los_Angeles",
+        "capturedAt": "2026-08-30T19:30:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "chipotle-burrito-bowl",
+          "aliases": [
+            "chipotle burrito bowl",
+            "burrito bowl",
+            "chipotle bowl"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 510,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "chicken"
+            ],
+            [
+              "brown rice",
+              "rice"
+            ],
+            [
+              "black bean",
+              "black beans",
+              "bean",
+              "beans"
+            ],
+            [
+              "fajita vegetable",
+              "fajita vegetables",
+              "pepper",
+              "peppers",
+              "onion",
+              "vegetable",
+              "vegetables"
+            ],
+            [
+              "queso",
+              "cheese"
+            ],
+            [
+              "guacamole",
+              "avocado"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "salsa",
+              "tomato",
+              "chili",
+              "chilli"
+            ]
+          ]
+        }
+      ],
+      "forbiddenIngredientGroups": [
+        [
+          "sour cream",
+          "crema"
+        ]
+      ]
+    },
+    {
+      "id": "australian-avocado-toast-brunch",
+      "input": {
+        "text": "Brekkie: 2 slices of sourdough avocado toast topped with 2 poached eggs and 1 tbsp dukkah, plus an 8 fl oz oat flat white",
+        "locale": "en-AU",
+        "countryCode": "AU",
+        "timeZone": "Australia/Sydney",
+        "capturedAt": "2026-08-29T22:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "avocado-toast",
+          "aliases": [
+            "sourdough avocado toast",
+            "avocado toast",
+            "avo toast"
+          ],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 2,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 80,
+              "estimateMax": 250,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            [
+              "sourdough",
+              "bread",
+              "toast"
+            ],
+            [
+              "avocado",
+              "avo"
+            ],
+            [
+              "egg",
+              "eggs"
+            ],
+            [
+              "dukkah",
+              "sesame",
+              "hazelnut",
+              "nut",
+              "nuts"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
+            [
+              "oil",
+              "olive oil",
+              "fat"
+            ]
+          ]
+        },
+        {
+          "key": "oat-flat-white",
+          "aliases": [
+            "oat flat white",
+            "flat white",
+            "oat milk coffee"
+          ],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 220,
+            "estimateMax": 260,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            [
+              "coffee",
+              "espresso"
+            ],
+            [
+              "oat milk",
+              "oat beverage"
+            ]
+          ],
+          "diagnosticIngredientGroups": []
         }
       ]
     }

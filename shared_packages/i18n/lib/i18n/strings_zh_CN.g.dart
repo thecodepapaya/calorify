@@ -57,7 +57,6 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override late final Translations$notifications$zh_CN notifications = Translations$notifications$zh_CN.internal(_root);
 	@override late final Translations$login$zh_CN login = Translations$login$zh_CN.internal(_root);
 	@override late final Translations$disclaimer$zh_CN disclaimer = Translations$disclaimer$zh_CN.internal(_root);
-	@override late final Translations$localNutritionPhase4$zh_CN localNutritionPhase4 = Translations$localNutritionPhase4$zh_CN.internal(_root);
 	@override late final Translations$watch$zh_CN watch = Translations$watch$zh_CN.internal(_root);
 	@override late final Translations$common$zh_CN common = Translations$common$zh_CN.internal(_root);
 	@override late final Translations$feedbackRating$zh_CN feedbackRating = Translations$feedbackRating$zh_CN.internal(_root);
@@ -186,7 +185,6 @@ class Translations$meal$zh_CN extends Translations$meal$en {
 	@override String get skip => '跳过';
 	@override late final Translations$meal$questionFlow$zh_CN questionFlow = Translations$meal$questionFlow$zh_CN.internal(_root);
 	@override late final Translations$meal$analysis$zh_CN analysis = Translations$meal$analysis$zh_CN.internal(_root);
-	@override late final Translations$meal$localInference$zh_CN localInference = Translations$meal$localInference$zh_CN.internal(_root);
 	@override late final Translations$meal$feedback$zh_CN feedback = Translations$meal$feedback$zh_CN.internal(_root);
 }
 
@@ -293,7 +291,6 @@ class Translations$settings$zh_CN extends Translations$settings$en {
 	@override late final Translations$settings$heightUnit$zh_CN heightUnit = Translations$settings$heightUnit$zh_CN.internal(_root);
 	@override late final Translations$settings$weightUnit$zh_CN weightUnit = Translations$settings$weightUnit$zh_CN.internal(_root);
 	@override late final Translations$settings$mealReminders$zh_CN mealReminders = Translations$settings$mealReminders$zh_CN.internal(_root);
-	@override late final Translations$settings$localInference$zh_CN localInference = Translations$settings$localInference$zh_CN.internal(_root);
 	@override late final Translations$settings$theme$zh_CN theme = Translations$settings$theme$zh_CN.internal(_root);
 	@override late final Translations$settings$sendFeedback$zh_CN sendFeedback = Translations$settings$sendFeedback$zh_CN.internal(_root);
 	@override late final Translations$settings$exportMealHistory$zh_CN exportMealHistory = Translations$settings$exportMealHistory$zh_CN.internal(_root);
@@ -372,35 +369,6 @@ class Translations$disclaimer$zh_CN extends Translations$disclaimer$en {
 	@override late final Translations$disclaimer$weightEstimate$zh_CN weightEstimate = Translations$disclaimer$weightEstimate$zh_CN.internal(_root);
 	@override late final Translations$disclaimer$healthMetrics$zh_CN healthMetrics = Translations$disclaimer$healthMetrics$zh_CN.internal(_root);
 	@override late final Translations$disclaimer$calorieExpenditure$zh_CN calorieExpenditure = Translations$disclaimer$calorieExpenditure$zh_CN.internal(_root);
-}
-
-// Path: localNutritionPhase4
-class Translations$localNutritionPhase4$zh_CN extends Translations$localNutritionPhase4$en {
-	Translations$localNutritionPhase4$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
-
-	final TranslationsZhCn _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => '较小';
-	@override String get portionEstimated => '估算';
-	@override String get portionLarger => '较大';
-	@override String portionQuestion({required Object ingredient}) => '${ingredient} 最接近哪个份量？';
-	@override String get mealTypeQuestion => '这是哪一餐？';
-	@override String get localNutritionTip => '根据已验证的本地营养数据计算。';
-	@override String get offlineNutritionTitle => '下载营养数据';
-	@override String get offlineNutritionSubtitle => '当所有食材均有数据时，在此设备上使用已验证的 USDA 数据行和确定性计算。';
-	@override String get offlineNutritionUnavailable => '此应用版本不提供本地营养数据。';
-	@override String get offlineNutritionNotDownloaded => '尚未下载已验证的营养数据包。';
-	@override String get offlineNutritionInstalling => '正在下载并验证营养数据…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => '数据包 ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} 条已缓存的 USDA 数据行 · ${size}';
-	@override String get offlineNutritionUpdate => '检查更新';
-	@override String get offlineNutritionClear => '清除本地营养数据';
-	@override String get offlineNutritionClearTitle => '清除本地营养数据？';
-	@override String get offlineNutritionClearBody => '这将移除已下载的 USDA 数据包和查询缓存。已记录的餐食会保留保存时使用的准确营养快照。';
-	@override String get offlineNutritionClearConfirm => '清除数据';
-	@override String offlineNutritionInstallFailed({required Object error}) => '无法下载并验证本地营养数据：${error}';
-	@override String get offlineNutritionCleared => '已清除本地营养数据';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class Translations$meal$questionFlow$zh_CN extends Translations$meal$questionFlo
 	@override String get optionSmaller => '偏小份';
 	@override String get optionTypical => '常规份';
 	@override String get optionLarger => '偏大份';
+	@override String get useEstimate => '使用估算';
+	@override String numberRange({required Object min, required Object max, required Object step}) => '从 ${min} 到 ${max}，步长为 ${step}';
+	@override String get invalidNumber => '请输入允许范围内的数值';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class Translations$meal$analysis$zh_CN extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '检测到 ${count} 种食材';
 	@override String get ingredientsPending => '扫描食材中…';
 	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String calorieRange({required Object min, required Object max}) => '估算范围：${min}–${max} 千卡';
 	@override String get offlineTip0 => '提示：持续记录比追求完美更重要——规律的记录能揭示真正有用的模式。';
 	@override String get offlineTip1 => '提示：拍照时使用自然光并从俯视角度拍摄，有助于提升分量估算准确性。';
 	@override String get offlineTip2 => '提示：记得说明饮料、酱汁和食用油——这些常被忽略但会增加热量。';
 	@override String get offlineTip3 => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。';
 	@override String get offlineTip4 => '提示：饭后记录同样能培养习惯；不必追求完美。';
 	@override String get offlineTip5 => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。';
-}
-
-// Path: meal.localInference
-class Translations$meal$localInference$zh_CN extends Translations$meal$localInference$en {
-	Translations$meal$localInference$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
-
-	final TranslationsZhCn _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => '核对检测到的食材';
-	@override String get reviewSubtitle => '此内容由您的设备解析。在计算营养成分前，请修正名称或分量。';
-	@override String get mealName => '餐食名称';
-	@override String get ingredient => '食材';
-	@override String get grams => '预计克数';
-	@override String get removeIngredient => '移除食材';
-	@override String get continueLabel => '继续';
-	@override String get invalidProposal => '请至少添加一种食材，并输入正数的克数。';
-	@override String get localUnavailable => '目前无法使用设备端分析。';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class Translations$settings$sections$zh_CN extends Translations$settings$section
 	@override String get localization => '本地化';
 	@override String get notifications => '通知';
 	@override String get healthConnect => 'Health Connect';
-	@override String get localInference => '设备端分析';
 	@override String get supportAndLegal => '支持与法律';
 	@override String get about => '关于';
 	@override String get dangerZone => '危险操作';
@@ -1061,30 +1014,6 @@ class Translations$settings$mealReminders$zh_CN extends Translations$settings$me
 	// Translations
 	@override String get title => '餐食提醒';
 	@override String get subtitle => '用及时提醒帮助你保持记录';
-}
-
-// Path: settings.localInference
-class Translations$settings$localInference$zh_CN extends Translations$settings$localInference$en {
-	Translations$settings$localInference$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
-
-	final TranslationsZhCn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => '设备端餐食分析';
-	@override String get subtitle => '在计算营养成分前，使用 Gemini Nano 解析支持的餐食';
-	@override String get unavailable => '此设备不支持';
-	@override String get rolloutUnavailable => '检测到可用硬件，但此功能在当前应用版本中尚未启用';
-	@override String get modelSetup => 'Gemini Nano 需要完成下载后才能启用此功能';
-	@override String get useLocalTitle => '使用设备端分析';
-	@override String get useLocalSubtitle => '对于复杂的餐食，结果可能不太可靠。';
-	@override String get disclosureTitle => '在启用设备端分析之前';
-	@override String get disclosureBody => 'Gemini Nano 可以在支持的 Android 设备上识别食材并估算分量。您核对后的食材方案将发送至 Calorify，以便进行 USDA 营养数据比对和计算。';
-	@override String get disclosureLimit1 => '复杂菜肴、隐藏食材和分量大小可能会被错误识别。';
-	@override String get disclosureLimit2 => '模型在下载中、繁忙、处于后台或受设备限制时可能无法使用。';
-	@override String get disclosureLimit3 => '如果本地解析无法完成，此 Beta 版本会自动将您的原始餐食描述发送至 Calorify 进行云端分析。';
-	@override String get acknowledgement => '我明白我应当核对检测到的食材和分量。';
-	@override String get enable => '确认并启用';
-	@override String get cancel => '取消';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsZhCn {
 			'meal.questionFlow.optionSmaller' => '偏小份',
 			'meal.questionFlow.optionTypical' => '常规份',
 			'meal.questionFlow.optionLarger' => '偏大份',
+			'meal.questionFlow.useEstimate' => '使用估算',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => '从 ${min} 到 ${max}，步长为 ${step}',
+			'meal.questionFlow.invalidNumber' => '请输入允许范围内的数值',
 			'meal.analysis.title' => '正在分析你的餐食',
 			'meal.analysis.stepStarted' => '开始处理…',
 			'meal.analysis.stepDecomposition' => '理解你的餐食…',
@@ -2308,21 +2240,13 @@ extension on TranslationsZhCn {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '检测到 ${count} 种食材',
 			'meal.analysis.ingredientsPending' => '扫描食材中…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => '估算范围：${min}–${max} 千卡',
 			'meal.analysis.offlineTip0' => '提示：持续记录比追求完美更重要——规律的记录能揭示真正有用的模式。',
 			'meal.analysis.offlineTip1' => '提示：拍照时使用自然光并从俯视角度拍摄，有助于提升分量估算准确性。',
 			'meal.analysis.offlineTip2' => '提示：记得说明饮料、酱汁和食用油——这些常被忽略但会增加热量。',
 			'meal.analysis.offlineTip3' => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。',
 			'meal.analysis.offlineTip4' => '提示：饭后记录同样能培养习惯；不必追求完美。',
 			'meal.analysis.offlineTip5' => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。',
-			'meal.localInference.reviewTitle' => '核对检测到的食材',
-			'meal.localInference.reviewSubtitle' => '此内容由您的设备解析。在计算营养成分前，请修正名称或分量。',
-			'meal.localInference.mealName' => '餐食名称',
-			'meal.localInference.ingredient' => '食材',
-			'meal.localInference.grams' => '预计克数',
-			'meal.localInference.removeIngredient' => '移除食材',
-			'meal.localInference.continueLabel' => '继续',
-			'meal.localInference.invalidProposal' => '请至少添加一种食材，并输入正数的克数。',
-			'meal.localInference.localUnavailable' => '目前无法使用设备端分析。',
 			'meal.feedback.title' => '哪里看起来不对？',
 			'meal.feedback.subtitle' => '通过选择一个或多个问题来帮助我们改进分析。',
 			'meal.feedback.tellUsMore' => '告诉我们更多信息',
@@ -2420,7 +2344,6 @@ extension on TranslationsZhCn {
 			'settings.sections.localization' => '本地化',
 			'settings.sections.notifications' => '通知',
 			'settings.sections.healthConnect' => 'Health Connect',
-			'settings.sections.localInference' => '设备端分析',
 			'settings.sections.supportAndLegal' => '支持与法律',
 			'settings.sections.about' => '关于',
 			'settings.sections.dangerZone' => '危险操作',
@@ -2435,21 +2358,6 @@ extension on TranslationsZhCn {
 			'settings.weightUnit.title' => '体重单位',
 			'settings.mealReminders.title' => '餐食提醒',
 			'settings.mealReminders.subtitle' => '用及时提醒帮助你保持记录',
-			'settings.localInference.title' => '设备端餐食分析',
-			'settings.localInference.subtitle' => '在计算营养成分前，使用 Gemini Nano 解析支持的餐食',
-			'settings.localInference.unavailable' => '此设备不支持',
-			'settings.localInference.rolloutUnavailable' => '检测到可用硬件，但此功能在当前应用版本中尚未启用',
-			'settings.localInference.modelSetup' => 'Gemini Nano 需要完成下载后才能启用此功能',
-			'settings.localInference.useLocalTitle' => '使用设备端分析',
-			'settings.localInference.useLocalSubtitle' => '对于复杂的餐食，结果可能不太可靠。',
-			'settings.localInference.disclosureTitle' => '在启用设备端分析之前',
-			'settings.localInference.disclosureBody' => 'Gemini Nano 可以在支持的 Android 设备上识别食材并估算分量。您核对后的食材方案将发送至 Calorify，以便进行 USDA 营养数据比对和计算。',
-			'settings.localInference.disclosureLimit1' => '复杂菜肴、隐藏食材和分量大小可能会被错误识别。',
-			'settings.localInference.disclosureLimit2' => '模型在下载中、繁忙、处于后台或受设备限制时可能无法使用。',
-			'settings.localInference.disclosureLimit3' => '如果本地解析无法完成，此 Beta 版本会自动将您的原始餐食描述发送至 Calorify 进行云端分析。',
-			'settings.localInference.acknowledgement' => '我明白我应当核对检测到的食材和分量。',
-			'settings.localInference.enable' => '确认并启用',
-			'settings.localInference.cancel' => '取消',
 			'settings.theme.title' => '主题',
 			'settings.theme.light' => '浅色',
 			'settings.theme.dark' => '深色',
@@ -2561,8 +2469,6 @@ extension on TranslationsZhCn {
 			'reminders.errorCompletingSetup' => ({required Object error}) => '完成设置时出错：${error}',
 			'notifications.breakfast.title' => '早餐时间！ 🍳',
 			'notifications.breakfast.body' => '别忘了记录你的早餐',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => '午餐时间！ 🥗',
 			'notifications.lunch.body' => '是时候记录午餐了',
 			'notifications.dinner.title' => '晚餐时间！ 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsZhCn {
 			'disclaimer.snap.databaseLimitations.title' => '数据库限制',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} 的食物数据库虽然很广泛，但可能不包含每一种食物或所有变体。',
 			'disclaimer.weightEstimate.title' => '关于体重估算',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => '预测的体重变化是基于简单的热量摄入与消耗模型的理论估算。仅用于激励参考，而非实际体重预测。',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => '卡路里准确性',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => '此估算的准确性取决于你记录的卡路里摄入与消耗。记录不准确会导致预测不准确。',
@@ -2606,26 +2514,6 @@ extension on TranslationsZhCn {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '我们基于你的档案计算 TDEE，并乘以当天已过时间的比例 (小时 + 分钟) / 24，以估算目前为止已消耗的卡路里。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '专业指导',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。',
-			'localNutritionPhase4.portionSmaller' => '较小',
-			'localNutritionPhase4.portionEstimated' => '估算',
-			'localNutritionPhase4.portionLarger' => '较大',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => '${ingredient} 最接近哪个份量？',
-			'localNutritionPhase4.mealTypeQuestion' => '这是哪一餐？',
-			'localNutritionPhase4.localNutritionTip' => '根据已验证的本地营养数据计算。',
-			'localNutritionPhase4.offlineNutritionTitle' => '下载营养数据',
-			'localNutritionPhase4.offlineNutritionSubtitle' => '当所有食材均有数据时，在此设备上使用已验证的 USDA 数据行和确定性计算。',
-			'localNutritionPhase4.offlineNutritionUnavailable' => '此应用版本不提供本地营养数据。',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => '尚未下载已验证的营养数据包。',
-			'localNutritionPhase4.offlineNutritionInstalling' => '正在下载并验证营养数据…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => '数据包 ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} 条已缓存的 USDA 数据行 · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => '检查更新',
-			'localNutritionPhase4.offlineNutritionClear' => '清除本地营养数据',
-			'localNutritionPhase4.offlineNutritionClearTitle' => '清除本地营养数据？',
-			'localNutritionPhase4.offlineNutritionClearBody' => '这将移除已下载的 USDA 数据包和查询缓存。已记录的餐食会保留保存时使用的准确营养快照。',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => '清除数据',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => '无法下载并验证本地营养数据：${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => '已清除本地营养数据',
 			'watch.appTitle' => 'Calorify 手表',
 			'watch.common.back' => '返回',
 			'watch.common.cancel' => '取消',

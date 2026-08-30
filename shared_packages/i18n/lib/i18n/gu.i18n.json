@@ -321,7 +321,10 @@
       "optionHeavy": "ભારે",
       "optionSmaller": "નાનું",
       "optionTypical": "સામાન્ય",
-      "optionLarger": "મોટું"
+      "optionLarger": "મોટું",
+      "useEstimate": "અંદાજનો ઉપયોગ કરો",
+      "numberRange": "{min} થી {max} સુધી, {step} ના તફાવતમાં",
+      "invalidNumber": "માન્ય શ્રેણીમાં આવતું મૂલ્ય દાખલ કરો"
     },
     "analysis": {
       "title": "તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} ઘટકો મળ્યા",
       "ingredientsPending": "ઘટકો સ્કેન કરી રહ્યા છીએ…",
       "mealPreviewDescription": "“{text}”",
+      "calorieRange": "અંદાજિત શ્રેણી: {min}–{max} kcal",
       "offlineTip0": "ટીપ: સુસંગતતા સંપૂર્ણતા કરતાં વધુ સારી છે—નિયમિત લોગ મહત્વપૂર્ણ પેટર્ન દર્શાવે છે.",
       "offlineTip1": "ટીપ: ફોટા માટે, કુદરતી પ્રકાશ અને ટોપ-ડાઉન દૃશ્ય ભાગની ચોકસાઈમાં મદદ કરે છે.",
       "offlineTip2": "ટીપ: પીણાં, ચટણીઓ અને રસોઈ તેલનો ઉલ્લેખ કરો—તેઓ એવી કેલરી ઉમેરે છે જે લોકો ઘણીવાર ભૂલી જાય છે.",
       "offlineTip3": "ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.",
       "offlineTip4": "ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.",
       "offlineTip5": "ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું)."
-    },
-    "localInference": {
-      "reviewTitle": "શોધાયેલ ઘટકોની સમીક્ષા કરો",
-      "reviewSubtitle": "આ તમારા ઉપકરણ પર સમજવામાં આવ્યું છે. પોષણની ગણતરી કરતા પહેલા નામ અથવા ભાગો સુધારો.",
-      "mealName": "જમવાનું નામ",
-      "ingredient": "ઘટક",
-      "grams": "અંદાજિત ગ્રામ",
-      "removeIngredient": "ઘટક દૂર કરો",
-      "continueLabel": "આગળ વધો",
-      "invalidProposal": "ઓછામાં ઓછો એક ઘટક ઉમેરો અને ગ્રામની સકારાત્મક રકમનો ઉપયોગ કરો.",
-      "localUnavailable": "ઓન-ડિવાઇસ વિશ્લેષણ અત્યારે ઉપલબ્ધ નથી."
     },
     "feedback": {
       "title": "શું ખોટું લાગે છે?",
@@ -502,7 +495,6 @@
       "localization": "સ્થાનિકીકરણ",
       "notifications": "સૂચનાઓ",
       "healthConnect": "હેલ્થ કનેક્ટ",
-      "localInference": "ઓન-ડિવાઇસ વિશ્લેષણ",
       "supportAndLegal": "સપોર્ટ અને કાનૂની",
       "about": "વિશે",
       "dangerZone": "ડેન્જર ઝોન",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "ભોજન રીમાઇન્ડર્સ",
       "subtitle": "સમયસર ચેતવણીઓ સાથે ટ્રેક પર રહો"
-    },
-    "localInference": {
-      "title": "ઓન-ડિવાઇસ મીલ એનાલિસિસ",
-      "subtitle": "પોષણની ગણતરી કરતા પહેલા Gemini Nano સાથે સમર્થિત ભોજનનું અર્થઘટન કરો",
-      "unavailable": "આ ઉપકરણ પર ઉપલબ્ધ નથી",
-      "rolloutUnavailable": "સમર્થિત હાર્ડવેર મળ્યું છે, પરંતુ આ સુવિધા આ એપ રિલીઝ માટે સક્ષમ નથી",
-      "modelSetup": "આને સક્ષમ કરતા પહેલા Gemini Nano ડાઉનલોડ પૂર્ણ કરવું જરૂરી છે",
-      "useLocalTitle": "ઓન-ડિવાઇસ વિશ્લેષણનો ઉપયોગ કરો",
-      "useLocalSubtitle": "જટિલ ભોજન માટે પરિણામો ઓછા વિશ્વસનીય થઈ શકે છે.",
-      "disclosureTitle": "ઓન-ડિવાઇસ વિશ્લેષણને સક્ષમ કરતા પહેલા",
-      "disclosureBody": "Gemini Nano સમર્થિત Android ઉપકરણો પર ઘટકોને ઓળખી શકે છે અને ભાગોનો અંદાજ લગાવી શકે છે. તમારી સમીક્ષા કરેલી ઘટક દરખાસ્ત USDA પોષણ ગ્રાઉન્ડિંગ અને ગણતરી માટે Calorify ને મોકલવામાં આવે છે.",
-      "disclosureLimit1": "જટિલ વાનગીઓ, છુપાયેલા ઘટકો અને ભાગના કદ ખોટી રીતે ઓળખાઈ શકે છે.",
-      "disclosureLimit2": "ડાઉનલોડ કરતી વખતે, વ્યસ્ત હોય ત્યારે, બેકગ્રાઉન્ડમાં અથવા ઉપકરણ દ્વારા મર્યાદિત હોય ત્યારે મોડેલ અનુપલબ્ધ હોઈ શકે છે.",
-      "disclosureLimit3": "જો સ્થાનિક અર્થઘટન પૂર્ણ ન થઈ શકે, તો આ બીટા આપમેળે તમારા મૂળ ભોજનના વર્ણનને ક્લાઉડ વિશ્લેષણ માટે Calorify ને મોકલે છે.",
-      "acknowledgement": "હું સમજું છું કે મારે શોધાયેલા ઘટકો અને ભાગોની સમીક્ષા કરવી જોઈએ.",
-      "enable": "સ્વીકારો અને સક્ષમ કરો",
-      "cancel": "રદ કરો"
     },
     "theme": {
       "title": "થીમ",
@@ -787,28 +762,6 @@
         "description": "તબીબી નિર્ણયો લેવા માટે આ અંદાજનો ઉપયોગ કરશો નહીં. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્યસંભાળ વ્યાવસાયિક અથવા નોંધાયેલ આહાર નિષ્ણાતની સલાહ લો."
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "નાનું",
-    "portionEstimated": "અંદાજિત",
-    "portionLarger": "મોટું",
-    "portionQuestion": "{ingredient} માટે કયું પ્રમાણ સૌથી નજીક હતું?",
-    "mealTypeQuestion": "આ કયું ભોજન હતું?",
-    "localNutritionTip": "ચકાસેલી સ્થાનિક પોષણ માહિતી પરથી ગણતરી થઈ.",
-    "offlineNutritionTitle": "પોષણ ડેટા ડાઉનલોડ કરો",
-    "offlineNutritionSubtitle": "દરેક ઘટક આવરી લેવાયો હોય ત્યારે આ ડિવાઇસ પર ચકાસેલી USDA પંક્તિઓ અને નિર્ધારિત ગણતરી વાપરો.",
-    "offlineNutritionUnavailable": "આ એપ રિલીઝ માટે સ્થાનિક પોષણ ડેટા ઉપલબ્ધ નથી.",
-    "offlineNutritionNotDownloaded": "કોઈ ચકાસેલું પોષણ પૅક ડાઉનલોડ થયેલું નથી.",
-    "offlineNutritionInstalling": "પોષણ ડેટા ડાઉનલોડ અને ચકાસાઈ રહ્યો છે…",
-    "offlineNutritionStatus": "પૅક {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} કૅશ કરેલી USDA પંક્તિઓ · {size}",
-    "offlineNutritionUpdate": "અપડેટ માટે તપાસો",
-    "offlineNutritionClear": "સ્થાનિક પોષણ ડેટા સાફ કરો",
-    "offlineNutritionClearTitle": "સ્થાનિક પોષણ ડેટા સાફ કરવો?",
-    "offlineNutritionClearBody": "આ ડાઉનલોડ કરેલું USDA પૅક અને લુકઅપ કૅશ દૂર કરે છે. નોંધાયેલા ભોજનમાં સાચવતી વખતે વપરાયેલ ચોક્કસ પોષણ સ્નૅપશૉટ જળવાઈ રહે છે.",
-    "offlineNutritionClearConfirm": "ડેટા સાફ કરો",
-    "offlineNutritionInstallFailed": "સ્થાનિક પોષણ ડેટા ડાઉનલોડ અને ચકાસી શકાયો નહીં: {error}",
-    "offlineNutritionCleared": "સ્થાનિક પોષણ ડેટા સાફ થયો"
   },
   "watch": {
     "appTitle": "Calorify Watch",

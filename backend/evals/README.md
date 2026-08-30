@@ -4,10 +4,13 @@ This live model eval tests the two meal-decomposition LLM passes directly. Its
 purpose is to measure whether a selected model reliably preserves explicit user
 information and produces plausible structured estimates.
 
-The dataset currently contains four fixed `en-IN` cases: `4 roti daal`,
-Optimum Nutrition whey with milk, Pepsi 250 ml, and a medium veggie pizza.
-All use country `IN`, timezone `Asia/Kolkata`, and fixed timestamps. Five
-repetitions run by default so model variability is visible.
+The dataset contains 20 fixed text cases from 20 country contexts across Asia,
+Africa, Europe, Latin America, the Caribbean, North America, and Oceania. It
+covers composite dishes, enumerated platters, street food, soup, dessert,
+branded products, restaurant customization, beverages, native-script input,
+counts, weights, volumes, household measures, fractions, and unit conversion.
+All timestamps are fixed. Three repetitions run by default so model variability
+is visible without making the expanded suite unnecessarily expensive.
 
 USDA resolution, calories, macros, clarification selection, meal-type
 resolution, presentation, and the HTTP flow are intentionally outside this
@@ -35,7 +38,7 @@ npm run meal-analysis:eval -- --model gpt-5-nano --repeats 3
 
 - `--model <name>` selects the OpenRouter model. Bare OpenAI model names receive
   the `openai/` prefix.
-- `--repeats <count>` controls repetitions per case; the default is five.
+- `--repeats <count>` controls repetitions per case; the default is three.
 - `--case <id>` runs a single dataset case.
 - `--dataset <path>` uses another compatible case file.
 - `--output-directory <path>` chooses the artifact directory instead of making
@@ -69,7 +72,8 @@ Hard assertions cover:
 - exact component correspondence between passes;
 - `model_inferred` provenance for every ingredient amount;
 - valid ingredient variation references;
-- expected defining ingredients in each component recipe.
+- expected defining ingredients in each component recipe;
+- absence of explicitly excluded ingredients for cases that specify them.
 
 Optional fat/spice coverage, lookup-alias coverage, and ingredient-to-serving
 mass coherence are diagnostic. They do not determine a run's pass/fail result
@@ -90,8 +94,8 @@ Because fallback is disabled, every result belongs to the model named in that
 summary.
 
 ```bash
-npm run meal-analysis:eval -- --model gpt-5-nano --repeats 5
-npm run meal-analysis:eval -- --model gpt-5.6-luna --repeats 5
+npm run meal-analysis:eval -- --model gpt-5-nano --repeats 3
+npm run meal-analysis:eval -- --model gpt-5.6-luna --repeats 3
 ```
 
 Keep the current plausibility windows unchanged during a model comparison.

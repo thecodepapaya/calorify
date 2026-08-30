@@ -2,8 +2,9 @@ library;
 
 export 'src/date_codec.dart';
 export 'src/legacy_json.dart';
-export 'src/meal_analysis_pipeline_event.dart';
 export 'src/meal_analysis_pipeline_session_context_ext.dart';
+export 'src/meal_analysis_v3.dart';
+export 'src/meal_analysis_v3_result_ext.dart';
 export 'src/proto_extensions.dart';
 export 'src/protos/app/meal.pb.dart';
 export 'src/protos/app/meal.pbenum.dart';

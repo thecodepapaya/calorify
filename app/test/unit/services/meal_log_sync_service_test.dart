@@ -51,7 +51,7 @@ void main() {
       () => database.getPendingMealLogSyncs(),
     ).thenAnswer((_) async => [pending]);
     when(
-      () => repository.confirmMealLogV2(
+      () => repository.confirmMealLogV3(
         analysisId: any(named: 'analysisId'),
         meal: any(named: 'meal'),
         loggedAt: any(named: 'loggedAt'),
@@ -66,7 +66,7 @@ void main() {
     expect(result.succeeded, 1);
     expect(result.failed, 0);
     verify(
-      () => repository.confirmMealLogV2(
+      () => repository.confirmMealLogV3(
         analysisId: pending.analysisId,
         meal: any(named: 'meal'),
         loggedAt: loggedAt,
@@ -91,7 +91,7 @@ void main() {
         () => database.getPendingMealLogSyncs(),
       ).thenAnswer((_) async => [pending]);
       when(
-        () => repository.confirmMealLogV2(
+        () => repository.confirmMealLogV3(
           analysisId: any(named: 'analysisId'),
           meal: any(named: 'meal'),
           loggedAt: any(named: 'loggedAt'),
@@ -123,7 +123,7 @@ void main() {
         () => database.getPendingMealLogSyncs(),
       ).thenAnswer((_) async => [pending]);
       when(
-        () => repository.deleteMealLogV2(analysisId: pending.analysisId),
+        () => repository.deleteMealLogV3(analysisId: pending.analysisId),
       ).thenAnswer((_) async {});
       when(
         () => database.markMealLogSyncCompleted(any(), any()),
@@ -133,7 +133,7 @@ void main() {
 
       expect(result.succeeded, 1);
       verify(
-        () => repository.deleteMealLogV2(analysisId: pending.analysisId),
+        () => repository.deleteMealLogV3(analysisId: pending.analysisId),
       ).called(1);
       verify(() => database.markMealLogSyncCompleted(9, 3)).called(1);
     },

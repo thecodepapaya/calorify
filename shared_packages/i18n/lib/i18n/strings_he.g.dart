@@ -57,7 +57,6 @@ class TranslationsHe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$he notifications = _Translations$notifications$he._(_root);
 	@override late final _Translations$login$he login = _Translations$login$he._(_root);
 	@override late final _Translations$disclaimer$he disclaimer = _Translations$disclaimer$he._(_root);
-	@override late final _Translations$localNutritionPhase4$he localNutritionPhase4 = _Translations$localNutritionPhase4$he._(_root);
 	@override late final _Translations$watch$he watch = _Translations$watch$he._(_root);
 	@override late final _Translations$common$he common = _Translations$common$he._(_root);
 	@override late final _Translations$feedbackRating$he feedbackRating = _Translations$feedbackRating$he._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$he extends Translations$meal$en {
 	@override String get skip => 'דלג';
 	@override late final _Translations$meal$questionFlow$he questionFlow = _Translations$meal$questionFlow$he._(_root);
 	@override late final _Translations$meal$analysis$he analysis = _Translations$meal$analysis$he._(_root);
-	@override late final _Translations$meal$localInference$he localInference = _Translations$meal$localInference$he._(_root);
 	@override late final _Translations$meal$feedback$he feedback = _Translations$meal$feedback$he._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$he extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$he heightUnit = _Translations$settings$heightUnit$he._(_root);
 	@override late final _Translations$settings$weightUnit$he weightUnit = _Translations$settings$weightUnit$he._(_root);
 	@override late final _Translations$settings$mealReminders$he mealReminders = _Translations$settings$mealReminders$he._(_root);
-	@override late final _Translations$settings$localInference$he localInference = _Translations$settings$localInference$he._(_root);
 	@override late final _Translations$settings$theme$he theme = _Translations$settings$theme$he._(_root);
 	@override late final _Translations$settings$sendFeedback$he sendFeedback = _Translations$settings$sendFeedback$he._(_root);
 	@override late final _Translations$settings$exportMealHistory$he exportMealHistory = _Translations$settings$exportMealHistory$he._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$he extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$he weightEstimate = _Translations$disclaimer$weightEstimate$he._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$he healthMetrics = _Translations$disclaimer$healthMetrics$he._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$he calorieExpenditure = _Translations$disclaimer$calorieExpenditure$he._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$he extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$he._(TranslationsHe root) : this._root = root, super.internal(root);
-
-	final TranslationsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'קטנה יותר';
-	@override String get portionEstimated => 'משוערת';
-	@override String get portionLarger => 'גדולה יותר';
-	@override String portionQuestion({required Object ingredient}) => 'איזו מנה הייתה הקרובה ביותר עבור ${ingredient}?';
-	@override String get mealTypeQuestion => 'איזו ארוחה זו הייתה?';
-	@override String get localNutritionTip => 'חושב מנתוני תזונה מקומיים מאומתים.';
-	@override String get offlineNutritionTitle => 'הורדת נתוני תזונה';
-	@override String get offlineNutritionSubtitle => 'השתמשו בשורות USDA מאומתות ובחישוב דטרמיניסטי במכשיר הזה כאשר כל המרכיבים מכוסים.';
-	@override String get offlineNutritionUnavailable => 'נתוני תזונה מקומיים אינם זמינים לגרסת האפליקציה הזו.';
-	@override String get offlineNutritionNotDownloaded => 'לא הורדה חבילת תזונה מאומתת.';
-	@override String get offlineNutritionInstalling => 'נתוני התזונה מורדים ומאומתים…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'חבילה ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} שורות USDA במטמון · ${size}';
-	@override String get offlineNutritionUpdate => 'בדיקת עדכון';
-	@override String get offlineNutritionClear => 'ניקוי נתוני תזונה מקומיים';
-	@override String get offlineNutritionClearTitle => 'לנקות את נתוני התזונה המקומיים?';
-	@override String get offlineNutritionClearBody => 'פעולה זו מסירה את חבילת USDA שהורדה ואת מטמון החיפוש. ארוחות שנרשמו שומרות את תמונת המצב התזונתית המדויקת ששימשה בעת שמירתן.';
-	@override String get offlineNutritionClearConfirm => 'ניקוי נתונים';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'לא ניתן היה להוריד ולאמת את נתוני התזונה המקומיים: ${error}';
-	@override String get offlineNutritionCleared => 'נתוני התזונה המקומיים נוקו';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$he extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'קטן יותר';
 	@override String get optionTypical => 'טיפוסי';
 	@override String get optionLarger => 'גדול יותר';
+	@override String get useEstimate => 'השתמשו בהערכה';
+	@override String numberRange({required Object min, required Object max, required Object step}) => 'מ-${min} עד ${max}, בקפיצות של ${step}';
+	@override String get invalidNumber => 'הזינו ערך בטווח המותר';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$he extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => 'זוהו ${count} רכיבים';
 	@override String get ingredientsPending => 'סורק רכיבים…';
 	@override String mealPreviewDescription({required Object text}) => '״${text}״';
+	@override String calorieRange({required Object min, required Object max}) => 'טווח משוער: ${min}–${max} קק״ל';
 	@override String get offlineTip0 => 'טיפ: עקביות עדיפה על שלמות — רישומים סדירים מגלים דפוסים חשובים.';
 	@override String get offlineTip1 => 'טיפ: באור טבעי ובמבט מלמעלה מקלים דיוק הכמויות בתמונות.';
 	@override String get offlineTip2 => 'טיפ: ציין משקאות, רטבים ושמן בישול — הם מוסיפים קלוריות שאנשים שוכחים לעתים קרובות.';
 	@override String get offlineTip3 => 'טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.';
 	@override String get offlineTip4 => 'טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.';
 	@override String get offlineTip5 => 'טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$he extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$he._(TranslationsHe root) : this._root = root, super.internal(root);
-
-	final TranslationsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'בדיקת רכיבים שזוהו';
-	@override String get reviewSubtitle => 'המידע פוענח במכשיר שלך. תקן שמות או כמויות לפני חישוב הערכים התזונתיים.';
-	@override String get mealName => 'שם הארוחה';
-	@override String get ingredient => 'רכיב';
-	@override String get grams => 'גרמים מוערכים';
-	@override String get removeIngredient => 'הסר רכיב';
-	@override String get continueLabel => 'המשך';
-	@override String get invalidProposal => 'הוסף רכיב אחד לפחות והזן כמות גרמים חיובית.';
-	@override String get localUnavailable => 'ניתוח מקומי במכשיר אינו זמין כעת.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$he extends Translations$settings$sections$
 	@override String get localization => 'מיקום שפה';
 	@override String get notifications => 'התראות';
 	@override String get healthConnect => 'Health Connect';
-	@override String get localInference => 'ניתוח במכשיר';
 	@override String get supportAndLegal => 'תמיכה & משפטי';
 	@override String get about => 'אודות';
 	@override String get dangerZone => 'אזור מסוכן';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$he extends Translations$settings$meal
 	// Translations
 	@override String get title => 'תזכורות ארוחות';
 	@override String get subtitle => 'הישאר על המסלול עם התראות בזמן';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$he extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$he._(TranslationsHe root) : this._root = root, super.internal(root);
-
-	final TranslationsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'ניתוח ארוחות במכשיר';
-	@override String get subtitle => 'פענוח ארוחות נתמכות באמצעות Gemini Nano לפני חישוב הערכים התזונתיים';
-	@override String get unavailable => 'לא זמין במכשיר זה';
-	@override String get rolloutUnavailable => 'חומרה תומכת נמצאה, אך תכונה זו אינה זמינה בגרסה זו של האפליקציה';
-	@override String get modelSetup => 'Gemini Nano צריך לסיים את ההורדה לפני שניתן יהיה להפעיל זאת';
-	@override String get useLocalTitle => 'השתמש בניתוח במכשיר';
-	@override String get useLocalSubtitle => 'ייתכנו תוצאות פחות מדויקות עבור ארוחות מורכבות.';
-	@override String get disclosureTitle => 'לפני הפעלת הניתוח במכשיר';
-	@override String get disclosureBody => 'Gemini Nano יכול לזהות רכיבים ולהעריך כמויות במכשירי Android נתמכים. הצעת הרכיבים שבדקת נשלחת ל-Calorify לצורך ביסוס ערכים תזונתיים מ-USDA וחישוב.';
-	@override String get disclosureLimit1 => 'מנות מורכבות, רכיבים נסתרים וגדלי מנות עשויים להיות מזוהים באופן שגוי.';
-	@override String get disclosureLimit2 => 'המודל עשוי להיות לא זמין בזמן הורדה, כאשר הוא תפוס, ברקע, או בשל מגבלות המכשיר.';
-	@override String get disclosureLimit3 => 'אם הפענוח המקומי לא יוכל להסתיים, גרסת בטא זו תשלח באופן אוטומטי את תיאור הארוחה המקורי ל-Calorify לצורך ניתוח בענן.';
-	@override String get acknowledgement => 'אני מבין/ה שעלי לבדוק את הרכיבים והכמויות שזוהו.';
-	@override String get enable => 'אישור והפעלה';
-	@override String get cancel => 'ביטול';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsHe {
 			'meal.questionFlow.optionSmaller' => 'קטן יותר',
 			'meal.questionFlow.optionTypical' => 'טיפוסי',
 			'meal.questionFlow.optionLarger' => 'גדול יותר',
+			'meal.questionFlow.useEstimate' => 'השתמשו בהערכה',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'מ-${min} עד ${max}, בקפיצות של ${step}',
+			'meal.questionFlow.invalidNumber' => 'הזינו ערך בטווח המותר',
 			'meal.analysis.title' => 'מנתחים את הארוחה שלך',
 			'meal.analysis.stepStarted' => 'מתחילים…',
 			'meal.analysis.stepDecomposition' => 'מנתחים את הארוחה…',
@@ -2308,21 +2240,13 @@ extension on TranslationsHe {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'זוהו ${count} רכיבים',
 			'meal.analysis.ingredientsPending' => 'סורק רכיבים…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '״${text}״',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'טווח משוער: ${min}–${max} קק״ל',
 			'meal.analysis.offlineTip0' => 'טיפ: עקביות עדיפה על שלמות — רישומים סדירים מגלים דפוסים חשובים.',
 			'meal.analysis.offlineTip1' => 'טיפ: באור טבעי ובמבט מלמעלה מקלים דיוק הכמויות בתמונות.',
 			'meal.analysis.offlineTip2' => 'טיפ: ציין משקאות, רטבים ושמן בישול — הם מוסיפים קלוריות שאנשים שוכחים לעתים קרובות.',
 			'meal.analysis.offlineTip3' => 'טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.',
 			'meal.analysis.offlineTip4' => 'טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.',
 			'meal.analysis.offlineTip5' => 'טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).',
-			'meal.localInference.reviewTitle' => 'בדיקת רכיבים שזוהו',
-			'meal.localInference.reviewSubtitle' => 'המידע פוענח במכשיר שלך. תקן שמות או כמויות לפני חישוב הערכים התזונתיים.',
-			'meal.localInference.mealName' => 'שם הארוחה',
-			'meal.localInference.ingredient' => 'רכיב',
-			'meal.localInference.grams' => 'גרמים מוערכים',
-			'meal.localInference.removeIngredient' => 'הסר רכיב',
-			'meal.localInference.continueLabel' => 'המשך',
-			'meal.localInference.invalidProposal' => 'הוסף רכיב אחד לפחות והזן כמות גרמים חיובית.',
-			'meal.localInference.localUnavailable' => 'ניתוח מקומי במכשיר אינו זמין כעת.',
 			'meal.feedback.title' => 'מה לא נראה נכון?',
 			'meal.feedback.subtitle' => 'עזור לנו לשפר את הניתוח על ידי בחירת אחת או יותר מהבעיות.',
 			'meal.feedback.tellUsMore' => 'ספר לנו עוד',
@@ -2420,7 +2344,6 @@ extension on TranslationsHe {
 			'settings.sections.localization' => 'מיקום שפה',
 			'settings.sections.notifications' => 'התראות',
 			'settings.sections.healthConnect' => 'Health Connect',
-			'settings.sections.localInference' => 'ניתוח במכשיר',
 			'settings.sections.supportAndLegal' => 'תמיכה & משפטי',
 			'settings.sections.about' => 'אודות',
 			'settings.sections.dangerZone' => 'אזור מסוכן',
@@ -2435,21 +2358,6 @@ extension on TranslationsHe {
 			'settings.weightUnit.title' => 'יחידת משקל',
 			'settings.mealReminders.title' => 'תזכורות ארוחות',
 			'settings.mealReminders.subtitle' => 'הישאר על המסלול עם התראות בזמן',
-			'settings.localInference.title' => 'ניתוח ארוחות במכשיר',
-			'settings.localInference.subtitle' => 'פענוח ארוחות נתמכות באמצעות Gemini Nano לפני חישוב הערכים התזונתיים',
-			'settings.localInference.unavailable' => 'לא זמין במכשיר זה',
-			'settings.localInference.rolloutUnavailable' => 'חומרה תומכת נמצאה, אך תכונה זו אינה זמינה בגרסה זו של האפליקציה',
-			'settings.localInference.modelSetup' => 'Gemini Nano צריך לסיים את ההורדה לפני שניתן יהיה להפעיל זאת',
-			'settings.localInference.useLocalTitle' => 'השתמש בניתוח במכשיר',
-			'settings.localInference.useLocalSubtitle' => 'ייתכנו תוצאות פחות מדויקות עבור ארוחות מורכבות.',
-			'settings.localInference.disclosureTitle' => 'לפני הפעלת הניתוח במכשיר',
-			'settings.localInference.disclosureBody' => 'Gemini Nano יכול לזהות רכיבים ולהעריך כמויות במכשירי Android נתמכים. הצעת הרכיבים שבדקת נשלחת ל-Calorify לצורך ביסוס ערכים תזונתיים מ-USDA וחישוב.',
-			'settings.localInference.disclosureLimit1' => 'מנות מורכבות, רכיבים נסתרים וגדלי מנות עשויים להיות מזוהים באופן שגוי.',
-			'settings.localInference.disclosureLimit2' => 'המודל עשוי להיות לא זמין בזמן הורדה, כאשר הוא תפוס, ברקע, או בשל מגבלות המכשיר.',
-			'settings.localInference.disclosureLimit3' => 'אם הפענוח המקומי לא יוכל להסתיים, גרסת בטא זו תשלח באופן אוטומטי את תיאור הארוחה המקורי ל-Calorify לצורך ניתוח בענן.',
-			'settings.localInference.acknowledgement' => 'אני מבין/ה שעלי לבדוק את הרכיבים והכמויות שזוהו.',
-			'settings.localInference.enable' => 'אישור והפעלה',
-			'settings.localInference.cancel' => 'ביטול',
 			'settings.theme.title' => 'נושא',
 			'settings.theme.light' => 'בהיר',
 			'settings.theme.dark' => 'כהה',
@@ -2561,8 +2469,6 @@ extension on TranslationsHe {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'שגיאה בהשלמת ההגדרה: ${error}',
 			'notifications.breakfast.title' => 'זמן ארוחת בוקר! 🍳',
 			'notifications.breakfast.body' => 'אל תשכח/י לרשום את ארוחת הבוקר שלך',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'זמן ארוחת צהריים! 🥗',
 			'notifications.lunch.body' => 'הגיע הזמן לרשום את ארוחת הצהריים',
 			'notifications.dinner.title' => 'זמן ארוחת ערב! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsHe {
 			'disclaimer.snap.databaseLimitations.title' => 'מגבלות מאגר הנתונים',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'מאגר המזונות של ${appLabel} הוא רחב אך עשוי שלא לכלול כל פריט או וריאציה.',
 			'disclaimer.weightEstimate.title' => 'על אומדן שינוי משקל',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'שינוי משקל משוער הוא חישוב תאורטי המבוסס על מודל קלוריות פנימה מול קלוריות החוצה. הוא מיועד כהנעה מוטיבציונית בלבד, לא כנבואה למשקל בפועל.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'דיוק הקלוריות',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'הערכה זו מדויקת ככל שהרישום שלך של צריכת ושריפת הקלוריות מדויק. רישום שגוי יוביל להערכה שגויה.',
@@ -2606,26 +2514,6 @@ extension on TranslationsHe {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'אנו מחשבים את ה-TDEE שלך (בהתבסס על הפרופיל) ומכפילים אותו בחלק של היום שעבר (שעות + דקות) / 24 כדי להעריך את הקלוריות שנשרפו עד כה.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'הנחיה מקצועית',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'אל תשתמש/י באומדן זה לקבלת החלטות רפואיות. תמיד התייעץ/י עם איש מקצוע בתחום הבריאות או דיאטן מוסמך לקבלת ייעוץ מותאם.',
-			'localNutritionPhase4.portionSmaller' => 'קטנה יותר',
-			'localNutritionPhase4.portionEstimated' => 'משוערת',
-			'localNutritionPhase4.portionLarger' => 'גדולה יותר',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'איזו מנה הייתה הקרובה ביותר עבור ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'איזו ארוחה זו הייתה?',
-			'localNutritionPhase4.localNutritionTip' => 'חושב מנתוני תזונה מקומיים מאומתים.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'הורדת נתוני תזונה',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'השתמשו בשורות USDA מאומתות ובחישוב דטרמיניסטי במכשיר הזה כאשר כל המרכיבים מכוסים.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'נתוני תזונה מקומיים אינם זמינים לגרסת האפליקציה הזו.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'לא הורדה חבילת תזונה מאומתת.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'נתוני התזונה מורדים ומאומתים…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'חבילה ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} שורות USDA במטמון · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'בדיקת עדכון',
-			'localNutritionPhase4.offlineNutritionClear' => 'ניקוי נתוני תזונה מקומיים',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'לנקות את נתוני התזונה המקומיים?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'פעולה זו מסירה את חבילת USDA שהורדה ואת מטמון החיפוש. ארוחות שנרשמו שומרות את תמונת המצב התזונתית המדויקת ששימשה בעת שמירתן.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'ניקוי נתונים',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'לא ניתן היה להוריד ולאמת את נתוני התזונה המקומיים: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'נתוני התזונה המקומיים נוקו',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'חזור',
 			'watch.common.cancel' => 'ביטול',

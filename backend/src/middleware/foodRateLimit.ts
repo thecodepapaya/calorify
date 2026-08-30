@@ -24,10 +24,6 @@ export const FOOD_RATE_LIMITS = {
     max: 20,
     timeWindow: '1 minute',
   },
-  localNutrition: {
-    max: 30,
-    timeWindow: '1 minute',
-  },
   imageUpload: {
     userMax: 10,
     ipMax: 60,

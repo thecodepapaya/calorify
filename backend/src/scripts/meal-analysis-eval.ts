@@ -32,7 +32,7 @@ Usage:
 
 Options:
   --model MODEL          Exact OpenRouter model; openai/ is added when omitted
-  --repeats NUMBER       Repetitions per case (default: 5)
+  --repeats NUMBER       Repetitions per case (default: 3)
   --case ID              Run one case
   --dataset PATH         Dataset JSON (default: ${DEFAULT_DATASET})
   --output-directory DIR Preserve artifacts in this directory
@@ -57,7 +57,7 @@ export function reasoningEffortForEvalModel(model: string): 'none' | 'minimal' {
 function parseArgs(argv: string[]): Args | 'help' {
   const args: Args = {
     model: normalizeEvalModel(config.OPENROUTER_MEAL_V3_MODEL),
-    repeats: 5,
+    repeats: 3,
     datasetPath: DEFAULT_DATASET,
   };
   for (let index = 2; index < argv.length; index += 1) {

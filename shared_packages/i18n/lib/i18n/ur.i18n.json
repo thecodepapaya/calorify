@@ -321,7 +321,10 @@
       "optionHeavy": "بھاری",
       "optionSmaller": "چھوٹا",
       "optionTypical": "عام",
-      "optionLarger": "بڑا"
+      "optionLarger": "بڑا",
+      "useEstimate": "تخمینہ استعمال کریں",
+      "numberRange": "{min} سے {max} تک، {step} کے وقفوں میں",
+      "invalidNumber": "اجازت شدہ حد میں ایک قدر درج کریں"
     },
     "analysis": {
       "title": "آپ کے کھانے کا تجزیہ ہو رہا ہے",
@@ -344,23 +347,13 @@
       "ingredientsLine": "{count} اجزاء معلوم ہوئے",
       "ingredientsPending": "اجزاء اسکین کیے جا رہے ہیں…",
       "mealPreviewDescription": "”{text}“",
+      "calorieRange": "تخمینی حد: {min}–{max} kcal",
       "offlineTip0": "ٹپ: استقامت کمالیت پر غالب ہے — باقاعدہ لاگ وہ پیٹرن ظاہر کرتے ہیں جو اہم ہیں۔",
       "offlineTip1": "ٹپ: تصویروں کے لیے قدرتی روشنی اور اوپر سے منظر حصوں کی درستگی میں مدد دیتی ہے۔",
       "offlineTip2": "ٹپ: مشروبات، ساسز اور پکانے کا تیل ضرور بتائیں — یہ کیلوریز میں اضافہ کرتے ہیں جو اکثر بھول جاتے ہیں۔",
       "offlineTip3": "ٹپ: ایک مختصر حصہ نوٹ (مثلاً 1 پیالہ، بڑا کافی) اندازوں کو بہت بہتر بناتا ہے۔",
       "offlineTip4": "ٹپ: کھانے کے بعد لاگ کرنا بھی عادت بناتا ہے؛ کمال ضروری نہیں۔",
       "offlineTip5": "ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔"
-    },
-    "localInference": {
-      "reviewTitle": "جائزہ شدہ اجزاء دیکھیں",
-      "reviewSubtitle": "یہ آپ کے ڈیوائس پر ترتیب دیا گیا تھا۔ غذائیت کے حساب سے پہلے ناموں یا مقدار کی تصحیح کریں۔",
-      "mealName": "کھانے کا نام",
-      "ingredient": "اجزاء",
-      "grams": "تخمینہ گرام",
-      "removeIngredient": "اجزاء ہٹائیں",
-      "continueLabel": "جاری رکھیں",
-      "invalidProposal": "کم از کم ایک جزو شامل کریں اور گرام کی مثبت مقدار استعمال کریں۔",
-      "localUnavailable": "آن-ڈیوائس تجزیہ اس وقت دستیاب نہیں ہے۔"
     },
     "feedback": {
       "title": "کون سی بات غلط لگی؟",
@@ -502,7 +495,6 @@
       "localization": "لوکلائزیشن",
       "notifications": "اطلاعات",
       "healthConnect": "Health Connect",
-      "localInference": "آن-ڈیوائس تجزیہ",
       "supportAndLegal": "سپورٹ اور قانونی",
       "about": "ایپ کے بارے میں",
       "dangerZone": "خطرناک علاقے",
@@ -527,23 +519,6 @@
     "mealReminders": {
       "title": "کھانے کی یاددہانیاں",
       "subtitle": "بروقت اعلانات کے ساتھ راستے پر رہیں"
-    },
-    "localInference": {
-      "title": "آن-ڈیوائس کھانے کا تجزیہ",
-      "subtitle": "غذائیت کے حساب سے پہلے Gemini Nano کے ذریعے معاون کھانے ترتیب دیں",
-      "unavailable": "اس ڈیوائس پر دستیاب نہیں ہے",
-      "rolloutUnavailable": "مطابقہ ہارڈ ویئر مل گیا، لیکن یہ فیچر اس ایپ ریلیز کے لیے فعال نہیں ہے",
-      "modelSetup": "اسے فعال کرنے سے پہلے Gemini Nano کا ڈاؤن لوڈ مکمل ہونا ضروری ہے",
-      "useLocalTitle": "آن-ڈیوائس تجزیہ استعمال کریں",
-      "useLocalSubtitle": "پیچیدہ کھانوں کے لیے نتائج کم قابلِ اعتماد ہو سکتے ہیں۔",
-      "disclosureTitle": "آن-ڈیوائس تجزیہ فعال کرنے سے پہلے",
-      "disclosureBody": "Gemini Nano معاون Android ڈیوائسز پر اجزاء کی شناخت اور مقدار کا تخمینہ لگا سکتا ہے۔ آپ کا جائزہ لیا گیا تجویز کردہ جزو USDA غذائی بنیاد اور حساب کے لیے Calorify کو بھیجا جاتا ہے۔",
-      "disclosureLimit1": "پیچیدہ پکوان، چھپے ہوئے اجزاء، اور مقدار کی شناخت غلط ہو سکتی ہے۔",
-      "disclosureLimit2": "ڈاؤن لوڈنگ، مصروفیت، بیک گراؤنڈ میں ہونے، یا ڈیوائس کی حدود کی وجہ سے ماڈل دستیاب نہیں ہو سکتا۔",
-      "disclosureLimit3": "اگر مقامی ترتیب مکمل نہیں ہو پاتی، تو یہ بیٹا ورژن خود بخود آپ کے کھانے کی اصل تفصیل کلاؤڈ تجزیہ کے لیے Calorify کو بھیج دیتا ہے۔",
-      "acknowledgement": "میں سمجھتا/سمجھتی ہوں کہ مجھے شناخت شدہ اجزاء اور مقدار کا جائزہ لینا چاہیے۔",
-      "enable": "تسلیم کریں اور فعال کریں",
-      "cancel": "منسوخ کریں"
     },
     "theme": {
       "title": "تھیم",
@@ -787,28 +762,6 @@
         "description": "اس اندازے کو طبی فیصلوں کے لیے استعمال نہ کریں۔ ذاتی وزن انتظام کے مشورے کے لیے ہمیشہ کسی ہیلتھ پروفیشنل یا رجسٹرڈ ڈائیٹیشن سے رجوع کریں۔"
       }
     }
-  },
-  "localNutritionPhase4": {
-    "portionSmaller": "کم",
-    "portionEstimated": "تخمینی",
-    "portionLarger": "زیادہ",
-    "portionQuestion": "{ingredient} کے لیے کون سی مقدار سب سے قریب تھی؟",
-    "mealTypeQuestion": "یہ کون سا کھانا تھا؟",
-    "localNutritionTip": "تصدیق شدہ مقامی غذائی ڈیٹا سے حساب لگایا گیا۔",
-    "offlineNutritionTitle": "غذائی ڈیٹا ڈاؤن لوڈ کریں",
-    "offlineNutritionSubtitle": "جب ہر جزو شامل ہو تو اس ڈیوائس پر تصدیق شدہ USDA قطاریں اور متعین حساب استعمال کریں۔",
-    "offlineNutritionUnavailable": "ایپ کے اس ورژن کے لیے مقامی غذائی ڈیٹا دستیاب نہیں ہے۔",
-    "offlineNutritionNotDownloaded": "کوئی تصدیق شدہ غذائی پیک ڈاؤن لوڈ نہیں کیا گیا۔",
-    "offlineNutritionInstalling": "غذائی ڈیٹا ڈاؤن لوڈ اور تصدیق کیا جا رہا ہے…",
-    "offlineNutritionStatus": "پیک {version} · {size} · USDA {datasetVersion}",
-    "offlineNutritionCacheStatus": "{count} کیش شدہ USDA قطاریں · {size}",
-    "offlineNutritionUpdate": "اپ ڈیٹ چیک کریں",
-    "offlineNutritionClear": "مقامی غذائی ڈیٹا صاف کریں",
-    "offlineNutritionClearTitle": "مقامی غذائی ڈیٹا صاف کریں؟",
-    "offlineNutritionClearBody": "اس سے ڈاؤن لوڈ کیا گیا USDA پیک اور تلاش کی کیش ہٹ جائے گی۔ محفوظ کیے گئے کھانے عین وہی غذائی اسنیپ شاٹ برقرار رکھیں گے جو محفوظ کرتے وقت استعمال ہوا تھا۔",
-    "offlineNutritionClearConfirm": "ڈیٹا صاف کریں",
-    "offlineNutritionInstallFailed": "مقامی غذائی ڈیٹا ڈاؤن لوڈ اور تصدیق نہیں کیا جا سکا: {error}",
-    "offlineNutritionCleared": "مقامی غذائی ڈیٹا صاف کر دیا گیا"
   },
   "watch": {
     "appTitle": "Calorify واچ",

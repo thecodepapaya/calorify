@@ -57,7 +57,6 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$notifications$de notifications = _Translations$notifications$de._(_root);
 	@override late final _Translations$login$de login = _Translations$login$de._(_root);
 	@override late final _Translations$disclaimer$de disclaimer = _Translations$disclaimer$de._(_root);
-	@override late final _Translations$localNutritionPhase4$de localNutritionPhase4 = _Translations$localNutritionPhase4$de._(_root);
 	@override late final _Translations$watch$de watch = _Translations$watch$de._(_root);
 	@override late final _Translations$common$de common = _Translations$common$de._(_root);
 	@override late final _Translations$feedbackRating$de feedbackRating = _Translations$feedbackRating$de._(_root);
@@ -186,7 +185,6 @@ class _Translations$meal$de extends Translations$meal$en {
 	@override String get skip => 'Überspringen';
 	@override late final _Translations$meal$questionFlow$de questionFlow = _Translations$meal$questionFlow$de._(_root);
 	@override late final _Translations$meal$analysis$de analysis = _Translations$meal$analysis$de._(_root);
-	@override late final _Translations$meal$localInference$de localInference = _Translations$meal$localInference$de._(_root);
 	@override late final _Translations$meal$feedback$de feedback = _Translations$meal$feedback$de._(_root);
 }
 
@@ -293,7 +291,6 @@ class _Translations$settings$de extends Translations$settings$en {
 	@override late final _Translations$settings$heightUnit$de heightUnit = _Translations$settings$heightUnit$de._(_root);
 	@override late final _Translations$settings$weightUnit$de weightUnit = _Translations$settings$weightUnit$de._(_root);
 	@override late final _Translations$settings$mealReminders$de mealReminders = _Translations$settings$mealReminders$de._(_root);
-	@override late final _Translations$settings$localInference$de localInference = _Translations$settings$localInference$de._(_root);
 	@override late final _Translations$settings$theme$de theme = _Translations$settings$theme$de._(_root);
 	@override late final _Translations$settings$sendFeedback$de sendFeedback = _Translations$settings$sendFeedback$de._(_root);
 	@override late final _Translations$settings$exportMealHistory$de exportMealHistory = _Translations$settings$exportMealHistory$de._(_root);
@@ -372,35 +369,6 @@ class _Translations$disclaimer$de extends Translations$disclaimer$en {
 	@override late final _Translations$disclaimer$weightEstimate$de weightEstimate = _Translations$disclaimer$weightEstimate$de._(_root);
 	@override late final _Translations$disclaimer$healthMetrics$de healthMetrics = _Translations$disclaimer$healthMetrics$de._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$de calorieExpenditure = _Translations$disclaimer$calorieExpenditure$de._(_root);
-}
-
-// Path: localNutritionPhase4
-class _Translations$localNutritionPhase4$de extends Translations$localNutritionPhase4$en {
-	_Translations$localNutritionPhase4$de._(TranslationsDe root) : this._root = root, super.internal(root);
-
-	final TranslationsDe _root; // ignore: unused_field
-
-	// Translations
-	@override String get portionSmaller => 'Kleiner';
-	@override String get portionEstimated => 'Geschätzt';
-	@override String get portionLarger => 'Größer';
-	@override String portionQuestion({required Object ingredient}) => 'Welche Portion passte am besten zu ${ingredient}?';
-	@override String get mealTypeQuestion => 'Um welche Mahlzeit handelte es sich?';
-	@override String get localNutritionTip => 'Anhand verifizierter lokaler Nährwertdaten berechnet.';
-	@override String get offlineNutritionTitle => 'Nährwertdaten herunterladen';
-	@override String get offlineNutritionSubtitle => 'Verifizierte USDA-Datensätze und deterministische Berechnung auf diesem Gerät verwenden, wenn alle Zutaten abgedeckt sind.';
-	@override String get offlineNutritionUnavailable => 'Lokale Nährwertdaten sind für diese App-Version nicht verfügbar.';
-	@override String get offlineNutritionNotDownloaded => 'Es wurde kein verifiziertes Nährwertpaket heruntergeladen.';
-	@override String get offlineNutritionInstalling => 'Nährwertdaten werden heruntergeladen und überprüft…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Paket ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} zwischengespeicherte USDA-Datensätze · ${size}';
-	@override String get offlineNutritionUpdate => 'Nach Update suchen';
-	@override String get offlineNutritionClear => 'Lokale Nährwertdaten löschen';
-	@override String get offlineNutritionClearTitle => 'Lokale Nährwertdaten löschen?';
-	@override String get offlineNutritionClearBody => 'Dadurch werden das heruntergeladene USDA-Paket und der Suchcache entfernt. Protokollierte Mahlzeiten behalten den exakten Nährwert-Schnappschuss, der beim Speichern verwendet wurde.';
-	@override String get offlineNutritionClearConfirm => 'Daten löschen';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Lokale Nährwertdaten konnten nicht heruntergeladen und überprüft werden: ${error}';
-	@override String get offlineNutritionCleared => 'Lokale Nährwertdaten gelöscht';
 }
 
 // Path: watch
@@ -825,6 +793,9 @@ class _Translations$meal$questionFlow$de extends Translations$meal$questionFlow$
 	@override String get optionSmaller => 'Kleiner';
 	@override String get optionTypical => 'Typisch';
 	@override String get optionLarger => 'Größer';
+	@override String get useEstimate => 'Schätzung verwenden';
+	@override String numberRange({required Object min, required Object max, required Object step}) => 'Von ${min} bis ${max}, in Schritten von ${step}';
+	@override String get invalidNumber => 'Bitte einen Wert im zulässigen Bereich eingeben';
 }
 
 // Path: meal.analysis
@@ -854,30 +825,13 @@ class _Translations$meal$analysis$de extends Translations$meal$analysis$en {
 	@override String ingredientsLine({required Object count}) => '${count} Zutaten erkannt';
 	@override String get ingredientsPending => 'Zutaten werden gescannt…';
 	@override String mealPreviewDescription({required Object text}) => '„${text}“';
+	@override String calorieRange({required Object min, required Object max}) => 'Geschätzter Bereich: ${min}–${max} kcal';
 	@override String get offlineTip0 => 'Tipp: Konstanz schlägt Perfektion – regelmäßige Einträge zeigen die wirklich wichtigen Muster.';
 	@override String get offlineTip1 => 'Tipp: Bei Fotos helfen natürliches Licht und Draufsicht für genauere Portionsschätzungen.';
 	@override String get offlineTip2 => 'Tipp: Erwähne Getränke, Soßen und Öl – sie liefern oft vergessene Kalorien.';
 	@override String get offlineTip3 => 'Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.';
 	@override String get offlineTip4 => 'Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.';
 	@override String get offlineTip5 => 'Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken).';
-}
-
-// Path: meal.localInference
-class _Translations$meal$localInference$de extends Translations$meal$localInference$en {
-	_Translations$meal$localInference$de._(TranslationsDe root) : this._root = root, super.internal(root);
-
-	final TranslationsDe _root; // ignore: unused_field
-
-	// Translations
-	@override String get reviewTitle => 'Erkannte Zutaten prüfen';
-	@override String get reviewSubtitle => 'Dies wurde auf Ihrem Gerät interpretiert. Bitte korrigieren Sie Namen oder Mengen, bevor die Nährwerte berechnet werden.';
-	@override String get mealName => 'Mahlzeitenname';
-	@override String get ingredient => 'Zutat';
-	@override String get grams => 'Geschätzte Gramm';
-	@override String get removeIngredient => 'Zutat entfernen';
-	@override String get continueLabel => 'Weiter';
-	@override String get invalidProposal => 'Fügen Sie mindestens eine Zutat hinzu und geben Sie eine positive Grammzahl an.';
-	@override String get localUnavailable => 'Die On-Device-Analyse ist derzeit nicht verfügbar.';
 }
 
 // Path: meal.feedback
@@ -1001,7 +955,6 @@ class _Translations$settings$sections$de extends Translations$settings$sections$
 	@override String get localization => 'LOKALISIERUNG';
 	@override String get notifications => 'BENACHRICHTIGUNGEN';
 	@override String get healthConnect => 'Health Connect';
-	@override String get localInference => 'ON-DEVICE-ANALYSE';
 	@override String get supportAndLegal => 'SUPPORT & RECHTLICHES';
 	@override String get about => 'ÜBER';
 	@override String get dangerZone => 'RISIKOBEREICH';
@@ -1061,30 +1014,6 @@ class _Translations$settings$mealReminders$de extends Translations$settings$meal
 	// Translations
 	@override String get title => 'Mahlzeit‑Erinnerungen';
 	@override String get subtitle => 'Bleib mit rechtzeitigen Erinnerungen auf Kurs';
-}
-
-// Path: settings.localInference
-class _Translations$settings$localInference$de extends Translations$settings$localInference$en {
-	_Translations$settings$localInference$de._(TranslationsDe root) : this._root = root, super.internal(root);
-
-	final TranslationsDe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'On-Device-Mahlzeitenanalyse';
-	@override String get subtitle => 'Unterstützte Mahlzeiten mit Gemini Nano interpretieren, bevor die Nährwerte berechnet werden';
-	@override String get unavailable => 'Auf diesem Gerät nicht verfügbar';
-	@override String get rolloutUnavailable => 'Kompatible Hardware gefunden, aber diese Funktion ist für diese App-Version nicht aktiviert';
-	@override String get modelSetup => 'Gemini Nano muss den Download abschließen, bevor dies aktiviert werden kann';
-	@override String get useLocalTitle => 'On-Device-Analyse verwenden';
-	@override String get useLocalSubtitle => 'Bei komplexen Mahlzeiten können die Ergebnisse weniger zuverlässig sein.';
-	@override String get disclosureTitle => 'Bevor Sie die On-Device-Analyse aktivieren';
-	@override String get disclosureBody => 'Gemini Nano kann Zutaten identifizieren und Portionen auf unterstützten Android-Geräten schätzen. Ihr geprüfter Zutatenvorschlag wird an Calorify zur USDA-Nährwertprüfung und Berechnung gesendet.';
-	@override String get disclosureLimit1 => 'Komplexe Gerichte, versteckte Zutaten und Portionsgrößen können falsch identifiziert werden.';
-	@override String get disclosureLimit2 => 'Das Modell kann während des Downloads, bei hoher Auslastung, im Hintergrund oder durch das Gerät eingeschränkt sein.';
-	@override String get disclosureLimit3 => 'Wenn die lokale Interpretation nicht abgeschlossen werden kann, sendet diese Beta-Version Ihre ursprüngliche Mahlzeitenbeschreibung automatisch an Calorify zur Cloud-Analyse.';
-	@override String get acknowledgement => 'Ich verstehe, dass ich die erkannten Zutaten und Portionen prüfen sollte.';
-	@override String get enable => 'Bestätigen und aktivieren';
-	@override String get cancel => 'Abbrechen';
 }
 
 // Path: settings.theme
@@ -2288,6 +2217,9 @@ extension on TranslationsDe {
 			'meal.questionFlow.optionSmaller' => 'Kleiner',
 			'meal.questionFlow.optionTypical' => 'Typisch',
 			'meal.questionFlow.optionLarger' => 'Größer',
+			'meal.questionFlow.useEstimate' => 'Schätzung verwenden',
+			'meal.questionFlow.numberRange' => ({required Object min, required Object max, required Object step}) => 'Von ${min} bis ${max}, in Schritten von ${step}',
+			'meal.questionFlow.invalidNumber' => 'Bitte einen Wert im zulässigen Bereich eingeben',
 			'meal.analysis.title' => 'Wir analysieren deine Mahlzeit',
 			'meal.analysis.stepStarted' => 'Starte…',
 			'meal.analysis.stepDecomposition' => 'Mahlzeit wird erfasst…',
@@ -2308,21 +2240,13 @@ extension on TranslationsDe {
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} Zutaten erkannt',
 			'meal.analysis.ingredientsPending' => 'Zutaten werden gescannt…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '„${text}“',
+			'meal.analysis.calorieRange' => ({required Object min, required Object max}) => 'Geschätzter Bereich: ${min}–${max} kcal',
 			'meal.analysis.offlineTip0' => 'Tipp: Konstanz schlägt Perfektion – regelmäßige Einträge zeigen die wirklich wichtigen Muster.',
 			'meal.analysis.offlineTip1' => 'Tipp: Bei Fotos helfen natürliches Licht und Draufsicht für genauere Portionsschätzungen.',
 			'meal.analysis.offlineTip2' => 'Tipp: Erwähne Getränke, Soßen und Öl – sie liefern oft vergessene Kalorien.',
 			'meal.analysis.offlineTip3' => 'Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.',
 			'meal.analysis.offlineTip4' => 'Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.',
 			'meal.analysis.offlineTip5' => 'Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken).',
-			'meal.localInference.reviewTitle' => 'Erkannte Zutaten prüfen',
-			'meal.localInference.reviewSubtitle' => 'Dies wurde auf Ihrem Gerät interpretiert. Bitte korrigieren Sie Namen oder Mengen, bevor die Nährwerte berechnet werden.',
-			'meal.localInference.mealName' => 'Mahlzeitenname',
-			'meal.localInference.ingredient' => 'Zutat',
-			'meal.localInference.grams' => 'Geschätzte Gramm',
-			'meal.localInference.removeIngredient' => 'Zutat entfernen',
-			'meal.localInference.continueLabel' => 'Weiter',
-			'meal.localInference.invalidProposal' => 'Fügen Sie mindestens eine Zutat hinzu und geben Sie eine positive Grammzahl an.',
-			'meal.localInference.localUnavailable' => 'Die On-Device-Analyse ist derzeit nicht verfügbar.',
 			'meal.feedback.title' => 'Was stimmt hier nicht?',
 			'meal.feedback.subtitle' => 'Hilf uns, die Analyse zu verbessern, indem du ein oder mehrere Probleme auswählst.',
 			'meal.feedback.tellUsMore' => 'Erzähl uns mehr',
@@ -2420,7 +2344,6 @@ extension on TranslationsDe {
 			'settings.sections.localization' => 'LOKALISIERUNG',
 			'settings.sections.notifications' => 'BENACHRICHTIGUNGEN',
 			'settings.sections.healthConnect' => 'Health Connect',
-			'settings.sections.localInference' => 'ON-DEVICE-ANALYSE',
 			'settings.sections.supportAndLegal' => 'SUPPORT & RECHTLICHES',
 			'settings.sections.about' => 'ÜBER',
 			'settings.sections.dangerZone' => 'RISIKOBEREICH',
@@ -2435,21 +2358,6 @@ extension on TranslationsDe {
 			'settings.weightUnit.title' => 'Gewichtseinheit',
 			'settings.mealReminders.title' => 'Mahlzeit‑Erinnerungen',
 			'settings.mealReminders.subtitle' => 'Bleib mit rechtzeitigen Erinnerungen auf Kurs',
-			'settings.localInference.title' => 'On-Device-Mahlzeitenanalyse',
-			'settings.localInference.subtitle' => 'Unterstützte Mahlzeiten mit Gemini Nano interpretieren, bevor die Nährwerte berechnet werden',
-			'settings.localInference.unavailable' => 'Auf diesem Gerät nicht verfügbar',
-			'settings.localInference.rolloutUnavailable' => 'Kompatible Hardware gefunden, aber diese Funktion ist für diese App-Version nicht aktiviert',
-			'settings.localInference.modelSetup' => 'Gemini Nano muss den Download abschließen, bevor dies aktiviert werden kann',
-			'settings.localInference.useLocalTitle' => 'On-Device-Analyse verwenden',
-			'settings.localInference.useLocalSubtitle' => 'Bei komplexen Mahlzeiten können die Ergebnisse weniger zuverlässig sein.',
-			'settings.localInference.disclosureTitle' => 'Bevor Sie die On-Device-Analyse aktivieren',
-			'settings.localInference.disclosureBody' => 'Gemini Nano kann Zutaten identifizieren und Portionen auf unterstützten Android-Geräten schätzen. Ihr geprüfter Zutatenvorschlag wird an Calorify zur USDA-Nährwertprüfung und Berechnung gesendet.',
-			'settings.localInference.disclosureLimit1' => 'Komplexe Gerichte, versteckte Zutaten und Portionsgrößen können falsch identifiziert werden.',
-			'settings.localInference.disclosureLimit2' => 'Das Modell kann während des Downloads, bei hoher Auslastung, im Hintergrund oder durch das Gerät eingeschränkt sein.',
-			'settings.localInference.disclosureLimit3' => 'Wenn die lokale Interpretation nicht abgeschlossen werden kann, sendet diese Beta-Version Ihre ursprüngliche Mahlzeitenbeschreibung automatisch an Calorify zur Cloud-Analyse.',
-			'settings.localInference.acknowledgement' => 'Ich verstehe, dass ich die erkannten Zutaten und Portionen prüfen sollte.',
-			'settings.localInference.enable' => 'Bestätigen und aktivieren',
-			'settings.localInference.cancel' => 'Abbrechen',
 			'settings.theme.title' => 'Design',
 			'settings.theme.light' => 'Hell',
 			'settings.theme.dark' => 'Dunkel',
@@ -2561,8 +2469,6 @@ extension on TranslationsDe {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Fehler beim Abschließen der Einrichtung: ${error}',
 			'notifications.breakfast.title' => 'Frühstückszeit! 🍳',
 			'notifications.breakfast.body' => 'Vergiss nicht, dein Frühstück zu erfassen',
-			_ => null,
-		} ?? switch (path) {
 			'notifications.lunch.title' => 'Mittagszeit! 🥗',
 			'notifications.lunch.body' => 'Zeit, dein Mittagessen zu protokollieren',
 			'notifications.dinner.title' => 'Abendessen! 🍽️',
@@ -2584,6 +2490,8 @@ extension on TranslationsDe {
 			'disclaimer.snap.databaseLimitations.title' => 'Datenbankbegrenzungen',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Die Lebensmitteldatenbank von ${appLabel} ist umfangreich, enthält aber möglicherweise nicht jedes einzelne Lebensmittel oder jede Variante.',
 			'disclaimer.weightEstimate.title' => 'Zur Gewichtsschätzung',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Die prognostizierte Gewichtsveränderung ist eine theoretische Schätzung basierend auf dem einfachen Kalorien‑ein‑/Kalorien‑aus‑Modell. Sie dient nur zur Motivation und nicht als Vorhersage deines tatsächlichen Gewichts.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Genauigkeit der Kalorien',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Diese Schätzung ist nur so genau wie deine erfassten Kalorienzufuhr- und verbrauchsangaben. Ungenaue Einträge führen zu ungenauen Vorhersagen.',
@@ -2606,26 +2514,6 @@ extension on TranslationsDe {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Wir berechnen deinen TDEE (auf Basis deines Profils) und multiplizieren ihn mit dem Anteil des bereits vergangenen Tages (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien abzuschätzen.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionelle Beratung',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Konsultiere stets eine Fachperson oder eine registrierte Ernährungsberaterin/einen registrierten Ernährungsberater für persönliche Gewichtsmanagement‑Beratung.',
-			'localNutritionPhase4.portionSmaller' => 'Kleiner',
-			'localNutritionPhase4.portionEstimated' => 'Geschätzt',
-			'localNutritionPhase4.portionLarger' => 'Größer',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Welche Portion passte am besten zu ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Um welche Mahlzeit handelte es sich?',
-			'localNutritionPhase4.localNutritionTip' => 'Anhand verifizierter lokaler Nährwertdaten berechnet.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Nährwertdaten herunterladen',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Verifizierte USDA-Datensätze und deterministische Berechnung auf diesem Gerät verwenden, wenn alle Zutaten abgedeckt sind.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Lokale Nährwertdaten sind für diese App-Version nicht verfügbar.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'Es wurde kein verifiziertes Nährwertpaket heruntergeladen.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Nährwertdaten werden heruntergeladen und überprüft…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Paket ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} zwischengespeicherte USDA-Datensätze · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Nach Update suchen',
-			'localNutritionPhase4.offlineNutritionClear' => 'Lokale Nährwertdaten löschen',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Lokale Nährwertdaten löschen?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'Dadurch werden das heruntergeladene USDA-Paket und der Suchcache entfernt. Protokollierte Mahlzeiten behalten den exakten Nährwert-Schnappschuss, der beim Speichern verwendet wurde.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Daten löschen',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Lokale Nährwertdaten konnten nicht heruntergeladen und überprüft werden: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Lokale Nährwertdaten gelöscht',
 			'watch.appTitle' => 'Calorify Watch',
 			'watch.common.back' => 'Zurück',
 			'watch.common.cancel' => 'Abbrechen',
