@@ -82,6 +82,7 @@ npm start
 npm run meal-analysis -- --text "dal and rice"
 npm run meal-analysis:eval -- --model openai/gpt-5.6-luna
 npm run user:inspect -- --user-id FIREBASE_UID
+npm run usda:migrate    # schema only; never downloads a USDA archive
 npm run usda:bootstrap
 npm run usda:refresh
 ```

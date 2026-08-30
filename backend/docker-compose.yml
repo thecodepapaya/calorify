@@ -183,6 +183,21 @@ services:
     networks:
       - calorify-network
 
+  # Schema-only writer. Use this for USDA migrations; it never downloads data.
+  usda-migrate:
+    image: ${BACKEND_IMAGE:-calorify-backend-prod:local}
+    profiles: ["maintenance"]
+    user: node
+    entrypoint: []
+    command: ["node", "dist/scripts/usda-migrate.js"]
+    environment:
+      - USDA_DATABASE_URL=postgresql://calorify_usda_owner:${POSTGRES_USDA_PASSWORD:?Set POSTGRES_USDA_PASSWORD in backend/.env}@db-usda:5432/calorify_usda
+    depends_on:
+      db-usda:
+        condition: service_healthy
+    networks:
+      - calorify-network
+
   # One-off writer for initial bootstrap and future USDA release refreshes.
   # API containers never receive these owner credentials.
   usda-maintenance:

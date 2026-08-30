@@ -176,8 +176,15 @@ The first database initialization creates:
 - `calorify_usda_reader`, granted connection, schema usage, and table `SELECT`
   only, with `default_transaction_read_only` enabled.
 
-To bootstrap or activate a new FoodData Central release, run the maintenance
-container from the VM runtime directory with an immutable backend image:
+To apply USDA schema migrations without importing a dataset, run this from the
+VM runtime directory with an immutable backend image:
+
+```bash
+BACKEND_IMAGE=ghcr.io/thecodepapaya/calorify-backend:sha-<full-commit-sha> \
+docker compose --profile maintenance run --rm usda-migrate
+```
+
+To bootstrap or activate a new FoodData Central release, run:
 
 ```bash
 BACKEND_IMAGE=ghcr.io/thecodepapaya/calorify-backend:sha-<full-commit-sha> \
@@ -188,10 +195,11 @@ docker compose --profile maintenance run --rm \
   usda-maintenance
 ```
 
-Use the VM's normal Docker privilege mechanism if it requires `sudo`. The
-maintenance command applies only USDA migrations. It skips download/import when
-the requested version is already active; otherwise it downloads and stages the
-CSV release in a temporary workspace and atomically replaces the snapshot.
+Use the VM's normal Docker privilege mechanism if it requires `sudo`.
+`usda-migrate` applies only USDA migrations and never downloads data.
+`usda-maintenance` first applies USDA migrations, then skips download/import
+when the requested version is already active; otherwise it downloads and stages
+the CSV release in a temporary workspace and atomically replaces the snapshot.
 Readers therefore see either the complete old release or the complete new one.
 
 Verify the active snapshot without exposing credentials:

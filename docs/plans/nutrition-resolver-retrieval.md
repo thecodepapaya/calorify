@@ -143,9 +143,9 @@ and concrete spice components continue through ordinary USDA resolution.
 `backend/migrations/usda/20260831_usda_resolver_fallback_foods.sql` creates
 `usda_resolver_fallback_foods` and idempotently upserts the record. The table
 is intentionally separate from `usda_foods`, because every USDA source refresh
-replaces `usda_foods`. Staging and production receive it through the normal
-`usda-bootstrap` migration runner; profile changes require a new migration,
-never a direct database edit.
+replaces `usda_foods`. Staging and production receive it through the
+`usda-migrate` schema-only runner; profile changes require a new migration,
+never a direct database edit. This runner never downloads a USDA archive.
 
 **Boundary:** the record uses `data_type = local_fallback` and a negative
 internal ID, so it is visibly not an FDC record. It participates only in
