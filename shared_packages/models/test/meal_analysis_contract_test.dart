@@ -36,19 +36,20 @@ void main() {
     expect(decodedReanalysis.hasNewAnalysisId(), isTrue);
   });
 
-  test('pipeline errors retain retryability through the event adapter', () {
-    final event = MealAnalysisPipelineEvent.fromJson({
-      'step': 'ERROR',
+  test('V3 pipeline errors retain retryability through the event adapter', () {
+    final event = MealAnalysisV3Event.fromJson({
+      'event': 'ERROR',
+      'analysisId': 'analysis-1',
       'data': {
-        'analysisId': 'analysis-1',
-        'message': 'Analysis is already advancing',
+        'code': 'PROVIDER_UNAVAILABLE',
         'retryable': true,
+        'recoveryAction': 'RETRY',
       },
     });
 
-    expect(event.step, PipelineStep.ERROR);
+    expect(event.kind, MealAnalysisV3EventKind.error);
     expect(event.analysisId, 'analysis-1');
-    expect(event.errorMessage, 'Analysis is already advancing');
-    expect(event.retryable, isTrue);
+    expect(event.issue!.code, 'PROVIDER_UNAVAILABLE');
+    expect(event.issue!.retryable, isTrue);
   });
 }
