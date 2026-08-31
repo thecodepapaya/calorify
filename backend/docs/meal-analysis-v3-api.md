@@ -56,8 +56,7 @@ error kind for correlation by `analysisId`.
 ## Questions
 
 `NEEDS_INPUT` contains one revisioned bundle. The client must answer each
-question exactly once. Option IDs must come from the supplied options; numeric
-answers must satisfy the inclusive range, integer rule, and step. The
+question exactly once using an option ID from the supplied choices. The
 `USE_ESTIMATE` answer is accepted only when that question explicitly allows it.
 
 ## Session behavior

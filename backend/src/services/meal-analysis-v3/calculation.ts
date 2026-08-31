@@ -246,7 +246,9 @@ export function planNutritionQuestions(
       const first = assumptions[0]!;
       if (first.origin === 'USER_TEXT' || first.origin === 'USER_CLARIFICATION') continue;
       const response = buildQuestionResponse(assumptions);
-      if (response === null) continue;
+      // Clarifications must always be answerable with a supplied choice. The
+      // app deliberately does not ask people to estimate gram quantities.
+      if (response === null || response.kind !== 'OPTION') continue;
       const question: NutritionQuestion = {
         questionId: questionId(component.componentId, dimensionKey),
         scope: 'NUTRITION',

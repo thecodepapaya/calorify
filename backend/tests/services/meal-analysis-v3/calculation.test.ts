@@ -75,6 +75,7 @@ test('planner ranks macro impact and emits no more than one question per compone
   assert.equal(new Set(questions.map((question) => question.target.componentId)).size, questions.length);
   assert.ok(questions[0]!.impactScore >= questions[1]!.impactScore);
   assert.ok(questions.every((question) => question.impactScore > 0));
+  assert.ok(questions.every((question) => question.response.kind === 'OPTION'));
   assert.equal(planNutritionQuestions(resolved, { maxQuestions: 1 }).length, 1);
   assert.deepEqual(planNutritionQuestions(resolved, { minimumImpactScore: 1_000 }), []);
 });
@@ -130,39 +131,11 @@ test('OPTION and USE_ESTIMATE answers filter scenarios and recalculate from leav
   );
 });
 
-test('NUMBER answers replace count uncertainty without patching a calorie delta', () => {
+test('planner excludes numeric quantity clarifications', () => {
   const proposal = countQuestionProposal();
   const resolved = resolveInterpretation(proposal, nutritionReferences(proposal));
   const questions = planNutritionQuestions(resolved);
-  assert.equal(questions.length, 1);
-  assert.equal(questions[0]!.response.kind, 'NUMBER');
-  assert.equal(questions[0]!.target.dimension, 'COUNT');
-
-  const answered = applyQuestionAnswers(resolved, questions, [{
-    questionId: questions[0]!.questionId,
-    kind: 'NUMBER',
-    value: 6,
-  }]);
-  const portion = answered.components[0]!.portionConstraint;
-  assert.equal(portion.kind, 'COUNT');
-  assert.equal(portion.count?.estimate, 6);
-  assert.equal(portion.count?.origin, 'USER_CLARIFICATION');
-  assert.ok(answered.components[0]!.scenarios.every((scenario) =>
-    scenario.effectivePortion.kind === 'UNIT_COUNT' && scenario.effectivePortion.consumedCount === 6
-  ));
-  assert.ok(answered.components[0]!.scenarios.every((scenario) =>
-    scenario.assumptions[0]!.origin === 'USER_CLARIFICATION'
-  ));
-  const recalculated = calculateMeal(answered);
-  assert.equal(recalculated.macros.caloriesKcal.estimate, 612);
-  assert.equal(recalculated.macros.caloriesKcal.min, 612);
-  assert.equal(recalculated.macros.caloriesKcal.max, 612);
-
-  assert.throws(() => applyQuestionAnswers(resolved, questions, [{
-    questionId: questions[0]!.questionId,
-    kind: 'NUMBER',
-    value: 6.5,
-  }]), /bounds|integer|off-step/);
+  assert.deepEqual(questions, []);
 });
 
 test('final validation detects tampered point, range, and meal aggregation', () => {

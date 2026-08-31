@@ -17,7 +17,7 @@ Future<void> showMealAnalysisV3LoadingSheet({
   return showModalBottomSheet<void>(
     context: context,
     useRootNavigator: true,
-    isDismissible: false,
+    isDismissible: true,
     enableDrag: true,
     showDragHandle: true,
     isScrollControlled: true,

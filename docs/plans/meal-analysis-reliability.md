@@ -273,9 +273,9 @@ snack.
 
 `NEEDS_INPUT` contains one revisioned bundle. The Flutter sheet renders its
 questions sequentially for readability but submits the entire answer set once.
-Continue stays disabled until the current answer is valid. Numeric input is
-checked locally; the backend revalidates IDs, options, bounds, steps,
-uniqueness, and completeness.
+Continue stays disabled until the current answer is valid. Clarifications use
+selectable options only; the backend revalidates IDs, options, uniqueness, and
+completeness.
 
 There is no preselected or silently submitted default. Dismissing the sheet
 submits nothing. Every question needs exactly one answer. Answers filter or
