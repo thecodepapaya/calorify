@@ -29,6 +29,8 @@ Use this page to find the document that matches the work you are doing.
   bounded WebP validation, Oracle handoff, visibility, and lifecycle limits.
 - [Meal-analysis V3 API](../backend/docs/meal-analysis-v3-api.md) — the only
   supported app/backend meal-analysis transport and session contract.
+- [Meal-analysis history](../backend/docs/analysis-history.md) — protected
+  operator inspector for durable V3 analysis sessions.
 - [Meal-analysis V3 hypothesis CLI](../backend/docs/meal-analysis-cli.md) — run
   the shared ephemeral V3 core with observable two-pass text or image stages.
 - [Meal-analysis enum reference](../backend/docs/meal-analysis-enums.md) — exact

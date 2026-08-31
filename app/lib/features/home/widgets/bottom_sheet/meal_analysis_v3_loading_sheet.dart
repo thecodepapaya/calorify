@@ -104,7 +104,8 @@ class _MealAnalysisV3LoadingSheetState extends State<MealAnalysisV3LoadingSheet>
           MealAnalysisV3ProgressPhase.finish => t.meal.analysis.progressFinish,
         };
         final mealName = progress?.mealName?.trim();
-        final ingredientNames = progress?.ingredientNames ?? const <String>[];
+        final components =
+            progress?.components ?? const <MealAnalysisV3ProgressComponent>[];
         return BaseBottomSheet(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -215,13 +216,13 @@ class _MealAnalysisV3LoadingSheetState extends State<MealAnalysisV3LoadingSheet>
               ),
               const SizedBox(height: 12),
               SizedBox(
-                height: 112,
+                height: 176,
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 320),
                   child:
-                      ingredientNames.isEmpty
+                      components.isEmpty
                           ? Center(
-                            key: const ValueKey('v3-ingredients-pending'),
+                            key: const ValueKey('v3-components-pending'),
                             child: Text(
                               t.meal.analysis.ingredientsPending,
                               textAlign: TextAlign.center,
@@ -234,41 +235,29 @@ class _MealAnalysisV3LoadingSheetState extends State<MealAnalysisV3LoadingSheet>
                             ),
                           )
                           : ListView.separated(
-                            key: ValueKey(ingredientNames.join('|')),
+                            key: ValueKey(
+                              components
+                                  .map(
+                                    (component) =>
+                                        '${component.componentId}:${component.ingredientNames.join(',')}',
+                                  )
+                                  .join('|'),
+                            ),
                             physics: const BouncingScrollPhysics(),
-                            itemCount: ingredientNames.length,
+                            itemCount: components.length,
                             separatorBuilder:
-                                (_, _) => const SizedBox(height: 7),
-                            itemBuilder:
-                                (_, index) => Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width: 24,
-                                      child: Text(
-                                        '${index + 1}.',
-                                        textAlign: TextAlign.right,
-                                        style: textTheme.labelSmall?.copyWith(
-                                          color: colorScheme.primary.withValues(
-                                            alpha: 0.6,
-                                          ),
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      child: Text(
-                                        ingredientNames[index],
-                                        style: textTheme.bodySmall?.copyWith(
-                                          color: colorScheme.onSurface
-                                              .withValues(alpha: 0.72),
-                                          height: 1.34,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                (_, _) => const SizedBox(height: 14),
+                            itemBuilder: (_, index) {
+                              final component = components[index];
+                              return _ProgressComponent(
+                                key: ValueKey(
+                                  'v3-progress-component-${component.componentId}',
                                 ),
+                                component: component,
+                                textTheme: textTheme,
+                                colorScheme: colorScheme,
+                              );
+                            },
                           ),
                 ),
               ),
@@ -291,5 +280,76 @@ class _MealAnalysisV3LoadingSheetState extends State<MealAnalysisV3LoadingSheet>
     final trimmed = value.trim();
     if (trimmed.length <= maxChars) return trimmed;
     return '${trimmed.substring(0, maxChars).trim()}…';
+  }
+}
+
+class _ProgressComponent extends StatelessWidget {
+  const _ProgressComponent({
+    super.key,
+    required this.component,
+    required this.textTheme,
+    required this.colorScheme,
+  });
+
+  final MealAnalysisV3ProgressComponent component;
+  final TextTheme textTheme;
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Semantics(
+          header: true,
+          child: Text(
+            component.name,
+            style: textTheme.titleSmall?.copyWith(
+              color: colorScheme.onSurface,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+        if (component.ingredientNames.isEmpty)
+          Padding(
+            padding: const EdgeInsets.only(left: 14),
+            child: Text(
+              t.meal.analysis.ingredientsPending,
+              style: textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          )
+        else
+          ...component.ingredientNames.map(
+            (ingredient) => Padding(
+              padding: const EdgeInsets.only(left: 14, top: 3),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '•',
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      ingredient,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurface.withValues(alpha: 0.72),
+                        height: 1.34,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      ],
+    );
   }
 }

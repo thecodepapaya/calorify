@@ -1,7 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { buildMealAnalysisV3Progress } from '../../../src/services/meal-analysis-v3/progress.js';
+import {
+  buildMealAnalysisV3PassProgress,
+  buildMealAnalysisV3Progress,
+} from '../../../src/services/meal-analysis-v3/progress.js';
 import type { StageObservation } from '../../../src/services/meal-analysis-v3/observability.js';
+import type {
+  FirstPassResponse,
+  SecondPassResponse,
+} from '../../../src/services/meal-analysis-v3/twoPassInterpretation.js';
 
 function observation(
   stage: StageObservation['stage'],
@@ -11,26 +18,46 @@ function observation(
   return { sequence: 1, stage, status, durationMs: 1, input: null, output };
 }
 
-test('publishes bounded meal and ingredient copy after interpretation', () => {
-  const progress = buildMealAnalysisV3Progress(observation('INTERPRETED', {
-    proposal: {
-      mealNameCandidate: ' Dal and rice ',
-      components: [
-        { displayName: 'Dal' },
-        { displayName: 'Rice' },
-        { displayName: '' },
-      ],
-    },
-    privateProviderData: 'must not escape',
-  }));
+test('publishes components first and enriches them with ingredients', () => {
+  const firstPass = {
+    food_detected: true,
+    mealNameCandidate: 'Dal and rice',
+    components: [
+      { componentName: 'Dal' },
+      { componentName: 'Rice' },
+    ],
+  } as unknown as FirstPassResponse;
+  const secondPass = {
+    components: [
+      {
+        componentName: 'Dal',
+        ingredients: [{ ingredientName: 'Lentils' }, { ingredientName: 'Ghee' }],
+      },
+      {
+        componentName: 'Rice',
+        ingredients: [{ ingredientName: 'Basmati rice' }],
+      },
+    ],
+  } as unknown as SecondPassResponse;
 
-  assert.deepEqual(progress, {
+  assert.deepEqual(buildMealAnalysisV3PassProgress({ firstPass }), {
     phase: 'MATCH',
-    progress: 0.3,
+    progress: 0.22,
     mealName: 'Dal and rice',
-    ingredientNames: ['Dal', 'Rice'],
+    components: [
+      { componentId: 'dal', name: 'Dal', ingredientNames: [] },
+      { componentId: 'rice', name: 'Rice', ingredientNames: [] },
+    ],
   });
-  assert.equal(JSON.stringify(progress).includes('privateProviderData'), false);
+  assert.deepEqual(buildMealAnalysisV3PassProgress({ firstPass, secondPass }), {
+    phase: 'MATCH',
+    progress: 0.34,
+    mealName: 'Dal and rice',
+    components: [
+      { componentId: 'dal', name: 'Dal', ingredientNames: ['Lentils', 'Ghee'] },
+      { componentId: 'rice', name: 'Rice', ingredientNames: ['Basmati rice'] },
+    ],
+  });
 });
 
 test('maps completed stages monotonically and omits skipped or terminal stages', () => {

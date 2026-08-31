@@ -1,4 +1,9 @@
 import type { StageObservation } from './observability.js';
+import {
+  componentIdsForFirstPass,
+  type FirstPassResponse,
+  type SecondPassResponse,
+} from './twoPassInterpretation.js';
 
 export type MealAnalysisV3ProgressPhase =
   | 'UNDERSTAND'
@@ -6,11 +11,17 @@ export type MealAnalysisV3ProgressPhase =
   | 'CHECK'
   | 'FINISH';
 
+export interface MealAnalysisV3ProgressComponent {
+  componentId: string;
+  name: string;
+  ingredientNames: string[];
+}
+
 export interface MealAnalysisV3Progress {
   phase: MealAnalysisV3ProgressPhase;
   progress: number;
   mealName?: string;
-  ingredientNames?: string[];
+  components?: MealAnalysisV3ProgressComponent[];
 }
 
 const STAGE_PROGRESS: Partial<Record<StageObservation['stage'], {
@@ -18,7 +29,7 @@ const STAGE_PROGRESS: Partial<Record<StageObservation['stage'], {
   progress: number;
 }>> = {
   INPUT_NORMALIZED: { phase: 'UNDERSTAND', progress: 0.08 },
-  INTERPRETED: { phase: 'MATCH', progress: 0.3 },
+  INTERPRETED: { phase: 'MATCH', progress: 0.38 },
   VALIDATED: { phase: 'MATCH', progress: 0.42 },
   NUTRITION_RESOLVED: { phase: 'CHECK', progress: 0.62 },
   CALCULATED: { phase: 'CHECK', progress: 0.72 },
@@ -37,26 +48,40 @@ function boundedText(value: unknown, maxLength: number): string | undefined {
   return trimmed.slice(0, maxLength);
 }
 
-function interpretedCopy(output: unknown): Pick<
-  MealAnalysisV3Progress,
-  'mealName' | 'ingredientNames'
-> {
-  if (output === null || typeof output !== 'object') return {};
-  const proposal = (output as { proposal?: unknown }).proposal;
-  if (proposal === null || typeof proposal !== 'object') return {};
-  const record = proposal as { mealNameCandidate?: unknown; components?: unknown };
-  const mealName = boundedText(record.mealNameCandidate, 80);
-  const ingredientNames = Array.isArray(record.components)
-    ? record.components
-        .slice(0, 20)
-        .map((component) => component !== null && typeof component === 'object'
-          ? boundedText((component as { displayName?: unknown }).displayName, 160)
-          : undefined)
-        .filter((name): name is string => name !== undefined)
-    : [];
+function normalized(value: string): string {
+  return value.normalize('NFC').trim().toLocaleLowerCase('en-US');
+}
+
+/** Builds public copy immediately after either validated interpretation pass. */
+export function buildMealAnalysisV3PassProgress(snapshot: {
+  firstPass: FirstPassResponse;
+  secondPass?: SecondPassResponse;
+}): MealAnalysisV3Progress {
+  const componentIds = componentIdsForFirstPass(snapshot.firstPass);
+  const secondByName = new Map(
+    snapshot.secondPass?.components.map((component) => [
+      normalized(component.componentName),
+      component,
+    ]) ?? [],
+  );
+  const components = snapshot.firstPass.components.slice(0, 20).map(
+    (component, index): MealAnalysisV3ProgressComponent => {
+      const recipe = secondByName.get(normalized(component.componentName));
+      return {
+        componentId: componentIds[index]!,
+        name: boundedText(component.componentName, 160)!,
+        ingredientNames: recipe?.ingredients
+          .slice(0, 24)
+          .map(({ ingredientName }) => boundedText(ingredientName, 160)!) ?? [],
+      };
+    },
+  );
+  const mealName = boundedText(snapshot.firstPass.mealNameCandidate, 80);
   return {
+    phase: 'MATCH',
+    progress: snapshot.secondPass ? 0.34 : 0.22,
     ...(mealName ? { mealName } : {}),
-    ...(ingredientNames.length > 0 ? { ingredientNames } : {}),
+    ...(components.length > 0 ? { components } : {}),
   };
 }
 
@@ -73,9 +98,6 @@ export function buildMealAnalysisV3Progress(
   if (observation.status !== 'COMPLETED') return undefined;
   const base = STAGE_PROGRESS[observation.stage];
   if (!base) return undefined;
-  if (observation.stage === 'INTERPRETED') {
-    return { ...base, ...interpretedCopy(observation.output) };
-  }
   if (observation.stage === 'PRESENTED') {
     return { ...base, ...presentedCopy(observation.output) };
   }

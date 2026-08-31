@@ -14,7 +14,11 @@ import {
 } from '../../services/meal-analysis-v3/pipeline.js';
 import { mealContextSchema } from '../../services/meal-analysis-v3/domain.js';
 import { classifyMealAnalysisV3Error } from '../../services/meal-analysis-v3/errors.js';
-import { buildMealAnalysisV3Progress } from '../../services/meal-analysis-v3/progress.js';
+import {
+  buildMealAnalysisV3PassProgress,
+  buildMealAnalysisV3Progress,
+  type MealAnalysisV3Progress,
+} from '../../services/meal-analysis-v3/progress.js';
 import {
   loadMealAnalysisV3Session,
   recordMealAnalysisV3Feedback,
@@ -249,6 +253,14 @@ function startStream(reply: FastifyReply, analysisId: string): void {
 async function runSession(reply: FastifyReply, session: V3Session): Promise<void> {
   const analysisId = session.input.analysisId;
   startStream(reply, analysisId);
+  const emitProgress = (progress: MealAnalysisV3Progress): void => {
+    if (reply.raw.writableEnded || reply.raw.destroyed) return;
+    reply.raw.write(`${JSON.stringify({
+      event: 'PROGRESS',
+      analysisId,
+      data: progress,
+    })}\n`);
+  };
   try {
     let image: { bytes: Uint8Array; mediaType: 'image/webp' } | undefined;
     const normalizedInput = 'imageId' in session.input
@@ -275,14 +287,12 @@ async function runSession(reply: FastifyReply, session: V3Session): Promise<void
       image,
       nutritionAnswers: session.nutritionAnswers,
       mealTypeAnswer: session.mealTypeAnswer,
+      interpretationObserver(snapshot) {
+        emitProgress(buildMealAnalysisV3PassProgress(snapshot));
+      },
       observer(observation) {
         const progress = buildMealAnalysisV3Progress(observation);
-        if (!progress || reply.raw.writableEnded || reply.raw.destroyed) return;
-        reply.raw.write(`${JSON.stringify({
-          event: 'PROGRESS',
-          analysisId,
-          data: progress,
-        })}\n`);
+        if (progress) emitProgress(progress);
       },
     });
     session.result = result;

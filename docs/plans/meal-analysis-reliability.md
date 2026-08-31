@@ -158,6 +158,11 @@ This is durable outcome persistence, not a leased stage-checkpoint engine. It
 does not persist interpreted components, USDA candidates, or calculated
 scenarios as independently restartable stages.
 
+The protected `/analysis-history` operator page reads this durable V3 session
+record. It presents the latest result and recorded user follow-up (answers,
+meal type, feedback, and logging) without claiming to reconstruct transient
+pipeline-stage traces.
+
 ### 3. Input normalization and two-pass interpretation
 
 The shared pipeline validates one normalized `TEXT` or `IMAGE` input. Image
@@ -298,7 +303,9 @@ prompts, model responses, resolver candidates, database details, or errors.
 | Stage | Phase | Value |
 | --- | --- | ---: |
 | input normalized | `UNDERSTAND` | 0.08 |
-| interpreted | `MATCH` | 0.30 |
+| component pass complete | `MATCH` | 0.22 |
+| ingredient pass complete | `MATCH` | 0.34 |
+| interpretation assembled | `MATCH` | 0.38 |
 | validated | `MATCH` | 0.42 |
 | nutrition resolved | `CHECK` | 0.62 |
 | calculated | `CHECK` | 0.72 |
@@ -309,9 +316,13 @@ prompts, model responses, resolver candidates, database details, or errors.
 | presentation built | `FINISH` | 0.96 |
 | integrity checked | `FINISH` | 0.99 |
 
-Interpretation may add a bounded meal name and display names. Presentation may
-replace the meal name. Later events may omit copy, so clients retain the latest
-non-empty copy fields.
+The component pass emits stable component IDs and headings immediately, with
+empty ingredient arrays. The ingredient pass emits the same IDs with bounded
+ingredient-name lists. This reveals useful structure as soon as it is
+validated without exposing prompts, quantities, provider metadata, USDA
+candidates, or calculation internals. Presentation may later replace the meal
+name. Events may omit copy, so clients retain the latest non-empty fields and
+do not let a replayed component-only snapshot erase populated ingredients.
 
 Because the answer request reruns early stages, its server stream starts at
 `0.08`. The app owns one controller for the full analysis and accepts only
@@ -324,8 +335,10 @@ The last public progress value is `0.99`; receipt of `COMPLETE` closes the
 loading sheet instead of emitting a cosmetic `1.00` progress event.
 
 The non-dismissible sheet shows the photo or truncated text, linear progress,
-four localized phases, animated macro icons, interpreted names, and a rotating
-tip. It closes on success or failure. Flow disposal releases its controller.
+four localized phases, animated macro icons, each component as an accessible
+heading followed by its ingredient list, and a rotating tip. A component shows
+the localized scanning state until its ingredients arrive. The sheet closes on
+success or failure, and flow disposal releases its controller.
 
 ### 9. Presentation and integrity
 

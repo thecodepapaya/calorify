@@ -265,6 +265,7 @@ test('two-pass fixture expands compact daal and roti responses into calculation 
 test('model adapter performs two observable compact calls', async () => {
   const values = [firstPass, secondPass];
   const requests: Array<{ name: string; operation?: string; reasoningEffort?: string }> = [];
+  const passSnapshots: Array<{ hasIngredients: boolean; componentCount: number }> = [];
   const client: MealAnalysisLlmClient = {
     chat: {
       completions: {
@@ -283,7 +284,14 @@ test('model adapter performs two observable compact calls', async () => {
     },
   };
 
-  const result = await createModelMealInterpreter(client).interpret(compactInput);
+  const result = await createModelMealInterpreter(client, undefined, {
+    onPassCompleted(snapshot) {
+      passSnapshots.push({
+        hasIngredients: snapshot.secondPass !== undefined,
+        componentCount: snapshot.firstPass.components.length,
+      });
+    },
+  }).interpret(compactInput);
   assert.equal(result.proposal.outcome, 'FOOD');
   assert.deepEqual(requests, [
     {
@@ -296,6 +304,10 @@ test('model adapter performs two observable compact calls', async () => {
       operation: 'interpret_v3_ingredients_text',
       reasoningEffort: 'none',
     },
+  ]);
+  assert.deepEqual(passSnapshots, [
+    { hasIngredients: false, componentCount: 2 },
+    { hasIngredients: true, componentCount: 2 },
   ]);
   assert.deepEqual(result.rawProposal, { firstPass, secondPass });
 });

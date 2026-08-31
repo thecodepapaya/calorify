@@ -22,10 +22,17 @@ Analysis responses use newline-delimited JSON. Every line contains `event`,
 
 `PROGRESS.data` contains a `phase` (`UNDERSTAND`, `MATCH`, `CHECK`, or
 `FINISH`) and a `progress` value from zero to one. Values are monotonic within
-one HTTP stream. It can also contain a bounded meal name and ingredient-name
-list after interpretation. Progress is derived from completed pipeline stages;
-private model responses, resolver candidates, and database details never cross
-this boundary. Clients retain the latest non-empty copy fields.
+one HTTP stream. It can also contain a bounded meal name and hierarchical
+component preview. After the validated component pass, each preview item has a
+stable `componentId`, heading `name`, and an empty `ingredientNames` array.
+After the validated ingredient pass, the same component IDs are emitted with
+their ingredient-name arrays populated. There are at most 20 components and 24
+ingredients per component; names are bounded to 160 characters.
+
+Progress is derived from completed pipeline work; private model responses,
+resolver candidates, and database details never cross this boundary. Clients
+retain the latest non-empty copy fields and preserve populated ingredient lists
+when a component-only snapshot is replayed by a clarification stream.
 
 `NEEDS_INPUT` closes the initial stream. The current answer adapter reruns the
 pipeline and therefore its new stream reports early stage values again. A UI

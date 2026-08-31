@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { healthRoutes } from './health.js';
 import { foodRoutes } from './v1/food.js';
 import { foodRoutesV3 } from './v3/food.js';
+import { analysisHistoryRoutes } from './analysisHistory.js';
 import { userRoutes } from './v1/user.js';
 import config from '../config.js';
 import {
@@ -32,4 +33,6 @@ export async function registerRoutes(
     prefix: `${config.API_V3_STR}/food`,
     foodRateLimitHooks,
   });
+
+  await fastify.register(analysisHistoryRoutes);
 }

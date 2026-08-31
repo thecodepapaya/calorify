@@ -411,18 +411,81 @@ class MealAnalysisV3TerminalIssue {
   final MealAnalysisV3RecoveryAction recoveryAction;
 }
 
+class MealAnalysisV3ProgressComponent {
+  const MealAnalysisV3ProgressComponent({
+    required this.componentId,
+    required this.name,
+    this.ingredientNames = const [],
+  });
+
+  factory MealAnalysisV3ProgressComponent.fromJson(Map<String, dynamic> json) {
+    final rawIngredients = _requiredList(json, 'ingredientNames');
+    if (rawIngredients.length > 24) {
+      throw const FormatException(
+        'V3 progress component has too many ingredients',
+      );
+    }
+    final componentId = _requiredString(json, 'componentId');
+    final name = _requiredString(json, 'name');
+    if (componentId.length > 80 || name.length > 160) {
+      throw const FormatException('V3 progress component copy is too long');
+    }
+    return MealAnalysisV3ProgressComponent(
+      componentId: componentId,
+      name: name,
+      ingredientNames: List.unmodifiable(
+        rawIngredients.map((value) {
+          if (value is! String || value.trim().isEmpty) {
+            throw const FormatException(
+              'V3 ingredient names must be non-empty strings',
+            );
+          }
+          if (value.length > 160) {
+            throw const FormatException('V3 ingredient name is too long');
+          }
+          return value;
+        }),
+      ),
+    );
+  }
+
+  final String componentId;
+  final String name;
+  final List<String> ingredientNames;
+}
+
 class MealAnalysisV3Progress {
   const MealAnalysisV3Progress({
     required this.phase,
     required this.progress,
     this.mealName,
-    this.ingredientNames = const [],
+    this.components = const [],
   });
 
   factory MealAnalysisV3Progress.fromJson(Map<String, dynamic> json) {
     final progress = _requiredDouble(json, 'progress');
     if (progress < 0 || progress > 1) {
       throw const FormatException('V3 progress must be between zero and one');
+    }
+    final rawComponents =
+        json['components'] == null
+            ? const <dynamic>[]
+            : _requiredList(json, 'components');
+    if (rawComponents.length > 20) {
+      throw const FormatException('V3 progress has too many components');
+    }
+    final components = List<MealAnalysisV3ProgressComponent>.unmodifiable(
+      rawComponents.map<MealAnalysisV3ProgressComponent>(
+        (value) => MealAnalysisV3ProgressComponent.fromJson(_asMap(value)),
+      ),
+    );
+    final componentIds = components.map((item) => item.componentId).toSet();
+    if (componentIds.length != components.length) {
+      throw const FormatException('V3 progress component IDs must be unique');
+    }
+    final mealName = json['mealName'] as String?;
+    if (mealName != null && (mealName.trim().isEmpty || mealName.length > 80)) {
+      throw const FormatException('V3 progress meal name is invalid');
     }
     return MealAnalysisV3Progress(
       phase: switch (_requiredString(json, 'phase')) {
@@ -434,27 +497,15 @@ class MealAnalysisV3Progress {
           throw FormatException('Unknown V3 progress phase: $value'),
       },
       progress: progress,
-      mealName: json['mealName'] as String?,
-      ingredientNames:
-          json['ingredientNames'] == null
-              ? const []
-              : List.unmodifiable(
-                _requiredList(json, 'ingredientNames').map((value) {
-                  if (value is! String || value.trim().isEmpty) {
-                    throw const FormatException(
-                      'V3 ingredient names must be non-empty strings',
-                    );
-                  }
-                  return value;
-                }),
-              ),
+      mealName: mealName,
+      components: components,
     );
   }
 
   final MealAnalysisV3ProgressPhase phase;
   final double progress;
   final String? mealName;
-  final List<String> ingredientNames;
+  final List<MealAnalysisV3ProgressComponent> components;
 }
 
 class MealAnalysisV3Event {

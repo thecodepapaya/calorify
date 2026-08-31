@@ -8,11 +8,34 @@ await mock.module('../../../src/services/infrastructure/database.js', {
 });
 
 const {
+  listMealAnalysisV3History,
   loadMealAnalysisV3Session,
   recordMealAnalysisV3Feedback,
   recordMealAnalysisV3Log,
   saveMealAnalysisV3Session,
 } = await import('../../../src/services/meal-analysis-v3/store.js');
+
+test('lists V3 history by persisted input kind and latest activity', async () => {
+  databaseQuery.mock.mockImplementation(async (sql: string) => sql.includes('COUNT(*)')
+    ? { rows: [{ total: '1' }], rowCount: 1 }
+    : { rows: [{
+        user_id: 'user-1', analysis_id: '11111111-1111-4111-8111-111111111111',
+        input_data: { kind: 'TEXT', text: 'dal' }, input_digest: 'digest',
+        result_data: { outcome: 'COMPLETE' }, nutrition_answers: [], meal_type_answer: 'LUNCH',
+        feedback_signal: 'UP', feedback_at: '2026-08-31T10:02:00.000Z',
+        logged_at: '2026-08-31T10:03:00.000Z', logged_meal: { name: 'Dal' }, deleted_at: null,
+        created_at: '2026-08-31T10:00:00.000Z', updated_at: '2026-08-31T10:03:00.000Z',
+      }], rowCount: 1 });
+
+  const page = await listMealAnalysisV3History(2, 'TEXT');
+  assert.equal(page.page, 2);
+  assert.equal(page.totalPages, 1);
+  assert.equal(page.entries[0]?.feedbackSignal, 'UP');
+  assert.deepEqual(page.entries[0]?.loggedMeal, { name: 'Dal' });
+  const rowsQuery = databaseQuery.mock.calls.at(-1)?.arguments;
+  assert.match(String(rowsQuery?.[0]), /ORDER BY updated_at DESC/);
+  assert.deepEqual(rowsQuery?.[1], ['TEXT', 10, 10]);
+});
 
 test('loads a user-scoped durable V3 session', async () => {
   databaseQuery.mock.mockImplementationOnce(async () => ({

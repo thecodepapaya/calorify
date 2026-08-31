@@ -159,14 +159,41 @@ class MealAnalysisV3ProgressController
   void apply(MealAnalysisV3Progress update) {
     final previous = value;
     final advances = previous == null || update.progress >= previous.progress;
+    final incomingComponents = update.components;
+    final components = switch ((previous, incomingComponents.isEmpty)) {
+      (_, true) => previous?.components ?? const [],
+      (final prior?, false)
+          when !advances &&
+              incomingComponents.every(
+                (component) => component.ingredientNames.isEmpty,
+              ) =>
+        prior.components,
+      (final prior?, false) => incomingComponents
+          .map((component) {
+            final old =
+                prior.components
+                    .where(
+                      (candidate) =>
+                          candidate.componentId == component.componentId,
+                    )
+                    .firstOrNull;
+            if (component.ingredientNames.isNotEmpty || old == null) {
+              return component;
+            }
+            return MealAnalysisV3ProgressComponent(
+              componentId: component.componentId,
+              name: component.name,
+              ingredientNames: old.ingredientNames,
+            );
+          })
+          .toList(growable: false),
+      (null, false) => incomingComponents,
+    };
     value = MealAnalysisV3Progress(
       phase: advances ? update.phase : previous.phase,
       progress: advances ? update.progress : previous.progress,
       mealName: update.mealName ?? previous?.mealName,
-      ingredientNames:
-          update.ingredientNames.isNotEmpty
-              ? update.ingredientNames
-              : previous?.ingredientNames ?? const [],
+      components: components,
     );
   }
 }

@@ -35,6 +35,11 @@ export interface MealInterpretationResult {
   providerAttempts: MealAnalysisLlmAttempt[];
 }
 
+export interface MealInterpretationPassSnapshot {
+  firstPass: FirstPassResponse;
+  secondPass?: SecondPassResponse;
+}
+
 export interface MealInterpreter {
   interpret(input: NormalizedMealInput, image?: MealInterpretationImage): Promise<MealInterpretationResult>;
 }
@@ -114,6 +119,7 @@ export function createModelMealInterpreter(
   options: {
     writeProviderTrace?: (entry: unknown) => void | Promise<void>;
     reasoningEffort?: 'none' | 'minimal';
+    onPassCompleted?: (snapshot: MealInterpretationPassSnapshot) => void;
   } = {}
 ): MealInterpreter {
   return {
@@ -142,6 +148,7 @@ export function createModelMealInterpreter(
         },
       });
       const firstPass = firstPassResponseSchema.parse(firstValue);
+      options.onPassCompleted?.({ firstPass });
       if (!firstPass.food_detected) {
         return {
           proposal: buildInterpretationProposal(firstPass, {}, input),
@@ -168,6 +175,7 @@ export function createModelMealInterpreter(
         },
       });
       const secondPass = secondPassResponseSchema.parse(secondValue);
+      options.onPassCompleted?.({ firstPass, secondPass });
       const proposal = buildInterpretationProposal(firstPass, secondPass, input);
       return {
         proposal,

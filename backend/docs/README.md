@@ -4,6 +4,8 @@
   database matches through the production V3 resolver without modifying data.
 - [Meal-analysis V3 API](meal-analysis-v3-api.md) — authenticated HTTP routes,
   atomic question bundles, terminal events, and durable session behavior.
+- [Meal-analysis history](analysis-history.md) — protected, read-only operator
+  inspector for durable V3 sessions and recorded user follow-up.
 - [Meal-analysis V3 hypothesis CLI](meal-analysis-cli.md) — observable two-pass
   text and image interpretation, derived scenarios, active local USDA grounding,
   per-ingredient generic/branded/ambiguous retrieval routing, bounded questions,

@@ -36,8 +36,9 @@ flowchart LR
   calories—produces totals.
 - **Scenarios before questions:** plausible recipes and portions produce points
   and ranges; the app asks only when an answer materially improves nutrition.
-- **Stage-driven progress:** the rich sheet reflects completed backend work and
-  stays visually monotonic across clarification.
+- **Stage-driven progress:** the rich sheet shows component headings after pass
+  one, fills in their ingredient lists after pass two, and stays visually
+  monotonic across clarification.
 - **Local-first saving:** meals remain usable offline while a durable outbox
   synchronizes confirmation later.
 

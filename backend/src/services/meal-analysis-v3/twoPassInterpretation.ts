@@ -286,6 +286,14 @@ function uniqueId(base: string, used: Set<string>): string {
   return candidate;
 }
 
+/** Stable component IDs shared by pass-level progress and the final proposal. */
+export function componentIdsForFirstPass(first: FirstPassResponse): string[] {
+  const used = new Set<string>();
+  return first.components.map((component) =>
+    uniqueId(slug(component.componentName), used)
+  );
+}
+
 function modelEvidence(text: string): Evidence {
   return { origin: 'MODEL_INFERRED', text };
 }
@@ -661,11 +669,11 @@ export function buildInterpretationProposal(
   if (secondByName.size !== first.components.length || second.components.length !== first.components.length) {
     throw new Error('Second pass must return exactly one recipe for every first-pass component');
   }
-  const usedComponentIds = new Set<string>();
-  const components = first.components.map((component) => {
+  const componentIds = componentIdsForFirstPass(first);
+  const components = first.components.map((component, index) => {
     const recipe = secondByName.get(normalized(component.componentName));
     if (!recipe) throw new Error(`Second pass omitted component ${component.componentName}`);
-    return componentProposal(component, recipe, input, uniqueId(slug(component.componentName), usedComponentIds));
+    return componentProposal(component, recipe, input, componentIds[index]!);
   });
   const mealType = first.mealTypeCandidate;
   const candidateOrigin = mealType.origin === 'user_text' && input.kind === 'TEXT' ? 'USER_TEXT' : 'MODEL_INFERRED';

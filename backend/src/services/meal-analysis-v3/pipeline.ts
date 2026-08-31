@@ -17,6 +17,7 @@ import {
 import {
   createModelMealInterpreter,
   type MealInterpretationImage,
+  type MealInterpretationPassSnapshot,
   type MealInterpreter,
 } from './interpretation.js';
 import {
@@ -99,6 +100,7 @@ export interface RunMealAnalysisV3Options {
     questions: MealAnalysisQuestionBundle
   ) => Promise<MealAnalysisInputResponse>;
   observer?: StageObserver;
+  interpretationObserver?: (snapshot: MealInterpretationPassSnapshot) => void;
   interpreter?: MealInterpreter;
   nutritionResolver?: NutritionResolver;
   nutritionFallback?: NutritionFallback;
@@ -183,7 +185,13 @@ export async function runMealAnalysisV3(
   const input = await recorder.record('INPUT_NORMALIZED', options.input, () =>
     normalizedMealInputSchema.parse(options.input)
   );
-  const interpreter = options.interpreter ?? createModelMealInterpreter();
+  const interpreter = options.interpreter ?? createModelMealInterpreter(
+    undefined,
+    undefined,
+    options.interpretationObserver
+      ? { onPassCompleted: options.interpretationObserver }
+      : {},
+  );
   const interpreted = await recorder.record('INTERPRETED', {
     input,
     image: options.image

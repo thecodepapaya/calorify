@@ -61,17 +61,80 @@ void main() {
         'analysisId': 'analysis-1',
         'data': {
           'phase': 'MATCH',
-          'progress': 0.3,
+          'progress': 0.34,
           'mealName': 'Dal and rice',
-          'ingredientNames': ['Dal', 'Rice'],
+          'components': [
+            {
+              'componentId': 'dal',
+              'name': 'Dal',
+              'ingredientNames': ['Lentils', 'Ghee'],
+            },
+            {
+              'componentId': 'rice',
+              'name': 'Rice',
+              'ingredientNames': ['Basmati rice'],
+            },
+          ],
         },
       });
 
       expect(event.kind, MealAnalysisV3EventKind.progress);
       expect(event.progress!.phase, MealAnalysisV3ProgressPhase.match);
-      expect(event.progress!.progress, 0.3);
+      expect(event.progress!.progress, 0.34);
       expect(event.progress!.mealName, 'Dal and rice');
-      expect(event.progress!.ingredientNames, ['Dal', 'Rice']);
+      expect(event.progress!.components, hasLength(2));
+      expect(event.progress!.components.first.componentId, 'dal');
+      expect(event.progress!.components.first.name, 'Dal');
+      expect(event.progress!.components.first.ingredientNames, [
+        'Lentils',
+        'Ghee',
+      ]);
+    },
+  );
+
+  test(
+    'V3 progress rejects duplicate components and oversized ingredient lists',
+    () {
+      Map<String, dynamic> progressData(
+        List<Map<String, dynamic>> components,
+      ) => {
+        'event': 'PROGRESS',
+        'analysisId': 'analysis-1',
+        'data': {'phase': 'MATCH', 'progress': 0.34, 'components': components},
+      };
+
+      expect(
+        () => MealAnalysisV3Event.fromJson(
+          progressData([
+            {
+              'componentId': 'dal',
+              'name': 'Dal',
+              'ingredientNames': <String>[],
+            },
+            {
+              'componentId': 'dal',
+              'name': 'Rice',
+              'ingredientNames': <String>[],
+            },
+          ]),
+        ),
+        throwsFormatException,
+      );
+      expect(
+        () => MealAnalysisV3Event.fromJson(
+          progressData([
+            {
+              'componentId': 'dal',
+              'name': 'Dal',
+              'ingredientNames': List.generate(
+                25,
+                (index) => 'Ingredient $index',
+              ),
+            },
+          ]),
+        ),
+        throwsFormatException,
+      );
     },
   );
 }

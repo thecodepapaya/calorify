@@ -24,7 +24,13 @@ void main() {
         phase: MealAnalysisV3ProgressPhase.check,
         progress: 0.8,
         mealName: 'Roti',
-        ingredientNames: ['roti'],
+        components: [
+          MealAnalysisV3ProgressComponent(
+            componentId: 'roti',
+            name: 'Roti',
+            ingredientNames: ['Whole-wheat flour'],
+          ),
+        ],
       ),
     );
     progress.apply(
@@ -37,17 +43,26 @@ void main() {
     expect(progress.value!.progress, 0.8);
     expect(progress.value!.phase, MealAnalysisV3ProgressPhase.check);
     expect(progress.value!.mealName, 'Roti');
-    expect(progress.value!.ingredientNames, ['roti']);
+    expect(progress.value!.components.single.name, 'Roti');
+    expect(progress.value!.components.single.ingredientNames, [
+      'Whole-wheat flour',
+    ]);
 
     progress.apply(
       const MealAnalysisV3Progress(
         phase: MealAnalysisV3ProgressPhase.match,
-        progress: 0.3,
+        progress: 0.22,
         mealName: 'Whole-wheat roti',
+        components: [
+          MealAnalysisV3ProgressComponent(componentId: 'roti', name: 'Roti'),
+        ],
       ),
     );
     expect(progress.value!.progress, 0.8);
     expect(progress.value!.mealName, 'Whole-wheat roti');
+    expect(progress.value!.components.single.ingredientNames, [
+      'Whole-wheat flour',
+    ]);
 
     progress.apply(
       const MealAnalysisV3Progress(
@@ -122,20 +137,56 @@ void main() {
 
     progress.value = const MealAnalysisV3Progress(
       phase: MealAnalysisV3ProgressPhase.match,
-      progress: 0.3,
+      progress: 0.22,
       mealName: 'Dal and rice',
-      ingredientNames: ['Dal', 'Rice'],
+      components: [
+        MealAnalysisV3ProgressComponent(componentId: 'dal', name: 'Dal'),
+        MealAnalysisV3ProgressComponent(componentId: 'rice', name: 'Rice'),
+      ],
+    );
+    await tester.pump(const Duration(milliseconds: 350));
+    expect(find.text('Dal'), findsOneWidget);
+    expect(find.text('Rice'), findsOneWidget);
+    for (final componentId in ['dal', 'rice']) {
+      expect(
+        find.descendant(
+          of: find.byKey(ValueKey('v3-progress-component-$componentId')),
+          matching: find.text('Scanning ingredients…'),
+        ),
+        findsOneWidget,
+      );
+    }
+
+    progress.value = const MealAnalysisV3Progress(
+      phase: MealAnalysisV3ProgressPhase.match,
+      progress: 0.34,
+      mealName: 'Dal and rice',
+      components: [
+        MealAnalysisV3ProgressComponent(
+          componentId: 'dal',
+          name: 'Dal',
+          ingredientNames: ['Lentils', 'Ghee'],
+        ),
+        MealAnalysisV3ProgressComponent(
+          componentId: 'rice',
+          name: 'Rice',
+          ingredientNames: ['Basmati rice'],
+        ),
+      ],
     );
     await tester.pump(const Duration(milliseconds: 350));
     expect(find.text('Dal and rice'), findsOneWidget);
     expect(find.text('Looking up ingredient nutrition'), findsOneWidget);
-    expect(find.text('Dal'), findsOneWidget);
-    expect(find.text('Rice'), findsOneWidget);
+    expect(find.text('Dal'), findsWidgets);
+    expect(find.text('Rice'), findsWidgets);
+    expect(find.text('Lentils'), findsOneWidget);
+    expect(find.text('Ghee'), findsOneWidget);
+    expect(find.text('Basmati rice'), findsOneWidget);
     expect(
       tester
           .widget<LinearProgressIndicator>(find.byType(LinearProgressIndicator))
           .value,
-      0.3,
+      0.34,
     );
 
     completion.complete();
