@@ -18,7 +18,7 @@ Future<void> showMealAnalysisV3LoadingSheet({
     context: context,
     useRootNavigator: true,
     isDismissible: false,
-    enableDrag: false,
+    enableDrag: true,
     showDragHandle: true,
     isScrollControlled: true,
     routeSettings: const RouteSettings(name: RouteNames.mealAnalysisSheet),
