@@ -94,6 +94,10 @@ The read URL is constructed and fetched by the backend during analysis; it is
 not returned to the app. The opaque ID is accepted only when its owner prefix
 matches the authenticated Firebase UID.
 
+After upload, interpretation, clarification, progress continuity, presentation,
+and logging follow the canonical
+[meal-analysis V3 lifecycle](plans/meal-analysis-reliability.md#end-to-end-lifecycle).
+
 Staging and production use separate buckets and PAR pairs. Both configured PAR
 values live only in ignored backend runtime environment files. The upload PAR
 must never appear in app source, build defines, CI configuration, telemetry, or

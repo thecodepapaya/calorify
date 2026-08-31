@@ -12,6 +12,38 @@ Calorify is a friendly nutrition tracker for Android and Wear OS. Log a meal by 
 - Goals, history, favorites, and Health Connect support
 - A Wear OS companion for quick voice logging
 
+## Meal analysis at a glance
+
+```mermaid
+flowchart LR
+  A[Text or private photo] --> B[Two-pass interpretation]
+  B --> C[USDA-first ingredient resolution]
+  C --> D[Scenario calculation and ranges]
+  D --> E{Material uncertainty?}
+  E -->|Yes| F[One atomic question bundle]
+  F --> D
+  E -->|No| G[Integrity check and presentation]
+  G --> H[Local save]
+  H -. durable outbox .-> I[Server log confirmation]
+```
+
+### Why it works this way
+
+- **Two model passes:** component detection and ingredient decomposition stay
+  small, structured, and independently validated.
+- **USDA first:** trusted records are preferred; any bounded model fallback is
+  explicitly labelled. Deterministic ingredient arithmetic—not model-written
+  calories—produces totals.
+- **Scenarios before questions:** plausible recipes and portions produce points
+  and ranges; the app asks only when an answer materially improves nutrition.
+- **Stage-driven progress:** the rich sheet reflects completed backend work and
+  stays visually monotonic across clarification.
+- **Local-first saving:** meals remain usable offline while a durable outbox
+  synchronizes confirmation later.
+
+For contracts, tradeoffs, and future work, see the
+[V3 architecture and roadmap](docs/plans/meal-analysis-reliability.md).
+
 ## App flow and feature map
 
 ```mermaid
@@ -53,34 +85,21 @@ flowchart TB
       PHOTO --> UPLOAD["Upload to private object storage"]
       UPLOAD --> IMAGE_API["Start streamed image analysis"]
 
-      INPUT -->|Typed description| TEXT_ROUTE{"Local analysis enabled<br/>and device/model ready?"}
-      TEXT_ROUTE -->|Yes| LOCAL_MODEL["On-device interpretation<br/>build an ingredient proposal"]
-      LOCAL_MODEL --> REVIEW["Review and edit ingredients,<br/>portions, preparation, and ranges"]
-      REVIEW --> LOCAL_NUTRITION{"Offline nutrition pack<br/>can resolve ingredients?"}
-      LOCAL_NUTRITION -->|Yes| LOCAL_RESULT["Calculate nutrition locally"]
-      LOCAL_NUTRITION -->|No| CLOUD_PROPOSAL["Send approved proposal for<br/>server-side nutrition resolution"]
-      TEXT_ROUTE -->|No or local fallback| TEXT_API["Start streamed cloud text analysis"]
+      INPUT -->|Typed description| TEXT_API["Start streamed V3 text analysis"]
 
       INPUT -->|Favorite or custom meal| QUICK["Review/edit saved nutrition<br/>and choose meal type"]
       QUICK --> SAVE
 
-      IMAGE_API --> PIPELINE
+      IMAGE_API --> PIPELINE["Live V3 progress<br/>interpret components and ingredients<br/>→ resolve nutrition → calculate scenarios<br/>→ plan questions → validate and present"]
       TEXT_API --> PIPELINE
-      CLOUD_PROPOSAL --> PIPELINE
-      LOCAL_RESULT --> PIPELINE["Live analysis progress<br/>detect food → interpret dish → decompose ingredients<br/>→ estimate portions → ground nutrition → summarize"]
       PIPELINE --> FOOD{"Food detected?"}
       FOOD -->|No| RETRY["Explain no-food result<br/>retry with another input"]
       RETRY --> INPUT
       FOOD -->|Yes| CLARIFY{"More detail needed?"}
-      CLARIFY -->|Yes| QUESTIONS["Answer portion, ingredient,<br/>or preparation questions"]
+      CLARIFY -->|Yes| QUESTIONS["Answer material portion, ingredient,<br/>preparation, or meal-type questions"]
       QUESTIONS --> PIPELINE
-      CLARIFY -->|No| TYPE{"Meal type known?"}
-      TYPE -->|No| PICK_TYPE["Choose breakfast, lunch,<br/>dinner, or snack"]
-      PICK_TYPE --> PIPELINE
-      TYPE -->|Yes| RESULT["Meal result<br/>calories · protein · carbs · fat · fiber<br/>health score/reason · ingredient breakdown · tip"]
-      RESULT -->|Adjust input| REANALYZE["Reanalyze with a correction"]
-      REANALYZE --> PIPELINE
-      RESULT -->|Rate result| FEEDBACK["Helpful / not helpful<br/>issue tags and optional note"]
+      CLARIFY -->|No| RESULT["Meal result<br/>serving text · calories and range<br/>protein · carbs · fat · fiber · tip"]
+      RESULT -->|Rate result| FEEDBACK["Helpful / not helpful"]
       RESULT -->|Confirm| SAVE["Save the logged meal locally"]
     end
 
@@ -103,17 +122,15 @@ flowchart TB
       SETTINGS --> PERSONALIZE["Language · light/dark/system theme<br/>metric/imperial height and weight units"]
       SETTINGS --> REMINDERS["Meal reminder schedule<br/>local notification permissions"]
       SETTINGS --> HEALTH_SETTINGS["Health Connect permissions<br/>read activity/calories · opt-in nutrition export<br/>disconnect or delete app-written health records"]
-      SETTINGS --> LOCAL_SETTINGS["Beta on-device inference<br/>install/update/clear offline USDA nutrition pack"]
       SETTINGS --> SUPPORT["Send feedback email · export meal history CSV<br/>About/legal · app version"]
       SETTINGS --> PRIVACY["Clear all local app data"]
-      SETTINGS --> DEV["Debug builds: database inspector,<br/>analysis observability, local inference,<br/>mock states and diagnostics"]
+      SETTINGS --> DEV["Debug builds: database inspector,<br/>analysis observability, mock states,<br/>and diagnostics"]
     end
 
     subgraph LOCAL_DATA["Offline-first phone data"]
       direction LR
       DB[("Drift / SQLite<br/>profile · preferences · meals · favorites<br/>local nutrition cache · durable sync queues")]
       OUTBOX["Transactional outboxes<br/>meal-log confirmations/deletions<br/>and Health Connect upserts/deletions"]
-      PACK[("Versioned local<br/>nutrition pack")]
     end
 
     PROFILE_SAVE --> DB
@@ -124,8 +141,6 @@ flowchart TB
     EDIT --> DB
     DELETE --> DB
     DB --> OUTBOX
-    LOCAL_SETTINGS --> PACK
-    PACK --> LOCAL_NUTRITION
   end
 
   subgraph WATCH["Wear OS companion · Flutter"]
@@ -154,9 +169,9 @@ flowchart TB
   subgraph BACKEND["Authenticated backend · Fastify / Node.js"]
     direction TB
     API["Firebase ID-token authentication<br/>App Check context · validation · rate limits"]
-    API --> V2["Streamed meal API v2<br/>text/image/proposal · clarify · meal type<br/>resume · reanalyze · feedback · confirm log"]
+    API --> V3["Streamed meal API V3<br/>text/image · progress · atomic answers<br/>resume · feedback · confirm log"]
     API --> V1["Supporting API v1<br/>profile · meal-analysis tips<br/>meal-history CSV export · AI summary"]
-    V2 --> ENGINE["Nutrition engine<br/>dish interpretation and decomposition<br/>quantity/portion estimation · deterministic rules"]
+    V3 --> ENGINE["Nutrition engine<br/>two-pass structured interpretation<br/>coherent scenarios · deterministic calculation"]
     ENGINE --> USDA_LOOKUP["USDA lookup and nutrient calculation<br/>with bounded model fallback"]
     ENGINE --> SESSION[("PostgreSQL<br/>analysis sessions · snapshots · confirmed logs<br/>profiles · feedback · summary state")]
     V1 --> SESSION
@@ -181,10 +196,7 @@ flowchart TB
   UPLOAD --> OBJECTS
   IMAGE_API --> API
   TEXT_API --> API
-  CLOUD_PROPOSAL --> API
   QUESTIONS --> API
-  PICK_TYPE --> API
-  REANALYZE --> API
   FEEDBACK --> API
   OUTBOX -->|Retry on startup, resume, and mutation| API
   OUTBOX -->|When nutrition sync is enabled| HEALTH
@@ -196,7 +208,6 @@ flowchart TB
   SUMMARY_JOB --> MODELS
   USDA --> USDA_LOOKUP
   OBJECTS --> ENGINE
-  OBJECTS --> PACK
   PROFILE_SAVE -->|Profile sync| V1
   SUPPORT -->|CSV export| V1
 

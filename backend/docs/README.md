@@ -12,10 +12,10 @@
   model and deterministic enum values, including preparation methods.
 - [Meal-analysis model eval](../evals/README.md) — exact-model evaluation of the
   two decomposition passes and their semantic bounds.
-- [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — metric
-  names and example Grafana queries.
+- [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — implemented
+  provider metrics, reserved stage/client instrumentation, and target queries.
 
-The approved cross-component rewrite is in the
-[meal-analysis backend rewrite plan](../../docs/plans/meal-analysis-reliability.md).
+The canonical cross-component flow, decisions, tradeoffs, and roadmap are in
+the [meal-analysis V3 architecture and roadmap](../../docs/plans/meal-analysis-reliability.md).
 This directory holds backend-specific implementation and operational evidence;
 the repository-level docs index links to all other documentation.

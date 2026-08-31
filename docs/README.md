@@ -12,10 +12,10 @@ Use this page to find the document that matches the work you are doing.
 
 ## Plans and decisions
 
-- [Meal-analysis backend rewrite](plans/meal-analysis-reliability.md) — approved
-  two-pass component and ingredient interpretation, deterministic recipe
-  scenarios, resolver-owned USDA matching and fallbacks, bounded clarification,
-  macro ranges, CLI-first delivery, durable cutover, and release gates.
+- [Meal-analysis V3 architecture and roadmap](plans/meal-analysis-reliability.md)
+  — canonical implemented text/image lifecycle, two-pass interpretation,
+  scenarios and ranges, clarification, progress UI, persistence and log sync,
+  design tradeoffs, known limitations, and considered future features.
 - [Nutrition resolver retrieval](plans/nutrition-resolver-retrieval.md) —
   canonical FTS, USDA NFS, and generic-spices fallback decisions, resolver
   invariants, and deferred embedding design and rollout criteria.
@@ -37,6 +37,7 @@ Use this page to find the document that matches the work you are doing.
 ## Backend references
 
 - [Meal-analysis Prometheus metrics](../backend/docs/meal-analysis-prometheus.md)
+  — implemented provider telemetry and explicitly unwired stage/client metrics.
 - [Meal-analysis model eval](../backend/evals/README.md)
 
 ## Other references

@@ -9,6 +9,12 @@
 resolver. The broader [meal-analysis reliability plan](meal-analysis-reliability.md)
 remains the canonical policy for meal analysis as a whole.
 
+The resolver runs for every active leaf in every retained scenario before
+calculation and clarification planning. Its output is one input to the broader
+flow; session replay, cross-stream progress, questions, presentation, logging,
+and client recovery belong to the cross-component plan. The current HTTP answer
+path repeats resolver work because stage checkpoints are not yet persisted.
+
 ## Decision summary
 
 | Capability | Decision | Status |
@@ -22,12 +28,16 @@ remains the canonical policy for meal analysis as a whole.
 | Embedding generation, pgvector, and semantic retrieval | Defer | Not built |
 | Embeddings as an acceptance signal | Never allow | Permanent constraint |
 
-The current resolver can safely reject basic ingredients such as `tomato` and
-`onion` when USDA writes them as `tomatoes` and `onions`. Its comparison
-normalization lowercases and removes punctuation, but does not reduce
-morphology. A full-text candidate query alone would not fix this: the final
-identity gate would still compare literal tokens. The FTS phase therefore adds
-both stemmed retrieval and a bounded, deterministic stemmed identity tier.
+Resolver changes must preserve the result receipt and public provenance
+boundary described by the cross-component flow. A model estimate uses a
+synthetic record ID and `llm-nutrition-estimate-v1`; it is not a USDA match.
+
+Before the implemented stemmed tier, the resolver safely rejected basic
+ingredients such as `tomato` and `onion` when USDA wrote them as `tomatoes` and
+`onions`. Lowercasing and punctuation removal did not reduce morphology, and a
+full-text candidate query alone would not have fixed the literal final identity
+gate. The shipped FTS phase therefore added both stemmed retrieval and a
+bounded, deterministic stemmed identity tier.
 
 ## Current resolver behavior
 

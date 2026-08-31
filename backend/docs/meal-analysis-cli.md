@@ -8,7 +8,9 @@ needed, and exposes each stage's exact input and output.
 This is an ephemeral development tool. One interactive process keeps resolved
 model and USDA state in memory while answers are entered, so it does not rerun
 those external stages. It does not write application sessions, save meals, or
-resume after process exit. Durable V3 resume remains a later backend phase.
+resume after process exit. The HTTP adapter has durable result-level resume,
+but currently reruns interpretation and resolution on answer submission; see
+the [cross-component flow](../../docs/plans/meal-analysis-reliability.md#7-clarification-and-answers).
 
 ## Prerequisites
 
@@ -157,10 +159,12 @@ use raw, dry, cooked, drained, or retained ingredient nutrition bases to
 calculate that finished portion; those are ingredient properties, not a
 separate component measurement mode.
 
-If any active leaf remains unresolved, `NUTRITION_RESOLVED` records its
-diagnostics and the runner emits the downstream calculation, questions,
-presentation, and integrity stages as `SKIPPED`. The terminal outcome is
-`UNRESOLVED`; the CLI never fills those gaps with model-generated nutrition.
+After the USDA, NFS, and resolver-owned local paths, the runner may fill a
+still-unresolved active leaf with a strictly validated per-100-g model estimate
+carrying synthetic provenance. If any leaf remains unresolved after that
+fallback, `NUTRITION_RESOLVED` records its diagnostics and the runner emits the
+downstream calculation, questions, presentation, and integrity stages as
+`SKIPPED`. The terminal outcome is `UNRESOLVED`.
 
 Live CLI interpretation sends `reasoning_effort: none`, which is supported by
 the default `gpt-5.6-luna` model.
@@ -258,10 +262,11 @@ Exactly one of `--text` and `--image` is required.
 | `4` | Provider, database, or other runtime failure |
 | `64` | Invalid CLI input or arguments |
 
-`UNRESOLVED` is expected when an active ingredient cannot be matched without
-ambiguity, preparation is incompatible, or calories, protein, carbohydrate,
-or fat are absent from a presence-aware trusted record. Missing fiber is
-reported as zero. The CLI never substitutes model-generated nutrition.
+`UNRESOLVED` is expected when an active ingredient remains unresolved after
+USDA, eligible resolver-owned fallbacks, and the strictly validated model
+nutrition fallback; when preparation is incompatible; or when required macros
+remain absent. Missing fiber is reported as zero. Model estimates retain
+explicit synthetic provenance and never masquerade as USDA.
 
 ## Troubleshooting
 
@@ -273,5 +278,5 @@ reported as zero. The CLI never substitutes model-generated nutrition.
 - Exit `2` in JSON mode: submit the exact question IDs shown, or run
   interactively.
 
-The approved future durable/API work is tracked in the
-[meal-analysis backend rewrite plan](../../docs/plans/meal-analysis-reliability.md).
+The implemented app/API flow and future checkpointing work are tracked in the
+[meal-analysis V3 architecture and roadmap](../../docs/plans/meal-analysis-reliability.md).
