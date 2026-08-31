@@ -813,6 +813,11 @@ class _Translations$meal$analysis$fr extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Presque fini…';
 	@override String get stepResult => 'Finalisation du résultat…';
 	@override String get stepError => 'Une erreur est survenue';
+	@override String get providerUnavailable => 'Le service d’analyse des repas est temporairement indisponible. Veuillez réessayer.';
+	@override String get invalidModelOutput => 'La réponse du modèle n’a pas pu être comprise. Veuillez réessayer.';
+	@override String get nutritionDataUnavailable => 'Les données nutritionnelles sont temporairement indisponibles. Veuillez réessayer.';
+	@override String get analysisUnavailable => 'L’analyse du repas est temporairement indisponible. Veuillez réessayer.';
+	@override String get unresolvedNutrition => 'Nous n’avons pas pu associer de façon fiable des données nutritionnelles à ce repas. Essayez d’ajouter plus de précisions.';
 	@override String get noFoodTip => 'Aucune nourriture détectée. Essayez une autre photo ou description.';
 	@override String get stepDefault => 'Analyse de votre repas…';
 	@override String get progressUnderstand => 'Compréhension du repas';
@@ -2228,6 +2233,11 @@ extension on TranslationsFr {
 			'meal.analysis.stepMealTypeQuestion' => 'Presque fini…',
 			'meal.analysis.stepResult' => 'Finalisation du résultat…',
 			'meal.analysis.stepError' => 'Une erreur est survenue',
+			'meal.analysis.providerUnavailable' => 'Le service d’analyse des repas est temporairement indisponible. Veuillez réessayer.',
+			'meal.analysis.invalidModelOutput' => 'La réponse du modèle n’a pas pu être comprise. Veuillez réessayer.',
+			'meal.analysis.nutritionDataUnavailable' => 'Les données nutritionnelles sont temporairement indisponibles. Veuillez réessayer.',
+			'meal.analysis.analysisUnavailable' => 'L’analyse du repas est temporairement indisponible. Veuillez réessayer.',
+			'meal.analysis.unresolvedNutrition' => 'Nous n’avons pas pu associer de façon fiable des données nutritionnelles à ce repas. Essayez d’ajouter plus de précisions.',
 			'meal.analysis.noFoodTip' => 'Aucune nourriture détectée. Essayez une autre photo ou description.',
 			'meal.analysis.stepDefault' => 'Analyse de votre repas…',
 			'meal.analysis.progressUnderstand' => 'Compréhension du repas',
@@ -2485,13 +2495,13 @@ extension on TranslationsFr {
 			'disclaimer.snap.portionSize.description' => 'La précision des estimations dépend fortement de l\'évaluation correcte de la taille de la portion.',
 			'disclaimer.snap.preparationMethods.title' => 'Méthodes de préparation',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Les modes de cuisson peuvent modifier significativement la valeur nutritionnelle des aliments. Les estimations de ${appLabel} peuvent ne pas toujours prendre en compte ces variations.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingrédients',
 			'disclaimer.snap.ingredients.description' => 'Les plats complexes avec de nombreux ingrédients cachés peuvent conduire à des estimations moins précises.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limites de la base de données',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'La base de données d\'aliments de ${appLabel} est étendue mais peut ne pas inclure chaque ingrédient ou variation.',
 			'disclaimer.weightEstimate.title' => 'À propos de l\'estimation de poids',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'La variation de poids projetée est une estimation théorique basée sur le modèle simple calories entrantes vs calories dépensées. Elle sert uniquement de guide motivationnel et non de prédiction de votre poids réel.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Précision des calories',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Cette estimation n\'est aussi précise que vos apports et dépenses caloriques enregistrés. Un enregistrement inexact donnera une projection inexacte.',

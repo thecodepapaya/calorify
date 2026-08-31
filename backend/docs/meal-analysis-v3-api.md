@@ -16,8 +16,32 @@ and every analysis ID is scoped to the authenticated user.
 - `POST /api/v3/food/confirm-log` records a log confirmation or deletion.
 
 Analysis responses use newline-delimited JSON. Every line contains `event`,
-`analysisId`, and `data`. A stream begins with `STARTED` and ends with exactly
-one of `NEEDS_INPUT`, `COMPLETE`, `NO_FOOD`, `UNRESOLVED`, or `ERROR`.
+`analysisId`, and `data`. A stream begins with `STARTED`, can include bounded
+`PROGRESS` events, and ends with exactly one of `NEEDS_INPUT`, `COMPLETE`,
+`NO_FOOD`, `UNRESOLVED`, or `ERROR`.
+
+`PROGRESS.data` contains a `phase` (`UNDERSTAND`, `MATCH`, `CHECK`, or
+`FINISH`) and a monotonic `progress` value from zero to one. It can also contain
+a bounded meal name and ingredient-name list after interpretation. Progress is
+derived from completed pipeline stages; private model responses, resolver
+candidates, and database details never cross this boundary. Clients retain the
+latest copy fields when a later progress event only advances the phase.
+
+`ERROR.data.code` is a bounded public category, never a raw exception message:
+
+- `UNUSABLE_INPUT` means the submitted description or image could not be
+  interpreted and should be edited rather than retried unchanged.
+- `PROVIDER_UNAVAILABLE` means the configured model provider could not complete
+  the request.
+- `INVALID_MODEL_OUTPUT` means a provider response failed structural or semantic
+  validation.
+- `NUTRITION_DATA_UNAVAILABLE` means trusted nutrition resolution failed.
+- `ANALYSIS_UNAVAILABLE` is the fallback for other internal analysis failures.
+
+The four transient failure categories use `retryable: true` and
+`recoveryAction: "RETRY"`; `UNUSABLE_INPUT` uses `EDIT_INPUT`.
+Operational logs include the public category and a separate redacted internal
+error kind for correlation by `analysisId`.
 
 ## Questions
 

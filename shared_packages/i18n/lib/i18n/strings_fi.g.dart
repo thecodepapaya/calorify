@@ -813,6 +813,11 @@ class _Translations$meal$analysis$fi extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Melkein valmis…';
 	@override String get stepResult => 'Viimeistellään tulosta…';
 	@override String get stepError => 'Jotain meni pieleen';
+	@override String get providerUnavailable => 'Ateria-analyysipalvelu on tilapäisesti poissa käytöstä. Yritä uudelleen.';
+	@override String get invalidModelOutput => 'Aterian vastausta ei voitu ymmärtää. Yritä uudelleen.';
+	@override String get nutritionDataUnavailable => 'Ravintotiedot eivät ole tilapäisesti saatavilla. Yritä uudelleen.';
+	@override String get analysisUnavailable => 'Ateria-analyysi on tilapäisesti poissa käytöstä. Yritä uudelleen.';
+	@override String get unresolvedNutrition => 'Emme pystyneet yhdistämään ravintotietoja tähän ateriaan luotettavasti. Kokeile lisätä tarkempia tietoja.';
 	@override String get noFoodTip => 'Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.';
 	@override String get stepDefault => 'Analysoidaan ateriaasi…';
 	@override String get progressUnderstand => 'Ymmärretään ateria';
@@ -2228,6 +2233,11 @@ extension on TranslationsFi {
 			'meal.analysis.stepMealTypeQuestion' => 'Melkein valmis…',
 			'meal.analysis.stepResult' => 'Viimeistellään tulosta…',
 			'meal.analysis.stepError' => 'Jotain meni pieleen',
+			'meal.analysis.providerUnavailable' => 'Ateria-analyysipalvelu on tilapäisesti poissa käytöstä. Yritä uudelleen.',
+			'meal.analysis.invalidModelOutput' => 'Aterian vastausta ei voitu ymmärtää. Yritä uudelleen.',
+			'meal.analysis.nutritionDataUnavailable' => 'Ravintotiedot eivät ole tilapäisesti saatavilla. Yritä uudelleen.',
+			'meal.analysis.analysisUnavailable' => 'Ateria-analyysi on tilapäisesti poissa käytöstä. Yritä uudelleen.',
+			'meal.analysis.unresolvedNutrition' => 'Emme pystyneet yhdistämään ravintotietoja tähän ateriaan luotettavasti. Kokeile lisätä tarkempia tietoja.',
 			'meal.analysis.noFoodTip' => 'Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.',
 			'meal.analysis.stepDefault' => 'Analysoidaan ateriaasi…',
 			'meal.analysis.progressUnderstand' => 'Ymmärretään ateria',
@@ -2485,13 +2495,13 @@ extension on TranslationsFi {
 			'disclaimer.snap.portionSize.description' => 'Arvioiden tarkkuus perustuu pitkälti oikeaan annoskoon arviointiisi.',
 			'disclaimer.snap.preparationMethods.title' => 'Valmistustavat',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Ruokien valmistustavat voivat merkittävästi muuttaa ravintoarvoja. ${appLabel}in arviot eivät aina huomioi näitä eroja.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ainesosat',
 			'disclaimer.snap.ingredients.description' => 'Monimutkaiset ruoat, joissa on paljon piilotettuja ainesosia, saattavat johtaa epätarkempiin arvioihin.',
 			'disclaimer.snap.databaseLimitations.title' => 'Tietokantaan liittyvät rajoitukset',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}in ruokarekisteri on laaja, mutta se ei välttämättä sisällä jokaista mahdollista ruokaa tai variaatiota.',
 			'disclaimer.weightEstimate.title' => 'Tietoa painoarviosta',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Projektio painonmuutoksesta on teoreettinen arvio perustuen yksinkertaiseen kalorien sisään vs. ulos -malliin. Se on tarkoitettu motivoivaksi ohjaukseksi, ei ennusteeksi todellisesta painostasi.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorien tarkkuus',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tämä arvio on yhtä tarkka kuin kirjaamiesi kulutus- ja polttoarvioiden tarkkuus. Virheellinen kirjaaminen johtaa virheelliseen ennusteeseen.',

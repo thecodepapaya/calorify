@@ -813,6 +813,11 @@ class _Translations$meal$analysis$he extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'עוד מעט…';
 	@override String get stepResult => 'מסיימים את התוצאה…';
 	@override String get stepError => 'משהו השתבש';
+	@override String get providerUnavailable => 'ספק ניתוח הארוחות אינו זמין זמנית. אנא נסו שוב.';
+	@override String get invalidModelOutput => 'לא ניתן היה להבין את התגובה לגבי הארוחה. אנא נסו שוב.';
+	@override String get nutritionDataUnavailable => 'נתוני התזונה אינם זמינים זמנית. אנא נסו שוב.';
+	@override String get analysisUnavailable => 'ניתוח הארוחה אינו זמין זמנית. אנא נסו שוב.';
+	@override String get unresolvedNutrition => 'לא הצלחנו להתאים בבטחה נתוני תזונה לארוחה זו. נסו להוסיף פרטים נוספים.';
 	@override String get noFoodTip => 'לא זוהה מזון. נסה תמונה או תיאור אחר.';
 	@override String get stepDefault => 'מנתחים את הארוחה שלך…';
 	@override String get progressUnderstand => 'מנסים להבין את הארוחה';
@@ -2228,6 +2233,11 @@ extension on TranslationsHe {
 			'meal.analysis.stepMealTypeQuestion' => 'עוד מעט…',
 			'meal.analysis.stepResult' => 'מסיימים את התוצאה…',
 			'meal.analysis.stepError' => 'משהו השתבש',
+			'meal.analysis.providerUnavailable' => 'ספק ניתוח הארוחות אינו זמין זמנית. אנא נסו שוב.',
+			'meal.analysis.invalidModelOutput' => 'לא ניתן היה להבין את התגובה לגבי הארוחה. אנא נסו שוב.',
+			'meal.analysis.nutritionDataUnavailable' => 'נתוני התזונה אינם זמינים זמנית. אנא נסו שוב.',
+			'meal.analysis.analysisUnavailable' => 'ניתוח הארוחה אינו זמין זמנית. אנא נסו שוב.',
+			'meal.analysis.unresolvedNutrition' => 'לא הצלחנו להתאים בבטחה נתוני תזונה לארוחה זו. נסו להוסיף פרטים נוספים.',
 			'meal.analysis.noFoodTip' => 'לא זוהה מזון. נסה תמונה או תיאור אחר.',
 			'meal.analysis.stepDefault' => 'מנתחים את הארוחה שלך…',
 			'meal.analysis.progressUnderstand' => 'מנסים להבין את הארוחה',
@@ -2485,13 +2495,13 @@ extension on TranslationsHe {
 			'disclaimer.snap.portionSize.description' => 'דיוק הערכות תלוי במידה רבה בהערכת גודל המנה על ידך.',
 			'disclaimer.snap.preparationMethods.title' => 'שיטות הכנה',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'שיטות בישול יכולות לשנות משמעותית את התוכן התזונתי. ההערכות של ${appLabel} עשויות שלא תמיד להתחשב בכל השינויים האלו.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'מרכיבים',
 			'disclaimer.snap.ingredients.description' => 'מנות מורכבות עם מרכיבים נסתרים רבים עלולות להוביל להערכות פחות מדויקות.',
 			'disclaimer.snap.databaseLimitations.title' => 'מגבלות מאגר הנתונים',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'מאגר המזונות של ${appLabel} הוא רחב אך עשוי שלא לכלול כל פריט או וריאציה.',
 			'disclaimer.weightEstimate.title' => 'על אומדן שינוי משקל',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'שינוי משקל משוער הוא חישוב תאורטי המבוסס על מודל קלוריות פנימה מול קלוריות החוצה. הוא מיועד כהנעה מוטיבציונית בלבד, לא כנבואה למשקל בפועל.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'דיוק הקלוריות',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'הערכה זו מדויקת ככל שהרישום שלך של צריכת ושריפת הקלוריות מדויק. רישום שגוי יוביל להערכה שגויה.',

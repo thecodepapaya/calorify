@@ -813,6 +813,11 @@ class _Translations$meal$analysis$tl extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Halos tapos…';
 	@override String get stepResult => 'Pinapinal ang resulta…';
 	@override String get stepError => 'May nangyaring mali';
+	@override String get providerUnavailable => 'Pansamantalang hindi magagamit ang serbisyo para sa pagsusuri ng pagkain. Pakisubukang muli.';
+	@override String get invalidModelOutput => 'Hindi maunawaan ang tugon para sa pagkain. Pakisubukang muli.';
+	@override String get nutritionDataUnavailable => 'Pansamantalang hindi magagamit ang datos ng nutrisyon. Pakisubukang muli.';
+	@override String get analysisUnavailable => 'Pansamantalang hindi magagamit ang pagsusuri ng pagkain. Pakisubukang muli.';
+	@override String get unresolvedNutrition => 'Hindi namin matugma nang ligtas ang datos ng nutrisyon para sa pagkaing ito. Subukang magdagdag ng higit pang detalye.';
 	@override String get noFoodTip => 'Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.';
 	@override String get stepDefault => 'Sinusuri ang iyong pagkain…';
 	@override String get progressUnderstand => 'Pag-unawa sa iyong pagkain';
@@ -2228,6 +2233,11 @@ extension on TranslationsTl {
 			'meal.analysis.stepMealTypeQuestion' => 'Halos tapos…',
 			'meal.analysis.stepResult' => 'Pinapinal ang resulta…',
 			'meal.analysis.stepError' => 'May nangyaring mali',
+			'meal.analysis.providerUnavailable' => 'Pansamantalang hindi magagamit ang serbisyo para sa pagsusuri ng pagkain. Pakisubukang muli.',
+			'meal.analysis.invalidModelOutput' => 'Hindi maunawaan ang tugon para sa pagkain. Pakisubukang muli.',
+			'meal.analysis.nutritionDataUnavailable' => 'Pansamantalang hindi magagamit ang datos ng nutrisyon. Pakisubukang muli.',
+			'meal.analysis.analysisUnavailable' => 'Pansamantalang hindi magagamit ang pagsusuri ng pagkain. Pakisubukang muli.',
+			'meal.analysis.unresolvedNutrition' => 'Hindi namin matugma nang ligtas ang datos ng nutrisyon para sa pagkaing ito. Subukang magdagdag ng higit pang detalye.',
 			'meal.analysis.noFoodTip' => 'Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.',
 			'meal.analysis.stepDefault' => 'Sinusuri ang iyong pagkain…',
 			'meal.analysis.progressUnderstand' => 'Pag-unawa sa iyong pagkain',
@@ -2485,13 +2495,13 @@ extension on TranslationsTl {
 			'disclaimer.snap.portionSize.description' => 'Malaki ang nakasalalay sa kawastuhan ng mga pagtatantya sa tamang pagtatasa ng laki ng bahagi.',
 			'disclaimer.snap.preparationMethods.title' => 'Paraan ng Pagluluto',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Malaki ang naiaambag ng paraan ng pagluluto sa pagbabago ng nilalamang nutrisyon ng pagkain. Maaaring hindi palaging nasasaalang-alang ng mga pagtatantya ng ${appLabel} ang mga pagkakaibang ito.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Mga Sangkap',
 			'disclaimer.snap.ingredients.description' => 'Ang mga komplikadong putahe na may maraming nakatagong sangkap ay maaaring magresulta sa hindi gaanong tumpak na pagtatantiya.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitasyon ng Database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Malawak ang food database ng ${appLabel} ngunit maaaring hindi nito maisama ang bawat isang pagkain o baryasyon.',
 			'disclaimer.weightEstimate.title' => 'Tungkol sa Tantiya ng Timbang',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Ang inaasahang pagbabago ng timbang ay isang teoretikal na pagtatantiya batay sa simpleng calorie-in vs. calorie-out na modelo. Ito ay nilalayong magbigay ng motibasyon lamang, hindi prediksyon ng iyong aktwal na timbang.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Katumpakan ng Calorie',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tumpak lamang ang pagtatantiyang ito kung tumpak ang iyong na-log na calorie intake at expenditure. Ang maling pag-log ay magreresulta sa maling pagtatantiya.',

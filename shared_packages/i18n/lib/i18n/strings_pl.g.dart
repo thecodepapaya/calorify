@@ -813,6 +813,11 @@ class _Translations$meal$analysis$pl extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Już prawie…';
 	@override String get stepResult => 'Finalizowanie wyniku…';
 	@override String get stepError => 'Coś poszło nie tak';
+	@override String get providerUnavailable => 'Dostawca analizy posiłku jest chwilowo niedostępny. Spróbuj ponownie.';
+	@override String get invalidModelOutput => 'Nie udało się zrozumieć odpowiedzi dotyczącej posiłku. Spróbuj ponownie.';
+	@override String get nutritionDataUnavailable => 'Dane żywieniowe są chwilowo niedostępne. Spróbuj ponownie.';
+	@override String get analysisUnavailable => 'Analiza posiłku jest chwilowo niedostępna. Spróbuj ponownie.';
+	@override String get unresolvedNutrition => 'Nie udało się jednoznacznie dopasować danych żywieniowych do tego posiłku. Spróbuj dodać więcej szczegółów.';
 	@override String get noFoodTip => 'Nie wykryto jedzenia. Spróbuj zrobić inne zdjęcie lub podać inny opis.';
 	@override String get stepDefault => 'Analizowanie posiłku…';
 	@override String get progressUnderstand => 'Rozpoznawanie posiłku';
@@ -2228,6 +2233,11 @@ extension on TranslationsPl {
 			'meal.analysis.stepMealTypeQuestion' => 'Już prawie…',
 			'meal.analysis.stepResult' => 'Finalizowanie wyniku…',
 			'meal.analysis.stepError' => 'Coś poszło nie tak',
+			'meal.analysis.providerUnavailable' => 'Dostawca analizy posiłku jest chwilowo niedostępny. Spróbuj ponownie.',
+			'meal.analysis.invalidModelOutput' => 'Nie udało się zrozumieć odpowiedzi dotyczącej posiłku. Spróbuj ponownie.',
+			'meal.analysis.nutritionDataUnavailable' => 'Dane żywieniowe są chwilowo niedostępne. Spróbuj ponownie.',
+			'meal.analysis.analysisUnavailable' => 'Analiza posiłku jest chwilowo niedostępna. Spróbuj ponownie.',
+			'meal.analysis.unresolvedNutrition' => 'Nie udało się jednoznacznie dopasować danych żywieniowych do tego posiłku. Spróbuj dodać więcej szczegółów.',
 			'meal.analysis.noFoodTip' => 'Nie wykryto jedzenia. Spróbuj zrobić inne zdjęcie lub podać inny opis.',
 			'meal.analysis.stepDefault' => 'Analizowanie posiłku…',
 			'meal.analysis.progressUnderstand' => 'Rozpoznawanie posiłku',
@@ -2485,13 +2495,13 @@ extension on TranslationsPl {
 			'disclaimer.snap.portionSize.description' => 'Dokładność szacunków w dużej mierze zależy od prawidłowej oceny wielkości porcji.',
 			'disclaimer.snap.preparationMethods.title' => 'Metody przygotowania',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Sposób przygotowania potraw może znacząco zmienić jej wartość odżywczą. Szacunki ${appLabel} nie zawsze mogą uwzględniać te różnice.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Składniki',
 			'disclaimer.snap.ingredients.description' => 'Złożone dania z wieloma ukrytymi składnikami mogą powodować mniejszą dokładność oszacowań.',
 			'disclaimer.snap.databaseLimitations.title' => 'Ograniczenia bazy danych',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Baza produktów ${appLabel} jest obszerna, ale może nie zawierać każdego produktu lub wariantu.',
 			'disclaimer.weightEstimate.title' => 'O szacowanej zmianie wagi',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Przewidywana zmiana wagi to teoretyczne oszacowanie oparte na prostym modelu kalorie w vs kalorie out. Ma charakter motywacyjny, a nie prognozę rzeczywistej wagi.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Dokładność kalorii',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'To oszacowanie jest tak dokładne, jak dokładne są Twoje zarejestrowane kalorie i wydatki. Błędne zapisy spowodują niedokładne prognozy.',

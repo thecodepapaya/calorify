@@ -103,7 +103,7 @@ function assertMatchesSchema(value: unknown, schema: JsonSchema, path = '$'): vo
   }
 }
 
-class MealAnalysisLlmResponseError extends Error {
+export class MealAnalysisLlmResponseError extends Error {
   readonly errorKind: 'empty_response' | 'invalid_structured_response';
   readonly debugDetail?: Readonly<Record<string, unknown>>;
 
@@ -117,6 +117,16 @@ class MealAnalysisLlmResponseError extends Error {
     this.name = 'MealAnalysisLlmResponseError';
     this.errorKind = errorKind;
     this.debugDetail = debugDetail;
+  }
+}
+
+export class MealAnalysisLlmProviderError extends Error {
+  constructor(
+    readonly errorKind: string,
+    override readonly cause: unknown,
+  ) {
+    super('Meal analysis LLM provider failed', { cause });
+    this.name = 'MealAnalysisLlmProviderError';
   }
 }
 
@@ -270,7 +280,10 @@ export function createMealAnalysisLlmClient(
   options: MealAnalysisLlmClientOptions = {}
 ): MealAnalysisLlmClient {
   if (!config.OPENROUTER_API_KEY) {
-    throw new Error('OPENROUTER_API_KEY is not set');
+    throw new MealAnalysisLlmProviderError(
+      'configuration_missing',
+      new Error('OPENROUTER_API_KEY is not set'),
+    );
   }
   const provider = 'openrouter' as const;
   const model = options.openRouterModel ?? config.OPENROUTER_MEAL_MODEL;
@@ -364,8 +377,8 @@ export function createMealAnalysisLlmClient(
               });
               logDebugError(error);
             }
+            throw new MealAnalysisLlmProviderError(errorKind, error);
           }
-          throw new Error('Meal analysis LLM provider failed');
         },
       },
     },

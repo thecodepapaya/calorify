@@ -813,6 +813,11 @@ class _Translations$meal$analysis$nl extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Bijna klaar…';
 	@override String get stepResult => 'Resultaat finaliseren…';
 	@override String get stepError => 'Er is iets misgegaan';
+	@override String get providerUnavailable => 'De dienst voor maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.';
+	@override String get invalidModelOutput => 'We konden het antwoord voor de maaltijd niet begrijpen. Probeer het opnieuw.';
+	@override String get nutritionDataUnavailable => 'Voedingsgegevens zijn tijdelijk niet beschikbaar. Probeer het opnieuw.';
+	@override String get analysisUnavailable => 'Maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.';
+	@override String get unresolvedNutrition => 'We konden de voedingsgegevens voor deze maaltijd niet met zekerheid koppelen. Probeer wat meer details toe te voegen.';
 	@override String get noFoodTip => 'Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.';
 	@override String get stepDefault => 'Maaltijd analyseren…';
 	@override String get progressUnderstand => 'Je maaltijd begrijpen';
@@ -2228,6 +2233,11 @@ extension on TranslationsNl {
 			'meal.analysis.stepMealTypeQuestion' => 'Bijna klaar…',
 			'meal.analysis.stepResult' => 'Resultaat finaliseren…',
 			'meal.analysis.stepError' => 'Er is iets misgegaan',
+			'meal.analysis.providerUnavailable' => 'De dienst voor maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.',
+			'meal.analysis.invalidModelOutput' => 'We konden het antwoord voor de maaltijd niet begrijpen. Probeer het opnieuw.',
+			'meal.analysis.nutritionDataUnavailable' => 'Voedingsgegevens zijn tijdelijk niet beschikbaar. Probeer het opnieuw.',
+			'meal.analysis.analysisUnavailable' => 'Maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.',
+			'meal.analysis.unresolvedNutrition' => 'We konden de voedingsgegevens voor deze maaltijd niet met zekerheid koppelen. Probeer wat meer details toe te voegen.',
 			'meal.analysis.noFoodTip' => 'Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.',
 			'meal.analysis.stepDefault' => 'Maaltijd analyseren…',
 			'meal.analysis.progressUnderstand' => 'Je maaltijd begrijpen',
@@ -2485,13 +2495,13 @@ extension on TranslationsNl {
 			'disclaimer.snap.portionSize.description' => 'De nauwkeurigheid van de schattingen hangt sterk af van je juiste inschatting van de portiegrootte.',
 			'disclaimer.snap.preparationMethods.title' => 'Bereidingsmethoden',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Bereidingsmethoden kunnen de voedingswaarde aanzienlijk veranderen. De schattingen van ${appLabel} houden mogelijk niet altijd rekening met deze variaties.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingrediënten',
 			'disclaimer.snap.ingredients.description' => 'Complexe gerechten met veel verborgen ingrediënten kunnen leiden tot minder nauwkeurige schattingen.',
 			'disclaimer.snap.databaseLimitations.title' => 'Beperkingen van de database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s voedseldatabase is uitgebreid maar bevat mogelijk niet elk afzonderlijk voedingsmiddel of variant.',
 			'disclaimer.weightEstimate.title' => 'Over gewichtsschatting',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'De geschatte gewichtsverandering is een theoretische schatting gebaseerd op het eenvoudige model calorieën-in vs calorieën-uit. Het is bedoeld als motivatiegids, niet als voorspelling van je werkelijke gewicht.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Nauwkeurigheid van calorieën',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Deze schatting is slechts zo nauwkeurig als je geregistreerde calorie-inname en -verbruik. Onnauwkeurig loggen resulteert in een onnauwkeurige prognose.',

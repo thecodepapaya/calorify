@@ -813,6 +813,11 @@ class _Translations$meal$analysis$te extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'దాదాపు పూర్తయింది…';
 	@override String get stepResult => 'మీ ఫలితాన్ని ఖరారు చేస్తోంది…';
 	@override String get stepError => 'ఏదో తప్పు జరిగింది';
+	@override String get providerUnavailable => 'భోజన విశ్లేషణ సేవ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.';
+	@override String get invalidModelOutput => 'భోజనం గురించి వచ్చిన స్పందనను మేము అర్థం చేసుకోలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.';
+	@override String get nutritionDataUnavailable => 'పోషక సమాచారం తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.';
+	@override String get analysisUnavailable => 'భోజన విశ్లేషణ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.';
+	@override String get unresolvedNutrition => 'ఈ భోజనానికి సంబంధించిన పోషక సమాచారాన్ని నమ్మకంగా సరిపోల్చలేకపోయాము. దయచేసి మరిన్ని వివరాలు జోడించడానికి ప్రయత్నించండి.';
 	@override String get noFoodTip => 'ఆహారం కనుగొనబడలేదు. వేరే ఫోటో లేదా వివరణను ప్రయత్నించండి.';
 	@override String get stepDefault => 'మీ భోజనాన్ని విశ్లేషిస్తోంది…';
 	@override String get progressUnderstand => 'మీ భోజనాన్ని అర్థం చేసుకుంటోంది';
@@ -2228,6 +2233,11 @@ extension on TranslationsTe {
 			'meal.analysis.stepMealTypeQuestion' => 'దాదాపు పూర్తయింది…',
 			'meal.analysis.stepResult' => 'మీ ఫలితాన్ని ఖరారు చేస్తోంది…',
 			'meal.analysis.stepError' => 'ఏదో తప్పు జరిగింది',
+			'meal.analysis.providerUnavailable' => 'భోజన విశ్లేషణ సేవ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.',
+			'meal.analysis.invalidModelOutput' => 'భోజనం గురించి వచ్చిన స్పందనను మేము అర్థం చేసుకోలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.',
+			'meal.analysis.nutritionDataUnavailable' => 'పోషక సమాచారం తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.',
+			'meal.analysis.analysisUnavailable' => 'భోజన విశ్లేషణ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.',
+			'meal.analysis.unresolvedNutrition' => 'ఈ భోజనానికి సంబంధించిన పోషక సమాచారాన్ని నమ్మకంగా సరిపోల్చలేకపోయాము. దయచేసి మరిన్ని వివరాలు జోడించడానికి ప్రయత్నించండి.',
 			'meal.analysis.noFoodTip' => 'ఆహారం కనుగొనబడలేదు. వేరే ఫోటో లేదా వివరణను ప్రయత్నించండి.',
 			'meal.analysis.stepDefault' => 'మీ భోజనాన్ని విశ్లేషిస్తోంది…',
 			'meal.analysis.progressUnderstand' => 'మీ భోజనాన్ని అర్థం చేసుకుంటోంది',
@@ -2485,13 +2495,13 @@ extension on TranslationsTe {
 			'disclaimer.snap.portionSize.description' => 'అంచనాల ఖచ్చితత్వం మీ భాగం పరిమాణం యొక్క సరైన అంచనాపై ఎక్కువగా ఆధారపడి ఉంటుంది.',
 			'disclaimer.snap.preparationMethods.title' => 'తయారీ పద్ధతులు',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'వంట పద్ధతులు ఆహారం యొక్క పోషక కంటెంట్‌ను గణనీయంగా మార్చగలవు. ${appLabel} అంచనాలు ఈ వైవిధ్యాలను ఎల్లప్పుడూ పరిగణనలోకి తీసుకోకపోవచ్చు.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'పదార్థాలు',
 			'disclaimer.snap.ingredients.description' => 'అనేక దాచిన పదార్థాలతో కూడిన సంక్లిష్ట వంటకాలు తక్కువ ఖచ్చితమైన అంచనాలకు దారితీయవచ్చు.',
 			'disclaimer.snap.databaseLimitations.title' => 'డేటాబేస్ పరిమితులు',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} యొక్క ఆహార డేటాబేస్ విస్తృతమైనది కానీ ప్రతి ఒక్క ఆహార వస్తువు లేదా వైవిధ్యాన్ని కలిగి ఉండకపోవచ్చు.',
 			'disclaimer.weightEstimate.title' => 'బరువు అంచనా గురించి',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'అంచనా వేసిన బరువు మార్పు అనేది సాధారణ క్యాలరీ-ఇన్ వర్సెస్ క్యాలరీ-అవుట్ మోడల్ ఆధారంగా ఒక సైద్ధాంతిక అంచనా. ఇది ప్రేరణాత్మక మార్గదర్శకత్వం కోసం మాత్రమే ఉద్దేశించబడింది, మీ వాస్తవ బరువు యొక్క అంచనాగా కాదు.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'క్యాలరీ ఖచ్చితత్వం',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ఈ అంచనా మీ ట్రాక్ చేయబడిన క్యాలరీ తీసుకోవడం మరియు ఖర్చు చేసినంత ఖచ్చితమైనది. తప్పు లాగింగ్ తప్పు అంచనాకు దారి తీస్తుంది.',

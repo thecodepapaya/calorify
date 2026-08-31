@@ -92,12 +92,14 @@ class MealQuestionOptionsWrap extends StatelessWidget {
     super.key,
     required this.optionLabels,
     this.optionDetails = const <String?>[],
+    this.optionKeys = const <Key?>[],
     required this.selectedOptionIndex,
     required this.onOptionSelected,
   });
 
   final List<String> optionLabels;
   final List<String?> optionDetails;
+  final List<Key?> optionKeys;
   final int? selectedOptionIndex;
   final ValueChanged<int> onOptionSelected;
 
@@ -110,6 +112,7 @@ class MealQuestionOptionsWrap extends StatelessWidget {
       children: List.generate(
         optionLabels.length,
         (index) => MealQuestionOptionTile(
+          key: index < optionKeys.length ? optionKeys[index] : null,
           label: optionLabels[index],
           detail: index < optionDetails.length ? optionDetails[index] : null,
           isSelected: selectedOptionIndex == index,

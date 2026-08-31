@@ -813,6 +813,11 @@ class _Translations$meal$analysis$ur extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'جلد ہی مکمل…';
 	@override String get stepResult => 'نتیجہ حتمی شکل دے رہے ہیں…';
 	@override String get stepError => 'کچھ غلط ہو گیا';
+	@override String get providerUnavailable => 'کھانے کے تجزیے کی سروس عارضی طور پر دستیاب نہیں ہے۔ براہِ کرم دوبارہ کوشش کریں۔';
+	@override String get invalidModelOutput => 'کھانے کے تجزیے کا جواب سمجھ میں نہیں آیا۔ براہِ کرم دوبارہ کوشش کریں۔';
+	@override String get nutritionDataUnavailable => 'غذائی معلومات عارضی طور پر دستیاب نہیں ہیں۔ براہِ کرم دوبارہ کوشش کریں۔';
+	@override String get analysisUnavailable => 'کھانے کا تجزیہ عارضی طور پر دستیاب نہیں ہے۔ براہِ کرم دوبارہ کوشش کریں۔';
+	@override String get unresolvedNutrition => 'ہم اس کھانے کے لیے غذائی معلومات کو اعتماد کے ساتھ نہیں ملا سکے۔ براہِ کرم مزید تفصیل شامل کریں۔';
 	@override String get noFoodTip => 'کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔';
 	@override String get stepDefault => 'آپ کے کھانے کا تجزیہ…';
 	@override String get progressUnderstand => 'آپ کے کھانے کو سمجھنا';
@@ -2228,6 +2233,11 @@ extension on TranslationsUr {
 			'meal.analysis.stepMealTypeQuestion' => 'جلد ہی مکمل…',
 			'meal.analysis.stepResult' => 'نتیجہ حتمی شکل دے رہے ہیں…',
 			'meal.analysis.stepError' => 'کچھ غلط ہو گیا',
+			'meal.analysis.providerUnavailable' => 'کھانے کے تجزیے کی سروس عارضی طور پر دستیاب نہیں ہے۔ براہِ کرم دوبارہ کوشش کریں۔',
+			'meal.analysis.invalidModelOutput' => 'کھانے کے تجزیے کا جواب سمجھ میں نہیں آیا۔ براہِ کرم دوبارہ کوشش کریں۔',
+			'meal.analysis.nutritionDataUnavailable' => 'غذائی معلومات عارضی طور پر دستیاب نہیں ہیں۔ براہِ کرم دوبارہ کوشش کریں۔',
+			'meal.analysis.analysisUnavailable' => 'کھانے کا تجزیہ عارضی طور پر دستیاب نہیں ہے۔ براہِ کرم دوبارہ کوشش کریں۔',
+			'meal.analysis.unresolvedNutrition' => 'ہم اس کھانے کے لیے غذائی معلومات کو اعتماد کے ساتھ نہیں ملا سکے۔ براہِ کرم مزید تفصیل شامل کریں۔',
 			'meal.analysis.noFoodTip' => 'کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔',
 			'meal.analysis.stepDefault' => 'آپ کے کھانے کا تجزیہ…',
 			'meal.analysis.progressUnderstand' => 'آپ کے کھانے کو سمجھنا',
@@ -2485,13 +2495,13 @@ extension on TranslationsUr {
 			'disclaimer.snap.portionSize.description' => 'اندازوں کی درستگی کا انحصار بڑے پیمانے پر آپ کے حصے کے صحیح اندازے پر ہوتا ہے۔',
 			'disclaimer.snap.preparationMethods.title' => 'تیاری کے طریقے',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'پکانے کے طریقے غذائی مواد کو نمایاں طور پر بدل سکتے ہیں۔ ${appLabel} کے اندازے ہمیشہ ان تبدیلیوں کو مدِ نظر نہیں رکھ سکتے۔',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'اجزاء',
 			'disclaimer.snap.ingredients.description' => 'پیچیدہ پکوان جن میں بہت سے پوشیدہ اجزاء ہوں، کم درست اندازوں کا باعث بن سکتے ہیں۔',
 			'disclaimer.snap.databaseLimitations.title' => 'ڈیٹا بیس کی حدود',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} کا فوڈ ڈیٹا بیس وسیع ہے مگر ہو سکتا ہے ہر خوراک یا ویرینٹ شامل نہ ہو۔',
 			'disclaimer.weightEstimate.title' => 'وزن کے اندازے کے بارے میں',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'پیش گوئی شدہ وزن کی تبدیلی ایک نظریاتی اندازہ ہے جو سادہ کیلوری-ان بمقابلہ کیلوری-آؤٹ ماڈل پر مبنی ہے۔ یہ محرک رہنمائی کے لیے ہے، حقیقی وزن کی پیش گوئی کے طور پر نہیں۔',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'کیلوری درستگی',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'یہ اندازہ صرف اسی حد تک درست ہے جتنا آپ نے اپنی کیلوری انٹیک اور اخراج کو درست طور پر ٹریک کیا ہو۔ غیر درست لاگنگ غلط پیش گوئی کا باعث بنے گی۔',

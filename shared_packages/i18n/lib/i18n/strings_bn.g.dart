@@ -813,6 +813,11 @@ class _Translations$meal$analysis$bn extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'প্রায় শেষ…';
 	@override String get stepResult => 'ফল চূড়ান্ত করা হচ্ছে…';
 	@override String get stepError => 'কিছু ভুল হয়েছে';
+	@override String get providerUnavailable => 'খাবার বিশ্লেষণ পরিষেবা সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।';
+	@override String get invalidModelOutput => 'খাবার সম্পর্কিত উত্তরটি বোঝা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
+	@override String get nutritionDataUnavailable => 'পুষ্টিগত তথ্য সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।';
+	@override String get analysisUnavailable => 'খাবার বিশ্লেষণ সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।';
+	@override String get unresolvedNutrition => 'আমরা এই খাবারের জন্য পুষ্টিগত তথ্য নিশ্চিতভাবে মেলাতে পারিনি। আরও কিছু বিস্তারিত তথ্য যোগ করে দেখুন।';
 	@override String get noFoodTip => 'কোন খাবার সনাক্ত করা যায়নি। অন্য একটি ছবি বা বিবরণ চেষ্টা করুন।';
 	@override String get stepDefault => 'আপনার খাবার বিশ্লেষণ করা হচ্ছে…';
 	@override String get progressUnderstand => 'আপনার খাবার বোঝা হচ্ছে';
@@ -2228,6 +2233,11 @@ extension on TranslationsBn {
 			'meal.analysis.stepMealTypeQuestion' => 'প্রায় শেষ…',
 			'meal.analysis.stepResult' => 'ফল চূড়ান্ত করা হচ্ছে…',
 			'meal.analysis.stepError' => 'কিছু ভুল হয়েছে',
+			'meal.analysis.providerUnavailable' => 'খাবার বিশ্লেষণ পরিষেবা সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।',
+			'meal.analysis.invalidModelOutput' => 'খাবার সম্পর্কিত উত্তরটি বোঝা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
+			'meal.analysis.nutritionDataUnavailable' => 'পুষ্টিগত তথ্য সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।',
+			'meal.analysis.analysisUnavailable' => 'খাবার বিশ্লেষণ সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।',
+			'meal.analysis.unresolvedNutrition' => 'আমরা এই খাবারের জন্য পুষ্টিগত তথ্য নিশ্চিতভাবে মেলাতে পারিনি। আরও কিছু বিস্তারিত তথ্য যোগ করে দেখুন।',
 			'meal.analysis.noFoodTip' => 'কোন খাবার সনাক্ত করা যায়নি। অন্য একটি ছবি বা বিবরণ চেষ্টা করুন।',
 			'meal.analysis.stepDefault' => 'আপনার খাবার বিশ্লেষণ করা হচ্ছে…',
 			'meal.analysis.progressUnderstand' => 'আপনার খাবার বোঝা হচ্ছে',
@@ -2485,13 +2495,13 @@ extension on TranslationsBn {
 			'disclaimer.snap.portionSize.description' => 'আনুমানিকতার সঠিকতা আপনার পরিমাণ সঠিকভাবে নিরূপণের উপর ব্যাপকভাবে নির্ভর করে।',
 			'disclaimer.snap.preparationMethods.title' => 'প্রস্তুত করার উপায়',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'রান্নার পদ্ধতি খাবারের পুষ্টিগুণ ব্যাপকভাবে বদলে দিতে পারে। ${appLabel}-এর আনুমানিক ফলাফল সবসময় এই পরিবর্তনগুলোকে বিবেচনা নাও করতে পারে।',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'উপকরণ',
 			'disclaimer.snap.ingredients.description' => 'বহু লুকানো উপকরণসহ জটিল ডিশগুলোর জন্য আনুমানিকতা কম নির্ভুল হতে পারে।',
 			'disclaimer.snap.databaseLimitations.title' => 'ডাটাবেস সীমাবদ্ধতা',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}-এর খাদ্য ডাটাবেস বিস্তৃত হলেও এটি প্রতিটি খাদ্য আইটেম বা ভ্যারিয়েশন অন্তর্ভুক্ত নাও থাকতে পারে।',
 			'disclaimer.weightEstimate.title' => 'ওজন অনুমান সম্পর্কে',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'প্রকল্পিত ওজন পরিবর্তন একটি তাত্ত্বিক আনুমানিকতা যা ক্যালোরি ইন বনাম ক্যালোরি আউট সরল মডেলে ভিত্তি করে। এটি কেবল মোটিভেশনাল নির্দেশনার জন্য, আপনার প্রকৃত ওজনের পূর্বাভাস হিসেবে নয়।',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'ক্যালোরির সঠিকতা',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'এই আনুমানিকতা আপনার ট্র্যাক করা ক্যালোরি গ্রহণ এবং ব্যয়ের সঠিকতার সমান। ভুলভাবে লগ করলে আনুমানিক ফলাফল সঠিক হবে না।',

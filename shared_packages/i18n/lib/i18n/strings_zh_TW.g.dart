@@ -813,6 +813,11 @@ class Translations$meal$analysis$zh_TW extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => '快完成了…';
 	@override String get stepResult => '完成結果…';
 	@override String get stepError => '發生錯誤';
+	@override String get providerUnavailable => '餐點分析服務暫時無法使用。請稍後再試。';
+	@override String get invalidModelOutput => '餐點分析回應內容無法辨識。請稍後再試。';
+	@override String get nutritionDataUnavailable => '營養資訊暫時無法使用。請稍後再試。';
+	@override String get analysisUnavailable => '餐點分析暫時無法使用。請稍後再試。';
+	@override String get unresolvedNutrition => '我們無法安全地為此餐點配對營養資訊。請嘗試提供更多細節。';
 	@override String get noFoodTip => '未偵測到食物。請嘗試其他相片或說明。';
 	@override String get stepDefault => '分析您的餐點…';
 	@override String get progressUnderstand => '理解餐點內容';
@@ -2228,6 +2233,11 @@ extension on TranslationsZhTw {
 			'meal.analysis.stepMealTypeQuestion' => '快完成了…',
 			'meal.analysis.stepResult' => '完成結果…',
 			'meal.analysis.stepError' => '發生錯誤',
+			'meal.analysis.providerUnavailable' => '餐點分析服務暫時無法使用。請稍後再試。',
+			'meal.analysis.invalidModelOutput' => '餐點分析回應內容無法辨識。請稍後再試。',
+			'meal.analysis.nutritionDataUnavailable' => '營養資訊暫時無法使用。請稍後再試。',
+			'meal.analysis.analysisUnavailable' => '餐點分析暫時無法使用。請稍後再試。',
+			'meal.analysis.unresolvedNutrition' => '我們無法安全地為此餐點配對營養資訊。請嘗試提供更多細節。',
 			'meal.analysis.noFoodTip' => '未偵測到食物。請嘗試其他相片或說明。',
 			'meal.analysis.stepDefault' => '分析您的餐點…',
 			'meal.analysis.progressUnderstand' => '理解餐點內容',
@@ -2485,13 +2495,13 @@ extension on TranslationsZhTw {
 			'disclaimer.snap.portionSize.description' => '估算的準確性很大程度取決於您對份量的正確判斷。',
 			'disclaimer.snap.preparationMethods.title' => '烹調方式',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹調方式會顯著改變食物的營養成分。${appLabel} 的估算可能無法涵蓋所有變化。',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => '成分',
 			'disclaimer.snap.ingredients.description' => '成分複雜且含多種隱藏食材的菜餚可能降低估算準確度。',
 			'disclaimer.snap.databaseLimitations.title' => '資料庫限制',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} 的食物資料庫相當完整，但可能不包含每一種食材或變體。',
 			'disclaimer.weightEstimate.title' => '關於體重估算',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => '預測的體重變化是基於簡單的熱量攝入與支出模型的理論估算。此結果僅供激勵參考，並非您實際體重的預測。',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => '卡路里準確性',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => '此估算的準確性取決於您記錄的攝取與消耗熱量。若記錄不準確，估算也會不準確。',

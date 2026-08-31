@@ -26,6 +26,16 @@ export interface StageObservation {
 
 export type StageObserver = (observation: StageObservation) => void | Promise<void>;
 
+export class MealAnalysisV3StageError extends Error {
+  constructor(
+    readonly stage: MealAnalysisV3Stage,
+    override readonly cause: unknown,
+  ) {
+    super(`Meal analysis failed during ${stage}`, { cause });
+    this.name = 'MealAnalysisV3StageError';
+  }
+}
+
 export interface StageRecorder {
   record<T>(
     stage: MealAnalysisV3Stage,
@@ -49,7 +59,12 @@ export function createStageRecorder(
   return {
     async record<T>(stage: MealAnalysisV3Stage, input: unknown, operation: () => T | Promise<T>) {
       const startedAt = now();
-      const output = await operation();
+      let output: T;
+      try {
+        output = await operation();
+      } catch (error) {
+        throw new MealAnalysisV3StageError(stage, error);
+      }
       await observer({
         sequence: ++sequence,
         stage,

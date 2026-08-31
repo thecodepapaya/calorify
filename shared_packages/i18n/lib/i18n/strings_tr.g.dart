@@ -813,6 +813,11 @@ class _Translations$meal$analysis$tr extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Çok az kaldı…';
 	@override String get stepResult => 'Sonuç finalize ediliyor…';
 	@override String get stepError => 'Bir şeyler yolunda gitmedi';
+	@override String get providerUnavailable => 'Öğün analizi hizmet sağlayıcısı geçici olarak kullanılamıyor. Lütfen tekrar deneyin.';
+	@override String get invalidModelOutput => 'Öğün yanıtı anlaşılamadı. Lütfen tekrar deneyin.';
+	@override String get nutritionDataUnavailable => 'Besin değerleri geçici olarak kullanılamıyor. Lütfen tekrar deneyin.';
+	@override String get analysisUnavailable => 'Öğün analizi geçici olarak kullanılamıyor. Lütfen tekrar deneyin.';
+	@override String get unresolvedNutrition => 'Bu öğün için besin değerlerini yeterli güvenle eşleştiremedik. Daha fazla ayrıntı eklemeyi deneyin.';
 	@override String get noFoodTip => 'Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.';
 	@override String get stepDefault => 'Öğününüz analiz ediliyor…';
 	@override String get progressUnderstand => 'Öğününüz anlaşılıyor';
@@ -2228,6 +2233,11 @@ extension on TranslationsTr {
 			'meal.analysis.stepMealTypeQuestion' => 'Çok az kaldı…',
 			'meal.analysis.stepResult' => 'Sonuç finalize ediliyor…',
 			'meal.analysis.stepError' => 'Bir şeyler yolunda gitmedi',
+			'meal.analysis.providerUnavailable' => 'Öğün analizi hizmet sağlayıcısı geçici olarak kullanılamıyor. Lütfen tekrar deneyin.',
+			'meal.analysis.invalidModelOutput' => 'Öğün yanıtı anlaşılamadı. Lütfen tekrar deneyin.',
+			'meal.analysis.nutritionDataUnavailable' => 'Besin değerleri geçici olarak kullanılamıyor. Lütfen tekrar deneyin.',
+			'meal.analysis.analysisUnavailable' => 'Öğün analizi geçici olarak kullanılamıyor. Lütfen tekrar deneyin.',
+			'meal.analysis.unresolvedNutrition' => 'Bu öğün için besin değerlerini yeterli güvenle eşleştiremedik. Daha fazla ayrıntı eklemeyi deneyin.',
 			'meal.analysis.noFoodTip' => 'Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.',
 			'meal.analysis.stepDefault' => 'Öğününüz analiz ediliyor…',
 			'meal.analysis.progressUnderstand' => 'Öğününüz anlaşılıyor',
@@ -2485,13 +2495,13 @@ extension on TranslationsTr {
 			'disclaimer.snap.portionSize.description' => 'Tahminlerin doğruluğu büyük ölçüde porsiyon boyutunu doğru değerlendirmenize bağlıdır.',
 			'disclaimer.snap.preparationMethods.title' => 'Hazırlama Yöntemleri',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Pişirme yöntemleri yiyeceğin besin içeriğini önemli ölçüde değiştirebilir. ${appLabel} tahminleri her zaman bu farklılıkları hesaba katmayabilir.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'İçerikler',
 			'disclaimer.snap.ingredients.description' => 'Birçok gizli içeriğe sahip karmaşık yemekler daha az doğru tahminlere yol açabilir.',
 			'disclaimer.snap.databaseLimitations.title' => 'Veritabanı Sınırlamaları',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'in gıda veritabanı kapsamlıdır ancak her bir yiyecek öğesini veya varyasyonunu içermeyebilir.',
 			'disclaimer.weightEstimate.title' => 'Kilo Tahmini Hakkında',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Projeksiyon olarak verilen kilo değişimi basit kalori içeriği vs harcama modeli üzerine kurulu teorik bir tahmindir. Motivasyon kaynağı olarak düşünülmelidir, gerçek ağırlığın bir tahmini değildir.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalori Doğruluğu',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Bu tahmin, izlediğiniz kalori alımı ve harcamasının doğruluğuna bağlıdır. Hatalı kayıtlar tahminin yanlış olmasına neden olur.',

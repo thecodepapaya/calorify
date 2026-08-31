@@ -813,6 +813,11 @@ class _Translations$meal$analysis$cs extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Skoro hotovo…';
 	@override String get stepResult => 'Dokončuji výsledek…';
 	@override String get stepError => 'Něco se pokazilo';
+	@override String get providerUnavailable => 'Služba analýzy jídla je dočasně nedostupná. Zkuste to prosím znovu.';
+	@override String get invalidModelOutput => 'Výstupu analýzy jídla nebylo možné porozumět. Zkuste to prosím znovu.';
+	@override String get nutritionDataUnavailable => 'Nutriční údaje jsou dočasně nedostupné. Zkuste to prosím znovu.';
+	@override String get analysisUnavailable => 'Analýza jídla je dočasně nedostupná. Zkuste to prosím znovu.';
+	@override String get unresolvedNutrition => 'Spolehlivě jsme nedokázali přiřadit nutriční údaje k tomuto jídlu. Zkuste přidat více podrobností.';
 	@override String get noFoodTip => 'Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.';
 	@override String get stepDefault => 'Analyzuji vaše jídlo…';
 	@override String get progressUnderstand => 'Porozumění jídlu';
@@ -2228,6 +2233,11 @@ extension on TranslationsCs {
 			'meal.analysis.stepMealTypeQuestion' => 'Skoro hotovo…',
 			'meal.analysis.stepResult' => 'Dokončuji výsledek…',
 			'meal.analysis.stepError' => 'Něco se pokazilo',
+			'meal.analysis.providerUnavailable' => 'Služba analýzy jídla je dočasně nedostupná. Zkuste to prosím znovu.',
+			'meal.analysis.invalidModelOutput' => 'Výstupu analýzy jídla nebylo možné porozumět. Zkuste to prosím znovu.',
+			'meal.analysis.nutritionDataUnavailable' => 'Nutriční údaje jsou dočasně nedostupné. Zkuste to prosím znovu.',
+			'meal.analysis.analysisUnavailable' => 'Analýza jídla je dočasně nedostupná. Zkuste to prosím znovu.',
+			'meal.analysis.unresolvedNutrition' => 'Spolehlivě jsme nedokázali přiřadit nutriční údaje k tomuto jídlu. Zkuste přidat více podrobností.',
 			'meal.analysis.noFoodTip' => 'Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.',
 			'meal.analysis.stepDefault' => 'Analyzuji vaše jídlo…',
 			'meal.analysis.progressUnderstand' => 'Porozumění jídlu',
@@ -2485,13 +2495,13 @@ extension on TranslationsCs {
 			'disclaimer.snap.portionSize.description' => 'Přesnost odhadů silně závisí na správném odhadu velikosti porce.',
 			'disclaimer.snap.preparationMethods.title' => 'Způsoby přípravy',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Způsoby vaření mohou výrazně měnit nutriční hodnotu jídla. Odhady ${appLabel} nemusí tyto rozdíly vždy zohlednit.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingredience',
 			'disclaimer.snap.ingredients.description' => 'Složité pokrmy s mnoha skrytými ingrediencemi mohou vést k méně přesným odhadům.',
 			'disclaimer.snap.databaseLimitations.title' => 'Omezení databáze',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Databáze potravin v ${appLabel} je rozsáhlá, ale nemusí obsahovat každou potravinu nebo variantu.',
 			'disclaimer.weightEstimate.title' => 'Odhad váhové změny',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Projekce změny hmotnosti je teoretický odhad založený na jednoduchém modelu kalorický příjem vs. výdej. Slouží pouze jako motivační vodítko, nikoli jako předpověď vaší skutečné váhy.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Přesnost odhadů kalorií',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tento odhad je přesný jen tolik, kolik jsou přesné vaše záznamy o příjmu a výdeji kalorií. Nepřesné záznamy povedou k nepřesné projekci.',

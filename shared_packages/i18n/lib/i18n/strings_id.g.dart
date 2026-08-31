@@ -813,6 +813,11 @@ class _Translations$meal$analysis$id extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Hampir selesai…';
 	@override String get stepResult => 'Menyelesaikan hasil Anda…';
 	@override String get stepError => 'Terjadi kesalahan';
+	@override String get providerUnavailable => 'Penyedia analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.';
+	@override String get invalidModelOutput => 'Respons analisis hidangan tidak dapat dipahami. Silakan coba lagi.';
+	@override String get nutritionDataUnavailable => 'Data nutrisi untuk sementara tidak tersedia. Silakan coba lagi.';
+	@override String get analysisUnavailable => 'Analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.';
+	@override String get unresolvedNutrition => 'Kami belum dapat mencocokkan data nutrisi untuk hidangan ini dengan cukup yakin. Coba tambahkan detail lebih lanjut.';
 	@override String get noFoodTip => 'Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain.';
 	@override String get stepDefault => 'Menganalisis makanan Anda…';
 	@override String get progressUnderstand => 'Memahami makanan Anda';
@@ -2228,6 +2233,11 @@ extension on TranslationsId {
 			'meal.analysis.stepMealTypeQuestion' => 'Hampir selesai…',
 			'meal.analysis.stepResult' => 'Menyelesaikan hasil Anda…',
 			'meal.analysis.stepError' => 'Terjadi kesalahan',
+			'meal.analysis.providerUnavailable' => 'Penyedia analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.',
+			'meal.analysis.invalidModelOutput' => 'Respons analisis hidangan tidak dapat dipahami. Silakan coba lagi.',
+			'meal.analysis.nutritionDataUnavailable' => 'Data nutrisi untuk sementara tidak tersedia. Silakan coba lagi.',
+			'meal.analysis.analysisUnavailable' => 'Analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.',
+			'meal.analysis.unresolvedNutrition' => 'Kami belum dapat mencocokkan data nutrisi untuk hidangan ini dengan cukup yakin. Coba tambahkan detail lebih lanjut.',
 			'meal.analysis.noFoodTip' => 'Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain.',
 			'meal.analysis.stepDefault' => 'Menganalisis makanan Anda…',
 			'meal.analysis.progressUnderstand' => 'Memahami makanan Anda',
@@ -2485,13 +2495,13 @@ extension on TranslationsId {
 			'disclaimer.snap.portionSize.description' => 'Akurasi perkiraan sangat bergantung pada penilaian ukuran porsi yang benar.',
 			'disclaimer.snap.preparationMethods.title' => 'Metode Persiapan',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metode memasak dapat mengubah kandungan nutrisi secara signifikan. Perkiraan ${appLabel} mungkin tidak selalu memperhitungkan variasi ini.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Bahan',
 			'disclaimer.snap.ingredients.description' => 'Hidangan kompleks dengan banyak bahan tersembunyi dapat menyebabkan estimasi yang kurang akurat.',
 			'disclaimer.snap.databaseLimitations.title' => 'Batasan Basis Data',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Basis data makanan ${appLabel} luas tetapi mungkin tidak mencakup setiap item makanan atau variasinya.',
 			'disclaimer.weightEstimate.title' => 'Tentang Perkiraan Berat',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Perubahan berat yang diproyeksikan adalah perkiraan teoretis berdasarkan model kalori masuk vs keluar sederhana. Ini dimaksudkan untuk panduan motivasi saja, bukan prediksi berat aktual Anda.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Akurasi Kalori',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Perkiraan ini hanya seakurat pencatatan asupan dan pengeluaran kalori Anda. Pencatatan yang tidak akurat akan menghasilkan proyeksi yang tidak akurat.',

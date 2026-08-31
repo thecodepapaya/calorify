@@ -813,6 +813,11 @@ class _Translations$meal$analysis$el extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Λίγο ακόμα…';
 	@override String get stepResult => 'Ολοκλήρωση αποτελέσματος…';
 	@override String get stepError => 'Κάτι πήγε στραβά';
+	@override String get providerUnavailable => 'Ο πάροχος ανάλυσης γεύματος είναι προσωρινά μη διαθέσιμος. Παρακαλούμε δοκιμάστε ξανά.';
+	@override String get invalidModelOutput => 'Η απόκριση για το γεύμα δεν ήταν κατανοητή. Παρακαλούμε δοκιμάστε ξανά.';
+	@override String get nutritionDataUnavailable => 'Τα διατροφικά δεδομένα είναι προσωρινά μη διαθέσιμα. Παρακαλούμε δοκιμάστε ξανά.';
+	@override String get analysisUnavailable => 'Η ανάλυση γεύματος είναι προσωρινά μη διαθέσιμη. Παρακαλούμε δοκιμάστε ξανά.';
+	@override String get unresolvedNutrition => 'Δεν μπορέσαμε να αντιστοιχίσουμε με ασφάλεια διατροφικά δεδομένα για αυτό το γεύμα. Δοκιμάστε να προσθέσετε περισσότερες λεπτομέρειες.';
 	@override String get noFoodTip => 'Δεν ανιχνεύθηκε τροφή. Δοκιμάστε άλλη φωτογραφία ή περιγραφή.';
 	@override String get stepDefault => 'Ανάλυση του γεύματός σας…';
 	@override String get progressUnderstand => 'Κατανόηση του γεύματος';
@@ -2228,6 +2233,11 @@ extension on TranslationsEl {
 			'meal.analysis.stepMealTypeQuestion' => 'Λίγο ακόμα…',
 			'meal.analysis.stepResult' => 'Ολοκλήρωση αποτελέσματος…',
 			'meal.analysis.stepError' => 'Κάτι πήγε στραβά',
+			'meal.analysis.providerUnavailable' => 'Ο πάροχος ανάλυσης γεύματος είναι προσωρινά μη διαθέσιμος. Παρακαλούμε δοκιμάστε ξανά.',
+			'meal.analysis.invalidModelOutput' => 'Η απόκριση για το γεύμα δεν ήταν κατανοητή. Παρακαλούμε δοκιμάστε ξανά.',
+			'meal.analysis.nutritionDataUnavailable' => 'Τα διατροφικά δεδομένα είναι προσωρινά μη διαθέσιμα. Παρακαλούμε δοκιμάστε ξανά.',
+			'meal.analysis.analysisUnavailable' => 'Η ανάλυση γεύματος είναι προσωρινά μη διαθέσιμη. Παρακαλούμε δοκιμάστε ξανά.',
+			'meal.analysis.unresolvedNutrition' => 'Δεν μπορέσαμε να αντιστοιχίσουμε με ασφάλεια διατροφικά δεδομένα για αυτό το γεύμα. Δοκιμάστε να προσθέσετε περισσότερες λεπτομέρειες.',
 			'meal.analysis.noFoodTip' => 'Δεν ανιχνεύθηκε τροφή. Δοκιμάστε άλλη φωτογραφία ή περιγραφή.',
 			'meal.analysis.stepDefault' => 'Ανάλυση του γεύματός σας…',
 			'meal.analysis.progressUnderstand' => 'Κατανόηση του γεύματος',
@@ -2485,13 +2495,13 @@ extension on TranslationsEl {
 			'disclaimer.snap.portionSize.description' => 'Η ακρίβεια των εκτιμήσεων εξαρτάται σε μεγάλο βαθμό από τη σωστή εκτίμηση του μεγέθους της μερίδας.',
 			'disclaimer.snap.preparationMethods.title' => 'Τρόποι Προετοιμασίας',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά το διατροφικό περιεχόμενο. Οι εκτιμήσεις του ${appLabel} ενδέχεται να μην λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Συστατικά',
 			'disclaimer.snap.ingredients.description' => 'Τα σύνθετα πιάτα με πολλά κρυφά συστατικά μπορεί να οδηγήσουν σε λιγότερο ακριβείς εκτιμήσεις.',
 			'disclaimer.snap.databaseLimitations.title' => 'Περιορισμοί Βάσης Δεδομένων',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Η βάση δεδομένων τροφίμων του ${appLabel} είναι εκτεταμένη αλλά ενδέχεται να μην περιλαμβάνει κάθε είδος ή παραλλαγή.',
 			'disclaimer.weightEstimate.title' => 'Σχετικά με την Εκτίμηση Βάρους',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Η προβλεπόμενη αλλαγή βάρους είναι μια θεωρητική εκτίμηση βασισμένη στο απλό μοντέλο θερμίδες-εισόδου vs θερμίδες-εξόδου. Προορίζεται μόνο για κινητοποίηση, όχι ως πρόβλεψη του πραγματικού σας βάρους.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Ακρίβεια Θερμίδων',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Αυτή η εκτίμηση είναι τόσο ακριβής όσο και η καταγραφή της πρόσληψης και δαπάνης θερμίδων. Ανακριβής καταγραφή θα οδηγήσει σε ανακριβή προβολή.',

@@ -1410,6 +1410,21 @@ class Translations$meal$analysis$en {
 	/// en: 'Something went wrong'
 	String get stepError => 'Something went wrong';
 
+	/// en: 'The meal analysis provider is temporarily unavailable. Please try again.'
+	String get providerUnavailable => 'The meal analysis provider is temporarily unavailable. Please try again.';
+
+	/// en: 'The meal response could not be understood. Please try again.'
+	String get invalidModelOutput => 'The meal response could not be understood. Please try again.';
+
+	/// en: 'Nutrition data is temporarily unavailable. Please try again.'
+	String get nutritionDataUnavailable => 'Nutrition data is temporarily unavailable. Please try again.';
+
+	/// en: 'Meal analysis is temporarily unavailable. Please try again.'
+	String get analysisUnavailable => 'Meal analysis is temporarily unavailable. Please try again.';
+
+	/// en: 'We could not safely match nutrition data for this meal. Try adding more detail.'
+	String get unresolvedNutrition => 'We could not safely match nutrition data for this meal. Try adding more detail.';
+
 	/// en: 'No food was detected. Try another photo or description.'
 	String get noFoodTip => 'No food was detected. Try another photo or description.';
 
@@ -3549,6 +3564,11 @@ extension on Translations {
 			'meal.analysis.stepMealTypeQuestion' => 'Almost there…',
 			'meal.analysis.stepResult' => 'Finalizing your result…',
 			'meal.analysis.stepError' => 'Something went wrong',
+			'meal.analysis.providerUnavailable' => 'The meal analysis provider is temporarily unavailable. Please try again.',
+			'meal.analysis.invalidModelOutput' => 'The meal response could not be understood. Please try again.',
+			'meal.analysis.nutritionDataUnavailable' => 'Nutrition data is temporarily unavailable. Please try again.',
+			'meal.analysis.analysisUnavailable' => 'Meal analysis is temporarily unavailable. Please try again.',
+			'meal.analysis.unresolvedNutrition' => 'We could not safely match nutrition data for this meal. Try adding more detail.',
 			'meal.analysis.noFoodTip' => 'No food was detected. Try another photo or description.',
 			'meal.analysis.stepDefault' => 'Analyzing your meal…',
 			'meal.analysis.progressUnderstand' => 'Understanding your meal',
@@ -3806,13 +3826,13 @@ extension on Translations {
 			'disclaimer.snap.portionSize.description' => 'The accuracy of the estimates heavily relies on your correct assessment of the portion size.',
 			'disclaimer.snap.preparationMethods.title' => 'Preparation Methods',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cooking methods can significantly alter the nutritional content of food. ${appLabel}\'s estimates may not always account for these variations.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingredients',
 			'disclaimer.snap.ingredients.description' => 'Complex dishes with many hidden ingredients may lead to less accurate estimations.',
 			'disclaimer.snap.databaseLimitations.title' => 'Database Limitations',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s food database is extensive but may not include every single food item or variation.',
 			'disclaimer.weightEstimate.title' => 'About Weight Estimate',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Calorie Accuracy',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection.',

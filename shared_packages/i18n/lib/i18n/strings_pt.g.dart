@@ -813,6 +813,11 @@ class _Translations$meal$analysis$pt extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Quase lá…';
 	@override String get stepResult => 'A finalizar o resultado…';
 	@override String get stepError => 'Algo correu mal';
+	@override String get providerUnavailable => 'O serviço de análise de refeições está temporariamente indisponível. Tente novamente.';
+	@override String get invalidModelOutput => 'Não foi possível entender a resposta sobre a refeição. Tente novamente.';
+	@override String get nutritionDataUnavailable => 'Os dados nutricionais estão temporariamente indisponíveis. Tente novamente.';
+	@override String get analysisUnavailable => 'A análise da refeição está temporariamente indisponível. Tente novamente.';
+	@override String get unresolvedNutrition => 'Não conseguimos vincular com segurança os dados nutricionais desta refeição. Tente adicionar mais detalhes.';
 	@override String get noFoodTip => 'Não foi detetado nenhum alimento. Tente outra foto ou descrição.';
 	@override String get stepDefault => 'A analisar a sua refeição…';
 	@override String get progressUnderstand => 'A compreender a sua refeição';
@@ -2228,6 +2233,11 @@ extension on TranslationsPt {
 			'meal.analysis.stepMealTypeQuestion' => 'Quase lá…',
 			'meal.analysis.stepResult' => 'A finalizar o resultado…',
 			'meal.analysis.stepError' => 'Algo correu mal',
+			'meal.analysis.providerUnavailable' => 'O serviço de análise de refeições está temporariamente indisponível. Tente novamente.',
+			'meal.analysis.invalidModelOutput' => 'Não foi possível entender a resposta sobre a refeição. Tente novamente.',
+			'meal.analysis.nutritionDataUnavailable' => 'Os dados nutricionais estão temporariamente indisponíveis. Tente novamente.',
+			'meal.analysis.analysisUnavailable' => 'A análise da refeição está temporariamente indisponível. Tente novamente.',
+			'meal.analysis.unresolvedNutrition' => 'Não conseguimos vincular com segurança os dados nutricionais desta refeição. Tente adicionar mais detalhes.',
 			'meal.analysis.noFoodTip' => 'Não foi detetado nenhum alimento. Tente outra foto ou descrição.',
 			'meal.analysis.stepDefault' => 'A analisar a sua refeição…',
 			'meal.analysis.progressUnderstand' => 'A compreender a sua refeição',
@@ -2485,13 +2495,13 @@ extension on TranslationsPt {
 			'disclaimer.snap.portionSize.description' => 'A precisão das estimativas depende fortemente de avaliar corretamente o tamanho da porção.',
 			'disclaimer.snap.preparationMethods.title' => 'Métodos de preparação',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Os métodos de confeção podem alterar significativamente o conteúdo nutricional dos alimentos. As estimativas do ${appLabel} podem não refletir sempre essas variações.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingredientes',
 			'disclaimer.snap.ingredients.description' => 'Pratos complexos com muitos ingredientes ocultos podem conduzir a estimativas menos precisas.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitações da base de dados',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'A base de dados de alimentos do ${appLabel} é extensa, mas pode não incluir todos os alimentos ou variações existentes.',
 			'disclaimer.weightEstimate.title' => 'Sobre a estimativa de peso',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'A projeção de alteração de peso é uma estimativa teórica baseada no modelo simples de calorias ingeridas vs. calorias gastas. Destina‑se apenas a orientação motivacional, não como previsão do seu peso real.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Precisão das calorias',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Esta estimativa é tão precisa quanto o registo do seu consumo e despesa calórica. Um registo incorreto resultará numa projeção imprecisa.',

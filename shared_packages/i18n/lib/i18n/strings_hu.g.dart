@@ -813,6 +813,11 @@ class _Translations$meal$analysis$hu extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Majdnem kész…';
 	@override String get stepResult => 'Eredmény véglegesítése…';
 	@override String get stepError => 'Valami hiba történt';
+	@override String get providerUnavailable => 'Az étkezéselemző szolgáltatás átmenetileg nem érhető el. Próbáld újra.';
+	@override String get invalidModelOutput => 'Az étkezésre kapott választ nem sikerült értelmezni. Próbáld újra.';
+	@override String get nutritionDataUnavailable => 'A tápanyagadatok átmenetileg nem érhetők el. Próbáld újra.';
+	@override String get analysisUnavailable => 'Az étkezéselemzés átmenetileg nem érhető el. Próbáld újra.';
+	@override String get unresolvedNutrition => 'Ehhez az étkezéshez nem tudtunk megbízhatóan tápanyagadatokat társítani. Próbálj meg több részletet megadni.';
 	@override String get noFoodTip => 'Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.';
 	@override String get stepDefault => 'Étel elemzése…';
 	@override String get progressUnderstand => 'Az étel megértése';
@@ -2228,6 +2233,11 @@ extension on TranslationsHu {
 			'meal.analysis.stepMealTypeQuestion' => 'Majdnem kész…',
 			'meal.analysis.stepResult' => 'Eredmény véglegesítése…',
 			'meal.analysis.stepError' => 'Valami hiba történt',
+			'meal.analysis.providerUnavailable' => 'Az étkezéselemző szolgáltatás átmenetileg nem érhető el. Próbáld újra.',
+			'meal.analysis.invalidModelOutput' => 'Az étkezésre kapott választ nem sikerült értelmezni. Próbáld újra.',
+			'meal.analysis.nutritionDataUnavailable' => 'A tápanyagadatok átmenetileg nem érhetők el. Próbáld újra.',
+			'meal.analysis.analysisUnavailable' => 'Az étkezéselemzés átmenetileg nem érhető el. Próbáld újra.',
+			'meal.analysis.unresolvedNutrition' => 'Ehhez az étkezéshez nem tudtunk megbízhatóan tápanyagadatokat társítani. Próbálj meg több részletet megadni.',
 			'meal.analysis.noFoodTip' => 'Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.',
 			'meal.analysis.stepDefault' => 'Étel elemzése…',
 			'meal.analysis.progressUnderstand' => 'Az étel megértése',
@@ -2485,13 +2495,13 @@ extension on TranslationsHu {
 			'disclaimer.snap.portionSize.description' => 'A becslések pontossága nagymértékben függ az adagméret helyes megadásától.',
 			'disclaimer.snap.preparationMethods.title' => 'Elkészítési módok',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'A főzési módok jelentősen megváltoztathatják az étel tápanyagtartalmát. A ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Összetevők',
 			'disclaimer.snap.ingredients.description' => 'Az összetett ételek sok rejtett összetevője pontatlansághoz vezethet.',
 			'disclaimer.snap.databaseLimitations.title' => 'Adatbázis korlátok',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'A ${appLabel} ételadatbázisa kiterjedt, de előfordulhat, hogy nem tartalmaz minden egyes élelmiszert vagy variánst.',
 			'disclaimer.weightEstimate.title' => 'A súlybecslésről',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'A becsült súlyváltozás elméleti számításon alapul a kalória-bevitel és -kiadás egyszerű modelljén. Motivációs útmutatásnak készült, nem az aktuális súlyod előrejelzésére.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalória pontosság',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ez a becslés annyira pontos, amennyire a naplózott kalória bevitel és kiadás az. Pontatlan naplózás pontatlan előrejelzést eredményez.',

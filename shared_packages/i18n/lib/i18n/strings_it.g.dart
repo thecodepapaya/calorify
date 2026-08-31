@@ -813,6 +813,11 @@ class _Translations$meal$analysis$it extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Quasi pronto…';
 	@override String get stepResult => 'Finalizzazione del risultato…';
 	@override String get stepError => 'Si è verificato un problema';
+	@override String get providerUnavailable => 'Il servizio di analisi dei pasti è temporaneamente non disponibile. Riprova.';
+	@override String get invalidModelOutput => 'Impossibile interpretare la risposta sul pasto. Riprova.';
+	@override String get nutritionDataUnavailable => 'I dati nutrizionali sono temporaneamente non disponibili. Riprova.';
+	@override String get analysisUnavailable => 'L\'analisi del pasto è temporaneamente non disponibile. Riprova.';
+	@override String get unresolvedNutrition => 'Non siamo riusciti ad associare in modo affidabile i dati nutrizionali per questo pasto. Prova ad aggiungere più dettagli.';
 	@override String get noFoodTip => 'Nessun cibo rilevato. Prova un\'altra foto o descrizione.';
 	@override String get stepDefault => 'Analisi del pasto in corso…';
 	@override String get progressUnderstand => 'Comprensione del pasto';
@@ -2228,6 +2233,11 @@ extension on TranslationsIt {
 			'meal.analysis.stepMealTypeQuestion' => 'Quasi pronto…',
 			'meal.analysis.stepResult' => 'Finalizzazione del risultato…',
 			'meal.analysis.stepError' => 'Si è verificato un problema',
+			'meal.analysis.providerUnavailable' => 'Il servizio di analisi dei pasti è temporaneamente non disponibile. Riprova.',
+			'meal.analysis.invalidModelOutput' => 'Impossibile interpretare la risposta sul pasto. Riprova.',
+			'meal.analysis.nutritionDataUnavailable' => 'I dati nutrizionali sono temporaneamente non disponibili. Riprova.',
+			'meal.analysis.analysisUnavailable' => 'L\'analisi del pasto è temporaneamente non disponibile. Riprova.',
+			'meal.analysis.unresolvedNutrition' => 'Non siamo riusciti ad associare in modo affidabile i dati nutrizionali per questo pasto. Prova ad aggiungere più dettagli.',
 			'meal.analysis.noFoodTip' => 'Nessun cibo rilevato. Prova un\'altra foto o descrizione.',
 			'meal.analysis.stepDefault' => 'Analisi del pasto in corso…',
 			'meal.analysis.progressUnderstand' => 'Comprensione del pasto',
@@ -2485,13 +2495,13 @@ extension on TranslationsIt {
 			'disclaimer.snap.portionSize.description' => 'L\'accuratezza delle stime dipende fortemente dalla tua valutazione corretta della dimensione della porzione.',
 			'disclaimer.snap.preparationMethods.title' => 'Metodi di preparazione',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'I metodi di cottura possono alterare significativamente il contenuto nutrizionale. Le stime di ${appLabel} potrebbero non tenerne sempre conto.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingredienti',
 			'disclaimer.snap.ingredients.description' => 'Piatti complessi con molti ingredienti nascosti possono portare a stime meno accurate.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitazioni del database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Il database alimentare di ${appLabel} è ampio ma potrebbe non includere ogni singolo alimento o variazione.',
 			'disclaimer.weightEstimate.title' => 'Informazioni sulla stima del peso',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'La variazione di peso proiettata è una stima teorica basata sul semplice modello calorie in vs. calorie out. È intesa solo come guida motivazionale, non come predizione del tuo peso reale.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Accuratezza delle calorie',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Questa stima è accurata tanto quanto lo sono le calorie e le spese che registri. Una registrazione inaccurata produrrà una proiezione inaccurata.',

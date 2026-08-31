@@ -813,6 +813,11 @@ class _Translations$meal$analysis$ro extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Mai aproape…';
 	@override String get stepResult => 'Finalizăm rezultatul…';
 	@override String get stepError => 'Ceva nu a mers bine';
+	@override String get providerUnavailable => 'Furnizorul pentru analiza meselor este temporar indisponibil. Te rugăm să încerci din nou.';
+	@override String get invalidModelOutput => 'Răspunsul analizei mesei nu a putut fi înțeles. Te rugăm să încerci din nou.';
+	@override String get nutritionDataUnavailable => 'Datele nutriționale sunt temporar indisponibile. Te rugăm să încerci din nou.';
+	@override String get analysisUnavailable => 'Analiza mesei este temporar indisponibilă. Te rugăm să încerci din nou.';
+	@override String get unresolvedNutrition => 'Nu am putut potrivi în mod sigur datele nutriționale pentru această masă. Încearcă să adaugi mai multe detalii.';
 	@override String get noFoodTip => 'Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.';
 	@override String get stepDefault => 'Se analizează masa ta…';
 	@override String get progressUnderstand => 'Înțelegerea mesei';
@@ -2228,6 +2233,11 @@ extension on TranslationsRo {
 			'meal.analysis.stepMealTypeQuestion' => 'Mai aproape…',
 			'meal.analysis.stepResult' => 'Finalizăm rezultatul…',
 			'meal.analysis.stepError' => 'Ceva nu a mers bine',
+			'meal.analysis.providerUnavailable' => 'Furnizorul pentru analiza meselor este temporar indisponibil. Te rugăm să încerci din nou.',
+			'meal.analysis.invalidModelOutput' => 'Răspunsul analizei mesei nu a putut fi înțeles. Te rugăm să încerci din nou.',
+			'meal.analysis.nutritionDataUnavailable' => 'Datele nutriționale sunt temporar indisponibile. Te rugăm să încerci din nou.',
+			'meal.analysis.analysisUnavailable' => 'Analiza mesei este temporar indisponibilă. Te rugăm să încerci din nou.',
+			'meal.analysis.unresolvedNutrition' => 'Nu am putut potrivi în mod sigur datele nutriționale pentru această masă. Încearcă să adaugi mai multe detalii.',
 			'meal.analysis.noFoodTip' => 'Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.',
 			'meal.analysis.stepDefault' => 'Se analizează masa ta…',
 			'meal.analysis.progressUnderstand' => 'Înțelegerea mesei',
@@ -2485,13 +2495,13 @@ extension on TranslationsRo {
 			'disclaimer.snap.portionSize.description' => 'Acuratețea estimărilor depinde în mare măsură de evaluarea corectă a mărimii porției.',
 			'disclaimer.snap.preparationMethods.title' => 'Metode de preparare',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metodele de gătit pot altera semnificativ conținutul nutrițional. Estimările ${appLabel} pot să nu ia întotdeauna în calcul aceste variații.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingrediente',
 			'disclaimer.snap.ingredients.description' => 'Preparatele complexe cu multe ingrediente ascunse pot duce la estimări mai puțin exacte.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitări ale bazei de date',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Baza de date de alimente a ${appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație.',
 			'disclaimer.weightEstimate.title' => 'Despre estimarea greutății',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Schimbarea proiectată a greutății este o estimare teoretică bazată pe modelul simplu calorii-in vs calorii-out. Este destinat doar ca ghid motivațional, nu ca o predicție a greutății tale reale.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Acuratețea caloriilor',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Această estimare este la fel de precisă ca înregistrările tale de aport și cheltuieli calorice. Înregistrările inexacte vor conduce la proiecții inexacte.',

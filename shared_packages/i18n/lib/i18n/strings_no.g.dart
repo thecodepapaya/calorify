@@ -813,6 +813,11 @@ class _Translations$meal$analysis$no extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Nesten ferdig…';
 	@override String get stepResult => 'Ferdigstiller resultatet…';
 	@override String get stepError => 'Noe gikk galt';
+	@override String get providerUnavailable => 'Tjenesten for måltidsanalyse er midlertidig utilgjengelig. Prøv igjen.';
+	@override String get invalidModelOutput => 'Svaret for måltidet kunne ikke forstås. Prøv igjen.';
+	@override String get nutritionDataUnavailable => 'Ernæringsdata er midlertidig utilgjengelige. Prøv igjen.';
+	@override String get analysisUnavailable => 'Måltidsanalysen er midlertidig utilgjengelig. Prøv igjen.';
+	@override String get unresolvedNutrition => 'Vi kunne ikke med sikkerhet finne passende ernæringsdata for dette måltidet. Prøv å legge til flere detaljer.';
 	@override String get noFoodTip => 'Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.';
 	@override String get stepDefault => 'Analyserer måltidet ditt…';
 	@override String get progressUnderstand => 'Forstår måltidet ditt';
@@ -2228,6 +2233,11 @@ extension on TranslationsNo {
 			'meal.analysis.stepMealTypeQuestion' => 'Nesten ferdig…',
 			'meal.analysis.stepResult' => 'Ferdigstiller resultatet…',
 			'meal.analysis.stepError' => 'Noe gikk galt',
+			'meal.analysis.providerUnavailable' => 'Tjenesten for måltidsanalyse er midlertidig utilgjengelig. Prøv igjen.',
+			'meal.analysis.invalidModelOutput' => 'Svaret for måltidet kunne ikke forstås. Prøv igjen.',
+			'meal.analysis.nutritionDataUnavailable' => 'Ernæringsdata er midlertidig utilgjengelige. Prøv igjen.',
+			'meal.analysis.analysisUnavailable' => 'Måltidsanalysen er midlertidig utilgjengelig. Prøv igjen.',
+			'meal.analysis.unresolvedNutrition' => 'Vi kunne ikke med sikkerhet finne passende ernæringsdata for dette måltidet. Prøv å legge til flere detaljer.',
 			'meal.analysis.noFoodTip' => 'Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.',
 			'meal.analysis.stepDefault' => 'Analyserer måltidet ditt…',
 			'meal.analysis.progressUnderstand' => 'Forstår måltidet ditt',
@@ -2485,13 +2495,13 @@ extension on TranslationsNo {
 			'disclaimer.snap.portionSize.description' => 'Nøyaktigheten av estimatene avhenger i stor grad av din korrekte vurdering av porsjonsstørrelsen.',
 			'disclaimer.snap.preparationMethods.title' => 'Tilberedningsmetoder',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tilberedningsmetoder kan endre næringsinnholdet betydelig. ${appLabel}s estimater tar ikke alltid høyde for disse variasjonene.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingredienser',
 			'disclaimer.snap.ingredients.description' => 'Komplekse retter med mange skjulte ingredienser kan gi mindre nøyaktige estimater.',
 			'disclaimer.snap.databaseLimitations.title' => 'Databasebegrensninger',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}s matdatabase er omfattende, men kan ikke inneholde hvert enkelt matvarealternativ eller variasjon.',
 			'disclaimer.weightEstimate.title' => 'Om vektestimatet',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Den projiserte vektendringen er et teoretisk estimat basert på det enkle kalori inn vs. kalori ut-modellen. Det er ment som motivasjonsveiledning, ikke en prediksjon av din faktiske vekt.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorinøyaktighet',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Dette estimatet er så nøyaktig som registreringen av ditt kaloriinntak og -forbruk. Unøyaktig logging gir et unøyaktig estimat.',

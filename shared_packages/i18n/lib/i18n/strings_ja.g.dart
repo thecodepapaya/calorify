@@ -813,6 +813,11 @@ class _Translations$meal$analysis$ja extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'もう少しで完了です…';
 	@override String get stepResult => '結果を最終化しています…';
 	@override String get stepError => '問題が発生しました';
+	@override String get providerUnavailable => '食事分析サービスは現在ご利用いただけません。しばらくしてからもう一度お試しください。';
+	@override String get invalidModelOutput => '食事の分析結果を正しく読み取れませんでした。もう一度お試しください。';
+	@override String get nutritionDataUnavailable => '栄養データは現在ご利用いただけません。しばらくしてからもう一度お試しください。';
+	@override String get analysisUnavailable => '食事の分析は現在ご利用いただけません。しばらくしてからもう一度お試しください。';
+	@override String get unresolvedNutrition => 'この食事に確実に一致する栄養データを特定できませんでした。詳細をもう少し追加してみてください。';
 	@override String get noFoodTip => '食品が検出されませんでした。別の写真または説明をお試しください。';
 	@override String get stepDefault => '食事を分析しています…';
 	@override String get progressUnderstand => '食事を理解中';
@@ -2228,6 +2233,11 @@ extension on TranslationsJa {
 			'meal.analysis.stepMealTypeQuestion' => 'もう少しで完了です…',
 			'meal.analysis.stepResult' => '結果を最終化しています…',
 			'meal.analysis.stepError' => '問題が発生しました',
+			'meal.analysis.providerUnavailable' => '食事分析サービスは現在ご利用いただけません。しばらくしてからもう一度お試しください。',
+			'meal.analysis.invalidModelOutput' => '食事の分析結果を正しく読み取れませんでした。もう一度お試しください。',
+			'meal.analysis.nutritionDataUnavailable' => '栄養データは現在ご利用いただけません。しばらくしてからもう一度お試しください。',
+			'meal.analysis.analysisUnavailable' => '食事の分析は現在ご利用いただけません。しばらくしてからもう一度お試しください。',
+			'meal.analysis.unresolvedNutrition' => 'この食事に確実に一致する栄養データを特定できませんでした。詳細をもう少し追加してみてください。',
 			'meal.analysis.noFoodTip' => '食品が検出されませんでした。別の写真または説明をお試しください。',
 			'meal.analysis.stepDefault' => '食事を分析しています…',
 			'meal.analysis.progressUnderstand' => '食事を理解中',
@@ -2485,13 +2495,13 @@ extension on TranslationsJa {
 			'disclaimer.snap.portionSize.description' => '推定の精度は分量の正確な評価に大きく依存します。',
 			'disclaimer.snap.preparationMethods.title' => '調理方法',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '調理方法は栄養成分を大きく変える可能性があります。${appLabel}の推定が必ずしもこれらを考慮しているとは限りません。',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => '材料',
 			'disclaimer.snap.ingredients.description' => '材料が複雑で隠れた材料が多い料理は、推定精度が低くなる可能性があります。',
 			'disclaimer.snap.databaseLimitations.title' => 'データベースの制限',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}の食品データベースは豊富ですが、すべての食品やバリエーションを網羅しているわけではありません。',
 			'disclaimer.weightEstimate.title' => '体重推定について',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => '推定される体重変化は、単純なカロリー収支モデルに基づく理論的な推定です。モチベーションの指標として意図されており、実際の体重予測ではありません。',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'カロリーの精度',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'この推定は、記録されたカロリー摂取と消費の精度に依存します。不正確な記録は不正確な推定を生みます。',

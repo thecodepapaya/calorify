@@ -813,6 +813,11 @@ class _Translations$meal$analysis$hi extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'लगभग पूरा…';
 	@override String get stepResult => 'आपका परिणाम अंतिम रूप दे रहे हैं…';
 	@override String get stepError => 'कुछ गलत हुआ';
+	@override String get providerUnavailable => 'भोजन विश्लेषण प्रदाता अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।';
+	@override String get invalidModelOutput => 'भोजन के लिए प्राप्त उत्तर को समझा नहीं जा सका। कृपया पुनः प्रयास करें।';
+	@override String get nutritionDataUnavailable => 'पोषण डेटा अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।';
+	@override String get analysisUnavailable => 'भोजन विश्लेषण अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।';
+	@override String get unresolvedNutrition => 'हम इस भोजन के लिए पोषण डेटा का विश्वसनीय मिलान नहीं कर पाए। कृपया कुछ और विवरण जोड़ें।';
 	@override String get noFoodTip => 'कोई भोजन नहीं मिला। कोई दूसरी तस्वीर या विवरण आज़माएँ।';
 	@override String get stepDefault => 'आपके भोजन का विश्लेषण किया जा रहा है…';
 	@override String get progressUnderstand => 'आपके भोजन को समझना';
@@ -2228,6 +2233,11 @@ extension on TranslationsHi {
 			'meal.analysis.stepMealTypeQuestion' => 'लगभग पूरा…',
 			'meal.analysis.stepResult' => 'आपका परिणाम अंतिम रूप दे रहे हैं…',
 			'meal.analysis.stepError' => 'कुछ गलत हुआ',
+			'meal.analysis.providerUnavailable' => 'भोजन विश्लेषण प्रदाता अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।',
+			'meal.analysis.invalidModelOutput' => 'भोजन के लिए प्राप्त उत्तर को समझा नहीं जा सका। कृपया पुनः प्रयास करें।',
+			'meal.analysis.nutritionDataUnavailable' => 'पोषण डेटा अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।',
+			'meal.analysis.analysisUnavailable' => 'भोजन विश्लेषण अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।',
+			'meal.analysis.unresolvedNutrition' => 'हम इस भोजन के लिए पोषण डेटा का विश्वसनीय मिलान नहीं कर पाए। कृपया कुछ और विवरण जोड़ें।',
 			'meal.analysis.noFoodTip' => 'कोई भोजन नहीं मिला। कोई दूसरी तस्वीर या विवरण आज़माएँ।',
 			'meal.analysis.stepDefault' => 'आपके भोजन का विश्लेषण किया जा रहा है…',
 			'meal.analysis.progressUnderstand' => 'आपके भोजन को समझना',
@@ -2485,13 +2495,13 @@ extension on TranslationsHi {
 			'disclaimer.snap.portionSize.description' => 'अनुमानों की सटीकता आपके द्वारा सही पोरशन साइज के आकलन पर बहुत निर्भर करती है।',
 			'disclaimer.snap.preparationMethods.title' => 'तैयारी की विधियाँ',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'खाना पकाने की विधियाँ खाद्य के पोषण सामग्री को काफी बदल सकती हैं। ${appLabel} के अनुमान हमेशा इन परिवर्तनों को ध्यान में नहीं रख सकते हैं।',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'सामग्री',
 			'disclaimer.snap.ingredients.description' => 'कई छिपी हुई सामग्रियों वाले जटिल व्यंजन कम सटीक अनुमान दे सकते हैं।',
 			'disclaimer.snap.databaseLimitations.title' => 'डेटाबेस सीमाएँ',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} का फ़ूड डेटाबेस व्यापक है परन्तु हर एक खाद्य आइटम या विविधता शामिल न हो सकती है।',
 			'disclaimer.weightEstimate.title' => 'वजन अनुमान के बारे में',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'प्रोजेक्टेड वजन परिवर्तन एक सैद्धान्तिक अनुमान है जो सरल कैलोरी-इन बनाम कैलोरी-आउट मॉडल पर आधारित है। यह केवल प्रेरणादायक मार्गदर्शन के लिए है, आपके वास्तविक वजन की भविष्यवाणी के लिए नहीं।',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'कैलोरी सटीकता',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'यह अनुमान आपके ट्रैक किए गए कैलोरी इनटेक और व्यय के जितना सटीक होगा उतना ही सही होगा। गलत लॉगिंग अनुचित प्रक्षेपण देगी।',

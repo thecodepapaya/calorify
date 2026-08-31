@@ -813,6 +813,11 @@ class _Translations$meal$analysis$gu extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'લગભગ થઈ ગયું…';
 	@override String get stepResult => 'તમારા પરિણામને અંતિમ સ્વરૂપ આપી રહ્યા છીએ…';
 	@override String get stepError => 'કંઈક ખોટું થયું';
+	@override String get providerUnavailable => 'ભોજન વિશ્લેષણ પ્રદાતા હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.';
+	@override String get invalidModelOutput => 'ભોજન માટેનો પ્રતિસાદ સમજાઈ શક્યો નથી. કૃપા કરીને ફરી પ્રયત્ન કરો.';
+	@override String get nutritionDataUnavailable => 'પોષણ માહિતી હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.';
+	@override String get analysisUnavailable => 'ભોજન વિશ્લેષણ હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.';
+	@override String get unresolvedNutrition => 'અમે આ ભોજન માટે પોષણ માહિતી ચોક્કસ રીતે મેળખત બેસાડી શક્યાં નથી. કૃપા કરીને વધુ વિગતો ઉમેરવાનો પ્રયાસ કરો.';
 	@override String get noFoodTip => 'કોઈ ખોરાક મળ્યો નથી. બીજો ફોટો અથવા વર્ણન અજમાવો.';
 	@override String get stepDefault => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ…';
 	@override String get progressUnderstand => 'તમારા ભોજનને સમજવું';
@@ -2228,6 +2233,11 @@ extension on TranslationsGu {
 			'meal.analysis.stepMealTypeQuestion' => 'લગભગ થઈ ગયું…',
 			'meal.analysis.stepResult' => 'તમારા પરિણામને અંતિમ સ્વરૂપ આપી રહ્યા છીએ…',
 			'meal.analysis.stepError' => 'કંઈક ખોટું થયું',
+			'meal.analysis.providerUnavailable' => 'ભોજન વિશ્લેષણ પ્રદાતા હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.',
+			'meal.analysis.invalidModelOutput' => 'ભોજન માટેનો પ્રતિસાદ સમજાઈ શક્યો નથી. કૃપા કરીને ફરી પ્રયત્ન કરો.',
+			'meal.analysis.nutritionDataUnavailable' => 'પોષણ માહિતી હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.',
+			'meal.analysis.analysisUnavailable' => 'ભોજન વિશ્લેષણ હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.',
+			'meal.analysis.unresolvedNutrition' => 'અમે આ ભોજન માટે પોષણ માહિતી ચોક્કસ રીતે મેળખત બેસાડી શક્યાં નથી. કૃપા કરીને વધુ વિગતો ઉમેરવાનો પ્રયાસ કરો.',
 			'meal.analysis.noFoodTip' => 'કોઈ ખોરાક મળ્યો નથી. બીજો ફોટો અથવા વર્ણન અજમાવો.',
 			'meal.analysis.stepDefault' => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ…',
 			'meal.analysis.progressUnderstand' => 'તમારા ભોજનને સમજવું',
@@ -2485,13 +2495,13 @@ extension on TranslationsGu {
 			'disclaimer.snap.portionSize.description' => 'અંદાજોની ચોકસાઈ તમારા ભાગના કદના સાચા મૂલ્યાંકન પર ખૂબ આધાર રાખે છે.',
 			'disclaimer.snap.preparationMethods.title' => 'તૈયારી પદ્ધતિઓ',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'રસોઈ પદ્ધતિઓ ખોરાકની પોષક સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજો હંમેશા આ ભિન્નતાઓને ધ્યાનમાં લઈ શકતા નથી.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'ઘટકો',
 			'disclaimer.snap.ingredients.description' => 'ઘણા છુપાયેલા ઘટકોવાળી જટિલ વાનગીઓ ઓછા સચોટ અંદાજો તરફ દોરી શકે છે.',
 			'disclaimer.snap.databaseLimitations.title' => 'ડેટાબેઝ મર્યાદાઓ',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} નો ફૂડ ડેટાબેઝ વ્યાપક છે પરંતુ તેમાં દરેક એક ખાદ્ય વસ્તુ અથવા ભિન્નતા શામેલ ન હોઈ શકે.',
 			'disclaimer.weightEstimate.title' => 'વજનના અંદાજ વિશે',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'અંદાજિત વજનમાં ફેરફાર એ સરળ કેલરી-ઇન વિ. કેલરી-આઉટ મોડેલ પર આધારિત સૈદ્ધાંતિક અંદાજ છે. તે ફક્ત પ્રેરક માર્ગદર્શન માટે છે, તમારા વાસ્તવિક વજનની આગાહી તરીકે નહીં.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'કેલરીની ચોકસાઈ',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'આ અંદાજ ફક્ત તમારી ટ્રેક કરેલી કેલરીનું સેવન અને ખર્ચ જેટલો જ સચોટ છે. ખોટું લોગિંગ અચોક્કસ અંદાજમાં પરિણમશે.',

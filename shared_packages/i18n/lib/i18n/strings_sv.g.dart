@@ -813,6 +813,11 @@ class _Translations$meal$analysis$sv extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Nästan klart…';
 	@override String get stepResult => 'Slutför resultatet…';
 	@override String get stepError => 'Något gick fel';
+	@override String get providerUnavailable => 'Tjänsten för måltidsanalys är tillfälligt otillgänglig. Försök igen.';
+	@override String get invalidModelOutput => 'Svaret för måltiden kunde inte tolkas. Försök igen.';
+	@override String get nutritionDataUnavailable => 'Näringsdata är tillfälligt otillgängliga. Försök igen.';
+	@override String get analysisUnavailable => 'Måltidsanalysen är tillfälligt otillgänglig. Försök igen.';
+	@override String get unresolvedNutrition => 'Vi kunde inte tillförlitligt matcha näringsdata för den här måltiden. Försök att lägga till mer information.';
 	@override String get noFoodTip => 'Ingen mat upptäcktes. Prova en annan bild eller beskrivning.';
 	@override String get stepDefault => 'Analyserar din måltid…';
 	@override String get progressUnderstand => 'Förstår din måltid';
@@ -2228,6 +2233,11 @@ extension on TranslationsSv {
 			'meal.analysis.stepMealTypeQuestion' => 'Nästan klart…',
 			'meal.analysis.stepResult' => 'Slutför resultatet…',
 			'meal.analysis.stepError' => 'Något gick fel',
+			'meal.analysis.providerUnavailable' => 'Tjänsten för måltidsanalys är tillfälligt otillgänglig. Försök igen.',
+			'meal.analysis.invalidModelOutput' => 'Svaret för måltiden kunde inte tolkas. Försök igen.',
+			'meal.analysis.nutritionDataUnavailable' => 'Näringsdata är tillfälligt otillgängliga. Försök igen.',
+			'meal.analysis.analysisUnavailable' => 'Måltidsanalysen är tillfälligt otillgänglig. Försök igen.',
+			'meal.analysis.unresolvedNutrition' => 'Vi kunde inte tillförlitligt matcha näringsdata för den här måltiden. Försök att lägga till mer information.',
 			'meal.analysis.noFoodTip' => 'Ingen mat upptäcktes. Prova en annan bild eller beskrivning.',
 			'meal.analysis.stepDefault' => 'Analyserar din måltid…',
 			'meal.analysis.progressUnderstand' => 'Förstår din måltid',
@@ -2485,13 +2495,13 @@ extension on TranslationsSv {
 			'disclaimer.snap.portionSize.description' => 'Uppskattningarnas noggrannhet beror i hög grad på din korrekta bedömning av portionsstorleken.',
 			'disclaimer.snap.preparationMethods.title' => 'Tillagningsmetoder',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tillagningsmetoder kan avsevärt ändra näringsinnehållet. ${appLabel}s uppskattningar tar inte alltid hänsyn till dessa variationer.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ingredienser',
 			'disclaimer.snap.ingredients.description' => 'Komplexa rätter med många dolda ingredienser kan leda till mindre precisa uppskattningar.',
 			'disclaimer.snap.databaseLimitations.title' => 'Databasbegränsningar',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}s livsmedelsdatabas är omfattande men kanske inte innehåller varje enskild livsmedelsvara eller variant.',
 			'disclaimer.weightEstimate.title' => 'Om viktuppskattningen',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Den beräknade viktförändringen är en teoretisk uppskattning baserad på den enkla kalorier-in- vs kalorier-ut‑modellen. Den är avsedd som motivationsvägledning, inte som en prognos för din faktiska vikt.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorinoggrannhet',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Denna uppskattning är bara så korrekt som din registrerade kalorimängd och förbrukning. Felaktig registrering ger en felaktig prognos.',

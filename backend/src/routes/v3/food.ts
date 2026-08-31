@@ -13,6 +13,8 @@ import {
   type MealAnalysisV3Result,
 } from '../../services/meal-analysis-v3/pipeline.js';
 import { mealContextSchema } from '../../services/meal-analysis-v3/domain.js';
+import { classifyMealAnalysisV3Error } from '../../services/meal-analysis-v3/errors.js';
+import { buildMealAnalysisV3Progress } from '../../services/meal-analysis-v3/progress.js';
 import {
   loadMealAnalysisV3Session,
   recordMealAnalysisV3Feedback,
@@ -223,7 +225,7 @@ function publicEvent(analysisId: string, result: MealAnalysisV3Result) {
       return {
         event: 'ERROR',
         analysisId,
-        data: { code: 'INVALID_MODEL_OUTPUT', retryable: false, recoveryAction: 'EDIT_INPUT' },
+        data: { code: 'UNUSABLE_INPUT', retryable: false, recoveryAction: 'EDIT_INPUT' },
       };
     case 'UNRESOLVED':
       return {
@@ -273,19 +275,33 @@ async function runSession(reply: FastifyReply, session: V3Session): Promise<void
       image,
       nutritionAnswers: session.nutritionAnswers,
       mealTypeAnswer: session.mealTypeAnswer,
+      observer(observation) {
+        const progress = buildMealAnalysisV3Progress(observation);
+        if (!progress || reply.raw.writableEnded || reply.raw.destroyed) return;
+        reply.raw.write(`${JSON.stringify({
+          event: 'PROGRESS',
+          analysisId,
+          data: progress,
+        })}\n`);
+      },
     });
     session.result = result;
     await remember(sessionKey(session.userId, analysisId), session);
     reply.raw.write(`${JSON.stringify(publicEvent(analysisId, result))}\n`);
   } catch (error) {
+    const publicError = classifyMealAnalysisV3Error(error);
     reply.request.log.error(
-      { analysisId, ...safeErrorMetadata(error, 'meal_analysis_v3_failed') },
+      {
+        analysisId,
+        publicErrorCode: publicError.code,
+        ...safeErrorMetadata(error, 'meal_analysis_v3_failed'),
+      },
       'V3 meal analysis failed'
     );
     reply.raw.write(`${JSON.stringify({
       event: 'ERROR',
       analysisId,
-      data: { code: 'PROVIDER_UNAVAILABLE', retryable: true, recoveryAction: 'RETRY' },
+      data: publicError,
     })}\n`);
   } finally {
     reply.raw.end();

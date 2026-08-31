@@ -813,6 +813,11 @@ class _Translations$meal$analysis$uk extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Майже готово…';
 	@override String get stepResult => 'Завершення аналізу…';
 	@override String get stepError => 'Щось пішло не так';
+	@override String get providerUnavailable => 'Служба аналізу страв тимчасово недоступна. Спробуйте ще раз.';
+	@override String get invalidModelOutput => 'Не вдалося зрозуміти відповідь про страву. Спробуйте ще раз.';
+	@override String get nutritionDataUnavailable => 'Дані про харчову цінність тимчасово недоступні. Спробуйте ще раз.';
+	@override String get analysisUnavailable => 'Аналіз страви тимчасово недоступний. Спробуйте ще раз.';
+	@override String get unresolvedNutrition => 'Нам не вдалося коректно зіставити дані про харчову цінність для цієї страви. Спробуйте додати більше деталей.';
 	@override String get noFoodTip => 'Їжа не виявлена. Спробуйте інше фото або опис.';
 	@override String get stepDefault => 'Аналізуємо вашу страву…';
 	@override String get progressUnderstand => 'Розуміння страви';
@@ -2228,6 +2233,11 @@ extension on TranslationsUk {
 			'meal.analysis.stepMealTypeQuestion' => 'Майже готово…',
 			'meal.analysis.stepResult' => 'Завершення аналізу…',
 			'meal.analysis.stepError' => 'Щось пішло не так',
+			'meal.analysis.providerUnavailable' => 'Служба аналізу страв тимчасово недоступна. Спробуйте ще раз.',
+			'meal.analysis.invalidModelOutput' => 'Не вдалося зрозуміти відповідь про страву. Спробуйте ще раз.',
+			'meal.analysis.nutritionDataUnavailable' => 'Дані про харчову цінність тимчасово недоступні. Спробуйте ще раз.',
+			'meal.analysis.analysisUnavailable' => 'Аналіз страви тимчасово недоступний. Спробуйте ще раз.',
+			'meal.analysis.unresolvedNutrition' => 'Нам не вдалося коректно зіставити дані про харчову цінність для цієї страви. Спробуйте додати більше деталей.',
 			'meal.analysis.noFoodTip' => 'Їжа не виявлена. Спробуйте інше фото або опис.',
 			'meal.analysis.stepDefault' => 'Аналізуємо вашу страву…',
 			'meal.analysis.progressUnderstand' => 'Розуміння страви',
@@ -2485,13 +2495,13 @@ extension on TranslationsUk {
 			'disclaimer.snap.portionSize.description' => 'Точність оцінок значною мірою залежить від правильної оцінки розміру порції.',
 			'disclaimer.snap.preparationMethods.title' => 'Способи приготування',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Спосіб приготування може істотно змінювати поживний склад їжі. Оцінки ${appLabel} не завжди враховують ці відмінності.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Інгредієнти',
 			'disclaimer.snap.ingredients.description' => 'Складні страви з багатьма прихованими інгредієнтами можуть призводити до менш точних оцінок.',
 			'disclaimer.snap.databaseLimitations.title' => 'Обмеження бази даних',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База продуктів ${appLabel} обширна, але може не містити кожен окремий продукт чи варіацію.',
 			'disclaimer.weightEstimate.title' => 'Про оцінку зміни ваги',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Проєктована зміна ваги — це теоретична оцінка на основі простої моделі калорії в проти калорії з. Вона служить лише мотиваційним орієнтиром, а не прогнозом вашої фактичної ваги.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Точність калорій',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ця оцінка є настільки точною, наскільки точні ваші записи про споживання й витрати калорій. Неточні записи призведуть до неточного прогнозу.',

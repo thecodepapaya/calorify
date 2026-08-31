@@ -813,6 +813,11 @@ class Translations$meal$analysis$zh_CN extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => '快好了…';
 	@override String get stepResult => '最终结果生成中…';
 	@override String get stepError => '出现问题';
+	@override String get providerUnavailable => '餐食分析服务暂时不可用。请重试。';
+	@override String get invalidModelOutput => '无法理解餐食分析结果。请重试。';
+	@override String get nutritionDataUnavailable => '营养数据暂时不可用。请重试。';
+	@override String get analysisUnavailable => '餐食分析暂时不可用。请重试。';
+	@override String get unresolvedNutrition => '我们无法为这餐可靠地匹配营养数据。请补充更多细节。';
 	@override String get noFoodTip => '未检测到食物。请尝试其他照片或描述。';
 	@override String get stepDefault => '正在分析你的餐食…';
 	@override String get progressUnderstand => '理解你的餐食';
@@ -2228,6 +2233,11 @@ extension on TranslationsZhCn {
 			'meal.analysis.stepMealTypeQuestion' => '快好了…',
 			'meal.analysis.stepResult' => '最终结果生成中…',
 			'meal.analysis.stepError' => '出现问题',
+			'meal.analysis.providerUnavailable' => '餐食分析服务暂时不可用。请重试。',
+			'meal.analysis.invalidModelOutput' => '无法理解餐食分析结果。请重试。',
+			'meal.analysis.nutritionDataUnavailable' => '营养数据暂时不可用。请重试。',
+			'meal.analysis.analysisUnavailable' => '餐食分析暂时不可用。请重试。',
+			'meal.analysis.unresolvedNutrition' => '我们无法为这餐可靠地匹配营养数据。请补充更多细节。',
 			'meal.analysis.noFoodTip' => '未检测到食物。请尝试其他照片或描述。',
 			'meal.analysis.stepDefault' => '正在分析你的餐食…',
 			'meal.analysis.progressUnderstand' => '理解你的餐食',
@@ -2485,13 +2495,13 @@ extension on TranslationsZhCn {
 			'disclaimer.snap.portionSize.description' => '估算的准确性在很大程度上依赖于你对分量大小的正确评估。',
 			'disclaimer.snap.preparationMethods.title' => '烹饪方式',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法始终考虑这些差异。',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => '食材',
 			'disclaimer.snap.ingredients.description' => '复杂菜肴中存在许多隐含成分可能导致估算不够准确。',
 			'disclaimer.snap.databaseLimitations.title' => '数据库限制',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} 的食物数据库虽然很广泛，但可能不包含每一种食物或所有变体。',
 			'disclaimer.weightEstimate.title' => '关于体重估算',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => '预测的体重变化是基于简单的热量摄入与消耗模型的理论估算。仅用于激励参考，而非实际体重预测。',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => '卡路里准确性',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => '此估算的准确性取决于你记录的卡路里摄入与消耗。记录不准确会导致预测不准确。',

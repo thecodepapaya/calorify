@@ -813,6 +813,11 @@ class _Translations$meal$analysis$ar extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'قاربنا على الانتهاء...';
 	@override String get stepResult => 'إنهاء النتيجة...';
 	@override String get stepError => 'حدث خطأ ما';
+	@override String get providerUnavailable => 'مزوّد خدمة تحليل الوجبات غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى.';
+	@override String get invalidModelOutput => 'تعذّر فهم استجابة الوجبة. يُرجى المحاولة مرة أخرى.';
+	@override String get nutritionDataUnavailable => 'بيانات التغذية غير متاحة مؤقتًا. يُرجى المحاولة مرة أخرى.';
+	@override String get analysisUnavailable => 'تحليل الوجبة غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى.';
+	@override String get unresolvedNutrition => 'تعذّر علينا مطابقة بيانات التغذية لهذه الوجبة بأمان. جرّب إضافة مزيد من التفاصيل.';
 	@override String get noFoodTip => 'لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر.';
 	@override String get stepDefault => 'جارٍ تحليل وجبتك…';
 	@override String get progressUnderstand => 'فهم الوجبة';
@@ -2228,6 +2233,11 @@ extension on TranslationsAr {
 			'meal.analysis.stepMealTypeQuestion' => 'قاربنا على الانتهاء...',
 			'meal.analysis.stepResult' => 'إنهاء النتيجة...',
 			'meal.analysis.stepError' => 'حدث خطأ ما',
+			'meal.analysis.providerUnavailable' => 'مزوّد خدمة تحليل الوجبات غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى.',
+			'meal.analysis.invalidModelOutput' => 'تعذّر فهم استجابة الوجبة. يُرجى المحاولة مرة أخرى.',
+			'meal.analysis.nutritionDataUnavailable' => 'بيانات التغذية غير متاحة مؤقتًا. يُرجى المحاولة مرة أخرى.',
+			'meal.analysis.analysisUnavailable' => 'تحليل الوجبة غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى.',
+			'meal.analysis.unresolvedNutrition' => 'تعذّر علينا مطابقة بيانات التغذية لهذه الوجبة بأمان. جرّب إضافة مزيد من التفاصيل.',
 			'meal.analysis.noFoodTip' => 'لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر.',
 			'meal.analysis.stepDefault' => 'جارٍ تحليل وجبتك…',
 			'meal.analysis.progressUnderstand' => 'فهم الوجبة',
@@ -2485,13 +2495,13 @@ extension on TranslationsAr {
 			'disclaimer.snap.portionSize.description' => 'تعتمد دقة التقديرات بشكل كبير على تقييمك الصحيح لحجم الحصة.',
 			'disclaimer.snap.preparationMethods.title' => 'طرق التحضير',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'يمكن لطرق الطهي أن تغيّر محتوى الغذاء بشكل كبير. قد لا تأخذ تقديرات ${appLabel} هذه الاختلافات في الحسبان دائمًا.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'المكونات',
 			'disclaimer.snap.ingredients.description' => 'الأطباق المعقدة ذات المكونات المخفية قد تؤدي إلى تقديرات أقل دقة.',
 			'disclaimer.snap.databaseLimitations.title' => 'حدود قاعدة البيانات',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'قاعدة بيانات الأطعمة لدى ${appLabel} واسعة لكنها قد لا تتضمن كل صنف طعام أو اختلاف.',
 			'disclaimer.weightEstimate.title' => 'حول تقدير الوزن',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'التغير المتوقع في الوزن هو تقدير نظري مبني على نموذج بسيط للسعرات الداخلة مقابل الخارجة. المقصود به توجيه تحفيزي فقط، وليس توقعًا لوزنك الفعلي.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'دقة السعرات',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'تعتمد هذه التقديرات على دقة تسجيلك لاستهلاك وحرق السعرات. التسجيل غير الدقيق سيؤدي إلى توقعات غير دقيقة.',

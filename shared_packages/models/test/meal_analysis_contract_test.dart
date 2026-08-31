@@ -52,4 +52,26 @@ void main() {
     expect(event.issue!.code, 'PROVIDER_UNAVAILABLE');
     expect(event.issue!.retryable, isTrue);
   });
+
+  test(
+    'V3 progress retains bounded presentation data through the event adapter',
+    () {
+      final event = MealAnalysisV3Event.fromJson({
+        'event': 'PROGRESS',
+        'analysisId': 'analysis-1',
+        'data': {
+          'phase': 'MATCH',
+          'progress': 0.3,
+          'mealName': 'Dal and rice',
+          'ingredientNames': ['Dal', 'Rice'],
+        },
+      });
+
+      expect(event.kind, MealAnalysisV3EventKind.progress);
+      expect(event.progress!.phase, MealAnalysisV3ProgressPhase.match);
+      expect(event.progress!.progress, 0.3);
+      expect(event.progress!.mealName, 'Dal and rice');
+      expect(event.progress!.ingredientNames, ['Dal', 'Rice']);
+    },
+  );
 }

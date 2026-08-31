@@ -244,19 +244,18 @@ class _OptionResponse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: response.options
-          .map(
-            (option) => ChoiceChip(
-              key: ValueKey('v3-option-${option.optionId}'),
-              label: Text(option.label),
-              selected: selectedOptionId == option.optionId,
-              onSelected: (_) => onSelected(option.optionId),
-            ),
-          )
+    final selectedIndex = response.options.indexWhere(
+      (option) => option.optionId == selectedOptionId,
+    );
+    return MealQuestionOptionsWrap(
+      optionLabels: response.options
+          .map((option) => option.label)
           .toList(growable: false),
+      optionKeys: response.options
+          .map((option) => ValueKey('v3-option-${option.optionId}'))
+          .toList(growable: false),
+      selectedOptionIndex: selectedIndex < 0 ? null : selectedIndex,
+      onOptionSelected: (index) => onSelected(response.options[index].optionId),
     );
   }
 }

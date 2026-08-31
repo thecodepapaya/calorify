@@ -2,12 +2,15 @@ import 'dart:collection';
 
 enum MealAnalysisV3EventKind {
   started,
+  progress,
   needsInput,
   complete,
   noFood,
   unresolved,
   error,
 }
+
+enum MealAnalysisV3ProgressPhase { understand, match, check, finish }
 
 enum MealAnalysisV3QuestionScope { nutrition, mealType }
 
@@ -408,12 +411,59 @@ class MealAnalysisV3TerminalIssue {
   final MealAnalysisV3RecoveryAction recoveryAction;
 }
 
+class MealAnalysisV3Progress {
+  const MealAnalysisV3Progress({
+    required this.phase,
+    required this.progress,
+    this.mealName,
+    this.ingredientNames = const [],
+  });
+
+  factory MealAnalysisV3Progress.fromJson(Map<String, dynamic> json) {
+    final progress = _requiredDouble(json, 'progress');
+    if (progress < 0 || progress > 1) {
+      throw const FormatException('V3 progress must be between zero and one');
+    }
+    return MealAnalysisV3Progress(
+      phase: switch (_requiredString(json, 'phase')) {
+        'UNDERSTAND' => MealAnalysisV3ProgressPhase.understand,
+        'MATCH' => MealAnalysisV3ProgressPhase.match,
+        'CHECK' => MealAnalysisV3ProgressPhase.check,
+        'FINISH' => MealAnalysisV3ProgressPhase.finish,
+        final value =>
+          throw FormatException('Unknown V3 progress phase: $value'),
+      },
+      progress: progress,
+      mealName: json['mealName'] as String?,
+      ingredientNames:
+          json['ingredientNames'] == null
+              ? const []
+              : List.unmodifiable(
+                _requiredList(json, 'ingredientNames').map((value) {
+                  if (value is! String || value.trim().isEmpty) {
+                    throw const FormatException(
+                      'V3 ingredient names must be non-empty strings',
+                    );
+                  }
+                  return value;
+                }),
+              ),
+    );
+  }
+
+  final MealAnalysisV3ProgressPhase phase;
+  final double progress;
+  final String? mealName;
+  final List<String> ingredientNames;
+}
+
 class MealAnalysisV3Event {
   const MealAnalysisV3Event({
     required this.kind,
     required this.analysisId,
     this.questions,
     this.result,
+    this.progress,
     this.issue,
   });
 
@@ -421,6 +471,7 @@ class MealAnalysisV3Event {
     final data = _requiredMap(json, 'data');
     final kind = switch (_requiredString(json, 'event')) {
       'STARTED' => MealAnalysisV3EventKind.started,
+      'PROGRESS' => MealAnalysisV3EventKind.progress,
       'NEEDS_INPUT' => MealAnalysisV3EventKind.needsInput,
       'COMPLETE' => MealAnalysisV3EventKind.complete,
       'NO_FOOD' => MealAnalysisV3EventKind.noFood,
@@ -439,6 +490,10 @@ class MealAnalysisV3Event {
           kind == MealAnalysisV3EventKind.complete
               ? MealAnalysisV3CompleteResult.fromJson(data)
               : null,
+      progress:
+          kind == MealAnalysisV3EventKind.progress
+              ? MealAnalysisV3Progress.fromJson(data)
+              : null,
       issue:
           const {
                 MealAnalysisV3EventKind.noFood,
@@ -454,6 +509,7 @@ class MealAnalysisV3Event {
   final String analysisId;
   final MealAnalysisV3QuestionBundle? questions;
   final MealAnalysisV3CompleteResult? result;
+  final MealAnalysisV3Progress? progress;
   final MealAnalysisV3TerminalIssue? issue;
 }
 

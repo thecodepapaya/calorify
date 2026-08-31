@@ -1,10 +1,10 @@
-import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_question_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_loading_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +12,6 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
-import 'package:widgets/widgets.dart';
 
 typedef MealAnalysisV3Start =
     Future<Stream<MealAnalysisV3Event>> Function(
@@ -66,7 +65,12 @@ Future<bool> showMealAnalysisV3Flow({
   while (context.mounted) {
     final stream = await next();
     if (!context.mounted) return false;
-    final terminal = await _consumeWithLoading(context, stream);
+    final terminal = await _consumeWithLoading(
+      context,
+      stream,
+      imageBytes: imageBytes,
+      textDescription: textDescription,
+    );
     if (!context.mounted || terminal == null) return false;
     switch (terminal.kind) {
       case MealAnalysisV3EventKind.needsInput:
@@ -102,6 +106,7 @@ Future<bool> showMealAnalysisV3Flow({
       case MealAnalysisV3EventKind.error:
         throw MealAnalysisV3Exception(terminal.issue);
       case MealAnalysisV3EventKind.started:
+      case MealAnalysisV3EventKind.progress:
         throw const FormatException('V3 stream ended without a terminal event');
     }
   }
@@ -110,37 +115,44 @@ Future<bool> showMealAnalysisV3Flow({
 
 Future<MealAnalysisV3Event?> _consumeWithLoading(
   BuildContext context,
-  Stream<MealAnalysisV3Event> stream,
-) async {
-  final navigator = Navigator.of(context, rootNavigator: true);
-  unawaited(
-    showDialog<void>(
-      context: context,
-      useRootNavigator: true,
-      barrierDismissible: false,
-      builder:
-          (context) => PopScope(
-            canPop: false,
-            child: AlertDialog(
-              content: Row(
-                children: [
-                  const AppLoader(),
-                  const SizedBox(width: 16),
-                  Expanded(child: Text(t.meal.analysis.title)),
-                ],
-              ),
-            ),
-          ),
-    ),
-  );
-  MealAnalysisV3Event? terminal;
-  try {
+  Stream<MealAnalysisV3Event> stream, {
+  Uint8List? imageBytes,
+  String? textDescription,
+}) async {
+  final progress = ValueNotifier<MealAnalysisV3Progress?>(null);
+  final consumption = () async {
+    MealAnalysisV3Event? terminal;
     await for (final event in stream) {
-      if (event.kind != MealAnalysisV3EventKind.started) terminal = event;
+      if (event.kind == MealAnalysisV3EventKind.progress) {
+        final update = event.progress;
+        if (update == null) continue;
+        final previous = progress.value;
+        progress.value = MealAnalysisV3Progress(
+          phase: update.phase,
+          progress: update.progress,
+          mealName: update.mealName ?? previous?.mealName,
+          ingredientNames:
+              update.ingredientNames.isNotEmpty
+                  ? update.ingredientNames
+                  : previous?.ingredientNames ?? const [],
+        );
+      } else if (event.kind != MealAnalysisV3EventKind.started) {
+        terminal = event;
+      }
     }
     return terminal;
+  }();
+  try {
+    await showMealAnalysisV3LoadingSheet(
+      context: context,
+      completion: consumption.then<void>((_) {}),
+      progress: progress,
+      imageBytes: imageBytes,
+      textDescription: textDescription,
+    );
+    return await consumption;
   } finally {
-    if (navigator.canPop()) navigator.pop();
+    progress.dispose();
   }
 }
 
@@ -150,5 +162,12 @@ class MealAnalysisV3Exception implements Exception {
   final MealAnalysisV3TerminalIssue? issue;
 
   @override
-  String toString() => issue?.code ?? 'Meal analysis failed';
+  String toString() => switch (issue?.code) {
+    'PROVIDER_UNAVAILABLE' => t.meal.analysis.providerUnavailable,
+    'INVALID_MODEL_OUTPUT' => t.meal.analysis.invalidModelOutput,
+    'NUTRITION_DATA_UNAVAILABLE' => t.meal.analysis.nutritionDataUnavailable,
+    'UNRESOLVED_NUTRITION' => t.meal.analysis.unresolvedNutrition,
+    'NO_FOOD' => t.meal.analysis.noFoodTip,
+    _ => t.meal.analysis.analysisUnavailable,
+  };
 }

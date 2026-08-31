@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_question_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_loading_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
+import 'package:widgets/widgets.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
@@ -40,6 +44,61 @@ void main() {
     ),
     allowUseEstimate: false,
   );
+
+  testWidgets('V3 loading sheet restores the rich meal analysis presentation', (
+    tester,
+  ) async {
+    final completion = Completer<void>();
+    final progress = ValueNotifier<MealAnalysisV3Progress?>(null);
+    await tester.pumpWidget(
+      wrapWithProviders(
+        Builder(
+          builder:
+              (context) => TextButton(
+                onPressed:
+                    () => showMealAnalysisV3LoadingSheet(
+                      context: context,
+                      completion: completion.future,
+                      progress: progress,
+                      textDescription: 'rice, dal, and yogurt',
+                    ),
+                child: const Text('Open'),
+              ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Open'));
+    await tester.pump();
+
+    expect(find.text('Analyzing your meal'), findsOneWidget);
+    expect(find.text('"rice, dal, and yogurt"'), findsOneWidget);
+    expect(find.byType(LinearProgressIndicator), findsOneWidget);
+    expect(find.byType(MacroIconCycleLoader), findsOneWidget);
+    expect(find.text('Scanning ingredients…'), findsOneWidget);
+
+    progress.value = const MealAnalysisV3Progress(
+      phase: MealAnalysisV3ProgressPhase.match,
+      progress: 0.3,
+      mealName: 'Dal and rice',
+      ingredientNames: ['Dal', 'Rice'],
+    );
+    await tester.pump(const Duration(milliseconds: 350));
+    expect(find.text('Dal and rice'), findsOneWidget);
+    expect(find.text('Looking up ingredient nutrition'), findsOneWidget);
+    expect(find.text('Dal'), findsOneWidget);
+    expect(find.text('Rice'), findsOneWidget);
+    expect(
+      tester
+          .widget<LinearProgressIndicator>(find.byType(LinearProgressIndicator))
+          .value,
+      0.3,
+    );
+
+    completion.complete();
+    await tester.pumpAndSettle();
+    expect(find.text('Analyzing your meal'), findsNothing);
+    progress.dispose();
+  });
 
   testWidgets(
     'V3 sheet requires explicit answers and returns one atomic bundle',

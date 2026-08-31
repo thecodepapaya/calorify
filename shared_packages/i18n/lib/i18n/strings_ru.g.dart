@@ -813,6 +813,11 @@ class _Translations$meal$analysis$ru extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Почти готово…';
 	@override String get stepResult => 'Формируем результат…';
 	@override String get stepError => 'Что‑то пошло не так';
+	@override String get providerUnavailable => 'Сервис анализа приёмов пищи временно недоступен. Пожалуйста, попробуйте ещё раз.';
+	@override String get invalidModelOutput => 'Не удалось распознать результат анализа приёма пищи. Пожалуйста, попробуйте ещё раз.';
+	@override String get nutritionDataUnavailable => 'Данные о пищевой ценности временно недоступны. Пожалуйста, попробуйте ещё раз.';
+	@override String get analysisUnavailable => 'Анализ приёма пищи временно недоступен. Пожалуйста, попробуйте ещё раз.';
+	@override String get unresolvedNutrition => 'Нам не удалось надёжно сопоставить данные о пищевой ценности для этого приёма пищи. Попробуйте добавить больше подробностей.';
 	@override String get noFoodTip => 'Еда не обнаружена. Попробуйте другое фото или описание.';
 	@override String get stepDefault => 'Анализируем ваше блюдо…';
 	@override String get progressUnderstand => 'Понимание блюда';
@@ -2228,6 +2233,11 @@ extension on TranslationsRu {
 			'meal.analysis.stepMealTypeQuestion' => 'Почти готово…',
 			'meal.analysis.stepResult' => 'Формируем результат…',
 			'meal.analysis.stepError' => 'Что‑то пошло не так',
+			'meal.analysis.providerUnavailable' => 'Сервис анализа приёмов пищи временно недоступен. Пожалуйста, попробуйте ещё раз.',
+			'meal.analysis.invalidModelOutput' => 'Не удалось распознать результат анализа приёма пищи. Пожалуйста, попробуйте ещё раз.',
+			'meal.analysis.nutritionDataUnavailable' => 'Данные о пищевой ценности временно недоступны. Пожалуйста, попробуйте ещё раз.',
+			'meal.analysis.analysisUnavailable' => 'Анализ приёма пищи временно недоступен. Пожалуйста, попробуйте ещё раз.',
+			'meal.analysis.unresolvedNutrition' => 'Нам не удалось надёжно сопоставить данные о пищевой ценности для этого приёма пищи. Попробуйте добавить больше подробностей.',
 			'meal.analysis.noFoodTip' => 'Еда не обнаружена. Попробуйте другое фото или описание.',
 			'meal.analysis.stepDefault' => 'Анализируем ваше блюдо…',
 			'meal.analysis.progressUnderstand' => 'Понимание блюда',
@@ -2485,13 +2495,13 @@ extension on TranslationsRu {
 			'disclaimer.snap.portionSize.description' => 'Точность оценок в значительной мере зависит от правильной оценки вами размера порции.',
 			'disclaimer.snap.preparationMethods.title' => 'Методы приготовления',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Методы приготовления могут существенно менять питательную ценность. Оценки ${appLabel} не всегда учитывают все эти вариации.',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.title' => 'Ингредиенты',
 			'disclaimer.snap.ingredients.description' => 'Сложные блюда с множеством скрытых ингредиентов могут давать менее точные оценки.',
 			'disclaimer.snap.databaseLimitations.title' => 'Ограничения базы данных',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База продуктов ${appLabel} обширна, но может не содержать каждой отдельной позиции или её вариаций.',
 			'disclaimer.weightEstimate.title' => 'Оценка изменения веса',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Прогноз изменения веса — теоретическая оценка, основанная на простой модели «калории внутрь vs калории наружу». Он предназначен для мотивации, а не как предсказание реального веса.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Точность калорий',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Эта оценка точна лишь настолько, насколько точны ваши записи о потреблении и расходе калорий. Неточные записи дадут неточный прогноз.',
