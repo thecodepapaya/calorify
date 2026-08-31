@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:calorify/features/home/utils/meal_analysis_v3_flow.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_question_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_loading_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
@@ -13,6 +14,49 @@ import '../../setup/all_tests.dart';
 
 void main() {
   setUpAll(setupAllTests);
+
+  test('V3 progress remains continuous after clarification', () {
+    final progress = MealAnalysisV3ProgressController();
+    addTearDown(progress.dispose);
+
+    progress.apply(
+      const MealAnalysisV3Progress(
+        phase: MealAnalysisV3ProgressPhase.check,
+        progress: 0.8,
+        mealName: 'Roti',
+        ingredientNames: ['roti'],
+      ),
+    );
+    progress.apply(
+      const MealAnalysisV3Progress(
+        phase: MealAnalysisV3ProgressPhase.understand,
+        progress: 0.08,
+      ),
+    );
+
+    expect(progress.value!.progress, 0.8);
+    expect(progress.value!.phase, MealAnalysisV3ProgressPhase.check);
+    expect(progress.value!.mealName, 'Roti');
+    expect(progress.value!.ingredientNames, ['roti']);
+
+    progress.apply(
+      const MealAnalysisV3Progress(
+        phase: MealAnalysisV3ProgressPhase.match,
+        progress: 0.3,
+        mealName: 'Whole-wheat roti',
+      ),
+    );
+    expect(progress.value!.progress, 0.8);
+    expect(progress.value!.mealName, 'Whole-wheat roti');
+
+    progress.apply(
+      const MealAnalysisV3Progress(
+        phase: MealAnalysisV3ProgressPhase.check,
+        progress: 0.82,
+      ),
+    );
+    expect(progress.value!.progress, 0.82);
+  });
 
   const countQuestion = MealAnalysisV3PendingQuestion(
     questionId: 'q-count',

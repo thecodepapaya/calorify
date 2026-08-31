@@ -61,98 +61,113 @@ Future<bool> showMealAnalysisV3Flow({
     final cancellation = NetworkRequestCancellation();
     return start(analysisId, requestContext, cancellation);
   };
+  final progress = MealAnalysisV3ProgressController();
 
-  while (context.mounted) {
-    final stream = await next();
-    if (!context.mounted) return false;
-    final terminal = await _consumeWithLoading(
-      context,
-      stream,
-      imageBytes: imageBytes,
-      textDescription: textDescription,
-    );
-    if (!context.mounted || terminal == null) return false;
-    switch (terminal.kind) {
-      case MealAnalysisV3EventKind.needsInput:
-        final questions = terminal.questions;
-        if (questions == null) {
-          throw const FormatException('Missing V3 questions');
-        }
-        final answers = await showMealAnalysisV3QuestionSheet(
-          context: context,
-          bundle: questions,
-        );
-        if (answers == null || !context.mounted) return false;
-        next =
-            () => repository.answerV3(analysisId: analysisId, bundle: answers);
-      case MealAnalysisV3EventKind.complete:
-        final result = terminal.result;
-        if (result == null) {
-          throw const FormatException('Missing V3 result');
-        }
-        await showMealTip(
-          context: context,
-          purpose: MealDetailsSheetPurpose.mealAddition,
-          mealDetectionResult: result.toMealDetectionResult(
-            textDescription: textDescription,
-          ),
-          imageBytes: imageBytes,
-          v3Result: result,
-          v3AnalysisId: analysisId,
-        );
-        return true;
-      case MealAnalysisV3EventKind.noFood:
-      case MealAnalysisV3EventKind.unresolved:
-      case MealAnalysisV3EventKind.error:
-        throw MealAnalysisV3Exception(terminal.issue);
-      case MealAnalysisV3EventKind.started:
-      case MealAnalysisV3EventKind.progress:
-        throw const FormatException('V3 stream ended without a terminal event');
+  try {
+    while (context.mounted) {
+      final stream = await next();
+      if (!context.mounted) return false;
+      final terminal = await _consumeWithLoading(
+        context,
+        stream,
+        progress: progress,
+        imageBytes: imageBytes,
+        textDescription: textDescription,
+      );
+      if (!context.mounted || terminal == null) return false;
+      switch (terminal.kind) {
+        case MealAnalysisV3EventKind.needsInput:
+          final questions = terminal.questions;
+          if (questions == null) {
+            throw const FormatException('Missing V3 questions');
+          }
+          final answers = await showMealAnalysisV3QuestionSheet(
+            context: context,
+            bundle: questions,
+          );
+          if (answers == null || !context.mounted) return false;
+          next =
+              () =>
+                  repository.answerV3(analysisId: analysisId, bundle: answers);
+        case MealAnalysisV3EventKind.complete:
+          final result = terminal.result;
+          if (result == null) {
+            throw const FormatException('Missing V3 result');
+          }
+          await showMealTip(
+            context: context,
+            purpose: MealDetailsSheetPurpose.mealAddition,
+            mealDetectionResult: result.toMealDetectionResult(
+              textDescription: textDescription,
+            ),
+            imageBytes: imageBytes,
+            v3Result: result,
+            v3AnalysisId: analysisId,
+          );
+          return true;
+        case MealAnalysisV3EventKind.noFood:
+        case MealAnalysisV3EventKind.unresolved:
+        case MealAnalysisV3EventKind.error:
+          throw MealAnalysisV3Exception(terminal.issue);
+        case MealAnalysisV3EventKind.started:
+        case MealAnalysisV3EventKind.progress:
+          throw const FormatException(
+            'V3 stream ended without a terminal event',
+          );
+      }
     }
+    return false;
+  } finally {
+    progress.dispose();
   }
-  return false;
 }
 
 Future<MealAnalysisV3Event?> _consumeWithLoading(
   BuildContext context,
   Stream<MealAnalysisV3Event> stream, {
+  required MealAnalysisV3ProgressController progress,
   Uint8List? imageBytes,
   String? textDescription,
 }) async {
-  final progress = ValueNotifier<MealAnalysisV3Progress?>(null);
   final consumption = () async {
     MealAnalysisV3Event? terminal;
     await for (final event in stream) {
       if (event.kind == MealAnalysisV3EventKind.progress) {
         final update = event.progress;
         if (update == null) continue;
-        final previous = progress.value;
-        progress.value = MealAnalysisV3Progress(
-          phase: update.phase,
-          progress: update.progress,
-          mealName: update.mealName ?? previous?.mealName,
-          ingredientNames:
-              update.ingredientNames.isNotEmpty
-                  ? update.ingredientNames
-                  : previous?.ingredientNames ?? const [],
-        );
+        progress.apply(update);
       } else if (event.kind != MealAnalysisV3EventKind.started) {
         terminal = event;
       }
     }
     return terminal;
   }();
-  try {
-    await showMealAnalysisV3LoadingSheet(
-      context: context,
-      completion: consumption.then<void>((_) {}),
-      progress: progress,
-      imageBytes: imageBytes,
-      textDescription: textDescription,
+  await showMealAnalysisV3LoadingSheet(
+    context: context,
+    completion: consumption.then<void>((_) {}),
+    progress: progress,
+    imageBytes: imageBytes,
+    textDescription: textDescription,
+  );
+  return await consumption;
+}
+
+class MealAnalysisV3ProgressController
+    extends ValueNotifier<MealAnalysisV3Progress?> {
+  MealAnalysisV3ProgressController() : super(null);
+
+  void apply(MealAnalysisV3Progress update) {
+    final previous = value;
+    final advances = previous == null || update.progress >= previous.progress;
+    value = MealAnalysisV3Progress(
+      phase: advances ? update.phase : previous.phase,
+      progress: advances ? update.progress : previous.progress,
+      mealName: update.mealName ?? previous?.mealName,
+      ingredientNames:
+          update.ingredientNames.isNotEmpty
+              ? update.ingredientNames
+              : previous?.ingredientNames ?? const [],
     );
-    return await consumption;
-  } finally {
-    progress.dispose();
   }
 }
 
