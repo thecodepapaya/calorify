@@ -11,7 +11,7 @@ application data and one shared, read-only USDA reference database:
 ```text
 GitHub Actions ──publish──> ghcr.io/thecodepapaya/calorify-backend
        │
-       ├──automatic sha-*───> backend-staging ──> db-staging
+       ├──manual sha-*──────> backend-staging ──> db-staging
        │                              └──────────> db-usda (reader)
        │
        └──manual sha-*──────> backend-prod ─────> db-prod
@@ -44,13 +44,14 @@ USDA database.
 
 The backend follows build-once, deploy-many:
 
-1. A backend-related push to `main` starts
-   `Backend / Publish and deploy staging`.
+1. Manually dispatch `Backend / Publish and deploy staging` from `main`.
+   The workflow rejects any other ref before verification, publishing, or
+   deployment starts.
 2. GitHub runs dependency installation, type-checking, linting, coverage tests,
    and a production Docker build.
 3. GitHub builds the VM's required `linux/arm64` image and publishes it as
    `sha-<full-commit-sha>` in GHCR.
-4. The workflow automatically deploys that commit's immutable `sha-*` tag to
+4. The workflow deploys that commit's immutable `sha-*` tag to
    staging.
 5. Production is deployed by manually running `Backend / Deploy production`
    with the exact full `sha-<40 lowercase hex characters>` tag.

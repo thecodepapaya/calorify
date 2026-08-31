@@ -42,7 +42,8 @@ Use this page to find the document that matches the work you are doing.
 
 ## Other references
 
-- [GitHub Actions](github-actions.md)
+- [GitHub Actions](github-actions.md) — workflow triggers, required checks, and
+  the manual-only build and staging-deployment policy.
 - [Shared Flutter packages](../shared_packages/README.md)
 - [Translation regeneration](../shared_packages/i18n/README.md)
 - [Wear OS audit tracker](../watch_app/AUDIT_TRACKER.md)

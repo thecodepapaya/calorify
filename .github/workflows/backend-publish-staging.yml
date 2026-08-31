@@ -2,34 +2,27 @@ name: Backend / Publish and deploy staging
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "backend/.dockerignore"
-      - "backend/Dockerfile"
-      - "backend/docker-compose.yml"
-      - "backend/docker-entrypoint.sh"
-      - "backend/package.json"
-      - "backend/package-lock.json"
-      - "backend/tsconfig.json"
-      - "backend/src/**"
-      - "backend/migrations/**"
-      - "backend/postgres/usda-init.sh"
-      - "backend/loki/**"
-      - "backend/data/meal_analysis_tips.json"
-      - "backend/scripts/deploy-container.sh"
-      - "protos/**"
-      - ".github/workflows/ci-backend.yml"
-      - ".github/actions/deploy-backend/**"
-      - ".github/workflows/backend-publish-staging.yml"
 
 concurrency:
   group: calorify-backend-publish-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
+  validate-main-ref:
+    name: Require main branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reject non-main workflow ref
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_REF" != "refs/heads/main" ]; then
+            printf 'This workflow may only publish and deploy the main branch; received %s.\n' "$GITHUB_REF" >&2
+            exit 1
+          fi
+
   verify-backend:
     name: Verify backend
+    needs: validate-main-ref
     permissions:
       contents: read
     uses: ./.github/workflows/ci-backend.yml

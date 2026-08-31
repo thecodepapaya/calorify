@@ -9,11 +9,12 @@ sequences live in reusable workflows or local composite actions.
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
 | `CI / GitHub Actions` | Relevant pull requests and `main` pushes | Run actionlint and Zizmor over workflows and local actions. |
-| `CI / Backend` | Backend pull requests, manual calls, and reusable calls | Type-check, lint, test, and container-build the backend. |
+| `CI / Backend` | Backend pull requests, manual calls, and reusable calls | Type-check, lint, and test the backend; manual runs also build its production container. |
+| `CI / Android debug builds` | Manual | Re-run phone and watch verification, then build their Android debug APKs. |
 | `CI / Generated contracts` | Contract-related pull requests and `main` pushes | Regenerate protobuf outputs and reject stale committed contracts. |
 | `CI / Flutter` | Flutter-related pull requests and `main` pushes | Verify shared packages, phone app, and watch app. |
 | `CI / Secret scan` | Every pull request and `main` push | Reject tracked credential files and common hardcoded-secret patterns. |
-| `Backend / Publish and deploy staging` | Backend-related pushes to `main` | Verify and publish the ARM64 image, then deploy its immutable SHA tag to staging. |
+| `Backend / Publish and deploy staging` | Manual from `main` only | Verify and publish the ARM64 image, then deploy its immutable SHA tag to staging. |
 | `Backend / Deploy production` | Manual | Deploy an existing immutable SHA tag to production. |
 | `Android / Release to Play` | Manual | Verify, build, and upload a new phone release. |
 | `Android / Promote Play release` | Manual | Promote a tested Google Play release between tracks. |
@@ -48,6 +49,11 @@ When repository rules require checks by name, use the stable job display names:
 - `Verify phone app`
 - `Verify watch app`
 - `Scan tracked files for secrets`
+
+Android debug APKs and production backend-container builds are intentionally
+manual-only, so routine pull request and `main`-push checks do not consume
+hosted-runner time compiling release artifacts. Run `CI / Android debug builds`
+or manually dispatch `CI / Backend` when a build artifact is needed.
 
 Run the same workflow syntax check locally with:
 
