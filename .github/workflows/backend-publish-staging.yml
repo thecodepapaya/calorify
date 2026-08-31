@@ -103,7 +103,7 @@ jobs:
     name: Deploy staging
     needs: publish-image
     runs-on: ubuntu-latest
-    environment: staging
+    environment: production
     timeout-minutes: 40
     concurrency:
       group: calorify-backend-deploy
