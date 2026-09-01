@@ -19,10 +19,14 @@ let implementation: (model: string) => Promise<unknown>;
 
 await mock.module('openai', {
   defaultExport: class MockOpenAI {
-    chat: { completions: { create: (request: {
-      model: string;
-      provider?: { require_parameters?: boolean };
-    }) => Promise<unknown> } };
+    chat: {
+      completions: {
+        create: (request: {
+          model: string;
+          provider?: { require_parameters?: boolean };
+        }) => Promise<unknown>
+      }
+    };
 
     constructor() {
       this.chat = {

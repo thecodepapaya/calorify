@@ -100,7 +100,7 @@ async function structuredCall(
       type: 'json_schema',
       json_schema: { name: options.schemaName, schema: options.schema, strict: true },
     },
-    // The installed SDK types predate GPT-5.6 Luna's `none` value.
+    // The installed SDK types predate GPT-5 mini's `none` value.
     reasoning_effort: options.reasoningEffort as 'low',
     max_completion_tokens: options.maxCompletionTokens,
   }, {
