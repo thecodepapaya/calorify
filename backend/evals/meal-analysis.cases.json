@@ -587,8 +587,8 @@
             "exact": 2,
             "origin": "user_stated",
             "perUnitGrams": {
-              "estimateMin": 200,
-              "estimateMax": 500,
+              "estimateMin": 130,
+              "estimateMax": 170,
               "origin": "model_inferred"
             }
           },
