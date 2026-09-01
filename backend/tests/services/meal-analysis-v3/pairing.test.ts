@@ -14,14 +14,14 @@ const koreanFirstPass = {
   mealItems: [
     {
       mealItemName: '신라면 큰사발', canonicalIdentity: 'prepared instant ramen',
-      portion: { kind: 'AMOUNT', estimate: 414, min: 414, max: 414, origin: 'user_stated', perUnitGrams: null },
+      portion: { kind: 'AMOUNT', estimate: 414, min: 414, max: 414, origin: 'user_stated' },
       preparation: { method: 'BOILED', origin: 'model_inferred' },
     },
     {
       mealItemName: '계란', canonicalIdentity: 'boiled egg',
       portion: {
-        kind: 'COUNT', estimate: 1, min: 1, max: 1, origin: 'user_stated',
-        perUnitGrams: { estimate: 50, min: 50, max: 50, origin: 'model_inferred' },
+        kind: 'COUNT', count: 1, countMin: 1, countMax: 1, origin: 'user_stated',
+        unitGrams: { estimate: 50, min: 50, max: 50, origin: 'model_inferred' },
       },
       preparation: { method: 'BOILED', origin: 'model_inferred' },
     },

@@ -57,20 +57,24 @@ const portionRangeFields = {
 const amountPortionSchema = z.object({
   kind: z.literal('AMOUNT'),
   ...portionRangeFields,
-  perUnitGrams: z.null(),
 }).strict().superRefine((portion, ctx) => {
   validateRange(portion, ctx);
 });
 
 const countPortionSchema = z.object({
   kind: z.literal('COUNT'),
-  ...portionRangeFields,
-  perUnitGrams: positiveRangeSchema,
+  count: z.number().finite().positive().max(100).describe('Number of units consumed; never grams'),
+  countMin: z.number().finite().positive().max(100),
+  countMax: z.number().finite().positive().max(100),
+  origin: originSchema,
+  unitGrams: positiveRangeSchema.describe('Finished grams for one unit'),
 }).strict().superRefine((portion, ctx) => {
-  validateRange(portion, ctx);
+  if (portion.countMin > portion.count || portion.count > portion.countMax) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'count must satisfy countMin <= count <= countMax' });
+  }
 });
 
-const portionSchema = z.union([amountPortionSchema, countPortionSchema]).describe('AMOUNT for continuous foods in finished grams; COUNT for discrete foods with perUnitGrams for one unit');
+const portionSchema = z.union([amountPortionSchema, countPortionSchema]).describe('AMOUNT for continuous foods in finished grams; COUNT for discrete foods with count (number of units, never grams) and unitGrams for one unit');
 
 export const firstPassResponseSchema = z.object({
   food_detected: z.boolean().describe('true only when at least one usable food or drink is identifiable'),
@@ -236,7 +240,7 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
             canonicalIdentity: 'chicken pot pie',
             portion: {
               kind: 'AMOUNT', estimate: 420, min: 420, max: 420,
-              origin: 'user_stated', perUnitGrams: null,
+              origin: 'user_stated',
             },
             preparation: { method: 'BAKED', origin: 'model_inferred' },
           },
@@ -245,7 +249,7 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
             canonicalIdentity: 'cooked green beans',
             portion: {
               kind: 'AMOUNT', estimate: 125, min: 100, max: 150,
-              origin: 'user_stated', perUnitGrams: null,
+              origin: 'user_stated',
             },
             preparation: { method: 'COOKED_UNKNOWN', origin: 'model_inferred' },
           },
@@ -265,7 +269,7 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
             canonicalIdentity: 'prepared ramen noodle soup',
             portion: {
               kind: 'AMOUNT', estimate: 360, min: 360, max: 360,
-              origin: 'user_stated', perUnitGrams: null,
+              origin: 'user_stated',
             },
             preparation: { method: 'BOILED', origin: 'model_inferred' },
           },
@@ -347,7 +351,7 @@ Return only the requested JSON. Do not list ingredients, variations, calories, o
 Tasks:
 - Set food_detected=false when no usable food can be identified; then return no meal items and a null meal name and meal type.
 - Split the meal into meal items. Keep a named prepared dish as one meal item; do not promote its fillings, toppings, or ingredients to meal items unless explicitly served separately.
-- Quantify continuous foods as AMOUNT and discrete foods as COUNT. Estimate/min/max are always finished grams; do not return a unit field.
+- Quantify continuous foods as AMOUNT and discrete foods as COUNT. For AMOUNT, estimate/min/max are finished grams. For COUNT, count is the number of units (never grams) and unitGrams is the finished grams for one unit. Do not return a unit field.
 - Clamp user-provided quantities so min=estimate=max and origin=user_stated. A serving indication counts as user-provided in any form: counts, weights, volumes, household measures, and fractions, even when the model converts them to grams. Use origin=model_inferred for everything the model assumed, including image observations and context-based guesses.
 - Return exactly one preparation method per meal item; do not generate preparation alternatives.
 - If meal type cannot be determined confidently, return value=null and origin=null.
@@ -479,15 +483,15 @@ function createDimensions(
 ): Dimension[] {
   const dimensions: Dimension[] = [];
   const portionOrigin = internalOrigin(component.portion.origin, input);
-  if (component.portion.kind === 'COUNT' && component.portion.min !== component.portion.max) {
+  if (component.portion.kind === 'COUNT' && component.portion.countMin !== component.portion.countMax) {
     dimensions.push({
       key: 'count',
       questionKind: 'COUNT',
       origin: portionOrigin,
-      numeric: { unitCode: 'COUNT', min: component.portion.min, max: component.portion.max, step: 1, integerOnly: true },
+      numeric: { unitCode: 'COUNT', min: component.portion.countMin, max: component.portion.countMax, step: 1, integerOnly: true },
       options: numericOptions(
-        [component.portion.min, component.portion.estimate, component.portion.max],
-        component.portion.estimate,
+        [component.portion.countMin, component.portion.count, component.portion.countMax],
+        component.portion.count,
         (state, value) => ({ ...state, count: value }),
       ),
     });
@@ -508,7 +512,7 @@ function createDimensions(
       ),
     });
   }
-  const unit = component.portion.perUnitGrams;
+  const unit = component.portion.kind === 'COUNT' ? component.portion.unitGrams : undefined;
   if (component.portion.kind === 'COUNT' && unit && unit.min !== unit.max) {
     const options = numericOptions(
       [unit.min, unit.estimate, unit.max],
@@ -706,9 +710,11 @@ function componentProposal(
   componentId: string,
 ): FoodInterpretationProposal['components'][number] {
   const initial: ScenarioState = {
-    count: component.portion.estimate,
-    consumedGrams: component.portion.estimate,
-    perUnitGrams: component.portion.perUnitGrams?.estimate ?? component.portion.estimate,
+    count: component.portion.kind === 'COUNT' ? component.portion.count : 1,
+    consumedGrams: component.portion.kind === 'COUNT'
+      ? component.portion.count * component.portion.unitGrams.estimate
+      : component.portion.estimate,
+    perUnitGrams: component.portion.kind === 'COUNT' ? component.portion.unitGrams.estimate : component.portion.estimate,
     preparation: component.preparation.method,
     ingredients: recipe.ingredients.map((ingredient) => ({
       name: ingredient.ingredientName,
@@ -749,13 +755,13 @@ function componentProposal(
     ? {
       kind: 'COUNT' as const,
       count: {
-        estimate: component.portion.estimate, min: component.portion.min, max: component.portion.max,
+        estimate: component.portion.count, min: component.portion.countMin, max: component.portion.countMax,
         origin: portionOrigin, evidence: evidenceFor(portionOrigin, input),
       },
       perUnitFinishedGrams: {
-        ...component.portion.perUnitGrams!,
-        origin: internalOrigin(component.portion.perUnitGrams!.origin, input),
-        evidence: evidenceFor(internalOrigin(component.portion.perUnitGrams!.origin, input), input),
+        ...component.portion.unitGrams,
+        origin: internalOrigin(component.portion.unitGrams.origin, input),
+        evidence: evidenceFor(internalOrigin(component.portion.unitGrams.origin, input), input),
       },
       naturalUnitCode: slug(component.mealItemName).toUpperCase(),
     }

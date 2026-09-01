@@ -113,16 +113,16 @@ const firstPass = {
       mealItemName: 'daal', canonicalIdentity: 'cooked lentil curry',
       portion: {
         kind: 'AMOUNT', estimate: 150, min: 120, max: 180,
-        origin: 'model_inferred', perUnitGrams: null,
+        origin: 'model_inferred',
       },
       preparation: { method: 'SIMMERED', origin: 'model_inferred' },
     },
     {
       mealItemName: 'roti', canonicalIdentity: 'whole wheat flatbread',
       portion: {
-        kind: 'COUNT', estimate: 4, min: 4, max: 4,
+        kind: 'COUNT', count: 4, countMin: 4, countMax: 4,
         origin: 'user_stated',
-        perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
+        unitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
       },
       preparation: { method: 'TOASTED', origin: 'model_inferred' },
     },
@@ -260,6 +260,35 @@ test('first-pass tip is required and strictly validated', () => {
     tip: 42,
   };
   assert.equal(firstPassResponseSchema.safeParse(malformedTip).success, false);
+});
+
+test('COUNT portions reject grams in the count slot and legacy field names', () => {
+  // The observed model failure: "1 banana" returned COUNT estimate 118
+  // (the USDA medium-banana weight). The renamed fields and integer cap
+  // must reject that shape.
+  const gramsAsCount = structuredClone(firstPass);
+  const banana = gramsAsCount.mealItems[1]!;
+  banana.portion = {
+    kind: 'COUNT', count: 118, countMin: 118, countMax: 118, origin: 'user_stated',
+    unitGrams: { estimate: 118, min: 118, max: 118, origin: 'model_inferred' },
+  } as typeof banana.portion;
+  assert.equal(firstPassResponseSchema.safeParse(gramsAsCount).success, false);
+
+  // Legacy field names must no longer validate.
+  const legacyNames = structuredClone(firstPass);
+  const roti = legacyNames.mealItems[1]!;
+  roti.portion = {
+    kind: 'COUNT', estimate: 4, min: 4, max: 4, origin: 'user_stated',
+    perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
+  } as typeof roti.portion;
+  assert.equal(firstPassResponseSchema.safeParse(legacyNames).success, false);
+
+  // AMOUNT portions must not carry the removed perUnitGrams null marker.
+  const staleNull = structuredClone(firstPass) as typeof firstPass & {
+    mealItems: Array<{ portion: Record<string, unknown> }>;
+  };
+  staleNull.mealItems[0]!.portion.perUnitGrams = null;
+  assert.equal(firstPassResponseSchema.safeParse(staleNull).success, false);
 });
 
 test('two-pass fixture expands compact daal and roti responses into calculation scenarios', async () => {

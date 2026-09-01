@@ -50,8 +50,8 @@ const validFirstPass = {
     {
       mealItemName: 'roti', canonicalIdentity: 'whole wheat flatbread',
       portion: {
-        kind: 'COUNT', estimate: 4, min: 4, max: 4, origin: 'user_stated',
-        perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
+        kind: 'COUNT', count: 4, countMin: 4, countMax: 4, origin: 'user_stated',
+        unitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
       },
       preparation: { method: 'TOASTED', origin: 'model_inferred' },
     },
@@ -59,7 +59,7 @@ const validFirstPass = {
       mealItemName: 'dal', canonicalIdentity: 'lentil curry',
       portion: {
         kind: 'AMOUNT', estimate: 180, min: 120, max: 260,
-        origin: 'model_inferred', perUnitGrams: null,
+        origin: 'model_inferred',
       },
       preparation: { method: 'SIMMERED', origin: 'model_inferred' },
     },
@@ -151,7 +151,7 @@ test('rejects treating an explicit roti count as grams', () => {
   const incorrect = structuredClone(validFirstPass);
   incorrect.mealItems[0]!.portion = {
     kind: 'AMOUNT', estimate: 4, min: 4, max: 4,
-    origin: 'user_stated', perUnitGrams: null,
+    origin: 'user_stated',
   };
 
   const result = evaluateMealAnalysisRun(evalCase, incorrect, validSecondPass);

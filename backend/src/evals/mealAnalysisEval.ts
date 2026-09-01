@@ -67,13 +67,38 @@ function normalize(value: string): string {
   return matchableText(value);
 }
 
+/**
+ * Relaxed alias matching for expected-component recognition. A substring
+ * match wins outright; otherwise a token-overlap fallback accepts the alias
+ * when its distinctive tokens all appear in the value (order-insensitive,
+ * ignoring generic filler words like "soup" or "prepared"). This tolerates
+ * paraphrased canonical identities such as "Chongqing spicy noodle soup"
+ * matching the alias "chongqing noodles" without letting unrelated foods
+ * match.
+ */
 function includesAlias(value: string, aliases: string[]): boolean {
   const matchable = matchableText(value);
+  if (matchable.length === 0) return false;
+  const valueTokens = new Set(matchable.split(' ').filter((token) => token.length > 0).map(aliasTokenRoot));
   return aliases.some((alias) => {
     const normalizedAlias = matchableText(alias);
-    return normalizedAlias.length > 0 && matchable.includes(normalizedAlias);
+    if (normalizedAlias.length === 0) return false;
+    if (matchable.includes(normalizedAlias)) return true;
+    const aliasTokens = normalizedAlias.split(' ')
+      .map(aliasTokenRoot)
+      .filter((token) => token.length >= 4 && !GENERIC_ALIAS_TOKENS.has(token));
+    return aliasTokens.length > 0 && aliasTokens.every((token) => valueTokens.has(token));
   });
 }
+
+/** Trivial singular/plural fold so "noodle" matches "noodles". */
+function aliasTokenRoot(token: string): string {
+  return token.length > 3 && token.endsWith('s') ? token.slice(0, -1) : token;
+}
+
+const GENERIC_ALIAS_TOKENS = new Set([
+  'prepared', 'cooked', 'fresh', 'food', 'meal', 'dish', 'served', 'style',
+]);
 
 function ordered(range: { min: number; estimate: number; max: number } | undefined): boolean {
   return range !== undefined && range.min <= range.estimate && range.estimate <= range.max;
@@ -199,33 +224,55 @@ export function evaluateMealAnalysisRun(
       component?.portion.origin === expected.portion.origin,
       `expected ${expected.portion.origin}, received ${component?.portion.origin ?? 'missing'}`
     );
-    add(`${prefix}.range-ordered`, 'hard', ordered(component?.portion), 'min <= estimate <= max');
+    add(
+      `${prefix}.range-ordered`,
+      'hard',
+      component?.portion.kind === 'AMOUNT'
+        ? ordered(component.portion)
+        : component !== undefined
+          && component.portion.countMin <= component.portion.count
+          && component.portion.count <= component.portion.countMax,
+      'min <= estimate <= max'
+    );
 
     if (expected.portion.exact !== undefined) {
       const exact = expected.portion.exact;
       add(
         `${prefix}.exact-value`,
         'hard',
-        component?.portion.min === exact
-          && component.portion.estimate === exact
-          && component.portion.max === exact,
-        `expected ${exact}/${exact}/${exact}, received ${component
-          ? `${component.portion.min}/${component.portion.estimate}/${component.portion.max}`
-          : 'missing'}`
+        component?.portion.kind === 'AMOUNT'
+          ? component.portion.min === exact
+            && component.portion.estimate === exact
+            && component.portion.max === exact
+          : component?.portion.countMin === exact
+            && component.portion.count === exact
+            && component.portion.countMax === exact,
+        `expected ${exact}, received ${component === undefined
+          ? 'missing'
+          : component.portion.kind === 'AMOUNT'
+            ? `${component.portion.min}/${component.portion.estimate}/${component.portion.max}`
+            : `${component.portion.countMin}/${component.portion.count}/${component.portion.countMax}`}`
       );
     } else {
       add(
         `${prefix}.estimate-plausible`,
         'hard',
         component !== undefined
-          && component.portion.estimate >= (expected.portion.estimateMin ?? -Infinity)
-          && component.portion.estimate <= (expected.portion.estimateMax ?? Infinity),
-        `expected ${expected.portion.estimateMin}-${expected.portion.estimateMax}, received ${component?.portion.estimate ?? 'missing'}`
+          && (component.portion.kind === 'AMOUNT'
+            ? component.portion.estimate >= (expected.portion.estimateMin ?? -Infinity)
+              && component.portion.estimate <= (expected.portion.estimateMax ?? Infinity)
+            : component.portion.count * component.portion.unitGrams.estimate >= (expected.portion.estimateMin ?? -Infinity)
+              && component.portion.count * component.portion.unitGrams.estimate <= (expected.portion.estimateMax ?? Infinity)),
+        `expected ${expected.portion.estimateMin}-${expected.portion.estimateMax}, received ${component === undefined
+          ? 'missing'
+          : component.portion.kind === 'AMOUNT'
+            ? component.portion.estimate
+            : component.portion.count * component.portion.unitGrams.estimate}`
       );
     }
 
     if (expected.portion.perUnitGrams) {
-      const perUnit = component?.portion.perUnitGrams ?? undefined;
+      const perUnit = component?.portion.kind === 'COUNT' ? component.portion.unitGrams : undefined;
       add(`${prefix}.per-unit-present`, 'hard', perUnit !== undefined, 'perUnitGrams is required');
       add(`${prefix}.per-unit-range-ordered`, 'hard', ordered(perUnit), 'min <= estimate <= max');
       add(
@@ -356,7 +403,7 @@ export function evaluateMealAnalysisRun(
       0
     );
     const portionTarget = firstComponent?.portion.kind === 'COUNT'
-      ? firstComponent.portion.perUnitGrams?.estimate
+      ? firstComponent.portion.unitGrams.estimate
       : firstComponent?.portion.estimate;
     const ratio = ingredientTotal !== undefined && portionTarget !== undefined && portionTarget > 0
       ? ingredientTotal / portionTarget
