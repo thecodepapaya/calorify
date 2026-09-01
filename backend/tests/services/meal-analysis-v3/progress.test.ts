@@ -21,7 +21,7 @@ function observation(
 test('publishes components first and enriches them with ingredients', () => {
   const firstPass = {
     food_detected: true,
-    mealNameCandidate: 'Dal and rice',
+    mealName: 'Dal and rice',
     mealItems: [
       { mealItemName: 'Dal' },
       { mealItemName: 'Rice' },

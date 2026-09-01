@@ -105,7 +105,7 @@ const compactInput = {
 
 const firstPass = {
   food_detected: true,
-  mealNameCandidate: 'Daal with roti',
+  mealName: 'Daal with roti',
   tip: 'Lentil dishes are a staple across many South Asian cuisines.',
   mealTypeCandidate: { value: null, origin: null },
   mealItems: [

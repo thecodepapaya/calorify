@@ -31,7 +31,7 @@ test('strict V3 schemas accept FOOD and terminal outcomes', () => {
 
 test('food labels and count units reject punctuation-only model artifacts', () => {
   const invalidName = proposalValue();
-  invalidName.mealNameCandidate = ': {';
+  invalidName.mealName = ': {';
   assert.throws(() => parseAndValidateInterpretation(invalidName, input), /food labels/);
 
   const invalidUnit = proposalValue();

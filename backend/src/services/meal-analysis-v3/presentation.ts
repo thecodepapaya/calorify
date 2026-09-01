@@ -97,8 +97,8 @@ export function buildServingSizeText(components: ResolvedComponent[]): string {
 function fallbackMealName(interpretation: ResolvedInterpretation): string {
   const joined = interpretation.components.map(({ displayName }) => displayName).join(' & ');
   if (validMealName(joined)) return joined.slice(0, 80);
-  if (validMealName(interpretation.mealNameCandidate)) {
-    return interpretation.mealNameCandidate.slice(0, 80);
+  if (validMealName(interpretation.mealName)) {
+    return interpretation.mealName.slice(0, 80);
   }
   return 'Meal';
 }

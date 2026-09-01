@@ -1,7 +1,7 @@
 {
-  "components": [
+  "mealItems": [
     {
-      "componentName": "daal",
+      "mealItemName": "daal",
       "ingredients": [
         {
           "ingredientName": "lentils",
@@ -66,7 +66,7 @@
       ]
     },
     {
-      "componentName": "roti",
+      "mealItemName": "roti",
       "ingredients": [
         {
           "ingredientName": "whole wheat flour",

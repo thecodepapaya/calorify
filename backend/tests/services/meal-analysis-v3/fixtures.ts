@@ -79,7 +79,7 @@ const waterLeaf = (grams: number) => ({
 export function proposalValue(): Record<string, unknown> {
   return {
     outcome: 'FOOD',
-    mealNameCandidate: 'Kaddu sabzi with roti and oats',
+    mealName: 'Kaddu sabzi with roti and oats',
     mealTypeCandidate: {
       value: null,
       origin: 'MODEL_INFERRED',
@@ -310,7 +310,7 @@ export function countQuestionProposal(): FoodInterpretationProposal {
     effectivePortion: { kind: 'UNIT_COUNT', consumedCount: count, perUnitFinishedGrams: 40 },
   }));
   value.components = [roti];
-  value.mealNameCandidate = 'Roti';
+  value.mealName = 'Roti';
   const parsed = parseAndValidateInterpretation(value, input);
   assert.equal(parsed.outcome, 'FOOD');
   return parsed;

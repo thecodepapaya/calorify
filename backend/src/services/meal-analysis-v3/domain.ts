@@ -486,7 +486,7 @@ const mealTypeCandidateSchema = z.object({
 
 const foodInterpretationProposalSchema = z.object({
   outcome: z.literal('FOOD'),
-  mealNameCandidate: foodLabel,
+  mealName: foodLabel,
   components: z.array(componentProposalSchema).min(1).max(20),
   mealTypeCandidate: mealTypeCandidateSchema,
 }).strict();

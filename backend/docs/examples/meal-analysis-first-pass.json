@@ -1,13 +1,13 @@
 {
   "food_detected": true,
-  "mealNameCandidate": "Daal with roti",
+  "mealName": "Daal with roti",
   "mealTypeCandidate": {
     "value": null,
     "origin": null
   },
-  "components": [
+  "mealItems": [
     {
-      "componentName": "daal",
+      "mealItemName": "daal",
       "canonicalIdentity": "cooked lentil curry",
       "portion": {
         "kind": "AMOUNT",
@@ -23,7 +23,7 @@
       }
     },
     {
-      "componentName": "roti",
+      "mealItemName": "roti",
       "canonicalIdentity": "whole wheat flatbread",
       "portion": {
         "kind": "COUNT",

@@ -43,7 +43,7 @@ const evalCase: MealAnalysisEvalCase = {
 
 const validFirstPass = {
   food_detected: true,
-  mealNameCandidate: 'Roti with dal',
+  mealName: 'Roti with dal',
   mealTypeCandidate: { value: 'LUNCH', origin: 'model_inferred' },
   mealItems: [
     {
