@@ -20,8 +20,8 @@ const label = z.string().trim().min(1).max(160);
 // Models commonly represent an optional JSON field as null. Normalize that
 // transport form so downstream domain objects retain the omission invariant.
 const optionalLabel = label.nullish().transform((value) => value ?? undefined);
-export const MODEL_ORIGINS = ['user_text', 'model_inferred'] as const;
-const originSchema = z.enum(MODEL_ORIGINS);
+export const MODEL_ORIGINS = ['user_stated', 'model_inferred'] as const;
+const originSchema = z.enum(MODEL_ORIGINS).describe('user_stated when the user provided this serving indication in any form (count, weight, volume, household measure, or fraction) even if the model converted it; model_inferred when the model assumed it');
 const mealTypeSchema = z.enum(MEAL_TYPES);
 const preparationSchema = z.enum(PREPARATION_CODES);
 const foodRetrievalIntentSchema = z.enum(FOOD_RETRIEVAL_INTENTS);
@@ -70,25 +70,25 @@ const countPortionSchema = z.object({
   validateRange(portion, ctx);
 });
 
-const portionSchema = z.union([amountPortionSchema, countPortionSchema]);
+const portionSchema = z.union([amountPortionSchema, countPortionSchema]).describe('AMOUNT for continuous foods in finished grams; COUNT for discrete foods with perUnitGrams for one unit');
 
 export const firstPassResponseSchema = z.object({
-  food_detected: z.boolean(),
-  mealName: label.nullable(),
-  tip: z.string().trim().max(280).optional(),
+  food_detected: z.boolean().describe('true only when at least one usable food or drink is identifiable'),
+  mealName: label.nullable().describe('Concise localized meal name, around 40 characters, no serving size, count, weight, calories, or advice'),
+  tip: z.string().trim().min(1).max(280).describe('Required short meal-related fact or practical suggestion based on identified meal'),
   mealTypeCandidate: z.object({
-    value: mealTypeSchema.nullable(),
-    origin: originSchema.nullable(),
+    value: mealTypeSchema.nullable().describe('BREAKFAST, LUNCH, DINNER, or SNACK; null when not confidently determinable'),
+    origin: originSchema.nullable().describe('null exactly when value is null'),
   }).strict(),
   mealItems: z.array(z.object({
-    mealItemName: label,
-    canonicalIdentity: label,
+    mealItemName: label.describe('Name of one distinct food or drink in this meal, in the input language; keep a named prepared dish as one item'),
+    canonicalIdentity: label.describe('Short generic English food identity for a nutrition database lookup, never a transliteration'),
     portion: portionSchema,
     preparation: z.object({
       method: preparationSchema,
       origin: originSchema,
     }).strict(),
-  }).strict()).max(20),
+  }).strict()).max(20).describe('Distinct foods or drinks consumed as part of the meal; do not promote fillings or toppings of a named dish to items'),
 }).strict().superRefine((response, ctx) => {
   if (response.food_detected && (response.mealName === null || response.mealItems.length === 0)) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'detected food requires a meal name and meal items' });
@@ -148,12 +148,12 @@ const variationSchema = z.discriminatedUnion('variationType', [
 ]);
 
 const compactIngredientSchema = z.object({
-  ingredientName: label,
-  canonicalIdentity: label,
-  lookupAliases: z.array(label).max(3),
+  ingredientName: label.describe('Ingredient name, may be in the input language'),
+  canonicalIdentity: label.describe('Short generic English food identity for a nutrition database lookup, never a transliteration'),
+  lookupAliases: z.array(label).max(3).describe('Up to three short English alternate food identities that could improve USDA lookup; no quantities, preparation-only terms, or speculative identities'),
   retrievalIntent: foodRetrievalIntentSchema,
-  productQuery: optionalLabel,
-  amountGrams: nonnegativeRangeSchema,
+  productQuery: optionalLabel.describe('Concise brand and product text for database lookup, such as "Pepsi cola"; required only for BRANDED_PRODUCT'),
+  amountGrams: nonnegativeRangeSchema.describe('Finished grams for the first-pass point portion: per unit for COUNT foods, complete serving for AMOUNT foods'),
 }).strict().superRefine((ingredient, ctx) => {
   const normalizedCanonical = normalized(ingredient.canonicalIdentity);
   const normalizedAliases = ingredient.lookupAliases.map(normalized);
@@ -177,10 +177,21 @@ const compactIngredientSchema = z.object({
 
 export const secondPassResponseSchema = z.object({
   mealItems: z.array(z.object({
-    mealItemName: label,
-    ingredients: z.array(compactIngredientSchema).min(1).max(24),
-    variations: z.array(variationSchema).max(4),
-  }).strict()).min(1).max(20),
+    mealItemName: label.describe('Must exactly match a mealItemName from the first-pass JSON'),
+    ingredients: z.array(compactIngredientSchema).min(1).max(24).describe('Complete quantified recipe for this meal item, including material calorie sources such as oil, ghee, sugar, sauces, and milk'),
+    variations: z.array(variationSchema).max(4).describe('Normally zero to two; only plausible material uncertainty'),
+  }).strict().superRefine((mealItem, ctx) => {
+    const ingredientNames = new Set(mealItem.ingredients.map(({ ingredientName }) => normalized(ingredientName)));
+    for (const variation of mealItem.variations) {
+      if (variation.ingredientName !== null && !ingredientNames.has(normalized(variation.ingredientName))) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `variation references unknown ingredient ${variation.ingredientName}`,
+          path: ['variations'],
+        });
+      }
+    }
+  })).min(1).max(20).describe('Exactly one entry for every first-pass meal item'),
 }).strict();
 
 export type FirstPassResponse = z.infer<typeof firstPassResponseSchema>;
@@ -212,113 +223,113 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
   input: string;
   response: FirstPassResponse;
 }> = [
-  {
-    input: 'Dinner: 420 g chicken pot pie with 1 cup green beans on the side',
-    response: {
-      food_detected: true,
-      mealName: 'Chicken pot pie with green beans',
-      tip: 'A pie filling often combines protein, vegetables, and a savory sauce.',
-      mealTypeCandidate: { value: 'DINNER', origin: 'user_text' },
-      mealItems: [
-        {
-          mealItemName: 'chicken pot pie',
-          canonicalIdentity: 'chicken pot pie',
-          portion: {
-            kind: 'AMOUNT', estimate: 420, min: 420, max: 420,
-            origin: 'user_text', perUnitGrams: null,
+    {
+      input: 'Dinner: 420 g chicken pot pie with 1 cup green beans on the side',
+      response: {
+        food_detected: true,
+        mealName: 'Chicken pot pie with green beans',
+        tip: 'A pie filling often combines protein, vegetables, and a savory sauce.',
+        mealTypeCandidate: { value: 'DINNER', origin: 'user_stated' },
+        mealItems: [
+          {
+            mealItemName: 'chicken pot pie',
+            canonicalIdentity: 'chicken pot pie',
+            portion: {
+              kind: 'AMOUNT', estimate: 420, min: 420, max: 420,
+              origin: 'user_stated', perUnitGrams: null,
+            },
+            preparation: { method: 'BAKED', origin: 'model_inferred' },
           },
-          preparation: { method: 'BAKED', origin: 'model_inferred' },
-        },
-        {
-          mealItemName: 'green beans',
-          canonicalIdentity: 'cooked green beans',
-          portion: {
-            kind: 'AMOUNT', estimate: 125, min: 100, max: 150,
-            origin: 'user_text', perUnitGrams: null,
+          {
+            mealItemName: 'green beans',
+            canonicalIdentity: 'cooked green beans',
+            portion: {
+              kind: 'AMOUNT', estimate: 125, min: 100, max: 150,
+              origin: 'user_stated', perUnitGrams: null,
+            },
+            preparation: { method: 'COOKED_UNKNOWN', origin: 'model_inferred' },
           },
-          preparation: { method: 'COOKED_UNKNOWN', origin: 'model_inferred' },
-        },
-      ],
+        ],
+      },
     },
-  },
-  {
-    input: 'The ramen used 90 g dry noodles, but the finished bowl weighed 360 g',
-    response: {
-      food_detected: true,
-      mealName: 'Ramen',
-      tip: 'Broth-based noodle soups vary widely in their ingredients and preparation.',
-      mealTypeCandidate: { value: null, origin: null },
-      mealItems: [
-        {
-          mealItemName: 'ramen',
-          canonicalIdentity: 'prepared ramen noodle soup',
-          portion: {
-            kind: 'AMOUNT', estimate: 360, min: 360, max: 360,
-            origin: 'user_text', perUnitGrams: null,
+    {
+      input: 'The ramen used 90 g dry noodles, but the finished bowl weighed 360 g',
+      response: {
+        food_detected: true,
+        mealName: 'Ramen',
+        tip: 'Broth-based noodle soups vary widely in their ingredients and preparation.',
+        mealTypeCandidate: { value: null, origin: null },
+        mealItems: [
+          {
+            mealItemName: 'ramen',
+            canonicalIdentity: 'prepared ramen noodle soup',
+            portion: {
+              kind: 'AMOUNT', estimate: 360, min: 360, max: 360,
+              origin: 'user_stated', perUnitGrams: null,
+            },
+            preparation: { method: 'BOILED', origin: 'model_inferred' },
           },
-          preparation: { method: 'BOILED', origin: 'model_inferred' },
-        },
-      ],
+        ],
+      },
     },
-  },
-];
+  ];
 
 export const SECOND_PASS_PROMPT_EXAMPLES: Array<{
   input: string;
   firstPass: FirstPassResponse;
   response: SecondPassResponse;
 }> = [
-  {
-    input: FIRST_PASS_PROMPT_EXAMPLES[0]!.input,
-    firstPass: FIRST_PASS_PROMPT_EXAMPLES[0]!.response,
-    response: {
-      mealItems: [
-        {
-          mealItemName: 'chicken pot pie',
-          ingredients: [
-            {
-              ingredientName: 'chicken', canonicalIdentity: 'chicken meat',
-              lookupAliases: ['cooked chicken'], retrievalIntent: 'GENERIC_INGREDIENT',
-              amountGrams: { estimate: 120, min: 90, max: 150, origin: 'model_inferred' },
-            },
-            {
-              ingredientName: 'pastry', canonicalIdentity: 'pie pastry',
-              lookupAliases: ['pie crust'], retrievalIntent: 'GENERIC_INGREDIENT',
-              amountGrams: { estimate: 130, min: 100, max: 160, origin: 'model_inferred' },
-            },
-            {
-              ingredientName: 'carrots', canonicalIdentity: 'cooked carrots',
-              lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
-              amountGrams: { estimate: 45, min: 30, max: 60, origin: 'model_inferred' },
-            },
-            {
-              ingredientName: 'peas', canonicalIdentity: 'cooked green peas',
-              lookupAliases: ['garden peas'], retrievalIntent: 'GENERIC_INGREDIENT',
-              amountGrams: { estimate: 40, min: 25, max: 55, origin: 'model_inferred' },
-            },
-            {
-              ingredientName: 'gravy', canonicalIdentity: 'chicken gravy',
-              lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
-              amountGrams: { estimate: 85, min: 60, max: 110, origin: 'model_inferred' },
-            },
-          ],
-          variations: [],
-        },
-        {
-          mealItemName: 'green beans',
-          ingredients: [
-            {
-              ingredientName: 'green beans', canonicalIdentity: 'cooked green beans',
-              lookupAliases: ['string beans'], retrievalIntent: 'GENERIC_INGREDIENT',
-              amountGrams: { estimate: 125, min: 100, max: 150, origin: 'user_text' },
-            },
-          ],
-          variations: [],
-        },
-      ],
+    {
+      input: FIRST_PASS_PROMPT_EXAMPLES[0]!.input,
+      firstPass: FIRST_PASS_PROMPT_EXAMPLES[0]!.response,
+      response: {
+        mealItems: [
+          {
+            mealItemName: 'chicken pot pie',
+            ingredients: [
+              {
+                ingredientName: 'chicken', canonicalIdentity: 'chicken meat',
+                lookupAliases: ['cooked chicken'], retrievalIntent: 'GENERIC_INGREDIENT',
+                amountGrams: { estimate: 120, min: 90, max: 150, origin: 'model_inferred' },
+              },
+              {
+                ingredientName: 'pastry', canonicalIdentity: 'pie pastry',
+                lookupAliases: ['pie crust'], retrievalIntent: 'GENERIC_INGREDIENT',
+                amountGrams: { estimate: 130, min: 100, max: 160, origin: 'model_inferred' },
+              },
+              {
+                ingredientName: 'carrots', canonicalIdentity: 'cooked carrots',
+                lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
+                amountGrams: { estimate: 45, min: 30, max: 60, origin: 'model_inferred' },
+              },
+              {
+                ingredientName: 'peas', canonicalIdentity: 'cooked green peas',
+                lookupAliases: ['garden peas'], retrievalIntent: 'GENERIC_INGREDIENT',
+                amountGrams: { estimate: 40, min: 25, max: 55, origin: 'model_inferred' },
+              },
+              {
+                ingredientName: 'gravy', canonicalIdentity: 'chicken gravy',
+                lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
+                amountGrams: { estimate: 85, min: 60, max: 110, origin: 'model_inferred' },
+              },
+            ],
+            variations: [],
+          },
+          {
+            mealItemName: 'green beans',
+            ingredients: [
+              {
+                ingredientName: 'green beans', canonicalIdentity: 'cooked green beans',
+                lookupAliases: ['string beans'], retrievalIntent: 'GENERIC_INGREDIENT',
+                amountGrams: { estimate: 125, min: 100, max: 150, origin: 'user_stated' },
+              },
+            ],
+            variations: [],
+          },
+        ],
+      },
     },
-  },
-];
+  ];
 
 function formatPromptExamples<T>(
   examples: Array<{ input: string; response: T; firstPass?: FirstPassResponse }>,
@@ -334,15 +345,11 @@ export const FIRST_PASS_SYSTEM_PROMPT = `You are the first parsing pass of a nut
 Return only the requested JSON. Do not list ingredients, variations, calories, or macros.
 
 Tasks:
-- Set food_detected=false when no usable food can be identified. In that case return no meal items and a null meal name and meal type.
-- Split a meal into meal items using mealItemName from the input and a short generic English canonicalIdentity. A meal item is a distinct food or drink consumed as part of the meal; keep a named prepared dish as one meal item and do not promote its fillings, toppings, or ingredients to meal items unless explicitly served separately.
-- Quantify continuous meal items as AMOUNT; estimate/min/max are always finished grams. Quantify discrete meal items as COUNT with perUnitGrams; do not return a unit field.
-- Clamp user-provided quantities so min=estimate=max and origin=user_text.
-- Use origin=model_inferred for every value not explicitly stated by the user, including image observations and context-based guesses.
-- Use only user_text and model_inferred. Do not add evidence objects.
-- Return one selected preparation method. Do not generate preparation alternatives.
-- mealName must be concise and localized, and must not contain serving size, count, weight, calories, health score, or advice.
-- For detected food, return a short meal-related tip. The tip may be a fact, observation, trivia, or practical suggestion; it must not depend on meal type.
+- Set food_detected=false when no usable food can be identified; then return no meal items and a null meal name and meal type.
+- Split the meal into meal items. Keep a named prepared dish as one meal item; do not promote its fillings, toppings, or ingredients to meal items unless explicitly served separately.
+- Quantify continuous foods as AMOUNT and discrete foods as COUNT. Estimate/min/max are always finished grams; do not return a unit field.
+- Clamp user-provided quantities so min=estimate=max and origin=user_stated. A serving indication counts as user-provided in any form: counts, weights, volumes, household measures, and fractions, even when the model converts them to grams. Use origin=model_inferred for everything the model assumed, including image observations and context-based guesses.
+- Return exactly one preparation method per meal item; do not generate preparation alternatives.
 - If meal type cannot be determined confidently, return value=null and origin=null.
 
 Examples demonstrate meal item boundaries and finished-gram portions; do not copy their food names:
@@ -352,23 +359,15 @@ ${formatPromptExamples(FIRST_PASS_PROMPT_EXAMPLES)}`;
 export const SECOND_PASS_SYSTEM_PROMPT = `You are the second decomposition pass of a nutrition calculator.
 Return only the requested JSON. Do not return calories, macros, question prose, labels, or option objects.
 
-The first-pass JSON is supplied in the user message. For every meal item:
-- Return a complete quantified recipe decomposed into ingredients.
-- Ingredient amounts correspond to the first-pass point portion. For COUNT foods, amounts are for one unit; for AMOUNT foods, amounts are for the complete point serving.
-- Set retrievalIntent to GENERIC_INGREDIENT for ordinary ingredients and use a short generic English canonicalIdentity.
-- Set retrievalIntent to BRANDED_PRODUCT only when the input identifies a specific packaged or marketed product. Include productQuery as concise brand and product text for database lookup, such as "Pepsi cola"; use its specific product identity as canonicalIdentity.
-- Set retrievalIntent to AMBIGUOUS when product-versus-generic identity is unclear; do not guess a brand.
-- Populate lookupAliases with up to three short English alternate food identities that could improve USDA lookup. Do not repeat canonicalIdentity, and do not use quantities, preparation-only terms, ingredient roles such as "cooking fat", or speculative identities. Use [] when no useful alternate identity exists.
-- Use origin=user_text only when the original meal input explicitly specifies the ingredient or amount; otherwise use model_inferred.
-- Include material calorie sources such as oil, ghee, sugar, sauces, dressings, and milk. Water may be included.
-- Declare only plausible material uncertainty using the standardized variationType enum.
-- Numeric uncertainty lives in amountGrams min/estimate/max; an INGREDIENT_AMOUNT or INGREDIENT_PRESENCE variation references that ingredient without repeating numeric options.
-- INGREDIENT_VARIANT alternatives contain canonical food identities such as skim milk or whole milk, excluding the baseline canonicalIdentity.
-- PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
+The first-pass JSON is supplied in the user message. For every meal item, return a complete quantified recipe decomposed into ingredients.
+- Use GENERIC_INGREDIENT for ordinary ingredients, BRANDED_PRODUCT only when the input identifies a specific packaged or marketed product, and AMBIGUOUS when product-versus-generic identity is unclear; never guess a brand.
+- Use origin=user_stated only when the original meal input explicitly specifies the ingredient or its amount in any form, including volumes and household measures the model converts to grams.
+- A variation may only reference an ingredient that appears in the same meal item's ingredients list. Never declare a variation for an ingredient the input explicitly excluded; omit both the ingredient and its variation instead.
+- Declare only plausible material uncertainty using the standardized variationType enum. Numeric uncertainty lives in amountGrams min/estimate/max; an INGREDIENT_AMOUNT or INGREDIENT_PRESENCE variation references that ingredient without repeating numeric options.
+- INGREDIENT_VARIANT alternatives contain canonical food identities such as skim milk or whole milk, excluding the baseline canonicalIdentity. PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
 - Portion, count, and unit-size uncertainty belongs only in the first-pass ranges, not in variations.
-- Keep variations small: normally zero to two per meal item, never speculative trivia.
 
-Examples demonstrate preserving every first-pass meal item, English ingredient identities for non-English inputs, and non-redundant lookup aliases; do not copy their food names:
+Examples demonstrate preserving every first-pass meal item and non-redundant lookup aliases; do not copy their food names:
 ${formatPromptExamples(SECOND_PASS_PROMPT_EXAMPLES)}`;
 
 interface ScenarioState {
@@ -434,8 +433,8 @@ function textEvidence(input: NormalizedMealInput, claim?: string): Evidence {
   return { origin: 'USER_TEXT', text: exact, startUtf16, endUtf16: startUtf16 + exact.length };
 }
 
-function internalOrigin(origin: 'user_text' | 'model_inferred', input: NormalizedMealInput): 'USER_TEXT' | 'MODEL_INFERRED' {
-  return origin === 'user_text' && input.kind === 'TEXT' ? 'USER_TEXT' : 'MODEL_INFERRED';
+function internalOrigin(origin: 'user_stated' | 'model_inferred', input: NormalizedMealInput): 'USER_TEXT' | 'MODEL_INFERRED' {
+  return origin === 'user_stated' && input.kind === 'TEXT' ? 'USER_TEXT' : 'MODEL_INFERRED';
 }
 
 function evidenceFor(origin: 'USER_TEXT' | 'MODEL_INFERRED', input: NormalizedMealInput, claim?: string): Evidence {
@@ -558,10 +557,14 @@ function createDimensions(
         questionKind: 'INGREDIENT_PRESENCE',
         origin: 'MODEL_INFERRED',
         options: [
-          { code: 'absent', label: 'No', point: ingredient.amountGrams.estimate === 0, apply: (state) =>
-            replaceIngredient(state, ingredient.ingredientName, () => null) },
-          { code: 'present', label: 'Yes', point: ingredient.amountGrams.estimate > 0, apply: (state) =>
-            replaceIngredient(state, ingredient.ingredientName, (item) => ({ ...item, grams: presentGrams })) },
+          {
+            code: 'absent', label: 'No', point: ingredient.amountGrams.estimate === 0, apply: (state) =>
+              replaceIngredient(state, ingredient.ingredientName, () => null)
+          },
+          {
+            code: 'present', label: 'Yes', point: ingredient.amountGrams.estimate > 0, apply: (state) =>
+              replaceIngredient(state, ingredient.ingredientName, (item) => ({ ...item, grams: presentGrams }))
+          },
         ],
       };
     } else if (variation.variationType === 'INGREDIENT_VARIANT' && ingredient && variation.alternatives.length > 0) {
@@ -744,28 +747,28 @@ function componentProposal(
   const preparationOrigin = internalOrigin(component.preparation.origin, input);
   const portionConstraint = component.portion.kind === 'COUNT'
     ? {
-        kind: 'COUNT' as const,
-        count: {
+      kind: 'COUNT' as const,
+      count: {
+        estimate: component.portion.estimate, min: component.portion.min, max: component.portion.max,
+        origin: portionOrigin, evidence: evidenceFor(portionOrigin, input),
+      },
+      perUnitFinishedGrams: {
+        ...component.portion.perUnitGrams!,
+        origin: internalOrigin(component.portion.perUnitGrams!.origin, input),
+        evidence: evidenceFor(internalOrigin(component.portion.perUnitGrams!.origin, input), input),
+      },
+      naturalUnitCode: slug(component.mealItemName).toUpperCase(),
+    }
+    : {
+      kind: 'AMOUNT' as const,
+      naturalMeasure: {
+        unitCode: 'GRAM' as const,
+        quantity: {
           estimate: component.portion.estimate, min: component.portion.min, max: component.portion.max,
           origin: portionOrigin, evidence: evidenceFor(portionOrigin, input),
         },
-        perUnitFinishedGrams: {
-          ...component.portion.perUnitGrams!,
-          origin: internalOrigin(component.portion.perUnitGrams!.origin, input),
-          evidence: evidenceFor(internalOrigin(component.portion.perUnitGrams!.origin, input), input),
-        },
-        naturalUnitCode: slug(component.mealItemName).toUpperCase(),
-      }
-    : {
-        kind: 'AMOUNT' as const,
-        naturalMeasure: {
-          unitCode: 'GRAM' as const,
-          quantity: {
-            estimate: component.portion.estimate, min: component.portion.min, max: component.portion.max,
-            origin: portionOrigin, evidence: evidenceFor(portionOrigin, input),
-          },
-        },
-      };
+      },
+    };
   return {
     componentId,
     sourceName: component.mealItemName,
@@ -776,9 +779,9 @@ function componentProposal(
     preparationConstraints: recipe.variations.some(({ variationType }) => variationType === 'PREPARATION')
       ? []
       : [{
-          code: component.preparation.method,
-          origin: preparationOrigin,
-        }],
+        code: component.preparation.method,
+        origin: preparationOrigin,
+      }],
     scenarios,
     pointScenarioId,
   };
@@ -820,7 +823,7 @@ export function buildInterpretationProposal(
     componentProposal(component, recipe, input, componentIds[index]!)
   );
   const mealType = first.mealTypeCandidate;
-  const candidateOrigin = mealType.origin === 'user_text' && input.kind === 'TEXT' ? 'USER_TEXT' : 'MODEL_INFERRED';
+  const candidateOrigin = mealType.origin === 'user_stated' && input.kind === 'TEXT' ? 'USER_TEXT' : 'MODEL_INFERRED';
   const proposal: FoodInterpretationProposal = {
     outcome: 'FOOD',
     mealName: first.mealName!,
@@ -828,11 +831,11 @@ export function buildInterpretationProposal(
     mealTypeCandidate: mealType.value === null
       ? { value: null, origin: 'MODEL_INFERRED', confidence: 0.2, evidence: modelEvidence('Meal type is unresolved.') }
       : {
-          value: mealType.value,
-          origin: candidateOrigin,
-          confidence: candidateOrigin === 'USER_TEXT' ? 1 : 0.7,
-          evidence: evidenceFor(candidateOrigin, input),
-        },
+        value: mealType.value,
+        origin: candidateOrigin,
+        confidence: candidateOrigin === 'USER_TEXT' ? 1 : 0.7,
+        evidence: evidenceFor(candidateOrigin, input),
+      },
   };
   return parseAndValidateInterpretation(proposal, input);
 }

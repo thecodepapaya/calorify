@@ -121,7 +121,7 @@ const firstPass = {
       mealItemName: 'roti', canonicalIdentity: 'whole wheat flatbread',
       portion: {
         kind: 'COUNT', estimate: 4, min: 4, max: 4,
-        origin: 'user_text',
+        origin: 'user_stated',
         perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
       },
       preparation: { method: 'TOASTED', origin: 'model_inferred' },
@@ -244,10 +244,16 @@ test('compact schema normalizes null optional product queries to omission', () =
   assert.equal(parsed.mealItems[0]!.ingredients[0]!.productQuery, undefined);
 });
 
-test('first-pass tip is optional without weakening structured validation', () => {
+test('first-pass tip is required and strictly validated', () => {
   const withoutTip = { ...firstPass };
   delete withoutTip.tip;
-  assert.equal(firstPassResponseSchema.safeParse(withoutTip).success, true);
+  assert.equal(firstPassResponseSchema.safeParse(withoutTip).success, false);
+
+  const emptyTip = {
+    ...firstPass,
+    tip: '   ',
+  };
+  assert.equal(firstPassResponseSchema.safeParse(emptyTip).success, false);
 
   const malformedTip = {
     ...firstPass,

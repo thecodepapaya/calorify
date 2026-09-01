@@ -4,13 +4,15 @@ This live model eval tests the two meal-decomposition LLM passes directly. Its
 purpose is to measure whether a selected model reliably preserves explicit user
 information and produces plausible structured estimates.
 
-The dataset contains 20 fixed text cases from 20 country contexts across Asia,
-Africa, Europe, Latin America, the Caribbean, North America, and Oceania. It
-covers composite dishes, enumerated platters, street food, soup, dessert,
-branded products, restaurant customization, beverages, native-script input,
-counts, weights, volumes, household measures, fractions, and unit conversion.
-All timestamps are fixed. Three repetitions run by default so model variability
-is visible without making the expanded suite unnecessarily expensive.
+The dataset contains 12 fixed text cases from 11 country contexts, including one negative non-food case, across Asia,
+Africa, Europe, the Caribbean, and North America. It was condensed from a
+20-case set while preserving its coverage: composite dishes, enumerated
+platters, street food, soup, dessert, branded products, restaurant
+customization, beverages, native-script input, counts, weights, volumes,
+household measures, fractions, and unit conversion, spanning a trivial
+single-item input to compound multi-item meals. All timestamps are fixed.
+Three repetitions run by default so model variability is visible without
+making the suite unnecessarily expensive.
 
 USDA resolution, calories, macros, clarification selection, meal-type
 resolution, presentation, and the HTTP flow are intentionally outside this
@@ -54,8 +56,8 @@ The command prints a temporary artifact directory. Every provider response,
 parsed model output, provider error, run result, and the aggregate
 `summary.json` is stored there as pretty-printed JSON.
 
-The console output stays compact: it shows the artifact path, selected model,
-reasoning effort, and an `Eval 3/20`-style heading before each case with its
+the console output stays compact: it shows the artifact path, selected model,
+reasoning effort, and an `Eval 3/12`-style heading before each case with its
 food text, ID, and locale context. Each repetition reports its result and failed hard assertions;
 the final summary includes completed run and case counts plus the aggregate pass
 rate. Inspect the separate JSON files when a response or assertion needs diagnosis.
@@ -67,12 +69,12 @@ Hard assertions cover:
 - strict pass-one and pass-two schemas;
 - semantic recognition of each expected component, without requiring exact
   spelling;
-- preservation of explicit counts and amounts with `user_text` provenance;
+- preservation of explicit counts and amounts with `user_stated` provenance;
 - plausible inferred gram estimates for counted food portions;
 - plausible inferred serving grams for continuous portions;
 - ordered ranges and absence of the redundant `unit` field;
 - exact component correspondence between passes;
-- allowed `user_text` or `model_inferred` provenance for every ingredient amount;
+- allowed `user_stated` or `model_inferred` provenance for every ingredient amount;
 - valid ingredient variation references;
 - expected defining ingredients in each component recipe;
 - absence of explicitly excluded ingredients for cases that specify them.

@@ -20,3 +20,16 @@ test('model-facing schemas and prompts use the mealItems vocabulary', () => {
   assert.equal(FIRST_PASS_SYSTEM_PROMPT.includes('meal items'), true);
   assert.equal(SECOND_PASS_SYSTEM_PROMPT.includes('meal item'), true);
 });
+
+test('model-facing schemas carry field descriptions without a hard meal-name cap', () => {
+  const first = JSON.stringify(FIRST_PASS_RESPONSE_JSON_SCHEMA);
+  const second = JSON.stringify(SECOND_PASS_RESPONSE_JSON_SCHEMA);
+  assert.equal(first.includes('around 40 characters'), true);
+  assert.equal(first.includes('never a transliteration'), true);
+  assert.equal(second.includes('exactly match a mealItemName'), true);
+  assert.equal(second.includes('per unit for COUNT'), true);
+  const mealName = FIRST_PASS_RESPONSE_JSON_SCHEMA.properties.mealName as {
+    anyOf?: Array<{ maxLength?: number }>;
+  };
+  assert.equal(mealName.anyOf?.[0]?.maxLength, 160);
+});

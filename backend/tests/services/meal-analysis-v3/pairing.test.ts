@@ -9,17 +9,18 @@ import {
 const koreanFirstPass = {
   food_detected: true,
   mealName: '신라면 세트',
+  tip: 'Instant ramyun sodium levels are high; the broth holds most of the salt.',
   mealTypeCandidate: { value: 'LUNCH', origin: 'model_inferred' },
   mealItems: [
     {
       mealItemName: '신라면 큰사발', canonicalIdentity: 'prepared instant ramen',
-      portion: { kind: 'AMOUNT', estimate: 414, min: 414, max: 414, origin: 'user_text', perUnitGrams: null },
+      portion: { kind: 'AMOUNT', estimate: 414, min: 414, max: 414, origin: 'user_stated', perUnitGrams: null },
       preparation: { method: 'BOILED', origin: 'model_inferred' },
     },
     {
       mealItemName: '계란', canonicalIdentity: 'boiled egg',
       portion: {
-        kind: 'COUNT', estimate: 1, min: 1, max: 1, origin: 'user_text',
+        kind: 'COUNT', estimate: 1, min: 1, max: 1, origin: 'user_stated',
         perUnitGrams: { estimate: 50, min: 50, max: 50, origin: 'model_inferred' },
       },
       preparation: { method: 'BOILED', origin: 'model_inferred' },

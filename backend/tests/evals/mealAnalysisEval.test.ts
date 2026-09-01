@@ -25,7 +25,7 @@ const evalCase: MealAnalysisEvalCase = {
       key: 'roti',
       aliases: ['roti', 'chapati'],
       portion: {
-        kind: 'COUNT', exact: 4, origin: 'user_text',
+        kind: 'COUNT', exact: 4, origin: 'user_stated',
         perUnitGrams: { estimateMin: 25, estimateMax: 80, origin: 'model_inferred' },
       },
       requiredIngredientGroups: [['flour', 'wheat', 'atta']],
@@ -44,12 +44,13 @@ const evalCase: MealAnalysisEvalCase = {
 const validFirstPass = {
   food_detected: true,
   mealName: 'Roti with dal',
+  tip: 'Dal and roti form a complete protein when eaten together.',
   mealTypeCandidate: { value: 'LUNCH', origin: 'model_inferred' },
   mealItems: [
     {
       mealItemName: 'roti', canonicalIdentity: 'whole wheat flatbread',
       portion: {
-        kind: 'COUNT', estimate: 4, min: 4, max: 4, origin: 'user_text',
+        kind: 'COUNT', estimate: 4, min: 4, max: 4, origin: 'user_stated',
         perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
       },
       preparation: { method: 'TOASTED', origin: 'model_inferred' },
@@ -150,7 +151,7 @@ test('rejects treating an explicit roti count as grams', () => {
   const incorrect = structuredClone(validFirstPass);
   incorrect.mealItems[0]!.portion = {
     kind: 'AMOUNT', estimate: 4, min: 4, max: 4,
-    origin: 'user_text', perUnitGrams: null,
+    origin: 'user_stated', perUnitGrams: null,
   };
 
   const result = evaluateMealAnalysisRun(evalCase, incorrect, validSecondPass);
@@ -163,7 +164,7 @@ test('rejects treating an explicit roti count as grams', () => {
 
 test('accepts valid ingredient provenance and rejects dangling variations', () => {
   const incorrect = structuredClone(validSecondPass);
-  incorrect.mealItems[0]!.ingredients[0]!.amountGrams.origin = 'user_text';
+  incorrect.mealItems[0]!.ingredients[0]!.amountGrams.origin = 'user_stated';
   incorrect.mealItems[0]!.variations.push({
     variationType: 'INGREDIENT_VARIANT',
     ingredientName: 'roti',
@@ -172,9 +173,14 @@ test('accepts valid ingredient provenance and rejects dangling variations', () =
 
   const result = evaluateMealAnalysisRun(evalCase, validFirstPass, incorrect);
   assert.equal(result.passed, false);
-  assert.equal(result.assertions.find((assertion) => assertion.id === 'pass2.amount-origins')?.passed, true);
+  // The schema now hard-rejects dangling variation references, so the run
+  // fails at pass2.schema; amount-origins is unavailable rather than wrong.
   assert.equal(
-    result.assertions.find((assertion) => assertion.id === 'pass2.variation-references')?.passed,
+    result.assertions.find((assertion) => assertion.id === 'pass2.schema')?.passed,
+    false
+  );
+  assert.equal(
+    result.assertions.find((assertion) => assertion.id === 'pass2.amount-origins')?.passed,
     false
   );
 });

@@ -7,7 +7,7 @@ import {
 } from '../services/meal-analysis-v3/twoPassInterpretation.js';
 import { matchableText, normalized } from '../services/meal-analysis-v3/text.js';
 
-type ExpectedOrigin = 'user_text' | 'model_inferred';
+type ExpectedOrigin = 'user_stated' | 'model_inferred';
 
 export interface MealAnalysisEvalCase {
   id: string;
@@ -166,7 +166,13 @@ export function evaluateMealAnalysisRun(
     firstParsed.success,
     firstParsed.success ? 'valid' : firstParsed.error.issues.map((issue) => issue.message).join('; ')
   );
-  add('pass1.food-detected', 'hard', firstPass?.food_detected === true, 'food must be detected');
+  const expectsFood = evalCase.expectedComponents.length > 0;
+  add(
+    'pass1.food-detected',
+    'hard',
+    firstPass?.food_detected === expectsFood,
+    expectsFood ? 'food must be detected' : 'no food must be detected'
+  );
   add(
     'pass1.component-count',
     'hard',
@@ -239,12 +245,16 @@ export function evaluateMealAnalysisRun(
     }
   }
 
-  const secondParsed = secondPassResponseSchema.safeParse(secondPassValue);
+  // A no-food case has no second pass at all; the pass-2 schema and
+  // correspondence assertions are vacuously satisfied.
+  const secondParsed = expectsFood
+    ? secondPassResponseSchema.safeParse(secondPassValue)
+    : secondPassResponseSchema.safeParse({ mealItems: [{ mealItemName: 'placeholder', ingredients: [{ ingredientName: 'placeholder', canonicalIdentity: 'placeholder', lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT', amountGrams: { estimate: 1, min: 1, max: 1, origin: 'model_inferred' } }], variations: [] }] });
   const secondPass = secondParsed.success ? secondParsed.data : undefined;
   add(
     'pass2.schema',
     'hard',
-    secondParsed.success,
+    !expectsFood || secondParsed.success,
     secondParsed.success ? 'valid' : secondParsed.error.issues.map((issue) => issue.message).join('; ')
   );
 
@@ -259,10 +269,11 @@ export function evaluateMealAnalysisRun(
   add(
     'pass2.component-correspondence',
     'hard',
-    productionPairingHolds
-      && firstNames.size > 0
-      && firstNames.size === secondNames.size
-      && [...firstNames].every((name) => secondNames.has(name)),
+    !expectsFood
+      || (productionPairingHolds
+        && firstNames.size > 0
+        && firstNames.size === secondNames.size
+        && [...firstNames].every((name) => secondNames.has(name))),
     'pass-two mealItemName values must match pass one'
   );
 
@@ -273,8 +284,8 @@ export function evaluateMealAnalysisRun(
   add(
     'pass2.amount-origins',
     'hard',
-    amountOrigins.length > 0 && amountOrigins.every((origin) =>
-      origin === 'user_text' || origin === 'model_inferred'),
+    !expectsFood || (amountOrigins.length > 0 && amountOrigins.every((origin) =>
+      origin === 'user_stated' || origin === 'model_inferred')),
     `received: ${amountOrigins.join(', ') || 'none'}`
   );
 
@@ -285,7 +296,7 @@ export function evaluateMealAnalysisRun(
   add(
     'pass2.lookup-alias-coverage',
     'diagnostic',
-    usefulAliases.length > 0,
+    !expectsFood || usefulAliases.length > 0,
     `${usefulAliases.length} non-water ingredients include lookup aliases`
   );
 
@@ -299,7 +310,7 @@ export function evaluateMealAnalysisRun(
   add(
     'pass2.variation-references',
     'hard',
-    variationReferencesValid,
+    !expectsFood || variationReferencesValid,
     'non-null ingredientName must reference an ingredient in the same meal item'
   );
 
