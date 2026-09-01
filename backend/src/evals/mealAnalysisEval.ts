@@ -76,11 +76,11 @@ function ordered(range: { min: number; estimate: number; max: number } | undefin
 
 function containsPortionUnit(value: unknown): boolean {
   if (value === null || typeof value !== 'object') return false;
-  const components = (value as { components?: unknown }).components;
-  if (!Array.isArray(components)) return false;
-  return components.some((component) => {
-    if (component === null || typeof component !== 'object') return false;
-    const portion = (component as { portion?: unknown }).portion;
+  const mealItems = (value as { mealItems?: unknown }).mealItems;
+  if (!Array.isArray(mealItems)) return false;
+  return mealItems.some((mealItem) => {
+    if (mealItem === null || typeof mealItem !== 'object') return false;
+    const portion = (mealItem as { portion?: unknown }).portion;
     return portion !== null && typeof portion === 'object' && 'unit' in portion;
   });
 }
@@ -88,28 +88,28 @@ function containsPortionUnit(value: unknown): boolean {
 function componentFor(
   pass: FirstPassResponse | undefined,
   aliases: string[]
-): FirstPassResponse['components'][number] | undefined {
-  return pass?.components.find((component) => includesAlias(
-    `${component.componentName} ${component.canonicalIdentity}`,
+): FirstPassResponse['mealItems'][number] | undefined {
+  return pass?.mealItems.find((component) => includesAlias(
+    `${component.mealItemName} ${component.canonicalIdentity}`,
     aliases
   ));
 }
 
 function ingredientComponentFor(
   pass: SecondPassResponse | undefined,
-  firstComponent: FirstPassResponse['components'][number] | undefined,
+  firstComponent: FirstPassResponse['mealItems'][number] | undefined,
   aliases: string[]
-): SecondPassResponse['components'][number] | undefined {
+): SecondPassResponse['mealItems'][number] | undefined {
   if (!pass) return undefined;
   if (firstComponent) {
-    const exact = pass.components.find((component) =>
-      normalize(component.componentName) === normalize(firstComponent.componentName));
+    const exact = pass.mealItems.find((mealItem) =>
+      normalize(mealItem.mealItemName) === normalize(firstComponent.mealItemName));
     if (exact) return exact;
   }
-  return pass.components.find((component) => includesAlias(component.componentName, aliases));
+  return pass.mealItems.find((mealItem) => includesAlias(mealItem.mealItemName, aliases));
 }
 
-function ingredientCorpus(component: SecondPassResponse['components'][number] | undefined): string {
+function ingredientCorpus(component: SecondPassResponse['mealItems'][number] | undefined): string {
   return normalize((component?.ingredients ?? [])
     .flatMap((ingredient) => [
       ingredient.ingredientName,
@@ -151,12 +151,12 @@ export function evaluateMealAnalysisRun(
   add(
     'pass1.component-count',
     'hard',
-    firstPass?.components.length === evalCase.expectedComponents.length,
-    `expected ${evalCase.expectedComponents.length}, received ${firstPass?.components.length ?? 0}`
+    firstPass?.mealItems.length === evalCase.expectedComponents.length,
+    `expected ${evalCase.expectedComponents.length}, received ${firstPass?.mealItems.length ?? 0}`
   );
   add('pass1.no-unit-field', 'hard', !containsPortionUnit(firstPassValue), 'portion.unit is forbidden');
 
-  const firstComponents = new Map<string, FirstPassResponse['components'][number] | undefined>();
+  const firstComponents = new Map<string, FirstPassResponse['mealItems'][number] | undefined>();
   for (const expected of evalCase.expectedComponents) {
     const component = componentFor(firstPass, expected.aliases);
     firstComponents.set(expected.key, component);
@@ -229,19 +229,19 @@ export function evaluateMealAnalysisRun(
     secondParsed.success ? 'valid' : secondParsed.error.issues.map((issue) => issue.message).join('; ')
   );
 
-  const firstNames = new Set(firstPass?.components.map((component) => normalize(component.componentName)) ?? []);
-  const secondNames = new Set(secondPass?.components.map((component) => normalize(component.componentName)) ?? []);
+  const firstNames = new Set(firstPass?.mealItems.map((mealItem) => normalize(mealItem.mealItemName)) ?? []);
+  const secondNames = new Set(secondPass?.mealItems.map((mealItem) => normalize(mealItem.mealItemName)) ?? []);
   add(
     'pass2.component-correspondence',
     'hard',
     firstNames.size > 0
       && firstNames.size === secondNames.size
       && [...firstNames].every((name) => secondNames.has(name)),
-    'pass-two componentName values must match pass one'
+    'pass-two mealItemName values must match pass one'
   );
 
-  const amountOrigins = secondPass?.components.flatMap((component) =>
-    component.ingredients.map((ingredient) => ingredient.amountGrams.origin)) ?? [];
+  const amountOrigins = secondPass?.mealItems.flatMap((mealItem) =>
+    mealItem.ingredients.map((ingredient) => ingredient.amountGrams.origin)) ?? [];
   add(
     'pass2.amount-origins',
     'hard',
@@ -250,8 +250,8 @@ export function evaluateMealAnalysisRun(
     `received: ${amountOrigins.join(', ') || 'none'}`
   );
 
-  const usefulAliases = secondPass?.components.flatMap((component) =>
-    component.ingredients.filter((ingredient) =>
+  const usefulAliases = secondPass?.mealItems.flatMap((mealItem) =>
+    mealItem.ingredients.filter((ingredient) =>
       ingredient.lookupAliases.length > 0
       && normalize(ingredient.canonicalIdentity) !== 'water')) ?? [];
   add(
@@ -261,10 +261,10 @@ export function evaluateMealAnalysisRun(
     `${usefulAliases.length} non-water ingredients include lookup aliases`
   );
 
-  const variationReferencesValid = secondPass !== undefined && secondPass.components.every((component) => {
-    const ingredientNames = new Set(component.ingredients.map((ingredient) =>
+  const variationReferencesValid = secondPass !== undefined && secondPass.mealItems.every((mealItem) => {
+    const ingredientNames = new Set(mealItem.ingredients.map((ingredient) =>
       normalize(ingredient.ingredientName)));
-    return component.variations.every((variation) =>
+    return mealItem.variations.every((variation) =>
       variation.ingredientName === null
       || ingredientNames.has(normalize(variation.ingredientName)));
   });
@@ -272,11 +272,11 @@ export function evaluateMealAnalysisRun(
     'pass2.variation-references',
     'hard',
     variationReferencesValid,
-    'non-null ingredientName must reference an ingredient in the same component'
+    'non-null ingredientName must reference an ingredient in the same meal item'
   );
 
-  const allIngredients = normalize(secondPass?.components.flatMap((component) =>
-    component.ingredients.flatMap((ingredient) => [
+  const allIngredients = normalize(secondPass?.mealItems.flatMap((mealItem) =>
+    mealItem.ingredients.flatMap((ingredient) => [
       ingredient.ingredientName,
       ingredient.canonicalIdentity,
       ...ingredient.lookupAliases,

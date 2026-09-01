@@ -79,8 +79,8 @@ export const firstPassResponseSchema = z.object({
     value: mealTypeSchema.nullable(),
     origin: originSchema.nullable(),
   }).strict(),
-  components: z.array(z.object({
-    componentName: label,
+  mealItems: z.array(z.object({
+    mealItemName: label,
     canonicalIdentity: label,
     portion: portionSchema,
     preparation: z.object({
@@ -89,18 +89,18 @@ export const firstPassResponseSchema = z.object({
     }).strict(),
   }).strict()).max(20),
 }).strict().superRefine((response, ctx) => {
-  if (response.food_detected && (response.mealNameCandidate === null || response.components.length === 0)) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'detected food requires a meal name and components' });
+  if (response.food_detected && (response.mealNameCandidate === null || response.mealItems.length === 0)) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'detected food requires a meal name and meal items' });
   }
-  if (!response.food_detected && response.components.length !== 0) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'no-food response cannot contain components' });
+  if (!response.food_detected && response.mealItems.length !== 0) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'no-food response cannot contain meal items' });
   }
   if ((response.mealTypeCandidate.value === null) !== (response.mealTypeCandidate.origin === null)) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'meal type value and origin must both be null or non-null' });
   }
-  const names = response.components.map(({ componentName }) => normalized(componentName));
+  const names = response.mealItems.map(({ mealItemName }) => normalized(mealItemName));
   if (new Set(names).size !== names.length) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'component names must be unique' });
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'meal item names must be unique' });
   }
 });
 
@@ -175,8 +175,8 @@ const compactIngredientSchema = z.object({
 });
 
 export const secondPassResponseSchema = z.object({
-  components: z.array(z.object({
-    componentName: label,
+  mealItems: z.array(z.object({
+    mealItemName: label,
     ingredients: z.array(compactIngredientSchema).min(1).max(24),
     variations: z.array(variationSchema).max(4),
   }).strict()).min(1).max(20),
@@ -184,8 +184,9 @@ export const secondPassResponseSchema = z.object({
 
 export type FirstPassResponse = z.infer<typeof firstPassResponseSchema>;
 export type SecondPassResponse = z.infer<typeof secondPassResponseSchema>;
-export type CompactComponent = FirstPassResponse['components'][number];
-export type CompactIngredientComponent = SecondPassResponse['components'][number];
+export type MealItem = FirstPassResponse['mealItems'][number];
+export type CompactComponent = MealItem;
+export type CompactIngredientComponent = SecondPassResponse['mealItems'][number];
 
 function openAiSchema(schema: z.ZodTypeAny): Record<string, unknown> {
   const result = zodToJsonSchema(schema, { $refStrategy: 'none', target: 'openAi' }) as Record<string, unknown>;
@@ -217,9 +218,9 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
       mealNameCandidate: 'Chicken pot pie with green beans',
       tip: 'A pie filling often combines protein, vegetables, and a savory sauce.',
       mealTypeCandidate: { value: 'DINNER', origin: 'user_text' },
-      components: [
+      mealItems: [
         {
-          componentName: 'chicken pot pie',
+          mealItemName: 'chicken pot pie',
           canonicalIdentity: 'chicken pot pie',
           portion: {
             kind: 'AMOUNT', estimate: 420, min: 420, max: 420,
@@ -228,7 +229,7 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
           preparation: { method: 'BAKED', origin: 'model_inferred' },
         },
         {
-          componentName: 'green beans',
+          mealItemName: 'green beans',
           canonicalIdentity: 'cooked green beans',
           portion: {
             kind: 'AMOUNT', estimate: 125, min: 100, max: 150,
@@ -246,9 +247,9 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
       mealNameCandidate: 'Ramen',
       tip: 'Broth-based noodle soups vary widely in their ingredients and preparation.',
       mealTypeCandidate: { value: null, origin: null },
-      components: [
+      mealItems: [
         {
-          componentName: 'ramen',
+          mealItemName: 'ramen',
           canonicalIdentity: 'prepared ramen noodle soup',
           portion: {
             kind: 'AMOUNT', estimate: 360, min: 360, max: 360,
@@ -270,9 +271,9 @@ export const SECOND_PASS_PROMPT_EXAMPLES: Array<{
     input: FIRST_PASS_PROMPT_EXAMPLES[0]!.input,
     firstPass: FIRST_PASS_PROMPT_EXAMPLES[0]!.response,
     response: {
-      components: [
+      mealItems: [
         {
-          componentName: 'chicken pot pie',
+          mealItemName: 'chicken pot pie',
           ingredients: [
             {
               ingredientName: 'chicken', canonicalIdentity: 'chicken meat',
@@ -303,7 +304,7 @@ export const SECOND_PASS_PROMPT_EXAMPLES: Array<{
           variations: [],
         },
         {
-          componentName: 'green beans',
+          mealItemName: 'green beans',
           ingredients: [
             {
               ingredientName: 'green beans', canonicalIdentity: 'cooked green beans',
@@ -332,9 +333,9 @@ export const FIRST_PASS_SYSTEM_PROMPT = `You are the first parsing pass of a nut
 Return only the requested JSON. Do not list ingredients, variations, calories, or macros.
 
 Tasks:
-- Set food_detected=false when no usable food can be identified. In that case return no components and a null meal name and meal type.
-- Split a meal into recognizable components using componentName from the input and a short generic English canonicalIdentity.
-- Quantify continuous components as AMOUNT; estimate/min/max are always finished grams. Quantify discrete components as COUNT with perUnitGrams; do not return a unit field.
+- Set food_detected=false when no usable food can be identified. In that case return no meal items and a null meal name and meal type.
+- Split a meal into meal items using mealItemName from the input and a short generic English canonicalIdentity. A meal item is a distinct food or drink consumed as part of the meal; keep a named prepared dish as one meal item and do not promote its fillings, toppings, or ingredients to meal items unless explicitly served separately.
+- Quantify continuous meal items as AMOUNT; estimate/min/max are always finished grams. Quantify discrete meal items as COUNT with perUnitGrams; do not return a unit field.
 - Clamp user-provided quantities so min=estimate=max and origin=user_text.
 - Use origin=model_inferred for every value not explicitly stated by the user, including image observations and context-based guesses.
 - Use only user_text and model_inferred. Do not add evidence objects.
@@ -343,14 +344,14 @@ Tasks:
 - For detected food, return a short meal-related tip. The tip may be a fact, observation, trivia, or practical suggestion; it must not depend on meal type.
 - If meal type cannot be determined confidently, return value=null and origin=null.
 
-Examples demonstrate component boundaries and finished-gram portions; do not copy their food names:
+Examples demonstrate meal item boundaries and finished-gram portions; do not copy their food names:
 Volume-to-gram conversions depend on the food; do not reuse an example's gram range for another food.
 ${formatPromptExamples(FIRST_PASS_PROMPT_EXAMPLES)}`;
 
 export const SECOND_PASS_SYSTEM_PROMPT = `You are the second decomposition pass of a nutrition calculator.
 Return only the requested JSON. Do not return calories, macros, question prose, labels, or option objects.
 
-The first-pass JSON is supplied in the user message. For every component:
+The first-pass JSON is supplied in the user message. For every meal item:
 - Return a complete quantified recipe decomposed into ingredients.
 - Ingredient amounts correspond to the first-pass point portion. For COUNT foods, amounts are for one unit; for AMOUNT foods, amounts are for the complete point serving.
 - Set retrievalIntent to GENERIC_INGREDIENT for ordinary ingredients and use a short generic English canonicalIdentity.
@@ -364,9 +365,9 @@ The first-pass JSON is supplied in the user message. For every component:
 - INGREDIENT_VARIANT alternatives contain canonical food identities such as skim milk or whole milk, excluding the baseline canonicalIdentity.
 - PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
 - Portion, count, and unit-size uncertainty belongs only in the first-pass ranges, not in variations.
-- Keep variations small: normally zero to two per component, never speculative trivia.
+- Keep variations small: normally zero to two per meal item, never speculative trivia.
 
-Example demonstrates preserving every first-pass component and non-redundant lookup aliases; do not copy its food names:
+Example demonstrates preserving every first-pass meal item and non-redundant lookup aliases; do not copy its food names:
 ${formatPromptExamples(SECOND_PASS_PROMPT_EXAMPLES)}`;
 
 interface ScenarioState {
@@ -420,8 +421,8 @@ function uniqueId(base: string, used: Set<string>): string {
 /** Stable component IDs shared by pass-level progress and the final proposal. */
 export function componentIdsForFirstPass(first: FirstPassResponse): string[] {
   const used = new Set<string>();
-  return first.components.map((component) =>
-    uniqueId(slug(component.componentName), used)
+  return first.mealItems.map((mealItem) =>
+    uniqueId(slug(mealItem.mealItemName), used)
   );
 }
 
@@ -739,8 +740,8 @@ function componentProposal(
   ));
   const pointIndex = Math.max(0, combinations.findIndex(({ point }) => point));
   const pointScenarioId = scenarios[pointIndex]!.scenarioId;
-  const componentEvidence = input.kind === 'TEXT' && input.text.includes(component.componentName)
-    ? textEvidence(input, component.componentName)
+  const componentEvidence = input.kind === 'TEXT' && input.text.includes(component.mealItemName)
+    ? textEvidence(input, component.mealItemName)
     : modelEvidence('Identified as a meal component.');
   const portionOrigin = internalOrigin(component.portion.origin, input);
   const preparationOrigin = internalOrigin(component.preparation.origin, input);
@@ -756,7 +757,7 @@ function componentProposal(
           origin: internalOrigin(component.portion.perUnitGrams!.origin, input),
           evidence: evidenceFor(internalOrigin(component.portion.perUnitGrams!.origin, input), input),
         },
-        naturalUnitCode: slug(component.componentName).toUpperCase(),
+        naturalUnitCode: slug(component.mealItemName).toUpperCase(),
       }
     : {
         kind: 'AMOUNT' as const,
@@ -770,8 +771,8 @@ function componentProposal(
       };
   return {
     componentId,
-    sourceName: component.componentName,
-    displayName: component.componentName,
+    sourceName: component.mealItemName,
+    displayName: component.mealItemName,
     canonicalIdentity: component.canonicalIdentity,
     evidence: [componentEvidence],
     portionConstraint,
@@ -796,14 +797,14 @@ export function buildInterpretationProposal(
     return { outcome: 'NO_FOOD', reason: 'No food was detected.' };
   }
   const second = secondPassResponseSchema.parse(secondValue);
-  const secondByName = new Map(second.components.map((component) => [normalized(component.componentName), component]));
-  if (secondByName.size !== first.components.length || second.components.length !== first.components.length) {
-    throw new Error('Second pass must return exactly one recipe for every first-pass component');
+  const secondByName = new Map(second.mealItems.map((mealItem) => [normalized(mealItem.mealItemName), mealItem]));
+  if (secondByName.size !== first.mealItems.length || second.mealItems.length !== first.mealItems.length) {
+    throw new Error('Second pass must return exactly one recipe for every first-pass meal item');
   }
   const componentIds = componentIdsForFirstPass(first);
-  const components = first.components.map((component, index) => {
-    const recipe = secondByName.get(normalized(component.componentName));
-    if (!recipe) throw new Error(`Second pass omitted component ${component.componentName}`);
+  const components = first.mealItems.map((component, index) => {
+    const recipe = secondByName.get(normalized(component.mealItemName));
+    if (!recipe) throw new Error(`Second pass omitted meal item ${component.mealItemName}`);
     return componentProposal(component, recipe, input, componentIds[index]!);
   });
   const mealType = first.mealTypeCandidate;

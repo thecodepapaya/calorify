@@ -59,17 +59,17 @@ export function buildMealAnalysisV3PassProgress(snapshot: {
 }): MealAnalysisV3Progress {
   const componentIds = componentIdsForFirstPass(snapshot.firstPass);
   const secondByName = new Map(
-    snapshot.secondPass?.components.map((component) => [
-      normalized(component.componentName),
-      component,
+    snapshot.secondPass?.mealItems.map((mealItem) => [
+      normalized(mealItem.mealItemName),
+      mealItem,
     ]) ?? [],
   );
-  const components = snapshot.firstPass.components.slice(0, 20).map(
+  const components = snapshot.firstPass.mealItems.slice(0, 20).map(
     (component, index): MealAnalysisV3ProgressComponent => {
-      const recipe = secondByName.get(normalized(component.componentName));
+      const recipe = secondByName.get(normalized(component.mealItemName));
       return {
         componentId: componentIds[index]!,
-        name: boundedText(component.componentName, 160)!,
+        name: boundedText(component.mealItemName, 160)!,
         ingredientNames: recipe?.ingredients
           .slice(0, 24)
           .map(({ ingredientName }) => boundedText(ingredientName, 160)!) ?? [],

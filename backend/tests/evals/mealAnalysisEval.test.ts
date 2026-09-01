@@ -45,9 +45,9 @@ const validFirstPass = {
   food_detected: true,
   mealNameCandidate: 'Roti with dal',
   mealTypeCandidate: { value: 'LUNCH', origin: 'model_inferred' },
-  components: [
+  mealItems: [
     {
-      componentName: 'roti', canonicalIdentity: 'whole wheat flatbread',
+      mealItemName: 'roti', canonicalIdentity: 'whole wheat flatbread',
       portion: {
         kind: 'COUNT', estimate: 4, min: 4, max: 4, origin: 'user_text',
         perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
@@ -55,7 +55,7 @@ const validFirstPass = {
       preparation: { method: 'TOASTED', origin: 'model_inferred' },
     },
     {
-      componentName: 'dal', canonicalIdentity: 'lentil curry',
+      mealItemName: 'dal', canonicalIdentity: 'lentil curry',
       portion: {
         kind: 'AMOUNT', estimate: 180, min: 120, max: 260,
         origin: 'model_inferred', perUnitGrams: null,
@@ -66,9 +66,9 @@ const validFirstPass = {
 };
 
 const validSecondPass = {
-  components: [
+  mealItems: [
     {
-      componentName: 'roti',
+      mealItemName: 'roti',
       ingredients: [
         {
           ingredientName: 'whole wheat flour', canonicalIdentity: 'whole wheat flour',
@@ -84,7 +84,7 @@ const validSecondPass = {
       variations: [],
     },
     {
-      componentName: 'dal',
+      mealItemName: 'dal',
       ingredients: [
         {
           ingredientName: 'lentils', canonicalIdentity: 'lentils',
@@ -132,8 +132,8 @@ test('passes hard assertions while leaving optional ingredients diagnostic', () 
 
 test('reports empty alias coverage diagnostically without failing the run', () => {
   const withoutAliases = structuredClone(validSecondPass);
-  withoutAliases.components.forEach((component) => {
-    component.ingredients.forEach((ingredient) => {
+  withoutAliases.mealItems.forEach((mealItem) => {
+    mealItem.ingredients.forEach((ingredient) => {
       ingredient.lookupAliases = [];
     });
   });
@@ -148,7 +148,7 @@ test('reports empty alias coverage diagnostically without failing the run', () =
 
 test('rejects treating an explicit roti count as grams', () => {
   const incorrect = structuredClone(validFirstPass);
-  incorrect.components[0]!.portion = {
+  incorrect.mealItems[0]!.portion = {
     kind: 'AMOUNT', estimate: 4, min: 4, max: 4,
     origin: 'user_text', perUnitGrams: null,
   };
@@ -163,8 +163,8 @@ test('rejects treating an explicit roti count as grams', () => {
 
 test('accepts valid ingredient provenance and rejects dangling variations', () => {
   const incorrect = structuredClone(validSecondPass);
-  incorrect.components[0]!.ingredients[0]!.amountGrams.origin = 'user_text';
-  incorrect.components[0]!.variations.push({
+  incorrect.mealItems[0]!.ingredients[0]!.amountGrams.origin = 'user_text';
+  incorrect.mealItems[0]!.variations.push({
     variationType: 'INGREDIENT_VARIANT',
     ingredientName: 'roti',
     alternatives: ['chapati'],
@@ -195,7 +195,7 @@ test('fails when a second-pass ingredient violates an explicit exclusion', () =>
   );
 
   const incorrect = structuredClone(validSecondPass);
-  incorrect.components[1]!.ingredients.push({
+  incorrect.mealItems[1]!.ingredients.push({
     ingredientName: 'peanut oil', canonicalIdentity: 'peanut oil',
     lookupAliases: ['groundnut oil'], retrievalIntent: 'GENERIC_INGREDIENT',
     amountGrams: { estimate: 5, min: 2, max: 8, origin: 'model_inferred' },
@@ -211,7 +211,7 @@ test('fails when a second-pass ingredient violates an explicit exclusion', () =>
 
 test('reports assertion pass rates without applying a threshold', () => {
   const passing = evaluateMealAnalysisRun(evalCase, validFirstPass, validSecondPass);
-  const failingFirstPass = { ...validFirstPass, components: [] };
+  const failingFirstPass = { ...validFirstPass, mealItems: [] };
   const failing = evaluateMealAnalysisRun(evalCase, failingFirstPass, undefined, 'provider failed');
   const rates = assertionPassRates([passing, failing]);
 

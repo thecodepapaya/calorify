@@ -22,19 +22,19 @@ test('publishes components first and enriches them with ingredients', () => {
   const firstPass = {
     food_detected: true,
     mealNameCandidate: 'Dal and rice',
-    components: [
-      { componentName: 'Dal' },
-      { componentName: 'Rice' },
+    mealItems: [
+      { mealItemName: 'Dal' },
+      { mealItemName: 'Rice' },
     ],
   } as unknown as FirstPassResponse;
   const secondPass = {
-    components: [
+    mealItems: [
       {
-        componentName: 'Dal',
+        mealItemName: 'Dal',
         ingredients: [{ ingredientName: 'Lentils' }, { ingredientName: 'Ghee' }],
       },
       {
-        componentName: 'Rice',
+        mealItemName: 'Rice',
         ingredients: [{ ingredientName: 'Basmati rice' }],
       },
     ],

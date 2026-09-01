@@ -108,9 +108,9 @@ const firstPass = {
   mealNameCandidate: 'Daal with roti',
   tip: 'Lentil dishes are a staple across many South Asian cuisines.',
   mealTypeCandidate: { value: null, origin: null },
-  components: [
+  mealItems: [
     {
-      componentName: 'daal', canonicalIdentity: 'cooked lentil curry',
+      mealItemName: 'daal', canonicalIdentity: 'cooked lentil curry',
       portion: {
         kind: 'AMOUNT', estimate: 150, min: 120, max: 180,
         origin: 'model_inferred', perUnitGrams: null,
@@ -118,7 +118,7 @@ const firstPass = {
       preparation: { method: 'SIMMERED', origin: 'model_inferred' },
     },
     {
-      componentName: 'roti', canonicalIdentity: 'whole wheat flatbread',
+      mealItemName: 'roti', canonicalIdentity: 'whole wheat flatbread',
       portion: {
         kind: 'COUNT', estimate: 4, min: 4, max: 4,
         origin: 'user_text',
@@ -130,9 +130,9 @@ const firstPass = {
 };
 
 const secondPass = {
-  components: [
+  mealItems: [
     {
-      componentName: 'daal',
+      mealItemName: 'daal',
       ingredients: [
         {
           ingredientName: 'lentils', canonicalIdentity: 'dry pigeon peas',
@@ -159,7 +159,7 @@ const secondPass = {
       ],
     },
     {
-      componentName: 'roti',
+      mealItemName: 'roti',
       ingredients: [
         {
           ingredientName: 'whole wheat flour', canonicalIdentity: 'whole wheat flour',
@@ -181,9 +181,9 @@ const secondPass = {
 
 test('two-pass fixtures reject the redundant portion unit field', async () => {
   const withUnit = structuredClone(firstPass) as typeof firstPass & {
-    components: Array<{ portion: Record<string, unknown> }>;
+    mealItems: Array<{ portion: Record<string, unknown> }>;
   };
-  withUnit.components[0]!.portion.unit = 'GRAM';
+  withUnit.mealItems[0]!.portion.unit = 'GRAM';
 
   await assert.rejects(
     createTwoPassFixtureMealInterpreter(withUnit, secondPass).interpret(compactInput),
@@ -193,55 +193,55 @@ test('two-pass fixtures reject the redundant portion unit field', async () => {
 
 test('compact schemas enforce canonical preparation and variation enums', () => {
   const lowercaseMethod = structuredClone(firstPass);
-  lowercaseMethod.components[0]!.preparation.method = 'simmered';
+  lowercaseMethod.mealItems[0]!.preparation.method = 'simmered';
   assert.equal(firstPassResponseSchema.safeParse(lowercaseMethod).success, false);
 
   const validPreparationVariation = structuredClone(secondPass);
-  validPreparationVariation.components[0]!.variations = [{
+  validPreparationVariation.mealItems[0]!.variations = [{
     variationType: 'PREPARATION', ingredientName: null, alternatives: ['PRESSURE_COOKED'],
-  }] as typeof validPreparationVariation.components[0]['variations'];
+  }] as typeof validPreparationVariation.mealItems[0]['variations'];
   assert.equal(secondPassResponseSchema.safeParse(validPreparationVariation).success, true);
 
   const lowercaseAlternative = structuredClone(validPreparationVariation) as unknown as {
-    components: Array<{ variations: Array<{ alternatives: string[] }> }>;
+    mealItems: Array<{ variations: Array<{ alternatives: string[] }> }>;
   };
-  lowercaseAlternative.components[0]!.variations[0]!.alternatives = ['pressure_cooked'];
+  lowercaseAlternative.mealItems[0]!.variations[0]!.alternatives = ['pressure_cooked'];
   assert.equal(secondPassResponseSchema.safeParse(lowercaseAlternative).success, false);
 
   const obsoletePortionVariation = structuredClone(secondPass) as unknown as {
-    components: Array<{ variations: unknown[] }>;
+    mealItems: Array<{ variations: unknown[] }>;
   };
-  obsoletePortionVariation.components[0]!.variations = [{
+  obsoletePortionVariation.mealItems[0]!.variations = [{
     variationType: 'COUNT', ingredientName: null, alternatives: [],
   }];
   assert.equal(secondPassResponseSchema.safeParse(obsoletePortionVariation).success, false);
 
   const invalidIngredientVariation = structuredClone(secondPass);
-  invalidIngredientVariation.components[0]!.variations = [{
+  invalidIngredientVariation.mealItems[0]!.variations = [{
     variationType: 'INGREDIENT_AMOUNT', ingredientName: 'cooking fat', alternatives: ['10 grams'],
-  }] as typeof invalidIngredientVariation.components[0]['variations'];
+  }] as typeof invalidIngredientVariation.mealItems[0]['variations'];
   assert.equal(secondPassResponseSchema.safeParse(invalidIngredientVariation).success, false);
 });
 
 test('compact ingredient aliases are unique and exclude the canonical identity', () => {
   const duplicate = structuredClone(secondPass);
-  duplicate.components[0]!.ingredients[0]!.lookupAliases = ['toor dal', 'Toor Dal'];
+  duplicate.mealItems[0]!.ingredients[0]!.lookupAliases = ['toor dal', 'Toor Dal'];
   assert.equal(secondPassResponseSchema.safeParse(duplicate).success, false);
 
   const canonical = structuredClone(secondPass);
-  canonical.components[0]!.ingredients[0]!.lookupAliases = ['Dry Pigeon Peas'];
+  canonical.mealItems[0]!.ingredients[0]!.lookupAliases = ['Dry Pigeon Peas'];
   assert.equal(secondPassResponseSchema.safeParse(canonical).success, false);
 });
 
 test('compact schema normalizes null optional product queries to omission', () => {
   const response = structuredClone(secondPass);
-  const ingredient = response.components[0]!.ingredients[0]! as typeof response.components[0]['ingredients'][number] & {
+  const ingredient = response.mealItems[0]!.ingredients[0]! as typeof response.mealItems[0]['ingredients'][number] & {
     productQuery?: null;
   };
   ingredient.productQuery = null;
 
   const parsed = secondPassResponseSchema.parse(response);
-  assert.equal(parsed.components[0]!.ingredients[0]!.productQuery, undefined);
+  assert.equal(parsed.mealItems[0]!.ingredients[0]!.productQuery, undefined);
 });
 
 test('first-pass tip is optional without weakening structured validation', () => {
@@ -313,7 +313,7 @@ test('model adapter performs two observable compact calls', async () => {
     onPassCompleted(snapshot) {
       passSnapshots.push({
         hasIngredients: snapshot.secondPass !== undefined,
-        componentCount: snapshot.firstPass.components.length,
+        componentCount: snapshot.firstPass.mealItems.length,
       });
     },
   }).interpret(compactInput);
