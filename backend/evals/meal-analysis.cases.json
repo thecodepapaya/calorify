@@ -350,7 +350,11 @@
             "shin ramyun",
             "shin ramyeon",
             "shin ramen",
-            "nongshim shin"
+            "ramyun",
+            "ramyeon",
+            "ramen",
+            "instant noodle",
+            "noodle soup"
           ],
           "portion": {
             "kind": "AMOUNT",
