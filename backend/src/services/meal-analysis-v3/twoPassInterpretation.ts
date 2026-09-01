@@ -350,7 +350,7 @@ Return only the requested JSON. Do not list ingredients, variations, calories, o
 
 Tasks:
 - Set food_detected=false when no usable food can be identified; then return no meal items and a null meal name and meal type.
-- Split the meal into meal items. Keep a named prepared dish as one meal item; do not promote its fillings, toppings, or ingredients to meal items unless explicitly served separately.
+- Split the meal into meal items. Keep a named prepared dish as one item unless its fillings or toppings are explicitly served separately. Itemize every separately named food or drink with its own quantity, even in a platter or combo; never emit the umbrella platter or combo instead of, or alongside, those items.
 - Quantify continuous foods as AMOUNT and discrete foods as COUNT. For AMOUNT, estimate/min/max are finished grams. For COUNT, count is the number of units (never grams) and unitGrams is the finished grams for one unit. Do not return a unit field.
 - Clamp user-provided quantities so min=estimate=max and origin=user_stated. A serving indication counts as user-provided in any form: counts, weights, volumes, household measures, and fractions, even when the model converts them to grams. Use origin=model_inferred for everything the model assumed, including image observations and context-based guesses.
 - Return exactly one preparation method per meal item; do not generate preparation alternatives.
