@@ -337,6 +337,7 @@
       "stepError": "문제가 발생했습니다",
       "providerUnavailable": "식사 분석 서비스가 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.",
       "invalidModelOutput": "식사 분석 결과를 이해할 수 없었습니다. 다시 시도해 주세요.",
+      "nutritionServiceBusy": "영양 매칭이 잠시 지연되고 있습니다. 잠시 후 다시 시도해 주세요.",
       "nutritionDataUnavailable": "영양 정보를 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.",
       "analysisUnavailable": "식사 분석을 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.",
       "unresolvedNutrition": "이 식사에 대한 영양 정보를 안전하게 일치시킬 수 없었습니다. 더 자세한 정보를 추가해 보세요.",

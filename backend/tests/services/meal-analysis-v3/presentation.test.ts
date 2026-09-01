@@ -17,6 +17,7 @@ function presenterInput(
   interpretation = resolvedInterpretation(),
   generatedCopy: unknown = {
     mealName: 'Pumpkin curry with roti',
+    servingSizeText: '1 bowl + 4 rotis',
     tip: 'Pumpkin is used in many regional curries.',
   },
 ) {
@@ -32,10 +33,7 @@ function presenterInput(
 
 test('serving-size text uses only validated natural measures and qualitative fallback', () => {
   const resolved = resolvedInterpretation();
-  assert.equal(
-    buildServingSizeText(resolved.components),
-    'measured portion + 4 rotis + measured portion'
-  );
+  assert.equal(buildServingSizeText(resolved.components), '4 rotis');
 
   const sabzi = structuredClone(resolved.components[0]!);
   assert.equal(sabzi.portionConstraint.kind, 'AMOUNT');
@@ -74,15 +72,16 @@ test('serving-size text uses only validated natural measures and qualitative fal
   missingPoint.pointScenarioId = 'missing';
   assert.equal(buildServingSizeText([missingPoint]), 'measured portion');
   assert.equal(buildServingSizeText([]), 'measured portion');
-  assert.ok(buildServingSizeText(resolved.components).length <= 120);
+  assert.ok(buildServingSizeText(resolved.components).length < 25);
   assert.doesNotMatch(buildServingSizeText(resolved.components), /gram|kcal|calorie/i);
 });
 
-test('presenter keeps Pass-1 copy separate from deterministic serving size', async () => {
+test('presenter uses validated Pass-1 serving copy', async () => {
   const result = await createMealPresenter().present(presenterInput());
 
   assert.equal(result.mealName, 'Pumpkin curry with roti');
-  assert.equal(result.servingSizeText, 'measured portion + 4 rotis + measured portion');
+  assert.equal(result.servingSizeText, '1 bowl + 4 rotis');
+  assert.ok(result.servingSizeText.length < 25);
   assert.equal(result.tip, 'Pumpkin is used in many regional curries.');
   assert.equal(result.usedFallback, false);
   assert.deepEqual(result.providerAttempts, []);
@@ -93,18 +92,25 @@ test('invalid or absent Pass-1 copy uses the deterministic fallback', async () =
   const before = structuredClone(interpretation);
   const invalidName = await createMealPresenter().present(presenterInput(interpretation, {
     mealName: '4 large rotis',
+    servingSizeText: '4 rotis',
+    tip: 'This copy must not survive validation.',
+  }));
+  const oversizedServing = await createMealPresenter().present(presenterInput(interpretation, {
+    mealName: 'Pumpkin curry with roti',
+    servingSizeText: '1234567890123456789012345',
     tip: 'This copy must not survive validation.',
   }));
   const absentCopy = await createMealPresenter().present(presenterInput(interpretation, null));
 
   const expected = {
     mealName: 'Kaddu sabzi & Roti & Oats',
-    servingSizeText: 'measured portion + 4 rotis + measured portion',
+    servingSizeText: '4 rotis',
     tip: '',
     providerAttempts: [],
     usedFallback: true,
   };
   assert.deepEqual(invalidName, expected);
+  assert.deepEqual(oversizedServing, expected);
   assert.deepEqual(absentCopy, expected);
   assert.deepEqual(interpretation, before, 'presentation must not mutate calculation state');
 });

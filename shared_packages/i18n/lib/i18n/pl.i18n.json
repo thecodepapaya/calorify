@@ -337,6 +337,7 @@
       "stepError": "Coś poszło nie tak",
       "providerUnavailable": "Dostawca analizy posiłku jest chwilowo niedostępny. Spróbuj ponownie.",
       "invalidModelOutput": "Nie udało się zrozumieć odpowiedzi dotyczącej posiłku. Spróbuj ponownie.",
+      "nutritionServiceBusy": "Usługa dopasowywania wartości odżywczych jest teraz zajęta. Spróbuj ponownie za chwilę.",
       "nutritionDataUnavailable": "Dane żywieniowe są chwilowo niedostępne. Spróbuj ponownie.",
       "analysisUnavailable": "Analiza posiłku jest chwilowo niedostępna. Spróbuj ponownie.",
       "unresolvedNutrition": "Nie udało się jednoznacznie dopasować danych żywieniowych do tego posiłku. Spróbuj dodać więcej szczegółów.",

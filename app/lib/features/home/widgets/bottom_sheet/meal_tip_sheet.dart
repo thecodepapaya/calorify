@@ -244,16 +244,6 @@ class _MealTipState extends State<_MealTip> {
                     MealTimestamp(timestamp: timestamp),
                   ],
                 ),
-                if (widget.v3Result case final result?) ...[
-                  const SizedBox(height: 6),
-                  Text(
-                    result.servingSizeText,
-                    key: const ValueKey('v3-serving-size'),
-                    style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
-                  ),
-                ],
               ],
             ),
           ),

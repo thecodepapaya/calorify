@@ -337,6 +337,7 @@
       "stepError": "Etwas ist schiefgelaufen",
       "providerUnavailable": "Der Dienst für die Mahlzeitanalyse ist vorübergehend nicht verfügbar. Bitte versuche es erneut.",
       "invalidModelOutput": "Die Antwort der Mahlzeitanalyse konnte nicht verstanden werden. Bitte versuche es erneut.",
+      "nutritionServiceBusy": "Die Nährwertermittlung ist gerade ausgelastet. Bitte versuche es erneut.",
       "nutritionDataUnavailable": "Nährwertdaten sind vorübergehend nicht verfügbar. Bitte versuche es erneut.",
       "analysisUnavailable": "Die Mahlzeitanalyse ist vorübergehend nicht verfügbar. Bitte versuche es erneut.",
       "unresolvedNutrition": "Wir konnten die Nährwertdaten für diese Mahlzeit nicht mit ausreichender Sicherheit zuordnen. Versuche, mehr Details hinzuzufügen.",

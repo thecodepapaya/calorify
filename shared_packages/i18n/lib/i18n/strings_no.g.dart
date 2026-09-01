@@ -815,6 +815,7 @@ class _Translations$meal$analysis$no extends Translations$meal$analysis$en {
 	@override String get stepError => 'Noe gikk galt';
 	@override String get providerUnavailable => 'Tjenesten for måltidsanalyse er midlertidig utilgjengelig. Prøv igjen.';
 	@override String get invalidModelOutput => 'Svaret for måltidet kunne ikke forstås. Prøv igjen.';
+	@override String get nutritionServiceBusy => 'Ernæringstjenesten er opptatt. Vennligst prøv igjen.';
 	@override String get nutritionDataUnavailable => 'Ernæringsdata er midlertidig utilgjengelige. Prøv igjen.';
 	@override String get analysisUnavailable => 'Måltidsanalysen er midlertidig utilgjengelig. Prøv igjen.';
 	@override String get unresolvedNutrition => 'Vi kunne ikke med sikkerhet finne passende ernæringsdata for dette måltidet. Prøv å legge til flere detaljer.';
@@ -2235,6 +2236,7 @@ extension on TranslationsNo {
 			'meal.analysis.stepError' => 'Noe gikk galt',
 			'meal.analysis.providerUnavailable' => 'Tjenesten for måltidsanalyse er midlertidig utilgjengelig. Prøv igjen.',
 			'meal.analysis.invalidModelOutput' => 'Svaret for måltidet kunne ikke forstås. Prøv igjen.',
+			'meal.analysis.nutritionServiceBusy' => 'Ernæringstjenesten er opptatt. Vennligst prøv igjen.',
 			'meal.analysis.nutritionDataUnavailable' => 'Ernæringsdata er midlertidig utilgjengelige. Prøv igjen.',
 			'meal.analysis.analysisUnavailable' => 'Måltidsanalysen er midlertidig utilgjengelig. Prøv igjen.',
 			'meal.analysis.unresolvedNutrition' => 'Vi kunne ikke med sikkerhet finne passende ernæringsdata for dette måltidet. Prøv å legge til flere detaljer.',
@@ -2494,9 +2496,9 @@ extension on TranslationsNo {
 			'disclaimer.snap.portionSize.title' => 'Porsjonsstørrelse',
 			'disclaimer.snap.portionSize.description' => 'Nøyaktigheten av estimatene avhenger i stor grad av din korrekte vurdering av porsjonsstørrelsen.',
 			'disclaimer.snap.preparationMethods.title' => 'Tilberedningsmetoder',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tilberedningsmetoder kan endre næringsinnholdet betydelig. ${appLabel}s estimater tar ikke alltid høyde for disse variasjonene.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tilberedningsmetoder kan endre næringsinnholdet betydelig. ${appLabel}s estimater tar ikke alltid høyde for disse variasjonene.',
 			'disclaimer.snap.ingredients.title' => 'Ingredienser',
 			'disclaimer.snap.ingredients.description' => 'Komplekse retter med mange skjulte ingredienser kan gi mindre nøyaktige estimater.',
 			'disclaimer.snap.databaseLimitations.title' => 'Databasebegrensninger',

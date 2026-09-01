@@ -179,9 +179,29 @@ void main() {
     expect(find.text('Looking up ingredient nutrition'), findsOneWidget);
     expect(find.text('Dal'), findsWidgets);
     expect(find.text('Rice'), findsWidgets);
-    expect(find.text('Lentils'), findsOneWidget);
-    expect(find.text('Ghee'), findsOneWidget);
-    expect(find.text('Basmati rice'), findsOneWidget);
+    expect(find.text('• Lentils   • Ghee'), findsOneWidget);
+    expect(find.text('• Basmati rice'), findsOneWidget);
+    final dalComponent = find.byKey(
+      const ValueKey('v3-progress-component-dal'),
+    );
+    final componentRows = tester.widgetList<Row>(
+      find.descendant(
+        of: dalComponent,
+        matching: find.byKey(const ValueKey('v3-progress-component-row')),
+      ),
+    );
+    expect(componentRows, isNotEmpty);
+    for (final componentRow in componentRows) {
+      expect(componentRow.crossAxisAlignment, CrossAxisAlignment.baseline);
+      expect(componentRow.textBaseline, TextBaseline.alphabetic);
+    }
+    expect(
+      find.descendant(
+        of: dalComponent,
+        matching: find.byKey(const ValueKey('v3-progress-ingredients')),
+      ),
+      findsWidgets,
+    );
     expect(
       tester
           .widget<LinearProgressIndicator>(find.byType(LinearProgressIndicator))
@@ -265,14 +285,14 @@ void main() {
     },
   );
 
-  testWidgets('V3 result renders serving text and calorie interval', (
+  testWidgets('V3 result renders serving text once and calorie interval', (
     tester,
   ) async {
     final pipelineContext = MealAnalysisPipelineSessionContext(
       result: PipelineResultData(
         analysisId: 'analysis-1',
         mealName: 'Dal and rice',
-        quantity: '1 meal',
+        quantity: '1 bowl + 1 serving',
         mealType: MealType.LUNCH,
         macros: PipelineMacros(calories: 520),
       ),
@@ -323,7 +343,6 @@ void main() {
     await tester.tap(find.text('Open'));
     await tester.pumpAndSettle();
 
-    expect(find.byKey(const ValueKey('v3-serving-size')), findsOneWidget);
     expect(find.text('1 bowl + 1 serving'), findsOneWidget);
     expect(find.byKey(const ValueKey('v3-calorie-range')), findsOneWidget);
     expect(find.text('Estimated range: 470–590 kcal'), findsOneWidget);

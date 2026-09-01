@@ -342,6 +342,7 @@
         "stepError": "Something went wrong",
         "providerUnavailable": "The meal analysis provider is temporarily unavailable. Please try again.",
         "invalidModelOutput": "The meal response could not be understood. Please try again.",
+        "nutritionServiceBusy": "Nutrition matching is busy. Please try again.",
         "nutritionDataUnavailable": "Nutrition data is temporarily unavailable. Please try again.",
         "analysisUnavailable": "Meal analysis is temporarily unavailable. Please try again.",
         "unresolvedNutrition": "We could not safely match nutrition data for this meal. Try adding more detail.",

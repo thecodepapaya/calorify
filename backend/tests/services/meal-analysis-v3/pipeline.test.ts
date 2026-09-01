@@ -39,7 +39,7 @@ const fixturePresenter: MealPresenter = {
   async present() {
     return {
       mealName: 'Kaddu sabzi with roti and oats',
-      servingSizeText: 'measured portion + 4 rotis + measured portion',
+      servingSizeText: '4 rotis',
       tip: 'Pumpkin is botanically a fruit.',
       providerAttempts: [],
       usedFallback: false,

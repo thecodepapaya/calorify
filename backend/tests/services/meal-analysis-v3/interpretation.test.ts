@@ -106,6 +106,7 @@ const compactInput = {
 const firstPass = {
   food_detected: true,
   mealName: 'Daal with roti',
+  servingSizeText: 'Daal + 4 rotis',
   tip: 'Lentil dishes are a staple across many South Asian cuisines.',
   mealTypeCandidate: { value: null, origin: null },
   mealItems: [
@@ -260,6 +261,24 @@ test('first-pass tip is required and strictly validated', () => {
     tip: 42,
   };
   assert.equal(firstPassResponseSchema.safeParse(malformedTip).success, false);
+});
+
+test('first-pass serving text is required for food and strictly under 25 characters', () => {
+  const missing = { ...firstPass };
+  delete missing.servingSizeText;
+  assert.equal(firstPassResponseSchema.safeParse(missing).success, false);
+
+  const twentyFourCharacters = {
+    ...firstPass,
+    servingSizeText: '123456789012345678901234',
+  };
+  assert.equal(firstPassResponseSchema.safeParse(twentyFourCharacters).success, true);
+
+  const twentyFiveCharacters = {
+    ...firstPass,
+    servingSizeText: '1234567890123456789012345',
+  };
+  assert.equal(firstPassResponseSchema.safeParse(twentyFiveCharacters).success, false);
 });
 
 test('COUNT portions reject grams in the count slot and legacy field names', () => {

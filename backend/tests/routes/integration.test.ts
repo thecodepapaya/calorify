@@ -46,6 +46,9 @@ await mock.module('../../src/services/infrastructure/database.js', {
   namedExports: {
     query: mock.fn(async () => ({ rows: [], rowCount: 1 })),
     usdaQuery: mock.fn(async () => ({ rows: [] })),
+    getUsdaQueryLimiterSnapshot: mock.fn(() => ({ active: 0, queued: 0 })),
+    isTransientUsdaQueryError: mock.fn(() => false),
+    UsdaDatabaseQueryError: class UsdaDatabaseQueryError extends Error {},
     initializeDatabase: mock.fn(() => {}),
     closeDatabase: mock.fn(async () => {}),
     getClient: mock.fn(async () => ({

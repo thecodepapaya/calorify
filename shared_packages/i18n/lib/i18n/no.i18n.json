@@ -337,6 +337,7 @@
       "stepError": "Noe gikk galt",
       "providerUnavailable": "Tjenesten for måltidsanalyse er midlertidig utilgjengelig. Prøv igjen.",
       "invalidModelOutput": "Svaret for måltidet kunne ikke forstås. Prøv igjen.",
+      "nutritionServiceBusy": "Ernæringstjenesten er opptatt. Vennligst prøv igjen.",
       "nutritionDataUnavailable": "Ernæringsdata er midlertidig utilgjengelige. Prøv igjen.",
       "analysisUnavailable": "Måltidsanalysen er midlertidig utilgjengelig. Prøv igjen.",
       "unresolvedNutrition": "Vi kunne ikke med sikkerhet finne passende ernæringsdata for dette måltidet. Prøv å legge til flere detaljer.",

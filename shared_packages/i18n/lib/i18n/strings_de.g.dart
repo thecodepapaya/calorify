@@ -815,6 +815,7 @@ class _Translations$meal$analysis$de extends Translations$meal$analysis$en {
 	@override String get stepError => 'Etwas ist schiefgelaufen';
 	@override String get providerUnavailable => 'Der Dienst für die Mahlzeitanalyse ist vorübergehend nicht verfügbar. Bitte versuche es erneut.';
 	@override String get invalidModelOutput => 'Die Antwort der Mahlzeitanalyse konnte nicht verstanden werden. Bitte versuche es erneut.';
+	@override String get nutritionServiceBusy => 'Die Nährwertermittlung ist gerade ausgelastet. Bitte versuche es erneut.';
 	@override String get nutritionDataUnavailable => 'Nährwertdaten sind vorübergehend nicht verfügbar. Bitte versuche es erneut.';
 	@override String get analysisUnavailable => 'Die Mahlzeitanalyse ist vorübergehend nicht verfügbar. Bitte versuche es erneut.';
 	@override String get unresolvedNutrition => 'Wir konnten die Nährwertdaten für diese Mahlzeit nicht mit ausreichender Sicherheit zuordnen. Versuche, mehr Details hinzuzufügen.';
@@ -2235,6 +2236,7 @@ extension on TranslationsDe {
 			'meal.analysis.stepError' => 'Etwas ist schiefgelaufen',
 			'meal.analysis.providerUnavailable' => 'Der Dienst für die Mahlzeitanalyse ist vorübergehend nicht verfügbar. Bitte versuche es erneut.',
 			'meal.analysis.invalidModelOutput' => 'Die Antwort der Mahlzeitanalyse konnte nicht verstanden werden. Bitte versuche es erneut.',
+			'meal.analysis.nutritionServiceBusy' => 'Die Nährwertermittlung ist gerade ausgelastet. Bitte versuche es erneut.',
 			'meal.analysis.nutritionDataUnavailable' => 'Nährwertdaten sind vorübergehend nicht verfügbar. Bitte versuche es erneut.',
 			'meal.analysis.analysisUnavailable' => 'Die Mahlzeitanalyse ist vorübergehend nicht verfügbar. Bitte versuche es erneut.',
 			'meal.analysis.unresolvedNutrition' => 'Wir konnten die Nährwertdaten für diese Mahlzeit nicht mit ausreichender Sicherheit zuordnen. Versuche, mehr Details hinzuzufügen.',
@@ -2494,9 +2496,9 @@ extension on TranslationsDe {
 			'disclaimer.snap.portionSize.title' => 'Portionsgröße',
 			'disclaimer.snap.portionSize.description' => 'Die Genauigkeit der Schätzungen hängt stark von deiner korrekten Einschätzung der Portionsgröße ab.',
 			'disclaimer.snap.preparationMethods.title' => 'Zubereitungsmethoden',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Zubereitungsarten können den Nährstoffgehalt erheblich verändern. Die Schätzungen von ${appLabel} berücksichtigen diese Variationen möglicherweise nicht vollständig.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Zubereitungsarten können den Nährstoffgehalt erheblich verändern. Die Schätzungen von ${appLabel} berücksichtigen diese Variationen möglicherweise nicht vollständig.',
 			'disclaimer.snap.ingredients.title' => 'Zutaten',
 			'disclaimer.snap.ingredients.description' => 'Komplexe Gerichte mit vielen versteckten Zutaten können zu ungenaueren Schätzungen führen.',
 			'disclaimer.snap.databaseLimitations.title' => 'Datenbankbegrenzungen',

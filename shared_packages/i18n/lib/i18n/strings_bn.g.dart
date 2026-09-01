@@ -815,6 +815,7 @@ class _Translations$meal$analysis$bn extends Translations$meal$analysis$en {
 	@override String get stepError => 'কিছু ভুল হয়েছে';
 	@override String get providerUnavailable => 'খাবার বিশ্লেষণ পরিষেবা সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।';
 	@override String get invalidModelOutput => 'খাবার সম্পর্কিত উত্তরটি বোঝা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
+	@override String get nutritionServiceBusy => 'পুষ্টি মেলানোর প্রক্রিয়াটি এখন ব্যস্ত। অনুগ্রহ করে আবার চেষ্টা করুন।';
 	@override String get nutritionDataUnavailable => 'পুষ্টিগত তথ্য সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।';
 	@override String get analysisUnavailable => 'খাবার বিশ্লেষণ সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।';
 	@override String get unresolvedNutrition => 'আমরা এই খাবারের জন্য পুষ্টিগত তথ্য নিশ্চিতভাবে মেলাতে পারিনি। আরও কিছু বিস্তারিত তথ্য যোগ করে দেখুন।';
@@ -2235,6 +2236,7 @@ extension on TranslationsBn {
 			'meal.analysis.stepError' => 'কিছু ভুল হয়েছে',
 			'meal.analysis.providerUnavailable' => 'খাবার বিশ্লেষণ পরিষেবা সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।',
 			'meal.analysis.invalidModelOutput' => 'খাবার সম্পর্কিত উত্তরটি বোঝা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
+			'meal.analysis.nutritionServiceBusy' => 'পুষ্টি মেলানোর প্রক্রিয়াটি এখন ব্যস্ত। অনুগ্রহ করে আবার চেষ্টা করুন।',
 			'meal.analysis.nutritionDataUnavailable' => 'পুষ্টিগত তথ্য সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।',
 			'meal.analysis.analysisUnavailable' => 'খাবার বিশ্লেষণ সাময়িকভাবে অপ্রাপ্য। অনুগ্রহ করে আবার চেষ্টা করুন।',
 			'meal.analysis.unresolvedNutrition' => 'আমরা এই খাবারের জন্য পুষ্টিগত তথ্য নিশ্চিতভাবে মেলাতে পারিনি। আরও কিছু বিস্তারিত তথ্য যোগ করে দেখুন।',
@@ -2494,9 +2496,9 @@ extension on TranslationsBn {
 			'disclaimer.snap.portionSize.title' => 'পরিমাণ',
 			'disclaimer.snap.portionSize.description' => 'আনুমানিকতার সঠিকতা আপনার পরিমাণ সঠিকভাবে নিরূপণের উপর ব্যাপকভাবে নির্ভর করে।',
 			'disclaimer.snap.preparationMethods.title' => 'প্রস্তুত করার উপায়',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'রান্নার পদ্ধতি খাবারের পুষ্টিগুণ ব্যাপকভাবে বদলে দিতে পারে। ${appLabel}-এর আনুমানিক ফলাফল সবসময় এই পরিবর্তনগুলোকে বিবেচনা নাও করতে পারে।',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'রান্নার পদ্ধতি খাবারের পুষ্টিগুণ ব্যাপকভাবে বদলে দিতে পারে। ${appLabel}-এর আনুমানিক ফলাফল সবসময় এই পরিবর্তনগুলোকে বিবেচনা নাও করতে পারে।',
 			'disclaimer.snap.ingredients.title' => 'উপকরণ',
 			'disclaimer.snap.ingredients.description' => 'বহু লুকানো উপকরণসহ জটিল ডিশগুলোর জন্য আনুমানিকতা কম নির্ভুল হতে পারে।',
 			'disclaimer.snap.databaseLimitations.title' => 'ডাটাবেস সীমাবদ্ধতা',

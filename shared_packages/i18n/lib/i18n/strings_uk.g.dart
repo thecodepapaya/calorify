@@ -815,6 +815,7 @@ class _Translations$meal$analysis$uk extends Translations$meal$analysis$en {
 	@override String get stepError => 'Щось пішло не так';
 	@override String get providerUnavailable => 'Служба аналізу страв тимчасово недоступна. Спробуйте ще раз.';
 	@override String get invalidModelOutput => 'Не вдалося зрозуміти відповідь про страву. Спробуйте ще раз.';
+	@override String get nutritionServiceBusy => 'Сервіс зіставлення харчових даних зараз зайнятий. Будь ласка, спробуйте ще раз.';
 	@override String get nutritionDataUnavailable => 'Дані про харчову цінність тимчасово недоступні. Спробуйте ще раз.';
 	@override String get analysisUnavailable => 'Аналіз страви тимчасово недоступний. Спробуйте ще раз.';
 	@override String get unresolvedNutrition => 'Нам не вдалося коректно зіставити дані про харчову цінність для цієї страви. Спробуйте додати більше деталей.';
@@ -2235,6 +2236,7 @@ extension on TranslationsUk {
 			'meal.analysis.stepError' => 'Щось пішло не так',
 			'meal.analysis.providerUnavailable' => 'Служба аналізу страв тимчасово недоступна. Спробуйте ще раз.',
 			'meal.analysis.invalidModelOutput' => 'Не вдалося зрозуміти відповідь про страву. Спробуйте ще раз.',
+			'meal.analysis.nutritionServiceBusy' => 'Сервіс зіставлення харчових даних зараз зайнятий. Будь ласка, спробуйте ще раз.',
 			'meal.analysis.nutritionDataUnavailable' => 'Дані про харчову цінність тимчасово недоступні. Спробуйте ще раз.',
 			'meal.analysis.analysisUnavailable' => 'Аналіз страви тимчасово недоступний. Спробуйте ще раз.',
 			'meal.analysis.unresolvedNutrition' => 'Нам не вдалося коректно зіставити дані про харчову цінність для цієї страви. Спробуйте додати більше деталей.',
@@ -2494,9 +2496,9 @@ extension on TranslationsUk {
 			'disclaimer.snap.portionSize.title' => 'Розмір порції',
 			'disclaimer.snap.portionSize.description' => 'Точність оцінок значною мірою залежить від правильної оцінки розміру порції.',
 			'disclaimer.snap.preparationMethods.title' => 'Способи приготування',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Спосіб приготування може істотно змінювати поживний склад їжі. Оцінки ${appLabel} не завжди враховують ці відмінності.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Спосіб приготування може істотно змінювати поживний склад їжі. Оцінки ${appLabel} не завжди враховують ці відмінності.',
 			'disclaimer.snap.ingredients.title' => 'Інгредієнти',
 			'disclaimer.snap.ingredients.description' => 'Складні страви з багатьма прихованими інгредієнтами можуть призводити до менш точних оцінок.',
 			'disclaimer.snap.databaseLimitations.title' => 'Обмеження бази даних',

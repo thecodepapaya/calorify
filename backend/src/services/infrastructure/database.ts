@@ -1,9 +1,72 @@
 import { Pool, PoolClient, QueryResultRow } from 'pg';
 import config from '../../config.js';
-import { safeErrorMetadata } from '../../utils/safeError.js';
+import { safeErrorKind, safeErrorMetadata } from '../../utils/safeError.js';
+import {
+  usdaQueryAcquireWaitSeconds,
+  usdaQueryDurationSeconds,
+  usdaQueryFailuresTotal,
+  usdaQueryLimiterActive,
+  usdaQueryLimiterQueued,
+} from './metrics.js';
+import {
+  UsdaQueryLimiter,
+  UsdaQueryQueueError,
+  type UsdaQueryLimiterSnapshot,
+} from './usdaQueryLimiter.js';
 
 let pool: Pool | null = null;
 let usdaPool: Pool | null = null;
+
+const TRANSIENT_USDA_ERROR_KINDS = new Set([
+  'connection_aborted',
+  'connection_refused',
+  'connection_reset',
+  'database_acquire_timeout',
+  'dns_temporary_failure',
+  'network_unreachable',
+  'timeout',
+]);
+
+const usdaQueryLimiter = new UsdaQueryLimiter({
+  concurrency: 6,
+  maxQueued: 64,
+  queueTimeoutMs: 10_000,
+  onChange(snapshot) {
+    usdaQueryLimiterActive.set(snapshot.active);
+    usdaQueryLimiterQueued.set(snapshot.queued);
+  },
+});
+
+function usdaDatabaseErrorKind(error: unknown): string {
+  if (error instanceof Error && error.message === 'timeout exceeded when trying to connect') {
+    return 'database_acquire_timeout';
+  }
+  return safeErrorKind(error, 'database_query_failed');
+}
+
+export class UsdaDatabaseQueryError extends Error {
+  constructor(
+    readonly kind: string,
+    override readonly cause: unknown,
+  ) {
+    super('USDA database query failed', { cause });
+    this.name = 'UsdaDatabaseQueryError';
+  }
+}
+
+export function isTransientUsdaQueryError(error: unknown): boolean {
+  // Queue pressure is already bounded and has a dedicated busy response.
+  // Retrying it would enqueue more work while the service is saturated.
+  if (error instanceof UsdaQueryQueueError) return false;
+  if (error instanceof UsdaDatabaseQueryError) {
+    return TRANSIENT_USDA_ERROR_KINDS.has(error.kind);
+  }
+  return TRANSIENT_USDA_ERROR_KINDS.has(safeErrorKind(error));
+}
+
+export function getUsdaQueryLimiterSnapshot(): UsdaQueryLimiterSnapshot {
+  return usdaQueryLimiter.snapshot();
+}
 
 function createPool(connectionString: string, label: 'application' | 'USDA', max: number): Pool {
   const created = new Pool({
@@ -84,11 +147,33 @@ export async function usdaQuery<T extends QueryResultRow = QueryResultRow>(
   if (!usdaPool) {
     throw new Error('USDA database pool not initialized. Call initializeDatabase() first.');
   }
-  const result = await usdaPool.query<T>(text, params);
-  return {
-    rows: result.rows,
-    rowCount: result.rowCount ?? 0,
-  };
+  let lease;
+  try {
+    lease = await usdaQueryLimiter.acquire();
+  } catch (error) {
+    const kind = error instanceof UsdaQueryQueueError
+      ? error.reason.toLowerCase()
+      : 'queue_error';
+    usdaQueryFailuresTotal.labels({ kind }).inc();
+    throw error;
+  }
+  usdaQueryAcquireWaitSeconds.observe(lease.waitMs / 1000);
+  const endQueryTimer = usdaQueryDurationSeconds.startTimer();
+  try {
+    const result = await usdaPool.query<T>(text, params);
+    endQueryTimer({ outcome: 'success' });
+    return {
+      rows: result.rows,
+      rowCount: result.rowCount ?? 0,
+    };
+  } catch (error) {
+    const wrapped = new UsdaDatabaseQueryError(usdaDatabaseErrorKind(error), error);
+    usdaQueryFailuresTotal.labels({ kind: wrapped.kind }).inc();
+    endQueryTimer({ outcome: 'error' });
+    throw wrapped;
+  } finally {
+    lease.release();
+  }
 }
 
 /**

@@ -815,6 +815,7 @@ class _Translations$meal$analysis$hi extends Translations$meal$analysis$en {
 	@override String get stepError => 'कुछ गलत हुआ';
 	@override String get providerUnavailable => 'भोजन विश्लेषण प्रदाता अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।';
 	@override String get invalidModelOutput => 'भोजन के लिए प्राप्त उत्तर को समझा नहीं जा सका। कृपया पुनः प्रयास करें।';
+	@override String get nutritionServiceBusy => 'पोषण मिलान सेवा व्यस्त है। कृपया थोड़ी देर बाद पुनः प्रयास करें।';
 	@override String get nutritionDataUnavailable => 'पोषण डेटा अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।';
 	@override String get analysisUnavailable => 'भोजन विश्लेषण अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।';
 	@override String get unresolvedNutrition => 'हम इस भोजन के लिए पोषण डेटा का विश्वसनीय मिलान नहीं कर पाए। कृपया कुछ और विवरण जोड़ें।';
@@ -2235,6 +2236,7 @@ extension on TranslationsHi {
 			'meal.analysis.stepError' => 'कुछ गलत हुआ',
 			'meal.analysis.providerUnavailable' => 'भोजन विश्लेषण प्रदाता अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।',
 			'meal.analysis.invalidModelOutput' => 'भोजन के लिए प्राप्त उत्तर को समझा नहीं जा सका। कृपया पुनः प्रयास करें।',
+			'meal.analysis.nutritionServiceBusy' => 'पोषण मिलान सेवा व्यस्त है। कृपया थोड़ी देर बाद पुनः प्रयास करें।',
 			'meal.analysis.nutritionDataUnavailable' => 'पोषण डेटा अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।',
 			'meal.analysis.analysisUnavailable' => 'भोजन विश्लेषण अस्थायी रूप से उपलब्ध नहीं है। कृपया पुनः प्रयास करें।',
 			'meal.analysis.unresolvedNutrition' => 'हम इस भोजन के लिए पोषण डेटा का विश्वसनीय मिलान नहीं कर पाए। कृपया कुछ और विवरण जोड़ें।',
@@ -2494,9 +2496,9 @@ extension on TranslationsHi {
 			'disclaimer.snap.portionSize.title' => 'पोरशन साइज',
 			'disclaimer.snap.portionSize.description' => 'अनुमानों की सटीकता आपके द्वारा सही पोरशन साइज के आकलन पर बहुत निर्भर करती है।',
 			'disclaimer.snap.preparationMethods.title' => 'तैयारी की विधियाँ',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'खाना पकाने की विधियाँ खाद्य के पोषण सामग्री को काफी बदल सकती हैं। ${appLabel} के अनुमान हमेशा इन परिवर्तनों को ध्यान में नहीं रख सकते हैं।',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'खाना पकाने की विधियाँ खाद्य के पोषण सामग्री को काफी बदल सकती हैं। ${appLabel} के अनुमान हमेशा इन परिवर्तनों को ध्यान में नहीं रख सकते हैं।',
 			'disclaimer.snap.ingredients.title' => 'सामग्री',
 			'disclaimer.snap.ingredients.description' => 'कई छिपी हुई सामग्रियों वाले जटिल व्यंजन कम सटीक अनुमान दे सकते हैं।',
 			'disclaimer.snap.databaseLimitations.title' => 'डेटाबेस सीमाएँ',

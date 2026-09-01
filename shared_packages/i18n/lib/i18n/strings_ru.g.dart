@@ -815,6 +815,7 @@ class _Translations$meal$analysis$ru extends Translations$meal$analysis$en {
 	@override String get stepError => 'Что‑то пошло не так';
 	@override String get providerUnavailable => 'Сервис анализа приёмов пищи временно недоступен. Пожалуйста, попробуйте ещё раз.';
 	@override String get invalidModelOutput => 'Не удалось распознать результат анализа приёма пищи. Пожалуйста, попробуйте ещё раз.';
+	@override String get nutritionServiceBusy => 'Сервис сопоставления продуктов сейчас занят. Пожалуйста, попробуйте ещё раз.';
 	@override String get nutritionDataUnavailable => 'Данные о пищевой ценности временно недоступны. Пожалуйста, попробуйте ещё раз.';
 	@override String get analysisUnavailable => 'Анализ приёма пищи временно недоступен. Пожалуйста, попробуйте ещё раз.';
 	@override String get unresolvedNutrition => 'Нам не удалось надёжно сопоставить данные о пищевой ценности для этого приёма пищи. Попробуйте добавить больше подробностей.';
@@ -2235,6 +2236,7 @@ extension on TranslationsRu {
 			'meal.analysis.stepError' => 'Что‑то пошло не так',
 			'meal.analysis.providerUnavailable' => 'Сервис анализа приёмов пищи временно недоступен. Пожалуйста, попробуйте ещё раз.',
 			'meal.analysis.invalidModelOutput' => 'Не удалось распознать результат анализа приёма пищи. Пожалуйста, попробуйте ещё раз.',
+			'meal.analysis.nutritionServiceBusy' => 'Сервис сопоставления продуктов сейчас занят. Пожалуйста, попробуйте ещё раз.',
 			'meal.analysis.nutritionDataUnavailable' => 'Данные о пищевой ценности временно недоступны. Пожалуйста, попробуйте ещё раз.',
 			'meal.analysis.analysisUnavailable' => 'Анализ приёма пищи временно недоступен. Пожалуйста, попробуйте ещё раз.',
 			'meal.analysis.unresolvedNutrition' => 'Нам не удалось надёжно сопоставить данные о пищевой ценности для этого приёма пищи. Попробуйте добавить больше подробностей.',
@@ -2494,9 +2496,9 @@ extension on TranslationsRu {
 			'disclaimer.snap.portionSize.title' => 'Размер порции',
 			'disclaimer.snap.portionSize.description' => 'Точность оценок в значительной мере зависит от правильной оценки вами размера порции.',
 			'disclaimer.snap.preparationMethods.title' => 'Методы приготовления',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Методы приготовления могут существенно менять питательную ценность. Оценки ${appLabel} не всегда учитывают все эти вариации.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Методы приготовления могут существенно менять питательную ценность. Оценки ${appLabel} не всегда учитывают все эти вариации.',
 			'disclaimer.snap.ingredients.title' => 'Ингредиенты',
 			'disclaimer.snap.ingredients.description' => 'Сложные блюда с множеством скрытых ингредиентов могут давать менее точные оценки.',
 			'disclaimer.snap.databaseLimitations.title' => 'Ограничения базы данных',

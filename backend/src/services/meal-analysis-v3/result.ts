@@ -8,7 +8,10 @@ import type {
   ResolvedInterpretation,
 } from './domain.js';
 import type { MealType, MealTypeOrigin } from './mealType.js';
-import type { MealPresentation } from './presentation.js';
+import {
+  MAX_SERVING_SIZE_TEXT_LENGTH,
+  type MealPresentation,
+} from './presentation.js';
 
 export interface PublicMacroPoints {
   calories: number;
@@ -178,7 +181,9 @@ const FORBIDDEN_SERVING_TEXT =
 
 export function validateCompleteResult(result: CompleteMealAnalysisResult): void {
   if (result.mealName.trim() === '') throw new Error('Meal name is empty');
-  if (result.servingSizeText.trim() === '' || FORBIDDEN_SERVING_TEXT.test(result.servingSizeText)) {
+  if (result.servingSizeText.trim() === '' ||
+      result.servingSizeText.length > MAX_SERVING_SIZE_TEXT_LENGTH ||
+      FORBIDDEN_SERVING_TEXT.test(result.servingSizeText)) {
     throw new Error('Serving-size text exposes weight, volume, or calories');
   }
   for (const key of ['calories', 'protein', 'carbs', 'fat', 'fiber'] as const) {

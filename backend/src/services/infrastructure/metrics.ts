@@ -88,6 +88,40 @@ export const mealAnalysisDecompositionIssuesTotal = new Counter({
   registers: [registry],
 });
 
+export const usdaQueryLimiterActive = new Gauge({
+  name: 'usda_query_limiter_active',
+  help: 'Number of USDA queries currently admitted by the process-wide limiter.',
+  registers: [registry],
+});
+
+export const usdaQueryLimiterQueued = new Gauge({
+  name: 'usda_query_limiter_queued',
+  help: 'Number of USDA queries waiting in the bounded process-wide queue.',
+  registers: [registry],
+});
+
+export const usdaQueryAcquireWaitSeconds = new Histogram({
+  name: 'usda_query_acquire_wait_seconds',
+  help: 'Time spent waiting for a process-wide USDA query slot.',
+  buckets: [0.001, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10],
+  registers: [registry],
+});
+
+export const usdaQueryDurationSeconds = new Histogram({
+  name: 'usda_query_duration_seconds',
+  help: 'USDA PostgreSQL query duration after limiter admission.',
+  labelNames: ['outcome'] as const,
+  buckets: [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10, 30],
+  registers: [registry],
+});
+
+export const usdaQueryFailuresTotal = new Counter({
+  name: 'usda_query_failures_total',
+  help: 'USDA query failures by bounded infrastructure category.',
+  labelNames: ['kind'] as const,
+  registers: [registry],
+});
+
 const circuitBreakerState = new Gauge({
   name: 'circuit_breaker_state',
   help: 'Circuit breaker state. 0 = CLOSED, 1 = HALF_OPEN, 2 = OPEN.',

@@ -131,16 +131,32 @@ class _MealAnalysisTipLineState extends ConsumerState<MealAnalysisTipLine> {
       height: h,
       child: Align(
         alignment: _alignmentFor(widget.textAlign),
-        child:
-            _loading
-                ? SizedBox(width: double.infinity, height: h)
-                : Text(
-                  _resolvedTip ?? '',
-                  textAlign: widget.textAlign,
-                  maxLines: widget.maxLines,
-                  overflow: TextOverflow.ellipsis,
-                  style: resolvedStyle,
-                ),
+        child: AnimatedSwitcher(
+          duration:
+              MediaQuery.disableAnimationsOf(context)
+                  ? Duration.zero
+                  : const Duration(milliseconds: 400),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          transitionBuilder:
+              (child, animation) =>
+                  FadeTransition(opacity: animation, child: child),
+          child:
+              _loading
+                  ? SizedBox(
+                    key: const ValueKey('meal-analysis-tip-loading'),
+                    width: double.infinity,
+                    height: h,
+                  )
+                  : Text(
+                    key: const ValueKey('meal-analysis-tip-resolved'),
+                    _resolvedTip ?? '',
+                    textAlign: widget.textAlign,
+                    maxLines: widget.maxLines,
+                    overflow: TextOverflow.ellipsis,
+                    style: resolvedStyle,
+                  ),
+        ),
       ),
     );
   }

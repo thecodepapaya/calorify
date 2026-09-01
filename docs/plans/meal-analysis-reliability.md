@@ -237,6 +237,16 @@ ordered policy is maintained in the
 5. resolver-owned fallback profiles such as generic spices; and
 6. a validated per-100-g model estimate only for leaves still unresolved.
 
+USDA queries pass through one process-wide FIFO limiter before reaching the
+10-client PostgreSQL pool. At most six queries run concurrently and at most 64
+wait in memory; a queued query expires after 10 seconds with a distinct busy
+error. Ingredient lookups settle as a group, retry one transient failure after
+a 50-150 ms jitter, and never retry bounded queue-full or queue-timeout errors.
+Infrastructure errors never become nutrition no-matches. Successful lookup
+promises are coalesced in a 256-entry LRU keyed
+by the active dataset version and the complete normalized lookup context;
+rejected promises are removed immediately.
+
 The model estimate has explicit provenance, a synthetic record ID, and
 `llm-nutrition-estimate-v1` dataset version; it is never relabelled as USDA.
 Provider/validation failure preserves unresolved state. If any required leaf
@@ -343,11 +353,13 @@ success or failure, and flow disposal releases its controller.
 ### 9. Presentation and integrity
 
 Presentation runs only after answers, calculation, and meal type resolve. Pass
-one supplies the localized meal name and optional tip; presentation can use
-that copy but cannot change nutrition. Serving text comes deterministically
-from validated natural measures or `measured portion`. Names reject amounts,
-weights, calories, serving wording, and size adjectives. Serving text rejects
-raw weight/volume units and calories.
+one supplies the localized meal name, serving summary, and tip; presentation
+can use that copy but cannot change nutrition. Serving summaries are strictly
+shorter than 25 characters and reject raw weight/volume units and calories. If
+the generated copy is invalid, the deterministic fallback keeps only complete
+validated natural-measure or count segments that fit the same limit, or uses
+one `measured portion` label when no useful segment exists. Names reject
+amounts, weights, calories, serving wording, and size adjectives.
 
 Absent or invalid pass-one copy is non-fatal: deterministic component name,
 serving text, and empty tip are returned. Valid nutrition is not discarded for
@@ -408,16 +420,15 @@ Internal exception text never crosses the stream. Cause-chain classification is:
 
 - provider failure -> `PROVIDER_UNAVAILABLE`;
 - invalid model output or interpretation validation -> `INVALID_MODEL_OUTPUT`;
+- bounded USDA queue exhaustion or pool acquisition timeout ->
+  `NUTRITION_SERVICE_BUSY`;
 - nutrition-resolution stage failure -> `NUTRITION_DATA_UNAVAILABLE`; and
 - other exceptions -> `ANALYSIS_UNAVAILABLE`.
 
-Those four are retryable with `RETRY`; unusable input is non-retryable with
+Those five are retryable with `RETRY`; unusable input is non-retryable with
 `EDIT_INPUT`. The app maps codes to localized copy. Logs retain analysis ID,
-public category, and a redacted internal error kind.
-
-The taxonomy protects internals but is coarse: database failure during
-resolution and missing active USDA data share one category. Add safe
-subcategories only when they enable different user recovery or alerting.
+public category, redacted cause-chain kinds, failed stage, unique lookup count,
+and limiter occupancy. Raw database messages and meal contents are excluded.
 
 ## Design decisions and tradeoffs
 

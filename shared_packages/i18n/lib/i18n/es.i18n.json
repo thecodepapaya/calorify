@@ -337,6 +337,7 @@
       "stepError": "Algo salió mal",
       "providerUnavailable": "El proveedor de análisis de comidas no está disponible temporalmente. Por favor, inténtalo de nuevo.",
       "invalidModelOutput": "No se pudo interpretar la respuesta de la comida. Por favor, inténtalo de nuevo.",
+      "nutritionServiceBusy": "El servicio de análisis nutricional está ocupado. Por favor, inténtalo de nuevo.",
       "nutritionDataUnavailable": "Los datos de nutrición no están disponibles temporalmente. Por favor, inténtalo de nuevo.",
       "analysisUnavailable": "El análisis de la comida no está disponible temporalmente. Por favor, inténtalo de nuevo.",
       "unresolvedNutrition": "No pudimos asociar de forma segura los datos de nutrición para esta comida. Intenta añadir más detalles.",

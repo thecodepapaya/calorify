@@ -337,6 +337,7 @@
       "stepError": "Terjadi kesalahan",
       "providerUnavailable": "Penyedia analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.",
       "invalidModelOutput": "Respons analisis hidangan tidak dapat dipahami. Silakan coba lagi.",
+      "nutritionServiceBusy": "Pencocokan nutrisi sedang sibuk. Silakan coba lagi.",
       "nutritionDataUnavailable": "Data nutrisi untuk sementara tidak tersedia. Silakan coba lagi.",
       "analysisUnavailable": "Analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.",
       "unresolvedNutrition": "Kami belum dapat mencocokkan data nutrisi untuk hidangan ini dengan cukup yakin. Coba tambahkan detail lebih lanjut.",

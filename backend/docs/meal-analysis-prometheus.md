@@ -14,6 +14,28 @@ nutrition fallback, and presentation. They do not distinguish the V3 operation
 or analysis stage, so they cannot by themselves produce per-stage latency or
 end-to-end meal-analysis funnels.
 
+## Implemented USDA query metrics
+
+Every production USDA query passes through the shared process-wide limiter and
+emits:
+
+- `usda_query_limiter_active` and `usda_query_limiter_queued` gauges;
+- `usda_query_acquire_wait_seconds` for FIFO queue delay;
+- `usda_query_duration_seconds{outcome}` for admitted PostgreSQL work; and
+- `usda_query_failures_total{kind}` for bounded queue and database categories.
+
+The limiter admits six concurrent queries, bounds the queue at 64, and expires
+queued work after 10 seconds. These values deliberately stay below the
+10-client USDA pool. Metrics contain no analysis ID, user ID, ingredient, meal
+text, SQL, or exception message.
+
+Useful alert inputs are a sustained non-zero queue, p95 acquisition wait, and
+the rate of `queue_full`, `queue_timeout`, or `database_acquire_timeout`
+failures. A queue timeout is returned to the app as
+`NUTRITION_SERVICE_BUSY` without a server-side retry. USDA pool acquisition
+timeouts use the same busy response; other nutrition-stage infrastructure
+failures retain `NUTRITION_DATA_UNAVAILABLE`.
+
 ## Reserved histogram: `meal_analysis_trace_step_seconds`
 
 The backend registers `meal_analysis_trace_step_seconds{category,name}`, but

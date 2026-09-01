@@ -337,6 +337,7 @@
       "stepError": "Bir şeyler yolunda gitmedi",
       "providerUnavailable": "Öğün analizi hizmet sağlayıcısı geçici olarak kullanılamıyor. Lütfen tekrar deneyin.",
       "invalidModelOutput": "Öğün yanıtı anlaşılamadı. Lütfen tekrar deneyin.",
+      "nutritionServiceBusy": "Besin eşleştirme işlemi şu anda yoğun. Lütfen tekrar deneyin.",
       "nutritionDataUnavailable": "Besin değerleri geçici olarak kullanılamıyor. Lütfen tekrar deneyin.",
       "analysisUnavailable": "Öğün analizi geçici olarak kullanılamıyor. Lütfen tekrar deneyin.",
       "unresolvedNutrition": "Bu öğün için besin değerlerini yeterli güvenle eşleştiremedik. Daha fazla ayrıntı eklemeyi deneyin.",

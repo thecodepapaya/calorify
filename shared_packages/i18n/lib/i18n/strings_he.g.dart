@@ -815,6 +815,7 @@ class _Translations$meal$analysis$he extends Translations$meal$analysis$en {
 	@override String get stepError => 'משהו השתבש';
 	@override String get providerUnavailable => 'ספק ניתוח הארוחות אינו זמין זמנית. אנא נסו שוב.';
 	@override String get invalidModelOutput => 'לא ניתן היה להבין את התגובה לגבי הארוחה. אנא נסו שוב.';
+	@override String get nutritionServiceBusy => 'שירות התאמת התזונה עמוס כרגע. אנא נסו שוב.';
 	@override String get nutritionDataUnavailable => 'נתוני התזונה אינם זמינים זמנית. אנא נסו שוב.';
 	@override String get analysisUnavailable => 'ניתוח הארוחה אינו זמין זמנית. אנא נסו שוב.';
 	@override String get unresolvedNutrition => 'לא הצלחנו להתאים בבטחה נתוני תזונה לארוחה זו. נסו להוסיף פרטים נוספים.';
@@ -2235,6 +2236,7 @@ extension on TranslationsHe {
 			'meal.analysis.stepError' => 'משהו השתבש',
 			'meal.analysis.providerUnavailable' => 'ספק ניתוח הארוחות אינו זמין זמנית. אנא נסו שוב.',
 			'meal.analysis.invalidModelOutput' => 'לא ניתן היה להבין את התגובה לגבי הארוחה. אנא נסו שוב.',
+			'meal.analysis.nutritionServiceBusy' => 'שירות התאמת התזונה עמוס כרגע. אנא נסו שוב.',
 			'meal.analysis.nutritionDataUnavailable' => 'נתוני התזונה אינם זמינים זמנית. אנא נסו שוב.',
 			'meal.analysis.analysisUnavailable' => 'ניתוח הארוחה אינו זמין זמנית. אנא נסו שוב.',
 			'meal.analysis.unresolvedNutrition' => 'לא הצלחנו להתאים בבטחה נתוני תזונה לארוחה זו. נסו להוסיף פרטים נוספים.',
@@ -2494,9 +2496,9 @@ extension on TranslationsHe {
 			'disclaimer.snap.portionSize.title' => 'גודל מנה',
 			'disclaimer.snap.portionSize.description' => 'דיוק הערכות תלוי במידה רבה בהערכת גודל המנה על ידך.',
 			'disclaimer.snap.preparationMethods.title' => 'שיטות הכנה',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'שיטות בישול יכולות לשנות משמעותית את התוכן התזונתי. ההערכות של ${appLabel} עשויות שלא תמיד להתחשב בכל השינויים האלו.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'שיטות בישול יכולות לשנות משמעותית את התוכן התזונתי. ההערכות של ${appLabel} עשויות שלא תמיד להתחשב בכל השינויים האלו.',
 			'disclaimer.snap.ingredients.title' => 'מרכיבים',
 			'disclaimer.snap.ingredients.description' => 'מנות מורכבות עם מרכיבים נסתרים רבים עלולות להוביל להערכות פחות מדויקות.',
 			'disclaimer.snap.databaseLimitations.title' => 'מגבלות מאגר הנתונים',

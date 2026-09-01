@@ -337,6 +337,7 @@
       "stepError": "Si è verificato un problema",
       "providerUnavailable": "Il servizio di analisi dei pasti è temporaneamente non disponibile. Riprova.",
       "invalidModelOutput": "Impossibile interpretare la risposta sul pasto. Riprova.",
+      "nutritionServiceBusy": "L'abbinamento nutrizionale è momentaneamente occupato. Per favore riprova.",
       "nutritionDataUnavailable": "I dati nutrizionali sono temporaneamente non disponibili. Riprova.",
       "analysisUnavailable": "L'analisi del pasto è temporaneamente non disponibile. Riprova.",
       "unresolvedNutrition": "Non siamo riusciti ad associare in modo affidabile i dati nutrizionali per questo pasto. Prova ad aggiungere più dettagli.",

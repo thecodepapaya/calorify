@@ -815,6 +815,7 @@ class Translations$meal$analysis$zh_CN extends Translations$meal$analysis$en {
 	@override String get stepError => '出现问题';
 	@override String get providerUnavailable => '餐食分析服务暂时不可用。请重试。';
 	@override String get invalidModelOutput => '无法理解餐食分析结果。请重试。';
+	@override String get nutritionServiceBusy => '营养匹配服务繁忙，请稍后再试。';
 	@override String get nutritionDataUnavailable => '营养数据暂时不可用。请重试。';
 	@override String get analysisUnavailable => '餐食分析暂时不可用。请重试。';
 	@override String get unresolvedNutrition => '我们无法为这餐可靠地匹配营养数据。请补充更多细节。';
@@ -2235,6 +2236,7 @@ extension on TranslationsZhCn {
 			'meal.analysis.stepError' => '出现问题',
 			'meal.analysis.providerUnavailable' => '餐食分析服务暂时不可用。请重试。',
 			'meal.analysis.invalidModelOutput' => '无法理解餐食分析结果。请重试。',
+			'meal.analysis.nutritionServiceBusy' => '营养匹配服务繁忙，请稍后再试。',
 			'meal.analysis.nutritionDataUnavailable' => '营养数据暂时不可用。请重试。',
 			'meal.analysis.analysisUnavailable' => '餐食分析暂时不可用。请重试。',
 			'meal.analysis.unresolvedNutrition' => '我们无法为这餐可靠地匹配营养数据。请补充更多细节。',
@@ -2494,9 +2496,9 @@ extension on TranslationsZhCn {
 			'disclaimer.snap.portionSize.title' => '分量大小',
 			'disclaimer.snap.portionSize.description' => '估算的准确性在很大程度上依赖于你对分量大小的正确评估。',
 			'disclaimer.snap.preparationMethods.title' => '烹饪方式',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法始终考虑这些差异。',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法始终考虑这些差异。',
 			'disclaimer.snap.ingredients.title' => '食材',
 			'disclaimer.snap.ingredients.description' => '复杂菜肴中存在许多隐含成分可能导致估算不够准确。',
 			'disclaimer.snap.databaseLimitations.title' => '数据库限制',

@@ -815,6 +815,7 @@ class _Translations$meal$analysis$ar extends Translations$meal$analysis$en {
 	@override String get stepError => 'حدث خطأ ما';
 	@override String get providerUnavailable => 'مزوّد خدمة تحليل الوجبات غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى.';
 	@override String get invalidModelOutput => 'تعذّر فهم استجابة الوجبة. يُرجى المحاولة مرة أخرى.';
+	@override String get nutritionServiceBusy => 'خدمة مطابقة التغذية مشغولة حاليا. يرجى المحاولة مرة أخرى.';
 	@override String get nutritionDataUnavailable => 'بيانات التغذية غير متاحة مؤقتًا. يُرجى المحاولة مرة أخرى.';
 	@override String get analysisUnavailable => 'تحليل الوجبة غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى.';
 	@override String get unresolvedNutrition => 'تعذّر علينا مطابقة بيانات التغذية لهذه الوجبة بأمان. جرّب إضافة مزيد من التفاصيل.';
@@ -2235,6 +2236,7 @@ extension on TranslationsAr {
 			'meal.analysis.stepError' => 'حدث خطأ ما',
 			'meal.analysis.providerUnavailable' => 'مزوّد خدمة تحليل الوجبات غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى.',
 			'meal.analysis.invalidModelOutput' => 'تعذّر فهم استجابة الوجبة. يُرجى المحاولة مرة أخرى.',
+			'meal.analysis.nutritionServiceBusy' => 'خدمة مطابقة التغذية مشغولة حاليا. يرجى المحاولة مرة أخرى.',
 			'meal.analysis.nutritionDataUnavailable' => 'بيانات التغذية غير متاحة مؤقتًا. يُرجى المحاولة مرة أخرى.',
 			'meal.analysis.analysisUnavailable' => 'تحليل الوجبة غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى.',
 			'meal.analysis.unresolvedNutrition' => 'تعذّر علينا مطابقة بيانات التغذية لهذه الوجبة بأمان. جرّب إضافة مزيد من التفاصيل.',
@@ -2494,9 +2496,9 @@ extension on TranslationsAr {
 			'disclaimer.snap.portionSize.title' => 'حجم الحصة',
 			'disclaimer.snap.portionSize.description' => 'تعتمد دقة التقديرات بشكل كبير على تقييمك الصحيح لحجم الحصة.',
 			'disclaimer.snap.preparationMethods.title' => 'طرق التحضير',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'يمكن لطرق الطهي أن تغيّر محتوى الغذاء بشكل كبير. قد لا تأخذ تقديرات ${appLabel} هذه الاختلافات في الحسبان دائمًا.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'يمكن لطرق الطهي أن تغيّر محتوى الغذاء بشكل كبير. قد لا تأخذ تقديرات ${appLabel} هذه الاختلافات في الحسبان دائمًا.',
 			'disclaimer.snap.ingredients.title' => 'المكونات',
 			'disclaimer.snap.ingredients.description' => 'الأطباق المعقدة ذات المكونات المخفية قد تؤدي إلى تقديرات أقل دقة.',
 			'disclaimer.snap.databaseLimitations.title' => 'حدود قاعدة البيانات',

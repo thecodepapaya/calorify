@@ -8,8 +8,11 @@ import type { MealType, MealTypeOrigin } from './mealType.js';
 
 const generatedPresentationSchema = z.object({
   mealName: z.string().trim().min(1).max(80),
+  servingSizeText: z.string().trim().min(1).max(24),
   tip: z.string().trim().max(280),
 }).strict();
+
+export const MAX_SERVING_SIZE_TEXT_LENGTH = 24;
 
 export interface MealPresentation {
   mealName: string;
@@ -39,6 +42,16 @@ function validMealName(value: string): boolean {
   return value.trim().length > 0 && !DISALLOWED_NAME_PATTERN.test(value);
 }
 
+const FORBIDDEN_SERVING_TEXT =
+  /\b(?:g|gram|grams|kg|kilogram|kilograms|ml|millilit(?:er|re)s?|oz|ounces?|lb|pounds?|kcal|calories?)\b/iu;
+
+function validServingSizeText(value: string): boolean {
+  const trimmed = value.trim();
+  return trimmed.length > 0 &&
+    trimmed.length <= MAX_SERVING_SIZE_TEXT_LENGTH &&
+    !FORBIDDEN_SERVING_TEXT.test(trimmed);
+}
+
 function formatQuantity(value: number): string {
   if (Number.isInteger(value)) return String(value);
   return String(Math.round(value * 10) / 10);
@@ -61,14 +74,14 @@ function countUnitLabel(component: ResolvedComponent): string {
     : code;
 }
 
-function componentServingSegment(component: ResolvedComponent): string {
+function componentServingSegment(component: ResolvedComponent): string | null {
   const scenario = component.scenarios.find(({ scenarioId }) =>
     scenarioId === component.pointScenarioId
   );
-  if (!scenario) return 'measured portion';
+  if (!scenario) return null;
 
   if (scenario.effectivePortion.kind === 'UNIT_COUNT') {
-    if (component.portionConstraint.kind !== 'COUNT') return 'measured portion';
+    if (component.portionConstraint.kind !== 'COUNT') return null;
     const count = scenario.effectivePortion.consumedCount;
     return `${formatQuantity(count)} ${naturalMeasureLabel(
       countUnitLabel(component),
@@ -86,12 +99,19 @@ function componentServingSegment(component: ResolvedComponent): string {
       quantity
     )}`;
   }
-  return 'measured portion';
+  return null;
 }
 
 export function buildServingSizeText(components: ResolvedComponent[]): string {
-  const text = components.map(componentServingSegment).join(' + ');
-  return text.slice(0, 120) || 'measured portion';
+  const segments = components
+    .map(componentServingSegment)
+    .filter((segment): segment is string => segment !== null);
+  let text = '';
+  for (const segment of segments) {
+    const candidate = text === '' ? segment : `${text} + ${segment}`;
+    if (candidate.length <= MAX_SERVING_SIZE_TEXT_LENGTH) text = candidate;
+  }
+  return text || 'measured portion';
 }
 
 function fallbackMealName(interpretation: ResolvedInterpretation): string {
@@ -108,16 +128,19 @@ function generatedPresentation(value: unknown): z.infer<typeof generatedPresenta
   if (!validMealName(parsed.mealName)) {
     throw new Error('Generated meal name contains serving size or weight');
   }
+  if (!validServingSizeText(parsed.servingSizeText)) {
+    throw new Error('Generated serving-size text is invalid');
+  }
   return parsed;
 }
 
 export function createMealPresenter(): MealPresenter {
   return {
     async present(input) {
-      const servingSizeText = buildServingSizeText(input.interpretation.components);
+      const fallbackServingSizeText = buildServingSizeText(input.interpretation.components);
       const fallback = (): MealPresentation => ({
         mealName: fallbackMealName(input.interpretation),
-        servingSizeText,
+        servingSizeText: fallbackServingSizeText,
         tip: '',
         providerAttempts: [...input.providerAttempts],
         usedFallback: true,
@@ -127,7 +150,6 @@ export function createMealPresenter(): MealPresenter {
         const generated = generatedPresentation(input.generatedCopy);
         return {
           ...generated,
-          servingSizeText,
           providerAttempts: [...input.providerAttempts],
           usedFallback: false,
         };

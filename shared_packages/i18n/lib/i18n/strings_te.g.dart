@@ -815,6 +815,7 @@ class _Translations$meal$analysis$te extends Translations$meal$analysis$en {
 	@override String get stepError => 'ఏదో తప్పు జరిగింది';
 	@override String get providerUnavailable => 'భోజన విశ్లేషణ సేవ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.';
 	@override String get invalidModelOutput => 'భోజనం గురించి వచ్చిన స్పందనను మేము అర్థం చేసుకోలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.';
+	@override String get nutritionServiceBusy => 'పోషక సరిపోలిక సేవ ప్రస్తుతం వ్యస్తంగా ఉంది. దయచేసి మళ్లీ ప్రయత్నించండి.';
 	@override String get nutritionDataUnavailable => 'పోషక సమాచారం తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.';
 	@override String get analysisUnavailable => 'భోజన విశ్లేషణ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.';
 	@override String get unresolvedNutrition => 'ఈ భోజనానికి సంబంధించిన పోషక సమాచారాన్ని నమ్మకంగా సరిపోల్చలేకపోయాము. దయచేసి మరిన్ని వివరాలు జోడించడానికి ప్రయత్నించండి.';
@@ -2235,6 +2236,7 @@ extension on TranslationsTe {
 			'meal.analysis.stepError' => 'ఏదో తప్పు జరిగింది',
 			'meal.analysis.providerUnavailable' => 'భోజన విశ్లేషణ సేవ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.',
 			'meal.analysis.invalidModelOutput' => 'భోజనం గురించి వచ్చిన స్పందనను మేము అర్థం చేసుకోలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.',
+			'meal.analysis.nutritionServiceBusy' => 'పోషక సరిపోలిక సేవ ప్రస్తుతం వ్యస్తంగా ఉంది. దయచేసి మళ్లీ ప్రయత్నించండి.',
 			'meal.analysis.nutritionDataUnavailable' => 'పోషక సమాచారం తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.',
 			'meal.analysis.analysisUnavailable' => 'భోజన విశ్లేషణ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.',
 			'meal.analysis.unresolvedNutrition' => 'ఈ భోజనానికి సంబంధించిన పోషక సమాచారాన్ని నమ్మకంగా సరిపోల్చలేకపోయాము. దయచేసి మరిన్ని వివరాలు జోడించడానికి ప్రయత్నించండి.',
@@ -2494,9 +2496,9 @@ extension on TranslationsTe {
 			'disclaimer.snap.portionSize.title' => 'భాగం పరిమాణం',
 			'disclaimer.snap.portionSize.description' => 'అంచనాల ఖచ్చితత్వం మీ భాగం పరిమాణం యొక్క సరైన అంచనాపై ఎక్కువగా ఆధారపడి ఉంటుంది.',
 			'disclaimer.snap.preparationMethods.title' => 'తయారీ పద్ధతులు',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'వంట పద్ధతులు ఆహారం యొక్క పోషక కంటెంట్‌ను గణనీయంగా మార్చగలవు. ${appLabel} అంచనాలు ఈ వైవిధ్యాలను ఎల్లప్పుడూ పరిగణనలోకి తీసుకోకపోవచ్చు.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'వంట పద్ధతులు ఆహారం యొక్క పోషక కంటెంట్‌ను గణనీయంగా మార్చగలవు. ${appLabel} అంచనాలు ఈ వైవిధ్యాలను ఎల్లప్పుడూ పరిగణనలోకి తీసుకోకపోవచ్చు.',
 			'disclaimer.snap.ingredients.title' => 'పదార్థాలు',
 			'disclaimer.snap.ingredients.description' => 'అనేక దాచిన పదార్థాలతో కూడిన సంక్లిష్ట వంటకాలు తక్కువ ఖచ్చితమైన అంచనాలకు దారితీయవచ్చు.',
 			'disclaimer.snap.databaseLimitations.title' => 'డేటాబేస్ పరిమితులు',

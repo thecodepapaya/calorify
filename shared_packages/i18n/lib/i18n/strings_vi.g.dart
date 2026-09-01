@@ -815,6 +815,7 @@ class _Translations$meal$analysis$vi extends Translations$meal$analysis$en {
 	@override String get stepError => 'Đã xảy ra lỗi';
 	@override String get providerUnavailable => 'Dịch vụ phân tích bữa ăn tạm thời không khả dụng. Vui lòng thử lại.';
 	@override String get invalidModelOutput => 'Không thể hiểu phản hồi về bữa ăn. Vui lòng thử lại.';
+	@override String get nutritionServiceBusy => 'Dịch vụ đối sánh dinh dưỡng đang bận. Vui lòng thử lại.';
 	@override String get nutritionDataUnavailable => 'Dữ liệu dinh dưỡng tạm thời không khả dụng. Vui lòng thử lại.';
 	@override String get analysisUnavailable => 'Phân tích bữa ăn tạm thời không khả dụng. Vui lòng thử lại.';
 	@override String get unresolvedNutrition => 'Chúng tôi chưa thể khớp dữ liệu dinh dưỡng cho bữa ăn này một cách an toàn. Hãy thử cung cấp thêm chi tiết.';
@@ -2235,6 +2236,7 @@ extension on TranslationsVi {
 			'meal.analysis.stepError' => 'Đã xảy ra lỗi',
 			'meal.analysis.providerUnavailable' => 'Dịch vụ phân tích bữa ăn tạm thời không khả dụng. Vui lòng thử lại.',
 			'meal.analysis.invalidModelOutput' => 'Không thể hiểu phản hồi về bữa ăn. Vui lòng thử lại.',
+			'meal.analysis.nutritionServiceBusy' => 'Dịch vụ đối sánh dinh dưỡng đang bận. Vui lòng thử lại.',
 			'meal.analysis.nutritionDataUnavailable' => 'Dữ liệu dinh dưỡng tạm thời không khả dụng. Vui lòng thử lại.',
 			'meal.analysis.analysisUnavailable' => 'Phân tích bữa ăn tạm thời không khả dụng. Vui lòng thử lại.',
 			'meal.analysis.unresolvedNutrition' => 'Chúng tôi chưa thể khớp dữ liệu dinh dưỡng cho bữa ăn này một cách an toàn. Hãy thử cung cấp thêm chi tiết.',
@@ -2494,9 +2496,9 @@ extension on TranslationsVi {
 			'disclaimer.snap.portionSize.title' => 'Kích thước khẩu phần',
 			'disclaimer.snap.portionSize.description' => 'Độ chính xác của ước tính phụ thuộc lớn vào việc bạn đánh giá đúng kích thước khẩu phần.',
 			'disclaimer.snap.preparationMethods.title' => 'Phương pháp chế biến',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cách nấu có thể thay đổi đáng kể hàm lượng dinh dưỡng. Ước tính của ${appLabel} có thể không luôn tính đến những thay đổi này.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cách nấu có thể thay đổi đáng kể hàm lượng dinh dưỡng. Ước tính của ${appLabel} có thể không luôn tính đến những thay đổi này.',
 			'disclaimer.snap.ingredients.title' => 'Nguyên liệu',
 			'disclaimer.snap.ingredients.description' => 'Các món phức tạp với nhiều nguyên liệu ẩn có thể dẫn đến ước tính kém chính xác hơn.',
 			'disclaimer.snap.databaseLimitations.title' => 'Hạn chế cơ sở dữ liệu',

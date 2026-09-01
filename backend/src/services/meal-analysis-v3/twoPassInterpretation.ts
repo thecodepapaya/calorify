@@ -79,6 +79,7 @@ const portionSchema = z.union([amountPortionSchema, countPortionSchema]).describ
 export const firstPassResponseSchema = z.object({
   food_detected: z.boolean().describe('true only when at least one usable food or drink is identifiable'),
   mealName: label.nullable().describe('Concise localized meal name, around 40 characters, no serving size, count, weight, calories, or advice'),
+  servingSizeText: z.string().trim().min(1).max(24).nullable().describe('Localized whole-meal serving summary, strictly fewer than 25 characters; prefer counts or concise food names, never weights, volumes, calories, or repeated generic phrases; null when food_detected is false'),
   tip: z.string().trim().min(1).max(280).describe('Required short meal-related fact or practical suggestion based on identified meal'),
   mealTypeCandidate: z.object({
     value: mealTypeSchema.nullable().describe('BREAKFAST, LUNCH, DINNER, or SNACK; null when not confidently determinable'),
@@ -97,8 +98,14 @@ export const firstPassResponseSchema = z.object({
   if (response.food_detected && (response.mealName === null || response.mealItems.length === 0)) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'detected food requires a meal name and meal items' });
   }
+  if (response.food_detected && response.servingSizeText === null) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'detected food requires serving-size text' });
+  }
   if (!response.food_detected && response.mealItems.length !== 0) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'no-food response cannot contain meal items' });
+  }
+  if (!response.food_detected && response.servingSizeText !== null) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'no-food response requires null serving-size text' });
   }
   if ((response.mealTypeCandidate.value === null) !== (response.mealTypeCandidate.origin === null)) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'meal type value and origin must both be null or non-null' });
@@ -232,6 +239,7 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
       response: {
         food_detected: true,
         mealName: 'Chicken pot pie with green beans',
+        servingSizeText: '1 pie + 1 cup beans',
         tip: 'A pie filling often combines protein, vegetables, and a savory sauce.',
         mealTypeCandidate: { value: 'DINNER', origin: 'user_stated' },
         mealItems: [
@@ -261,6 +269,7 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
       response: {
         food_detected: true,
         mealName: 'Ramen',
+        servingSizeText: '1 bowl ramen',
         tip: 'Broth-based noodle soups vary widely in their ingredients and preparation.',
         mealTypeCandidate: { value: null, origin: null },
         mealItems: [
@@ -349,8 +358,9 @@ export const FIRST_PASS_SYSTEM_PROMPT = `You are the first parsing pass of a nut
 Return only the requested JSON. Do not list ingredients, variations, calories, or macros.
 
 Tasks:
-- Set food_detected=false when no usable food can be identified; then return no meal items and a null meal name and meal type.
+- Set food_detected=false when no usable food can be identified; then return no meal items and a null meal name, serving-size text, and meal type.
 - Split the meal into meal items. Keep a named prepared dish as one item unless its fillings or toppings are explicitly served separately. Itemize every separately named food or drink with its own quantity, even in a platter or combo; never emit the umbrella platter or combo instead of, or alongside, those items.
+- Return one localized servingSizeText for the whole meal, strictly fewer than 25 characters. Prefer natural counts, household portions, or concise food names; never use weights, volumes, calories, or repeat generic phrases such as measured portion.
 - Quantify continuous foods as AMOUNT and discrete foods as COUNT. For AMOUNT, estimate/min/max are finished grams. For COUNT, count is the number of units (never grams) and unitGrams is the finished grams for one unit. Do not return a unit field.
 - Clamp user-provided quantities so min=estimate=max and origin=user_stated. A serving indication counts as user-provided in any form: counts, weights, volumes, household measures, and fractions, even when the model converts them to grams. Use origin=model_inferred for everything the model assumed, including image observations and context-based guesses.
 - Return exactly one preparation method per meal item; do not generate preparation alternatives.

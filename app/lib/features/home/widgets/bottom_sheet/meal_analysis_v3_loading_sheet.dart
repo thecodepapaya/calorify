@@ -297,8 +297,11 @@ class _ProgressComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final ingredientsPending = component.ingredientNames.isEmpty;
+    return Row(
+      key: const ValueKey('v3-progress-component-row'),
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         Semantics(
           header: true,
@@ -310,45 +313,27 @@ class _ProgressComponent extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 5),
-        if (component.ingredientNames.isEmpty)
-          Padding(
-            padding: const EdgeInsets.only(left: 14),
-            child: Text(
-              t.meal.analysis.ingredientsPending,
-              style: textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          )
-        else
-          ...component.ingredientNames.map(
-            (ingredient) => Padding(
-              padding: const EdgeInsets.only(left: 14, top: 3),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '•',
-                    style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.primary,
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            key: const ValueKey('v3-progress-ingredients'),
+            ingredientsPending
+                ? t.meal.analysis.ingredientsPending
+                : component.ingredientNames
+                    .map((ingredient) => '• $ingredient')
+                    .join('   '),
+            style:
+                ingredientsPending
+                    ? textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                      fontStyle: FontStyle.italic,
+                    )
+                    : textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.72),
+                      height: 1.34,
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      ingredient,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurface.withValues(alpha: 0.72),
-                        height: 1.34,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ),
+        ),
       ],
     );
   }

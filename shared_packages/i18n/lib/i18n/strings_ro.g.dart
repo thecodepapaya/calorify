@@ -815,6 +815,7 @@ class _Translations$meal$analysis$ro extends Translations$meal$analysis$en {
 	@override String get stepError => 'Ceva nu a mers bine';
 	@override String get providerUnavailable => 'Furnizorul pentru analiza meselor este temporar indisponibil. Te rugăm să încerci din nou.';
 	@override String get invalidModelOutput => 'Răspunsul analizei mesei nu a putut fi înțeles. Te rugăm să încerci din nou.';
+	@override String get nutritionServiceBusy => 'Serviciul de potrivire nutrițională este ocupat. Te rugăm să încerci din nou.';
 	@override String get nutritionDataUnavailable => 'Datele nutriționale sunt temporar indisponibile. Te rugăm să încerci din nou.';
 	@override String get analysisUnavailable => 'Analiza mesei este temporar indisponibilă. Te rugăm să încerci din nou.';
 	@override String get unresolvedNutrition => 'Nu am putut potrivi în mod sigur datele nutriționale pentru această masă. Încearcă să adaugi mai multe detalii.';
@@ -2235,6 +2236,7 @@ extension on TranslationsRo {
 			'meal.analysis.stepError' => 'Ceva nu a mers bine',
 			'meal.analysis.providerUnavailable' => 'Furnizorul pentru analiza meselor este temporar indisponibil. Te rugăm să încerci din nou.',
 			'meal.analysis.invalidModelOutput' => 'Răspunsul analizei mesei nu a putut fi înțeles. Te rugăm să încerci din nou.',
+			'meal.analysis.nutritionServiceBusy' => 'Serviciul de potrivire nutrițională este ocupat. Te rugăm să încerci din nou.',
 			'meal.analysis.nutritionDataUnavailable' => 'Datele nutriționale sunt temporar indisponibile. Te rugăm să încerci din nou.',
 			'meal.analysis.analysisUnavailable' => 'Analiza mesei este temporar indisponibilă. Te rugăm să încerci din nou.',
 			'meal.analysis.unresolvedNutrition' => 'Nu am putut potrivi în mod sigur datele nutriționale pentru această masă. Încearcă să adaugi mai multe detalii.',
@@ -2494,9 +2496,9 @@ extension on TranslationsRo {
 			'disclaimer.snap.portionSize.title' => 'Mărimea porției',
 			'disclaimer.snap.portionSize.description' => 'Acuratețea estimărilor depinde în mare măsură de evaluarea corectă a mărimii porției.',
 			'disclaimer.snap.preparationMethods.title' => 'Metode de preparare',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metodele de gătit pot altera semnificativ conținutul nutrițional. Estimările ${appLabel} pot să nu ia întotdeauna în calcul aceste variații.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metodele de gătit pot altera semnificativ conținutul nutrițional. Estimările ${appLabel} pot să nu ia întotdeauna în calcul aceste variații.',
 			'disclaimer.snap.ingredients.title' => 'Ingrediente',
 			'disclaimer.snap.ingredients.description' => 'Preparatele complexe cu multe ingrediente ascunse pot duce la estimări mai puțin exacte.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitări ale bazei de date',

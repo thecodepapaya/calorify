@@ -22,6 +22,10 @@ describe('metrics', () => {
     assert.match(output, /http_requests_total\{[^}]*method="GET"[^}]*\} 3\b/);
     // Default Node.js runtime metrics are registered too.
     assert.match(output, /process_cpu_user_seconds_total/);
+    assert.match(output, /# HELP usda_query_limiter_active/);
+    assert.match(output, /# HELP usda_query_acquire_wait_seconds/);
+    assert.match(output, /# HELP usda_query_duration_seconds/);
+    assert.match(output, /# HELP usda_query_failures_total/);
   });
 
   it('instrumentAiCall records success outcome and returns the value', async () => {

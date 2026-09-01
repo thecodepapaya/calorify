@@ -1,13 +1,16 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  clearLocalUsdaNutritionCache,
   createLocalUsdaNutritionResolver,
+  NutritionResolutionInfrastructureError,
   type NutritionDatabaseQuery,
 } from '../../../src/services/meal-analysis-v3/nutrition.js';
 import type {
   IngredientLeaf,
   RecipeScenario,
 } from '../../../src/services/meal-analysis-v3/domain.js';
+import { UsdaQueryQueueError } from '../../../src/services/infrastructure/usdaQueryLimiter.js';
 
 const readyDataset = {
   dataset_version: 'usda-presence-v1',
@@ -850,4 +853,156 @@ test('uses an explicit builtin zero reference only for yield-only water', async 
   const unsupportedResult = result.leaves.find((item) => item.leafId === 'steam');
   assert.equal(unsupportedResult?.reference, null);
   assert.deepEqual(unsupportedResult?.rejectionReasons, ['UNSUPPORTED_YIELD_ONLY']);
+});
+
+test('retries one transient lookup failure and preserves a successful result', async () => {
+  let candidateAttempts = 0;
+  const query: NutritionDatabaseQuery = async (_text, params) => {
+    if (params === undefined) return { rows: [readyDataset] };
+    candidateAttempts += 1;
+    if (candidateAttempts === 1) throw Object.assign(new Error('redacted'), { code: 'ECONNRESET' });
+    return { rows: [candidate()] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({
+    query,
+    retryDelayMs: () => 0,
+  });
+
+  const result = await resolver.resolve([scenario('retry', [ingredient()])]);
+
+  assert.equal(candidateAttempts, 2);
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '168448');
+});
+
+test('does not retry bounded USDA queue pressure', async () => {
+  let candidateAttempts = 0;
+  const query: NutritionDatabaseQuery = async (_text, params) => {
+    if (params === undefined) return { rows: [readyDataset] };
+    candidateAttempts += 1;
+    throw new UsdaQueryQueueError('QUEUE_TIMEOUT', { active: 6, queued: 64 });
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query, retryDelayMs: () => 0 });
+
+  await assert.rejects(
+    resolver.resolve([scenario('queue-pressure', [ingredient()])]),
+    NutritionResolutionInfrastructureError,
+  );
+  assert.equal(candidateAttempts, 1);
+});
+
+test('waits for sibling lookups before surfacing an infrastructure failure', async () => {
+  let carrotCompleted = false;
+  const query: NutritionDatabaseQuery = async (_text, params) => {
+    if (params === undefined) return { rows: [readyDataset] };
+    const terms = params[0] as string[];
+    if (terms.includes('pumpkin')) throw new Error('non-transient lookup failure');
+    await new Promise((resolve) => setTimeout(resolve, 15));
+    carrotCompleted = true;
+    return { rows: [candidate({
+      fdc_id: 'carrot',
+      description: 'Carrots, cooked',
+      normalized_name: 'carrot',
+    })] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+
+  await assert.rejects(
+    resolver.resolve([scenario('settled', [
+      ingredient({ leafId: 'pumpkin', canonicalIdentity: 'pumpkin' }),
+      ingredient({ leafId: 'carrot', canonicalIdentity: 'carrot', displayName: 'Carrot' }),
+    ])]),
+    NutritionResolutionInfrastructureError,
+  );
+  assert.equal(carrotCompleted, true);
+});
+
+test('coalesces process cache lookups and never caches rejected work', async () => {
+  clearLocalUsdaNutritionCache();
+  let candidateAttempts = 0;
+  let shouldFail = false;
+  const query: NutritionDatabaseQuery = async (_text, params) => {
+    if (params === undefined) return { rows: [readyDataset] };
+    candidateAttempts += 1;
+    await new Promise((resolve) => setTimeout(resolve, 5));
+    if (shouldFail) throw Object.assign(new Error('redacted'), { code: 'ECONNRESET' });
+    return { rows: [candidate()] };
+  };
+  const options = { query, useProcessCache: true, retryDelayMs: () => 0 };
+  const first = createLocalUsdaNutritionResolver(options);
+  const second = createLocalUsdaNutritionResolver(options);
+
+  const [firstResult, secondResult] = await Promise.all([
+    first.resolve([scenario('cache-a', [ingredient()])]),
+    second.resolve([scenario('cache-b', [ingredient()])]),
+  ]);
+  assert.equal(candidateAttempts, 1);
+  assert.equal(firstResult.leaves[0]?.reference?.sourceRecordId, '168448');
+  assert.equal(secondResult.leaves[0]?.reference?.sourceRecordId, '168448');
+
+  clearLocalUsdaNutritionCache();
+  candidateAttempts = 0;
+  shouldFail = true;
+  await assert.rejects(
+    first.resolve([scenario('cache-error', [ingredient()])]),
+    NutritionResolutionInfrastructureError,
+  );
+  assert.equal(candidateAttempts, 2, 'one transient retry is attempted');
+  shouldFail = false;
+  const recovered = await second.resolve([scenario('cache-recovered', [ingredient()])]);
+  assert.equal(candidateAttempts, 3, 'the rejected lookup was not cached');
+  assert.equal(recovered.leaves[0]?.reference?.sourceRecordId, '168448');
+  clearLocalUsdaNutritionCache();
+});
+
+test('keeps a transient retry inside the shared process-cache promise', async () => {
+  clearLocalUsdaNutritionCache();
+  let candidateAttempts = 0;
+  const query: NutritionDatabaseQuery = async (_text, params) => {
+    if (params === undefined) return { rows: [readyDataset] };
+    candidateAttempts += 1;
+    await new Promise((resolve) => setTimeout(resolve, 5));
+    if (candidateAttempts === 1) {
+      throw Object.assign(new Error('redacted'), { code: 'ECONNRESET' });
+    }
+    return { rows: [candidate()] };
+  };
+  const options = { query, useProcessCache: true, retryDelayMs: () => 5 };
+  const first = createLocalUsdaNutritionResolver(options);
+  const second = createLocalUsdaNutritionResolver(options);
+
+  const results = await Promise.all([
+    first.resolve([scenario('retry-cache-a', [ingredient()])]),
+    second.resolve([scenario('retry-cache-b', [ingredient()])]),
+  ]);
+
+  assert.equal(candidateAttempts, 2, 'one initial query and one shared retry');
+  assert.equal(results[0].leaves[0]?.reference?.sourceRecordId, '168448');
+  assert.equal(results[1].leaves[0]?.reference?.sourceRecordId, '168448');
+  clearLocalUsdaNutritionCache();
+});
+
+test('process cache refreshes recency and remains bounded to 256 entries', async () => {
+  clearLocalUsdaNutritionCache();
+  const candidateAttempts = new Map<string, number>();
+  const query: NutritionDatabaseQuery = async (_text, params) => {
+    if (params === undefined) return { rows: [readyDataset] };
+    const key = (params[0] as string[])[0]!;
+    candidateAttempts.set(key, (candidateAttempts.get(key) ?? 0) + 1);
+    return { rows: [] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query, useProcessCache: true });
+  const resolveIdentity = (index: number) => resolver.resolve([
+    scenario(`lru-${index}`, [ingredient({ canonicalIdentity: `item ${index}` })]),
+  ]);
+
+  for (let index = 0; index < 256; index += 1) await resolveIdentity(index);
+  await resolveIdentity(0);
+  await resolveIdentity(256);
+  await resolveIdentity(0);
+  await resolveIdentity(1);
+
+  assert.equal(candidateAttempts.get('item 0'), 1, 'recently touched entry survives');
+  assert.equal(candidateAttempts.get('item 1'), 2, 'least-recent entry is evicted');
+  assert.equal(candidateAttempts.get('item 256'), 1);
+  clearLocalUsdaNutritionCache();
 });

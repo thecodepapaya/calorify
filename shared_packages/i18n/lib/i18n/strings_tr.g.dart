@@ -815,6 +815,7 @@ class _Translations$meal$analysis$tr extends Translations$meal$analysis$en {
 	@override String get stepError => 'Bir şeyler yolunda gitmedi';
 	@override String get providerUnavailable => 'Öğün analizi hizmet sağlayıcısı geçici olarak kullanılamıyor. Lütfen tekrar deneyin.';
 	@override String get invalidModelOutput => 'Öğün yanıtı anlaşılamadı. Lütfen tekrar deneyin.';
+	@override String get nutritionServiceBusy => 'Besin eşleştirme işlemi şu anda yoğun. Lütfen tekrar deneyin.';
 	@override String get nutritionDataUnavailable => 'Besin değerleri geçici olarak kullanılamıyor. Lütfen tekrar deneyin.';
 	@override String get analysisUnavailable => 'Öğün analizi geçici olarak kullanılamıyor. Lütfen tekrar deneyin.';
 	@override String get unresolvedNutrition => 'Bu öğün için besin değerlerini yeterli güvenle eşleştiremedik. Daha fazla ayrıntı eklemeyi deneyin.';
@@ -2235,6 +2236,7 @@ extension on TranslationsTr {
 			'meal.analysis.stepError' => 'Bir şeyler yolunda gitmedi',
 			'meal.analysis.providerUnavailable' => 'Öğün analizi hizmet sağlayıcısı geçici olarak kullanılamıyor. Lütfen tekrar deneyin.',
 			'meal.analysis.invalidModelOutput' => 'Öğün yanıtı anlaşılamadı. Lütfen tekrar deneyin.',
+			'meal.analysis.nutritionServiceBusy' => 'Besin eşleştirme işlemi şu anda yoğun. Lütfen tekrar deneyin.',
 			'meal.analysis.nutritionDataUnavailable' => 'Besin değerleri geçici olarak kullanılamıyor. Lütfen tekrar deneyin.',
 			'meal.analysis.analysisUnavailable' => 'Öğün analizi geçici olarak kullanılamıyor. Lütfen tekrar deneyin.',
 			'meal.analysis.unresolvedNutrition' => 'Bu öğün için besin değerlerini yeterli güvenle eşleştiremedik. Daha fazla ayrıntı eklemeyi deneyin.',
@@ -2494,9 +2496,9 @@ extension on TranslationsTr {
 			'disclaimer.snap.portionSize.title' => 'Porsiyon Boyutu',
 			'disclaimer.snap.portionSize.description' => 'Tahminlerin doğruluğu büyük ölçüde porsiyon boyutunu doğru değerlendirmenize bağlıdır.',
 			'disclaimer.snap.preparationMethods.title' => 'Hazırlama Yöntemleri',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Pişirme yöntemleri yiyeceğin besin içeriğini önemli ölçüde değiştirebilir. ${appLabel} tahminleri her zaman bu farklılıkları hesaba katmayabilir.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Pişirme yöntemleri yiyeceğin besin içeriğini önemli ölçüde değiştirebilir. ${appLabel} tahminleri her zaman bu farklılıkları hesaba katmayabilir.',
 			'disclaimer.snap.ingredients.title' => 'İçerikler',
 			'disclaimer.snap.ingredients.description' => 'Birçok gizli içeriğe sahip karmaşık yemekler daha az doğru tahminlere yol açabilir.',
 			'disclaimer.snap.databaseLimitations.title' => 'Veritabanı Sınırlamaları',

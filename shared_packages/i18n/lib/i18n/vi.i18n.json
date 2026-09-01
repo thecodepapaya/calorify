@@ -337,6 +337,7 @@
       "stepError": "Đã xảy ra lỗi",
       "providerUnavailable": "Dịch vụ phân tích bữa ăn tạm thời không khả dụng. Vui lòng thử lại.",
       "invalidModelOutput": "Không thể hiểu phản hồi về bữa ăn. Vui lòng thử lại.",
+      "nutritionServiceBusy": "Dịch vụ đối sánh dinh dưỡng đang bận. Vui lòng thử lại.",
       "nutritionDataUnavailable": "Dữ liệu dinh dưỡng tạm thời không khả dụng. Vui lòng thử lại.",
       "analysisUnavailable": "Phân tích bữa ăn tạm thời không khả dụng. Vui lòng thử lại.",
       "unresolvedNutrition": "Chúng tôi chưa thể khớp dữ liệu dinh dưỡng cho bữa ăn này một cách an toàn. Hãy thử cung cấp thêm chi tiết.",

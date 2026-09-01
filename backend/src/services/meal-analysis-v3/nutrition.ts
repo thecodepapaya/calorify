@@ -1,4 +1,9 @@
-import { usdaQuery } from '../infrastructure/database.js';
+import {
+  getUsdaQueryLimiterSnapshot,
+  isTransientUsdaQueryError,
+  usdaQuery,
+} from '../infrastructure/database.js';
+import type { UsdaQueryLimiterSnapshot } from '../infrastructure/usdaQueryLimiter.js';
 import config from '../../config.js';
 import {
   preparationUmbrella,
@@ -11,6 +16,7 @@ import {
 
 const QUERY_CANDIDATE_LIMIT = 30;
 const DIAGNOSTIC_CANDIDATE_LIMIT = 5;
+const PROCESS_LOOKUP_CACHE_LIMIT = 256;
 
 export type NutritionRejectionReason =
   | 'NO_ACTIVE_DATASET'
@@ -81,6 +87,19 @@ export interface LocalUsdaNutritionResolverOptions {
   query?: NutritionDatabaseQuery;
   candidateLimit?: number;
   fullTextEnabled?: boolean;
+  retryDelayMs?: () => number;
+  useProcessCache?: boolean;
+}
+
+export class NutritionResolutionInfrastructureError extends Error {
+  constructor(
+    override readonly cause: unknown,
+    readonly uniqueLookupCount: number,
+    readonly limiter: UsdaQueryLimiterSnapshot,
+  ) {
+    super('USDA nutrition resolution failed', { cause });
+    this.name = 'NutritionResolutionInfrastructureError';
+  }
 }
 
 interface ActiveDataset {
@@ -129,6 +148,54 @@ interface LookupOutcome {
   per100g: MacroVector | null;
   rejectionReasons: NutritionRejectionReason[];
   candidates: NutritionCandidateDiagnostic[];
+}
+
+const processLookupCache = new Map<string, Promise<LookupOutcome>>();
+
+export function clearLocalUsdaNutritionCache(): void {
+  processLookupCache.clear();
+}
+
+function processCachedLookup(
+  key: string,
+  create: () => Promise<LookupOutcome>,
+): Promise<LookupOutcome> {
+  const existing = processLookupCache.get(key);
+  if (existing !== undefined) {
+    processLookupCache.delete(key);
+    processLookupCache.set(key, existing);
+    return existing;
+  }
+
+  const created = create();
+  processLookupCache.set(key, created);
+  while (processLookupCache.size > PROCESS_LOOKUP_CACHE_LIMIT) {
+    const oldest = processLookupCache.keys().next().value as string | undefined;
+    if (oldest === undefined) break;
+    processLookupCache.delete(oldest);
+  }
+  void created.catch(() => {
+    if (processLookupCache.get(key) === created) processLookupCache.delete(key);
+  });
+  return created;
+}
+
+function wait(ms: number): Promise<void> {
+  if (ms <= 0) return Promise.resolve();
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function resolveLookupWithRetry(
+  create: () => Promise<LookupOutcome>,
+  retryDelayMs: () => number,
+): Promise<LookupOutcome> {
+  try {
+    return await create();
+  } catch (error) {
+    if (!isTransientUsdaQueryError(error)) throw error;
+    await wait(retryDelayMs());
+    return create();
+  }
 }
 
 const PREPARATION_RANK: Record<PreparationMatchTier, number> = {
@@ -381,6 +448,8 @@ export function createLocalUsdaNutritionResolver(
   const query = options.query ?? defaultQuery;
   const candidateLimit = boundedCandidateLimit(options.candidateLimit);
   const fullTextEnabled = options.fullTextEnabled ?? config.USDA_FTS_ENABLED;
+  const retryDelayMs = options.retryDelayMs ?? (() => 50 + Math.floor(Math.random() * 101));
+  const useProcessCache = options.useProcessCache ?? options.query === undefined;
 
   return {
     async resolve(scenarios) {
@@ -388,72 +457,98 @@ export function createLocalUsdaNutritionResolver(
         scenario.ingredients.map((leaf) => ({ scenarioId: scenario.scenarioId, leaf }))
       );
       const activeTargets = targets.filter(({ leaf }) => leaf.role === 'ACTIVE_NUTRITION');
-      const dataset = activeTargets.length > 0
-        ? await loadActiveDataset(query)
-        : {
-            datasetVersion: null,
-            nutrientPresenceMaterialized: false,
-            rejectionReasons: [],
-          };
-      const lookupCache = new Map<string, Promise<LookupOutcome>>();
+      const uniqueLookupCount = new Set(activeTargets.map(({ leaf }) => lookupKey(leaf))).size;
+      try {
+        const dataset = activeTargets.length > 0
+          ? await loadActiveDataset(query)
+          : {
+              datasetVersion: null,
+              nutrientPresenceMaterialized: false,
+              rejectionReasons: [],
+            };
+        const lookupCache = new Map<string, Promise<LookupOutcome>>();
 
-      const leaves = await Promise.all(targets.map(async ({ scenarioId, leaf }) => {
-        if (isYieldOnlyWater(leaf)) {
-          return builtinWaterResolution(scenarioId, leaf);
-        }
-        if (leaf.role === 'YIELD_ONLY') {
-          return rejectedLeaf(
-            scenarioId,
-            leaf.leafId,
-            ['UNSUPPORTED_YIELD_ONLY'],
-            []
-          );
-        }
-        if (dataset.datasetVersion === null || dataset.rejectionReasons.length > 0) {
-          return rejectedLeaf(
-            scenarioId,
-            leaf.leafId,
-            dataset.rejectionReasons,
-            []
-          );
-        }
-
-        const key = lookupKey(leaf);
-        let lookup = lookupCache.get(key);
-        if (lookup === undefined) {
-          lookup = resolveLookup(
-            query,
-            leaf,
-            dataset.datasetVersion,
-            dataset.nutrientPresenceMaterialized,
-            candidateLimit,
-            fullTextEnabled
-          );
-          lookupCache.set(key, lookup);
-        }
-        const outcome = await lookup;
-        const reference = outcome.selected !== null && outcome.per100g !== null
-          ? referenceFromCandidate(
+        const settled = await Promise.allSettled(targets.map(async ({ scenarioId, leaf }) => {
+          if (isYieldOnlyWater(leaf)) {
+            return builtinWaterResolution(scenarioId, leaf);
+          }
+          if (leaf.role === 'YIELD_ONLY') {
+            return rejectedLeaf(
               scenarioId,
               leaf.leafId,
-              dataset.datasetVersion,
-              outcome.selected,
-              outcome.per100g
-            )
-          : null;
-        return {
-          scenarioId,
-          leafId: leaf.leafId,
-          reference,
-          rejectionReasons: outcome.rejectionReasons,
-          candidates: outcome.candidates,
-        };
-      }));
+              ['UNSUPPORTED_YIELD_ONLY'],
+              []
+            );
+          }
+          if (dataset.datasetVersion === null || dataset.rejectionReasons.length > 0) {
+            return rejectedLeaf(
+              scenarioId,
+              leaf.leafId,
+              dataset.rejectionReasons,
+              []
+            );
+          }
 
-      return {
-        datasetVersion: dataset.datasetVersion,
-        leaves,
-      };
+          const leafKey = lookupKey(leaf);
+          let lookup = lookupCache.get(leafKey);
+          if (lookup === undefined) {
+            const create = () => resolveLookupWithRetry(() => resolveLookup(
+              query,
+              leaf,
+              dataset.datasetVersion!,
+              dataset.nutrientPresenceMaterialized,
+              candidateLimit,
+              fullTextEnabled
+            ), retryDelayMs);
+            const processKey = JSON.stringify([
+              dataset.datasetVersion,
+              dataset.nutrientPresenceMaterialized,
+              candidateLimit,
+              fullTextEnabled,
+              leafKey,
+            ]);
+            lookup = useProcessCache
+              ? processCachedLookup(processKey, create)
+              : create();
+            lookupCache.set(leafKey, lookup);
+          }
+          const outcome = await lookup;
+          const reference = outcome.selected !== null && outcome.per100g !== null
+            ? referenceFromCandidate(
+                scenarioId,
+                leaf.leafId,
+                dataset.datasetVersion,
+                outcome.selected,
+                outcome.per100g
+              )
+            : null;
+          return {
+            scenarioId,
+            leafId: leaf.leafId,
+            reference,
+            rejectionReasons: outcome.rejectionReasons,
+            candidates: outcome.candidates,
+          };
+        }));
+
+        const failed = settled.find(
+          (item): item is PromiseRejectedResult => item.status === 'rejected'
+        );
+        if (failed !== undefined) throw failed.reason;
+        return {
+          datasetVersion: dataset.datasetVersion,
+          leaves: settled.map((item) =>
+            (item as PromiseFulfilledResult<NutritionLeafResolution>).value
+          ),
+        };
+      } catch (error) {
+        if (error instanceof NutritionResolutionInfrastructureError) throw error;
+        throw new NutritionResolutionInfrastructureError(
+          error,
+          uniqueLookupCount,
+          getUsdaQueryLimiterSnapshot(),
+        );
+      }
     },
   };
 }

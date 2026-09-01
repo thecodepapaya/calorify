@@ -815,6 +815,7 @@ class _Translations$meal$analysis$ur extends Translations$meal$analysis$en {
 	@override String get stepError => 'کچھ غلط ہو گیا';
 	@override String get providerUnavailable => 'کھانے کے تجزیے کی سروس عارضی طور پر دستیاب نہیں ہے۔ براہِ کرم دوبارہ کوشش کریں۔';
 	@override String get invalidModelOutput => 'کھانے کے تجزیے کا جواب سمجھ میں نہیں آیا۔ براہِ کرم دوبارہ کوشش کریں۔';
+	@override String get nutritionServiceBusy => 'غذائیت کی مماثلت مصروف ہے۔ براہ کرم دوبارہ کوشش کریں۔';
 	@override String get nutritionDataUnavailable => 'غذائی معلومات عارضی طور پر دستیاب نہیں ہیں۔ براہِ کرم دوبارہ کوشش کریں۔';
 	@override String get analysisUnavailable => 'کھانے کا تجزیہ عارضی طور پر دستیاب نہیں ہے۔ براہِ کرم دوبارہ کوشش کریں۔';
 	@override String get unresolvedNutrition => 'ہم اس کھانے کے لیے غذائی معلومات کو اعتماد کے ساتھ نہیں ملا سکے۔ براہِ کرم مزید تفصیل شامل کریں۔';
@@ -2235,6 +2236,7 @@ extension on TranslationsUr {
 			'meal.analysis.stepError' => 'کچھ غلط ہو گیا',
 			'meal.analysis.providerUnavailable' => 'کھانے کے تجزیے کی سروس عارضی طور پر دستیاب نہیں ہے۔ براہِ کرم دوبارہ کوشش کریں۔',
 			'meal.analysis.invalidModelOutput' => 'کھانے کے تجزیے کا جواب سمجھ میں نہیں آیا۔ براہِ کرم دوبارہ کوشش کریں۔',
+			'meal.analysis.nutritionServiceBusy' => 'غذائیت کی مماثلت مصروف ہے۔ براہ کرم دوبارہ کوشش کریں۔',
 			'meal.analysis.nutritionDataUnavailable' => 'غذائی معلومات عارضی طور پر دستیاب نہیں ہیں۔ براہِ کرم دوبارہ کوشش کریں۔',
 			'meal.analysis.analysisUnavailable' => 'کھانے کا تجزیہ عارضی طور پر دستیاب نہیں ہے۔ براہِ کرم دوبارہ کوشش کریں۔',
 			'meal.analysis.unresolvedNutrition' => 'ہم اس کھانے کے لیے غذائی معلومات کو اعتماد کے ساتھ نہیں ملا سکے۔ براہِ کرم مزید تفصیل شامل کریں۔',
@@ -2494,9 +2496,9 @@ extension on TranslationsUr {
 			'disclaimer.snap.portionSize.title' => 'حصے کا سائز',
 			'disclaimer.snap.portionSize.description' => 'اندازوں کی درستگی کا انحصار بڑے پیمانے پر آپ کے حصے کے صحیح اندازے پر ہوتا ہے۔',
 			'disclaimer.snap.preparationMethods.title' => 'تیاری کے طریقے',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'پکانے کے طریقے غذائی مواد کو نمایاں طور پر بدل سکتے ہیں۔ ${appLabel} کے اندازے ہمیشہ ان تبدیلیوں کو مدِ نظر نہیں رکھ سکتے۔',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'پکانے کے طریقے غذائی مواد کو نمایاں طور پر بدل سکتے ہیں۔ ${appLabel} کے اندازے ہمیشہ ان تبدیلیوں کو مدِ نظر نہیں رکھ سکتے۔',
 			'disclaimer.snap.ingredients.title' => 'اجزاء',
 			'disclaimer.snap.ingredients.description' => 'پیچیدہ پکوان جن میں بہت سے پوشیدہ اجزاء ہوں، کم درست اندازوں کا باعث بن سکتے ہیں۔',
 			'disclaimer.snap.databaseLimitations.title' => 'ڈیٹا بیس کی حدود',

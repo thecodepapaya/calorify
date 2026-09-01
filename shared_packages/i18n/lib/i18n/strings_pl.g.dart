@@ -815,6 +815,7 @@ class _Translations$meal$analysis$pl extends Translations$meal$analysis$en {
 	@override String get stepError => 'Coś poszło nie tak';
 	@override String get providerUnavailable => 'Dostawca analizy posiłku jest chwilowo niedostępny. Spróbuj ponownie.';
 	@override String get invalidModelOutput => 'Nie udało się zrozumieć odpowiedzi dotyczącej posiłku. Spróbuj ponownie.';
+	@override String get nutritionServiceBusy => 'Usługa dopasowywania wartości odżywczych jest teraz zajęta. Spróbuj ponownie za chwilę.';
 	@override String get nutritionDataUnavailable => 'Dane żywieniowe są chwilowo niedostępne. Spróbuj ponownie.';
 	@override String get analysisUnavailable => 'Analiza posiłku jest chwilowo niedostępna. Spróbuj ponownie.';
 	@override String get unresolvedNutrition => 'Nie udało się jednoznacznie dopasować danych żywieniowych do tego posiłku. Spróbuj dodać więcej szczegółów.';
@@ -2235,6 +2236,7 @@ extension on TranslationsPl {
 			'meal.analysis.stepError' => 'Coś poszło nie tak',
 			'meal.analysis.providerUnavailable' => 'Dostawca analizy posiłku jest chwilowo niedostępny. Spróbuj ponownie.',
 			'meal.analysis.invalidModelOutput' => 'Nie udało się zrozumieć odpowiedzi dotyczącej posiłku. Spróbuj ponownie.',
+			'meal.analysis.nutritionServiceBusy' => 'Usługa dopasowywania wartości odżywczych jest teraz zajęta. Spróbuj ponownie za chwilę.',
 			'meal.analysis.nutritionDataUnavailable' => 'Dane żywieniowe są chwilowo niedostępne. Spróbuj ponownie.',
 			'meal.analysis.analysisUnavailable' => 'Analiza posiłku jest chwilowo niedostępna. Spróbuj ponownie.',
 			'meal.analysis.unresolvedNutrition' => 'Nie udało się jednoznacznie dopasować danych żywieniowych do tego posiłku. Spróbuj dodać więcej szczegółów.',
@@ -2494,9 +2496,9 @@ extension on TranslationsPl {
 			'disclaimer.snap.portionSize.title' => 'Wielkość porcji',
 			'disclaimer.snap.portionSize.description' => 'Dokładność szacunków w dużej mierze zależy od prawidłowej oceny wielkości porcji.',
 			'disclaimer.snap.preparationMethods.title' => 'Metody przygotowania',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Sposób przygotowania potraw może znacząco zmienić jej wartość odżywczą. Szacunki ${appLabel} nie zawsze mogą uwzględniać te różnice.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Sposób przygotowania potraw może znacząco zmienić jej wartość odżywczą. Szacunki ${appLabel} nie zawsze mogą uwzględniać te różnice.',
 			'disclaimer.snap.ingredients.title' => 'Składniki',
 			'disclaimer.snap.ingredients.description' => 'Złożone dania z wieloma ukrytymi składnikami mogą powodować mniejszą dokładność oszacowań.',
 			'disclaimer.snap.databaseLimitations.title' => 'Ograniczenia bazy danych',

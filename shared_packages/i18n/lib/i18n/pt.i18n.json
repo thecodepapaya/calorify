@@ -337,6 +337,7 @@
       "stepError": "Algo correu mal",
       "providerUnavailable": "O serviço de análise de refeições está temporariamente indisponível. Tente novamente.",
       "invalidModelOutput": "Não foi possível entender a resposta sobre a refeição. Tente novamente.",
+      "nutritionServiceBusy": "O serviço de análise nutricional está ocupado. Tente novamente.",
       "nutritionDataUnavailable": "Os dados nutricionais estão temporariamente indisponíveis. Tente novamente.",
       "analysisUnavailable": "A análise da refeição está temporariamente indisponível. Tente novamente.",
       "unresolvedNutrition": "Não conseguimos vincular com segurança os dados nutricionais desta refeição. Tente adicionar mais detalhes.",

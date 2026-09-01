@@ -815,6 +815,7 @@ class _Translations$meal$analysis$tl extends Translations$meal$analysis$en {
 	@override String get stepError => 'May nangyaring mali';
 	@override String get providerUnavailable => 'Pansamantalang hindi magagamit ang serbisyo para sa pagsusuri ng pagkain. Pakisubukang muli.';
 	@override String get invalidModelOutput => 'Hindi maunawaan ang tugon para sa pagkain. Pakisubukang muli.';
+	@override String get nutritionServiceBusy => 'Abala ang serbisyo sa pagtutugma ng nutrisyon. Pakisubukang muli.';
 	@override String get nutritionDataUnavailable => 'Pansamantalang hindi magagamit ang datos ng nutrisyon. Pakisubukang muli.';
 	@override String get analysisUnavailable => 'Pansamantalang hindi magagamit ang pagsusuri ng pagkain. Pakisubukang muli.';
 	@override String get unresolvedNutrition => 'Hindi namin matugma nang ligtas ang datos ng nutrisyon para sa pagkaing ito. Subukang magdagdag ng higit pang detalye.';
@@ -2235,6 +2236,7 @@ extension on TranslationsTl {
 			'meal.analysis.stepError' => 'May nangyaring mali',
 			'meal.analysis.providerUnavailable' => 'Pansamantalang hindi magagamit ang serbisyo para sa pagsusuri ng pagkain. Pakisubukang muli.',
 			'meal.analysis.invalidModelOutput' => 'Hindi maunawaan ang tugon para sa pagkain. Pakisubukang muli.',
+			'meal.analysis.nutritionServiceBusy' => 'Abala ang serbisyo sa pagtutugma ng nutrisyon. Pakisubukang muli.',
 			'meal.analysis.nutritionDataUnavailable' => 'Pansamantalang hindi magagamit ang datos ng nutrisyon. Pakisubukang muli.',
 			'meal.analysis.analysisUnavailable' => 'Pansamantalang hindi magagamit ang pagsusuri ng pagkain. Pakisubukang muli.',
 			'meal.analysis.unresolvedNutrition' => 'Hindi namin matugma nang ligtas ang datos ng nutrisyon para sa pagkaing ito. Subukang magdagdag ng higit pang detalye.',
@@ -2494,9 +2496,9 @@ extension on TranslationsTl {
 			'disclaimer.snap.portionSize.title' => 'Laki ng Bahagi',
 			'disclaimer.snap.portionSize.description' => 'Malaki ang nakasalalay sa kawastuhan ng mga pagtatantya sa tamang pagtatasa ng laki ng bahagi.',
 			'disclaimer.snap.preparationMethods.title' => 'Paraan ng Pagluluto',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Malaki ang naiaambag ng paraan ng pagluluto sa pagbabago ng nilalamang nutrisyon ng pagkain. Maaaring hindi palaging nasasaalang-alang ng mga pagtatantya ng ${appLabel} ang mga pagkakaibang ito.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Malaki ang naiaambag ng paraan ng pagluluto sa pagbabago ng nilalamang nutrisyon ng pagkain. Maaaring hindi palaging nasasaalang-alang ng mga pagtatantya ng ${appLabel} ang mga pagkakaibang ito.',
 			'disclaimer.snap.ingredients.title' => 'Mga Sangkap',
 			'disclaimer.snap.ingredients.description' => 'Ang mga komplikadong putahe na may maraming nakatagong sangkap ay maaaring magresulta sa hindi gaanong tumpak na pagtatantiya.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitasyon ng Database',

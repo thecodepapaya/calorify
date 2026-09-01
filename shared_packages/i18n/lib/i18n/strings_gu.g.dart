@@ -815,6 +815,7 @@ class _Translations$meal$analysis$gu extends Translations$meal$analysis$en {
 	@override String get stepError => 'કંઈક ખોટું થયું';
 	@override String get providerUnavailable => 'ભોજન વિશ્લેષણ પ્રદાતા હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.';
 	@override String get invalidModelOutput => 'ભોજન માટેનો પ્રતિસાદ સમજાઈ શક્યો નથી. કૃપા કરીને ફરી પ્રયત્ન કરો.';
+	@override String get nutritionServiceBusy => 'પોષણ મેળવણી વ્યસ્ત છે. કૃપા કરીને ફરી પ્રયત્ન કરો.';
 	@override String get nutritionDataUnavailable => 'પોષણ માહિતી હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.';
 	@override String get analysisUnavailable => 'ભોજન વિશ્લેષણ હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.';
 	@override String get unresolvedNutrition => 'અમે આ ભોજન માટે પોષણ માહિતી ચોક્કસ રીતે મેળખત બેસાડી શક્યાં નથી. કૃપા કરીને વધુ વિગતો ઉમેરવાનો પ્રયાસ કરો.';
@@ -2235,6 +2236,7 @@ extension on TranslationsGu {
 			'meal.analysis.stepError' => 'કંઈક ખોટું થયું',
 			'meal.analysis.providerUnavailable' => 'ભોજન વિશ્લેષણ પ્રદાતા હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.',
 			'meal.analysis.invalidModelOutput' => 'ભોજન માટેનો પ્રતિસાદ સમજાઈ શક્યો નથી. કૃપા કરીને ફરી પ્રયત્ન કરો.',
+			'meal.analysis.nutritionServiceBusy' => 'પોષણ મેળવણી વ્યસ્ત છે. કૃપા કરીને ફરી પ્રયત્ન કરો.',
 			'meal.analysis.nutritionDataUnavailable' => 'પોષણ માહિતી હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.',
 			'meal.analysis.analysisUnavailable' => 'ભોજન વિશ્લેષણ હાલમાં ઉપલબ્ધ નથી. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.',
 			'meal.analysis.unresolvedNutrition' => 'અમે આ ભોજન માટે પોષણ માહિતી ચોક્કસ રીતે મેળખત બેસાડી શક્યાં નથી. કૃપા કરીને વધુ વિગતો ઉમેરવાનો પ્રયાસ કરો.',
@@ -2494,9 +2496,9 @@ extension on TranslationsGu {
 			'disclaimer.snap.portionSize.title' => 'ભાગનું કદ',
 			'disclaimer.snap.portionSize.description' => 'અંદાજોની ચોકસાઈ તમારા ભાગના કદના સાચા મૂલ્યાંકન પર ખૂબ આધાર રાખે છે.',
 			'disclaimer.snap.preparationMethods.title' => 'તૈયારી પદ્ધતિઓ',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'રસોઈ પદ્ધતિઓ ખોરાકની પોષક સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજો હંમેશા આ ભિન્નતાઓને ધ્યાનમાં લઈ શકતા નથી.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'રસોઈ પદ્ધતિઓ ખોરાકની પોષક સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજો હંમેશા આ ભિન્નતાઓને ધ્યાનમાં લઈ શકતા નથી.',
 			'disclaimer.snap.ingredients.title' => 'ઘટકો',
 			'disclaimer.snap.ingredients.description' => 'ઘણા છુપાયેલા ઘટકોવાળી જટિલ વાનગીઓ ઓછા સચોટ અંદાજો તરફ દોરી શકે છે.',
 			'disclaimer.snap.databaseLimitations.title' => 'ડેટાબેઝ મર્યાદાઓ',

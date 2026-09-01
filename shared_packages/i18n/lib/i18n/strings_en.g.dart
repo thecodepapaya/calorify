@@ -1416,6 +1416,9 @@ class Translations$meal$analysis$en {
 	/// en: 'The meal response could not be understood. Please try again.'
 	String get invalidModelOutput => 'The meal response could not be understood. Please try again.';
 
+	/// en: 'Nutrition matching is busy. Please try again.'
+	String get nutritionServiceBusy => 'Nutrition matching is busy. Please try again.';
+
 	/// en: 'Nutrition data is temporarily unavailable. Please try again.'
 	String get nutritionDataUnavailable => 'Nutrition data is temporarily unavailable. Please try again.';
 
@@ -3566,6 +3569,7 @@ extension on Translations {
 			'meal.analysis.stepError' => 'Something went wrong',
 			'meal.analysis.providerUnavailable' => 'The meal analysis provider is temporarily unavailable. Please try again.',
 			'meal.analysis.invalidModelOutput' => 'The meal response could not be understood. Please try again.',
+			'meal.analysis.nutritionServiceBusy' => 'Nutrition matching is busy. Please try again.',
 			'meal.analysis.nutritionDataUnavailable' => 'Nutrition data is temporarily unavailable. Please try again.',
 			'meal.analysis.analysisUnavailable' => 'Meal analysis is temporarily unavailable. Please try again.',
 			'meal.analysis.unresolvedNutrition' => 'We could not safely match nutrition data for this meal. Try adding more detail.',
@@ -3825,9 +3829,9 @@ extension on Translations {
 			'disclaimer.snap.portionSize.title' => 'Portion Size',
 			'disclaimer.snap.portionSize.description' => 'The accuracy of the estimates heavily relies on your correct assessment of the portion size.',
 			'disclaimer.snap.preparationMethods.title' => 'Preparation Methods',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cooking methods can significantly alter the nutritional content of food. ${appLabel}\'s estimates may not always account for these variations.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cooking methods can significantly alter the nutritional content of food. ${appLabel}\'s estimates may not always account for these variations.',
 			'disclaimer.snap.ingredients.title' => 'Ingredients',
 			'disclaimer.snap.ingredients.description' => 'Complex dishes with many hidden ingredients may lead to less accurate estimations.',
 			'disclaimer.snap.databaseLimitations.title' => 'Database Limitations',

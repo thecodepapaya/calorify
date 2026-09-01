@@ -815,6 +815,7 @@ class _Translations$meal$analysis$th extends Translations$meal$analysis$en {
 	@override String get stepError => 'เกิดข้อผิดพลาดบางอย่าง';
 	@override String get providerUnavailable => 'ผู้ให้บริการวิเคราะห์มื้ออาหารไม่พร้อมให้บริการชั่วคราว โปรดลองอีกครั้ง.';
 	@override String get invalidModelOutput => 'ไม่สามารถตีความผลลัพธ์ของมื้ออาหารได้ โปรดลองอีกครั้ง.';
+	@override String get nutritionServiceBusy => 'บริการจับคู่โภชนาการกำลังใช้งานหนาแน่น โปรดลองอีกครั้ง';
 	@override String get nutritionDataUnavailable => 'ข้อมูลโภชนาการไม่พร้อมให้บริการชั่วคราว โปรดลองอีกครั้ง.';
 	@override String get analysisUnavailable => 'การวิเคราะห์มื้ออาหารไม่พร้อมให้บริการชั่วคราว โปรดลองอีกครั้ง.';
 	@override String get unresolvedNutrition => 'เราไม่สามารถจับคู่ข้อมูลโภชนาการสำหรับมื้อนี้ได้อย่างมั่นใจ ลองระบุรายละเอียดเพิ่มเติม.';
@@ -2235,6 +2236,7 @@ extension on TranslationsTh {
 			'meal.analysis.stepError' => 'เกิดข้อผิดพลาดบางอย่าง',
 			'meal.analysis.providerUnavailable' => 'ผู้ให้บริการวิเคราะห์มื้ออาหารไม่พร้อมให้บริการชั่วคราว โปรดลองอีกครั้ง.',
 			'meal.analysis.invalidModelOutput' => 'ไม่สามารถตีความผลลัพธ์ของมื้ออาหารได้ โปรดลองอีกครั้ง.',
+			'meal.analysis.nutritionServiceBusy' => 'บริการจับคู่โภชนาการกำลังใช้งานหนาแน่น โปรดลองอีกครั้ง',
 			'meal.analysis.nutritionDataUnavailable' => 'ข้อมูลโภชนาการไม่พร้อมให้บริการชั่วคราว โปรดลองอีกครั้ง.',
 			'meal.analysis.analysisUnavailable' => 'การวิเคราะห์มื้ออาหารไม่พร้อมให้บริการชั่วคราว โปรดลองอีกครั้ง.',
 			'meal.analysis.unresolvedNutrition' => 'เราไม่สามารถจับคู่ข้อมูลโภชนาการสำหรับมื้อนี้ได้อย่างมั่นใจ ลองระบุรายละเอียดเพิ่มเติม.',
@@ -2494,9 +2496,9 @@ extension on TranslationsTh {
 			'disclaimer.snap.portionSize.title' => 'ขนาดส่วน',
 			'disclaimer.snap.portionSize.description' => 'ความแม่นยำของการประมาณพึ่งพาการประเมินขนาดส่วนที่ถูกต้องของคุณอย่างมาก',
 			'disclaimer.snap.preparationMethods.title' => 'วิธีการปรุง',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'วิธีการปรุงอาหารสามารถเปลี่ยนปริมาณโภชนาการได้อย่างมาก การประมาณของ ${appLabel} อาจไม่ครอบคลุมความแตกต่างเหล่านี้เสมอไป',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'วิธีการปรุงอาหารสามารถเปลี่ยนปริมาณโภชนาการได้อย่างมาก การประมาณของ ${appLabel} อาจไม่ครอบคลุมความแตกต่างเหล่านี้เสมอไป',
 			'disclaimer.snap.ingredients.title' => 'ส่วนผสม',
 			'disclaimer.snap.ingredients.description' => 'จานที่ซับซ้อนมีส่วนผสมแฝงหลายชนิด อาจทำให้การประมาณมีความแม่นยำน้อยลง',
 			'disclaimer.snap.databaseLimitations.title' => 'ข้อจำกัดของฐานข้อมูล',

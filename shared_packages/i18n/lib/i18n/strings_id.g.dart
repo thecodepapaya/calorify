@@ -815,6 +815,7 @@ class _Translations$meal$analysis$id extends Translations$meal$analysis$en {
 	@override String get stepError => 'Terjadi kesalahan';
 	@override String get providerUnavailable => 'Penyedia analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.';
 	@override String get invalidModelOutput => 'Respons analisis hidangan tidak dapat dipahami. Silakan coba lagi.';
+	@override String get nutritionServiceBusy => 'Pencocokan nutrisi sedang sibuk. Silakan coba lagi.';
 	@override String get nutritionDataUnavailable => 'Data nutrisi untuk sementara tidak tersedia. Silakan coba lagi.';
 	@override String get analysisUnavailable => 'Analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.';
 	@override String get unresolvedNutrition => 'Kami belum dapat mencocokkan data nutrisi untuk hidangan ini dengan cukup yakin. Coba tambahkan detail lebih lanjut.';
@@ -2235,6 +2236,7 @@ extension on TranslationsId {
 			'meal.analysis.stepError' => 'Terjadi kesalahan',
 			'meal.analysis.providerUnavailable' => 'Penyedia analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.',
 			'meal.analysis.invalidModelOutput' => 'Respons analisis hidangan tidak dapat dipahami. Silakan coba lagi.',
+			'meal.analysis.nutritionServiceBusy' => 'Pencocokan nutrisi sedang sibuk. Silakan coba lagi.',
 			'meal.analysis.nutritionDataUnavailable' => 'Data nutrisi untuk sementara tidak tersedia. Silakan coba lagi.',
 			'meal.analysis.analysisUnavailable' => 'Analisis hidangan untuk sementara tidak tersedia. Silakan coba lagi.',
 			'meal.analysis.unresolvedNutrition' => 'Kami belum dapat mencocokkan data nutrisi untuk hidangan ini dengan cukup yakin. Coba tambahkan detail lebih lanjut.',
@@ -2494,9 +2496,9 @@ extension on TranslationsId {
 			'disclaimer.snap.portionSize.title' => 'Ukuran Porsi',
 			'disclaimer.snap.portionSize.description' => 'Akurasi perkiraan sangat bergantung pada penilaian ukuran porsi yang benar.',
 			'disclaimer.snap.preparationMethods.title' => 'Metode Persiapan',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metode memasak dapat mengubah kandungan nutrisi secara signifikan. Perkiraan ${appLabel} mungkin tidak selalu memperhitungkan variasi ini.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metode memasak dapat mengubah kandungan nutrisi secara signifikan. Perkiraan ${appLabel} mungkin tidak selalu memperhitungkan variasi ini.',
 			'disclaimer.snap.ingredients.title' => 'Bahan',
 			'disclaimer.snap.ingredients.description' => 'Hidangan kompleks dengan banyak bahan tersembunyi dapat menyebabkan estimasi yang kurang akurat.',
 			'disclaimer.snap.databaseLimitations.title' => 'Batasan Basis Data',

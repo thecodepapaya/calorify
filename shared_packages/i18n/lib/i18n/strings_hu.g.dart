@@ -815,6 +815,7 @@ class _Translations$meal$analysis$hu extends Translations$meal$analysis$en {
 	@override String get stepError => 'Valami hiba történt';
 	@override String get providerUnavailable => 'Az étkezéselemző szolgáltatás átmenetileg nem érhető el. Próbáld újra.';
 	@override String get invalidModelOutput => 'Az étkezésre kapott választ nem sikerült értelmezni. Próbáld újra.';
+	@override String get nutritionServiceBusy => 'A tápanyag-hozzárendelő szolgáltatás jelenleg foglalt. Kérjük, próbálja meg újra.';
 	@override String get nutritionDataUnavailable => 'A tápanyagadatok átmenetileg nem érhetők el. Próbáld újra.';
 	@override String get analysisUnavailable => 'Az étkezéselemzés átmenetileg nem érhető el. Próbáld újra.';
 	@override String get unresolvedNutrition => 'Ehhez az étkezéshez nem tudtunk megbízhatóan tápanyagadatokat társítani. Próbálj meg több részletet megadni.';
@@ -2235,6 +2236,7 @@ extension on TranslationsHu {
 			'meal.analysis.stepError' => 'Valami hiba történt',
 			'meal.analysis.providerUnavailable' => 'Az étkezéselemző szolgáltatás átmenetileg nem érhető el. Próbáld újra.',
 			'meal.analysis.invalidModelOutput' => 'Az étkezésre kapott választ nem sikerült értelmezni. Próbáld újra.',
+			'meal.analysis.nutritionServiceBusy' => 'A tápanyag-hozzárendelő szolgáltatás jelenleg foglalt. Kérjük, próbálja meg újra.',
 			'meal.analysis.nutritionDataUnavailable' => 'A tápanyagadatok átmenetileg nem érhetők el. Próbáld újra.',
 			'meal.analysis.analysisUnavailable' => 'Az étkezéselemzés átmenetileg nem érhető el. Próbáld újra.',
 			'meal.analysis.unresolvedNutrition' => 'Ehhez az étkezéshez nem tudtunk megbízhatóan tápanyagadatokat társítani. Próbálj meg több részletet megadni.',
@@ -2494,9 +2496,9 @@ extension on TranslationsHu {
 			'disclaimer.snap.portionSize.title' => 'Adagméret',
 			'disclaimer.snap.portionSize.description' => 'A becslések pontossága nagymértékben függ az adagméret helyes megadásától.',
 			'disclaimer.snap.preparationMethods.title' => 'Elkészítési módok',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'A főzési módok jelentősen megváltoztathatják az étel tápanyagtartalmát. A ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'A főzési módok jelentősen megváltoztathatják az étel tápanyagtartalmát. A ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.',
 			'disclaimer.snap.ingredients.title' => 'Összetevők',
 			'disclaimer.snap.ingredients.description' => 'Az összetett ételek sok rejtett összetevője pontatlansághoz vezethet.',
 			'disclaimer.snap.databaseLimitations.title' => 'Adatbázis korlátok',

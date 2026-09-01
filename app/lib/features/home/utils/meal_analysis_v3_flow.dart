@@ -207,6 +207,7 @@ class MealAnalysisV3Exception implements Exception {
   String toString() => switch (issue?.code) {
     'PROVIDER_UNAVAILABLE' => t.meal.analysis.providerUnavailable,
     'INVALID_MODEL_OUTPUT' => t.meal.analysis.invalidModelOutput,
+    'NUTRITION_SERVICE_BUSY' => t.meal.analysis.nutritionServiceBusy,
     'NUTRITION_DATA_UNAVAILABLE' => t.meal.analysis.nutritionDataUnavailable,
     'UNRESOLVED_NUTRITION' => t.meal.analysis.unresolvedNutrition,
     'NO_FOOD' => t.meal.analysis.noFoodTip,

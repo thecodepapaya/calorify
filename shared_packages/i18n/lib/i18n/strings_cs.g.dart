@@ -815,6 +815,7 @@ class _Translations$meal$analysis$cs extends Translations$meal$analysis$en {
 	@override String get stepError => 'Něco se pokazilo';
 	@override String get providerUnavailable => 'Služba analýzy jídla je dočasně nedostupná. Zkuste to prosím znovu.';
 	@override String get invalidModelOutput => 'Výstupu analýzy jídla nebylo možné porozumět. Zkuste to prosím znovu.';
+	@override String get nutritionServiceBusy => 'Služba párování nutričních údajů je momentálně vytížená. Zkuste to prosím znovu.';
 	@override String get nutritionDataUnavailable => 'Nutriční údaje jsou dočasně nedostupné. Zkuste to prosím znovu.';
 	@override String get analysisUnavailable => 'Analýza jídla je dočasně nedostupná. Zkuste to prosím znovu.';
 	@override String get unresolvedNutrition => 'Spolehlivě jsme nedokázali přiřadit nutriční údaje k tomuto jídlu. Zkuste přidat více podrobností.';
@@ -2235,6 +2236,7 @@ extension on TranslationsCs {
 			'meal.analysis.stepError' => 'Něco se pokazilo',
 			'meal.analysis.providerUnavailable' => 'Služba analýzy jídla je dočasně nedostupná. Zkuste to prosím znovu.',
 			'meal.analysis.invalidModelOutput' => 'Výstupu analýzy jídla nebylo možné porozumět. Zkuste to prosím znovu.',
+			'meal.analysis.nutritionServiceBusy' => 'Služba párování nutričních údajů je momentálně vytížená. Zkuste to prosím znovu.',
 			'meal.analysis.nutritionDataUnavailable' => 'Nutriční údaje jsou dočasně nedostupné. Zkuste to prosím znovu.',
 			'meal.analysis.analysisUnavailable' => 'Analýza jídla je dočasně nedostupná. Zkuste to prosím znovu.',
 			'meal.analysis.unresolvedNutrition' => 'Spolehlivě jsme nedokázali přiřadit nutriční údaje k tomuto jídlu. Zkuste přidat více podrobností.',
@@ -2494,9 +2496,9 @@ extension on TranslationsCs {
 			'disclaimer.snap.portionSize.title' => 'Velikost porce',
 			'disclaimer.snap.portionSize.description' => 'Přesnost odhadů silně závisí na správném odhadu velikosti porce.',
 			'disclaimer.snap.preparationMethods.title' => 'Způsoby přípravy',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Způsoby vaření mohou výrazně měnit nutriční hodnotu jídla. Odhady ${appLabel} nemusí tyto rozdíly vždy zohlednit.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Způsoby vaření mohou výrazně měnit nutriční hodnotu jídla. Odhady ${appLabel} nemusí tyto rozdíly vždy zohlednit.',
 			'disclaimer.snap.ingredients.title' => 'Ingredience',
 			'disclaimer.snap.ingredients.description' => 'Složité pokrmy s mnoha skrytými ingrediencemi mohou vést k méně přesným odhadům.',
 			'disclaimer.snap.databaseLimitations.title' => 'Omezení databáze',

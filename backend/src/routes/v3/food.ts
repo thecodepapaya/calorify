@@ -13,7 +13,10 @@ import {
   type MealAnalysisV3Result,
 } from '../../services/meal-analysis-v3/pipeline.js';
 import { mealContextSchema } from '../../services/meal-analysis-v3/domain.js';
-import { classifyMealAnalysisV3Error } from '../../services/meal-analysis-v3/errors.js';
+import {
+  classifyMealAnalysisV3Error,
+  mealAnalysisV3ErrorMetadata,
+} from '../../services/meal-analysis-v3/errors.js';
 import {
   buildMealAnalysisV3PassProgress,
   buildMealAnalysisV3Progress,
@@ -304,7 +307,7 @@ async function runSession(reply: FastifyReply, session: V3Session): Promise<void
       {
         analysisId,
         publicErrorCode: publicError.code,
-        ...safeErrorMetadata(error, 'meal_analysis_v3_failed'),
+        ...mealAnalysisV3ErrorMetadata(error),
       },
       'V3 meal analysis failed'
     );

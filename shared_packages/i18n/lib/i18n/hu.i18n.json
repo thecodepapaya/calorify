@@ -337,6 +337,7 @@
       "stepError": "Valami hiba történt",
       "providerUnavailable": "Az étkezéselemző szolgáltatás átmenetileg nem érhető el. Próbáld újra.",
       "invalidModelOutput": "Az étkezésre kapott választ nem sikerült értelmezni. Próbáld újra.",
+      "nutritionServiceBusy": "A tápanyag-hozzárendelő szolgáltatás jelenleg foglalt. Kérjük, próbálja meg újra.",
       "nutritionDataUnavailable": "A tápanyagadatok átmenetileg nem érhetők el. Próbáld újra.",
       "analysisUnavailable": "Az étkezéselemzés átmenetileg nem érhető el. Próbáld újra.",
       "unresolvedNutrition": "Ehhez az étkezéshez nem tudtunk megbízhatóan tápanyagadatokat társítani. Próbálj meg több részletet megadni.",

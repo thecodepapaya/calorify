@@ -337,6 +337,7 @@
       "stepError": "Něco se pokazilo",
       "providerUnavailable": "Služba analýzy jídla je dočasně nedostupná. Zkuste to prosím znovu.",
       "invalidModelOutput": "Výstupu analýzy jídla nebylo možné porozumět. Zkuste to prosím znovu.",
+      "nutritionServiceBusy": "Služba párování nutričních údajů je momentálně vytížená. Zkuste to prosím znovu.",
       "nutritionDataUnavailable": "Nutriční údaje jsou dočasně nedostupné. Zkuste to prosím znovu.",
       "analysisUnavailable": "Analýza jídla je dočasně nedostupná. Zkuste to prosím znovu.",
       "unresolvedNutrition": "Spolehlivě jsme nedokázali přiřadit nutriční údaje k tomuto jídlu. Zkuste přidat více podrobností.",

@@ -337,6 +337,7 @@
       "stepError": "May nangyaring mali",
       "providerUnavailable": "Pansamantalang hindi magagamit ang serbisyo para sa pagsusuri ng pagkain. Pakisubukang muli.",
       "invalidModelOutput": "Hindi maunawaan ang tugon para sa pagkain. Pakisubukang muli.",
+      "nutritionServiceBusy": "Abala ang serbisyo sa pagtutugma ng nutrisyon. Pakisubukang muli.",
       "nutritionDataUnavailable": "Pansamantalang hindi magagamit ang datos ng nutrisyon. Pakisubukang muli.",
       "analysisUnavailable": "Pansamantalang hindi magagamit ang pagsusuri ng pagkain. Pakisubukang muli.",
       "unresolvedNutrition": "Hindi namin matugma nang ligtas ang datos ng nutrisyon para sa pagkaing ito. Subukang magdagdag ng higit pang detalye.",

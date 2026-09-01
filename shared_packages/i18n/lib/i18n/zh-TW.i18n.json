@@ -337,6 +337,7 @@
       "stepError": "發生錯誤",
       "providerUnavailable": "餐點分析服務暫時無法使用。請稍後再試。",
       "invalidModelOutput": "餐點分析回應內容無法辨識。請稍後再試。",
+      "nutritionServiceBusy": "營養比對服務目前忙碌中，請稍後再試。",
       "nutritionDataUnavailable": "營養資訊暫時無法使用。請稍後再試。",
       "analysisUnavailable": "餐點分析暫時無法使用。請稍後再試。",
       "unresolvedNutrition": "我們無法安全地為此餐點配對營養資訊。請嘗試提供更多細節。",

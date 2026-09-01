@@ -44,6 +44,7 @@ const evalCase: MealAnalysisEvalCase = {
 const validFirstPass = {
   food_detected: true,
   mealName: 'Roti with dal',
+  servingSizeText: '4 rotis + dal',
   tip: 'Dal and roti form a complete protein when eaten together.',
   mealTypeCandidate: { value: 'LUNCH', origin: 'model_inferred' },
   mealItems: [

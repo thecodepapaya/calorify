@@ -815,6 +815,7 @@ class _Translations$meal$analysis$ja extends Translations$meal$analysis$en {
 	@override String get stepError => '問題が発生しました';
 	@override String get providerUnavailable => '食事分析サービスは現在ご利用いただけません。しばらくしてからもう一度お試しください。';
 	@override String get invalidModelOutput => '食事の分析結果を正しく読み取れませんでした。もう一度お試しください。';
+	@override String get nutritionServiceBusy => '栄養情報の照合が混み合っています。もう一度お試しください。';
 	@override String get nutritionDataUnavailable => '栄養データは現在ご利用いただけません。しばらくしてからもう一度お試しください。';
 	@override String get analysisUnavailable => '食事の分析は現在ご利用いただけません。しばらくしてからもう一度お試しください。';
 	@override String get unresolvedNutrition => 'この食事に確実に一致する栄養データを特定できませんでした。詳細をもう少し追加してみてください。';
@@ -2235,6 +2236,7 @@ extension on TranslationsJa {
 			'meal.analysis.stepError' => '問題が発生しました',
 			'meal.analysis.providerUnavailable' => '食事分析サービスは現在ご利用いただけません。しばらくしてからもう一度お試しください。',
 			'meal.analysis.invalidModelOutput' => '食事の分析結果を正しく読み取れませんでした。もう一度お試しください。',
+			'meal.analysis.nutritionServiceBusy' => '栄養情報の照合が混み合っています。もう一度お試しください。',
 			'meal.analysis.nutritionDataUnavailable' => '栄養データは現在ご利用いただけません。しばらくしてからもう一度お試しください。',
 			'meal.analysis.analysisUnavailable' => '食事の分析は現在ご利用いただけません。しばらくしてからもう一度お試しください。',
 			'meal.analysis.unresolvedNutrition' => 'この食事に確実に一致する栄養データを特定できませんでした。詳細をもう少し追加してみてください。',
@@ -2494,9 +2496,9 @@ extension on TranslationsJa {
 			'disclaimer.snap.portionSize.title' => '分量',
 			'disclaimer.snap.portionSize.description' => '推定の精度は分量の正確な評価に大きく依存します。',
 			'disclaimer.snap.preparationMethods.title' => '調理方法',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '調理方法は栄養成分を大きく変える可能性があります。${appLabel}の推定が必ずしもこれらを考慮しているとは限りません。',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '調理方法は栄養成分を大きく変える可能性があります。${appLabel}の推定が必ずしもこれらを考慮しているとは限りません。',
 			'disclaimer.snap.ingredients.title' => '材料',
 			'disclaimer.snap.ingredients.description' => '材料が複雑で隠れた材料が多い料理は、推定精度が低くなる可能性があります。',
 			'disclaimer.snap.databaseLimitations.title' => 'データベースの制限',

@@ -9,6 +9,7 @@ import {
 const koreanFirstPass = {
   food_detected: true,
   mealName: '신라면 세트',
+  servingSizeText: '라면 1개 + 계란 1개',
   tip: 'Instant ramyun sodium levels are high; the broth holds most of the salt.',
   mealTypeCandidate: { value: 'LUNCH', origin: 'model_inferred' },
   mealItems: [

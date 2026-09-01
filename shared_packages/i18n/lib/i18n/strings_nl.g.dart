@@ -815,6 +815,7 @@ class _Translations$meal$analysis$nl extends Translations$meal$analysis$en {
 	@override String get stepError => 'Er is iets misgegaan';
 	@override String get providerUnavailable => 'De dienst voor maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.';
 	@override String get invalidModelOutput => 'We konden het antwoord voor de maaltijd niet begrijpen. Probeer het opnieuw.';
+	@override String get nutritionServiceBusy => 'De voedingsanalyse is even bezig. Probeer het opnieuw.';
 	@override String get nutritionDataUnavailable => 'Voedingsgegevens zijn tijdelijk niet beschikbaar. Probeer het opnieuw.';
 	@override String get analysisUnavailable => 'Maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.';
 	@override String get unresolvedNutrition => 'We konden de voedingsgegevens voor deze maaltijd niet met zekerheid koppelen. Probeer wat meer details toe te voegen.';
@@ -2235,6 +2236,7 @@ extension on TranslationsNl {
 			'meal.analysis.stepError' => 'Er is iets misgegaan',
 			'meal.analysis.providerUnavailable' => 'De dienst voor maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.',
 			'meal.analysis.invalidModelOutput' => 'We konden het antwoord voor de maaltijd niet begrijpen. Probeer het opnieuw.',
+			'meal.analysis.nutritionServiceBusy' => 'De voedingsanalyse is even bezig. Probeer het opnieuw.',
 			'meal.analysis.nutritionDataUnavailable' => 'Voedingsgegevens zijn tijdelijk niet beschikbaar. Probeer het opnieuw.',
 			'meal.analysis.analysisUnavailable' => 'Maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.',
 			'meal.analysis.unresolvedNutrition' => 'We konden de voedingsgegevens voor deze maaltijd niet met zekerheid koppelen. Probeer wat meer details toe te voegen.',
@@ -2494,9 +2496,9 @@ extension on TranslationsNl {
 			'disclaimer.snap.portionSize.title' => 'Portiegrootte',
 			'disclaimer.snap.portionSize.description' => 'De nauwkeurigheid van de schattingen hangt sterk af van je juiste inschatting van de portiegrootte.',
 			'disclaimer.snap.preparationMethods.title' => 'Bereidingsmethoden',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Bereidingsmethoden kunnen de voedingswaarde aanzienlijk veranderen. De schattingen van ${appLabel} houden mogelijk niet altijd rekening met deze variaties.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Bereidingsmethoden kunnen de voedingswaarde aanzienlijk veranderen. De schattingen van ${appLabel} houden mogelijk niet altijd rekening met deze variaties.',
 			'disclaimer.snap.ingredients.title' => 'Ingrediënten',
 			'disclaimer.snap.ingredients.description' => 'Complexe gerechten met veel verborgen ingrediënten kunnen leiden tot minder nauwkeurige schattingen.',
 			'disclaimer.snap.databaseLimitations.title' => 'Beperkingen van de database',

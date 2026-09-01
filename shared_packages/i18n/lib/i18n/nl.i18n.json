@@ -337,6 +337,7 @@
       "stepError": "Er is iets misgegaan",
       "providerUnavailable": "De dienst voor maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.",
       "invalidModelOutput": "We konden het antwoord voor de maaltijd niet begrijpen. Probeer het opnieuw.",
+      "nutritionServiceBusy": "De voedingsanalyse is even bezig. Probeer het opnieuw.",
       "nutritionDataUnavailable": "Voedingsgegevens zijn tijdelijk niet beschikbaar. Probeer het opnieuw.",
       "analysisUnavailable": "Maaltijdanalyse is tijdelijk niet beschikbaar. Probeer het opnieuw.",
       "unresolvedNutrition": "We konden de voedingsgegevens voor deze maaltijd niet met zekerheid koppelen. Probeer wat meer details toe te voegen.",

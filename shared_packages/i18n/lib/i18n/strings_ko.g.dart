@@ -815,6 +815,7 @@ class _Translations$meal$analysis$ko extends Translations$meal$analysis$en {
 	@override String get stepError => '문제가 발생했습니다';
 	@override String get providerUnavailable => '식사 분석 서비스가 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.';
 	@override String get invalidModelOutput => '식사 분석 결과를 이해할 수 없었습니다. 다시 시도해 주세요.';
+	@override String get nutritionServiceBusy => '영양 매칭이 잠시 지연되고 있습니다. 잠시 후 다시 시도해 주세요.';
 	@override String get nutritionDataUnavailable => '영양 정보를 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.';
 	@override String get analysisUnavailable => '식사 분석을 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.';
 	@override String get unresolvedNutrition => '이 식사에 대한 영양 정보를 안전하게 일치시킬 수 없었습니다. 더 자세한 정보를 추가해 보세요.';
@@ -2235,6 +2236,7 @@ extension on TranslationsKo {
 			'meal.analysis.stepError' => '문제가 발생했습니다',
 			'meal.analysis.providerUnavailable' => '식사 분석 서비스가 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.',
 			'meal.analysis.invalidModelOutput' => '식사 분석 결과를 이해할 수 없었습니다. 다시 시도해 주세요.',
+			'meal.analysis.nutritionServiceBusy' => '영양 매칭이 잠시 지연되고 있습니다. 잠시 후 다시 시도해 주세요.',
 			'meal.analysis.nutritionDataUnavailable' => '영양 정보를 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.',
 			'meal.analysis.analysisUnavailable' => '식사 분석을 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.',
 			'meal.analysis.unresolvedNutrition' => '이 식사에 대한 영양 정보를 안전하게 일치시킬 수 없었습니다. 더 자세한 정보를 추가해 보세요.',
@@ -2494,9 +2496,9 @@ extension on TranslationsKo {
 			'disclaimer.snap.portionSize.title' => '분량',
 			'disclaimer.snap.portionSize.description' => '추정치의 정확성은 분량을 얼마나 정확히 평가하느냐에 크게 좌우됩니다.',
 			'disclaimer.snap.preparationMethods.title' => '조리 방법',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '조리 방법은 음식의 영양 성분을 크게 바꿀 수 있습니다. ${appLabel}의 추정치는 항상 이러한 변이를 모두 반영하지 않을 수 있습니다.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '조리 방법은 음식의 영양 성분을 크게 바꿀 수 있습니다. ${appLabel}의 추정치는 항상 이러한 변이를 모두 반영하지 않을 수 있습니다.',
 			'disclaimer.snap.ingredients.title' => '재료',
 			'disclaimer.snap.ingredients.description' => '숨겨진 재료가 많은 복잡한 요리는 정확도가 떨어질 수 있습니다.',
 			'disclaimer.snap.databaseLimitations.title' => '데이터베이스 한계',

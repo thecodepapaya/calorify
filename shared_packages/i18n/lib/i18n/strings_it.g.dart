@@ -815,6 +815,7 @@ class _Translations$meal$analysis$it extends Translations$meal$analysis$en {
 	@override String get stepError => 'Si è verificato un problema';
 	@override String get providerUnavailable => 'Il servizio di analisi dei pasti è temporaneamente non disponibile. Riprova.';
 	@override String get invalidModelOutput => 'Impossibile interpretare la risposta sul pasto. Riprova.';
+	@override String get nutritionServiceBusy => 'L\'abbinamento nutrizionale è momentaneamente occupato. Per favore riprova.';
 	@override String get nutritionDataUnavailable => 'I dati nutrizionali sono temporaneamente non disponibili. Riprova.';
 	@override String get analysisUnavailable => 'L\'analisi del pasto è temporaneamente non disponibile. Riprova.';
 	@override String get unresolvedNutrition => 'Non siamo riusciti ad associare in modo affidabile i dati nutrizionali per questo pasto. Prova ad aggiungere più dettagli.';
@@ -2235,6 +2236,7 @@ extension on TranslationsIt {
 			'meal.analysis.stepError' => 'Si è verificato un problema',
 			'meal.analysis.providerUnavailable' => 'Il servizio di analisi dei pasti è temporaneamente non disponibile. Riprova.',
 			'meal.analysis.invalidModelOutput' => 'Impossibile interpretare la risposta sul pasto. Riprova.',
+			'meal.analysis.nutritionServiceBusy' => 'L\'abbinamento nutrizionale è momentaneamente occupato. Per favore riprova.',
 			'meal.analysis.nutritionDataUnavailable' => 'I dati nutrizionali sono temporaneamente non disponibili. Riprova.',
 			'meal.analysis.analysisUnavailable' => 'L\'analisi del pasto è temporaneamente non disponibile. Riprova.',
 			'meal.analysis.unresolvedNutrition' => 'Non siamo riusciti ad associare in modo affidabile i dati nutrizionali per questo pasto. Prova ad aggiungere più dettagli.',
@@ -2494,9 +2496,9 @@ extension on TranslationsIt {
 			'disclaimer.snap.portionSize.title' => 'Dimensione della porzione',
 			'disclaimer.snap.portionSize.description' => 'L\'accuratezza delle stime dipende fortemente dalla tua valutazione corretta della dimensione della porzione.',
 			'disclaimer.snap.preparationMethods.title' => 'Metodi di preparazione',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'I metodi di cottura possono alterare significativamente il contenuto nutrizionale. Le stime di ${appLabel} potrebbero non tenerne sempre conto.',
 			_ => null,
 		} ?? switch (path) {
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'I metodi di cottura possono alterare significativamente il contenuto nutrizionale. Le stime di ${appLabel} potrebbero non tenerne sempre conto.',
 			'disclaimer.snap.ingredients.title' => 'Ingredienti',
 			'disclaimer.snap.ingredients.description' => 'Piatti complessi con molti ingredienti nascosti possono portare a stime meno accurate.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitazioni del database',
