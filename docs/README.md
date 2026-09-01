@@ -16,6 +16,9 @@ Use this page to find the document that matches the work you are doing.
   — canonical implemented text/image lifecycle, two-pass interpretation,
   scenarios and ranges, clarification, progress UI, persistence and log sync,
   design tradeoffs, known limitations, and considered future features.
+- [GPT-5.6 Luna one-call meal-analysis evaluation](plans/luna-one-call-meal-analysis-evaluation.md)
+  — live three-repeat comparison of a combined parsing-and-decomposition call
+  with the current two-call baseline, including cost, latency, and decision.
 - [Nutrition resolver retrieval](plans/nutrition-resolver-retrieval.md) —
   canonical FTS, USDA NFS, and generic-spices fallback decisions, resolver
   invariants, and deferred embedding design and rollout criteria.
