@@ -55,8 +55,10 @@ parsed model output, provider error, run result, and the aggregate
 `summary.json` is stored there as pretty-printed JSON.
 
 The console output stays compact: it shows the artifact path, selected model,
-reasoning effort, each repetition's result, and aggregate pass rate. Inspect the
-separate JSON files when a response or assertion needs diagnosis.
+reasoning effort, and an `Eval 3/20`-style heading before each case with its
+food text, ID, and locale context. Each repetition reports its result and failed hard assertions;
+the final summary includes completed run and case counts plus the aggregate pass
+rate. Inspect the separate JSON files when a response or assertion needs diagnosis.
 
 ## Scoring
 

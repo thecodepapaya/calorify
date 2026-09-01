@@ -4,7 +4,12 @@ import {
   assertionPassRates,
   evaluateMealAnalysisRun,
   type MealAnalysisEvalCase,
+  type MealAnalysisEvalRunResult,
 } from '../../src/evals/mealAnalysisEval.js';
+import {
+  formatEvalCaseHeading,
+  formatEvalRunResult,
+} from '../../src/scripts/meal-analysis-eval.js';
 
 const evalCase: MealAnalysisEvalCase = {
   id: 'four-roti-daal',
@@ -213,5 +218,33 @@ test('reports assertion pass rates without applying a threshold', () => {
   assert.deepEqual(
     rates.find((rate) => rate.id === 'pass1.component-count'),
     { id: 'pass1.component-count', kind: 'hard', passed: 1, total: 2, passRate: 0.5 }
+  );
+});
+
+test('formats each eval case with its food and context', () => {
+  assert.equal(
+    formatEvalCaseHeading(evalCase, 2, 20),
+    '=== Eval 2/20: 4 roti daal ===\n'
+      + 'Case: four-roti-daal\n'
+      + 'Context: en-IN · IN · Asia/Kolkata'
+  );
+});
+
+test('formats failed run output with failed hard assertions', () => {
+  const result: MealAnalysisEvalRunResult = {
+    caseId: evalCase.id,
+    passed: false,
+    hardPassed: 22,
+    hardTotal: 24,
+    assertions: [
+      { id: 'pass1.component-count', kind: 'hard', passed: false, detail: 'wrong count' },
+      { id: 'pass2.lookup-alias-coverage', kind: 'diagnostic', passed: false, detail: 'no aliases' },
+      { id: 'pass2.amount-origins', kind: 'hard', passed: false, detail: 'wrong origin' },
+    ],
+  };
+
+  assert.equal(
+    formatEvalRunResult(result, 1, 3),
+    '[1/3] FAIL 22/24 hard assertions · pass1.component-count, pass2.amount-origins'
   );
 });

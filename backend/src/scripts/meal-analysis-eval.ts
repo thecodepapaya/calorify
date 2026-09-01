@@ -1,6 +1,7 @@
 import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { isAbsolute, join, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import config from '../config.js';
 import {
   assertionPassRates,
@@ -52,6 +53,31 @@ export function normalizeEvalModel(value: string): string {
 
 export function reasoningEffortForEvalModel(model: string): 'none' | 'minimal' {
   return /gpt-5\.(?:[1-9]|[1-9][0-9])/.test(model) ? 'none' : 'minimal';
+}
+
+export function formatEvalCaseHeading(
+  evalCase: MealAnalysisEvalCase,
+  caseNumber: number,
+  caseTotal: number
+): string {
+  return [
+    `=== Eval ${caseNumber}/${caseTotal}: ${evalCase.input.text} ===`,
+    `Case: ${evalCase.id}`,
+    `Context: ${evalCase.input.locale} · ${evalCase.input.countryCode} · ${evalCase.input.timeZone}`,
+  ].join('\n');
+}
+
+export function formatEvalRunResult(
+  result: MealAnalysisEvalRunResult,
+  runNumber: number,
+  repeats: number
+): string {
+  const failed = result.assertions
+    .filter((assertion) => assertion.kind === 'hard' && !assertion.passed)
+    .map((assertion) => assertion.id);
+  return `[${runNumber}/${repeats}] ${result.passed ? 'PASS' : 'FAIL'} `
+    + `${result.hardPassed}/${result.hardTotal} hard assertions`
+    + `${failed.length > 0 ? ` · ${failed.join(', ')}` : ''}`;
 }
 
 function parseArgs(argv: string[]): Args | 'help' {
@@ -200,18 +226,12 @@ async function main(): Promise<void> {
   process.stdout.write(`Reasoning effort: ${reasoningEffortForEvalModel(args.model)}\n`);
 
   const results: MealAnalysisEvalRunResult[] = [];
-  for (const evalCase of cases) {
+  for (const [caseIndex, evalCase] of cases.entries()) {
+    process.stdout.write(`\n${formatEvalCaseHeading(evalCase, caseIndex + 1, cases.length)}\n`);
     for (let runNumber = 1; runNumber <= args.repeats; runNumber += 1) {
       const result = await runOnce(evalCase, args.model, runNumber, outputDirectory);
       results.push(result);
-      const failed = result.assertions
-        .filter((assertion) => assertion.kind === 'hard' && !assertion.passed)
-        .map((assertion) => assertion.id);
-      process.stdout.write(
-        `[${runNumber}/${args.repeats}] ${result.passed ? 'PASS' : 'FAIL'} `
-        + `${result.hardPassed}/${result.hardTotal} hard assertions`
-        + `${failed.length > 0 ? ` · ${failed.join(', ')}` : ''}\n`
-      );
+      process.stdout.write(`${formatEvalRunResult(result, runNumber, args.repeats)}\n`);
     }
   }
 
@@ -227,11 +247,14 @@ async function main(): Promise<void> {
     assertionPassRates: assertionPassRates(results),
   };
   await writeJson(join(outputDirectory, 'summary.json'), summary);
+  process.stdout.write(`\nCompleted ${results.length} run${results.length === 1 ? '' : 's'} across ${cases.length} case${cases.length === 1 ? '' : 's'}.\n`);
   process.stdout.write(`Pass rate: ${passed}/${results.length} (${(summary.passRate * 100).toFixed(1)}%)\n`);
   process.stdout.write('No pass-rate threshold is enforced.\n');
 }
 
-main().catch((error: unknown) => {
-  process.stderr.write(`Meal-analysis eval failed: ${error instanceof Error ? error.message : 'unknown error'}\n`);
-  process.exitCode = 1;
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error: unknown) => {
+    process.stderr.write(`Meal-analysis eval failed: ${error instanceof Error ? error.message : 'unknown error'}\n`);
+    process.exitCode = 1;
+  });
+}
