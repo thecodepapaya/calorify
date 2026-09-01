@@ -1,6 +1,7 @@
 import type { StageObservation } from './observability.js';
 import {
   componentIdsForFirstPass,
+  pairMealItemsWithRecipes,
   type FirstPassResponse,
   type SecondPassResponse,
 } from './twoPassInterpretation.js';
@@ -48,35 +49,25 @@ function boundedText(value: unknown, maxLength: number): string | undefined {
   return trimmed.slice(0, maxLength);
 }
 
-function normalized(value: string): string {
-  return value.normalize('NFC').trim().toLocaleLowerCase('en-US');
-}
-
 /** Builds public copy immediately after either validated interpretation pass. */
 export function buildMealAnalysisV3PassProgress(snapshot: {
   firstPass: FirstPassResponse;
   secondPass?: SecondPassResponse;
 }): MealAnalysisV3Progress {
   const componentIds = componentIdsForFirstPass(snapshot.firstPass);
-  const secondByName = new Map(
-    snapshot.secondPass?.mealItems.map((mealItem) => [
-      normalized(mealItem.mealItemName),
-      mealItem,
-    ]) ?? [],
+  const pairs = snapshot.secondPass
+    ? pairMealItemsWithRecipes(snapshot.firstPass, snapshot.secondPass)
+    : snapshot.firstPass.mealItems.map((component) => ({ component, recipe: undefined }));
+  const components = pairs.slice(0, 20).map(
+    ({ component, recipe }, index): MealAnalysisV3ProgressComponent => ({
+      componentId: componentIds[index]!,
+      name: boundedText(component.mealItemName, 160)!,
+      ingredientNames: recipe?.ingredients
+        .slice(0, 24)
+        .map(({ ingredientName }) => boundedText(ingredientName, 160)!) ?? [],
+    }),
   );
-  const components = snapshot.firstPass.mealItems.slice(0, 20).map(
-    (component, index): MealAnalysisV3ProgressComponent => {
-      const recipe = secondByName.get(normalized(component.mealItemName));
-      return {
-        componentId: componentIds[index]!,
-        name: boundedText(component.mealItemName, 160)!,
-        ingredientNames: recipe?.ingredients
-          .slice(0, 24)
-          .map(({ ingredientName }) => boundedText(ingredientName, 160)!) ?? [],
-      };
-    },
-  );
-  const mealName = boundedText(snapshot.firstPass.mealNameCandidate, 80);
+  const mealName = boundedText(snapshot.firstPass.mealName, 80);
   return {
     phase: 'MATCH',
     progress: snapshot.secondPass ? 0.34 : 0.22,

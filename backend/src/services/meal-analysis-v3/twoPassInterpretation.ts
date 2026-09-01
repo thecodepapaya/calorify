@@ -14,6 +14,7 @@ import {
   type ScenarioAssumption,
 } from './domain.js';
 import { MEAL_TYPES } from './mealType.js';
+import { normalized } from './text.js';
 
 const label = z.string().trim().min(1).max(160);
 // Models commonly represent an optional JSON field as null. Normalize that
@@ -73,7 +74,7 @@ const portionSchema = z.union([amountPortionSchema, countPortionSchema]);
 
 export const firstPassResponseSchema = z.object({
   food_detected: z.boolean(),
-  mealNameCandidate: label.nullable(),
+  mealName: label.nullable(),
   tip: z.string().trim().max(280).optional(),
   mealTypeCandidate: z.object({
     value: mealTypeSchema.nullable(),
@@ -89,7 +90,7 @@ export const firstPassResponseSchema = z.object({
     }).strict(),
   }).strict()).max(20),
 }).strict().superRefine((response, ctx) => {
-  if (response.food_detected && (response.mealNameCandidate === null || response.mealItems.length === 0)) {
+  if (response.food_detected && (response.mealName === null || response.mealItems.length === 0)) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'detected food requires a meal name and meal items' });
   }
   if (!response.food_detected && response.mealItems.length !== 0) {
@@ -215,7 +216,7 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
     input: 'Dinner: 420 g chicken pot pie with 1 cup green beans on the side',
     response: {
       food_detected: true,
-      mealNameCandidate: 'Chicken pot pie with green beans',
+      mealName: 'Chicken pot pie with green beans',
       tip: 'A pie filling often combines protein, vegetables, and a savory sauce.',
       mealTypeCandidate: { value: 'DINNER', origin: 'user_text' },
       mealItems: [
@@ -244,7 +245,7 @@ export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
     input: 'The ramen used 90 g dry noodles, but the finished bowl weighed 360 g',
     response: {
       food_detected: true,
-      mealNameCandidate: 'Ramen',
+      mealName: 'Ramen',
       tip: 'Broth-based noodle soups vary widely in their ingredients and preparation.',
       mealTypeCandidate: { value: null, origin: null },
       mealItems: [
@@ -340,7 +341,7 @@ Tasks:
 - Use origin=model_inferred for every value not explicitly stated by the user, including image observations and context-based guesses.
 - Use only user_text and model_inferred. Do not add evidence objects.
 - Return one selected preparation method. Do not generate preparation alternatives.
-- mealNameCandidate must be concise and localized, and must not contain serving size, count, weight, calories, health score, or advice.
+- mealName must be concise and localized, and must not contain serving size, count, weight, calories, health score, or advice.
 - For detected food, return a short meal-related tip. The tip may be a fact, observation, trivia, or practical suggestion; it must not depend on meal type.
 - If meal type cannot be determined confidently, return value=null and origin=null.
 
@@ -367,7 +368,7 @@ The first-pass JSON is supplied in the user message. For every meal item:
 - Portion, count, and unit-size uncertainty belongs only in the first-pass ranges, not in variations.
 - Keep variations small: normally zero to two per meal item, never speculative trivia.
 
-Example demonstrates preserving every first-pass meal item and non-redundant lookup aliases; do not copy its food names:
+Examples demonstrate preserving every first-pass meal item, English ingredient identities for non-English inputs, and non-redundant lookup aliases; do not copy their food names:
 ${formatPromptExamples(SECOND_PASS_PROMPT_EXAMPLES)}`;
 
 interface ScenarioState {
@@ -399,10 +400,6 @@ interface Dimension {
   origin: 'USER_TEXT' | 'MODEL_INFERRED';
   numeric?: { unitCode: 'COUNT' | 'GRAM'; min: number; max: number; step: number; integerOnly: boolean };
   options: DimensionOption[];
-}
-
-function normalized(value: string): string {
-  return value.normalize('NFKC').trim().toLocaleLowerCase();
 }
 
 function slug(value: string): string {
@@ -787,6 +784,26 @@ function componentProposal(
   };
 }
 
+/**
+ * Pairs every first-pass meal item with exactly one second-pass recipe,
+ * using the same normalization as the production merge. Throws when the
+ * passes disagree on the meal item set.
+ */
+export function pairMealItemsWithRecipes(
+  first: FirstPassResponse,
+  second: SecondPassResponse,
+): Array<{ component: CompactComponent; recipe: CompactIngredientComponent }> {
+  const secondByName = new Map(second.mealItems.map((mealItem) => [normalized(mealItem.mealItemName), mealItem]));
+  if (secondByName.size !== first.mealItems.length || second.mealItems.length !== first.mealItems.length) {
+    throw new Error('Second pass must return exactly one recipe for every first-pass meal item');
+  }
+  return first.mealItems.map((component) => {
+    const recipe = secondByName.get(normalized(component.mealItemName));
+    if (!recipe) throw new Error(`Second pass omitted meal item ${component.mealItemName}`);
+    return { component, recipe };
+  });
+}
+
 export function buildInterpretationProposal(
   firstValue: unknown,
   secondValue: unknown,
@@ -797,21 +814,16 @@ export function buildInterpretationProposal(
     return { outcome: 'NO_FOOD', reason: 'No food was detected.' };
   }
   const second = secondPassResponseSchema.parse(secondValue);
-  const secondByName = new Map(second.mealItems.map((mealItem) => [normalized(mealItem.mealItemName), mealItem]));
-  if (secondByName.size !== first.mealItems.length || second.mealItems.length !== first.mealItems.length) {
-    throw new Error('Second pass must return exactly one recipe for every first-pass meal item');
-  }
+  const pairs = pairMealItemsWithRecipes(first, second);
   const componentIds = componentIdsForFirstPass(first);
-  const components = first.mealItems.map((component, index) => {
-    const recipe = secondByName.get(normalized(component.mealItemName));
-    if (!recipe) throw new Error(`Second pass omitted meal item ${component.mealItemName}`);
-    return componentProposal(component, recipe, input, componentIds[index]!);
-  });
+  const components = pairs.map(({ component, recipe }, index) =>
+    componentProposal(component, recipe, input, componentIds[index]!)
+  );
   const mealType = first.mealTypeCandidate;
   const candidateOrigin = mealType.origin === 'user_text' && input.kind === 'TEXT' ? 'USER_TEXT' : 'MODEL_INFERRED';
   const proposal: FoodInterpretationProposal = {
     outcome: 'FOOD',
-    mealNameCandidate: first.mealNameCandidate!,
+    mealName: first.mealName!,
     components,
     mealTypeCandidate: mealType.value === null
       ? { value: null, origin: 'MODEL_INFERRED', confidence: 0.2, evidence: modelEvidence('Meal type is unresolved.') }

@@ -1,9 +1,11 @@
 import {
   firstPassResponseSchema,
+  pairMealItemsWithRecipes,
   secondPassResponseSchema,
   type FirstPassResponse,
   type SecondPassResponse,
 } from '../services/meal-analysis-v3/twoPassInterpretation.js';
+import { matchableText, normalized } from '../services/meal-analysis-v3/text.js';
 
 type ExpectedOrigin = 'user_text' | 'model_inferred';
 
@@ -62,12 +64,15 @@ export interface MealAnalysisEvalRunResult {
 }
 
 function normalize(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  return matchableText(value);
 }
 
 function includesAlias(value: string, aliases: string[]): boolean {
-  const normalized = normalize(value);
-  return aliases.some((alias) => normalized.includes(normalize(alias)));
+  const matchable = matchableText(value);
+  return aliases.some((alias) => {
+    const normalizedAlias = matchableText(alias);
+    return normalizedAlias.length > 0 && matchable.includes(normalizedAlias);
+  });
 }
 
 function ordered(range: { min: number; estimate: number; max: number } | undefined): boolean {
@@ -95,18 +100,32 @@ function componentFor(
   ));
 }
 
-function ingredientComponentFor(
-  pass: SecondPassResponse | undefined,
-  firstComponent: FirstPassResponse['mealItems'][number] | undefined,
-  aliases: string[]
-): SecondPassResponse['mealItems'][number] | undefined {
-  if (!pass) return undefined;
-  if (firstComponent) {
-    const exact = pass.mealItems.find((mealItem) =>
-      normalize(mealItem.mealItemName) === normalize(firstComponent.mealItemName));
-    if (exact) return exact;
+/**
+ * Pairs second-pass recipes with first-pass meal items using the production
+ * merge (pairMealItemsWithRecipes). Falls back to alias matching only when
+ * the passes disagree, mirroring how a production run would fail.
+ */
+function pairRecipesForEval(
+  firstPass: FirstPassResponse | undefined,
+  secondPass: SecondPassResponse | undefined
+): Map<FirstPassResponse['mealItems'][number], SecondPassResponse['mealItems'][number] | undefined> {
+  const pairs = new Map<FirstPassResponse['mealItems'][number], SecondPassResponse['mealItems'][number] | undefined>();
+  if (!firstPass || !secondPass) return pairs;
+  try {
+    for (const { component, recipe } of pairMealItemsWithRecipes(firstPass, secondPass)) {
+      pairs.set(component, recipe);
+    }
+  } catch {
+    // The passes disagree; the correspondence assertion reports this.
+    // Fall back to production-normalized exact-name matching so downstream
+    // diagnostics still work without the point-1 unicode collapse.
+    for (const component of firstPass.mealItems) {
+      const recipe = secondPass.mealItems.find((mealItem) =>
+        normalized(mealItem.mealItemName) === normalized(component.mealItemName));
+      pairs.set(component, recipe);
+    }
   }
-  return pass.mealItems.find((mealItem) => includesAlias(mealItem.mealItemName, aliases));
+  return pairs;
 }
 
 function ingredientCorpus(component: SecondPassResponse['mealItems'][number] | undefined): string {
@@ -231,14 +250,23 @@ export function evaluateMealAnalysisRun(
 
   const firstNames = new Set(firstPass?.mealItems.map((mealItem) => normalize(mealItem.mealItemName)) ?? []);
   const secondNames = new Set(secondPass?.mealItems.map((mealItem) => normalize(mealItem.mealItemName)) ?? []);
+  let productionPairingHolds = true;
+  try {
+    if (firstPass && secondPass) pairMealItemsWithRecipes(firstPass, secondPass);
+  } catch {
+    productionPairingHolds = false;
+  }
   add(
     'pass2.component-correspondence',
     'hard',
-    firstNames.size > 0
+    productionPairingHolds
+      && firstNames.size > 0
       && firstNames.size === secondNames.size
       && [...firstNames].every((name) => secondNames.has(name)),
     'pass-two mealItemName values must match pass one'
   );
+
+  const recipeByComponent = pairRecipesForEval(firstPass, secondPass);
 
   const amountOrigins = secondPass?.mealItems.flatMap((mealItem) =>
     mealItem.ingredients.map((ingredient) => ingredient.amountGrams.origin)) ?? [];
@@ -293,7 +321,7 @@ export function evaluateMealAnalysisRun(
 
   for (const expected of evalCase.expectedComponents) {
     const firstComponent = firstComponents.get(expected.key);
-    const component = ingredientComponentFor(secondPass, firstComponent, expected.aliases);
+    const component = firstComponent ? recipeByComponent.get(firstComponent) : undefined;
     const corpus = ingredientCorpus(component);
     expected.requiredIngredientGroups.forEach((group, index) => {
       add(
