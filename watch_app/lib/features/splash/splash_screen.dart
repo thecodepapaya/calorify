@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +10,24 @@ class SplashScreen extends StatefulWidget {
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class WatchStartupIcon extends StatelessWidget {
+  const WatchStartupIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Image.asset(
+          'android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp',
+          width: 48,
+          height: 48,
+        ),
+      ),
+    );
+  }
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -47,6 +64,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: AnimatedLeaf(size: 50)));
+    // Keep the Flutter startup frame consistent with the Android 12 splash:
+    // the exact launcher icon, 48dp wide, centered on black.
+    return const WatchStartupIcon();
   }
 }

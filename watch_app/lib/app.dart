@@ -16,7 +16,10 @@ class WatchScrollBehavior extends MaterialScrollBehavior {
     Widget child,
     ScrollableDetails details,
   ) {
-    return child;
+    // Wear OS requires a scroll indicator while users interact with content.
+    // The Material scrollbar handles its own visibility animation, so it stays
+    // unobtrusive until a scroll gesture or rotary input occurs.
+    return Scrollbar(child: child);
   }
 }
 
@@ -39,6 +42,13 @@ ThemeData buildWatchTheme(ThemeData base) {
     scaffoldBackgroundColor: black,
     canvasColor: black,
     splashFactory: InkSparkle.splashFactory,
+    scrollbarTheme: ScrollbarThemeData(
+      thumbColor: WidgetStatePropertyAll(
+        colors.onSurfaceVariant.withValues(alpha: 0.72),
+      ),
+      thickness: const WidgetStatePropertyAll(3),
+      radius: const Radius.circular(2),
+    ),
     snackBarTheme: SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
       backgroundColor: colors.inverseSurface,

@@ -1,4 +1,5 @@
 import 'package:calorify_watch/app.dart';
+import 'package:calorify_watch/features/splash/splash_screen.dart';
 import 'package:calorify_watch/widgets/watch_scroll_view.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,14 @@ void main() {
 
   Widget localized(Widget child) => TranslationProvider(child: child);
 
-  Future<void> useSmallWatchSurface(WidgetTester tester) async {
+  Future<void> useWatchSurface(WidgetTester tester, Size size) async {
     tester.view.devicePixelRatio = 1;
-    tester.view.physicalSize = const Size(192, 192);
+    tester.view.physicalSize = size;
     addTearDown(tester.view.reset);
   }
+
+  Future<void> useSmallWatchSurface(WidgetTester tester) =>
+      useWatchSurface(tester, const Size(192, 192));
 
   testWidgets('watch controls fit a small round-watch viewport', (
     tester,
@@ -138,7 +142,7 @@ void main() {
     },
   );
 
-  testWidgets('scrollable views do not receive a desktop scrollbar', (
+  testWidgets('scrollable views show a scrollbar during interaction', (
     tester,
   ) async {
     await useSmallWatchSurface(tester);
@@ -154,7 +158,33 @@ void main() {
       ),
     );
 
-    expect(find.byType(Scrollbar), findsNothing);
+    await tester.drag(find.byType(ListView), const Offset(0, -100));
+    await tester.pump();
+
+    expect(find.byType(Scrollbar), findsOneWidget);
+  });
+
+  testWidgets('startup frame shows the launcher icon on black', (tester) async {
+    await useSmallWatchSurface(tester);
+
+    await tester.pumpWidget(
+      localized(
+        MaterialApp(
+          theme: buildWatchTheme(AppThemes.darkTheme),
+          home: const WatchStartupIcon(),
+        ),
+      ),
+    );
+
+    final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
+    final image = tester.widget<Image>(find.byType(Image));
+    expect(scaffold.backgroundColor, Colors.black);
+    expect(image.image, isA<AssetImage>());
+    expect(
+      (image.image as AssetImage).assetName,
+      'android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp',
+    );
+    expect(tester.getSize(find.byType(Image)), const Size(48, 48));
   });
 
   testWidgets('fixed list controls stay inside a 192dp round display', (
@@ -193,6 +223,44 @@ void main() {
         lessThanOrEqualTo(displayRadius),
       );
     }
+  });
+
+  testWidgets('fixed list controls also fit a 192dp square display', (
+    tester,
+  ) async {
+    await useWatchSurface(tester, const Size(192, 192));
+
+    await tester.pumpWidget(
+      localized(
+        MaterialApp(
+          theme: buildWatchTheme(AppThemes.darkTheme),
+          home: WatchListScaffold(
+            title: 'Favorites',
+            icon: AppIcons.star,
+            onBack: () {},
+            trailing: WatchIconButton(
+              icon: AppIcons.refreshCw,
+              semanticLabel: 'Refresh',
+              onPressed: () {},
+            ),
+            body: const SizedBox.shrink(),
+          ),
+        ),
+      ),
+    );
+
+    const displayBounds = Rect.fromLTWH(0, 0, 192, 192);
+    for (final button in tester.widgetList<WatchIconButton>(
+      find.byType(WatchIconButton),
+    )) {
+      final rect = tester.getRect(find.byWidget(button));
+      expect(displayBounds.contains(rect.topLeft), isTrue);
+      expect(
+        displayBounds.contains(rect.bottomRight - const Offset(0.01, 0.01)),
+        isTrue,
+      );
+    }
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('first-run skeletons fit a 192dp watch without overflow', (
