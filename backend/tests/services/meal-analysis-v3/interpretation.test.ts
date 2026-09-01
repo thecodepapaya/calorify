@@ -10,6 +10,8 @@ import {
   createTwoPassFixtureMealInterpreter,
 } from '../../../src/services/meal-analysis-v3/interpretation.js';
 import {
+  FIRST_PASS_PROMPT_EXAMPLES,
+  SECOND_PASS_PROMPT_EXAMPLES,
   firstPassResponseSchema,
   secondPassResponseSchema,
 } from '../../../src/services/meal-analysis-v3/twoPassInterpretation.js';
@@ -26,6 +28,16 @@ test('both compact model response schemas are strict and use normalized numeric 
     assert.equal(schema.type, 'object');
     assert.equal(schema.additionalProperties, false);
     visit(schema);
+  }
+});
+
+test('prompt examples satisfy their compact response schemas', () => {
+  for (const example of FIRST_PASS_PROMPT_EXAMPLES) {
+    assert.equal(firstPassResponseSchema.safeParse(example.response).success, true);
+  }
+  for (const example of SECOND_PASS_PROMPT_EXAMPLES) {
+    assert.equal(firstPassResponseSchema.safeParse(example.firstPass).success, true);
+    assert.equal(secondPassResponseSchema.safeParse(example.response).success, true);
   }
 });
 
@@ -94,6 +106,7 @@ const compactInput = {
 const firstPass = {
   food_detected: true,
   mealNameCandidate: 'Daal with roti',
+  tip: 'Lentil dishes are a staple across many South Asian cuisines.',
   mealTypeCandidate: { value: null, origin: null },
   components: [
     {
@@ -229,6 +242,18 @@ test('compact schema normalizes null optional product queries to omission', () =
 
   const parsed = secondPassResponseSchema.parse(response);
   assert.equal(parsed.components[0]!.ingredients[0]!.productQuery, undefined);
+});
+
+test('first-pass tip is optional without weakening structured validation', () => {
+  const withoutTip = { ...firstPass };
+  delete withoutTip.tip;
+  assert.equal(firstPassResponseSchema.safeParse(withoutTip).success, true);
+
+  const malformedTip = {
+    ...firstPass,
+    tip: 42,
+  };
+  assert.equal(firstPassResponseSchema.safeParse(malformedTip).success, false);
 });
 
 test('two-pass fixture expands compact daal and roti responses into calculation scenarios', async () => {

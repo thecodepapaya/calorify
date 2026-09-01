@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import type { MealAnalysisLlmClient } from '../../../src/services/meal-analysis/llm.js';
 import { resolveInterpretation } from '../../../src/services/meal-analysis-v3/calculation.js';
 import {
   buildServingSizeText,
@@ -14,35 +13,21 @@ function resolvedInterpretation(): ResolvedInterpretation {
   return resolveInterpretation(proposal, nutritionReferences(proposal));
 }
 
-function presenterInput(interpretation = resolvedInterpretation()) {
+function presenterInput(
+  interpretation = resolvedInterpretation(),
+  generatedCopy: unknown = {
+    mealName: 'Pumpkin curry with roti',
+    tip: 'Pumpkin is used in many regional curries.',
+  },
+) {
   return {
     interpretation,
     mealType: { value: 'LUNCH' as const, origin: 'MODEL_INFERRED' as const },
     locale: 'en-IN',
     countryCode: 'IN',
+    generatedCopy,
+    providerAttempts: [],
   };
-}
-
-function clientReturning(value: unknown): MealAnalysisLlmClient {
-  return {
-    chat: {
-      completions: {
-        create: async () => ({
-          choices: [{ message: { content: JSON.stringify(value) } }],
-        }),
-      },
-    },
-  } as unknown as MealAnalysisLlmClient;
-}
-
-function failingClient(): MealAnalysisLlmClient {
-  return {
-    chat: {
-      completions: {
-        create: async () => { throw new Error('provider unavailable'); },
-      },
-    },
-  } as unknown as MealAnalysisLlmClient;
 }
 
 test('serving-size text uses only validated natural measures and qualitative fallback', () => {
@@ -93,11 +78,8 @@ test('serving-size text uses only validated natural measures and qualitative fal
   assert.doesNotMatch(buildServingSizeText(resolved.components), /gram|kcal|calorie/i);
 });
 
-test('presenter keeps generated copy separate from deterministic serving size', async () => {
-  const result = await createMealPresenter(clientReturning({
-    mealName: 'Pumpkin curry with roti',
-    tip: 'Pumpkin is used in many regional curries.',
-  })).present(presenterInput());
+test('presenter keeps Pass-1 copy separate from deterministic serving size', async () => {
+  const result = await createMealPresenter().present(presenterInput());
 
   assert.equal(result.mealName, 'Pumpkin curry with roti');
   assert.equal(result.servingSizeText, 'measured portion + 4 rotis + measured portion');
@@ -106,16 +88,14 @@ test('presenter keeps generated copy separate from deterministic serving size', 
   assert.deepEqual(result.providerAttempts, []);
 });
 
-test('invalid generated names and provider failures use the deterministic fallback', async () => {
+test('invalid or absent Pass-1 copy uses the deterministic fallback', async () => {
   const interpretation = resolvedInterpretation();
   const before = structuredClone(interpretation);
-  const invalidName = await createMealPresenter(clientReturning({
+  const invalidName = await createMealPresenter().present(presenterInput(interpretation, {
     mealName: '4 large rotis',
     tip: 'This copy must not survive validation.',
-  })).present(presenterInput(interpretation));
-  const providerFailure = await createMealPresenter(failingClient()).present(
-    presenterInput(interpretation)
-  );
+  }));
+  const absentCopy = await createMealPresenter().present(presenterInput(interpretation, null));
 
   const expected = {
     mealName: 'Kaddu sabzi & Roti & Oats',
@@ -125,6 +105,6 @@ test('invalid generated names and provider failures use the deterministic fallba
     usedFallback: true,
   };
   assert.deepEqual(invalidName, expected);
-  assert.deepEqual(providerFailure, expected);
+  assert.deepEqual(absentCopy, expected);
   assert.deepEqual(interpretation, before, 'presentation must not mutate calculation state');
 });

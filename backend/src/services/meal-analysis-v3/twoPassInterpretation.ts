@@ -74,6 +74,7 @@ const portionSchema = z.union([amountPortionSchema, countPortionSchema]);
 export const firstPassResponseSchema = z.object({
   food_detected: z.boolean(),
   mealNameCandidate: label.nullable(),
+  tip: z.string().trim().max(280).optional(),
   mealTypeCandidate: z.object({
     value: mealTypeSchema.nullable(),
     origin: originSchema.nullable(),
@@ -205,6 +206,128 @@ function normalizeExclusiveBounds(value: unknown): void {
 export const FIRST_PASS_RESPONSE_JSON_SCHEMA = openAiSchema(firstPassResponseSchema);
 export const SECOND_PASS_RESPONSE_JSON_SCHEMA = openAiSchema(secondPassResponseSchema);
 
+export const FIRST_PASS_PROMPT_EXAMPLES: Array<{
+  input: string;
+  response: FirstPassResponse;
+}> = [
+  {
+    input: 'Dinner: 420 g chicken pot pie with 1 cup green beans on the side',
+    response: {
+      food_detected: true,
+      mealNameCandidate: 'Chicken pot pie with green beans',
+      tip: 'A pie filling often combines protein, vegetables, and a savory sauce.',
+      mealTypeCandidate: { value: 'DINNER', origin: 'user_text' },
+      components: [
+        {
+          componentName: 'chicken pot pie',
+          canonicalIdentity: 'chicken pot pie',
+          portion: {
+            kind: 'AMOUNT', estimate: 420, min: 420, max: 420,
+            origin: 'user_text', perUnitGrams: null,
+          },
+          preparation: { method: 'BAKED', origin: 'model_inferred' },
+        },
+        {
+          componentName: 'green beans',
+          canonicalIdentity: 'cooked green beans',
+          portion: {
+            kind: 'AMOUNT', estimate: 125, min: 100, max: 150,
+            origin: 'user_text', perUnitGrams: null,
+          },
+          preparation: { method: 'COOKED_UNKNOWN', origin: 'model_inferred' },
+        },
+      ],
+    },
+  },
+  {
+    input: 'The ramen used 90 g dry noodles, but the finished bowl weighed 360 g',
+    response: {
+      food_detected: true,
+      mealNameCandidate: 'Ramen',
+      tip: 'Broth-based noodle soups vary widely in their ingredients and preparation.',
+      mealTypeCandidate: { value: null, origin: null },
+      components: [
+        {
+          componentName: 'ramen',
+          canonicalIdentity: 'prepared ramen noodle soup',
+          portion: {
+            kind: 'AMOUNT', estimate: 360, min: 360, max: 360,
+            origin: 'user_text', perUnitGrams: null,
+          },
+          preparation: { method: 'BOILED', origin: 'model_inferred' },
+        },
+      ],
+    },
+  },
+];
+
+export const SECOND_PASS_PROMPT_EXAMPLES: Array<{
+  input: string;
+  firstPass: FirstPassResponse;
+  response: SecondPassResponse;
+}> = [
+  {
+    input: FIRST_PASS_PROMPT_EXAMPLES[0]!.input,
+    firstPass: FIRST_PASS_PROMPT_EXAMPLES[0]!.response,
+    response: {
+      components: [
+        {
+          componentName: 'chicken pot pie',
+          ingredients: [
+            {
+              ingredientName: 'chicken', canonicalIdentity: 'chicken meat',
+              lookupAliases: ['cooked chicken'], retrievalIntent: 'GENERIC_INGREDIENT',
+              amountGrams: { estimate: 120, min: 90, max: 150, origin: 'model_inferred' },
+            },
+            {
+              ingredientName: 'pastry', canonicalIdentity: 'pie pastry',
+              lookupAliases: ['pie crust'], retrievalIntent: 'GENERIC_INGREDIENT',
+              amountGrams: { estimate: 130, min: 100, max: 160, origin: 'model_inferred' },
+            },
+            {
+              ingredientName: 'carrots', canonicalIdentity: 'cooked carrots',
+              lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
+              amountGrams: { estimate: 45, min: 30, max: 60, origin: 'model_inferred' },
+            },
+            {
+              ingredientName: 'peas', canonicalIdentity: 'cooked green peas',
+              lookupAliases: ['garden peas'], retrievalIntent: 'GENERIC_INGREDIENT',
+              amountGrams: { estimate: 40, min: 25, max: 55, origin: 'model_inferred' },
+            },
+            {
+              ingredientName: 'gravy', canonicalIdentity: 'chicken gravy',
+              lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
+              amountGrams: { estimate: 85, min: 60, max: 110, origin: 'model_inferred' },
+            },
+          ],
+          variations: [],
+        },
+        {
+          componentName: 'green beans',
+          ingredients: [
+            {
+              ingredientName: 'green beans', canonicalIdentity: 'cooked green beans',
+              lookupAliases: ['string beans'], retrievalIntent: 'GENERIC_INGREDIENT',
+              amountGrams: { estimate: 125, min: 100, max: 150, origin: 'user_text' },
+            },
+          ],
+          variations: [],
+        },
+      ],
+    },
+  },
+];
+
+function formatPromptExamples<T>(
+  examples: Array<{ input: string; response: T; firstPass?: FirstPassResponse }>,
+): string {
+  return examples.map((example) => [
+    `Meal text: ${JSON.stringify(example.input)}`,
+    ...(example.firstPass ? [`First-pass JSON: ${JSON.stringify(example.firstPass)}`] : []),
+    `Valid response: ${JSON.stringify(example.response)}`,
+  ].join('\n')).join('\n\n');
+}
+
 export const FIRST_PASS_SYSTEM_PROMPT = `You are the first parsing pass of a nutrition calculator.
 Return only the requested JSON. Do not list ingredients, variations, calories, or macros.
 
@@ -216,8 +339,13 @@ Tasks:
 - Use origin=model_inferred for every value not explicitly stated by the user, including image observations and context-based guesses.
 - Use only user_text and model_inferred. Do not add evidence objects.
 - Return one selected preparation method. Do not generate preparation alternatives.
-- mealNameCandidate must not contain serving size, count, weight, calories, or advice.
-- If meal type cannot be determined confidently, return value=null and origin=null.`;
+- mealNameCandidate must be concise and localized, and must not contain serving size, count, weight, calories, health score, or advice.
+- For detected food, return a short meal-related tip. The tip may be a fact, observation, trivia, or practical suggestion; it must not depend on meal type.
+- If meal type cannot be determined confidently, return value=null and origin=null.
+
+Examples demonstrate component boundaries and finished-gram portions; do not copy their food names:
+Volume-to-gram conversions depend on the food; do not reuse an example's gram range for another food.
+${formatPromptExamples(FIRST_PASS_PROMPT_EXAMPLES)}`;
 
 export const SECOND_PASS_SYSTEM_PROMPT = `You are the second decomposition pass of a nutrition calculator.
 Return only the requested JSON. Do not return calories, macros, question prose, labels, or option objects.
@@ -236,7 +364,10 @@ The first-pass JSON is supplied in the user message. For every component:
 - INGREDIENT_VARIANT alternatives contain canonical food identities such as skim milk or whole milk, excluding the baseline canonicalIdentity.
 - PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
 - Portion, count, and unit-size uncertainty belongs only in the first-pass ranges, not in variations.
-- Keep variations small: normally zero to two per component, never speculative trivia.`;
+- Keep variations small: normally zero to two per component, never speculative trivia.
+
+Example demonstrates preserving every first-pass component and non-redundant lookup aliases; do not copy its food names:
+${formatPromptExamples(SECOND_PASS_PROMPT_EXAMPLES)}`;
 
 interface ScenarioState {
   count: number;

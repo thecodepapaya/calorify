@@ -337,11 +337,19 @@ export async function runMealAnalysisV3(
     mealType: finalMealType,
     locale: input.context.locale,
     countryCode: input.context.countryCode,
+    generatedCopy: interpreted.firstPass?.food_detected
+      ? { mealName: interpreted.firstPass.mealNameCandidate, tip: interpreted.firstPass.tip ?? '' }
+      : undefined,
+    providerAttempts: interpreted.providerAttempts,
   }, () => presenter.present({
     interpretation: resolved,
     mealType: finalMealType,
     locale: input.context.locale,
     countryCode: input.context.countryCode,
+    generatedCopy: interpreted.firstPass?.food_detected
+      ? { mealName: interpreted.firstPass.mealNameCandidate, tip: interpreted.firstPass.tip ?? '' }
+      : undefined,
+    providerAttempts: interpreted.providerAttempts,
   }));
   const result = await recorder.record('INTEGRITY_CHECKED', {
     resolved,

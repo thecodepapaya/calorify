@@ -1,11 +1,5 @@
 import { z } from 'zod';
-import { zodToJsonSchema } from 'zod-to-json-schema';
-import config from '../../config.js';
-import {
-  createMealAnalysisLlmClient,
-  type MealAnalysisLlmAttempt,
-  type MealAnalysisLlmClient,
-} from '../meal-analysis/llm.js';
+import type { MealAnalysisLlmAttempt } from '../meal-analysis/llm.js';
 import type {
   ResolvedComponent,
   ResolvedInterpretation,
@@ -30,16 +24,13 @@ export interface MealPresentationInput {
   mealType: { value: MealType; origin: MealTypeOrigin };
   locale: string;
   countryCode: string;
+  generatedCopy?: unknown;
+  providerAttempts: MealAnalysisLlmAttempt[];
 }
 
 export interface MealPresenter {
   present(input: MealPresentationInput): Promise<MealPresentation>;
 }
-
-const presentationJsonSchema = zodToJsonSchema(generatedPresentationSchema, {
-  $refStrategy: 'none',
-  target: 'openAi',
-}) as Record<string, unknown>;
 
 const DISALLOWED_NAME_PATTERN =
   /\p{N}|\b(?:g|gram|grams|kg|ml|millilit(?:er|re)|oz|ounce|ounces|lb|pound|pounds|kcal|calories?|small|medium|large|serving size)\b/iu;
@@ -120,69 +111,24 @@ function generatedPresentation(value: unknown): z.infer<typeof generatedPresenta
   return parsed;
 }
 
-export function createMealPresenter(suppliedClient?: MealAnalysisLlmClient): MealPresenter {
+export function createMealPresenter(): MealPresenter {
   return {
     async present(input) {
-      const providerAttempts: MealAnalysisLlmAttempt[] = [];
       const servingSizeText = buildServingSizeText(input.interpretation.components);
       const fallback = (): MealPresentation => ({
         mealName: fallbackMealName(input.interpretation),
         servingSizeText,
         tip: '',
-        providerAttempts,
+        providerAttempts: [...input.providerAttempts],
         usedFallback: true,
       });
 
       try {
-        const client = suppliedClient ?? createMealAnalysisLlmClient({
-          onAttempt: (attempt) => providerAttempts.push(attempt),
-        });
-        const response = await client.chat.completions.create({
-          model: config.OPENROUTER_MEAL_MODEL,
-          messages: [
-            {
-              role: 'system',
-              content: 'Generate presentation copy only. Return the schema JSON. The meal name must be concise and localized, and must not contain an amount, count, serving size, weight, calories, health score, or advice. The tip may be any short meal-related fact, observation, trivia, or practical suggestion. Do not change or recalculate nutrition.',
-            },
-            {
-              role: 'user',
-              content: JSON.stringify({
-                locale: input.locale,
-                countryCode: input.countryCode,
-                mealType: input.mealType.value,
-                proposedName: input.interpretation.mealNameCandidate,
-                components: input.interpretation.components.map((component) => ({
-                  sourceName: component.sourceName,
-                  displayName: component.displayName,
-                  preparation: component.scenarios.find(({ scenarioId }) =>
-                    scenarioId === component.pointScenarioId
-                  )?.effectivePreparationCodes ?? [],
-                })),
-              }),
-            },
-          ],
-          response_format: {
-            type: 'json_schema',
-            json_schema: {
-              name: 'meal_presentation_v3',
-              schema: presentationJsonSchema,
-              strict: true,
-            },
-          },
-          max_completion_tokens: 220,
-        }, {
-          operation: 'present_v3',
-          validateStructuredContent: (value) => {
-            generatedPresentation(value);
-          },
-        });
-        const raw = response.choices[0]?.message?.content;
-        if (!raw) return fallback();
-        const generated = generatedPresentation(JSON.parse(raw) as unknown);
+        const generated = generatedPresentation(input.generatedCopy);
         return {
           ...generated,
           servingSizeText,
-          providerAttempts,
+          providerAttempts: [...input.providerAttempts],
           usedFallback: false,
         };
       } catch {

@@ -342,15 +342,16 @@ success or failure, and flow disposal releases its controller.
 
 ### 9. Presentation and integrity
 
-Presentation runs only after answers, calculation, and meal type resolve. The
-provider can generate localized name/tip but cannot change nutrition. Serving
-text comes deterministically from validated natural measures or `measured
-portion`. Names reject amounts, weights, calories, serving wording, and size
-adjectives. Serving text rejects raw weight/volume units and calories.
+Presentation runs only after answers, calculation, and meal type resolve. Pass
+one supplies the localized meal name and optional tip; presentation can use
+that copy but cannot change nutrition. Serving text comes deterministically
+from validated natural measures or `measured portion`. Names reject amounts,
+weights, calories, serving wording, and size adjectives. Serving text rejects
+raw weight/volume units and calories.
 
-Presentation failure is non-fatal: deterministic component name, serving text,
-and empty tip are returned. Valid nutrition is not discarded for optional
-prose.
+Absent or invalid pass-one copy is non-fatal: deterministic component name,
+serving text, and empty tip are returned. Valid nutrition is not discarded for
+optional prose.
 
 Before `COMPLETE`, the gate verifies presentation did not mutate calculation,
 point scenarios exist, values are finite, and every point lies inside its
@@ -431,7 +432,7 @@ subcategories only when they enable different user recovery or alerting.
 | Stage-derived progress | Honest completed-work checkpoints | Coarse and may pause on external calls |
 | Client-monotonic progress | Continuous clarification UX | Hides repeated work without removing cost |
 | Result-level persistence | Simple replay and schema | Answers recompute early stages |
-| Optional model presentation | Natural localized copy | Extra call; fallback is plainer |
+| Optional pass-one presentation copy | Natural localized copy without an extra call | Fallback is plainer when copy is absent or invalid |
 | Local save plus outbox | Offline-safe eventual confirmation | Server log state can temporarily lag |
 | Missing fiber is zero | Stable five-macro contract | Can under-report fiber |
 | Explicit pipeline, no graph | Predictable and testable | Dynamic branching needs a new decision |
