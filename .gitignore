@@ -60,3 +60,6 @@ app/test/golden/failures/
 
 # Local coverage reports
 **/coverage/
+
+# Sarvam Code session state
+.sarvam/
