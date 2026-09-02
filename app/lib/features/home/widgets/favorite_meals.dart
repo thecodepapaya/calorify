@@ -16,8 +16,8 @@ import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
+import 'package:widgets/widgets.dart';
 
 class FavoriteMeals extends ConsumerWidget {
   const FavoriteMeals({super.key});
@@ -36,7 +36,7 @@ class FavoriteMeals extends ConsumerWidget {
             children: [
               Expanded(
                 child: SectionHeader(
-                  icon: AppIcons.star,
+                  leading: const FavoriteIcon(),
                   title: t.home.favoriteMeals.title,
                 ),
               ),
@@ -69,7 +69,7 @@ class FavoriteMeals extends ConsumerWidget {
             data: (favoriteMeals) {
               if (favoriteMeals.isEmpty) {
                 return EmptyStateWidget(
-                  icon: AppIcons.star,
+                  iconWidget: const FavoriteIcon(),
                   title: t.home.favoriteMeals.noFavorites,
                   subtitle: t.home.favoriteMeals.addFavoriteHint,
                 );

@@ -29,6 +29,20 @@ enum MealDetailsSheetPurpose {
   debugPreview,
 }
 
+const _calorieRangeSpreadThresholdFactor = 10;
+
+bool _shouldShowCalorieRange(MealAnalysisV3CompleteResult result) {
+  final calorieRange = result.macroRanges.calories;
+  final spread = calorieRange.max - calorieRange.min;
+  final calorieEstimate = result.macros.calories;
+
+  // A range at or below 10% of the point estimate adds visual noise without
+  // communicating meaningful uncertainty. Multiplication keeps this exact and
+  // avoids floating-point boundary behaviour.
+  return calorieEstimate > 0 &&
+      spread * _calorieRangeSpreadThresholdFactor > calorieEstimate;
+}
+
 Future<void> showMealTip({
   required BuildContext context,
   required MealDetailsSheetPurpose purpose,
@@ -337,7 +351,8 @@ class _MealTipState extends State<_MealTip> {
                 ),
               ],
             ),
-            if (widget.v3Result case final result?) ...[
+            if (widget.v3Result case final result?
+                when _shouldShowCalorieRange(result)) ...[
               const SizedBox(height: 4),
               Text(
                 t.meal.analysis.calorieRange(
@@ -677,13 +692,11 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
       onPressed: _toggleFavorite,
       padding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      icon: Icon(
-        AppIcons.star,
-        size: 24,
+      icon: FavoriteIcon(
+        key: const ValueKey('favorite-meal-star-icon'),
+        isFavorite: _isFavorite,
         color:
-            _isFavorite
-                ? colorScheme.tertiary
-                : colorScheme.onSurface.withValues(alpha: 0.5),
+            _isFavorite ? null : colorScheme.onSurface.withValues(alpha: 0.5),
       ),
     );
   }

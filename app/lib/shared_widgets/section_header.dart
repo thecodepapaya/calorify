@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class SectionHeader extends StatelessWidget {
   const SectionHeader({
     super.key,
-    required this.icon,
+    this.icon,
+    this.leading,
     required this.title,
     this.iconSize,
     this.trailing,
-  });
+  }) : assert((icon == null) != (leading == null));
 
-  final IconData icon;
+  final IconData? icon;
+  final Widget? leading;
   final String title;
   final double? iconSize;
   final Widget? trailing;
@@ -20,7 +22,10 @@ class SectionHeader extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(icon, color: theme.colorScheme.primary, size: iconSize),
+        IconTheme(
+          data: IconThemeData(color: theme.colorScheme.primary, size: iconSize),
+          child: leading ?? Icon(icon),
+        ),
         const SizedBox(width: 8),
         Expanded(
           child: Text(

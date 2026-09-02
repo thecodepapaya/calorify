@@ -107,12 +107,14 @@ class WatchPageHeader extends StatelessWidget {
     super.key,
     required this.title,
     this.icon,
+    this.iconWidget,
     this.onBack,
     this.trailing,
-  });
+  }) : assert((icon == null) != (iconWidget == null));
 
   final String title;
   final IconData? icon;
+  final Widget? iconWidget;
   final VoidCallback? onBack;
   final Widget? trailing;
 
@@ -137,8 +139,11 @@ class WatchPageHeader extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (icon != null) ...[
-                  Icon(icon, size: 15, color: colors.primary),
+                if (icon != null || iconWidget != null) ...[
+                  IconTheme(
+                    data: IconThemeData(size: 15, color: colors.primary),
+                    child: iconWidget ?? Icon(icon),
+                  ),
                   const SizedBox(width: 5),
                 ],
                 Flexible(
@@ -168,16 +173,18 @@ class WatchListScaffold extends StatelessWidget {
   const WatchListScaffold({
     super.key,
     required this.title,
-    required this.icon,
+    this.icon,
+    this.iconWidget,
     required this.onBack,
     required this.body,
     this.trailing,
     this.safeAreaMinimum = const EdgeInsets.fromLTRB(10, 22, 10, 10),
     this.headerPadding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-  });
+  }) : assert((icon == null) != (iconWidget == null));
 
   final String title;
-  final IconData icon;
+  final IconData? icon;
+  final Widget? iconWidget;
   final VoidCallback onBack;
   final Widget body;
   final Widget? trailing;
@@ -200,6 +207,7 @@ class WatchListScaffold extends StatelessWidget {
               child: WatchPageHeader(
                 title: title,
                 icon: icon,
+                iconWidget: iconWidget,
                 onBack: onBack,
                 trailing: trailing,
               ),
@@ -524,15 +532,17 @@ class WatchPillButton extends StatelessWidget {
   const WatchPillButton({
     super.key,
     required this.label,
-    required this.icon,
+    this.icon,
+    this.iconWidget,
     required this.onPressed,
     this.primary = false,
     this.busy = false,
     this.tint,
-  });
+  }) : assert((icon == null) != (iconWidget == null));
 
   final String label;
-  final IconData icon;
+  final IconData? icon;
+  final Widget? iconWidget;
   final VoidCallback onPressed;
   final bool primary;
   final bool busy;
@@ -579,7 +589,13 @@ class WatchPillButton extends StatelessWidget {
                     ),
                   )
                 else
-                  Icon(icon, size: primary ? 20 : 17, color: foreground),
+                  IconTheme(
+                    data: IconThemeData(
+                      size: primary ? 20 : 17,
+                      color: foreground,
+                    ),
+                    child: iconWidget ?? Icon(icon),
+                  ),
                 const SizedBox(width: 7),
                 Flexible(
                   child: Text(
@@ -606,15 +622,17 @@ class WatchPillButton extends StatelessWidget {
 class WatchStateView extends StatelessWidget {
   const WatchStateView({
     super.key,
-    required this.icon,
+    this.icon,
+    this.iconWidget,
     required this.title,
     this.message,
     this.actionLabel,
     this.onAction,
     this.tint,
-  });
+  }) : assert((icon == null) != (iconWidget == null));
 
-  final IconData icon;
+  final IconData? icon;
+  final Widget? iconWidget;
   final String title;
   final String? message;
   final String? actionLabel;
@@ -639,7 +657,10 @@ class WatchStateView extends StatelessWidget {
                 color: accent.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, size: 23, color: accent),
+              child: IconTheme(
+                data: IconThemeData(size: 23, color: accent),
+                child: Center(child: iconWidget ?? Icon(icon)),
+              ),
             ),
             const SizedBox(height: 8),
             Text(

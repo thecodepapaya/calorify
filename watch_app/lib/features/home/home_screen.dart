@@ -395,7 +395,7 @@ class _ActionButtons extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: WatchPillButton(
-                icon: AppIcons.star,
+                iconWidget: const FavoriteIcon(),
                 label: strings.favorites.title,
                 tint: colorScheme.tertiary,
                 onPressed: () => context.router.push(const FavoritesRoute()),

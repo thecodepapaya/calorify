@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class EmptyStateWidget extends StatelessWidget {
   const EmptyStateWidget({
     super.key,
-    required this.icon,
+    this.icon,
+    this.iconWidget,
     required this.title,
     this.subtitle,
-  });
+  }) : assert((icon == null) != (iconWidget == null));
 
-  final IconData icon;
+  final IconData? icon;
+  final Widget? iconWidget;
   final String title;
   final String? subtitle;
 
@@ -23,7 +25,13 @@ class EmptyStateWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 48, color: colorScheme.onSurfaceVariant),
+            IconTheme(
+              data: IconThemeData(
+                size: 48,
+                color: colorScheme.onSurfaceVariant,
+              ),
+              child: iconWidget ?? Icon(icon),
+            ),
             const SizedBox(height: 16),
             Text(
               title,

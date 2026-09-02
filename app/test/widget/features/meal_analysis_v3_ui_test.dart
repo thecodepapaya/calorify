@@ -347,4 +347,65 @@ void main() {
     expect(find.byKey(const ValueKey('v3-calorie-range')), findsOneWidget);
     expect(find.text('Estimated range: 470–590 kcal'), findsOneWidget);
   });
+
+  testWidgets('V3 result hides a calorie interval with 10% overall spread', (
+    tester,
+  ) async {
+    final pipelineContext = MealAnalysisPipelineSessionContext(
+      result: PipelineResultData(
+        analysisId: 'analysis-1',
+        mealName: 'Dal and rice',
+        quantity: '1 bowl + 1 serving',
+        mealType: MealType.LUNCH,
+        macros: PipelineMacros(calories: 520),
+      ),
+      textDescription: 'dal and rice',
+    );
+    const v3Result = MealAnalysisV3CompleteResult(
+      mealName: 'Dal and rice',
+      servingSizeText: '1 bowl + 1 serving',
+      tip: '',
+      mealType: 'LUNCH',
+      macros: MealAnalysisV3MacroPoints(
+        calories: 520,
+        protein: 18,
+        carbs: 82,
+        fat: 12,
+        fiber: 9,
+      ),
+      macroRanges: MealAnalysisV3MacroRanges(
+        calories: MealAnalysisV3Range(min: 494, max: 546),
+        protein: MealAnalysisV3Range(min: 16, max: 21),
+        carbs: MealAnalysisV3Range(min: 74, max: 91),
+        fat: MealAnalysisV3Range(min: 9, max: 17),
+        fiber: MealAnalysisV3Range(min: 7, max: 11),
+      ),
+      components: [],
+      receipt: {},
+    );
+
+    await tester.pumpWidget(
+      wrapWithProviders(
+        Builder(
+          builder:
+              (context) => TextButton(
+                onPressed:
+                    () => showMealTip(
+                      context: context,
+                      purpose: MealDetailsSheetPurpose.mealAddition,
+                      mealDetectionResult:
+                          pipelineContext.toMealDetectionResult(),
+                      v3Result: v3Result,
+                      previewOnly: true,
+                    ),
+                child: const Text('Open'),
+              ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const ValueKey('v3-calorie-range')), findsNothing);
+  });
 }

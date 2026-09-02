@@ -131,7 +131,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
 
     return WatchListScaffold(
       title: strings.favorites.title,
-      icon: AppIcons.star,
+      iconWidget: const FavoriteIcon(),
       onBack: context.router.pop,
       trailing: ValueListenableBuilder<SyncState>(
         valueListenable: SyncService.instance.syncState,
@@ -162,7 +162,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
           }
           if (favorites.isEmpty) {
             return WatchStateView(
-              icon: AppIcons.star,
+              iconWidget: const FavoriteIcon(),
               title: strings.favorites.emptyTitle,
               message: strings.favorites.emptyMessage,
               tint: colorScheme.tertiary,
@@ -252,11 +252,7 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                     color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(
-                    AppIcons.star,
-                    size: 13,
-                    color: colorScheme.tertiary,
-                  ),
+                  child: FavoriteIcon(isFavorite: true, size: 13),
                 ),
                 const SizedBox(width: 10),
                 // Name + macros

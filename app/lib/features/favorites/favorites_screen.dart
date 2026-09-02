@@ -311,7 +311,7 @@ class _EmptyFavoritesState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: EmptyStateWidget(
-        icon: AppIcons.star,
+        iconWidget: const FavoriteIcon(),
         title: message,
         subtitle: t.home.favoriteMeals.addFavoriteHint,
       ),
