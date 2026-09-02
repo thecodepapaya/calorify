@@ -144,11 +144,13 @@ generic food.
 `BRANDED_PRODUCT` uses its model-supplied `productQuery` for product-first
 retrieval and ranking. A whole normalized product-query phrase can also
 authorize a branded candidate when canonical identity and aliases do not
-match; canonical and alias matches rank ahead of it. Fuzzy retrieval alone
-never authorizes a candidate, so `PEPPER` cannot match a `pepsi` query. When
-several product-query candidates remain equally plausible, the resolver
-returns `AMBIGUOUS_MATCH` rather than choosing a product silently. It is not
-yet a complete
+match; canonical and alias matches rank ahead of it. A partial fuzzy product
+near-match never authorizes a branded candidate, so `PEPPER` cannot match a
+`pepsi` query. When
+several same-rank product-query candidates remain, the temporary release
+policy selects the highest similarity and then the numerically lowest FDC ID.
+This favors a calorie result over unresolved ambiguity and may select the wrong
+variant. It is not yet a complete
 brand-aware matcher: the imported USDA projection does not retain metadata
 such as brand owner/name, barcode, ingredient list, or serving-label text.
 Adding that metadata is still required for package- and market-specific

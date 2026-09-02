@@ -72,5 +72,8 @@ already active, materialized snapshot through `USDA_DATABASE_URL` or
 English full-text candidate retrieval and deterministic stemmed token-set
 identity matching are enabled by default. Set `USDA_FTS_ENABLED=false` to
 temporarily roll back to trigram-only retrieval. FTS expands retrieval only;
-the existing preparation, nutrient, ambiguity, and ranking gates still decide
-whether a food can resolve.
+the preparation and nutrient gates still decide whether a food can resolve.
+For the current release, compatible fuzzy scores from `0.4` are accepted and
+same-rank conflicts use highest similarity, then numerically lowest FDC ID.
+See the canonical
+[temporary accuracy tradeoff](../../docs/plans/nutrition-resolver-retrieval.md#temporary-release-accuracy-tradeoff).

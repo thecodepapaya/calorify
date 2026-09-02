@@ -401,23 +401,18 @@ test('FTS stemmed identity breaks a preparation tie with unique trigram similari
   assert.equal(result.leaves[0]?.candidates[1]?.rejectionReasons.includes('LOWER_MATCH_TIER'), true);
 });
 
-test('rejects equally ranked candidates instead of choosing an ambiguous row', async () => {
+test('temporarily resolves equally ranked candidates by similarity', async () => {
   const fixture = queryFixture([readyDataset], [
-    candidate({ fdc_id: '100' }),
-    candidate({ fdc_id: '200', kcal_per_100g: 80 }),
+    candidate({ fdc_id: '100', identity_similarity: 0.8 }),
+    candidate({ fdc_id: '200', identity_similarity: 0.9, kcal_per_100g: 80 }),
   ]);
   const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
 
   const result = await resolver.resolve([scenario('scenario-1', [ingredient()])]);
 
-  assert.equal(result.leaves[0]?.reference, null);
-  assert.deepEqual(result.leaves[0]?.rejectionReasons, ['AMBIGUOUS_MATCH']);
-  assert.equal(
-    result.leaves[0]?.candidates.every((item) =>
-      item.rejectionReasons.includes('AMBIGUOUS_MATCH')
-    ),
-    true
-  );
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '200');
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
+  assert.equal(result.leaves[0]?.candidates[1]?.rejectionReasons.includes('LOWER_MATCH_TIER'), true);
 });
 
 test('deduplicates identical lookup keys within one run and preserves leaf locators', async () => {
@@ -586,7 +581,7 @@ test('does not use NFS after a preparation mismatch', async () => {
   assert.equal(fixture.calls.length, 2);
 });
 
-test('uses NFS after an ambiguous generic primary match', async () => {
+test('does not use NFS after the temporary primary conflict fallback selects a row', async () => {
   const calls: Array<{ text: string; params?: unknown[] }> = [];
   const query: NutritionDatabaseQuery = async (text, params) => {
     calls.push({ text, params });
@@ -616,8 +611,8 @@ test('uses NFS after an ambiguous generic primary match', async () => {
     preparationCodes: ['UNKNOWN'],
   })])]);
 
-  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'lentils-nfs');
-  assert.deepEqual(calls[2]?.params, [['lentils nfs'], 30, false, null, true, false]);
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'lentils-a');
+  assert.equal(calls.length, 2);
 });
 
 test('does not use NFS for a branded request', async () => {
@@ -635,46 +630,43 @@ test('does not use NFS for a branded request', async () => {
   assert.deepEqual(fixture.calls[2]?.params, [['lentils'], 30, false, null, true, false]);
 });
 
-test('resolves exact collisions by macro equivalence without source-type priority', async (t) => {
-  await t.test('identical vectors choose the lowest FDC ID', async () => {
+test('temporary release collision fallback uses similarity then numeric FDC ID', async (t) => {
+  await t.test('equal scores choose the numerically lowest FDC ID', async () => {
     const fixture = queryFixture([readyDataset], [
-      candidate({ fdc_id: '200', normalized_name: 'pumpkin' }),
-      candidate({ fdc_id: '100', normalized_name: 'pumpkin' }),
+      candidate({ fdc_id: '20', normalized_name: 'pumpkin', kcal_per_100g: 80 }),
+      candidate({ fdc_id: '3', normalized_name: 'pumpkin' }),
     ]);
     const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
     const result = await resolver.resolve([scenario('exact-equal', [ingredient()])]);
 
-    assert.equal(result.leaves[0]?.reference?.sourceRecordId, '100');
+    assert.equal(result.leaves[0]?.reference?.sourceRecordId, '3');
+    assert.equal(result.leaves[0]?.candidates.some((item) =>
+      item.rejectionReasons.includes('AMBIGUOUS_MATCH')
+    ), false);
   });
 
-  await t.test('near-equivalent vectors choose the lower-calorie row', async () => {
+  await t.test('a closer score wins even when its FDC ID and calories are higher', async () => {
     const fixture = queryFixture([readyDataset], [
-      candidate({ fdc_id: 'high', normalized_name: 'pumpkin', kcal_per_100g: 20 }),
-      candidate({ fdc_id: 'low', normalized_name: 'pumpkin', kcal_per_100g: 19.5, protein_per_100g: 0.71 }),
+      candidate({ fdc_id: '100', normalized_name: 'pumpkin', identity_similarity: 0.8 }),
+      candidate({
+        fdc_id: '200',
+        normalized_name: 'pumpkin',
+        identity_similarity: 0.9,
+        kcal_per_100g: 80,
+      }),
     ]);
     const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
-    const result = await resolver.resolve([scenario('near-equal', [ingredient()])]);
+    const result = await resolver.resolve([scenario('score-wins', [ingredient()])]);
 
-    assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'low');
-  });
-
-  await t.test('materially different vectors remain ambiguous', async () => {
-    const fixture = queryFixture([readyDataset], [
-      candidate({ fdc_id: 'first', kcal_per_100g: 20 }),
-      candidate({ fdc_id: 'second', kcal_per_100g: 80 }),
-    ]);
-    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
-    const result = await resolver.resolve([scenario('different', [ingredient()])]);
-
-    assert.deepEqual(result.leaves[0]?.rejectionReasons, ['AMBIGUOUS_MATCH']);
+    assert.equal(result.leaves[0]?.reference?.sourceRecordId, '200');
   });
 });
 
-test('rejects a fuzzy identity match below the resolver confidence threshold', async () => {
+test('rejects a fuzzy identity match below the temporary 0.4 threshold', async () => {
   const fixture = queryFixture([readyDataset], [candidate({
     normalized_name: 'pumpkin cooked',
     description: 'Pumpkin, cooked',
-    identity_similarity: 0.59,
+    identity_similarity: 0.39,
   })]);
   const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
   const result = await resolver.resolve([scenario('weak-fuzzy', [ingredient({
@@ -685,13 +677,13 @@ test('rejects a fuzzy identity match below the resolver confidence threshold', a
   assert.deepEqual(result.leaves[0]?.rejectionReasons, ['LOW_CONFIDENCE_MATCH']);
 });
 
-test('uses a high-confidence fuzzy fallback only when no hard identity matches', async () => {
+test('uses fuzzy fallback at the temporary 0.4 threshold when no hard identity matches', async () => {
   const fixture = queryFixture([readyDataset], [
     candidate({
       fdc_id: 'whole-wheat',
       normalized_name: 'wheat flour whole grain soft wheat',
       description: 'Wheat flour, whole-grain, soft wheat',
-      identity_similarity: 0.82,
+      identity_similarity: 0.4,
     }),
     candidate({
       fdc_id: 'oat-flour',
@@ -713,7 +705,34 @@ test('uses a high-confidence fuzzy fallback only when no hard identity matches',
   assert.deepEqual(result.leaves[0]?.candidates[0]?.rejectionReasons, []);
 });
 
-test('keeps an unsafe fuzzy food-category match unresolved', async () => {
+test('resolves the staging split-peas case at the temporary 0.4 threshold', async () => {
+  const fixture = queryFixture([readyDataset], [
+    candidate({
+      fdc_id: '172420',
+      normalized_name: 'peas split mature seeds cooked boiled without salt',
+      description: 'Peas, split, mature seeds, cooked, boiled, without salt',
+      identity_similarity: 0.4,
+    }),
+    candidate({
+      fdc_id: '169745',
+      normalized_name: 'spelt cooked',
+      description: 'Spelt, cooked',
+      identity_similarity: 0.409,
+    }),
+  ]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('split-peas', [ingredient({
+    canonicalIdentity: 'split peas',
+    displayName: 'Split peas',
+    nutritionBasis: 'COOKED',
+    preparationCodes: ['COOKED_UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '172420');
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
+});
+
+test('temporarily accepts the closest compatible fuzzy food at or above 0.4', async () => {
   const fixture = queryFixture([readyDataset], [
     candidate({
       fdc_id: 'ginger-tea',
@@ -735,8 +754,8 @@ test('keeps an unsafe fuzzy food-category match unresolved', async () => {
     preparationCodes: ['UNKNOWN'],
   })])]);
 
-  assert.equal(result.leaves[0]?.reference, null);
-  assert.deepEqual(result.leaves[0]?.rejectionReasons, ['LOW_CONFIDENCE_MATCH']);
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'ginger-root');
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
 });
 
 test('filters generic candidates to trusted food rows before applying the limit', async () => {

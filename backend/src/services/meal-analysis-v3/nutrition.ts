@@ -205,10 +205,11 @@ const PREPARATION_RANK: Record<PreparationMatchTier, number> = {
   UNSPECIFIED_COMPATIBLE: 3,
 };
 
-const FUZZY_MATCH_THRESHOLD = 0.75;
-const FUZZY_MATCH_MARGIN = 0.05;
-const MACRO_EQUIVALENCE_TOLERANCE = 0.05;
-const MACRO_COMPARISON_FLOOR = 0.1;
+// TEMPORARY RELEASE OVERRIDE: favor returning an approximate calorie result
+// over leaving the meal unresolved. Restore a stricter, corpus-validated
+// acceptance policy after the resolver retrieval redesign documented in
+// docs/plans/nutrition-resolver-retrieval.md.
+const FUZZY_MATCH_THRESHOLD = 0.4;
 
 const PREPARATION_TERMS: Partial<Record<PreparationCode, readonly string[]>> = {
   RAW: ['raw', 'uncooked'],
@@ -764,47 +765,20 @@ async function resolveCandidateCohort(
   const best = hardMatches[0]!;
   const top = hardMatches.filter((candidate) => sameRank(candidate, best));
   if (top.length > 1) {
-    const collisionWinner = resolveExactMacroCollision(top);
-    if (collisionWinner !== null) {
-      collisionWinner.diagnostic.selected = true;
-      for (const candidate of hardMatches) {
-        if (candidate !== collisionWinner) candidate.diagnostic.rejectionReasons.push('LOWER_MATCH_TIER');
-      }
-      return {
-        selected: collisionWinner.row,
-        per100g: collisionWinner.per100g,
-        rejectionReasons: [],
-        candidates: boundedDiagnostics(evaluated),
-      };
-    }
-    const similarityWinner = resolveUniqueSimilarityCollision(top);
-    if (similarityWinner !== null) {
-      similarityWinner.diagnostic.selected = true;
-      for (const candidate of hardMatches) {
-        if (candidate !== similarityWinner) candidate.diagnostic.rejectionReasons.push('LOWER_MATCH_TIER');
-      }
-      return {
-        selected: similarityWinner.row,
-        per100g: similarityWinner.per100g,
-        rejectionReasons: [],
-        candidates: boundedDiagnostics(evaluated),
-      };
-    }
-    for (const candidate of top) {
-      candidate.diagnostic.rejectionReasons.push('AMBIGUOUS_MATCH');
-    }
-    for (const candidate of hardMatches.filter((candidate) => !top.includes(candidate))) {
-      candidate.diagnostic.rejectionReasons.push('LOWER_MATCH_TIER');
+    const collisionWinner = resolveTemporaryReleaseCollision(top);
+    collisionWinner.diagnostic.selected = true;
+    for (const candidate of hardMatches) {
+      if (candidate !== collisionWinner) candidate.diagnostic.rejectionReasons.push('LOWER_MATCH_TIER');
     }
     return {
-      selected: null,
-      per100g: null,
-      rejectionReasons: ['AMBIGUOUS_MATCH'],
+      selected: collisionWinner.row,
+      per100g: collisionWinner.per100g,
+      rejectionReasons: [],
       candidates: boundedDiagnostics(evaluated),
     };
   }
 
-  if (!isExactIdentityMatch(best) && !passesFuzzyConfidence(best, hardMatches)) {
+  if (!isExactIdentityMatch(best) && !passesFuzzyConfidence(best)) {
     best.diagnostic.rejectionReasons.push('LOW_CONFIDENCE_MATCH');
     return {
       selected: null,
@@ -899,12 +873,9 @@ function resolveFuzzyCandidate(
     };
   }
 
-  identityCompatible.sort((left, right) =>
-    (right.diagnostic.similarity ?? 0) - (left.diagnostic.similarity ?? 0) ||
-    left.row.fdc_id.localeCompare(right.row.fdc_id)
-  );
+  identityCompatible.sort(compareSimilarityThenSourceRecordId);
   const best = identityCompatible[0]!;
-  if (!passesFuzzyConfidence(best, identityCompatible)) {
+  if (!passesFuzzyConfidence(best)) {
     best.diagnostic.rejectionReasons.push('LOW_CONFIDENCE_MATCH');
     return {
       selected: null,
@@ -1193,72 +1164,18 @@ function isExactIdentityMatch(candidate: EvaluatedCandidate): boolean {
     candidate.diagnostic.identityTier === 'STEMMED_TOKEN_SET';
 }
 
-function sameMacros(left: MacroVector, right: MacroVector): boolean {
-  return left.caloriesKcal === right.caloriesKcal &&
-    left.proteinGrams === right.proteinGrams &&
-    left.carbsGrams === right.carbsGrams &&
-    left.fatGrams === right.fatGrams &&
-    left.fiberGrams === right.fiberGrams;
-}
-
-function withinMacroTolerance(left: MacroVector, right: MacroVector): boolean {
-  return [
-    [left.caloriesKcal, right.caloriesKcal],
-    [left.proteinGrams, right.proteinGrams],
-    [left.carbsGrams, right.carbsGrams],
-    [left.fatGrams, right.fatGrams],
-    [left.fiberGrams, right.fiberGrams],
-  ].every(([a, b]) =>
-    Math.abs(a - b) / Math.max(Math.abs(a), Math.abs(b), MACRO_COMPARISON_FLOOR)
-      <= MACRO_EQUIVALENCE_TOLERANCE
-  );
-}
-
-function resolveExactMacroCollision(
+function resolveTemporaryReleaseCollision(
   candidates: readonly EvaluatedCandidate[]
-): EvaluatedCandidate | null {
-  if (!candidates.every(isExactIdentityMatch) || candidates.some((candidate) => candidate.per100g === null)) {
-    return null;
-  }
-  const vectors = candidates.map((candidate) => candidate.per100g!);
-  if (vectors.every((vector) => sameMacros(vector, vectors[0]!))) {
-    return [...candidates].sort((left, right) => left.row.fdc_id.localeCompare(right.row.fdc_id))[0]!;
-  }
-  if (vectors.every((vector) => withinMacroTolerance(vector, vectors[0]!))) {
-    return [...candidates].sort((left, right) =>
-      left.per100g!.caloriesKcal - right.per100g!.caloriesKcal ||
-      left.row.fdc_id.localeCompare(right.row.fdc_id)
-    )[0]!;
-  }
-  return null;
+): EvaluatedCandidate {
+  // TEMPORARY RELEASE OVERRIDE: materially different USDA rows no longer stop
+  // resolution. Prefer the closest trigram score, then the numerically smaller
+  // FDC ID, so the approximation is deterministic and still returns calories.
+  return [...candidates].sort(compareSimilarityThenSourceRecordId)[0]!;
 }
 
-function resolveUniqueSimilarityCollision(
-  candidates: readonly EvaluatedCandidate[]
-): EvaluatedCandidate | null {
-  const ranked = [...candidates].sort((left, right) =>
-    (right.diagnostic.similarity ?? Number.NEGATIVE_INFINITY) -
-      (left.diagnostic.similarity ?? Number.NEGATIVE_INFINITY) ||
-    left.row.fdc_id.localeCompare(right.row.fdc_id)
-  );
-  const winner = ranked[0];
-  const runnerUp = ranked[1];
-  if (winner === undefined || runnerUp === undefined) return winner ?? null;
-  return winner.diagnostic.similarity !== null &&
-    winner.diagnostic.similarity > (runnerUp.diagnostic.similarity ?? Number.NEGATIVE_INFINITY)
-    ? winner
-    : null;
-}
-
-function passesFuzzyConfidence(
-  candidate: EvaluatedCandidate,
-  eligible: readonly EvaluatedCandidate[]
-): boolean {
+function passesFuzzyConfidence(candidate: EvaluatedCandidate): boolean {
   const score = candidate.diagnostic.similarity ?? 0;
-  const runnerUp = eligible
-    .filter((other) => other !== candidate)
-    .reduce((best, other) => Math.max(best, other.diagnostic.similarity ?? 0), 0);
-  return score >= FUZZY_MATCH_THRESHOLD && score - runnerUp >= FUZZY_MATCH_MARGIN;
+  return score >= FUZZY_MATCH_THRESHOLD;
 }
 
 function lookupKey(leaf: IngredientLeaf): string {
@@ -1285,7 +1202,26 @@ function normalizeIdentity(value: string): string {
 function compareCandidateRank(left: EvaluatedCandidate, right: EvaluatedCandidate): number {
   return left.identityRank - right.identityRank ||
     left.preparationRank - right.preparationRank ||
-    left.row.fdc_id.localeCompare(right.row.fdc_id);
+    compareSourceRecordId(left.row.fdc_id, right.row.fdc_id);
+}
+
+function compareSimilarityThenSourceRecordId(
+  left: EvaluatedCandidate,
+  right: EvaluatedCandidate
+): number {
+  return (right.diagnostic.similarity ?? Number.NEGATIVE_INFINITY) -
+    (left.diagnostic.similarity ?? Number.NEGATIVE_INFINITY) ||
+    compareSourceRecordId(left.row.fdc_id, right.row.fdc_id);
+}
+
+function compareSourceRecordId(left: string, right: string): number {
+  if (/^-?\d+$/.test(left) && /^-?\d+$/.test(right)) {
+    const leftNumber = BigInt(left);
+    const rightNumber = BigInt(right);
+    if (leftNumber < rightNumber) return -1;
+    if (leftNumber > rightNumber) return 1;
+  }
+  return left.localeCompare(right);
 }
 
 function sameRank(left: EvaluatedCandidate, right: EvaluatedCandidate): boolean {
@@ -1305,7 +1241,7 @@ function boundedDiagnostics(candidates: EvaluatedCandidate[]): NutritionCandidat
         right.diagnostic.identityTier === null
       ) {
         return (right.diagnostic.similarity ?? -1) - (left.diagnostic.similarity ?? -1) ||
-          left.row.fdc_id.localeCompare(right.row.fdc_id);
+          compareSourceRecordId(left.row.fdc_id, right.row.fdc_id);
       }
       return compareCandidateRank(left, right) ||
         (right.diagnostic.similarity ?? -1) - (left.diagnostic.similarity ?? -1);

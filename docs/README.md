@@ -21,7 +21,8 @@ Use this page to find the document that matches the work you are doing.
   with the current two-call baseline, including cost, latency, and decision.
 - [Nutrition resolver retrieval](plans/nutrition-resolver-retrieval.md) —
   canonical FTS, USDA NFS, and generic-spices fallback decisions, resolver
-  invariants, and deferred embedding design and rollout criteria.
+  invariants, the temporary release accuracy tradeoff, and deferred embedding
+  design and rollout criteria.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
 
 ## Implemented workflows

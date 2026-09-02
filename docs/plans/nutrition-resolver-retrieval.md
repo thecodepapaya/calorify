@@ -2,7 +2,7 @@
 
 **Status:** active implementation plan.
 
-**Last verified:** 2026-08-31.
+**Last verified:** 2026-09-02.
 
 **Owner:** meal-analysis backend.
 **Canonical scope:** retrieval evolution for the V3 local USDA nutrition
@@ -25,6 +25,7 @@ path repeats resolver work because stage checkpoints are not yet persisted.
 | USDA `NFS` fallback | Exact generic fallback after no better result | Implemented |
 | Generic `spices` fallback | Migration-seeded local profile | Implemented |
 | Model nutrition fallback | Strict per-100-g estimate after all USDA paths fail | Implemented |
+| Temporary release match fallback | Accept fuzzy scores from `0.4`; break equal-rank conflicts by score, then numeric FDC ID | Temporary |
 | Embedding generation, pgvector, and semantic retrieval | Defer | Not built |
 | Embeddings as an acceptance signal | Never allow | Permanent constraint |
 
@@ -62,12 +63,11 @@ implementation. For every nutrition-bearing leaf, it runs this exact order:
    `CANONICAL_EXACT`, `CANONICAL_TOKEN_SET`, `ALIAS_EXACT`,
    `ALIAS_TOKEN_SET`, `STEMMED_TOKEN_SET`, `PRODUCT_QUERY_PHRASE`.
 8. If no viable hard identity exists, use the fuzzy fallback. It requires a
-   compatible identity, similarity at least `0.75`, and a lead of at least
-   `0.05` over the runner-up.
+   compatible identity and similarity at least `0.4`. The former runner-up
+   margin is temporarily disabled.
 9. Select the best hard identity/preparation rank. If multiple rows tie:
-   exact macro equality selects the lowest FDC ID; near-equivalent macros select
-   the lower-calorie row; otherwise a unique highest trigram similarity selects
-   the winner. A trigram tie remains `AMBIGUOUS_MATCH`.
+   highest trigram similarity selects the winner, including when nutrient
+   vectors differ. Equal scores select the numerically lowest FDC ID.
 10. Mark non-selected viable rows `LOWER_MATCH_TIER`; return bounded candidate
     diagnostics with identity tier, preparation tier, FTS rank, trigram score,
     nutrients, and rejection reason.
@@ -75,11 +75,67 @@ implementation. For every nutrition-bearing leaf, it runs this exact order:
 ### Onion example
 
 For an `AS_SERVED` onion with `UNKNOWN` preparation, raw and cooked USDA rows
-both pass preparation compatibility and receive `STEMMED_TOKEN_SET`. Their
-macros differ, so the macro collision rule cannot select either. The raw row's
-trigram score (`0.41666666`) is uniquely higher than cooked no-salt
+both pass preparation compatibility and receive `STEMMED_TOKEN_SET`. The
+temporary policy ignores their differing macros for collision selection. The
+raw row's trigram score (`0.41666666`) is uniquely higher than cooked no-salt
 (`0.12195122`) and cooked salted (`0.13157895`), so raw onion is selected. If
-two tied rows share the top trigram score, the resolver remains unresolved.
+two tied rows share the top trigram score, the numerically lower FDC ID is
+selected.
+
+## Temporary release accuracy tradeoff
+
+**Status:** active release workaround. This is intentionally less reliable
+than the target resolver policy and exists to return calories instead of
+ending otherwise usable analyses as unresolved.
+
+| Resolver setting | Previous policy | Temporary release policy |
+| --- | --- | --- |
+| `FUZZY_MATCH_THRESHOLD` | `0.75` | `0.4` |
+| `FUZZY_MATCH_MARGIN` | `0.05` | Disabled |
+| `MACRO_EQUIVALENCE_TOLERANCE` | `0.05` | Disabled for collision selection |
+| `MACRO_COMPARISON_FLOOR` | `0.1` | Disabled for collision selection |
+| Equal-rank, equal-score conflict | Return `AMBIGUOUS_MATCH` unless exact or near-equivalent macros resolved it | Select the numerically lowest FDC ID |
+
+Previously, equal macro vectors selected the lowest FDC ID, vectors within the
+`0.05` relative tolerance selected the lower-calorie row, a unique highest
+similarity selected other conflicts, and equal similarities remained
+`AMBIGUOUS_MATCH`. The temporary policy bypasses those macro collision rules.
+
+After identity, preparation, dataset, required-nutrient, and macro-plausibility
+checks pass, the resolver accepts a compatible fuzzy candidate at similarity
+`0.4` or higher. It does not require a lead over the runner-up. Conflicting
+candidates at the same identity and preparation ranks are ordered by highest
+trigram similarity and then by numerically lowest USDA FDC ID. Macro equality
+or proximity does not override this order.
+
+This can choose the wrong USDA variant, including a preparation, fat-content,
+or source-row variant that happens to score better. The calorie and macro
+result is therefore deterministic but may be approximate. Preparation and
+required-nutrient rejection remain blocking; this workaround does not allow a
+known-incompatible or incomplete row merely to force a result.
+
+Candidate conflicts at the same identity and preparation ranks must not emit
+`AMBIGUOUS_MATCH` while this workaround is active. A valid candidate always
+wins by similarity and then numeric FDC ID. `AMBIGUOUS_RETRIEVAL_INTENT` is a
+different input-routing outcome and is not changed by this release policy.
+
+Remove this override after the replacement retrieval/ranking design has a
+labelled corpus covering the staging failures, reports top-candidate accuracy
+and unresolved rate, and provides a deterministic policy for variant and
+duplicate USDA rows. Restoring the stricter acceptance policy must update the
+constants, collision selection, regression tests, and this document together.
+
+Revert checklist:
+
+1. Restore `FUZZY_MATCH_THRESHOLD = 0.75` and
+   `FUZZY_MATCH_MARGIN = 0.05`, including the runner-up lead check.
+2. Restore `MACRO_EQUIVALENCE_TOLERANCE = 0.05` and
+   `MACRO_COMPARISON_FLOOR = 0.1` for equal-rank collisions.
+3. Restore exact-vector FDC-ID selection, near-equivalent lower-calorie
+   selection, unique-similarity selection, and `AMBIGUOUS_MATCH` for a
+   remaining score tie.
+4. Replace the temporary regression expectations and rerun the labelled
+   resolver corpus before release.
 
 The candidate SQL already uses PostgreSQL trigram retrieval (`pg_trgm`) and
 substring predicates to *find* rows. Substring retrieval is not identity
@@ -94,10 +150,10 @@ to `peanut`, and `oil` must not resolve to `boiler`.
   must not make `raw lentils` equivalent to `cooked lentils`.
 - Calories, protein, carbohydrates, and fat remain required; existing
   missing-fiber-as-zero policy remains unchanged.
-- Ambiguity remains unresolved unless exact/near-equivalent macro collision or
-  a unique highest trigram similarity selects a deterministic winner.
+- Equal-rank ambiguity is temporarily forced to a deterministic result by
+  similarity and numeric FDC ID; this is a documented accuracy tradeoff.
 - Candidate search can improve recall. It cannot weaken final identity,
-  preparation, nutrient, or ambiguity checks.
+  preparation, or nutrient checks.
 - The resolver remains functional when FTS is unavailable; current trigram
   retrieval is the rollback path.
 
@@ -132,11 +188,11 @@ nearby but different row such as sprouted lentils.
 5. If no unique exact NFS row passes, preserve the original unresolved result.
 
 **Boundaries:** NFS fallback is unavailable for branded requests, explicit
-`RAW`, `DRY`, or `DRAINED` bases, or any specific preparation code. It is
-allowed after a generic primary ambiguity, but it cannot select an approximate
-NFS result. The local snapshot has `Lentils, NFS`; it does not have `Onion,
-NFS`, so unspecified onion remains unresolved when raw and cooked candidates
-are ambiguous.
+`RAW`, `DRY`, or `DRAINED` bases, or any specific preparation code. It can
+still run after no candidates, identity mismatch, or low confidence, but the
+temporary release conflict fallback selects an equal-rank primary candidate
+before NFS is considered. An NFS lookup still cannot select an approximate NFS
+result.
 
 ## Generic spices fallback
 
@@ -232,11 +288,12 @@ Examples:
    `CANONICAL_EXACT`, `CANONICAL_TOKEN_SET`, `ALIAS_EXACT`,
    `ALIAS_TOKEN_SET`, `STEMMED_TOKEN_SET`, `PRODUCT_QUERY_PHRASE`, then
    constrained fuzzy fallback only when no viable identity tier exists.
-5. Keep fuzzy's controlled-extra-token, minimum-similarity, and winner-margin
-   requirements. FTS rank or a stem match never bypasses them for other forms.
-6. For equal hard identity and preparation ranks: resolve identical or
-   near-equivalent macros first, then choose only a unique highest trigram
-   similarity. Equal trigram scores remain ambiguous.
+5. Keep fuzzy's controlled-extra-token requirement. The temporary release
+   override lowers minimum similarity to `0.4` and suspends the winner margin.
+   FTS rank or a stem match still never bypasses preparation or nutrient gates.
+6. For equal hard identity and preparation ranks, the temporary override uses
+   highest trigram similarity and then numerically lowest FDC ID, even when
+   macros differ.
 7. Emit candidate diagnostics with identity tier, preparation tier, FTS rank,
    trigram similarity, and rejection reason. Do not log raw meal text.
 
@@ -261,7 +318,7 @@ generic categories, branded products, typos, and adversarial negatives.
 Required tests:
 
 - `tomato` resolves a safe `tomatoes` candidate; tied onion forms select the
-  unique highest trigram score and equal trigram scores remain unresolved;
+  highest trigram score and equal scores select the numerically lowest FDC ID;
 - `pea` never resolves `peanut`; `oil` never resolves `boiler`;
 - raw, dry, cooked, drained, juice, sauce, powder, and added-fat forms keep
   their existing preparation/form protections;

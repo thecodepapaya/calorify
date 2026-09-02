@@ -171,6 +171,11 @@ row. New imports also store per-nutrient presence flags. V3 reuses legacy
 materialized snapshots; missing fiber is intentionally treated as zero, while
 a presence-aware snapshot still rejects missing calories, protein,
 carbohydrate, or fat. This can understate fiber when the source omitted it.
+The current release temporarily accepts compatible fuzzy matches at `0.4` and
+breaks equal-rank conflicts by similarity, then numeric FDC ID, to prefer an
+approximate calorie result over an unresolved analysis. The accuracy tradeoff
+and removal criteria are canonical in the
+[nutrition resolver retrieval plan](../docs/plans/nutrition-resolver-retrieval.md#temporary-release-accuracy-tradeoff).
 
 The importer accepts only the USDA `Energy` nutrient expressed in kcal. A read-boundary guard repairs legacy reference rows that were previously imported from kilojoules.
 
