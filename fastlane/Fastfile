@@ -107,9 +107,27 @@ platform :android do
     sh("./scripts/generate_release_notes.sh")
   end
 
+  private_lane :validate_play_release_notes do
+    repository_root = File.expand_path("..", __dir__)
+    version_code = pubspec_version_code(path: "app/pubspec.yaml")
+    path = File.join(repository_root, "fastlane/metadata/android/en-US/changelogs/#{version_code}.txt")
+    UI.user_error!("Missing English Play changelog: #{path}") unless File.file?(path)
+
+    text = File.read(path, encoding: "UTF-8")
+    lines = text.lines(chomp: true)
+    UI.user_error!("English Play changelog must contain 1 to 4 nonempty lines") unless
+      lines.length.between?(1, 4) && lines.none?(&:empty?)
+    UI.user_error!("English Play changelog lines must start with '- '") unless
+      lines.all? { |line| line.start_with?("- ") && line.length > 12 }
+    UI.user_error!("English Play changelog exceeds 500 characters") if text.chomp.length > 500
+    UI.user_error!("English Play changelog contains unsupported characters") unless
+      text.ascii_only? && text.match?(/\A[\x20-\x7E\n]+\z/) && !text.match?(/[<>]/)
+  end
+
   desc "Deploy a new version to the Google Play"
   lane :release do
     track = ENV.fetch("PLAY_TRACK", "internal")
+    validate_play_release_notes
 
     upload_to_play_store(
       track: track,

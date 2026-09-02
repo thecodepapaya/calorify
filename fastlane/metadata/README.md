@@ -92,7 +92,7 @@ Use the `create_changelog.sh` compatibility command when you already have Englis
    fastlane/metadata/android/en-US/changelogs/[version_code].txt
    ```
 
-3. **Write your changelog** - Keep it concise and user-friendly. Play Store allows up to 500 characters.
+3. **Write your changelog** - Use 1–4 meaningful lines beginning with `- `. Keep it within 500 characters and use printable ASCII characters only; angle-bracket markup is rejected.
 
 ## Example
 
@@ -100,15 +100,16 @@ For version `1.2.1+22`:
 
 **File:** `fastlane/metadata/android/en-US/changelogs/22.txt`
 ```
-• Improved AI meal recognition accuracy
-• Fixed crash when syncing with Health Connect
-• Performance optimizations for faster app startup
-• Updated translations for 5 languages
+- Improved AI meal recognition accuracy
+- Fixed crash when syncing with Health Connect
+- Performance optimizations for faster app startup
+- Updated app translations
 ```
 
 ## Notes
 
 - Fastlane uploads the matching `en-US` changelog while skipping store-listing metadata, images, and screenshots
+- The release lane rejects missing, malformed, non-ASCII, or overlong English notes before uploading
 - If a changelog file doesn't exist for a version code, Fastlane will skip it (no error)
 - Changelogs are required for new releases but optional for updates
 - Keep changelogs under 500 characters for best display on Play Store

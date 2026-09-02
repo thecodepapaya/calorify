@@ -427,6 +427,45 @@ print(len(text))
 PY
 }
 
+normalize_english_text_file() {
+    python3 - "$1" <<'PY'
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+text = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+replacements = {
+    "•": "-",
+    "–": "-",
+    "—": "-",
+    "‘": "'",
+    "’": "'",
+    "“": '"',
+    "”": '"',
+    "…": "...",
+    "\u00a0": " ",
+}
+for source, target in replacements.items():
+    text = text.replace(source, target)
+
+lines = [line.rstrip() for line in text.splitlines()]
+text = "\n".join(lines).strip() + "\n"
+lines = text.splitlines()
+if not 1 <= len(lines) <= 4 or any(not line for line in lines):
+    raise SystemExit("Release notes must contain 1 to 4 nonempty lines")
+if any(not line.startswith("- ") or len(line) <= 12 for line in lines):
+    raise SystemExit("Release note lines must start with '- ' and contain meaningful text")
+invalid = sorted({char for char in text if char != "\n" and not 0x20 <= ord(char) <= 0x7E})
+if invalid:
+    rendered = ", ".join(f"U+{ord(char):04X}" for char in invalid)
+    raise SystemExit(f"Release notes contain unsupported characters: {rendered}")
+if "<" in text or ">" in text:
+    raise SystemExit("Release notes must not contain angle-bracket markup")
+
+path.write_text(text, encoding="ascii")
+PY
+}
+
 validate_text_file_length() {
     local file="$1"
     local length
@@ -467,6 +506,7 @@ ensure_within_limit() {
 
     compress_text "$file" "$locale_name" "$compressed_file"
     mv "$compressed_file" "$file"
+    normalize_english_text_file "$file"
 
     if validate_text_file_length "$file"; then
         return 0
@@ -485,6 +525,7 @@ draft_english_notes() {
     write_prompt_file "$system_file" "You write concise Google Play Store release notes for Calorify. Use only the provided git context. Include only user-facing changes; ignore internal refactors, generated files, version bumps, CI-only work, and dependency churn unless users benefit directly. Use 2 to 4 short bullet lines, no heading, professional friendly tone, and at most $CHANGELOG_MAX_LENGTH Unicode characters. Return JSON exactly as {\"notes\":\"...\"}."
 
     call_openai_json "$system_file" "$context_file" "notes" "$output_file"
+    normalize_english_text_file "$output_file"
     ensure_within_limit "$output_file" "en-US" "English (United States)"
 }
 
@@ -499,6 +540,7 @@ generate_all_notes() {
         else
             cp "$SOURCE_FILE" "$english_file"
         fi
+        normalize_english_text_file "$english_file"
         if ! validate_text_file_length "$english_file"; then
             print_error "English release notes exceed $CHANGELOG_MAX_LENGTH characters"
             exit 1
