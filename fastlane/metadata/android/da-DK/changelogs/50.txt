@@ -1,0 +1,3 @@
+• Smartere måltidsanalyse med forbedret madgenkendelse, portionsstørrelser og næringsestimater
+• Et mere flydende analyseforløb med tydeligere spørgsmål, valgbare svar og løbende fremdrift
+• Forbedret Wear OS-oplevelse, intervaller for kalorieestimater og ikoner til favoritmåltider

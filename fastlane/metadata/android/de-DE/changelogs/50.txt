@@ -1,0 +1,3 @@
+• Intelligentere Mahlzeitenanalyse mit verbesserter Lebensmittelerkennung, Portionsbestimmung und Nährwertschätzungen
+• Reibungsloserer Analyseablauf mit klareren Fragen, auswählbaren Antworten und kontinuierlicher Fortschrittsanzeige
+• Optimiertes Wear OS-Erlebnis, Kalorienschätzbereiche und Symbole für Lieblingsmahlzeiten

@@ -1,0 +1,3 @@
+• Geliştirilmiş yiyecek tanıma, porsiyon ve besin tahminleriyle daha akıllı öğün analizi
+• Daha anlaşılır sorular, seçilebilir yanıtlar ve kesintisiz ilerlemeyle daha akıcı analiz süreci
+• Yenilenen Wear OS deneyimi, kalori tahmini aralıkları ve favori öğün simgeleri

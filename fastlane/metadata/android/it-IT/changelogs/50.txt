@@ -1,0 +1,3 @@
+• Analisi dei pasti più intelligente con riconoscimento degli alimenti, porzioni e stime nutrizionali migliorati
+• Processo di analisi più fluido con domande più chiare, risposte selezionabili e avanzamento continuo
+• Esperienza Wear OS perfezionata, intervalli di stima delle calorie e icone per i pasti preferiti

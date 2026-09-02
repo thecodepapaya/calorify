@@ -1,0 +1,3 @@
+• Inteligentniejsza analiza posiłków dzięki ulepszonemu rozpoznawaniu produktów, porcji i szacowaniu wartości odżywczych
+• Płynniejszy przebieg analizy z bardziej przejrzystymi pytaniami, możliwością wyboru odpowiedzi i ciągłym postępem
+• Udoskonalone działanie w Wear OS, zakresy szacowanej liczby kalorii oraz ikony ulubionych posiłków
