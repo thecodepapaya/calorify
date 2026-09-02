@@ -233,7 +233,7 @@ function logDebugError(error: unknown): void {
       status: error.status,
       code: error.code,
       type: error.type,
-      requestId: error.request_id,
+      requestId: error.requestID,
     });
     return;
   }

@@ -7,13 +7,17 @@ const verifyIdToken = mock.fn(async () => {
   throw new Error(`Firebase SDK failure: ${secret}`);
 });
 
-await mock.module('firebase-admin', {
-  defaultExport: {
+await mock.module('firebase-admin/app', {
+  namedExports: {
+    cert: mock.fn(() => ({})),
+    getApps: mock.fn(() => []),
     initializeApp: mock.fn(() => {}),
-    credential: {
-      cert: mock.fn(() => ({})),
-    },
-    auth: mock.fn(() => ({ verifyIdToken })),
+  },
+});
+
+await mock.module('firebase-admin/auth', {
+  namedExports: {
+    getAuth: mock.fn(() => ({ verifyIdToken })),
   },
 });
 

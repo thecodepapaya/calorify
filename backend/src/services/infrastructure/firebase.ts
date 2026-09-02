@@ -1,4 +1,5 @@
-import admin from 'firebase-admin';
+import { cert, initializeApp, type ServiceAccount } from 'firebase-admin/app';
+import { getAuth, type DecodedIdToken } from 'firebase-admin/auth';
 import { readFileSync } from 'fs';
 import config from '../../config.js';
 
@@ -17,12 +18,12 @@ export function initializeFirebase(): void {
       const serviceAccount = JSON.parse(
         readFileSync(config.FIREBASE_SERVICE_ACCOUNT_PATH, 'utf-8')
       );
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
+      initializeApp({
+        credential: cert(serviceAccount as ServiceAccount),
       });
     } else {
       // Fallback to default credentials (for local development with ADC)
-      admin.initializeApp();
+      initializeApp();
     }
     initialized = true;
   } catch {
@@ -33,13 +34,13 @@ export function initializeFirebase(): void {
 /**
  * Verify Firebase ID token and return decoded token
  */
-export async function verifyFirebaseToken(token: string): Promise<admin.auth.DecodedIdToken> {
+export async function verifyFirebaseToken(token: string): Promise<DecodedIdToken> {
   if (!initialized) {
     initializeFirebase();
   }
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(token);
+    const decodedToken = await getAuth().verifyIdToken(token);
     return decodedToken;
   } catch {
     throw new Error('Invalid or expired authentication token');
@@ -49,7 +50,7 @@ export async function verifyFirebaseToken(token: string): Promise<admin.auth.Dec
 /**
  * Extract user ID from decoded Firebase token
  */
-export function getUserIdFromToken(decodedToken: admin.auth.DecodedIdToken): string {
+export function getUserIdFromToken(decodedToken: DecodedIdToken): string {
   const uid = decodedToken.uid;
   if (!uid) {
     throw new Error('User ID not found in token');

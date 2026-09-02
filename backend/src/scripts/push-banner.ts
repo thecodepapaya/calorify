@@ -4,7 +4,8 @@
  * Usage (from backend/): npm run push-banner | npm run push-banner -- --dry-run
  */
 
-import admin from 'firebase-admin';
+import { getApps, initializeApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 import { readdir } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { createInterface } from 'node:readline/promises';
@@ -237,11 +238,11 @@ async function main(): Promise<void> {
       return;
     }
 
-    if (!admin.apps.length) admin.initializeApp();
+    if (!getApps().length) initializeApp();
 
     const path = `${COLLECTION_PATH}/${docId}`;
     const written = { ...payload, createdAt: Date.now() };
-    await admin.firestore().doc(path).set(written);
+    await getFirestore().doc(path).set(written);
     console.log(`Written ${path}`);
   } finally {
     rl.close();

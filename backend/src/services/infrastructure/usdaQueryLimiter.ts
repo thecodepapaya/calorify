@@ -91,7 +91,6 @@ export class UsdaQueryLimiter {
         this.changed();
         reject(new UsdaQueryQueueError('QUEUE_TIMEOUT', this.snapshot()));
       }, this.options.queueTimeoutMs);
-      queued.timer.unref?.();
       this.queue.push(queued);
       this.changed();
     });
