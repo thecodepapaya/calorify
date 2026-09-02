@@ -6,7 +6,7 @@ import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,7 +48,7 @@ class AboutScreen extends StatelessWidget {
             _buildSection(
               context,
               title: t.settings.about.ourStory.title,
-              icon: LucideIcons.bookOpen,
+              icon: AppIcons.bookOpen,
               children: [
                 Text(
                   t.settings.about.ourStory.content(
@@ -66,7 +66,7 @@ class AboutScreen extends StatelessWidget {
             _buildSection(
               context,
               title: t.settings.about.privacy.title,
-              icon: LucideIcons.shield,
+              icon: AppIcons.shield,
               children: [
                 Text(
                   t.settings.about.privacy.description,
@@ -86,7 +86,7 @@ class AboutScreen extends StatelessWidget {
             _buildSection(
               context,
               title: t.settings.about.developer.title,
-              icon: LucideIcons.code,
+              icon: AppIcons.code,
               children: [
                 Text(
                   t.settings.about.developer.description(
@@ -108,7 +108,7 @@ class AboutScreen extends StatelessWidget {
               title: t.settings.about.feedback.title(
                 appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
               ),
-              icon: LucideIcons.star,
+              icon: AppIcons.star,
               children: [
                 Text(
                   t.settings.about.feedback.description(
@@ -213,7 +213,7 @@ class AboutScreen extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(LucideIcons.check, size: 20, color: colorScheme.primary),
+                  Icon(AppIcons.check, size: 20, color: colorScheme.primary),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
@@ -267,7 +267,7 @@ class AboutScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
-                LucideIcons.fileText,
+                AppIcons.fileText,
                 color: colorScheme.primary,
                 size: 18,
               ),
@@ -283,7 +283,7 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             Icon(
-              LucideIcons.externalLink,
+              AppIcons.externalLink,
               size: 16,
               color: colorScheme.onSurfaceVariant,
             ),
@@ -298,7 +298,7 @@ class AboutScreen extends StatelessWidget {
       children: [
         _buildLinkTile(
           context,
-          icon: LucideIcons.globe,
+          icon: AppIcons.globe,
           title: t.settings.about.developer.website,
           subtitle: AppConstants.developerWebsite,
           onTap: () async {
@@ -309,7 +309,7 @@ class AboutScreen extends StatelessWidget {
         const SizedBox(height: 8),
         _buildLinkTile(
           context,
-          icon: LucideIcons.mail,
+          icon: AppIcons.mail,
           title: t.settings.about.developer.email,
           subtitle: AppConstants.supportEmail,
           onTap: () async {
@@ -373,7 +373,7 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             Icon(
-              LucideIcons.externalLink,
+              AppIcons.externalLink,
               size: 16,
               color: colorScheme.onSurfaceVariant,
             ),
@@ -388,7 +388,7 @@ class AboutScreen extends StatelessWidget {
       children: [
         _buildActionButton(
           context,
-          icon: LucideIcons.star,
+          icon: AppIcons.star,
           title: t.settings.about.feedback.rateApp,
           onTap:
               () =>
@@ -397,7 +397,7 @@ class AboutScreen extends StatelessWidget {
         const SizedBox(height: 12),
         _buildActionButton(
           context,
-          icon: LucideIcons.mail,
+          icon: AppIcons.mail,
           title: t.settings.about.feedback.sendFeedback,
           onTap: () async {
             final versionInfo = await getAppVersionInfo();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:specs/specs.dart';
 
 typedef DebugTokenResolver = Future<String?> Function();
@@ -61,7 +61,7 @@ class _DebugFirebaseTokenTileState extends State<DebugFirebaseTokenTile> {
     return KeyedSubtree(
       key: const ValueKey('debug-firebase-token-tile'),
       child: ListTile(
-        leading: const Icon(LucideIcons.keyRound),
+        leading: const Icon(AppIcons.keyRound),
         title: const Text('Firebase bearer token'),
         subtitle: Text(
           widget.isAuthenticated
@@ -83,7 +83,7 @@ class _DebugFirebaseTokenTileState extends State<DebugFirebaseTokenTile> {
                           ? 'Copy Firebase bearer token'
                           : 'No bearer token to copy',
                   onPressed: widget.isAuthenticated ? _copy : null,
-                  icon: const Icon(LucideIcons.copy),
+                  icon: const Icon(AppIcons.copy),
                 ),
       ),
     );

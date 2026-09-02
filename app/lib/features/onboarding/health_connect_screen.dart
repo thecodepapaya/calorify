@@ -9,7 +9,7 @@ import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class HealthConnectScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
@@ -158,7 +158,7 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                   // Health Connect Benefits
                   _buildBenefitItem(
                     context,
-                    icon: LucideIcons.activity,
+                    icon: AppIcons.activity,
                     title: t.onboarding.healthConnect.caloriesBurned.title,
                     description:
                         t.onboarding.healthConnect.caloriesBurned.description,
@@ -167,7 +167,7 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
 
                   _buildBenefitItem(
                     context,
-                    icon: LucideIcons.trendingUp,
+                    icon: AppIcons.trendingUp,
                     title: t.onboarding.healthConnect.shareLoggedMeals.title,
                     description:
                         t.onboarding.healthConnect.shareLoggedMeals.description,
@@ -176,7 +176,7 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
 
                   _buildBenefitItem(
                     context,
-                    icon: LucideIcons.link,
+                    icon: AppIcons.link,
                     title: t.onboarding.healthConnect.userControl.title,
                     description:
                         t.onboarding.healthConnect.userControl.description,
@@ -205,10 +205,10 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                       children: [
                         Icon(
                           _healthConnectEnabled && !_loadFailed
-                              ? LucideIcons.check
+                              ? AppIcons.check
                               : _loadFailed
-                              ? LucideIcons.triangleAlert
-                              : LucideIcons.info,
+                              ? AppIcons.triangleAlert
+                              : AppIcons.info,
                           color:
                               _healthConnectEnabled && !_loadFailed
                                   ? colorScheme.success
@@ -265,14 +265,14 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                         AnalyticsEvent.onboardingContinueHealthConnect,
                     onPressed: _navigateToReminderNotifications,
                     text: t.common.kContinue,
-                    trailingIcon: LucideIcons.arrowRight,
+                    trailingIcon: AppIcons.arrowRight,
                   ),
                   const SizedBox(height: 12),
                   AppButton(
                     variant: AppButtonVariant.secondary,
                     onPressed: _isLoading ? null : _openSettings,
                     text: t.onboarding.healthConnect.manageAccess,
-                    leadingIcon: LucideIcons.settings,
+                    leadingIcon: AppIcons.settings,
                   ),
                 ] else ...[
                   AppButton(
@@ -287,10 +287,10 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                             : t.onboarding.healthConnect.setup,
                     leadingIcon:
                         _isProviderUpdateRequired
-                            ? LucideIcons.download
+                            ? AppIcons.download
                             : (!_isAvailable || _loadFailed)
-                            ? LucideIcons.refreshCw
-                            : LucideIcons.link,
+                            ? AppIcons.refreshCw
+                            : AppIcons.link,
                     isLoading: _isLoading,
                   ),
                   if (_isAvailable && _hasAnyPermission) ...[
@@ -299,7 +299,7 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                       variant: AppButtonVariant.secondary,
                       onPressed: _isLoading ? null : _openSettings,
                       text: t.onboarding.healthConnect.manageAccess,
-                      leadingIcon: LucideIcons.settings,
+                      leadingIcon: AppIcons.settings,
                     ),
                   ],
                   const SizedBox(height: 16),

@@ -2,7 +2,7 @@ import 'package:calorify/core/constants/colors.dart';
 import 'package:models/models.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 /// Extension on HealthScore to provide UI properties
 extension HealthScoreExtension on HealthScore {
@@ -20,10 +20,10 @@ extension HealthScoreExtension on HealthScore {
   /// Returns the icon associated with this health score
   IconData get icon {
     return switch (this) {
-      HealthScore.UNHEALTHY => LucideIcons.frown,
-      HealthScore.HEALTHY => LucideIcons.smile,
-      HealthScore.NEUTRAL => LucideIcons.meh,
-      _ => LucideIcons.meh, // Fallback
+      HealthScore.UNHEALTHY => AppIcons.frown,
+      HealthScore.HEALTHY => AppIcons.smile,
+      HealthScore.NEUTRAL => AppIcons.meh,
+      _ => AppIcons.meh, // Fallback
     };
   }
 

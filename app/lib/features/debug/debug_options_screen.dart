@@ -24,7 +24,7 @@ import 'package:calorify/shared_widgets/easter_egg/cat_trigger.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 import 'package:services/services.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
@@ -123,7 +123,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search options...',
-                  prefixIcon: const Icon(LucideIcons.search, size: 20),
+                  prefixIcon: const Icon(AppIcons.search, size: 20),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -226,7 +226,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
 
     return Card(
       child: ListTile(
-        leading: Icon(LucideIcons.heartPulse, color: statusColor),
+        leading: Icon(AppIcons.heartPulse, color: statusColor),
         title: const Text(title),
         subtitle: Text(subtitle),
         trailing: Row(
@@ -253,7 +253,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
                         dimension: 18,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                      : const Icon(LucideIcons.refreshCw, size: 18),
+                      : const Icon(AppIcons.refreshCw, size: 18),
             ),
           ],
         ),
@@ -354,7 +354,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     ];
     final items = <Widget>[
       ListTile(
-        leading: const Icon(LucideIcons.list),
+        leading: const Icon(AppIcons.list),
         title: const Text('Cat Easter Egg testing (by asset)'),
         subtitle: const Text('Simulate all animations with selectable cat'),
         onTap: () {
@@ -367,12 +367,12 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         },
       ),
       ListTile(
-        leading: const Icon(LucideIcons.cat),
+        leading: const Icon(AppIcons.cat),
         title: const Text('Random cat (any animation)'),
         onTap: () => CatOverlay.of(context)?.showCat(),
       ),
       ListTile(
-        leading: const Icon(LucideIcons.arrowRightFromLine),
+        leading: const Icon(AppIcons.arrowRightFromLine),
         title: const Text('Side peek from left'),
         onTap:
             () => CatOverlay.of(context)?.showCat(
@@ -381,7 +381,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
             ),
       ),
       ListTile(
-        leading: const Icon(LucideIcons.arrowLeftFromLine),
+        leading: const Icon(AppIcons.arrowLeftFromLine),
         title: const Text('Side peek from right'),
         onTap:
             () => CatOverlay.of(context)?.showCat(
@@ -390,7 +390,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
             ),
       ),
       ListTile(
-        leading: const Icon(LucideIcons.arrowDownFromLine),
+        leading: const Icon(AppIcons.arrowDownFromLine),
         title: const Text('Top peek'),
         onTap:
             () => CatOverlay.of(context)?.showCat(
@@ -399,7 +399,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
             ),
       ),
       ListTile(
-        leading: const Icon(LucideIcons.flower2),
+        leading: const Icon(AppIcons.flower2),
         title: const Text('Grass / bottom (pop peek)'),
         onTap:
             () => CatOverlay.of(context)?.showCat(
@@ -409,7 +409,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       ),
       // leaping/pounce/bounce/wiggle removed
       ListTile(
-        leading: const Icon(LucideIcons.eye),
+        leading: const Icon(AppIcons.eye),
         title: const Text('Double peek cat'),
         onTap:
             () => CatOverlay.of(context)?.showCat(
@@ -422,7 +422,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         animationHint: CatAnimationType.sidePeek,
         // edgeHint: Edge.right,
         child: ListTile(
-          leading: const Icon(LucideIcons.hand),
+          leading: const Icon(AppIcons.hand),
           title: const Text('CatTrigger demo (tap this row)'),
           subtitle: const Text('This row is wrapped with CatTrigger'),
         ),
@@ -452,22 +452,22 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     const section = 'Notifications';
     final items = <Widget>[
       ListTile(
-        leading: const Icon(LucideIcons.list),
+        leading: const Icon(AppIcons.list),
         title: const Text('Show Active Notifications'),
         onTap: _showActiveNotifications,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.bellPlus),
+        leading: const Icon(AppIcons.bellPlus),
         title: const Text('Schedule Test Notification (10s)'),
         onTap: _scheduleTestNotification,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.bellRing),
+        leading: const Icon(AppIcons.bellRing),
         title: const Text('Trigger Breakfast Notification'),
         onTap: _triggerBreakfastNotification,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.bellOff),
+        leading: const Icon(AppIcons.bellOff),
         title: const Text('Cancel All Notifications'),
         onTap: _cancelAllNotifications,
       ),
@@ -570,12 +570,12 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     const titles = ["Fetch Today's Calories", 'Retry pending meal sync'];
     final items = <Widget>[
       ListTile(
-        leading: const Icon(LucideIcons.flame),
+        leading: const Icon(AppIcons.flame),
         title: const Text("Fetch Today's Calories"),
         onTap: _fetchTodaysCalories,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.refreshCw),
+        leading: const Icon(AppIcons.refreshCw),
         title: const Text('Retry pending meal sync'),
         onTap: _retryHealthConnectSync,
       ),
@@ -599,30 +599,30 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     ];
     final items = <Widget>[
       ListTile(
-        leading: const Icon(LucideIcons.watch),
+        leading: const Icon(AppIcons.watch),
         title: const Text('Check Watch Connection'),
         onTap: _checkWatchConnection,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.send),
+        leading: const Icon(AppIcons.send),
         title: const Text('Send Test Message'),
         subtitle: const Text('Send a simple test message to watch'),
         onTap: _sendTestMessage,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.database),
+        leading: const Icon(AppIcons.database),
         title: const Text('Send Test Meal Data'),
         subtitle: const Text('Send sample meal data to watch'),
         onTap: _sendTestMealData,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.activity),
+        leading: const Icon(AppIcons.activity),
         title: const Text('Send Test Calorie Goal'),
         subtitle: const Text('Send sample calorie goal to watch'),
         onTap: _sendTestCalorieGoal,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.inbox),
+        leading: const Icon(AppIcons.inbox),
         title: const Text('View Received Messages'),
         subtitle: const Text('View messages received from watch'),
         onTap: _viewReceivedMessages,
@@ -765,7 +765,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     ];
     final items = <Widget>[
       ListTile(
-        leading: const Icon(LucideIcons.minimize2),
+        leading: const Icon(AppIcons.minimize2),
         title: const Text('Check image compression'),
         subtitle: const Text(
           'Choose a gallery image and report its compressed WebP size',
@@ -773,7 +773,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         onTap: _checkImageCompression,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.upload),
+        leading: const Icon(AppIcons.upload),
         title: const Text('Test image upload'),
         subtitle: const Text(
           'Choose, compress, and upload a gallery image without starting analysis',
@@ -781,7 +781,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         onTap: _testImageUpload,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.scanSearch),
+        leading: const Icon(AppIcons.scanSearch),
         title: const Text('Test Analyze Image (V3)'),
         subtitle: const Text(
           'Upload + POST /api/v3/food/analyze-image (NDJSON) → questions → tip / log',
@@ -789,7 +789,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         onTap: _testAnalyzeImageV3,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.route),
+        leading: const Icon(AppIcons.route),
         title: const Text('Test meal logging with clarifications'),
         subtitle: const Text(
           'POST /api/v3/food/analyze-text (NDJSON) → questions → tip / log',
@@ -881,7 +881,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     if (!_matchesQuery(section, title, subtitle)) return null;
     return Card(
       child: ListTile(
-        leading: const Icon(LucideIcons.chartBar),
+        leading: const Icon(AppIcons.chartBar),
         title: const Text(title),
         subtitle: const Text(subtitle),
         onTap: () {
@@ -903,7 +903,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     ];
     final items = <Widget>[
       ListTile(
-        leading: const Icon(LucideIcons.userCog),
+        leading: const Icon(AppIcons.userCog),
         title: const Text('Test update profile'),
         subtitle: const Text('POST sample profile to backend'),
         onTap: _testUpdateProfile,
@@ -979,7 +979,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(LucideIcons.star),
+            leading: const Icon(AppIcons.star),
             title: const Text('Show feedback / rating sheet'),
             trailing: _buildFeedbackEligibilityIndicator(context),
             onTap: () => showFeedbackRatingSheet(context, persistShown: false),
@@ -999,7 +999,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         eligible
             ? Theme.of(context).colorScheme.primary
             : Theme.of(context).disabledColor;
-    final icon = eligible ? LucideIcons.badgeCheck : LucideIcons.circleOff;
+    final icon = eligible ? AppIcons.badgeCheck : AppIcons.circleOff;
 
     return Icon(icon, size: 18, color: color);
   }
@@ -1012,7 +1012,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(LucideIcons.database),
+            leading: const Icon(AppIcons.database),
             title: Text(title),
             onTap: () {
               Navigator.of(context).push(
@@ -1033,12 +1033,12 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     const titles = ['Clear user preferences', 'Clear user profile'];
     final items = <Widget>[
       ListTile(
-        leading: const Icon(LucideIcons.settings),
+        leading: const Icon(AppIcons.settings),
         title: const Text('Clear user preferences'),
         onTap: () => _showClearPreferencesConfirmation(context),
       ),
       ListTile(
-        leading: const Icon(LucideIcons.user),
+        leading: const Icon(AppIcons.user),
         title: const Text('Clear user profile'),
         onTap: () => _showClearProfileConfirmation(context),
       ),
@@ -1124,7 +1124,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(LucideIcons.languages),
+            leading: const Icon(AppIcons.languages),
             title: const Text('Check Current Locale'),
             onTap: _checkCurrentLocale,
           ),
@@ -1142,17 +1142,17 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     ];
     final items = <Widget>[
       ListTile(
-        leading: const Icon(LucideIcons.download),
+        leading: const Icon(AppIcons.download),
         title: const Text('Check for update'),
         onTap: _shorebirdCheckForUpdate,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.hash),
+        leading: const Icon(AppIcons.hash),
         title: const Text('Show patch number'),
         onTap: _shorebirdShowPatchNumber,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.circleAlert),
+        leading: const Icon(AppIcons.circleAlert),
         title: const Text('Show update available'),
         onTap: _shorebirdShowUpdateAvailable,
       ),

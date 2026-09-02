@@ -11,7 +11,6 @@ import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
@@ -55,7 +54,7 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
           IconButton.filledTonal(
             onPressed: _openCustomFavoriteMealSheet,
             tooltip: t.meal.addMeal,
-            icon: const Icon(LucideIcons.plus),
+            icon: const Icon(AppIcons.plus),
           ),
           const SizedBox(width: 8),
         ],
@@ -203,13 +202,13 @@ class _FavoritesToolbar extends StatelessWidget {
             controller: controller,
             onChanged: onChanged,
             decoration: InputDecoration(
-              prefixIcon: const Icon(LucideIcons.search),
+              prefixIcon: const Icon(AppIcons.search),
               suffixIcon:
                   query.isEmpty
                       ? null
                       : IconButton(
                         onPressed: onClear,
-                        icon: const Icon(LucideIcons.x),
+                        icon: const Icon(AppIcons.x),
                       ),
               hintText: t.favorites.searchPlaceholder,
               border: OutlineInputBorder(borderRadius: globalRadius),
@@ -245,7 +244,7 @@ class _FavoritesToolbar extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(LucideIcons.arrowUpDown, size: 18),
+                const Icon(AppIcons.arrowUpDown, size: 18),
                 const SizedBox(width: 8),
                 Text(_sortLabel(sortOption)),
               ],
@@ -296,7 +295,7 @@ class _DeleteFavoriteBackground extends StatelessWidget {
         borderRadius: globalRadius,
       ),
       child: Icon(
-        LucideIcons.trash2,
+        AppIcons.trash2,
         color: theme.colorScheme.onErrorContainer,
       ),
     );
@@ -312,7 +311,7 @@ class _EmptyFavoritesState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: EmptyStateWidget(
-        icon: LucideIcons.star,
+        icon: AppIcons.star,
         title: message,
         subtitle: t.home.favoriteMeals.addFavoriteHint,
       ),
@@ -327,7 +326,7 @@ class _EmptySearchState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: EmptyStateWidget(
-        icon: LucideIcons.searchX,
+        icon: AppIcons.searchX,
         title: t.favorites.searchEmptyTitle,
         subtitle: t.favorites.searchEmptySubtitle,
       ),

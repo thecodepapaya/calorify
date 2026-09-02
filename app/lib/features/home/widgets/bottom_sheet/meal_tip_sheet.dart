@@ -20,7 +20,6 @@ import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:widgets/widgets.dart';
 
 enum MealDetailsSheetPurpose {
@@ -178,7 +177,7 @@ class _MealTipState extends State<_MealTip> {
     return [
       Row(
         children: [
-          Icon(LucideIcons.searchX, color: colorScheme.onSurface, size: 28),
+          Icon(AppIcons.searchX, color: colorScheme.onSurface, size: 28),
           SizedBox(width: 6),
           Text(
             t.meal.ohNo,
@@ -261,7 +260,7 @@ class _MealTipState extends State<_MealTip> {
                             ? null
                             : _submitPositiveFeedback,
                     icon: Icon(
-                      LucideIcons.thumbsUp,
+                      AppIcons.thumbsUp,
                       size: 22,
                       color:
                           _feedbackValue == true
@@ -275,7 +274,7 @@ class _MealTipState extends State<_MealTip> {
                             ? null
                             : _submitNegativeFeedback,
                     icon: Icon(
-                      LucideIcons.thumbsDown,
+                      AppIcons.thumbsDown,
                       size: 22,
                       color:
                           _feedbackValue == false
@@ -309,7 +308,7 @@ class _MealTipState extends State<_MealTip> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  LucideIcons.flame,
+                  AppIcons.flame,
                   color: colorScheme.calorieIconColor,
                   size: 32,
                 ),
@@ -357,7 +356,7 @@ class _MealTipState extends State<_MealTip> {
               children: [
                 Expanded(
                   child: NutrientTile(
-                    icon: LucideIcons.wheat,
+                    icon: AppIcons.wheat,
                     label: t.home.dailySummary.carbs,
                     value: meal.macros.carbs.toDouble(),
                     unit: 'g',
@@ -366,7 +365,7 @@ class _MealTipState extends State<_MealTip> {
                 ),
                 Expanded(
                   child: NutrientTile(
-                    icon: LucideIcons.drumstick,
+                    icon: AppIcons.drumstick,
                     label: t.home.dailySummary.protein,
                     value: meal.macros.protein.toDouble(),
                     unit: 'g',
@@ -375,7 +374,7 @@ class _MealTipState extends State<_MealTip> {
                 ),
                 Expanded(
                   child: NutrientTile(
-                    icon: LucideIcons.egg,
+                    icon: AppIcons.egg,
                     label: t.home.dailySummary.fat,
                     value: meal.macros.fat.toDouble(),
                     unit: 'g',
@@ -384,7 +383,7 @@ class _MealTipState extends State<_MealTip> {
                 ),
                 Expanded(
                   child: NutrientTile(
-                    icon: LucideIcons.leaf,
+                    icon: AppIcons.leaf,
                     label: t.home.dailySummary.fiber,
                     value: meal.macros.fiber.toDouble(),
                     unit: 'g',
@@ -403,7 +402,7 @@ class _MealTipState extends State<_MealTip> {
                 width: double.infinity,
                 child: OutlinedButton.icon(
                   onPressed: () => Navigator.of(context).pop(),
-                  icon: Icon(LucideIcons.x, size: 20),
+                  icon: Icon(AppIcons.x, size: 20),
                   label: Text(t.common.close),
                 ),
               )
@@ -413,7 +412,7 @@ class _MealTipState extends State<_MealTip> {
                 onPressed: _isSaving ? null : _saveDetectedMeal,
                 isLoading: _isSaving,
                 text: t.meal.saveMeal,
-                leadingIcon: LucideIcons.save,
+                leadingIcon: AppIcons.save,
               ))
           : _buildLoggedMealActions(context),
     ];
@@ -450,7 +449,7 @@ class _MealTipState extends State<_MealTip> {
               variant: AppButtonVariant.secondary,
               onPressed: _removeFromFavorites,
               text: t.meal.unfavorite,
-              leadingIcon: LucideIcons.starOff,
+              leadingIcon: AppIcons.starOff,
               analyticsEvent: AnalyticsEvent.favoriteRemove,
             ),
           ),
@@ -478,7 +477,7 @@ class _MealTipState extends State<_MealTip> {
                 _showDeleteConfirmation(context, widget.loggedMeal!.clientId);
               },
               text: t.meal.delete,
-              leadingIcon: LucideIcons.trash2,
+              leadingIcon: AppIcons.trash2,
               analyticsEvent: AnalyticsEvent.mealDelete,
             ),
           ),
@@ -500,7 +499,7 @@ class _MealTipState extends State<_MealTip> {
       width: double.infinity,
       child: OutlinedButton.icon(
         onPressed: () => Navigator.of(context).pop(),
-        icon: Icon(LucideIcons.x, size: 20),
+        icon: Icon(AppIcons.x, size: 20),
         label: Text(t.common.close),
       ),
     );
@@ -679,7 +678,7 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
       padding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
       icon: Icon(
-        LucideIcons.star,
+        AppIcons.star,
         size: 24,
         color:
             _isFavorite

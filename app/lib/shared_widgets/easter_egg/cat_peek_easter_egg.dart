@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_animation_layout.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
+import 'package:widgets/widgets.dart';
 
 /// Clamp curve parameter to [0, 1] to avoid floating-point assertion in Curves.
 double _clampT(double t) => t.clamp(0.0, 1.0);
@@ -145,7 +146,7 @@ class _CatImage extends StatelessWidget {
             color: Colors.grey[300],
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const Icon(Icons.error, size: 50),
+          child: const Icon(AppIcons.circleAlert, size: 50),
         );
       },
     );

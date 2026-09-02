@@ -4,7 +4,7 @@ import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/shared_widgets/onboarding_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:calorify/features/onboarding/activity_level_screen.dart';
 import 'package:calorify/features/onboarding/health_connect_screen.dart';
 import 'package:calorify/features/onboarding/reminder_notifications_screen.dart';
@@ -104,7 +104,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(LucideIcons.chevronLeft),
+                        icon: const Icon(AppIcons.chevronLeft),
                         onPressed: _previousPage,
                       ),
                       Expanded(

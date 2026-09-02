@@ -16,7 +16,7 @@ import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 
 class FavoriteMeals extends ConsumerWidget {
@@ -36,14 +36,14 @@ class FavoriteMeals extends ConsumerWidget {
             children: [
               Expanded(
                 child: SectionHeader(
-                  icon: LucideIcons.star,
+                  icon: AppIcons.star,
                   title: t.home.favoriteMeals.title,
                 ),
               ),
               FilledButton.tonalIcon(
                 onPressed:
                     () => showEditMealSheet(context, saveAsFavorite: true),
-                icon: const Icon(LucideIcons.plus, size: 18),
+                icon: const Icon(AppIcons.plus, size: 18),
                 label: Text(t.home.favoriteMeals.add),
                 style: FilledButton.styleFrom(
                   visualDensity: VisualDensity.compact,
@@ -69,7 +69,7 @@ class FavoriteMeals extends ConsumerWidget {
             data: (favoriteMeals) {
               if (favoriteMeals.isEmpty) {
                 return EmptyStateWidget(
-                  icon: LucideIcons.star,
+                  icon: AppIcons.star,
                   title: t.home.favoriteMeals.noFavorites,
                   subtitle: t.home.favoriteMeals.addFavoriteHint,
                 );
@@ -192,7 +192,7 @@ class _MealTile extends StatelessWidget {
                 }
               },
               text: t.home.favoriteMeals.add,
-              leadingIcon: LucideIcons.plus,
+              leadingIcon: AppIcons.plus,
               minimumSize: const Size(40, 40),
               padding: const EdgeInsets.symmetric(horizontal: 12),
             ),

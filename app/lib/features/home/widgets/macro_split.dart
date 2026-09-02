@@ -9,7 +9,7 @@ import 'package:calorify/shared_widgets/macro_legend.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 
 /// Target macro grams from daily calorie goal (protein 25%, carbs 50%, fat 20%, fiber 5%).
@@ -55,7 +55,7 @@ class MacroSplit extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(
-            icon: LucideIcons.chartPie,
+            icon: AppIcons.chartPie,
             title: t.home.intakeProgress.title,
           ),
           const SizedBox(height: 24),

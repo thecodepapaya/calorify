@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 
 class AiSummaryCard extends ConsumerWidget {
@@ -48,7 +48,7 @@ class _SummaryCardScaffold extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(
-            icon: LucideIcons.sparkles,
+            icon: AppIcons.sparkles,
             title: t.home.aiSummary.title,
             iconSize: 18,
           ),
@@ -86,11 +86,11 @@ class _SummaryCardContent extends StatelessWidget {
           runSpacing: 8,
           children: [
             _MetricChip(
-              icon: LucideIcons.utensilsCrossed,
+              icon: AppIcons.utensilsCrossed,
               label: t.home.aiSummary.mealCount(count: summary.mealCount),
             ),
             _MetricChip(
-              icon: LucideIcons.scale,
+              icon: AppIcons.scale,
               label: t.home.aiSummary.macroBalanceScore(
                 score: summary.macroBalanceScore,
               ),
@@ -145,14 +145,14 @@ extension on AiMealSummaryTrend {
   IconData get displayIcon {
     switch (this) {
       case AiMealSummaryTrend.UP:
-        return LucideIcons.trendingUp;
+        return AppIcons.trendingUp;
       case AiMealSummaryTrend.DOWN:
-        return LucideIcons.trendingDown;
+        return AppIcons.trendingDown;
       case AiMealSummaryTrend.STEADY:
       case AiMealSummaryTrend.UNSPECIFIED:
-        return LucideIcons.minus;
+        return AppIcons.minus;
       default:
-        return LucideIcons.minus;
+        return AppIcons.minus;
     }
   }
 
@@ -225,7 +225,7 @@ class _ErrorState extends StatelessWidget {
         Expanded(child: Text(t.errors.somethingWentWrong)),
         TextButton.icon(
           onPressed: onRetry,
-          icon: const Icon(LucideIcons.refreshCw, size: 16),
+          icon: const Icon(AppIcons.refreshCw, size: 16),
           label: Text(t.errors.retry),
         ),
       ],

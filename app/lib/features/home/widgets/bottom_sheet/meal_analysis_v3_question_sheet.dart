@@ -4,7 +4,7 @@ import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 
 Future<MealAnalysisV3AnswerBundle?> showMealAnalysisV3QuestionSheet({
@@ -219,8 +219,8 @@ class _QuestionResponse extends StatelessWidget {
             onPressed: onUseEstimate,
             icon: Icon(
               answer is MealAnalysisV3EstimateAnswer
-                  ? LucideIcons.circleCheck
-                  : LucideIcons.sparkles,
+                  ? AppIcons.circleCheck
+                  : AppIcons.sparkles,
               size: 18,
             ),
             label: Text(t.meal.questionFlow.useEstimate),

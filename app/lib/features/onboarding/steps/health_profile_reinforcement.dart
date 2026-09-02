@@ -7,7 +7,7 @@ import 'package:calorify/features/onboarding/steps/reinforcement_components.dart
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class HealthProfileReinforcement extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
@@ -150,7 +150,7 @@ class _HealthProfileReinforcementState
         const SizedBox(height: 48),
         ReinforcementHeader(
           title: t.onboarding.reinforcement.healthProfile.title,
-          icon: LucideIcons.activity,
+          icon: AppIcons.activity,
         ),
         const SizedBox(height: 16),
         Text(

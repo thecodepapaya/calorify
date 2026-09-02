@@ -3,7 +3,7 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:drift/drift.dart' show OrderingMode, OrderingTerm;
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:specs/specs.dart';
 
 class DatabaseInspectorScreen extends StatefulWidget {
@@ -99,12 +99,12 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
 
             return Card(
               child: ListTile(
-                leading: const Icon(LucideIcons.table),
+                leading: const Icon(AppIcons.table),
                 title: Text(meta.displayName),
                 subtitle: Text(hasRows ? rowCountText : 'No rows'),
                 trailing:
                     hasRows
-                        ? const Icon(LucideIcons.chevronRight, size: 18)
+                        ? const Icon(AppIcons.chevronRight, size: 18)
                         : null,
                 onTap:
                     hasRows ? () => _showTableDetail(context, db, meta) : null,

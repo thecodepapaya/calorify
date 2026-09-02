@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:utils/utils.dart' show DateTimeHuman;
 
 class MealTimestamp extends StatelessWidget {
@@ -16,7 +16,7 @@ class MealTimestamp extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(LucideIcons.clock, color: colorScheme.onSurfaceVariant, size: 12),
+        Icon(AppIcons.clock, color: colorScheme.onSurfaceVariant, size: 12),
         SizedBox(width: 2),
         Text(
           timestamp.formatted,

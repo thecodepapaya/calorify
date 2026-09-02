@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:calorify/core/errors/app_error.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 /// Renders an inline error state for a failed async flow.
 ///
@@ -58,7 +58,7 @@ class ErrorView extends StatelessWidget {
               const SizedBox(height: 16),
               FilledButton.tonalIcon(
                 onPressed: onRetry,
-                icon: const Icon(LucideIcons.refreshCw, size: 16),
+                icon: const Icon(AppIcons.refreshCw, size: 16),
                 label: Text(t.errors.retry),
               ),
             ],
@@ -70,13 +70,13 @@ class ErrorView extends StatelessWidget {
 
   IconData _iconFor(AppError error) {
     return switch (error) {
-      NetworkError() => LucideIcons.wifiOff,
-      AuthError() => LucideIcons.lock,
-      RateLimitError() => LucideIcons.clock,
-      ServerError() => LucideIcons.serverOff,
-      ValidationError() => LucideIcons.circleAlert,
-      ParseError() => LucideIcons.circleX,
-      UnknownError() => LucideIcons.info,
+      NetworkError() => AppIcons.wifiOff,
+      AuthError() => AppIcons.lock,
+      RateLimitError() => AppIcons.clock,
+      ServerError() => AppIcons.serverOff,
+      ValidationError() => AppIcons.circleAlert,
+      ParseError() => AppIcons.circleX,
+      UnknownError() => AppIcons.info,
     };
   }
 

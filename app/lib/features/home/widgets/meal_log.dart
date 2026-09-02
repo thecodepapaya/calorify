@@ -10,7 +10,7 @@ import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 
 class MealLog extends ConsumerWidget {
@@ -27,7 +27,7 @@ class MealLog extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(
-            icon: LucideIcons.packageOpen,
+            icon: AppIcons.packageOpen,
             title: t.home.mealLog.title,
           ),
           const SizedBox(height: 8),
@@ -41,7 +41,7 @@ class MealLog extends ConsumerWidget {
             data: (meals) {
               if (meals.isEmpty) {
                 return EmptyStateWidget(
-                  icon: LucideIcons.listChecks,
+                  icon: AppIcons.listChecks,
                   title: t.home.mealLog.noMealsToday,
                   subtitle: t.home.mealLog.emptyMessage,
                 );

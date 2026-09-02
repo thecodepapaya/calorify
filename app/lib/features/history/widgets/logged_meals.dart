@@ -8,7 +8,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/health_score_sheet.d
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/health_score_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 
 class MealLogCard extends StatelessWidget {
@@ -102,31 +102,31 @@ class MealLogCard extends StatelessWidget {
               Row(
                 children: [
                   NutrientIconWithValue(
-                    icon: LucideIcons.flame,
+                    icon: AppIcons.flame,
                     value: loggedMeal.meal.macros.calories.toDouble(),
                     unit: '',
                     iconColor: colorScheme.calorieIconColor,
                   ),
                   NutrientIconWithValue(
-                    icon: LucideIcons.wheat,
+                    icon: AppIcons.wheat,
                     value: loggedMeal.meal.macros.carbs.toDouble(),
                     unit: 'g',
                     iconColor: carbsIconColor,
                   ),
                   NutrientIconWithValue(
-                    icon: LucideIcons.drumstick,
+                    icon: AppIcons.drumstick,
                     value: loggedMeal.meal.macros.protein.toDouble(),
                     unit: 'g',
                     iconColor: proteinIconColor,
                   ),
                   NutrientIconWithValue(
-                    icon: LucideIcons.egg,
+                    icon: AppIcons.egg,
                     value: loggedMeal.meal.macros.fat.toDouble(),
                     unit: 'g',
                     iconColor: fatIconColor,
                   ),
                   NutrientIconWithValue(
-                    icon: LucideIcons.leaf,
+                    icon: AppIcons.leaf,
                     value: loggedMeal.meal.macros.fiber.toDouble(),
                     unit: 'g',
                     iconColor: fiberIconColor,

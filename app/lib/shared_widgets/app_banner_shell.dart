@@ -167,7 +167,7 @@ class AppBannerShell extends ConsumerWidget {
                   if (banner.dismissible)
                     IconButton(
                       visualDensity: VisualDensity.compact,
-                      icon: Icon(Icons.close, color: fg, size: 20),
+                      icon: Icon(AppIcons.x, color: fg, size: 20),
                       onPressed: () {
                         ref.read(bannerDismissSignatureProvider.notifier).setDismissed(sig);
                       },

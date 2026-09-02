@@ -14,7 +14,7 @@ import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 import 'package:utils/utils.dart';
 
@@ -76,7 +76,7 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
               Row(
                 children: [
                   Icon(
-                    isTargetSet ? LucideIcons.compass : LucideIcons.target,
+                    isTargetSet ? AppIcons.compass : AppIcons.target,
                     color: colorScheme.primary,
                   ),
                   SizedBox(width: 8),
@@ -191,7 +191,7 @@ class _ShowGoal extends ConsumerWidget {
           textBaseline: TextBaseline.alphabetic,
           children: [
             Icon(
-              LucideIcons.flame,
+              AppIcons.flame,
               color: colorScheme.calorieIconColor,
               size: 18,
             ),
@@ -248,7 +248,7 @@ class _ShowGoal extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             children: [
-              Icon(LucideIcons.bike, color: colorScheme.error, size: 20),
+              Icon(AppIcons.bike, color: colorScheme.error, size: 20),
               SizedBox(width: 12),
               Text(
                 t.home.dailyGoal.burned,
@@ -298,7 +298,7 @@ class _ShowGoal extends ConsumerWidget {
                         children: [
                           WidgetSpan(
                             child: Icon(
-                              LucideIcons.weight,
+                              AppIcons.weight,
                               size: 20,
                               color: colorScheme.onSurface.withValues(
                                 alpha: 0.7,
@@ -315,8 +315,8 @@ class _ShowGoal extends ConsumerWidget {
                     children: [
                       Icon(
                         isLosing
-                            ? LucideIcons.trendingDown
-                            : LucideIcons.trendingUp,
+                            ? AppIcons.trendingDown
+                            : AppIcons.trendingUp,
                         color:
                             isLosing ? colorScheme.success : colorScheme.error,
                       ),

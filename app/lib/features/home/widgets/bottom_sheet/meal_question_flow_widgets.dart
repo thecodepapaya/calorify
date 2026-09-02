@@ -1,7 +1,7 @@
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_question_option_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 /// Matches [MealQuestionFlowSheet] spacing.
 const double mealQuestionFlowProgressToHeadingGap = 24;
@@ -34,7 +34,7 @@ class MealQuestionFlowProgressRow extends StatelessWidget {
         if (canGoBack)
           IconButton(
             onPressed: onBack,
-            icon: Icon(LucideIcons.arrowLeft, size: 20),
+            icon: Icon(AppIcons.arrowLeft, size: 20),
             color: colorScheme.onSurface,
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
@@ -68,7 +68,7 @@ class MealQuestionHeadingRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(LucideIcons.info, color: colorScheme.primary, size: 22),
+        Icon(AppIcons.info, color: colorScheme.primary, size: 22),
         const SizedBox(width: 12),
         Expanded(
           child: Text(

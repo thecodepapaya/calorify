@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
 
@@ -16,7 +16,7 @@ void main() {
         SelectionCard(
           title: 'Test Title',
           description: 'Test Description',
-          icon: LucideIcons.apple,
+          icon: AppIcons.apple,
           color: Colors.red,
           isSelected: false,
           onTap: () {},
@@ -25,7 +25,7 @@ void main() {
 
       expect(find.text('Test Title'), findsOneWidget);
       expect(find.text('Test Description'), findsOneWidget);
-      expect(find.byIcon(LucideIcons.apple), findsOneWidget);
+      expect(find.byIcon(AppIcons.apple), findsOneWidget);
     });
 
     testWidgets('calls onTap when tapped', (WidgetTester tester) async {
@@ -34,7 +34,7 @@ void main() {
         SelectionCard(
           title: 'Test Title',
           description: 'Test Description',
-          icon: LucideIcons.apple,
+          icon: AppIcons.apple,
           color: Colors.red,
           isSelected: false,
           onTap: () => tapped = true,
@@ -52,14 +52,14 @@ void main() {
         SelectionCard(
           title: 'Test Title',
           description: 'Test Description',
-          icon: LucideIcons.apple,
+          icon: AppIcons.apple,
           color: Colors.red,
           isSelected: true,
           onTap: () {},
         ),
       ));
 
-      expect(find.byIcon(LucideIcons.check), findsOneWidget);
+      expect(find.byIcon(AppIcons.check), findsOneWidget);
     });
 
     testWidgets('does not show check icon when not selected', (WidgetTester tester) async {
@@ -67,14 +67,14 @@ void main() {
         SelectionCard(
           title: 'Test Title',
           description: 'Test Description',
-          icon: LucideIcons.apple,
+          icon: AppIcons.apple,
           color: Colors.red,
           isSelected: false,
           onTap: () {},
         ),
       ));
 
-      expect(find.byIcon(LucideIcons.check), findsNothing);
+      expect(find.byIcon(AppIcons.check), findsNothing);
     });
   });
 }

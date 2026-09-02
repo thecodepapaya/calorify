@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
+import 'package:widgets/widgets.dart';
 
 /// Debug reference for operators: Prometheus histograms and client analytics.
 class MealAnalysisObservabilityScreen extends StatelessWidget {
@@ -58,7 +59,7 @@ See also: backend/docs/meal-analysis-prometheus.md
                   () => Clipboard.setData(
                     const ClipboardData(text: _metricsBody),
                   ),
-              icon: const Icon(Icons.copy),
+              icon: const Icon(AppIcons.copy),
               label: const Text('Copy reference to clipboard'),
             ),
             const SizedBox(height: 24),

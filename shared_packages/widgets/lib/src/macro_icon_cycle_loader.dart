@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'app_icons.dart';
 import 'package:specs/specs.dart';
 
 /// Cycling loader using the same macro Lucide icons as carbs / protein / fat / fiber:
@@ -27,10 +27,10 @@ class MacroIconCycleLoader extends StatelessWidget {
   final double haloDiameter;
 
   static const List<IconData> _icons = [
-    LucideIcons.wheat,
-    LucideIcons.drumstick,
-    LucideIcons.egg,
-    LucideIcons.leaf,
+    AppIcons.wheat,
+    AppIcons.drumstick,
+    AppIcons.egg,
+    AppIcons.leaf,
   ];
 
   static final List<Color> _macroColors = [

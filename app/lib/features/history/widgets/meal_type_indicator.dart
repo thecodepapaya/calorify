@@ -1,7 +1,7 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class MealTypeIndicator extends StatelessWidget {
   const MealTypeIndicator({super.key, required this.type});
@@ -15,12 +15,12 @@ class MealTypeIndicator extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     final icon = switch (type) {
-      MealType.BREAKFAST => LucideIcons.eggFried,
-      MealType.LUNCH => LucideIcons.sandwich,
-      MealType.DINNER => LucideIcons.soup,
-      MealType.SNACK => LucideIcons.cookie,
-      MealType.UNKNOWN => LucideIcons.utensils,
-      _ => LucideIcons.utensils,
+      MealType.BREAKFAST => AppIcons.eggFried,
+      MealType.LUNCH => AppIcons.sandwich,
+      MealType.DINNER => AppIcons.soup,
+      MealType.SNACK => AppIcons.cookie,
+      MealType.UNKNOWN => AppIcons.utensils,
+      _ => AppIcons.utensils,
     };
 
     return Row(

@@ -13,7 +13,6 @@ import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:widgets/widgets.dart';
@@ -170,7 +169,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
       children: [
         Row(
           children: [
-            Icon(LucideIcons.star, color: colorScheme.onSurface, size: 28),
+            Icon(AppIcons.star, color: colorScheme.onSurface, size: 28),
             const SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -234,7 +233,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
       children: [
         Row(
           children: [
-            Icon(LucideIcons.star, color: colorScheme.onSurface, size: 28),
+            Icon(AppIcons.star, color: colorScheme.onSurface, size: 28),
             const SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -284,7 +283,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
       children: [
         Row(
           children: [
-            Icon(LucideIcons.mail, color: colorScheme.onSurface, size: 28),
+            Icon(AppIcons.mail, color: colorScheme.onSurface, size: 28),
             const SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -413,7 +412,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
       runSpacing: 4,
       children: [
         Icon(
-          LucideIcons.heart,
+          AppIcons.heart,
           size: 14,
           color: colorScheme.primary.withValues(alpha: 0.75),
         ),

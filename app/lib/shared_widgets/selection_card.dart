@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:specs/specs.dart';
 
 class SelectionCard<T> extends StatelessWidget {
@@ -84,7 +84,7 @@ class SelectionCard<T> extends StatelessWidget {
               ),
             ),
             isSelected
-                ? Icon(LucideIcons.check, color: color, size: 24)
+                ? Icon(AppIcons.check, color: color, size: 24)
                 : SizedBox(width: 24),
           ],
         ),

@@ -4,7 +4,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 
@@ -58,7 +58,7 @@ void main() {
           SelectionCard(
             title: 'Lose Weight',
             description: 'Deficit',
-            icon: LucideIcons.trendingDown,
+            icon: AppIcons.trendingDown,
             color: Colors.blue,
             isSelected: false,
             onTap: () {},
@@ -67,7 +67,7 @@ void main() {
           SelectionCard(
             title: 'Gain Weight',
             description: 'Surplus',
-            icon: LucideIcons.trendingUp,
+            icon: AppIcons.trendingUp,
             color: Colors.orange,
             isSelected: true,
             onTap: () {},

@@ -13,7 +13,6 @@ import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:services/services.dart';
 import 'package:widgets/widgets.dart';
 
@@ -103,7 +102,7 @@ class _MealSnapState extends State<MealSnap> {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                LucideIcons.camera,
+                AppIcons.camera,
                 size: 22,
                 color: colorScheme.onPrimary,
               ),
@@ -175,7 +174,7 @@ class _MealSnapState extends State<MealSnap> {
             context: context,
             colorScheme: colorScheme,
             textTheme: textTheme,
-            icon: LucideIcons.camera,
+            icon: AppIcons.camera,
             label: t.home.mealSnap.openCamera,
             analyticsEvent: AnalyticsEvent.mealSnapFromCamera,
             onPressed: () async {
@@ -191,7 +190,7 @@ class _MealSnapState extends State<MealSnap> {
             context: context,
             colorScheme: colorScheme,
             textTheme: textTheme,
-            icon: LucideIcons.imagePlus,
+            icon: AppIcons.imagePlus,
             label: t.home.mealSnap.gallery,
             analyticsEvent: AnalyticsEvent.mealSnapFromGallery,
             onPressed: () async {

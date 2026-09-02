@@ -8,7 +8,7 @@ import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class GenderStepScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
@@ -132,7 +132,7 @@ class _GenderStepScreenState extends ConsumerState<GenderStepScreen> {
               ),
             ),
             const Spacer(),
-            if (isSelected) Icon(LucideIcons.check, color: colorScheme.primary),
+            if (isSelected) Icon(AppIcons.check, color: colorScheme.primary),
           ],
         ),
       ),
@@ -142,13 +142,13 @@ class _GenderStepScreenState extends ConsumerState<GenderStepScreen> {
   IconData _getGenderIcon(Gender gender) {
     switch (gender) {
       case Gender.MALE:
-        return LucideIcons.mars;
+        return AppIcons.mars;
       case Gender.FEMALE:
-        return LucideIcons.venus;
+        return AppIcons.venus;
       case Gender.OTHER:
-        return LucideIcons.transgender;
+        return AppIcons.transgender;
     }
-    return LucideIcons.transgender; // Fallback
+    return AppIcons.transgender; // Fallback
   }
 
   Future<void> _saveAndContinue() async {

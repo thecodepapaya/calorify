@@ -3,7 +3,7 @@ import 'package:calorify/core/router/route_names.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 @immutable
 class DisclaimerEntry {
@@ -58,7 +58,7 @@ class _MealSnapDisclaimer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(
-                LucideIcons.lightbulb,
+                AppIcons.lightbulb,
                 color: colorScheme.onSurface,
                 size: 32,
               ),

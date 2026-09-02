@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 /// Debug screen to simulate all cat animations. Pick a cat and trigger
 /// any animation that cat supports.
@@ -106,7 +106,7 @@ class _CatEasterEggTestScreenState extends State<CatEasterEggTestScreen> {
                     final supported = catSupportsAnimation(_selectedCat, type);
                     return ListTile(
                       leading: Icon(
-                        supported ? LucideIcons.play : LucideIcons.minus,
+                        supported ? AppIcons.play : AppIcons.minus,
                         size: 22,
                         color:
                             supported
@@ -120,7 +120,7 @@ class _CatEasterEggTestScreenState extends State<CatEasterEggTestScreen> {
                       ),
                       trailing:
                           supported
-                              ? const Icon(LucideIcons.chevronRight, size: 18)
+                              ? const Icon(AppIcons.chevronRight, size: 18)
                               : null,
                       enabled: supported,
                       onTap:
@@ -176,7 +176,7 @@ class _CatThumbnail extends StatelessWidget {
                   gaplessPlayback: true,
                   errorBuilder:
                       (context, error, stackTrace) =>
-                          const Icon(LucideIcons.cat, size: 16),
+                          const Icon(AppIcons.cat, size: 16),
                 ),
               ),
             ],

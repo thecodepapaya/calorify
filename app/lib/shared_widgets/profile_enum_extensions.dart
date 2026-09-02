@@ -1,19 +1,19 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 extension WeightGoalExtension on WeightGoal {
   IconData get icon {
     switch (this) {
       case WeightGoal.LOSE_WEIGHT:
-        return LucideIcons.trendingDown;
+        return AppIcons.trendingDown;
       case WeightGoal.MAINTAIN_WEIGHT:
-        return LucideIcons.minus;
+        return AppIcons.minus;
       case WeightGoal.GAIN_WEIGHT:
-        return LucideIcons.trendingUp;
+        return AppIcons.trendingUp;
     }
-    return LucideIcons.minus; // Fallback
+    return AppIcons.minus; // Fallback
   }
 
   Color color(BuildContext context) {
@@ -34,17 +34,17 @@ extension ActivityLevelExtension on ActivityLevel {
   IconData get icon {
     switch (this) {
       case ActivityLevel.SEDENTARY:
-        return LucideIcons.sofa;
+        return AppIcons.sofa;
       case ActivityLevel.LIGHTLY_ACTIVE:
-        return LucideIcons.user;
+        return AppIcons.user;
       case ActivityLevel.MODERATELY_ACTIVE:
-        return LucideIcons.bike;
+        return AppIcons.bike;
       case ActivityLevel.VERY_ACTIVE:
-        return LucideIcons.dumbbell;
+        return AppIcons.dumbbell;
       case ActivityLevel.EXTREMELY_ACTIVE:
-        return LucideIcons.flame;
+        return AppIcons.flame;
     }
-    return LucideIcons.sofa; // Fallback
+    return AppIcons.sofa; // Fallback
   }
 
   Color color(BuildContext context) {

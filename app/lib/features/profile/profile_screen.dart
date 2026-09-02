@@ -11,7 +11,6 @@ import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
 import 'package:utils/utils.dart';
@@ -162,7 +161,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.user, color: colorScheme.primary, size: 24),
+        child: Icon(AppIcons.user, color: colorScheme.primary, size: 24),
       ),
       title: Text(
         t.profile.yourProfile,
@@ -190,7 +189,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.user, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.user, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.profile.gender,
@@ -218,7 +217,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.ruler, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.ruler, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.profile.height,
@@ -247,7 +246,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.scale, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.profile.weight,
@@ -269,7 +268,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.calendar, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.calendar, color: colorScheme.primary, size: 20),
       ),
       title: Text(t.profile.age, style: TextStyle(fontWeight: FontWeight.w600)),
       subtitle: Text('$age ${t.profile.years}'),
@@ -296,7 +295,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.flame, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.flame, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.profile.calculatedValues.dailyGoal,
@@ -319,7 +318,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.target, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.target, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.profile.weightGoal,
@@ -346,7 +345,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.scale, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.profile.targetWeight,
@@ -372,7 +371,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.activity, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.activity, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.profile.activityLevel,
@@ -418,7 +417,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              LucideIcons.calculator,
+              AppIcons.calculator,
               color: colorScheme.tertiary,
               size: 20,
             ),

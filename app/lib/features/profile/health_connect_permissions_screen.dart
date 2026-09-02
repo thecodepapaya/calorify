@@ -11,7 +11,7 @@ import 'package:health/health.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class HealthConnectPermissionsScreen extends ConsumerStatefulWidget {
@@ -360,10 +360,10 @@ class _HealthConnectPermissionsScreenState
                       : _checkPermissions,
               icon:
                   _loadError != null
-                      ? LucideIcons.refreshCw
+                      ? AppIcons.refreshCw
                       : _isProviderUpdateRequired
-                      ? LucideIcons.download
-                      : LucideIcons.refreshCw,
+                      ? AppIcons.download
+                      : AppIcons.refreshCw,
               label:
                   _loadError != null
                       ? t.errors.retry
@@ -383,7 +383,7 @@ class _HealthConnectPermissionsScreenState
               _buildActionButton(
                 onPressed:
                     _isRequestingPermissions ? null : _requestPermissions,
-                icon: LucideIcons.link,
+                icon: AppIcons.link,
                 label:
                     _isRequestingPermissions
                         ? t.settings.healthConnect.requestingPermissions
@@ -415,7 +415,7 @@ class _HealthConnectPermissionsScreenState
         title: t.settings.healthConnect.permissions.caloriesBurned.title,
         description:
             t.settings.healthConnect.permissions.caloriesBurned.description,
-        icon: LucideIcons.flame,
+        icon: AppIcons.flame,
       ),
       (
         type: HealthDataType.NUTRITION,
@@ -423,7 +423,7 @@ class _HealthConnectPermissionsScreenState
         title: t.settings.healthConnect.permissions.nutritionWrite.title,
         description:
             t.settings.healthConnect.permissions.nutritionWrite.description,
-        icon: LucideIcons.utensils,
+        icon: AppIcons.utensils,
       ),
     ];
 
@@ -475,7 +475,7 @@ class _HealthConnectPermissionsScreenState
       ),
       child: Row(
         children: [
-          Icon(LucideIcons.x, color: colorScheme.error, size: 24),
+          Icon(AppIcons.x, color: colorScheme.error, size: 24),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -565,7 +565,7 @@ class _HealthConnectPermissionsScreenState
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            isGranted ? LucideIcons.check : LucideIcons.x,
+            isGranted ? AppIcons.check : AppIcons.x,
             size: 14,
             color:
                 isGranted
@@ -608,10 +608,10 @@ class _HealthConnectPermissionsScreenState
         children: [
           Icon(
             isComplete
-                ? LucideIcons.circleCheck
+                ? AppIcons.circleCheck
                 : isPartial
-                ? LucideIcons.circleDashed
-                : LucideIcons.circleOff,
+                ? AppIcons.circleDashed
+                : AppIcons.circleOff,
             color:
                 isComplete
                     ? colorScheme.onSuccessContainer
@@ -647,15 +647,15 @@ class _HealthConnectPermissionsScreenState
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(LucideIcons.settings),
+            leading: const Icon(AppIcons.settings),
             title: Text(t.settings.healthConnect.openSettings),
-            trailing: const Icon(LucideIcons.externalLink, size: 18),
+            trailing: const Icon(AppIcons.externalLink, size: 18),
             onTap: _isRequestingPermissions ? null : _openSettings,
           ),
           if (canWriteNutrition) ...[
             const Divider(height: 1, indent: 56),
             ListTile(
-              leading: Icon(LucideIcons.trash2, color: colorScheme.error),
+              leading: Icon(AppIcons.trash2, color: colorScheme.error),
               title: Text(
                 t.settings.healthConnect.deleteSyncedMeals,
                 style: TextStyle(color: colorScheme.error),
@@ -666,7 +666,7 @@ class _HealthConnectPermissionsScreenState
           if (hasAnyPermission) ...[
             const Divider(height: 1, indent: 56),
             ListTile(
-              leading: Icon(LucideIcons.unplug, color: colorScheme.error),
+              leading: Icon(AppIcons.unplug, color: colorScheme.error),
               title: Text(
                 t.settings.healthConnect.disconnect,
                 style: TextStyle(color: colorScheme.error),

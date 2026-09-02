@@ -9,7 +9,6 @@ import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 
 class ActivityLevelScreen extends ConsumerStatefulWidget {
@@ -95,7 +94,7 @@ class _ActivityLevelScreenState extends ConsumerState<ActivityLevelScreen> {
                       : null,
               isLoading: _isSaving,
               text: t.common.kContinue,
-              trailingIcon: LucideIcons.arrowRight,
+              trailingIcon: AppIcons.arrowRight,
             ),
           ),
         ],

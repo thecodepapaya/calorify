@@ -8,7 +8,7 @@ import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class ReminderNotificationsScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
@@ -121,7 +121,7 @@ class _ReminderNotificationsScreenState
 
                     _buildMealReminder(
                       context,
-                      icon: LucideIcons.sunrise,
+                      icon: AppIcons.sunrise,
                       title: t.reminders.breakfast,
                       enabled: _breakfastEnabled,
                       time: _breakfastTime,
@@ -135,7 +135,7 @@ class _ReminderNotificationsScreenState
 
                     _buildMealReminder(
                       context,
-                      icon: LucideIcons.sun,
+                      icon: AppIcons.sun,
                       title: t.reminders.lunch,
                       enabled: _lunchEnabled,
                       time: _lunchTime,
@@ -148,7 +148,7 @@ class _ReminderNotificationsScreenState
 
                     _buildMealReminder(
                       context,
-                      icon: LucideIcons.moon,
+                      icon: AppIcons.moon,
                       title: t.reminders.dinner,
                       enabled: _dinnerEnabled,
                       time: _dinnerTime,
@@ -161,7 +161,7 @@ class _ReminderNotificationsScreenState
 
                     _buildMealReminder(
                       context,
-                      icon: LucideIcons.apple,
+                      icon: AppIcons.apple,
                       title: t.reminders.snack,
                       enabled: _snackEnabled,
                       time: _snackTime,
@@ -188,9 +188,9 @@ class _ReminderNotificationsScreenState
                         widget.isEditing
                             ? t.reminders.saveChanges
                             : t.common.kContinue,
-                    leadingIcon: widget.isEditing ? LucideIcons.check : null,
+                    leadingIcon: widget.isEditing ? AppIcons.check : null,
                     trailingIcon:
-                        widget.isEditing ? null : LucideIcons.arrowRight,
+                        widget.isEditing ? null : AppIcons.arrowRight,
                     isLoading: _isLoading,
                   )
                 else ...[
@@ -200,7 +200,7 @@ class _ReminderNotificationsScreenState
                         AnalyticsEvent.onboardingEnableNotifications,
                     onPressed: _isLoading ? null : _enableNotifications,
                     text: t.reminders.enableNotifications,
-                    leadingIcon: LucideIcons.bell,
+                    leadingIcon: AppIcons.bell,
                     isLoading: _isLoading,
                   ),
                   const SizedBox(height: 16),
@@ -223,7 +223,7 @@ class _ReminderNotificationsScreenState
     final colorScheme = Theme.of(context).colorScheme;
     final color =
         _notificationsEnabled ? colorScheme.success : colorScheme.tertiary;
-    final icon = _notificationsEnabled ? LucideIcons.check : LucideIcons.x;
+    final icon = _notificationsEnabled ? AppIcons.check : AppIcons.x;
     final title =
         _notificationsEnabled
             ? t.reminders.notificationsEnabled

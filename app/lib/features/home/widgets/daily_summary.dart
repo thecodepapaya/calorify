@@ -7,7 +7,7 @@ import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 
 class DailySummaryCard extends ConsumerWidget {
@@ -61,7 +61,7 @@ class DailySummaryCard extends ConsumerWidget {
             children: [
               Expanded(
                 child: NutrientTile(
-                  icon: LucideIcons.wheat,
+                  icon: AppIcons.wheat,
                   label: t.home.dailySummary.carbs,
                   value: carbs,
                   unit: 'g',
@@ -70,7 +70,7 @@ class DailySummaryCard extends ConsumerWidget {
               ),
               Expanded(
                 child: NutrientTile(
-                  icon: LucideIcons.drumstick,
+                  icon: AppIcons.drumstick,
                   label: t.home.dailySummary.protein,
                   value: protein,
                   unit: 'g',
@@ -79,7 +79,7 @@ class DailySummaryCard extends ConsumerWidget {
               ),
               Expanded(
                 child: NutrientTile(
-                  icon: LucideIcons.egg,
+                  icon: AppIcons.egg,
                   label: t.home.dailySummary.fat,
                   value: fat,
                   unit: 'g',
@@ -88,7 +88,7 @@ class DailySummaryCard extends ConsumerWidget {
               ),
               Expanded(
                 child: NutrientTile(
-                  icon: LucideIcons.leaf,
+                  icon: AppIcons.leaf,
                   label: t.home.dailySummary.fiber,
                   value: fiber,
                   unit: 'g',

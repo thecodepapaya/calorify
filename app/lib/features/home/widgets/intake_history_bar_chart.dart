@@ -10,7 +10,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 
 class IntakeHistoryBarChart extends StatelessWidget {
@@ -23,7 +23,7 @@ class IntakeHistoryBarChart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(
-            icon: LucideIcons.chartBar,
+            icon: AppIcons.chartBar,
             title: t.home.intakeHistory.title,
           ),
           const SizedBox(height: 16),

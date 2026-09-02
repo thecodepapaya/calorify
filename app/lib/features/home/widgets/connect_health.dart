@@ -6,7 +6,7 @@ import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class HealthConnectPromptCard extends StatefulWidget {
   const HealthConnectPromptCard({
@@ -106,7 +106,7 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
                 Padding(
                   padding: const EdgeInsets.only(top: 2),
                   child: Icon(
-                    LucideIcons.link,
+                    AppIcons.link,
                     size: 20,
                     color: colorScheme.primary,
                   ),
@@ -152,7 +152,7 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
                       minHeight: 36,
                     ),
                     icon: Icon(
-                      LucideIcons.x,
+                      AppIcons.x,
                       size: 18,
                       color: colorScheme.onSurfaceVariant,
                     ),

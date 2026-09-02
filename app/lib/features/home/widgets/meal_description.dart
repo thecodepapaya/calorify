@@ -10,7 +10,7 @@ import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/meal_analysis_tip_line.dart';
 import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class DescribeMeal extends StatefulWidget {
   const DescribeMeal({super.key});
@@ -42,7 +42,7 @@ class _DescribeMealState extends State<DescribeMeal> {
             children: [
               Row(
                 children: [
-                  Icon(LucideIcons.wandSparkles, color: colorScheme.primary),
+                  Icon(AppIcons.wandSparkles, color: colorScheme.primary),
                   SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -91,7 +91,7 @@ class _DescribeMealState extends State<DescribeMeal> {
                 analyticsEvent: AnalyticsEvent.addMealFromDescription,
                 onPressed: _onProcessMealDescription,
                 text: t.home.mealDescription.analyzeMeal,
-                leadingIcon: LucideIcons.wandSparkles,
+                leadingIcon: AppIcons.wandSparkles,
                 isLoading: _isLoading,
               ),
             ],

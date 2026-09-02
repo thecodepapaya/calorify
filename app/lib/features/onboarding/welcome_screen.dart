@@ -3,7 +3,6 @@ import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:specs/specs.dart';
 import 'package:widgets/widgets.dart';
 
@@ -100,7 +99,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           _buildFeatureItem(
                             context,
                             index: 0,
-                            icon: LucideIcons.camera,
+                            icon: AppIcons.camera,
                             title: t.onboarding.features.foodRecognition.title,
                             description:
                                 t
@@ -113,7 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           _buildFeatureItem(
                             context,
                             index: 1,
-                            icon: LucideIcons.wandSparkles,
+                            icon: AppIcons.wandSparkles,
                             title: t.onboarding.features.aiAnalysis.title,
                             description:
                                 t.onboarding.features.aiAnalysis.description,
@@ -122,7 +121,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           _buildFeatureItem(
                             context,
                             index: 2,
-                            icon: LucideIcons.activity,
+                            icon: AppIcons.activity,
                             title:
                                 t.onboarding.features.healthIntegration.title,
                             description:
@@ -165,7 +164,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       padding: const EdgeInsets.only(top: 8.0),
       child: ActionChip(
         avatar: Icon(
-          LucideIcons.languages,
+          AppIcons.languages,
           size: 16,
           color: Theme.of(context).colorScheme.primary,
         ),

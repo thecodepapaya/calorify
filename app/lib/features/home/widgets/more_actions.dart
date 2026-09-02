@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class MoreActionsButton extends StatelessWidget {
   const MoreActionsButton({super.key});
@@ -8,7 +8,7 @@ class MoreActionsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {},
-      icon: Icon(LucideIcons.ellipsisVertical),
+      icon: Icon(AppIcons.ellipsisVertical),
     );
   }
 }

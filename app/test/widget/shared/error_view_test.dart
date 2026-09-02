@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
 
@@ -15,7 +15,7 @@ void main() {
         const ErrorView(error: 'Some error'),
       ));
 
-      expect(find.byIcon(LucideIcons.info), findsOneWidget);
+      expect(find.byIcon(AppIcons.info), findsOneWidget);
       // t.errors.somethingWentWrong might be 'Something went wrong' in English
       expect(find.textContaining('went wrong'), findsOneWidget);
     });

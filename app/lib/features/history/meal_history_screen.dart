@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
@@ -115,7 +114,7 @@ class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
   }
 
   Widget get _emptyView => EmptyStateWidget(
-    icon: LucideIcons.listChecks,
+    icon: AppIcons.listChecks,
     title: t.history.noMeals,
     subtitle: t.history.emptyMessage,
   );
@@ -209,7 +208,7 @@ class _PaginationStatus extends StatelessWidget {
           const SizedBox(height: 8),
           FilledButton.tonalIcon(
             onPressed: onRetry,
-            icon: const Icon(LucideIcons.refreshCw, size: 16),
+            icon: const Icon(AppIcons.refreshCw, size: 16),
             label: Text(t.errors.retry),
           ),
         ],
@@ -292,7 +291,7 @@ class _DateDivider extends StatelessWidget {
           Expanded(child: Divider()),
           SizedBox(width: 8),
           NutrientIconWithValue(
-            icon: LucideIcons.flame,
+            icon: AppIcons.flame,
             value: totalCalories.toDouble(),
             unit: '',
             iconColor: theme.colorScheme.calorieIconColor,

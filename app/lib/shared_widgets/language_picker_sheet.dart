@@ -6,7 +6,7 @@ import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class LanguagePickerSheet extends StatefulWidget {
   const LanguagePickerSheet({super.key});
@@ -108,11 +108,11 @@ class _LanguagePickerSheetState extends State<LanguagePickerSheet> {
         controller: _searchController,
         decoration: InputDecoration(
           hintText: t.settings.language.searchHint,
-          prefixIcon: const Icon(LucideIcons.search),
+          prefixIcon: const Icon(AppIcons.search),
           suffixIcon:
               _searchController.text.isNotEmpty
                   ? IconButton(
-                    icon: const Icon(LucideIcons.x),
+                    icon: const Icon(AppIcons.x),
                     onPressed: () {
                       _searchController.clear();
                     },
@@ -285,7 +285,7 @@ class _LanguagePickerSheetState extends State<LanguagePickerSheet> {
         color: colorScheme.primary,
         shape: BoxShape.circle,
       ),
-      child: Icon(LucideIcons.check, color: colorScheme.onPrimary, size: 14),
+      child: Icon(AppIcons.check, color: colorScheme.onPrimary, size: 14),
     );
   }
 }

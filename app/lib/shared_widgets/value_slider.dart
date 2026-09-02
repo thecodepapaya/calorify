@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class ValueSlider extends StatelessWidget {
   final String unit;
@@ -43,7 +43,7 @@ class ValueSlider extends StatelessWidget {
               color: colorScheme.primaryContainer,
               shape: BoxShape.circle,
             ),
-            child: const Icon(LucideIcons.minus),
+            child: const Icon(AppIcons.minus),
           ),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
@@ -74,7 +74,7 @@ class ValueSlider extends StatelessWidget {
               color: colorScheme.primaryContainer,
               shape: BoxShape.circle,
             ),
-            child: const Icon(LucideIcons.plus),
+            child: const Icon(AppIcons.plus),
           ),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),

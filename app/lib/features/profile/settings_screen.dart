@@ -18,7 +18,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:services/services.dart';
@@ -81,7 +81,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    LucideIcons.user,
+                    AppIcons.user,
                     color: colorScheme.primary,
                     size: 20,
                   ),
@@ -91,7 +91,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 subtitle: Text(t.settings.editProfile.subtitle),
-                trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                trailing: const Icon(AppIcons.chevronRight, size: 18),
                 onTap:
                     userProfile != null
                         ? () async {
@@ -121,7 +121,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    LucideIcons.bell,
+                    AppIcons.bell,
                     color: colorScheme.primary,
                     size: 20,
                   ),
@@ -131,7 +131,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 subtitle: Text(t.settings.mealReminders.subtitle),
-                trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                trailing: const Icon(AppIcons.chevronRight, size: 18),
                 onTap: () => context.router.push(const EditReminderRoute()),
               ),
             ]),
@@ -145,7 +145,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    LucideIcons.activity,
+                    AppIcons.activity,
                     color: colorScheme.primary,
                     size: 20,
                   ),
@@ -155,7 +155,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 subtitle: Text(t.settings.healthConnect.subtitle),
-                trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                trailing: const Icon(AppIcons.chevronRight, size: 18),
                 onTap:
                     () => context.router.push(
                       const HealthConnectPermissionsRoute(),
@@ -172,7 +172,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    LucideIcons.mail,
+                    AppIcons.mail,
                     color: colorScheme.primary,
                     size: 20,
                   ),
@@ -196,7 +196,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    LucideIcons.download,
+                    AppIcons.download,
                     color: colorScheme.primary,
                     size: 20,
                   ),
@@ -213,7 +213,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           width: 18,
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
-                        : const Icon(LucideIcons.chevronRight, size: 18),
+                        : const Icon(AppIcons.chevronRight, size: 18),
                 onTap: _isExporting ? null : _exportMealHistory,
               ),
             ]),
@@ -227,7 +227,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    LucideIcons.info,
+                    AppIcons.info,
                     color: colorScheme.primary,
                     size: 20,
                   ),
@@ -237,7 +237,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 subtitle: Text(t.settings.about.ourStory.title),
-                trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                trailing: const Icon(AppIcons.chevronRight, size: 18),
                 onTap: () => context.router.push(const AboutRoute()),
               ),
             ]),
@@ -251,7 +251,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    LucideIcons.trash2,
+                    AppIcons.trash2,
                     color: colorScheme.error,
                     size: 20,
                   ),
@@ -282,7 +282,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
-                      LucideIcons.bug,
+                      AppIcons.bug,
                       color: colorScheme.tertiary,
                       size: 20,
                     ),
@@ -291,7 +291,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     t.settings.debugOptions.title,
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                  trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                  trailing: const Icon(AppIcons.chevronRight, size: 18),
                   onTap: () => context.router.push(const DebugOptionsRoute()),
                 ),
               ]),
@@ -351,7 +351,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.palette, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.palette, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.settings.theme.title,
@@ -361,17 +361,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         segments: [
           ButtonSegment(
             value: ThemeMode.light,
-            icon: const Icon(LucideIcons.sun, size: 18),
+            icon: const Icon(AppIcons.sun, size: 18),
             tooltip: t.settings.theme.light,
           ),
           ButtonSegment(
             value: ThemeMode.dark,
-            icon: const Icon(LucideIcons.moon, size: 18),
+            icon: const Icon(AppIcons.moon, size: 18),
             tooltip: t.settings.theme.dark,
           ),
           ButtonSegment(
             value: ThemeMode.system,
-            icon: const Icon(LucideIcons.smartphone, size: 18),
+            icon: const Icon(AppIcons.smartphone, size: 18),
             tooltip: t.settings.theme.system,
           ),
         ],
@@ -406,7 +406,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           shape: BoxShape.circle,
         ),
         child: Icon(
-          LucideIcons.languages,
+          AppIcons.languages,
           color: colorScheme.primary,
           size: 20,
         ),
@@ -422,7 +422,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           Text(t.language),
         ],
       ),
-      trailing: const Icon(LucideIcons.chevronRight, size: 18),
+      trailing: const Icon(AppIcons.chevronRight, size: 18),
       onTap: () async {
         await LanguagePickerSheet.show(context);
         if (mounted) setState(() {});
@@ -445,7 +445,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.ruler, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.ruler, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.settings.heightUnit.title,
@@ -522,7 +522,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
-        child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
+        child: Icon(AppIcons.scale, color: colorScheme.primary, size: 20),
       ),
       title: Text(
         t.settings.weightUnit.title,

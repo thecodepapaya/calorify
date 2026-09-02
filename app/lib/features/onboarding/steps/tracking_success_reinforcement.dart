@@ -6,7 +6,7 @@ import 'package:calorify/features/onboarding/steps/reinforcement_components.dart
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class TrackingSuccessReinforcement extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
@@ -123,7 +123,7 @@ class _TrackingSuccessReinforcementState
         const SizedBox(height: 48),
         ReinforcementHeader(
           title: t.onboarding.reinforcement.trackingSuccess.title,
-          icon: LucideIcons.users,
+          icon: AppIcons.users,
         ),
         const SizedBox(height: 16),
         Text(
@@ -143,17 +143,17 @@ class _TrackingSuccessReinforcementState
         const SizedBox(height: 16),
         ReinforcementFeatureItem(
           text: t.onboarding.reinforcement.trackingSuccess.tipPhoto,
-          icon: LucideIcons.camera,
+          icon: AppIcons.camera,
         ),
         const SizedBox(height: 16),
         ReinforcementFeatureItem(
           text: t.onboarding.reinforcement.trackingSuccess.tipConsistency,
-          icon: LucideIcons.repeat,
+          icon: AppIcons.repeat,
         ),
         const SizedBox(height: 16),
         ReinforcementFeatureItem(
           text: t.onboarding.reinforcement.trackingSuccess.tipProgress,
-          icon: LucideIcons.chartBar,
+          icon: AppIcons.chartBar,
         ),
       ],
     );

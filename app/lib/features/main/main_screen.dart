@@ -6,7 +6,7 @@ import 'package:calorify/core/services/analytics.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/app_bar_title.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
@@ -92,7 +92,7 @@ class _FloatingDock extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _DockItem(
-                    icon: LucideIcons.layoutDashboard,
+                    icon: AppIcons.layoutDashboard,
                     label: t.tabs.dashboard,
                     isSelected: tabsRouter.activeIndex == MainTab.home.index,
                     onTap: () => _selectMainTab(tabsRouter, MainTab.home),
@@ -102,7 +102,7 @@ class _FloatingDock extends StatelessWidget {
                     onTap: () => _selectMainTab(tabsRouter, MainTab.logMeal),
                   ),
                   _DockItem(
-                    icon: LucideIcons.history,
+                    icon: AppIcons.history,
                     label: t.tabs.history,
                     isSelected:
                         tabsRouter.activeIndex == MainTab.mealHistory.index,
@@ -146,18 +146,18 @@ class _TabletNavigationRail extends StatelessWidget {
         },
         destinations: [
           NavigationRailDestination(
-            icon: const Icon(LucideIcons.layoutDashboard),
-            selectedIcon: const Icon(LucideIcons.layoutDashboard),
+            icon: const Icon(AppIcons.layoutDashboard),
+            selectedIcon: const Icon(AppIcons.layoutDashboard),
             label: Text(t.tabs.dashboard),
           ),
           NavigationRailDestination(
-            icon: const Icon(LucideIcons.plus),
-            selectedIcon: const Icon(LucideIcons.circlePlus),
+            icon: const Icon(AppIcons.plus),
+            selectedIcon: const Icon(AppIcons.circlePlus),
             label: Text(t.meal.addMeal),
           ),
           NavigationRailDestination(
-            icon: const Icon(LucideIcons.history),
-            selectedIcon: const Icon(LucideIcons.history),
+            icon: const Icon(AppIcons.history),
+            selectedIcon: const Icon(AppIcons.history),
             label: Text(t.tabs.history),
           ),
         ],
@@ -269,7 +269,7 @@ class _CenterDockItem extends StatelessWidget {
                   ? Border.all(color: colorScheme.onPrimary, width: 2)
                   : null,
         ),
-        child: Icon(LucideIcons.plus, color: colorScheme.onPrimary, size: 32),
+        child: Icon(AppIcons.plus, color: colorScheme.onPrimary, size: 32),
       ),
     );
   }

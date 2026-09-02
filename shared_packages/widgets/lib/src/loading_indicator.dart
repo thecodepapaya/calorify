@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'app_icons.dart';
 
 class AppLoader extends StatefulWidget {
   const AppLoader({super.key, this.color, this.size = 28});
@@ -100,7 +100,7 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
           child: SlideTransition(
             position: _slideAnimation, // Use the slide animation here
             child: Icon(
-              LucideIcons.apple,
+              AppIcons.apple,
               color: widget.color ?? colorScheme.onSurface,
               size: widget.size,
             ),

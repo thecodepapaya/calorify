@@ -6,7 +6,7 @@ import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:i18n/i18n.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
 
@@ -218,8 +218,8 @@ void main() {
 
       expect(find.text('Paneer Bowl'), findsOneWidget);
       expect(find.text('420'), findsOneWidget);
-      expect(find.byIcon(LucideIcons.flame), findsOneWidget);
-      expect(find.byIcon(LucideIcons.arrowUpDown), findsOneWidget);
+      expect(find.byIcon(AppIcons.flame), findsOneWidget);
+      expect(find.byIcon(AppIcons.arrowUpDown), findsOneWidget);
     });
   });
 }

@@ -1,6 +1,6 @@
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class DisclaimerButton extends StatelessWidget {
   const DisclaimerButton({super.key, required this.data});
@@ -14,7 +14,7 @@ class DisclaimerButton extends StatelessWidget {
 
     return IconButton(
       icon: Icon(
-        LucideIcons.info,
+        AppIcons.info,
         color: colorScheme.onSurface.withValues(alpha: 0.5),
         size: 20,
       ),

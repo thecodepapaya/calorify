@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class MealQuantityIndicator extends StatelessWidget {
   const MealQuantityIndicator({super.key, required this.quantity});
@@ -17,7 +17,7 @@ class MealQuantityIndicator extends StatelessWidget {
 
       children: [
         Icon(
-          LucideIcons.utensils,
+          AppIcons.utensils,
           color: colorScheme.onSurfaceVariant,
           size: 12,
         ),

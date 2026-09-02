@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 typedef DebugCopyText = Future<void> Function(String value);
 
@@ -35,7 +35,7 @@ class DebugUserIdField extends StatelessWidget {
       key: const ValueKey('debug-user-id-field'),
       child: ListTile(
         key: ValueKey('debug-user-id-value-${value ?? 'signed-out'}'),
-        leading: const Icon(LucideIcons.userRound),
+        leading: const Icon(AppIcons.userRound),
         title: const Text('Firebase user ID'),
         subtitle: SelectableText(
           authenticated ? value : 'Not authenticated',
@@ -44,7 +44,7 @@ class DebugUserIdField extends StatelessWidget {
         trailing: IconButton(
           tooltip: authenticated ? 'Copy user ID' : 'No user ID to copy',
           onPressed: authenticated ? _copy : null,
-          icon: const Icon(LucideIcons.copy),
+          icon: const Icon(AppIcons.copy),
         ),
       ),
     );

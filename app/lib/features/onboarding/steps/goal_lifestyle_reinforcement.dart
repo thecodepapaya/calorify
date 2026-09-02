@@ -6,7 +6,7 @@ import 'package:calorify/features/onboarding/steps/reinforcement_components.dart
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 
 class GoalLifestyleReinforcement extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
@@ -110,7 +110,7 @@ class _GoalLifestyleReinforcementState
         const SizedBox(height: 48),
         ReinforcementHeader(
           title: t.onboarding.reinforcement.goalLifestyle.title,
-          icon: LucideIcons.target,
+          icon: AppIcons.target,
         ),
         const SizedBox(height: 16),
         Text(
@@ -126,17 +126,17 @@ class _GoalLifestyleReinforcementState
         const SizedBox(height: 32),
         ReinforcementFeatureItem(
           text: t.onboarding.reinforcement.goalLifestyle.aiMealDetection,
-          icon: LucideIcons.camera,
+          icon: AppIcons.camera,
         ),
         const SizedBox(height: 16),
         ReinforcementFeatureItem(
           text: t.onboarding.reinforcement.goalLifestyle.personalizedTargets,
-          icon: LucideIcons.settings,
+          icon: AppIcons.settings,
         ),
         const SizedBox(height: 16),
         ReinforcementFeatureItem(
           text: t.onboarding.reinforcement.goalLifestyle.macroBreakdowns,
-          icon: LucideIcons.chartPie,
+          icon: AppIcons.chartPie,
         ),
       ],
     );

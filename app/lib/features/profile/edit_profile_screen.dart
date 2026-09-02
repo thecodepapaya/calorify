@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
@@ -206,7 +206,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           IconButton(
             onPressed: _hasChanges() ? _saveProfile : null,
             icon: Icon(
-              LucideIcons.check,
+              AppIcons.check,
               color:
                   _hasChanges()
                       ? colorScheme.primary
@@ -357,7 +357,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           shape: BoxShape.circle,
         ),
         child: Icon(
-          LucideIcons.user,
+          AppIcons.user,
           color: colorScheme.primary,
           size: _iconSize,
         ),
@@ -403,13 +403,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   IconData _getGenderIcon(Gender gender) {
     switch (gender) {
       case Gender.MALE:
-        return LucideIcons.mars;
+        return AppIcons.mars;
       case Gender.FEMALE:
-        return LucideIcons.venus;
+        return AppIcons.venus;
       case Gender.OTHER:
-        return LucideIcons.transgender;
+        return AppIcons.transgender;
     }
-    return LucideIcons.transgender; // Fallback
+    return AppIcons.transgender; // Fallback
   }
 
   Widget _buildDateOfBirthTile() {
@@ -430,7 +430,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           shape: BoxShape.circle,
         ),
         child: Icon(
-          LucideIcons.calendar,
+          AppIcons.calendar,
           color: colorScheme.primary,
           size: _iconSize,
         ),
@@ -440,7 +440,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(DateFormat.yMMMMd().format(_dateOfBirth)),
-      trailing: const Icon(LucideIcons.chevronRight, size: _chevronIconSize),
+      trailing: const Icon(AppIcons.chevronRight, size: _chevronIconSize),
       onTap: () => _selectDate(context),
     );
   }
@@ -464,7 +464,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           shape: BoxShape.circle,
         ),
         child: Icon(
-          LucideIcons.ruler,
+          AppIcons.ruler,
           color: colorScheme.primary,
           size: _iconSize,
         ),
@@ -541,7 +541,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           shape: BoxShape.circle,
         ),
         child: Icon(
-          LucideIcons.scale,
+          AppIcons.scale,
           color: colorScheme.primary,
           size: _iconSize,
         ),
@@ -710,7 +710,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           shape: BoxShape.circle,
         ),
         child: Icon(
-          LucideIcons.flame,
+          AppIcons.flame,
           color: colorScheme.primary,
           size: _iconSize,
         ),
