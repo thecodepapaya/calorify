@@ -9,6 +9,14 @@ import 'package:intl/intl.dart';
 import 'package:models/models.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 
+String ageDatePlaceholder(Locale locale) {
+  final pattern = DateFormat.yMd(locale.toString()).pattern ?? 'MM/dd/yyyy';
+  return pattern
+      .replaceAll(RegExp('y+'), 'YYYY')
+      .replaceAll(RegExp('M+'), 'MM')
+      .replaceAll(RegExp('d+'), 'DD');
+}
+
 class AgeStepScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
   const AgeStepScreen({super.key, required this.onContinue});
@@ -19,11 +27,7 @@ class AgeStepScreen extends ConsumerStatefulWidget {
 
 class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
   bool _isSaving = false;
-  DateTime _dateOfBirth = DateTime(
-    DateTime.now().year - 25,
-    DateTime.now().month,
-    DateTime.now().day,
-  );
+  DateTime? _dateOfBirth;
 
   @override
   void initState() {
@@ -35,8 +39,7 @@ class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
     final profile = await ref.read(onboardingServiceProvider).getProfileData();
     if (profile != null && profile.hasDateOfBirth() && mounted) {
       setState(() {
-        _dateOfBirth =
-            iso8601DateToDateTime(profile.dateOfBirth) ?? _dateOfBirth;
+        _dateOfBirth = iso8601DateToDateTime(profile.dateOfBirth);
       });
     }
   }
@@ -46,6 +49,7 @@ class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final locale = TranslationProvider.of(context).locale.flutterLocale;
+    final dateOfBirth = _dateOfBirth;
 
     return Padding(
       padding: const EdgeInsets.all(24.0),
@@ -91,7 +95,11 @@ class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
                       ],
                     ),
                     child: Text(
-                      DateFormat.yMMMMd(locale.toString()).format(_dateOfBirth),
+                      dateOfBirth == null
+                          ? ageDatePlaceholder(locale)
+                          : DateFormat.yMMMMd(
+                            locale.toString(),
+                          ).format(dateOfBirth),
                       style: theme.textTheme.headlineSmall?.copyWith(
                         color: colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -100,19 +108,21 @@ class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  '${_calculateAge(_dateOfBirth)} ${t.profile.years}',
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
+                if (dateOfBirth != null)
+                  Text(
+                    '${_calculateAge(dateOfBirth)} ${t.profile.years}',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
                   ),
-                ),
               ],
             ),
           ),
           const Spacer(),
           AppButton(
             variant: AppButtonVariant.filled,
-            onPressed: _isSaving ? null : _saveAndContinue,
+            onPressed:
+                _isSaving || dateOfBirth == null ? null : _saveAndContinue,
             isLoading: _isSaving,
             text: t.onboarding.age.next,
           ),
@@ -134,7 +144,7 @@ class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _dateOfBirth,
+      initialDate: _dateOfBirth ?? DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
@@ -144,13 +154,14 @@ class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
   }
 
   Future<void> _saveAndContinue() async {
-    if (_isSaving) return;
+    final dateOfBirth = _dateOfBirth;
+    if (_isSaving || dateOfBirth == null) return;
     setState(() => _isSaving = true);
     try {
       final onboardingService = ref.read(onboardingServiceProvider);
       final profile = await onboardingService.getProfileData() ?? UserProfile();
       final updatedProfile = profile.deepCopy();
-      updatedProfile.dateOfBirth = dateTimeToIso8601Date(_dateOfBirth);
+      updatedProfile.dateOfBirth = dateTimeToIso8601Date(dateOfBirth);
       await onboardingService.saveProfileData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetAge);
