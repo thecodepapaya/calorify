@@ -102,7 +102,7 @@ platform :android do
     UI.success("Version code #{candidate} is available for upload")
   end
 
-  desc "Draft and translate Google Play release notes"
+  desc "Draft English Google Play release notes"
   lane :release_notes do
     sh("./scripts/generate_release_notes.sh")
   end
@@ -117,7 +117,12 @@ platform :android do
       aab: "app/build/app/outputs/bundle/prodRelease/app-prod-release.aab",
       json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
       package_name: package_name,
-      metadata_path: "fastlane/metadata/android"
+      metadata_path: "fastlane/metadata/android",
+      # Store listings are managed in Play Console. This lane uploads only the
+      # English changelog, so Fastlane must not create incomplete locale listings.
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
     )
   end
 

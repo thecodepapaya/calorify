@@ -1,3 +1,0 @@
-• Intelligensebb étkezéselemzés továbbfejlesztett ételfelismeréssel, adag- és tápanyagbecsléssel
-• Gördülékenyebb elemzési folyamat egyértelműbb kérdésekkel, kiválasztható válaszokkal és folyamatos előrehaladással
-• Továbbfejlesztett Wear OS-élmény, kalóriabecslési tartományok és kedvenc ételek ikonjai

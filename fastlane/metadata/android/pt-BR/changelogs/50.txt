@@ -1,3 +1,0 @@
-• Análise de refeições mais inteligente, com reconhecimento de alimentos, porções e estimativas nutricionais aprimorados
-• Fluxo de análise mais fluido, com perguntas mais claras, respostas selecionáveis e progresso contínuo
-• Experiência aprimorada no Wear OS, intervalos de estimativa de calorias e ícones de refeições favoritas

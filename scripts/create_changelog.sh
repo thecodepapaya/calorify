@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compatibility entry point for release notes supplied by a person or file.
-# All validation, translation, staging, and writes live in the canonical
+# All validation, staging, and writes live in the canonical
 # generate_release_notes.sh implementation.
 
 set -euo pipefail
@@ -11,8 +11,8 @@ CANONICAL_SCRIPT="$SCRIPT_DIR/generate_release_notes.sh"
 
 case "${1:-}" in
     "")
-        # Preserve the legacy no-argument behavior: translate the current
-        # version's existing English changelog and replace its locale set.
+        # Preserve the legacy no-argument behavior: validate and rewrite the
+        # current version's existing English changelog.
         exec "$CANONICAL_SCRIPT" --use-existing-english --overwrite
         ;;
     --file|-f)

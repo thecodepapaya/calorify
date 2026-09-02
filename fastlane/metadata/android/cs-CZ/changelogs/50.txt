@@ -1,3 +1,0 @@
-• Chytřejší analýza jídel s vylepšeným rozpoznáváním potravin, porcí a odhady nutričních hodnot
-• Plynulejší průběh analýzy s jasnějšími otázkami, možností výběru odpovědí a průběžným zobrazením pokroku
-• Vyladěné prostředí Wear OS, rozsahy odhadu kalorií a ikony oblíbených jídel

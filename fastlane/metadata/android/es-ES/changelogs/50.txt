@@ -1,3 +1,0 @@
-• Análisis de comidas más inteligente, con un reconocimiento de alimentos, porciones y estimaciones nutricionales mejorados
-• Un proceso de análisis más fluido, con preguntas más claras, respuestas seleccionables y progreso continuo
-• Experiencia de Wear OS mejorada, rangos de estimación de calorías e iconos para las comidas favoritas

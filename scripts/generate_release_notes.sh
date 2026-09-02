@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Draft and translate Google Play release notes from git history.
+# Draft English Google Play release notes from git history.
 # Usage:
 #   ./scripts/generate_release_notes.sh
 #   ./scripts/generate_release_notes.sh --dry-run
@@ -31,27 +31,19 @@ RELEASE_RANGE=""
 TEMP_DIR=""
 API_KEY=""
 
-APP_LOCALES=()
-PLAY_LOCALES=()
-LOCALE_NAMES=()
-GENERATED_FILES=()
-UNSUPPORTED_APP_LOCALES=()
-OUTPUT_PLAY_LOCALES=()
-OUTPUT_LOCALE_NAMES=()
-
 usage() {
     cat <<EOF
 Usage:
   ./scripts/generate_release_notes.sh [options]
 
 Options:
-  --dry-run       Draft and translate notes, but do not write changelog files.
+  --dry-run       Draft notes, but do not write the changelog file.
   --since <ref>   Override the detected previous release boundary.
   --text <text>   Use supplied English notes instead of drafting from git.
   --file <path>   Read supplied English notes from a UTF-8 text file.
   --use-existing-english
                   Read the current version's existing en-US changelog.
-  --locale <id>   Generate only one Google Play locale (for example fr-FR).
+  --locale <id>   Generate one Google Play locale (only en-US is supported).
   --overwrite     Replace existing changelog files for the current version.
   --help          Show this help message.
 EOF
@@ -184,161 +176,11 @@ resolve_api_key() {
     fi
 }
 
-app_locale_to_play_locale() {
-    case "$1" in
-        ar) echo "ar" ;;
-        bn) echo "bn-BD" ;;
-        cs) echo "cs-CZ" ;;
-        da) echo "da-DK" ;;
-        de) echo "de-DE" ;;
-        el) echo "el-GR" ;;
-        es) echo "es-ES" ;;
-        fi) echo "fi-FI" ;;
-        fr) echo "fr-FR" ;;
-        gu) echo "" ;;
-        he) echo "iw-IL" ;;
-        hi) echo "hi-IN" ;;
-        hu) echo "hu-HU" ;;
-        id) echo "id" ;;
-        it) echo "it-IT" ;;
-        ja) echo "ja-JP" ;;
-        ko) echo "ko-KR" ;;
-        ms) echo "ms" ;;
-        nl) echo "nl-NL" ;;
-        no) echo "no-NO" ;;
-        pl) echo "pl-PL" ;;
-        pt) echo "pt-BR" ;;
-        ro) echo "ro" ;;
-        ru) echo "ru-RU" ;;
-        sv) echo "sv-SE" ;;
-        te) echo "te-IN" ;;
-        th) echo "th" ;;
-        tl) echo "fil" ;;
-        tr) echo "tr-TR" ;;
-        uk) echo "uk" ;;
-        ur) echo "" ;;
-        vi) echo "vi" ;;
-        zh-CN) echo "zh-CN" ;;
-        zh-TW) echo "zh-TW" ;;
-        *) echo "" ;;
-    esac
-}
-
-play_locale_name() {
-    case "$1" in
-        ar) echo "Arabic" ;;
-        bn-BD) echo "Bengali (Bangladesh)" ;;
-        cs-CZ) echo "Czech (Czechia)" ;;
-        da-DK) echo "Danish (Denmark)" ;;
-        de-DE) echo "German (Germany)" ;;
-        el-GR) echo "Greek (Greece)" ;;
-        en-US) echo "English (United States)" ;;
-        es-ES) echo "Spanish (Spain)" ;;
-        fi-FI) echo "Finnish (Finland)" ;;
-        fil) echo "Filipino" ;;
-        fr-FR) echo "French (France)" ;;
-        hi-IN) echo "Hindi (India)" ;;
-        hu-HU) echo "Hungarian (Hungary)" ;;
-        id) echo "Indonesian" ;;
-        it-IT) echo "Italian (Italy)" ;;
-        iw-IL) echo "Hebrew (Israel)" ;;
-        ja-JP) echo "Japanese (Japan)" ;;
-        ko-KR) echo "Korean (South Korea)" ;;
-        ms) echo "Malay" ;;
-        nl-NL) echo "Dutch (Netherlands)" ;;
-        no-NO) echo "Norwegian (Norway)" ;;
-        pl-PL) echo "Polish (Poland)" ;;
-        pt-BR) echo "Portuguese (Brazil)" ;;
-        ro) echo "Romanian" ;;
-        ru-RU) echo "Russian (Russia)" ;;
-        sv-SE) echo "Swedish (Sweden)" ;;
-        te-IN) echo "Telugu (India)" ;;
-        th) echo "Thai" ;;
-        tr-TR) echo "Turkish (Turkey)" ;;
-        uk) echo "Ukrainian" ;;
-        vi) echo "Vietnamese" ;;
-        zh-CN) echo "Chinese (Simplified)" ;;
-        zh-TW) echo "Chinese (Traditional)" ;;
-        *) echo "" ;;
-    esac
-}
-
-collect_and_validate_locales() {
-    local i18n_dir="$GIT_ROOT/shared_packages/i18n/lib/i18n"
-    local locales_file="$TEMP_DIR/app_locales.txt"
-    local locale
-    local play_locale
-    local locale_name
-
-    python3 - "$i18n_dir" "$locales_file" <<'PY'
-import sys
-from pathlib import Path
-
-i18n_dir = Path(sys.argv[1])
-locales_file = Path(sys.argv[2])
-locales = []
-for path in i18n_dir.glob("*.i18n.json"):
-    locale = path.name[:-len(".i18n.json")]
-    if locale in {"en", "_default_"} or "," in locale:
-        continue
-    locales.append(locale)
-locales_file.write_text("\n".join(sorted(locales)) + "\n", encoding="utf-8")
-PY
-
-    while IFS= read -r locale; do
-        APP_LOCALES+=("$locale")
-    done < "$locales_file"
-
-    if [ ${#APP_LOCALES[@]} -eq 0 ]; then
-        print_error "No app locales found in shared_packages/i18n/lib/i18n"
+select_output_locales() {
+    if [ -n "$TARGET_LOCALE" ] && [ "$TARGET_LOCALE" != "en-US" ]; then
+        print_error "Only the en-US Google Play locale is supported"
         exit 1
     fi
-
-    PLAY_LOCALES=("en-US")
-    LOCALE_NAMES=("English (United States)")
-
-    for locale in "${APP_LOCALES[@]}"; do
-        play_locale=$(app_locale_to_play_locale "$locale")
-        locale_name=$(play_locale_name "$play_locale")
-
-        if [ -z "$play_locale" ]; then
-            UNSUPPORTED_APP_LOCALES+=("$locale")
-            continue
-        fi
-
-        if [ -z "$locale_name" ]; then
-            print_error "Missing display name for Google Play locale: $play_locale"
-            exit 1
-        fi
-
-        PLAY_LOCALES+=("$play_locale")
-        LOCALE_NAMES+=("$locale_name")
-    done
-
-    if [ ${#UNSUPPORTED_APP_LOCALES[@]} -gt 0 ]; then
-        print_warning "Skipping app locale(s) without Fastlane/Google Play metadata support: ${UNSUPPORTED_APP_LOCALES[*]}"
-    fi
-}
-
-select_output_locales() {
-    local index
-
-    if [ -z "$TARGET_LOCALE" ]; then
-        OUTPUT_PLAY_LOCALES=("${PLAY_LOCALES[@]}")
-        OUTPUT_LOCALE_NAMES=("${LOCALE_NAMES[@]}")
-        return
-    fi
-
-    for index in "${!PLAY_LOCALES[@]}"; do
-        if [ "${PLAY_LOCALES[$index]}" = "$TARGET_LOCALE" ]; then
-            OUTPUT_PLAY_LOCALES=("${PLAY_LOCALES[$index]}")
-            OUTPUT_LOCALE_NAMES=("${LOCALE_NAMES[$index]}")
-            return
-        fi
-    done
-
-    print_error "Unsupported Google Play locale: $TARGET_LOCALE"
-    exit 1
 }
 
 has_supplied_english() {
@@ -359,29 +201,15 @@ resolve_supplied_english_file() {
 }
 
 requires_api_key() {
-    local locale
-
     if ! has_supplied_english; then
         return 0
     fi
-    for locale in "${OUTPUT_PLAY_LOCALES[@]}"; do
-        if [ "$locale" != "en-US" ]; then
-            return 0
-        fi
-    done
     return 1
 }
 
 current_changelog_exists() {
-    local found=0
-    local locale
-    for locale in "${OUTPUT_PLAY_LOCALES[@]}"; do
-        if [ -f "$GIT_ROOT/fastlane/metadata/android/$locale/changelogs/$VERSION_CODE.txt" ]; then
-            found=1
-            print_warning "Existing changelog: fastlane/metadata/android/$locale/changelogs/$VERSION_CODE.txt"
-        fi
-    done
-    if [ "$found" -eq 1 ]; then
+    if [ -f "$GIT_ROOT/fastlane/metadata/android/en-US/changelogs/$VERSION_CODE.txt" ]; then
+        print_warning "Existing changelog: fastlane/metadata/android/en-US/changelogs/$VERSION_CODE.txt"
         return 0
     fi
     return 1
@@ -660,26 +488,9 @@ draft_english_notes() {
     ensure_within_limit "$output_file" "en-US" "English (United States)"
 }
 
-translate_notes() {
-    local english_file="$1"
-    local play_locale="$2"
-    local locale_name="$3"
-    local output_file="$4"
-    local system_file="$TEMP_DIR/translate_system_${play_locale}.txt"
-
-    write_prompt_file "$system_file" "You are a professional app store translator. Translate the provided Calorify Google Play release notes into $locale_name for locale $play_locale. Preserve bullet formatting and line breaks. Do not add, remove, or reinterpret any change. Keep the tone professional, friendly, and natural for app store users. Return JSON exactly as {\"text\":\"...\"}. The translation must be at most $CHANGELOG_MAX_LENGTH Unicode characters."
-
-    call_openai_json "$system_file" "$english_file" "text" "$output_file"
-    ensure_within_limit "$output_file" "$play_locale" "$locale_name"
-}
-
 generate_all_notes() {
     local context_file="$TEMP_DIR/release_context.txt"
     local english_file="$TEMP_DIR/en-US.txt"
-    local index
-    local play_locale
-    local locale_name
-    local output_file
 
     if has_supplied_english; then
         print_step "3" "Preparing supplied English release notes"
@@ -706,71 +517,25 @@ generate_all_notes() {
         echo ""
     fi
 
-    GENERATED_FILES+=("$english_file")
-
-    print_step "5" "Translating release notes"
-    for index in "${!OUTPUT_PLAY_LOCALES[@]}"; do
-        play_locale="${OUTPUT_PLAY_LOCALES[$index]}"
-        locale_name="${OUTPUT_LOCALE_NAMES[$index]}"
-
-        if [ "$play_locale" = "en-US" ]; then
-            continue
-        fi
-
-        output_file="$TEMP_DIR/${play_locale}.txt"
-        echo -e "${BOLD}${BLUE}${ARROW} ${locale_name} (${play_locale})${NC}"
-        translate_notes "$english_file" "$play_locale" "$locale_name" "$output_file"
-        GENERATED_FILES+=("$output_file")
-        print_success "Translated $play_locale ($(text_length "$output_file")/$CHANGELOG_MAX_LENGTH chars)"
-        echo ""
-    done
 }
 
 print_dry_run_output() {
-    local index
-    local play_locale
-    local file
-
     print_separator
     print_info "Dry run: generated release notes were not written"
     echo ""
-
-    for index in "${!OUTPUT_PLAY_LOCALES[@]}"; do
-        play_locale="${OUTPUT_PLAY_LOCALES[$index]}"
-        file="$TEMP_DIR/${play_locale}.txt"
-        if [ "$play_locale" = "en-US" ]; then
-            file="$TEMP_DIR/en-US.txt"
-        fi
-
-        echo "[$play_locale] ($(text_length "$file")/$CHANGELOG_MAX_LENGTH chars)"
-        cat "$file"
-        echo ""
-    done
+    echo "[en-US] ($(text_length "$TEMP_DIR/en-US.txt")/$CHANGELOG_MAX_LENGTH chars)"
+    cat "$TEMP_DIR/en-US.txt"
+    echo ""
 }
 
 write_changelog_files() {
-    local index
-    local play_locale
-    local source_file
-    local target_dir
-    local target_file
+    local target_dir="$GIT_ROOT/fastlane/metadata/android/en-US/changelogs"
+    local target_file="$target_dir/$VERSION_CODE.txt"
 
-    print_step "6" "Writing Fastlane changelog files"
-
-    for index in "${!OUTPUT_PLAY_LOCALES[@]}"; do
-        play_locale="${OUTPUT_PLAY_LOCALES[$index]}"
-        source_file="$TEMP_DIR/${play_locale}.txt"
-        if [ "$play_locale" = "en-US" ]; then
-            source_file="$TEMP_DIR/en-US.txt"
-        fi
-
-        target_dir="$GIT_ROOT/fastlane/metadata/android/$play_locale/changelogs"
-        target_file="$target_dir/$VERSION_CODE.txt"
-
-        mkdir -p "$target_dir"
-        cp "$source_file" "$target_file"
-        print_success "Created fastlane/metadata/android/$play_locale/changelogs/$VERSION_CODE.txt"
-    done
+    print_step "5" "Writing Fastlane changelog file"
+    mkdir -p "$target_dir"
+    cp "$TEMP_DIR/en-US.txt" "$target_file"
+    print_success "Created fastlane/metadata/android/en-US/changelogs/$VERSION_CODE.txt"
 }
 
 main() {
@@ -780,13 +545,12 @@ main() {
     print_header "Release Notes Automation"
 
     extract_version_code
-    collect_and_validate_locales
     select_output_locales
     resolve_supplied_english_file
 
     print_step "1" "Checking release metadata"
     print_info "Current version code: $VERSION_CODE"
-    print_info "Target locales: ${#OUTPUT_PLAY_LOCALES[@]}"
+    print_info "Target locale: en-US"
     if current_changelog_exists; then
         if [ "$DRY_RUN" = true ]; then
             print_warning "Continuing because --dry-run does not write files"
@@ -833,7 +597,7 @@ main() {
     else
         write_changelog_files
         print_separator
-        print_summary_all_success "Release notes generated for ${#OUTPUT_PLAY_LOCALES[@]} locale(s)"
+        print_summary_all_success "English release notes generated"
     fi
 }
 

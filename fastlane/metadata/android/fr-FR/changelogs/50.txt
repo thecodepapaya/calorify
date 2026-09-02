@@ -1,3 +1,0 @@
-• Analyse des repas plus intelligente grâce à une meilleure reconnaissance des aliments, des portions et des estimations nutritionnelles
-• Parcours d’analyse plus fluide avec des questions plus claires, des réponses sélectionnables et une progression continue
-• Expérience Wear OS améliorée, fourchettes d’estimation des calories et icônes pour les repas favoris

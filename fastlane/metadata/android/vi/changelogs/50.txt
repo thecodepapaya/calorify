@@ -1,3 +1,0 @@
-• Phân tích bữa ăn thông minh hơn với khả năng nhận diện thực phẩm, khẩu phần và ước tính dinh dưỡng được cải thiện
-• Quy trình phân tích mượt mà hơn với câu hỏi rõ ràng, câu trả lời có thể chọn và tiến độ liên tục
-• Trải nghiệm Wear OS được hoàn thiện, khoảng ước tính calo và biểu tượng món ăn yêu thích
