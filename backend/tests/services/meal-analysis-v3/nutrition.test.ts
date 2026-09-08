@@ -640,6 +640,36 @@ test('matches a USDA row with its parenthetical removed', async () => {
   assert.equal(result.leaves[0]?.reference?.sourceRecordId, '173799');
 });
 
+test('scores a parenthetical variant match against the variant, not the full description', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    if (calls.length === 2) {
+      return { rows: [candidate({
+        fdc_id: '168893',
+        description: "Wheat flour, whole-grain (Includes foods for USDA's Food Distribution Program)",
+        normalized_name: "wheat flour wholegrain includes foods for usdas food distribution program",
+        data_type: 'sr_legacy_food',
+        // pg_trgm similarity against the full description, parenthetical
+        // included, as observed in production for this exact row.
+        identity_similarity: 0.33333334,
+      })] };
+    }
+    return { rows: [] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('whole-wheat-flour', [ingredient({
+    displayName: 'Whole wheat flour',
+    canonicalIdentity: 'flour, whole-wheat',
+    lookupAliases: ['flour, wheat, whole-grain', 'atta'],
+    nutritionBasis: 'DRY',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '168893');
+});
+
 test('retries an unresolved generic leaf with its USDA NFS form', async () => {
   const calls: Array<{ text: string; params?: unknown[] }> = [];
   const query: NutritionDatabaseQuery = async (text, params) => {

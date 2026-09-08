@@ -135,12 +135,18 @@ interface EvaluatedCandidate {
   identityRank: number;
   preparationRank: number;
   per100g: MacroVector | null;
+  // Confidence-gate score for the tier that matched. Null for every direct
+  // tier, which is gated on the SQL trigram similarity against the full row
+  // description; set when a parenthetical variant drove the match, where the
+  // gate must score the request against the variant instead.
+  gateSimilarity: number | null;
   eligible: boolean;
 }
 
 interface IdentityMatch {
   tier: IdentityMatchTier;
   rank: number;
+  gateSimilarity?: number;
 }
 
 interface LookupOutcome {
@@ -872,6 +878,7 @@ function evaluateCandidate(
       ? Number.MAX_SAFE_INTEGER
       : PREPARATION_RANK[preparationTier],
     per100g,
+    gateSimilarity: identityMatch?.gateSimilarity ?? null,
     // Identity mismatch is intentionally non-blocking here. Hard identity
     // matches are resolved first; only their absence unlocks the bounded fuzzy
     // fallback below. All other safety checks remain blocking.
@@ -1077,22 +1084,49 @@ function hardIdentityMatch(
   }
 
   // Parenthetical synonyms rank below every direct tier: a row named
-  // exactly as requested always wins over a parenthetical reading.
+  // exactly as requested always wins over a parenthetical reading. The
+  // confidence gate scores these matches against the matched variant, not
+  // the full description: the parenthetical and any state suffixes depress
+  // the SQL trigram similarity even when the variant reading is exact.
   const variantNames = parentheticalIdentityVariants(row.description);
-  if (variantNames.includes(canonical)) {
-    return { tier: 'CANONICAL_EXACT', rank: 10 };
+  const canonicalVariant = variantNames.find((variant) => variant === canonical);
+  if (canonicalVariant !== undefined) {
+    return {
+      tier: 'CANONICAL_EXACT',
+      rank: 10,
+      gateSimilarity: identityTokenSimilarity(canonical, canonicalVariant),
+    };
   }
-  if (variantNames.some((variant) => sameIdentityTokenSet(variant, canonical))) {
-    return { tier: 'CANONICAL_TOKEN_SET', rank: 11 };
+  const canonicalTokenVariant = variantNames.find((variant) =>
+    sameIdentityTokenSet(variant, canonical)
+  );
+  if (canonicalTokenVariant !== undefined) {
+    return {
+      tier: 'CANONICAL_TOKEN_SET',
+      rank: 11,
+      gateSimilarity: identityTokenSimilarity(canonical, canonicalTokenVariant),
+    };
   }
   for (const alias of leaf.lookupAliases.map(normalizeIdentity)) {
-    if (variantNames.includes(alias)) {
-      return { tier: 'ALIAS_EXACT', rank: 12 };
+    const aliasVariant = variantNames.find((variant) => variant === alias);
+    if (aliasVariant !== undefined) {
+      return {
+        tier: 'ALIAS_EXACT',
+        rank: 12,
+        gateSimilarity: identityTokenSimilarity(alias, aliasVariant),
+      };
     }
   }
   for (const alias of leaf.lookupAliases.map(normalizeIdentity)) {
-    if (variantNames.some((variant) => sameIdentityTokenSet(variant, alias))) {
-      return { tier: 'ALIAS_TOKEN_SET', rank: 13 };
+    const aliasTokenVariant = variantNames.find((variant) =>
+      sameIdentityTokenSet(variant, alias)
+    );
+    if (aliasTokenVariant !== undefined) {
+      return {
+        tier: 'ALIAS_TOKEN_SET',
+        rank: 13,
+        gateSimilarity: identityTokenSimilarity(alias, aliasTokenVariant),
+      };
     }
   }
   return null;
@@ -1119,6 +1153,22 @@ function identityTokenSet(value: string): Set<string> {
       .split(' ')
       .filter((token) => token !== '' && !IDENTITY_STOP_WORDS.has(token))
   );
+}
+
+// Jaccard similarity over identity token sets. Used only to gate
+// parenthetical-variant matches, where the matched variant — not the full
+// row description — is the right comparison for the request. A token-set
+// variant match is set-equal by construction, so it scores 1; the helper
+// keeps the gate meaningful if variant matching ever loosens.
+function identityTokenSimilarity(requested: string, variant: string): number {
+  const requestedTokens = identityTokenSet(requested);
+  const variantTokens = identityTokenSet(variant);
+  if (requestedTokens.size === 0 || variantTokens.size === 0) return 0;
+  let shared = 0;
+  for (const token of requestedTokens) {
+    if (variantTokens.has(token)) shared += 1;
+  }
+  return shared / (requestedTokens.size + variantTokens.size - shared);
 }
 
 // USDA descriptions embed synonyms and clarifications in parentheses:
@@ -1273,7 +1323,10 @@ function resolveTemporaryReleaseCollision(
 }
 
 function passesFuzzyConfidence(candidate: EvaluatedCandidate): boolean {
-  const score = candidate.diagnostic.similarity ?? 0;
+  // Parenthetical-variant matches are gated on their similarity to the
+  // matched variant; every other tier is gated on the SQL trigram
+  // similarity against the full row description.
+  const score = candidate.gateSimilarity ?? candidate.diagnostic.similarity ?? 0;
   return score >= FUZZY_MATCH_THRESHOLD;
 }
 

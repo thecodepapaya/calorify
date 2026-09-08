@@ -291,6 +291,37 @@ and blocks the NFS and local fallbacks.
    picked it by similarity — bypassing the confidence gate that had
    rejected the pair at similarity 0.22.
 
+### Phase 2.8 — gate parenthetical variants against the matched variant
+
+**Status:** implemented 2026-09-08.
+
+1. Problem (production, session `f60c15aa-f5df-4273-b6fd-a7c0789204aa`):
+   `4 roti daal raita` failed `UNRESOLVED_NUTRITION` because the
+   `whole-wheat-flour` leaf matched `Wheat flour, whole-grain (Includes
+   foods for USDA's Food Distribution Program)` through the Phase 2.7
+   parenthetical-stripped variant at `ALIAS_TOKEN_SET` rank 13, but the
+   confidence gate scored the SQL trigram similarity against the full
+   description — parenthetical included — yielding 0.333, below the 0.4
+   threshold. The variant matching found the row; the gate then rejected
+   it against a string the request never claimed to resemble.
+2. Change: `hardIdentityMatch` now returns a `gateSimilarity` for every
+   parenthetical-variant tier (ranks 10-13), computed as the Jaccard
+   similarity of identity token sets between the matched request string
+   and the matched variant. `passesFuzzyConfidence` prefers
+   `gateSimilarity` over the SQL trigram score, so direct tiers keep the
+   full-description gate and variant tiers are scored against what they
+   actually matched. A token-set variant match is set-equal by
+   construction, so it scores 1; the helper keeps the gate meaningful if
+   variant matching ever loosens.
+3. Tests: red-green test reproducing the production row (alias
+   `flour, wheat, whole-grain`, full-description similarity 0.333,
+   expected `168893`). Full suite 460 green.
+4. Measurement (2026-09-08, artifacts `/tmp/usda-resolver-eval-v5`):
+   **83/112 unique active leaves resolved (74.1%)**, unchanged from
+   Phase 2.7 — the miss set is byte-identical to v4, so no val-set leaf
+   exercises this path and none regressed. The production row is covered
+   by the unit test, not the corpus.
+
 ### Phase 3 — retrieval recall for zero-candidate terms
 
 1. Term-reduction ladder: on `NO_CANDIDATES`, reduce the term toward its
