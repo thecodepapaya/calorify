@@ -144,8 +144,8 @@ The command writes a full JSON report to a temporary artifact directory
 is a measurement, not a gate.
 
 Current baseline (val set v1 with USDA-style canonical identities, the
-local-fallback head-noun reduction, and parenthetical identity matching,
-2026-09-08): 83/112 unique active leaves resolved (74.1%), up from 70/113
-(61.9%) on plain-style terms. See the
+local-fallback head-noun reduction, parenthetical identity matching, and the
+fuzzy threshold lowered to 0.3, 2026-09-08): 86/112 unique active leaves
+resolved (76.8%), up from 70/113 (61.9%) on plain-style terms. See the
 [USDA ingredient hit-rate plan](../../docs/plans/usda-ingredient-hit-rate.md)
 for the miss inventory.

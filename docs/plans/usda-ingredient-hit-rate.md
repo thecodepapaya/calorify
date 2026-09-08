@@ -322,6 +322,25 @@ and blocks the NFS and local fallbacks.
    exercises this path and none regressed. The production row is covered
    by the unit test, not the corpus.
 
+### Phase 2.9 — fuzzy threshold lowered to 0.3
+
+**Status:** implemented 2026-09-08.
+
+1. Change: `FUZZY_MATCH_THRESHOLD` lowered from 0.4 to 0.3, matching the
+   SQL-side `pg_trgm` `similarity_threshold` so the TypeScript gate no
+   longer rejects candidates the SQL retrieval itself considers similar
+   enough to surface. Applies to token-set, stemmed, product-phrase, and
+   parenthetical-variant tiers; exact tiers still skip the gate.
+2. Tests: the boundary tests moved with the threshold — rejection below
+   0.3 (0.29 fixture), fuzzy fallback at 0.3, and the staging split-peas
+   case renamed to "above" the threshold. Full suite 460 green.
+3. Measurement (2026-09-08, artifacts `/tmp/usda-resolver-eval-v6`):
+   **86/112 unique active leaves resolved (76.8%)**, up from 83/112
+   (74.1%). Three conversions — butter unsalted, butter melted, canned
+   chickpeas — all previously gated at similarity between 0.3 and 0.4.
+   No regressions; the remaining 26 misses are unchanged
+   `IDENTITY_MISMATCH` cases that need the Phase 3 levers.
+
 ### Phase 3 — retrieval recall for zero-candidate terms
 
 1. Term-reduction ladder: on `NO_CANDIDATES`, reduce the term toward its

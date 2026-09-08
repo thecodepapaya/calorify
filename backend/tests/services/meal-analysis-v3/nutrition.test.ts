@@ -812,11 +812,11 @@ test('temporary release collision fallback uses similarity then numeric FDC ID',
   });
 });
 
-test('rejects a fuzzy identity match below the temporary 0.4 threshold', async () => {
+test('rejects a fuzzy identity match below the temporary 0.3 threshold', async () => {
   const fixture = queryFixture([readyDataset], [candidate({
     normalized_name: 'pumpkin cooked',
     description: 'Pumpkin, cooked',
-    identity_similarity: 0.39,
+    identity_similarity: 0.29,
   })]);
   const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
   const result = await resolver.resolve([scenario('weak-fuzzy', [ingredient({
@@ -827,13 +827,13 @@ test('rejects a fuzzy identity match below the temporary 0.4 threshold', async (
   assert.deepEqual(result.leaves[0]?.rejectionReasons, ['LOW_CONFIDENCE_MATCH']);
 });
 
-test('uses fuzzy fallback at the temporary 0.4 threshold when no hard identity matches', async () => {
+test('uses fuzzy fallback at the temporary 0.3 threshold when no hard identity matches', async () => {
   const fixture = queryFixture([readyDataset], [
     candidate({
       fdc_id: 'whole-wheat',
       normalized_name: 'wheat flour whole grain soft wheat',
       description: 'Wheat flour, whole-grain, soft wheat',
-      identity_similarity: 0.4,
+      identity_similarity: 0.3,
     }),
     candidate({
       fdc_id: 'oat-flour',
@@ -855,7 +855,7 @@ test('uses fuzzy fallback at the temporary 0.4 threshold when no hard identity m
   assert.deepEqual(result.leaves[0]?.candidates[0]?.rejectionReasons, []);
 });
 
-test('resolves the staging split-peas case at the temporary 0.4 threshold', async () => {
+test('resolves the staging split-peas case above the temporary 0.3 threshold', async () => {
   const fixture = queryFixture([readyDataset], [
     candidate({
       fdc_id: '172420',

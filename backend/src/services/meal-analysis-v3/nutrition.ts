@@ -215,7 +215,10 @@ const PREPARATION_RANK: Record<PreparationMatchTier, number> = {
 // over leaving the meal unresolved. Restore a stricter, corpus-validated
 // acceptance policy after the resolver retrieval redesign documented in
 // docs/plans/nutrition-resolver-retrieval.md.
-const FUZZY_MATCH_THRESHOLD = 0.4;
+// TEMPORARY RELEASE OVERRIDE: lowered from 0.4 to 0.3 on 2026-09-08 to
+// match the SQL-side pg_trgm similarity_threshold, admitting token-set and
+// stemmed matches whose full-description trigram score sits between the two.
+const FUZZY_MATCH_THRESHOLD = 0.3;
 
 const PREPARATION_TERMS: Partial<Record<PreparationCode, readonly string[]>> = {
   RAW: ['raw', 'uncooked'],
