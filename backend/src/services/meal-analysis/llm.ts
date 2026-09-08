@@ -26,7 +26,7 @@ export interface MealAnalysisLlmCallContext {
 
 export interface MealAnalysisLlmAttempt {
   operation?: string;
-  provider: 'openrouter';
+  provider: 'openrouter' | 'openai';
   model: string;
   outcome: 'success' | 'error';
   durationMs: number;
@@ -35,8 +35,8 @@ export interface MealAnalysisLlmAttempt {
 
 export interface MealAnalysisLlmClientOptions {
   onAttempt?: (attempt: MealAnalysisLlmAttempt) => void;
-  /** Optional primary OpenRouter model for a workflow with a different complexity budget. */
-  openRouterModel?: string;
+  /** Optional primary model for a workflow with a different complexity budget. */
+  model?: string;
   /** Local CLI diagnostic sink. Never enable this for production requests. */
   writeProviderTrace?: (entry: unknown) => void | Promise<void>;
 }
@@ -274,30 +274,65 @@ function observableProviderError(error: unknown): unknown {
 }
 
 /**
- * OpenRouter-only client for meal analysis.
+ * Maps an OpenRouter-namespaced model to the name the direct OpenAI API
+ * expects, e.g. "openai/gpt-5.6-luna" -> "gpt-5.6-luna".
+ */
+export function directOpenAiModel(model: string): string {
+  if (!model.startsWith('openai/')) {
+    throw new MealAnalysisLlmProviderError(
+      'configuration_missing',
+      new Error(`LLM_PROVIDER=openai cannot serve model ${model}; only openai/* models are supported`),
+    );
+  }
+  return model.slice('openai/'.length);
+}
+
+/**
+ * Meal analysis LLM client. Routes every call through OpenRouter or directly
+ * to OpenAI, selected by the LLM_PROVIDER toggle; both pathways share the
+ * same interface, structured-output validation, and error handling.
  */
 export function createMealAnalysisLlmClient(
   options: MealAnalysisLlmClientOptions = {}
 ): MealAnalysisLlmClient {
-  if (!config.OPENROUTER_API_KEY) {
-    throw new MealAnalysisLlmProviderError(
-      'configuration_missing',
-      new Error('OPENROUTER_API_KEY is not set'),
-    );
+  const provider = config.LLM_PROVIDER;
+  const configuredModel = options.model ?? config.OPENROUTER_MEAL_MODEL;
+  let client: OpenAI;
+  let model: string;
+  if (provider === 'openai') {
+    if (!config.OPENAI_API_KEY) {
+      throw new MealAnalysisLlmProviderError(
+        'configuration_missing',
+        new Error('OPENAI_API_KEY is not set'),
+      );
+    }
+    client = new OpenAI({
+      apiKey: config.OPENAI_API_KEY,
+      baseURL: config.OPENAI_BASE_URL,
+      timeout: 25_000,
+      maxRetries: 0,
+    });
+    model = directOpenAiModel(configuredModel);
+  } else {
+    if (!config.OPENROUTER_API_KEY) {
+      throw new MealAnalysisLlmProviderError(
+        'configuration_missing',
+        new Error('OPENROUTER_API_KEY is not set'),
+      );
+    }
+    const headers: Record<string, string> = { 'X-Title': config.APP_NAME };
+    if (config.OPENROUTER_HTTP_REFERER) {
+      headers['HTTP-Referer'] = config.OPENROUTER_HTTP_REFERER;
+    }
+    client = new OpenAI({
+      apiKey: config.OPENROUTER_API_KEY,
+      baseURL: config.OPENROUTER_BASE_URL,
+      defaultHeaders: headers,
+      timeout: 25_000,
+      maxRetries: 0,
+    });
+    model = configuredModel;
   }
-  const provider = 'openrouter' as const;
-  const model = options.openRouterModel ?? config.OPENROUTER_MEAL_MODEL;
-  const headers: Record<string, string> = { 'X-Title': config.APP_NAME };
-  if (config.OPENROUTER_HTTP_REFERER) {
-    headers['HTTP-Referer'] = config.OPENROUTER_HTTP_REFERER;
-  }
-  const client = new OpenAI({
-    apiKey: config.OPENROUTER_API_KEY,
-    baseURL: config.OPENROUTER_BASE_URL,
-    defaultHeaders: headers,
-    timeout: 25_000,
-    maxRetries: 0,
-  });
 
   return {
     chat: {
@@ -311,7 +346,9 @@ export function createMealAnalysisLlmClient(
             const response = await instrumentAiCall(provider, () =>
               client.chat.completions.create({
                 ...request,
-                provider: { require_parameters: true },
+                ...(provider === 'openrouter'
+                  ? { provider: { require_parameters: true } }
+                  : {}),
                 model,
                 stream: false,
               } as CompletionRequest)

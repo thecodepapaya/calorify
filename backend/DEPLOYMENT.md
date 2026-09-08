@@ -115,6 +115,24 @@ the USDA owner/reader passwords, and Grafana credentials. `production.env` and
 `staging.env` contain environment-specific application settings and their own
 application `DATABASE_URL`. The shared USDA URL is constructed by Compose.
 
+### LLM provider toggle
+
+Every backend model call (V3 meal interpretation, nutrition fallback, and daily
+AI summaries) routes through one upstream, selected by `LLM_PROVIDER`:
+
+- `openrouter` (default) — calls go through OpenRouter with the
+  `OPENROUTER_*` settings.
+- `openai` — calls go directly to the OpenAI API using `OPENAI_API_KEY`
+  (and `OPENAI_BASE_URL`, default `https://api.openai.com/v1`). Model names
+  are derived from the `OPENROUTER_*_MODEL` settings by stripping the
+  `openai/` namespace prefix, so both pathways always run the same model.
+
+Toggle by setting `LLM_PROVIDER=openai` (or removing it / setting
+`openrouter`) in the environment's env file and recreating the container.
+Startup fails fast when `openai` is selected without `OPENAI_API_KEY`. The
+`ai_summaries.provider` column and the `ai_requests_total` metric record which
+pathway served each call.
+
 The Firebase service account is mounted read-only at `/run/secrets`. The image
 entrypoint copies it to a private in-container path, exports that path, and then
 drops from root to the `node` user. The USDA maintenance service runs directly

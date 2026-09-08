@@ -44,3 +44,18 @@ test('second-pass lookup identities use the USDA head, specific, state format', 
   assert.equal(SECOND_PASS_SYSTEM_PROMPT.includes('cheese, nfs'), true);
   assert.equal(SECOND_PASS_SYSTEM_PROMPT.includes('chicken, meat only, cooked'), true);
 });
+
+test('second-pass prompt restricts ingredient-amount variations to user-stated ingredients', () => {
+  assert.equal(
+    SECOND_PASS_SYSTEM_PROMPT.includes(
+      'Declare an INGREDIENT_AMOUNT variation only for an ingredient whose origin is user_stated'
+    ),
+    true
+  );
+  assert.equal(
+    SECOND_PASS_SYSTEM_PROMPT.includes(
+      'keep that uncertainty in the amountGrams range without declaring the variation'
+    ),
+    true
+  );
+});

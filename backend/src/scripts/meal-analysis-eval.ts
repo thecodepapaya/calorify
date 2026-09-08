@@ -173,7 +173,7 @@ async function runOnce(
 ): Promise<MealAnalysisEvalRunResult> {
   const entries: unknown[] = [];
   const client = createMealAnalysisLlmClient({
-    openRouterModel: model,
+    model,
     writeProviderTrace: (entry) => { entries.push(entry); },
   });
   let error: string | undefined;

@@ -16,10 +16,13 @@ interface Row {
 let row: Row | undefined;
 let providerCalls = 0;
 let providerReplies: Array<{ summary: string; gate?: Promise<void> }> = [];
+let lastInsertParams: unknown[] | undefined;
+let lastCreateRequest: Record<string, unknown> | undefined;
 
 const client = {
   async query(sql: string, params?: unknown[]) {
     if (sql.startsWith('INSERT INTO ai_summaries')) {
+      lastInsertParams = params;
       if (row) return { rows: [], rowCount: 0 };
       row = {
         id: 'summary-1', status: 'processing', summary: null, generated_at: null,
@@ -42,12 +45,14 @@ const client = {
   release() {},
 };
 
-await mock.module('../../../src/config.js', {
-  defaultExport: {
-    APP_NAME: 'test', OPENROUTER_API_KEY: 'key', OPENROUTER_BASE_URL: 'https://example.test',
-    OPENROUTER_AI_SUMMARY_MODEL: 'test/model', OPENROUTER_HTTP_REFERER: null,
-  },
-});
+const mockConfig = {
+  APP_NAME: 'test', OPENROUTER_API_KEY: 'key', OPENROUTER_BASE_URL: 'https://example.test',
+  OPENROUTER_AI_SUMMARY_MODEL: 'openai/test-model', OPENROUTER_HTTP_REFERER: null,
+  LLM_PROVIDER: 'openrouter' as 'openrouter' | 'openai',
+  OPENAI_API_KEY: 'openai-key' as string | null,
+  OPENAI_BASE_URL: 'https://api.openai.test/v1',
+};
+await mock.module('../../../src/config.js', { defaultExport: mockConfig });
 await mock.module('../../../src/services/infrastructure/database.js', {
   namedExports: {
     getClient: async () => client,
@@ -72,7 +77,8 @@ await mock.module('../../../src/services/infrastructure/database.js', {
 await mock.module('../../../src/services/infrastructure/metrics.js', { namedExports: { instrumentAiCall: async (_provider: string, fn: () => Promise<unknown>) => fn() } });
 await mock.module('../../../src/services/infrastructure/openaiClient.js', {
   defaultExport: class {
-    chat = { completions: { create: async () => {
+    chat = { completions: { create: async (createRequest: Record<string, unknown>) => {
+      lastCreateRequest = createRequest;
       providerCalls++;
       const reply = providerReplies.shift() ?? { summary: 'Keep logging balanced meals.' };
       await reply.gate;
@@ -102,6 +108,23 @@ test('completed daily rows replay without a second provider call', async () => {
   assert.equal(first.response.summary, 'Keep logging balanced meals.');
   assert.deepEqual(replay.response, first.response);
   assert.equal(providerCalls, 1);
+});
+
+test('records the direct OpenAI provider and model when LLM_PROVIDER=openai', async () => {
+  row = undefined;
+  providerCalls = 0;
+  providerReplies = [];
+  mockConfig.LLM_PROVIDER = 'openai';
+  try {
+    const result = await generateAiSummary('uid-openai', snapshot, now);
+    assert.equal(result.response.summary, 'Keep logging balanced meals.');
+    assert.equal(lastInsertParams?.[6], 'openai');
+    assert.equal(lastInsertParams?.[7], 'test-model');
+    assert.equal(lastCreateRequest?.model, 'test-model');
+    assert.equal(lastCreateRequest?.provider, undefined);
+  } finally {
+    mockConfig.LLM_PROVIDER = 'openrouter';
+  }
 });
 
 test('an active processing claim returns retry metadata without calling the provider', async () => {

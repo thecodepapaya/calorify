@@ -27,6 +27,9 @@ interface Config {
     readonly OPENAI_API_KEY: string | null;
     readonly OPENROUTER_API_KEY: string | null;
     readonly OPENROUTER_BASE_URL: string;
+    /** Upstream pathway for every backend model call; toggled manually via env. */
+    readonly LLM_PROVIDER: 'openrouter' | 'openai';
+    readonly OPENAI_BASE_URL: string;
     readonly OPENROUTER_MEAL_MODEL: string;
     /** Dedicated model override used by the scenario-heavy V3 interpreter. */
     readonly OPENROUTER_MEAL_V3_MODEL: string;
@@ -103,6 +106,16 @@ export function parseTrustProxy(value: string | undefined): boolean | number {
     );
 }
 
+function validateLlmProvider(value: string | undefined): 'openrouter' | 'openai' {
+    if (value === undefined || value === 'openrouter') {
+        return 'openrouter';
+    }
+    if (value === 'openai') {
+        return 'openai';
+    }
+    throw new Error(`Invalid LLM_PROVIDER value: ${value}. Must be one of: openrouter, openai`);
+}
+
 function validateEnvironment(env: string): 'development' | 'staging' | 'production' {
     if (env === 'development' || env === 'staging' || env === 'production') {
         return env;
@@ -176,6 +189,11 @@ const config: Config = {
         'OPENROUTER_BASE_URL',
         'https://openrouter.ai/api/v1'
     ),
+    LLM_PROVIDER: validateLlmProvider(process.env.LLM_PROVIDER),
+    OPENAI_BASE_URL: getEnvVar(
+        'OPENAI_BASE_URL',
+        'https://api.openai.com/v1'
+    ),
     OPENROUTER_MEAL_MODEL: getEnvVar(
         'OPENROUTER_MEAL_MODEL',
         'openai/gpt-5.6-luna'
@@ -226,6 +244,12 @@ if (config.ENVIRONMENT === 'production') {
             'OPENROUTER_API_KEY and OPENROUTER_AI_SUMMARY_MODEL must be set in production'
         );
     }
+}
+
+// The direct OpenAI pathway is an explicit operator choice; fail fast when it
+// is selected without credentials instead of failing on the first model call.
+if (config.LLM_PROVIDER === 'openai' && config.OPENAI_API_KEY === null) {
+    throw new Error('OPENAI_API_KEY must be set when LLM_PROVIDER=openai');
 }
 
 export default config;

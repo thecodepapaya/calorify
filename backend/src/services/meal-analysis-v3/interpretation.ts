@@ -128,7 +128,7 @@ export function createModelMealInterpreter(
       const providerAttempts: MealAnalysisLlmAttempt[] = [];
       const client = suppliedClient ?? createMealAnalysisLlmClient({
         onAttempt: (attempt) => providerAttempts.push(attempt),
-        openRouterModel: config.OPENROUTER_MEAL_V3_MODEL,
+        model: config.OPENROUTER_MEAL_V3_MODEL,
         writeProviderTrace: options.writeProviderTrace,
       });
       const inputDescription = input.kind === 'TEXT'

@@ -379,6 +379,7 @@ The first-pass JSON is supplied in the user message. For every meal item, return
 - Use origin=user_stated only when the original meal input explicitly specifies the ingredient or its amount in any form, including volumes and household measures the model converts to grams.
 - A variation may only reference an ingredient that appears in the same meal item's ingredients list. Never declare a variation for an ingredient the input explicitly excluded; omit both the ingredient and its variation instead.
 - Declare only plausible material uncertainty using the standardized variationType enum. Numeric uncertainty lives in amountGrams min/estimate/max; an INGREDIENT_AMOUNT or INGREDIENT_PRESENCE variation references that ingredient without repeating numeric options.
+- Declare an INGREDIENT_AMOUNT variation only for an ingredient whose origin is user_stated. The user cannot quantify an ingredient they never mentioned; for a model-inferred ingredient, keep that uncertainty in the amountGrams range without declaring the variation.
 - INGREDIENT_VARIANT alternatives contain USDA-style canonical identities such as "milk, skim" or "milk, whole", excluding the baseline canonicalIdentity. PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
 - Portion, count, and unit-size uncertainty belongs only in the first-pass ranges, not in variations.
 

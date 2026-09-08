@@ -9,12 +9,16 @@ const mockConfig = {
   OPENROUTER_BASE_URL: 'https://openrouter.ai/api/v1',
   OPENROUTER_MEAL_MODEL: 'openai/gpt-5.6-luna',
   OPENROUTER_HTTP_REFERER: 'https://example.test' as string | null,
+  LLM_PROVIDER: 'openrouter' as 'openrouter' | 'openai',
+  OPENAI_API_KEY: 'openai-test-key' as string | null,
+  OPENAI_BASE_URL: 'https://api.openai.com/v1',
 };
 
 await mock.module('../../../src/config.js', { defaultExport: mockConfig });
 
 type Call = { model: string; requireParameters: boolean };
 const calls: Call[] = [];
+const constructorOptions: Array<{ apiKey?: string; baseURL?: string }> = [];
 let implementation: (model: string) => Promise<unknown>;
 
 await mock.module('openai', {
@@ -28,7 +32,8 @@ await mock.module('openai', {
       }
     };
 
-    constructor() {
+    constructor(options: { apiKey?: string; baseURL?: string }) {
+      constructorOptions.push(options);
       this.chat = {
         completions: {
           create: async (request) => {
@@ -74,9 +79,64 @@ test('uses the configured OpenRouter model with required parameters', async () =
 
 test('uses an explicit OpenRouter model override', async () => {
   reset();
-  await createMealAnalysisLlmClient({ openRouterModel: 'openai/test-model' })
+  await createMealAnalysisLlmClient({ model: 'openai/test-model' })
     .chat.completions.create(request);
   assert.equal(calls[0]?.model, 'openai/test-model');
+});
+
+test('routes directly to OpenAI when LLM_PROVIDER=openai', async () => {
+  reset();
+  mockConfig.LLM_PROVIDER = 'openai';
+  try {
+    const attempts: MealAnalysisLlmAttempt[] = [];
+    await createMealAnalysisLlmClient({ onAttempt: (attempt) => attempts.push(attempt) })
+      .chat.completions.create(request, { operation: 'decompose_text' });
+    assert.deepEqual(calls, [{ model: 'gpt-5.6-luna', requireParameters: false }]);
+    const options = constructorOptions.at(-1);
+    assert.equal(options?.apiKey, 'openai-test-key');
+    assert.equal(options?.baseURL, 'https://api.openai.com/v1');
+    assert.equal(attempts[0]?.provider, 'openai');
+    assert.equal(attempts[0]?.model, 'gpt-5.6-luna');
+  } finally {
+    mockConfig.LLM_PROVIDER = 'openrouter';
+  }
+});
+
+test('rejects a non-OpenAI model on the direct OpenAI path', async () => {
+  reset();
+  mockConfig.LLM_PROVIDER = 'openai';
+  try {
+    await assert.rejects(
+      async () => createMealAnalysisLlmClient({ model: 'anthropic/claude' }).chat.completions.create(request),
+      (error: Error & { errorKind?: string; cause?: Error }) => {
+        assert.equal(error.errorKind, 'configuration_missing');
+        assert.match(error.cause?.message ?? '', /cannot serve model/);
+        return true;
+      }
+    );
+  } finally {
+    mockConfig.LLM_PROVIDER = 'openrouter';
+  }
+});
+
+test('requires an OpenAI key on the direct path', async () => {
+  reset();
+  mockConfig.LLM_PROVIDER = 'openai';
+  const key = mockConfig.OPENAI_API_KEY;
+  mockConfig.OPENAI_API_KEY = null;
+  try {
+    await assert.rejects(
+      async () => createMealAnalysisLlmClient().chat.completions.create(request),
+      (error: Error & { errorKind?: string; cause?: Error }) => {
+        assert.equal(error.errorKind, 'configuration_missing');
+        assert.match(error.cause?.message ?? '', /OPENAI_API_KEY is not set/);
+        return true;
+      }
+    );
+  } finally {
+    mockConfig.LLM_PROVIDER = 'openrouter';
+    mockConfig.OPENAI_API_KEY = key;
+  }
 });
 
 test('does not retry or fall back when OpenRouter fails', async () => {

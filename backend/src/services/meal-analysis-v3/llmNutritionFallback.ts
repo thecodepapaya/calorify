@@ -48,7 +48,7 @@ export function createModelNutritionFallback(
         `preparation=${request.leaf.preparationCodes.join(',')}`
       ).join('\n');
       const client = suppliedClient ?? createMealAnalysisLlmClient({
-        openRouterModel: config.OPENROUTER_MEAL_V3_MODEL,
+        model: config.OPENROUTER_MEAL_V3_MODEL,
       });
       const response = await client.chat.completions.create({
         model: config.OPENROUTER_MEAL_V3_MODEL,
