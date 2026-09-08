@@ -160,6 +160,137 @@ and blocks the NFS and local fallbacks.
 5. The optional `lookupAliases` cap raise from 3 to 5
    (`twoPassInterpretation.ts:164`) remains open.
 
+### Phase 2.5 — pass-2 USDA-style naming
+
+**Status:** implemented 2026-09-08.
+
+1. Pass 2 now emits `canonicalIdentity` and `lookupAliases` in the USDA
+   FoodData Central description structure — category head noun, then the
+   specific food, then its form or state, comma-separated, with `nfs` when
+   the specific food is unknown. The format is taught in the
+   `SECOND_PASS_SYSTEM_PROMPT` rules, the field descriptions of the
+   second-pass response schema, and the embedded example JSON
+   (`twoPassInterpretation.ts`). `mealItemName` and `ingredientName` stay
+   natural and may stay in the input language.
+2. Rationale: when the requested token set carries the row's own head noun
+   and specific tokens, the hard token-set tiers match directly and the
+   fuzzy qualifier whitelist stops being the binding constraint. State
+   words (`raw`, `cooked`, `boiled`) are already identity stop words, so
+   they steer only basis inference and the preparation tier.
+3. The val set (`backend/evals/usda-resolver.cases.json`) was rewritten to
+   the new output shape: the first term of each group is the USDA-style
+   canonical identity; plain and regional names remain as lookup aliases.
+   Two formerly distinct groups deduplicated to one (raw carrots), so the
+   corpus is now 112 unique active leaves. The meal-analysis eval's
+   expected ingredient groups gained USDA-ordered alternatives where
+   reordering breaks substring matching (`rice, brown`, `beans, black`).
+4. Measurement (2026-09-08): **75/112 unique active leaves resolved
+   (67.0%)**, up from 70/113 (61.9%) on plain-style terms. Rejection
+   histogram: 34 `IDENTITY_MISMATCH`, 3 `LOW_CONFIDENCE_MATCH`, 0
+   `NO_CANDIDATES` (was 37/5/1). Remaining miss mechanisms:
+   - true data gaps — asafoetida, flattened rice (poha), bottle gourd,
+     sambar powder have no mirror row;
+   - over-specified state tokens the row lacks (`spices, cumin seed,
+     ground` versus the row `Spices, cumin seed`);
+   - head-noun variance (`black gram, mature seeds, raw` versus the row
+     `Beans, black, mature seeds, raw`);
+   - survey phrasing (`from canned`, `Egg omelet or scrambled egg`) and
+     non-qualifier row descriptors (`iced`, `hot`; `brewed` is an identity
+     token, not a stop word).
+5. Two paid meal-analysis eval runs (`gpt-5.6-luna`, 1 repeat each) were
+   both contaminated by a persistent upstream OpenRouter 429 rate limit
+   (7 of 12 cases in the first run, 9 of 12 in the second; every errored
+   call returned `{id, error}` with `output: null`, none were
+   schema-invalid model output). Across both runs, eight cases produced
+   at least one clean execution and seven of those eight passed — the
+   only clean miss named injera as `bread, injera, fermented` instead of
+   its grain. Clean pass-2 outputs follow the new format closely,
+   including `nfs` forms (`spices, nfs`, `meat, nfs, cooked`). A fully
+   clean measurement is pending upstream capacity or a dedicated
+   OpenRouter key.
+6. Third paid run (2026-09-08, `--delay-ms 0`, artifacts
+   `/tmp/meal-eval-usda-style-r3`): the upstream 429 persisted despite the
+   OpenRouter integration change — 6 of 12 cases returned the identical
+   `temporarily rate-limited upstream` body; the other two failures were a
+   pass-2 timeout (masala dosa) and a truncated pass-1 stream with
+   `finishReason: error` (Chongqing noodles). The four clean executions all
+   passed (banana 18/18, nonfood 8/8, onigiri 25/25, shawarma 29/29);
+   banana and onigiri were first-time clean passes. Across all three runs,
+   only masala dosa and the Chipotle bowl lack a clean execution.
+
+### Phase 2.6 — local fallback head-noun reduction
+
+**Status:** implemented 2026-09-08.
+
+1. Problem: the migration-seeded `usda_resolver_fallback_foods` row
+   (`Spices, unspecified (curry-powder profile)`, normalized name
+   `spices`) only rescued a bare `spices` identity. The local-fallback
+   cohort was queried with the leaf's full term list, so a named blend
+   such as `spices, sambar powder` could never match the curated row —
+   the fallback was a one-row net for the exact string `spices`.
+2. Change: the local-fallback cohort now resolves with a leaf reduced to
+   the head segment of the canonical identity (`localFallbackLeaf` in
+   `nutrition.ts`), mirroring the `nfsFallbackLeaf` pattern. The reduced
+   leaf drives both the SQL terms and the identity matcher, so a generic
+   ingredient whose category matches a curated fallback row resolves once
+   the primary and NFS attempts reject it.
+3. Measurement (2026-09-08, artifacts `/tmp/usda-resolver-eval-v3`):
+   **78/112 unique active leaves resolved (69.6%)**, up from 75/112
+   (67.0%). Rejections: 31 `IDENTITY_MISMATCH`, 3
+   `LOW_CONFIDENCE_MATCH`. Three leaves converted, all through the
+   fallback tier: `spices, sambar powder` (the intended case),
+   `spices, asafoetida, ground` (a true data gap — the generic spice
+   proxy is the row's purpose), and `spices, cumin seed, ground`.
+4. Caveat: the cumin conversion masks a real near-miss. `Spices, cumin
+   seed` exists and was the top primary candidate (similarity 0.71); it
+   was rejected only because the request carries a `ground` token the row
+   lacks — request-side over-specification, the same mechanism recorded
+   in the Phase 2.5 miss list. The fallback now resolves it to the
+   curry-powder profile instead of the correct row, so the resolve-rate
+   metric no longer surfaces that state-token gap on its own.
+
+### Phase 2.7 — parenthetical identity variants and zero-macro spices fallback
+
+**Status:** implemented 2026-09-08.
+
+1. Problem: USDA descriptions embed synonyms in parentheses — `Gourd,
+   white-flowered (calabash)`, `Milk, fat free (skim)`, `Chickpeas
+   (garbanzo beans, bengal gram), mature seeds, cooked`. The identity
+   matcher compared only the full name, so a request naming the
+   parenthetical synonym (`calabash`) or the parenthetical-stripped name
+   (`chickpeas, mature seeds`) was rejected as `IDENTITY_MISMATCH` even
+   when the row was the top candidate.
+2. Change: `parentheticalIdentityVariants` in `nutrition.ts` derives three
+   extra match variants from a row description — the description with
+   every parenthetical removed, the parenthetical content alone, and the
+   head noun joined with the parenthetical content. Variant matches slot
+   into the existing hard tiers at ranks 10-13, below every direct tier,
+   and join the fuzzy candidate token sets. `with` joined the identity
+   stop words (TS set and the SQL pattern) because `with salt` suffixes
+   otherwise break token-set equality.
+3. Spices fallback: the migration-seeded row is now `Spices, nfs` with
+   zero macros (`20260908_usda_resolver_fallback_spices_zero_macro.sql`),
+   replacing the curry-powder profile. Spice servings are grams, so zero
+   is safer than attributing curry-powder macros to every unmatched
+   blend; the row keeps `normalized_name` `spices` so the Phase 2.6
+   head-noun reduction keeps matching every spice blend.
+4. Tests: three red-green matcher tests (calabash alias, milk/skim
+   head+parenthetical, chickpeas stripped name) plus a migration-content
+   test. Full suite 459 green.
+5. Measurement (2026-09-08, artifacts `/tmp/usda-resolver-eval-v4`):
+   **83/112 unique active leaves resolved (74.1%)**, up from 78/112
+   (69.6%) after Phase 2.6 and 75/112 (67.0%) at the Phase 2.5
+   measurement. Rejections: 26 `IDENTITY_MISMATCH`, 3
+   `LOW_CONFIDENCE_MATCH`, no regressions. Four conversions came from
+   parenthetical variants — bottle gourd (calabash alias), chickpeas
+   (stripped name), pumpkin seeds (stripped name), milk (head +
+   parenthetical). The fifth, `broccoli, steamed`, converted through the
+   `with` stop word: the `Broccoli, cooked, boiled, drained, with salt`
+   row rose from `STEMMED_TOKEN_SET` to `CANONICAL_TOKEN_SET`, tied with
+   the without-salt row, and the temporary-release collision override
+   picked it by similarity — bypassing the confidence gate that had
+   rejected the pair at similarity 0.22.
+
 ### Phase 3 — retrieval recall for zero-candidate terms
 
 1. Term-reduction ladder: on `NO_CANDIDATES`, reduce the term toward its

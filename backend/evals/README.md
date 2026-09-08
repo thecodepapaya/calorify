@@ -41,6 +41,8 @@ npm run meal-analysis:eval -- --model gpt-5-nano --repeats 3
 - `--model <name>` selects the OpenRouter model. Bare OpenAI model names receive
   the `openai/` prefix.
 - `--repeats <count>` controls repetitions per case; the default is three.
+- `--delay-ms <ms>` pauses between runs to avoid upstream rate limits; the
+  default is 5000, and 0 disables the pause.
 - `--case <id>` runs a single dataset case.
 - `--dataset <path>` uses another compatible case file.
 - `--output-directory <path>` chooses the artifact directory instead of making
@@ -119,9 +121,12 @@ resolve-rate baseline for the
 resolve rate over unique active ingredient leaves, rejection-reason
 histogram, per-case summaries, and per-miss candidate diagnostics. Corpus
 construction mirrors pass-2 leaf output — the first term of each group is
-the canonical identity, the rest are lookup aliases capped at three, the
-group's retrieval intent and product query flow into the leaf, and the
-pipeline's own nutrition-basis inference assigns basis and preparation.
+the canonical identity in the USDA head, specific, state format the pass-2
+prompt contract requires (with `nfs` when the specific food is unknown),
+the rest are lookup aliases capped at three (plain and regional names the
+model may still hedge with), the group's retrieval intent and product
+query flow into the leaf, and the pipeline's own nutrition-basis
+inference assigns basis and preparation.
 No model is called. The val set spans cuisines, preparation forms,
 branded products, ambiguous identities, and regional vocabulary; it is a
 measurement, not a gate. The meal-analysis dataset's required ingredient
@@ -137,3 +142,10 @@ docker compose -f docker-compose.yml -f docker-compose.local.yml --profile stagi
 The command writes a full JSON report to a temporary artifact directory
 (`--output-directory` preserves it) and never enforces a pass threshold; it
 is a measurement, not a gate.
+
+Current baseline (val set v1 with USDA-style canonical identities, the
+local-fallback head-noun reduction, and parenthetical identity matching,
+2026-09-08): 83/112 unique active leaves resolved (74.1%), up from 70/113
+(61.9%) on plain-style terms. See the
+[USDA ingredient hit-rate plan](../../docs/plans/usda-ingredient-hit-rate.md)
+for the miss inventory.

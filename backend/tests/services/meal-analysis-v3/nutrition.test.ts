@@ -523,6 +523,123 @@ test('resolves generic spices from the migration-seeded local fallback', async (
   assert.ok(calls[3]?.text.includes("'local_fallback'"));
 });
 
+test('resolves named spice blends from the local fallback via the head noun', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    if (params?.[5] !== true) return { rows: [] };
+    return { rows: [candidate({
+      fdc_id: '-1000001',
+      description: 'Spices, unspecified (curry-powder profile)',
+      data_type: 'local_fallback',
+      normalized_name: 'spices',
+      kcal_per_100g: 325,
+      protein_per_100g: 14.29,
+      carbs_per_100g: 55.83,
+      fat_per_100g: 14.01,
+      fiber_per_100g: 53.2,
+      identity_similarity: 1,
+    })] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('sambar-powder', [ingredient({
+    canonicalIdentity: 'spices, sambar powder',
+    lookupAliases: ['sambar powder'],
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '-1000001');
+  assert.equal(calls.length, 4);
+  assert.deepEqual(calls[3]?.params, [['spices'], 30, false, null, true, true]);
+  assert.ok(calls[3]?.text.includes('usda_resolver_fallback_foods'));
+});
+
+test('matches a USDA row through its parenthetical synonym', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    if (calls.length === 2) {
+      return { rows: [candidate({
+        fdc_id: '169233',
+        description: 'Gourd, white-flowered (calabash), cooked, boiled, drained, without salt',
+        normalized_name: 'gourd whiteflowered calabash cooked boiled drained without salt',
+        data_type: 'sr_legacy_food',
+        identity_similarity: 0.15,
+      })] };
+    }
+    return { rows: [] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('bottle-gourd', [ingredient({
+    displayName: 'Bottle gourd',
+    canonicalIdentity: 'bottle gourd, cooked',
+    lookupAliases: ['lauki', 'calabash'],
+    nutritionBasis: 'COOKED',
+    preparationCodes: ['COOKED_UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '169233');
+});
+
+test('matches a USDA row through its head noun and parenthetical', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    if (calls.length === 2) {
+      return { rows: [candidate({
+        fdc_id: '2705388',
+        description: 'Milk, fat free (skim)',
+        normalized_name: 'milk fat free skim',
+        data_type: 'survey_fndds_food',
+        identity_similarity: 0.56,
+      })] };
+    }
+    return { rows: [] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('skim-milk', [ingredient({
+    displayName: 'Milk',
+    canonicalIdentity: 'milk, skim',
+    lookupAliases: ['nonfat milk'],
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '2705388');
+});
+
+test('matches a USDA row with its parenthetical removed', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    if (calls.length === 2) {
+      return { rows: [candidate({
+        fdc_id: '173799',
+        description: 'Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, with salt',
+        normalized_name: 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled with salt',
+        data_type: 'sr_legacy_food',
+        identity_similarity: 0.43,
+      })] };
+    }
+    return { rows: [] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('chickpeas', [ingredient({
+    displayName: 'Chickpeas',
+    canonicalIdentity: 'chickpeas, mature seeds, cooked',
+    lookupAliases: [],
+    nutritionBasis: 'COOKED',
+    preparationCodes: ['COOKED_UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '173799');
+});
+
 test('retries an unresolved generic leaf with its USDA NFS form', async () => {
   const calls: Array<{ text: string; params?: unknown[] }> = [];
   const query: NutritionDatabaseQuery = async (text, params) => {

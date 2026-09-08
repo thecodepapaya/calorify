@@ -240,7 +240,8 @@ const IDENTITY_STOP_WORDS = new Set([
   'steamed', 'pressure', 'baked', 'roasted', 'grilled', 'toasted', 'sauteed',
   'stir', 'shallow', 'deep', 'fried', 'fermented', 'pickled', 'dry', 'dried',
   'dehydrated', 'smoked', 'blended', 'juice', 'juiced', 'drained', 'without',
-  'salt', 'added', 'food', 'foods', 'regular', 'prepared', 'cooking', 'salad',
+  'with', 'salt', 'added', 'food', 'foods', 'regular', 'prepared', 'cooking',
+  'salad',
 ]);
 
 // Fuzzy fallback may bridge a generic identity to a more-qualified USDA name,
@@ -286,7 +287,7 @@ const ACTIVE_DATASET_SQL = `
 
 const CANDIDATE_SQL = `
   WITH identity_stop_words(pattern) AS (
-    VALUES ('\\m(raw|uncooked|cooked|prepared|boiled|simmered|poached|steamed|pressure|baked|roasted|grilled|toasted|sauteed|stir|shallow|deep|fried|fermented|pickled|dry|dried|dehydrated|smoked|blended|juice|juiced|drained|without|salt|added|food|foods|regular|cooking|salad)\\M')
+    VALUES ('\\m(raw|uncooked|cooked|prepared|boiled|simmered|poached|steamed|pressure|baked|roasted|grilled|toasted|sauteed|stir|shallow|deep|fried|fermented|pickled|dry|dried|dehydrated|smoked|blended|juice|juiced|drained|without|with|salt|added|food|foods|regular|cooking|salad)\\M')
   ), lookup_terms(term, identity_lexemes, full_text_query) AS (
     SELECT DISTINCT input.term,
            ARRAY(
@@ -641,19 +642,22 @@ async function resolveLookup(
   }
 
   if (localFallbackAllowed(leaf, primary)) {
-    const fallback = await resolveCandidateCohort(
-      query,
-      leaf,
-      lookupTerms(leaf),
-      datasetVersion,
-      nutrientPresenceMaterialized,
-      candidateLimit,
-      fullTextEnabled,
-      false,
-      null,
-      true,
-    );
-    if (fallback.selected !== null) return fallback;
+    const fallbackLeaf = localFallbackLeaf(leaf);
+    if (fallbackLeaf !== null) {
+      const fallback = await resolveCandidateCohort(
+        query,
+        fallbackLeaf,
+        lookupTerms(fallbackLeaf),
+        datasetVersion,
+        nutrientPresenceMaterialized,
+        candidateLimit,
+        fullTextEnabled,
+        false,
+        null,
+        true,
+      );
+      if (fallback.selected !== null) return fallback;
+    }
   }
 
   if (leaf.retrievalIntent !== 'BRANDED_PRODUCT') return primary;
@@ -930,7 +934,11 @@ function coversToken(tokens: Set<string>, token: string): boolean {
 }
 
 function fuzzyIdentityCompatible(leaf: IngredientLeaf, row: CandidateRow): boolean {
-  const candidates = [row.normalized_name, row.description].map(identityTokenSet);
+  const candidates = [
+    row.normalized_name,
+    row.description,
+    ...parentheticalIdentityVariants(row.description),
+  ].map(identityTokenSet);
   return [leaf.canonicalIdentity, ...leaf.lookupAliases].some((term) => {
     const requested = identityTokenSet(term);
     if (requested.size === 0) return false;
@@ -1067,6 +1075,26 @@ function hardIdentityMatch(
   ) {
     return { tier: 'PRODUCT_QUERY_PHRASE', rank: 9 };
   }
+
+  // Parenthetical synonyms rank below every direct tier: a row named
+  // exactly as requested always wins over a parenthetical reading.
+  const variantNames = parentheticalIdentityVariants(row.description);
+  if (variantNames.includes(canonical)) {
+    return { tier: 'CANONICAL_EXACT', rank: 10 };
+  }
+  if (variantNames.some((variant) => sameIdentityTokenSet(variant, canonical))) {
+    return { tier: 'CANONICAL_TOKEN_SET', rank: 11 };
+  }
+  for (const alias of leaf.lookupAliases.map(normalizeIdentity)) {
+    if (variantNames.includes(alias)) {
+      return { tier: 'ALIAS_EXACT', rank: 12 };
+    }
+  }
+  for (const alias of leaf.lookupAliases.map(normalizeIdentity)) {
+    if (variantNames.some((variant) => sameIdentityTokenSet(variant, alias))) {
+      return { tier: 'ALIAS_TOKEN_SET', rank: 13 };
+    }
+  }
   return null;
 }
 
@@ -1091,6 +1119,32 @@ function identityTokenSet(value: string): Set<string> {
       .split(' ')
       .filter((token) => token !== '' && !IDENTITY_STOP_WORDS.has(token))
   );
+}
+
+// USDA descriptions embed synonyms and clarifications in parentheses:
+// "Gourd, white-flowered (calabash)", "Milk, fat free (skim)",
+// "Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked". A
+// request naming the parenthetical synonym ("calabash") or the
+// parenthetical-stripped name ("chickpeas, mature seeds") must still
+// match, so each parenthetical yields additional match variants: the
+// description with every parenthetical removed, the parenthetical
+// content alone, and the head noun joined with the parenthetical
+// content. Variant matches rank below direct matches so a row named
+// exactly as requested always wins.
+function parentheticalIdentityVariants(description: string): string[] {
+  const parenthetical = /\(([^)]*)\)/.exec(description);
+  if (parenthetical === null || parenthetical[1] === undefined) return [];
+  const content = normalizeIdentity(parenthetical[1]);
+  if (content === '') return [];
+  const variants = [
+    normalizeIdentity(description.replace(/\([^)]*\)/g, ' ')),
+    content,
+  ];
+  const head = normalizeIdentity(
+    description.slice(0, parenthetical.index).split(',')[0] ?? ''
+  );
+  if (head !== '') variants.push(`${head} ${content}`);
+  return variants;
 }
 
 function hardPreparationTier(
@@ -1188,6 +1242,19 @@ function lookupTerms(leaf: IngredientLeaf): string[] {
 function genericFallbackTerms(leaf: IngredientLeaf): string[] {
   const aliases = leaf.lookupAliases.map(normalizeIdentity).filter(Boolean);
   return aliases.length > 0 ? aliases : lookupTerms(leaf);
+}
+
+// The migration-seeded fallback rows are keyed by their category head noun
+// (for example "Spices, unspecified (curry-powder profile)" matches on
+// "spices"). A named blend such as "spices, sambar powder" carries extra
+// identity tokens no curated row will reproduce, so the local fallback is
+// queried with a leaf reduced to the head segment of the canonical identity.
+// The reduced leaf drives both the SQL terms and the identity matcher, the
+// same pattern nfsFallbackLeaf uses for the NFS retry.
+function localFallbackLeaf(leaf: IngredientLeaf): IngredientLeaf | null {
+  const head = normalizeIdentity(leaf.canonicalIdentity.split(',')[0] ?? '');
+  if (head === '') return null;
+  return { ...leaf, canonicalIdentity: head, lookupAliases: [] };
 }
 
 function isExactIdentityMatch(candidate: EvaluatedCandidate): boolean {

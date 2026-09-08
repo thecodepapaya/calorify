@@ -21,6 +21,7 @@ interface Args {
   datasetPath: string;
   outputDirectory?: string;
   caseId?: string;
+  delayMs: number;
 }
 
 function help(): string {
@@ -34,6 +35,7 @@ Usage:
 Options:
   --model MODEL          Exact OpenRouter model; openai/ is added when omitted
   --repeats NUMBER       Repetitions per case (default: 3)
+  --delay-ms NUMBER      Pause between runs in ms, 0 disables (default: 5000)
   --case ID              Run one case
   --dataset PATH         Dataset JSON (default: ${DEFAULT_DATASET})
   --output-directory DIR Preserve artifacts in this directory
@@ -85,6 +87,7 @@ function parseArgs(argv: string[]): Args | 'help' {
     model: normalizeEvalModel(config.OPENROUTER_MEAL_V3_MODEL),
     repeats: 3,
     datasetPath: DEFAULT_DATASET,
+    delayMs: 5000,
   };
   for (let index = 2; index < argv.length; index += 1) {
     const flag = argv[index]!;
@@ -98,6 +101,13 @@ function parseArgs(argv: string[]): Args | 'help' {
         throw new Error('--repeats must be an integer from 1 to 100');
       }
       args.repeats = repeats;
+      index += 1;
+    } else if (flag === '--delay-ms') {
+      const delayMs = Number(requiredValue(argv, index, flag));
+      if (!Number.isInteger(delayMs) || delayMs < 0 || delayMs > 3_600_000) {
+        throw new Error('--delay-ms must be an integer from 0 to 3600000');
+      }
+      args.delayMs = delayMs;
       index += 1;
     } else if (flag === '--case') {
       args.caseId = requiredValue(argv, index, flag);
@@ -147,6 +157,12 @@ function traceOutput(entries: unknown[], operation: string): unknown {
 
 async function writeJson(path: string, value: unknown): Promise<void> {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 
 async function runOnce(
@@ -224,13 +240,20 @@ async function main(): Promise<void> {
   process.stdout.write(`Eval artifacts: ${outputDirectory}\n`);
   process.stdout.write(`Model: ${args.model}\n`);
   process.stdout.write(`Reasoning effort: ${reasoningEffortForEvalModel(args.model)}\n`);
+  process.stdout.write(`Inter-run delay: ${args.delayMs} ms\n`);
 
   const results: MealAnalysisEvalRunResult[] = [];
+  let completedRuns = 0;
   for (const [caseIndex, evalCase] of cases.entries()) {
     process.stdout.write(`\n${formatEvalCaseHeading(evalCase, caseIndex + 1, cases.length)}\n`);
     for (let runNumber = 1; runNumber <= args.repeats; runNumber += 1) {
+      if (completedRuns > 0 && args.delayMs > 0) {
+        process.stdout.write(`Waiting ${args.delayMs} ms before next run...\n`);
+        await sleep(args.delayMs);
+      }
       const result = await runOnce(evalCase, args.model, runNumber, outputDirectory);
       results.push(result);
+      completedRuns += 1;
       process.stdout.write(`${formatEvalRunResult(result, runNumber, args.repeats)}\n`);
     }
   }
@@ -241,6 +264,7 @@ async function main(): Promise<void> {
     model: args.model,
     reasoningEffort: reasoningEffortForEvalModel(args.model),
     repeats: args.repeats,
+    delayMs: args.delayMs,
     runs: results.length,
     passed,
     passRate: results.length === 0 ? 0 : passed / results.length,

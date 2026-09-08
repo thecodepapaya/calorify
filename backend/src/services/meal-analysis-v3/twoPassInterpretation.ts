@@ -160,8 +160,8 @@ const variationSchema = z.discriminatedUnion('variationType', [
 
 const compactIngredientSchema = z.object({
   ingredientName: label.describe('Ingredient name, may be in the input language'),
-  canonicalIdentity: label.describe('Short generic English food identity for a nutrition database lookup, never a transliteration'),
-  lookupAliases: z.array(label).max(3).describe('Up to three short English alternate food identities that could improve USDA lookup; no quantities, preparation-only terms, or speculative identities'),
+  canonicalIdentity: label.describe('USDA-style English food identity for a nutrition database lookup: category head noun, then specific food, then form or state, comma-separated, such as "cheese, parmesan, hard" or "cheese, nfs" when the specific food is unknown; never a transliteration'),
+  lookupAliases: z.array(label).max(3).describe('Up to three alternate USDA-style identities in the same head, specific, state format that could improve USDA lookup; no quantities, preparation-only terms, or speculative identities'),
   retrievalIntent: foodRetrievalIntentSchema,
   productQuery: optionalLabel.describe('Concise brand and product text for database lookup, such as "Pepsi cola"; required only for BRANDED_PRODUCT'),
   amountGrams: nonnegativeRangeSchema.describe('Finished grams for the first-pass point portion: per unit for COUNT foods, complete serving for AMOUNT foods'),
@@ -301,27 +301,27 @@ export const SECOND_PASS_PROMPT_EXAMPLES: Array<{
             mealItemName: 'chicken pot pie',
             ingredients: [
               {
-                ingredientName: 'chicken', canonicalIdentity: 'chicken meat',
-                lookupAliases: ['cooked chicken'], retrievalIntent: 'GENERIC_INGREDIENT',
+                ingredientName: 'chicken', canonicalIdentity: 'chicken, meat only, cooked',
+                lookupAliases: ['chicken, breast, meat only, cooked'], retrievalIntent: 'GENERIC_INGREDIENT',
                 amountGrams: { estimate: 120, min: 90, max: 150, origin: 'model_inferred' },
               },
               {
-                ingredientName: 'pastry', canonicalIdentity: 'pie pastry',
-                lookupAliases: ['pie crust'], retrievalIntent: 'GENERIC_INGREDIENT',
+                ingredientName: 'pastry', canonicalIdentity: 'pie crust, standard type, baked',
+                lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
                 amountGrams: { estimate: 130, min: 100, max: 160, origin: 'model_inferred' },
               },
               {
-                ingredientName: 'carrots', canonicalIdentity: 'cooked carrots',
+                ingredientName: 'carrots', canonicalIdentity: 'carrots, cooked',
                 lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
                 amountGrams: { estimate: 45, min: 30, max: 60, origin: 'model_inferred' },
               },
               {
-                ingredientName: 'peas', canonicalIdentity: 'cooked green peas',
-                lookupAliases: ['garden peas'], retrievalIntent: 'GENERIC_INGREDIENT',
+                ingredientName: 'peas', canonicalIdentity: 'peas, green, cooked',
+                lookupAliases: ['peas, green, canned'], retrievalIntent: 'GENERIC_INGREDIENT',
                 amountGrams: { estimate: 40, min: 25, max: 55, origin: 'model_inferred' },
               },
               {
-                ingredientName: 'gravy', canonicalIdentity: 'chicken gravy',
+                ingredientName: 'gravy', canonicalIdentity: 'gravy, chicken',
                 lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
                 amountGrams: { estimate: 85, min: 60, max: 110, origin: 'model_inferred' },
               },
@@ -332,8 +332,8 @@ export const SECOND_PASS_PROMPT_EXAMPLES: Array<{
             mealItemName: 'green beans',
             ingredients: [
               {
-                ingredientName: 'green beans', canonicalIdentity: 'cooked green beans',
-                lookupAliases: ['string beans'], retrievalIntent: 'GENERIC_INGREDIENT',
+                ingredientName: 'green beans', canonicalIdentity: 'beans, snap, green, cooked',
+                lookupAliases: ['green beans, cooked'], retrievalIntent: 'GENERIC_INGREDIENT',
                 amountGrams: { estimate: 125, min: 100, max: 150, origin: 'user_stated' },
               },
             ],
@@ -375,13 +375,14 @@ Return only the requested JSON. Do not return calories, macros, question prose, 
 
 The first-pass JSON is supplied in the user message. For every meal item, return a complete quantified recipe decomposed into ingredients.
 - Use GENERIC_INGREDIENT for ordinary ingredients, BRANDED_PRODUCT only when the input identifies a specific packaged or marketed product, and AMBIGUOUS when product-versus-generic identity is unclear; never guess a brand.
+- Format canonicalIdentity and lookupAliases like USDA FoodData Central descriptions: the food category head noun first, then the specific food or variety, then its form or state, as comma-separated segments. Examples: "spices, cinnamon, ground"; "cheese, parmesan, hard"; "nuts, almonds, raw"; "rice, white, cooked"; "chicken, breast, meat only, cooked". Use nfs in place of the specific food when it is unknown, such as "cheese, nfs". Always include the category head noun even when it feels redundant, and add nothing beyond these segments; the state names the form eaten, such as raw, cooked, ground, or dried.
 - Use origin=user_stated only when the original meal input explicitly specifies the ingredient or its amount in any form, including volumes and household measures the model converts to grams.
 - A variation may only reference an ingredient that appears in the same meal item's ingredients list. Never declare a variation for an ingredient the input explicitly excluded; omit both the ingredient and its variation instead.
 - Declare only plausible material uncertainty using the standardized variationType enum. Numeric uncertainty lives in amountGrams min/estimate/max; an INGREDIENT_AMOUNT or INGREDIENT_PRESENCE variation references that ingredient without repeating numeric options.
-- INGREDIENT_VARIANT alternatives contain canonical food identities such as skim milk or whole milk, excluding the baseline canonicalIdentity. PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
+- INGREDIENT_VARIANT alternatives contain USDA-style canonical identities such as "milk, skim" or "milk, whole", excluding the baseline canonicalIdentity. PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
 - Portion, count, and unit-size uncertainty belongs only in the first-pass ranges, not in variations.
 
-Examples demonstrate preserving every first-pass meal item and non-redundant lookup aliases; do not copy their food names:
+Examples demonstrate preserving every first-pass meal item, USDA-style lookup identities, and non-redundant lookup aliases; do not copy their food names:
 ${formatPromptExamples(SECOND_PASS_PROMPT_EXAMPLES)}`;
 
 interface ScenarioState {

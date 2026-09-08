@@ -33,3 +33,14 @@ test('model-facing schemas carry field descriptions without a hard meal-name cap
   };
   assert.equal(mealName.anyOf?.[0]?.maxLength, 160);
 });
+
+test('second-pass lookup identities use the USDA head, specific, state format', () => {
+  const second = JSON.stringify(SECOND_PASS_RESPONSE_JSON_SCHEMA);
+  assert.equal(second.includes('USDA-style English food identity'), true);
+  assert.equal(second.includes('head noun'), true);
+  assert.equal(second.includes('cheese, nfs'), true);
+  assert.equal(SECOND_PASS_SYSTEM_PROMPT.includes('USDA FoodData Central descriptions'), true);
+  assert.equal(SECOND_PASS_SYSTEM_PROMPT.includes('spices, cinnamon, ground'), true);
+  assert.equal(SECOND_PASS_SYSTEM_PROMPT.includes('cheese, nfs'), true);
+  assert.equal(SECOND_PASS_SYSTEM_PROMPT.includes('chicken, meat only, cooked'), true);
+});
