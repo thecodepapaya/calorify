@@ -112,8 +112,10 @@ services:
       - NODE_ENV=production
       - LOKI_URL=http://loki:3100
       - USDA_DATABASE_URL=postgresql://calorify_usda_reader:${USDA_READER_PASSWORD:?Set USDA_READER_PASSWORD in backend/.env}@db-usda:5432/calorify_usda
+      - NUTRITION_FALLBACK_LOG_PATH=/app/nutrition-fallback/results.jsonl
     volumes:
       - ./firebase-adminsdk.json:/run/secrets/firebase-service-account.json:ro
+      - ./nutrition-fallback:/app/nutrition-fallback
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
       interval: 10s
@@ -165,8 +167,10 @@ services:
       - NODE_ENV=staging
       - LOKI_URL=http://loki:3100
       - USDA_DATABASE_URL=postgresql://calorify_usda_reader:${USDA_READER_PASSWORD:?Set USDA_READER_PASSWORD in backend/.env}@db-usda:5432/calorify_usda
+      - NUTRITION_FALLBACK_LOG_PATH=/app/nutrition-fallback/results.jsonl
     volumes:
       - ./firebase-adminsdk.json:/run/secrets/firebase-service-account.json:ro
+      - ./nutrition-fallback:/app/nutrition-fallback
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
       interval: 10s

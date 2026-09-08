@@ -1,3 +1,5 @@
+import { appendFile, mkdir } from 'node:fs/promises';
+import { dirname } from 'node:path';
 import config from '../../config.js';
 import {
   createMealAnalysisLlmClient,
@@ -15,6 +17,11 @@ export interface NutritionFallback {
   resolve(requests: readonly NutritionFallbackRequest[]): Promise<ResolvedNutritionReference[]>;
 }
 
+export interface ModelNutritionFallbackOptions {
+  /** Where successful fallback responses are appended as JSON lines; defaults to config. */
+  logPath?: string | null;
+}
+
 interface FallbackEntry {
   request_id: string;
   name: string;
@@ -26,7 +33,8 @@ interface FallbackEntry {
 }
 
 export function createModelNutritionFallback(
-  suppliedClient?: MealAnalysisLlmClient
+  suppliedClient?: MealAnalysisLlmClient,
+  options?: ModelNutritionFallbackOptions
 ): NutritionFallback {
   return {
     async resolve(requests) {
@@ -64,7 +72,7 @@ export function createModelNutritionFallback(
       for (const value of entries) {
         if (!isFallbackEntry(value)) continue;
         const request = expected.get(value.request_id);
-        if (!request || matched.has(value.request_id) || value.name !== request.leaf.canonicalIdentity) continue;
+        if (!request || matched.has(value.request_id)) continue;
         const per100g = macroVector(value);
         if (per100g === null) continue;
         matched.add(value.request_id);
@@ -78,9 +86,56 @@ export function createModelNutritionFallback(
           per100g,
         });
       }
+      await logFallbackResponse(options?.logPath ?? config.NUTRITION_FALLBACK_LOG_PATH, {
+        model: config.OPENROUTER_MEAL_V3_MODEL,
+        requests: requests.map(({ scenarioId, leaf }) => ({
+          scenarioId,
+          leafId: leaf.leafId,
+          canonicalIdentity: leaf.canonicalIdentity,
+          nutritionBasis: leaf.nutritionBasis,
+          preparationCodes: leaf.preparationCodes,
+        })),
+        estimates: resolved.map((reference) => ({
+          scenarioId: reference.scenarioId,
+          leafId: reference.leafId,
+          per100g: reference.per100g,
+        })),
+      });
       return resolved;
     },
   };
+}
+
+/**
+ * Appends one JSON line per successful fallback response. The log is best-effort:
+ * a write failure must never fail the nutrition fallback itself.
+ */
+async function logFallbackResponse(
+  logPath: string | null | undefined,
+  entry: {
+    model: string;
+    requests: Array<{
+      scenarioId: string;
+      leafId: string;
+      canonicalIdentity: string;
+      nutritionBasis: IngredientLeaf['nutritionBasis'];
+      preparationCodes: readonly string[];
+    }>;
+    estimates: Array<{
+      scenarioId: string;
+      leafId: string;
+      per100g: MacroVector;
+    }>;
+  }
+): Promise<void> {
+  if (!logPath) return;
+  const line = `${JSON.stringify({ timestamp: new Date().toISOString(), ...entry })}\n`;
+  try {
+    await mkdir(dirname(logPath), { recursive: true });
+    await appendFile(logPath, line, 'utf-8');
+  } catch (error) {
+    console.warn('[llmNutritionFallback] failed to write fallback log:', error);
+  }
 }
 
 function isFallbackEntry(value: unknown): value is FallbackEntry {

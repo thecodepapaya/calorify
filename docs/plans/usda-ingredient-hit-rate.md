@@ -370,7 +370,12 @@ a code- or database-maintained alias map.
    `ResolvedNutritionReference` is deferred until the durable API needs it.
 3. Metrics from the `NUTRITION_RESOLVED` stage output: resolve rate,
    rejection-reason counts, `PREPARATION_RELAXED` usage, alias-map hits,
-   local-fallback hits, model-fallback rate, p50/p95 latency.
+   local-fallback hits, model-fallback rate, p50/p95 latency. Every
+   successful model-fallback response (requests plus accepted estimates)
+   is also appended as one JSON line to `NUTRITION_FALLBACK_LOG_PATH` —
+   the compose bind mount `nutrition-fallback/results.jsonl` on the VM —
+   keyed by `scenarioId`/`leafId` for correlation with session stage
+   output.
 4. Promotion: at least 95% USDA resolve rate on the corpus, model fallback
    below 2%, zero adversarial false accepts, no regression on currently
    resolved cases, and the full backend chain green

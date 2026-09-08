@@ -31,6 +31,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Model nutrition fallback results (compose bind mount)
+nutrition-fallback/
+
 # Python (legacy)
 __pycache__/
 *.py[cod]

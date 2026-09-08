@@ -47,6 +47,8 @@ interface Config {
     readonly MEAL_ANALYSIS_TIPS_PATH: string | null;
     /** Enables the protected read-only V3 meal-analysis history page. */
     readonly ANALYSIS_HISTORY_PASSWORD: string | null;
+    /** Appends successful V3 model nutrition fallback responses as JSON lines; null disables. */
+    readonly NUTRITION_FALLBACK_LOG_PATH: string | null;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -202,6 +204,7 @@ const config: Config = {
     USDA_FTS_ENABLED: getEnvVarBoolean('USDA_FTS_ENABLED', true),
     MEAL_ANALYSIS_TIPS_PATH: getEnvVarOptional('MEAL_ANALYSIS_TIPS_PATH'),
     ANALYSIS_HISTORY_PASSWORD: getEnvVarOptional('ANALYSIS_HISTORY_PASSWORD'),
+    NUTRITION_FALLBACK_LOG_PATH: getEnvVarOptional('NUTRITION_FALLBACK_LOG_PATH'),
 } as const;
 
 // Validate critical settings in production
