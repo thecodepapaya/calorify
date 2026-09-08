@@ -63,10 +63,11 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final DataSourceType _dataSourceType;
   final bool _seedDevelopmentData;
 
-  // v28 stops mapping the obsolete disclosure-version column. Existing
-  // SQLite files may retain it harmlessly, as with earlier removed columns.
+  // The schema was squashed into this baseline on 2026-09-09 by collapsing the
+  // previous 29-step migration ladder. Databases from before the squash are
+  // wiped and rebuilt; see the onUpgrade handler below.
   @override
-  int get schemaVersion => 29;
+  int get schemaVersion => 1;
 
   @override
   MigrationStrategy get migration {
@@ -76,470 +77,40 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         if (_seedDevelopmentData) await _seedMockData();
       },
       onUpgrade: (m, from, to) async {
-        if (from < 3) {
-          await m.addColumn(mealInfoTable, mealInfoTable.imageUrl);
-          await m.addColumn(favoriteMealTable, favoriteMealTable.imageUrl);
-        }
-        if (from < 4) {
-          await m.addColumn(favoriteMealTable, favoriteMealTable.createdAt);
-        }
-        if (from < 5) {
-          await m.addColumn(favoriteMealTable, favoriteMealTable.lastUsedAt);
-        }
-        if (from < 6) {
-          await m.addColumn(userProfileTable, userProfileTable.height);
-          await m.addColumn(userProfileTable, userProfileTable.weight);
-          await m.addColumn(userProfileTable, userProfileTable.gender);
-          await m.addColumn(userProfileTable, userProfileTable.dateOfBirth);
-          await m.addColumn(userProfileTable, userProfileTable.weightGoal);
-          await m.addColumn(userProfileTable, userProfileTable.activityLevel);
-          await m.addColumn(userProfileTable, userProfileTable.createdAt);
-          await m.addColumn(userProfileTable, userProfileTable.updatedAt);
-        }
-        if (from < 7) {
-          await m.addColumn(mealInfoTable, mealInfoTable.healthScore);
-          await m.addColumn(mealInfoTable, mealInfoTable.healthScoreReason);
-        }
-        if (from < 8) {
-          await m.addColumn(userProfileTable, userProfileTable.targetWeight);
-        }
-        if (from < 10) {
-          await m.addColumn(userProfileTable, userProfileTable.heightUnit);
-          await m.addColumn(userProfileTable, userProfileTable.weightUnit);
-        }
-        if (from < 11) {
-          // Skipping languageCode addition to old table as it's no longer needed
-        }
-        if (from < 12) {
-          await m.createTable(userPreferencesTable);
-
-          // 3. Initialize with default preferences (languageCode is null by default)
-          await into(userPreferencesTable).insert(
-            UserPreferencesTableCompanion.insert(
-              id: const Value(_userPreferencesId),
-              theme: Value(ThemeMode.system.name),
-            ),
-          );
-        }
-        // Migration 13 removed - clientId column no longer exists
-        if (from < 15) {
-          // Migration 15: Remove clientId and sourceMealId columns
-          // SQLite doesn't support DROP COLUMN directly, so these columns will remain
-          // in the database but won't be used by the app. They can be safely ignored.
-          // The app now uses only the auto-increment 'id' column for both meal_info
-          // and favorite_meal tables.
-        }
-        if (from >= 12 && from < 16) {
-          await m.addColumn(
-            userPreferencesTable,
-            userPreferencesTable.feedbackSheetShownAt,
-          );
-        }
-        if (from < 17) {
-          await m.addColumn(mealInfoTable, mealInfoTable.analysisId);
-        }
-        if (from < 18) {
-          // FavoriteMealTable inherits MealInfoTable in Dart, but Drift does not
-          // automatically replay columns added to the parent table. Some v17
-          // databases therefore lack these columns, while fresh v17 databases
-          // already have them. Check the physical schema so both upgrade paths
-          // are safe.
-          if (!await _columnExists('favorite_meal_table', 'health_score')) {
-            await m.addColumn(favoriteMealTable, favoriteMealTable.healthScore);
-          }
-          if (!await _columnExists(
-            'favorite_meal_table',
-            'health_score_reason',
-          )) {
-            await m.addColumn(
-              favoriteMealTable,
-              favoriteMealTable.healthScoreReason,
-            );
-          }
-          if (!await _columnExists('favorite_meal_table', 'analysis_id')) {
-            await m.addColumn(favoriteMealTable, favoriteMealTable.analysisId);
-          }
-          if (!await _columnExists(
-            'user_preferences_table',
-            'onboarding_current_step',
-          )) {
-            await m.addColumn(
-              userPreferencesTable,
-              userPreferencesTable.onboardingCurrentStep,
-            );
-          }
-          if (!await _columnExists(
-            'user_preferences_table',
-            'onboarding_completed_at',
-          )) {
-            await m.addColumn(
-              userPreferencesTable,
-              userPreferencesTable.onboardingCompletedAt,
-            );
-          }
-
-          // Existing releases inferred completion from a fully populated
-          // profile. Materialize that legacy state once so all runtime checks
-          // can rely exclusively on explicit onboarding completion.
-          const completedAt = "CAST(strftime('%s', 'now') AS INTEGER)";
-          const completeProfile = '''
-            EXISTS (
-              SELECT 1 FROM user_profile_table
-              WHERE id = 1
-                AND height IS NOT NULL
-                AND weight IS NOT NULL
-                AND gender IS NOT NULL
-                AND date_of_birth IS NOT NULL
-                AND weight_goal IS NOT NULL
-                AND activity_level IS NOT NULL
-            )
-          ''';
-          await customStatement('''
-            INSERT OR IGNORE INTO user_preferences_table
-              (id, onboarding_completed_at)
-            SELECT 1, $completedAt
-            WHERE $completeProfile
-          ''');
-          await customStatement('''
-            UPDATE user_preferences_table
-            SET onboarding_completed_at = COALESCE(
-              onboarding_completed_at,
-              $completedAt
-            )
-            WHERE $completeProfile
-          ''');
-        }
-        if (from < 19) {
-          // The phone sync queue was never enabled in a released runtime. Keep
-          // upgrades from schemas that contained it compatible while omitting
-          // it from new databases.
-          await customStatement('DROP TABLE IF EXISTS sync_queue_table');
-        }
-        if (from < 20) {
-          if (!await _columnExists('user_profile_table', 'needs_remote_sync')) {
-            await m.addColumn(
-              userProfileTable,
-              userProfileTable.needsRemoteSync,
-            );
-          }
-          if (!await _columnExists(
-            'user_profile_table',
-            'remote_sync_revision',
-          )) {
-            await m.addColumn(
-              userProfileTable,
-              userProfileTable.remoteSyncRevision,
-            );
-          }
-          // Older builds retried every profile at startup. Preserve that one
-          // pending upload while future successful syncs can now be tracked.
-          await customStatement('''
-            UPDATE user_profile_table
-            SET needs_remote_sync = 1,
-                remote_sync_revision = lower(hex(randomblob(16)))
-          ''');
-        }
-        if (from < 21 && await _tableExists('favorite_meal_table')) {
-          // Favorites need an identity independent from the meal they were
-          // copied from. Some databases upgraded from schema 14 still have a
-          // trustworthy source_meal_id column; newer databases need it added.
-          if (!await _columnExists('favorite_meal_table', 'source_meal_id')) {
-            await customStatement('''
-              ALTER TABLE favorite_meal_table
-              ADD COLUMN source_meal_id INTEGER NULL
-            ''');
-          }
-
-          // Schema 15-20 used the favorite row id as the source id. That is
-          // ambiguous for custom favorites, so only restore the association
-          // when the complete stored snapshot still matches the logged meal.
-          // Run this for legacy databases that retained source_meal_id too:
-          // favorites created after their v15 upgrade left that column NULL.
-          if (await _tableExists('meal_info_table')) {
-            await customStatement('''
-              UPDATE favorite_meal_table
-              SET source_meal_id = id
-              WHERE source_meal_id IS NULL
-                AND NOT EXISTS (
-                  SELECT 1
-                  FROM favorite_meal_table AS existing
-                  WHERE existing.source_meal_id = favorite_meal_table.id
-                )
-                AND EXISTS (
-                  SELECT 1
-                  FROM meal_info_table AS source
-                  WHERE source.id = favorite_meal_table.id
-                    AND source.meal_name = favorite_meal_table.meal_name
-                    AND source.meal_quantity = favorite_meal_table.meal_quantity
-                    AND source.meal_type = favorite_meal_table.meal_type
-                    AND source.calories = favorite_meal_table.calories
-                    AND source.protein = favorite_meal_table.protein
-                    AND source.carbs = favorite_meal_table.carbs
-                    AND source.fat = favorite_meal_table.fat
-                    AND source.fiber = favorite_meal_table.fiber
-                    AND source.timestamp = favorite_meal_table.timestamp
-                    AND source.image_url IS favorite_meal_table.image_url
-                    AND source.health_score IS favorite_meal_table.health_score
-                    AND source.health_score_reason
-                        IS favorite_meal_table.health_score_reason
-                )
-            ''');
-          }
-
-          // Preserve all rows if a legacy database somehow contains duplicate
-          // source ids, then enforce the invariant for future writes.
-          await customStatement('''
-            UPDATE favorite_meal_table
-            SET source_meal_id = NULL
-            WHERE source_meal_id IS NOT NULL
-              AND id NOT IN (
-                SELECT MIN(id)
-                FROM favorite_meal_table
-                WHERE source_meal_id IS NOT NULL
-                GROUP BY source_meal_id
-              )
-          ''');
-          await customStatement('''
-            CREATE UNIQUE INDEX IF NOT EXISTS
-              favorite_meal_source_meal_id_unique
-            ON favorite_meal_table(source_meal_id)
-          ''');
-        }
-        if (from < 22 && await _tableExists('meal_info_table')) {
-          // Older clients used a select-then-insert idempotency check, so two
-          // concurrent retries could persist the same analysis more than once.
-          // Keep every historical meal (and any favorite that points to it),
-          // but retain the idempotency key only on the earliest row before
-          // enforcing the invariant at the database boundary.
-          await customStatement('''
-            UPDATE meal_info_table
-            SET analysis_id = NULLIF(trim(analysis_id), '')
-            WHERE analysis_id IS NOT NULL
-          ''');
-          await customStatement('''
-            UPDATE meal_info_table
-            SET analysis_id = NULL
-            WHERE analysis_id IS NOT NULL
-              AND id NOT IN (
-                SELECT MIN(id)
-                FROM meal_info_table
-                WHERE analysis_id IS NOT NULL
-                GROUP BY analysis_id
-              )
-          ''');
-          await customStatement('''
-            CREATE UNIQUE INDEX IF NOT EXISTS
-              meal_info_analysis_id_unique
-            ON meal_info_table(analysis_id)
-          ''');
-        }
-        if (from < 23) {
-          if (!await _tableExists('user_preferences_table')) {
-            await m.createTable(userPreferencesTable);
-          } else if (!await _columnExists(
-            'user_preferences_table',
-            'local_inference_enabled',
-          )) {
-            await m.addColumn(
-              userPreferencesTable,
-              userPreferencesTable.localInferenceEnabled,
-            );
-          }
-        }
-        if (from < 29) {
-          await m.createTable(localAiSummaryTable);
-        }
-        if (from < 24) {
-          if (!await _tableExists('user_preferences_table')) {
-            await m.createTable(userPreferencesTable);
-          } else if (!await _columnExists(
-            'user_preferences_table',
-            'offline_nutrition_enabled',
-          )) {
-            await m.addColumn(
-              userPreferencesTable,
-              userPreferencesTable.offlineNutritionEnabled,
-            );
-          }
-          if (await _tableExists('meal_info_table') &&
-              !await _columnExists(
-                'meal_info_table',
-                'analysis_snapshot_json',
-              )) {
-            await m.addColumn(
-              mealInfoTable,
-              mealInfoTable.analysisSnapshotJson,
-            );
-          }
-          if (await _tableExists('favorite_meal_table') &&
-              !await _columnExists(
-                'favorite_meal_table',
-                'analysis_snapshot_json',
-              )) {
-            await m.addColumn(
-              favoriteMealTable,
-              favoriteMealTable.analysisSnapshotJson,
-            );
-          }
-          if (!await _tableExists('local_nutrition_cache_table')) {
-            await m.createTable(localNutritionCacheTable);
-          }
-        }
-        if (from < 25) {
-          if (await _tableExists('meal_info_table')) {
-            if (!await _columnExists(
-              'meal_info_table',
-              'health_connect_record_id',
-            )) {
-              await m.addColumn(
-                mealInfoTable,
-                mealInfoTable.healthConnectRecordId,
-              );
-            }
-            if (!await _columnExists(
-              'meal_info_table',
-              'health_connect_record_version',
-            )) {
-              await m.addColumn(
-                mealInfoTable,
-                mealInfoTable.healthConnectRecordVersion,
-              );
-            }
-          }
-          if (await _tableExists('favorite_meal_table')) {
-            if (!await _columnExists(
-              'favorite_meal_table',
-              'health_connect_record_id',
-            )) {
-              await m.addColumn(
-                favoriteMealTable,
-                favoriteMealTable.healthConnectRecordId,
-              );
-            }
-            if (!await _columnExists(
-              'favorite_meal_table',
-              'health_connect_record_version',
-            )) {
-              await m.addColumn(
-                favoriteMealTable,
-                favoriteMealTable.healthConnectRecordVersion,
-              );
-            }
-          }
-          if (await _tableExists('user_preferences_table') &&
-              !await _columnExists(
-                'user_preferences_table',
-                'health_connect_nutrition_sync_enabled',
-              )) {
-            await m.addColumn(
-              userPreferencesTable,
-              userPreferencesTable.healthConnectNutritionSyncEnabled,
-            );
-          }
-          if (!await _tableExists('health_connect_sync_queue_table')) {
-            await m.createTable(healthConnectSyncQueueTable);
-          }
-        }
-        if (from < 26 &&
-            await _tableExists('user_preferences_table') &&
-            !await _columnExists(
-              'user_preferences_table',
-              'health_connect_prompt_dismissed',
-            )) {
-          await m.addColumn(
-            userPreferencesTable,
-            userPreferencesTable.healthConnectPromptDismissed,
-          );
-        }
-        if (from < 27) {
-          if (await _tableExists('meal_info_table')) {
-            if (!await _columnExists(
-              'meal_info_table',
-              'meal_log_sync_version',
-            )) {
-              await m.addColumn(
-                mealInfoTable,
-                mealInfoTable.mealLogSyncVersion,
-              );
-            }
-            if (!await _columnExists(
-              'meal_info_table',
-              'meal_log_synced_version',
-            )) {
-              await m.addColumn(
-                mealInfoTable,
-                mealInfoTable.mealLogSyncedVersion,
-              );
-            }
-          }
-          if (await _tableExists('favorite_meal_table')) {
-            if (!await _columnExists(
-              'favorite_meal_table',
-              'meal_log_sync_version',
-            )) {
-              await m.addColumn(
-                favoriteMealTable,
-                favoriteMealTable.mealLogSyncVersion,
-              );
-            }
-            if (!await _columnExists(
-              'favorite_meal_table',
-              'meal_log_synced_version',
-            )) {
-              await m.addColumn(
-                favoriteMealTable,
-                favoriteMealTable.mealLogSyncedVersion,
-              );
-            }
-          }
-          if (!await _tableExists('meal_log_sync_queue_table')) {
-            await m.createTable(mealLogSyncQueueTable);
-          }
-        }
-        if (from < 28 && await _tableExists('meal_log_sync_queue_table')) {
-          // Some v27 databases received the outbox table before its generated
-          // unique index. Keep the most recently updated operation for each
-          // analysis before restoring the invariant required by the upsert.
-          await customStatement('''
-            DELETE FROM meal_log_sync_queue_table AS stale
-            WHERE EXISTS (
-              SELECT 1
-              FROM meal_log_sync_queue_table AS newer
-              WHERE newer.analysis_id = stale.analysis_id
-                AND (
-                  newer.updated_at > stale.updated_at
-                  OR (
-                    newer.updated_at = stale.updated_at
-                    AND newer.id > stale.id
-                  )
-                )
-            )
-          ''');
-          await customStatement('''
-            CREATE UNIQUE INDEX IF NOT EXISTS
-              meal_log_sync_analysis_id_unique
-            ON meal_log_sync_queue_table(analysis_id)
-          ''');
+        // The pre-squash migration ladder was collapsed into the v1
+        // baseline. A database from any earlier schema version is wiped and
+        // rebuilt from the baseline; its local history is not carried over.
+        // A database already at version 1 is either a baseline database or a
+        // pre-release database from before the ladder's first step existed.
+        if (from > 1) {
+          await _dropAllEntities();
+          await m.createAll();
         }
       },
     );
   }
 
-  Future<bool> _columnExists(String tableName, String columnName) async {
-    final columns = await customSelect('PRAGMA table_info($tableName)').get();
-    return columns.any((row) => row.read<String>('name') == columnName);
-  }
-
-  Future<bool> _tableExists(String tableName) async {
-    final tables =
+  /// Drops every table, view, trigger, and index in the database file,
+  /// including entities that are no longer part of the schema.
+  Future<void> _dropAllEntities() async {
+    final entities =
         await customSelect(
-          'SELECT 1 FROM sqlite_master WHERE type = ? AND name = ?',
-          variables: [
-            const Variable<String>('table'),
-            Variable<String>(tableName),
-          ],
+          'SELECT type, name FROM sqlite_master '
+          "WHERE name NOT LIKE 'sqlite_%' AND name != 'android_metadata'",
         ).get();
-    return tables.isNotEmpty;
+    for (final entity in entities) {
+      final type = entity.read<String>('type');
+      final name = entity.read<String>('name');
+      if (type == 'table') {
+        await customStatement('DROP TABLE IF EXISTS "$name"');
+      } else if (type == 'view') {
+        await customStatement('DROP VIEW IF EXISTS "$name"');
+      } else if (type == 'trigger') {
+        await customStatement('DROP TRIGGER IF EXISTS "$name"');
+      } else if (type == 'index') {
+        await customStatement('DROP INDEX IF EXISTS "$name"');
+      }
+    }
   }
 
   static const int _userProfileId = 1;

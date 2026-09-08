@@ -5,123 +5,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/ai_summary/ai_summary_models.dart';
 
-String _legacyMealTableSql(
-  String tableName, {
-  required bool includeHealthColumns,
-  required bool includeAnalysisColumn,
-  bool includeSourceColumn = false,
-}) {
-  final healthColumns =
-      includeHealthColumns
-          ? ', health_score TEXT, health_score_reason TEXT'
-          : '';
-  final analysisColumn = includeAnalysisColumn ? ', analysis_id TEXT' : '';
-  final sourceColumn =
-      tableName == 'favorite_meal_table' && includeSourceColumn
-          ? ', source_meal_id INTEGER UNIQUE'
-          : '';
-  final favoriteColumns =
-      tableName == 'favorite_meal_table'
-          ? ', created_at INTEGER NOT NULL DEFAULT 0, last_used_at INTEGER'
-          : '';
-  return '''
-    CREATE TABLE $tableName (
-      id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-      meal_name TEXT NOT NULL,
-      meal_quantity TEXT NOT NULL,
-      meal_type TEXT NOT NULL,
-      calories INTEGER NOT NULL,
-      protein INTEGER NOT NULL,
-      carbs INTEGER NOT NULL,
-      fat INTEGER NOT NULL,
-      fiber INTEGER NOT NULL,
-      timestamp INTEGER NOT NULL,
-      image_url TEXT
-      $healthColumns
-      $analysisColumn
-      $sourceColumn
-      $favoriteColumns
-    )
-  ''';
-}
-
-const _legacyPreferencesTableSql = '''
-  CREATE TABLE user_preferences_table (
+const _preBaselineMealTableSql = '''
+  CREATE TABLE meal_info_table (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    language_code TEXT,
-    theme TEXT,
-    feedback_sheet_shown_at INTEGER,
-    updated_at INTEGER NOT NULL DEFAULT 0
-  )
-''';
-
-const _v22PreferencesTableSql = '''
-  CREATE TABLE user_preferences_table (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    language_code TEXT,
-    theme TEXT,
-    feedback_sheet_shown_at INTEGER,
-    onboarding_current_step INTEGER,
-    onboarding_completed_at INTEGER,
-    updated_at INTEGER NOT NULL DEFAULT (CAST(strftime('%s', 'now') AS INTEGER))
-  )
-''';
-
-const _legacyProfileTableSql = '''
-  CREATE TABLE user_profile_table (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    height REAL,
-    weight REAL,
-    gender TEXT,
-    date_of_birth TEXT,
-    weight_goal TEXT,
-    activity_level TEXT
-  )
-''';
-
-const _legacySyncQueueTableSql = '''
-  CREATE TABLE sync_queue_table (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    op_type INTEGER NOT NULL,
-    idempotency_key TEXT NOT NULL,
-    payload BLOB NOT NULL,
-    attempt_count INTEGER NOT NULL DEFAULT 0,
-    created_at INTEGER NOT NULL DEFAULT 0,
-    last_attempt_at INTEGER,
-    next_retry_at INTEGER,
-    last_error TEXT
-  )
-''';
-
-const _v19ProfileTableSql = '''
-  CREATE TABLE user_profile_table (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    daily_calorie_goal INTEGER,
-    height REAL,
-    weight REAL,
-    target_weight REAL,
-    gender TEXT,
-    date_of_birth INTEGER,
-    weight_goal TEXT,
-    activity_level TEXT,
-    height_unit TEXT NOT NULL DEFAULT 'metric',
-    weight_unit TEXT NOT NULL DEFAULT 'metric',
-    created_at INTEGER NOT NULL DEFAULT 0,
-    updated_at INTEGER NOT NULL DEFAULT 0
-  )
-''';
-
-const _v27MealLogSyncQueueTableSql = '''
-  CREATE TABLE meal_log_sync_queue_table (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    analysis_id TEXT NOT NULL,
-    operation TEXT NOT NULL,
-    version INTEGER NOT NULL,
-    meal_json TEXT,
-    logged_at INTEGER,
-    attempts INTEGER NOT NULL DEFAULT 0,
-    last_error TEXT,
-    updated_at INTEGER NOT NULL
+    meal_name TEXT NOT NULL,
+    meal_quantity TEXT NOT NULL,
+    meal_type TEXT NOT NULL,
+    calories INTEGER NOT NULL,
+    protein INTEGER NOT NULL,
+    carbs INTEGER NOT NULL,
+    fat INTEGER NOT NULL,
+    fiber INTEGER NOT NULL,
+    timestamp INTEGER NOT NULL,
+    image_url TEXT
   )
 ''';
 
@@ -529,160 +425,77 @@ void main() {
     expect(await database.isHealthConnectPromptDismissed(), isTrue);
   });
 
+  test('baseline schema creates every outbox unique index', () async {
+    // Drift's Migrator.createTable does not create @TableIndex indexes, which
+    // is how the pre-squash databases lost them. The baseline must create
+    // every index an upsert targets.
+    expect(
+      await _indexExists(database, 'health_connect_sync_client_record_unique'),
+      isTrue,
+    );
+    expect(
+      await _indexExists(database, 'meal_log_sync_analysis_id_unique'),
+      isTrue,
+    );
+    expect(
+      await _indexExists(database, 'meal_info_analysis_id_unique'),
+      isTrue,
+    );
+  });
+
   test(
-    'v22 upgrade preserves historical preference and nutrition columns',
+    'pre-baseline database is wiped and rebuilt from the baseline',
     () async {
       await database.close();
       database = AppDatabase.forTesting(
         NativeDatabase.memory(
           setup: (rawDatabase) {
-            rawDatabase.execute(_v22PreferencesTableSql);
+            rawDatabase.execute(_preBaselineMealTableSql);
             rawDatabase.execute('''
-            INSERT INTO user_preferences_table (id, theme)
-            VALUES (1, 'system')
+            INSERT INTO meal_info_table (
+              id, meal_name, meal_quantity, meal_type, calories,
+              protein, carbs, fat, fiber, timestamp
+            ) VALUES
+              (1, 'Legacy meal', '1 serving', 'snack', 100, 2, 20, 1, 3, 100)
           ''');
-            rawDatabase.execute('PRAGMA user_version = 22');
+            rawDatabase.execute(
+              'CREATE TABLE sync_queue_table (id INTEGER PRIMARY KEY)',
+            );
+            rawDatabase.execute('PRAGMA user_version = 29');
           },
         ),
       );
 
-      final columns = await _columnNames(database, 'user_preferences_table');
+      final version =
+          await database.customSelect('PRAGMA user_version').getSingle();
+      expect(version.read<int>('user_version'), 1);
 
-      expect(columns, contains('local_inference_enabled'));
+      expect(await database.paginatedMealsHistory(offset: 0), isEmpty);
+
+      final legacyTables =
+          await database
+              .customSelect(
+                'SELECT COUNT(*) AS count FROM sqlite_master '
+                "WHERE type = 'table' AND name = 'sync_queue_table'",
+              )
+              .getSingle();
+      expect(legacyTables.read<int>('count'), 0);
+
       expect(
-        columns,
-        isNot(contains('local_inference_acknowledged_policy_version')),
-      );
-      expect(columns, contains('offline_nutrition_enabled'));
-      expect(columns, contains('health_connect_nutrition_sync_enabled'));
-      expect(columns, contains('health_connect_prompt_dismissed'));
-      expect(
-        await _tableExists(database, 'local_nutrition_cache_table'),
+        await _indexExists(
+          database,
+          'health_connect_sync_client_record_unique',
+        ),
         isTrue,
       );
+
+      await database.setHealthConnectNutritionSyncEnabled(true);
+      await database.logMeal(_meal('Saved after rebuild'));
+
+      final meals = await database.paginatedMealsHistory(offset: 0);
+      expect(meals.single.meal.name, 'Saved after rebuild');
     },
   );
-
-  test('v17 upgrade repairs missing inherited favorite columns', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(
-            _legacyMealTableSql(
-              'favorite_meal_table',
-              includeHealthColumns: false,
-              includeAnalysisColumn: false,
-            ),
-          );
-          rawDatabase.execute(_legacyPreferencesTableSql);
-          rawDatabase.execute(_legacyProfileTableSql);
-          rawDatabase.execute('''
-            INSERT INTO user_profile_table (
-              id, height, weight, gender, date_of_birth,
-              weight_goal, activity_level
-            ) VALUES (1, 180, 80, 'MALE', '1990-01-01', 'LOSE', 'ACTIVE')
-          ''');
-          rawDatabase.execute('PRAGMA user_version = 17');
-        },
-      ),
-    );
-
-    await database.customSelect('SELECT 1').get();
-    final favoriteColumns = await _columnNames(database, 'favorite_meal_table');
-    final preferenceColumns = await _columnNames(
-      database,
-      'user_preferences_table',
-    );
-
-    expect(
-      favoriteColumns,
-      containsAll(['health_score', 'health_score_reason', 'analysis_id']),
-    );
-    expect(
-      preferenceColumns,
-      containsAll(['onboarding_current_step', 'onboarding_completed_at']),
-    );
-    expect(await database.hasCompletedOnboarding(), isTrue);
-  });
-
-  test('v17 upgrade is safe when inherited columns already exist', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(
-            _legacyMealTableSql(
-              'favorite_meal_table',
-              includeHealthColumns: true,
-              includeAnalysisColumn: true,
-            ),
-          );
-          rawDatabase.execute(_legacyPreferencesTableSql);
-          rawDatabase.execute(_legacyProfileTableSql);
-          rawDatabase.execute('PRAGMA user_version = 17');
-        },
-      ),
-    );
-
-    await database.customSelect('SELECT 1').get();
-    final columns = await _columnNames(database, 'favorite_meal_table');
-
-    expect(columns.where((column) => column == 'health_score'), hasLength(1));
-    expect(columns.where((column) => column == 'analysis_id'), hasLength(1));
-  });
-
-  test('v11 upgrade creates preferences without duplicate columns', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(
-            _legacyMealTableSql(
-              'meal_info_table',
-              includeHealthColumns: true,
-              includeAnalysisColumn: false,
-            ),
-          );
-          rawDatabase.execute(
-            _legacyMealTableSql(
-              'favorite_meal_table',
-              includeHealthColumns: false,
-              includeAnalysisColumn: false,
-            ),
-          );
-          rawDatabase.execute(_legacyProfileTableSql);
-          rawDatabase.execute('PRAGMA user_version = 11');
-        },
-      ),
-    );
-
-    await database.customSelect('SELECT 1').get();
-    final columns = await _columnNames(database, 'user_preferences_table');
-
-    expect(
-      columns.where((column) => column == 'feedback_sheet_shown_at'),
-      hasLength(1),
-    );
-    expect(columns, contains('onboarding_completed_at'));
-  });
-
-  test('v18 upgrade removes the abandoned phone sync queue', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(_v19ProfileTableSql);
-          rawDatabase.execute(_legacySyncQueueTableSql);
-          rawDatabase.execute('PRAGMA user_version = 18');
-        },
-      ),
-    );
-
-    await database.customSelect('SELECT 1').get();
-
-    expect(await _tableExists(database, 'sync_queue_table'), isFalse);
-  });
 
   test('development database uses reactive Drift streams', () async {
     await database.close();
@@ -736,292 +549,6 @@ void main() {
     expect(await database.markProfileSynced(second.revision), isTrue);
     expect(await database.getPendingProfileSync(), isNull);
   });
-
-  test('v19 upgrade creates a pending profile outbox revision', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(_v19ProfileTableSql);
-          rawDatabase.execute(
-            'INSERT INTO user_profile_table (id, weight) VALUES (1, 70)',
-          );
-          rawDatabase.execute('PRAGMA user_version = 19');
-        },
-      ),
-    );
-
-    final pending = await database.getPendingProfileSync();
-    expect(pending, isNotNull);
-    expect(pending?.revision, isNotEmpty);
-    expect(pending?.profile.weight, 70);
-  });
-
-  test('v28 upgrade restores the meal-log outbox unique index', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(_v27MealLogSyncQueueTableSql);
-          rawDatabase.execute('''
-            INSERT INTO meal_log_sync_queue_table (
-              analysis_id, operation, version, meal_json, logged_at,
-              attempts, last_error, updated_at
-            ) VALUES
-              ('analysis-1', 'upsert', 1, '{}', 1, 0, NULL, 100),
-              ('analysis-1', 'delete', 2, NULL, 2, 0, NULL, 200)
-          ''');
-          rawDatabase.execute('PRAGMA user_version = 27');
-        },
-      ),
-    );
-
-    final rows =
-        await database
-            .customSelect(
-              'SELECT operation, version FROM meal_log_sync_queue_table',
-            )
-            .get();
-    expect(rows, hasLength(1));
-    expect(rows.single.read<String>('operation'), 'delete');
-    expect(rows.single.read<int>('version'), 2);
-
-    final indexes =
-        await database.customSelect('''
-      SELECT name FROM sqlite_master
-      WHERE type = 'index' AND name = 'meal_log_sync_analysis_id_unique'
-    ''').get();
-    expect(indexes, hasLength(1));
-  });
-
-  test('v28 upgrade creates the local AI summary cache', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute('PRAGMA user_version = 28');
-        },
-      ),
-    );
-
-    await database.customSelect('SELECT 1').get();
-    expect(await _tableExists(database, 'local_ai_summary_table'), isTrue);
-  });
-
-  test(
-    'v20 upgrade preserves custom favorites and restores safe links',
-    () async {
-      await database.close();
-      database = AppDatabase.forTesting(
-        NativeDatabase.memory(
-          setup: (rawDatabase) {
-            rawDatabase.execute(
-              _legacyMealTableSql(
-                'meal_info_table',
-                includeHealthColumns: true,
-                includeAnalysisColumn: true,
-              ),
-            );
-            rawDatabase.execute(
-              _legacyMealTableSql(
-                'favorite_meal_table',
-                includeHealthColumns: true,
-                includeAnalysisColumn: true,
-              ),
-            );
-            rawDatabase.execute('''
-            INSERT INTO meal_info_table (
-              id, meal_name, meal_quantity, meal_type, calories,
-              protein, carbs, fat, fiber, timestamp
-            ) VALUES
-              (1, 'Logged lunch', '1 serving', 'snack', 100, 2, 20, 1, 3, 100),
-              (2, 'Linked meal', '1 serving', 'snack', 100, 2, 20, 1, 3, 200)
-          ''');
-            rawDatabase.execute('''
-            INSERT INTO favorite_meal_table (
-              id, meal_name, meal_quantity, meal_type, calories,
-              protein, carbs, fat, fiber, timestamp, created_at
-            ) VALUES
-              (1, 'Custom oats', '1 serving', 'snack', 100, 2, 20, 1, 3, 100, 100),
-              (2, 'Linked meal', '1 serving', 'snack', 100, 2, 20, 1, 3, 200, 200)
-          ''');
-            rawDatabase.execute('PRAGMA user_version = 20');
-          },
-        ),
-      );
-
-      final favorites = await database.watchAllFavoriteMeals().first;
-      expect(favorites, hasLength(2));
-      final custom = favorites.singleWhere(
-        (favorite) => favorite.loggedMeal.meal.name == 'Custom oats',
-      );
-      final linked = favorites.singleWhere(
-        (favorite) => favorite.loggedMeal.meal.name == 'Linked meal',
-      );
-      expect(custom.clientId, 1);
-      expect(custom.loggedMeal.hasClientId(), isFalse);
-      expect(linked.clientId, 2);
-      expect(linked.loggedMeal.clientId, 2);
-      expect(await database.isFavoriteMeal(1), isFalse);
-      expect(await database.isFavoriteMeal(2), isTrue);
-
-      await database.addToFavorites((await database.getMealById(1))!);
-      final afterCollision = await database.watchAllFavoriteMeals().first;
-      expect(afterCollision, hasLength(3));
-      expect(
-        afterCollision.where(
-          (favorite) => favorite.loggedMeal.meal.name == 'Custom oats',
-        ),
-        hasLength(1),
-      );
-    },
-  );
-
-  test('v20 upgrade retains trustworthy legacy source ids', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(
-            _legacyMealTableSql(
-              'meal_info_table',
-              includeHealthColumns: true,
-              includeAnalysisColumn: true,
-            ),
-          );
-          rawDatabase.execute(
-            _legacyMealTableSql(
-              'favorite_meal_table',
-              includeHealthColumns: true,
-              includeAnalysisColumn: true,
-              includeSourceColumn: true,
-            ),
-          );
-          rawDatabase.execute('''
-            INSERT INTO meal_info_table (
-              id, meal_name, meal_quantity, meal_type, calories,
-              protein, carbs, fat, fiber, timestamp
-            ) VALUES
-              (22, 'Post-v15 link', '1 serving', 'snack', 100, 2, 20, 1, 3, 300)
-          ''');
-          rawDatabase.execute('''
-            INSERT INTO favorite_meal_table (
-              id, meal_name, meal_quantity, meal_type, calories,
-              protein, carbs, fat, fiber, timestamp, source_meal_id, created_at
-            ) VALUES
-              (20, 'Legacy link', '1 serving', 'snack', 100, 2, 20, 1, 3, 100, 5, 100),
-              (21, 'Legacy custom', '1 serving', 'snack', 100, 2, 20, 1, 3, 200, NULL, 200),
-              (22, 'Post-v15 link', '1 serving', 'snack', 100, 2, 20, 1, 3, 300, NULL, 300)
-          ''');
-          rawDatabase.execute('PRAGMA user_version = 20');
-        },
-      ),
-    );
-
-    final favorites = await database.watchAllFavoriteMeals().first;
-    final linked = favorites.singleWhere(
-      (favorite) => favorite.loggedMeal.meal.name == 'Legacy link',
-    );
-    final custom = favorites.singleWhere(
-      (favorite) => favorite.loggedMeal.meal.name == 'Legacy custom',
-    );
-    final restored = favorites.singleWhere(
-      (favorite) => favorite.loggedMeal.meal.name == 'Post-v15 link',
-    );
-    expect(linked.clientId, 20);
-    expect(linked.loggedMeal.clientId, 5);
-    expect(custom.clientId, 21);
-    expect(custom.loggedMeal.hasClientId(), isFalse);
-    expect(restored.clientId, 22);
-    expect(restored.loggedMeal.clientId, 22);
-    expect(await database.isFavoriteMeal(5), isTrue);
-    expect(await database.isFavoriteMeal(22), isTrue);
-  });
-
-  test('v21 upgrade preserves duplicate meals and favorite links', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(
-            _legacyMealTableSql(
-              'meal_info_table',
-              includeHealthColumns: true,
-              includeAnalysisColumn: true,
-            ),
-          );
-          rawDatabase.execute(
-            _legacyMealTableSql(
-              'favorite_meal_table',
-              includeHealthColumns: true,
-              includeAnalysisColumn: true,
-              includeSourceColumn: true,
-            ),
-          );
-          rawDatabase.execute('''
-            INSERT INTO meal_info_table (
-              id, meal_name, meal_quantity, meal_type, calories,
-              protein, carbs, fat, fiber, timestamp, analysis_id
-            ) VALUES
-              (1, 'First', '1 serving', 'snack', 100, 2, 20, 1, 3, 100, 'duplicate-id'),
-              (2, 'Retry', '1 serving', 'snack', 100, 2, 20, 1, 3, 101, ' duplicate-id '),
-              (3, 'Legacy blank', '1 serving', 'snack', 100, 2, 20, 1, 3, 102, '')
-          ''');
-          rawDatabase.execute('''
-            INSERT INTO favorite_meal_table (
-              id, meal_name, meal_quantity, meal_type, calories,
-              protein, carbs, fat, fiber, timestamp, source_meal_id, created_at
-            ) VALUES
-              (20, 'Retry', '1 serving', 'snack', 100, 2, 20, 1, 3, 101, 2, 101)
-          ''');
-          rawDatabase.execute('PRAGMA user_version = 21');
-        },
-      ),
-    );
-
-    final rows =
-        await database
-            .customSelect(
-              'SELECT id, analysis_id FROM meal_info_table ORDER BY id',
-            )
-            .get();
-    expect(rows.map((row) => row.read<int>('id')), [1, 2, 3]);
-    expect(rows.first.readNullable<String>('analysis_id'), 'duplicate-id');
-    expect(rows.skip(1).map((row) => row.readNullable<String>('analysis_id')), [
-      null,
-      null,
-    ]);
-    expect(await database.isFavoriteMeal(2), isTrue);
-    expect((await database.getMealById(2))?.meal.name, 'Retry');
-    expect(
-      await _indexExists(database, 'meal_info_analysis_id_unique'),
-      isTrue,
-    );
-
-    await database.logMeal(_meal('Late retry'), analysisId: 'duplicate-id');
-    final afterRetry =
-        await database
-            .customSelect(
-              "SELECT COUNT(*) AS count FROM meal_info_table WHERE analysis_id = 'duplicate-id'",
-            )
-            .getSingle();
-    expect(afterRetry.read<int>('count'), 1);
-  });
-}
-
-Future<List<String>> _columnNames(AppDatabase database, String table) async {
-  final rows = await database.customSelect('PRAGMA table_info($table)').get();
-  return rows.map((row) => row.read<String>('name')).toList();
-}
-
-Future<bool> _tableExists(AppDatabase database, String table) async {
-  final rows =
-      await database
-          .customSelect(
-            "SELECT name FROM sqlite_master WHERE type = 'table' AND name = '$table'",
-          )
-          .get();
-  return rows.isNotEmpty;
 }
 
 Future<bool> _indexExists(AppDatabase database, String index) async {
