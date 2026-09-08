@@ -631,7 +631,7 @@ function assumption(dimension: Dimension, option: DimensionOption, input: Normal
   };
 }
 
-function nutritionBasis(identity: string, ingredientName: string): {
+export function nutritionBasis(identity: string, ingredientName: string): {
   nutritionBasis: 'RAW' | 'DRY' | 'COOKED' | 'DRAINED' | 'RETAINED' | 'AS_SERVED';
   preparationCodes: PreparationCode[];
   retainedFat: boolean;

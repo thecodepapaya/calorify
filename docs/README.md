@@ -23,6 +23,10 @@ Use this page to find the document that matches the work you are doing.
   canonical FTS, USDA NFS, and generic-spices fallback decisions, resolver
   invariants, the temporary release accuracy tradeoff, and deferred embedding
   design and rollout criteria.
+- [USDA ingredient hit rate](plans/usda-ingredient-hit-rate.md) — measured
+  fallback ladder for resolving almost every pass-2 ingredient against the
+  local USDA mirror: preparation relaxation, widened fuzzy qualifiers,
+  retrieval recall, guardrails, and promotion criteria.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
 
 ## Implemented workflows

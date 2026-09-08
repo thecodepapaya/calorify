@@ -109,3 +109,31 @@ npm run meal-analysis:eval -- --model gpt-5.6-luna --repeats 3
 Keep the current plausibility windows unchanged during a model comparison.
 Change them only when the product expectation itself changes, and record that
 change alongside the dataset.
+
+## USDA resolver eval
+
+`npm run usda:resolver-eval` resolves the USDA resolver cases val set
+(`usda-resolver.cases.json`) against the local USDA mirror and reports the
+resolve-rate baseline for the
+[USDA ingredient hit-rate plan](../../docs/plans/usda-ingredient-hit-rate.md):
+resolve rate over unique active ingredient leaves, rejection-reason
+histogram, per-case summaries, and per-miss candidate diagnostics. Corpus
+construction mirrors pass-2 leaf output — the first term of each group is
+the canonical identity, the rest are lookup aliases capped at three, the
+group's retrieval intent and product query flow into the leaf, and the
+pipeline's own nutrition-basis inference assigns basis and preparation.
+No model is called. The val set spans cuisines, preparation forms,
+branded products, ambiguous identities, and regional vocabulary; it is a
+measurement, not a gate. The meal-analysis dataset's required ingredient
+groups remain available as a legacy derived corpus via
+`--dataset meal-analysis.cases.json`.
+
+Start the database first:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local.yml --profile staging up -d --wait db-usda
+```
+
+The command writes a full JSON report to a temporary artifact directory
+(`--output-directory` preserves it) and never enforces a pass threshold; it
+is a measurement, not a gate.

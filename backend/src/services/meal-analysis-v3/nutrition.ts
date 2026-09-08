@@ -245,9 +245,28 @@ const IDENTITY_STOP_WORDS = new Set([
 
 // Fuzzy fallback may bridge a generic identity to a more-qualified USDA name,
 // but it must not cross into another food or dish (for example paneer -> palak
-// paneer or ginger -> ginger tea).
+// paneer, ginger -> ginger tea, or milk -> milk chocolate). Every candidate
+// token beyond the requested identity must therefore be a form, state, cut,
+// or grade descriptor — never a food noun. Curated from USDA description
+// conventions and the resolver eval corpus; the invariant and the adversarial
+// negatives live in docs/plans/usda-ingredient-hit-rate.md.
 const FUZZY_QUALIFIER_TERMS = new Set([
-  'gram', 'mature', 'nfs', 'red', 'ripe', 'roma', 'root', 'seeds', 'soft',
+  // Grade, size, and age markers (Eggs, Grade A, Large; Beans, baby).
+  'a', 'all', 'baby', 'extra', 'grade', 'large', 'medium', 'purpose', 'small',
+  'standard', 'young',
+  // Color and variety descriptors (Rice, white; Beans, green; Flour, brown).
+  'black', 'brown', 'dark', 'glutinous', 'green', 'light', 'red', 'white', 'yellow',
+  // Form and processing state (Coconut, fresh; Sugar, granulated; Milk, canned).
+  'canned', 'enriched', 'fortified', 'fresh', 'frozen', 'granulated', 'ground',
+  'halves', 'liquids', 'packaged', 'peeled', 'pieces', 'plain', 'salted', 'shelled',
+  'solids', 'sweetened', 'unenriched', 'unsalted', 'unsweetened', 'whole',
+  // Cuts and parts (Chicken, breast, meat only, skinless, boneless).
+  'back', 'boneless', 'breast', 'flesh', 'leaves', 'leg', 'meat', 'meats', 'only',
+  'skin', 'skinless', 'tail', 'thigh', 'wing',
+  // Composed USDA qualifier phrases (variety meats and by-products; long-grain rice).
+  'and', 'byproducts', 'grain', 'grains', 'lean', 'long', 'trimmed', 'variety',
+  // Original release terms.
+  'gram', 'mature', 'nfs', 'ripe', 'roma', 'root', 'seeds', 'soft',
 ]);
 
 const BUILTIN_WATER_IDENTITIES = new Set([
@@ -897,15 +916,28 @@ function resolveFuzzyCandidate(
   };
 }
 
+/**
+ * USDA names freely mix singular and plural noun forms ("Eggs, Grade A,
+ * Large, egg whole"). The fuzzy containment folds naive regular plurals so
+ * "egg" and "eggs" cover each other; irregular plurals stay strict.
+ */
+function coversToken(tokens: Set<string>, token: string): boolean {
+  if (tokens.has(token)) return true;
+  if (tokens.has(`${token}s`) || tokens.has(`${token}es`)) return true;
+  if (token.endsWith('es') && tokens.has(token.slice(0, -2))) return true;
+  if (token.endsWith('s') && tokens.has(token.slice(0, -1))) return true;
+  return false;
+}
+
 function fuzzyIdentityCompatible(leaf: IngredientLeaf, row: CandidateRow): boolean {
   const candidates = [row.normalized_name, row.description].map(identityTokenSet);
   return [leaf.canonicalIdentity, ...leaf.lookupAliases].some((term) => {
     const requested = identityTokenSet(term);
     if (requested.size === 0) return false;
     return candidates.some((candidate) =>
-      [...requested].every((token) => candidate.has(token)) &&
+      [...requested].every((token) => coversToken(candidate, token)) &&
       [...candidate].every((token) =>
-        requested.has(token) || FUZZY_QUALIFIER_TERMS.has(token)
+        coversToken(requested, token) || coversToken(FUZZY_QUALIFIER_TERMS, token)
       )
     );
   });

@@ -2,7 +2,7 @@
 
 **Status:** active implementation plan.
 
-**Last verified:** 2026-09-02.
+**Last verified:** 2026-09-08.
 
 **Owner:** meal-analysis backend.
 **Canonical scope:** retrieval evolution for the V3 local USDA nutrition
@@ -26,6 +26,7 @@ path repeats resolver work because stage checkpoints are not yet persisted.
 | Generic `spices` fallback | Migration-seeded local profile | Implemented |
 | Model nutrition fallback | Strict per-100-g estimate after all USDA paths fail | Implemented |
 | Temporary release match fallback | Accept fuzzy scores from `0.4`; break equal-rank conflicts by score, then numeric FDC ID | Temporary |
+| Fuzzy descriptor whitelist | 72 form, state, cut, and grade descriptors plus regular-plural folding; never food nouns | Implemented |
 | Embedding generation, pgvector, and semantic retrieval | Defer | Not built |
 | Embeddings as an acceptance signal | Never allow | Permanent constraint |
 
@@ -63,8 +64,12 @@ implementation. For every nutrition-bearing leaf, it runs this exact order:
    `CANONICAL_EXACT`, `CANONICAL_TOKEN_SET`, `ALIAS_EXACT`,
    `ALIAS_TOKEN_SET`, `STEMMED_TOKEN_SET`, `PRODUCT_QUERY_PHRASE`.
 8. If no viable hard identity exists, use the fuzzy fallback. It requires a
-   compatible identity and similarity at least `0.4`. The former runner-up
-   margin is temporarily disabled.
+   compatible identity and similarity at least `0.4`. A compatible identity
+   means every requested token appears in the candidate name and every
+   extra candidate token is a whitelisted form, state, cut, or grade
+   descriptor — never a food noun — with naive regular-plural folding
+   (`egg` covers `eggs`). The former runner-up margin is temporarily
+   disabled.
 9. Select the best hard identity/preparation rank. If multiple rows tie:
    highest trigram similarity selects the winner, including when nutrient
    vectors differ. Equal scores select the numerically lowest FDC ID.
@@ -87,6 +92,10 @@ selected.
 **Status:** active release workaround. This is intentionally less reliable
 than the target resolver policy and exists to return calories instead of
 ending otherwise usable analyses as unresolved.
+
+The follow-up plan that makes near-universal USDA coverage a measured release
+policy is [USDA ingredient hit rate](usda-ingredient-hit-rate.md); update
+this section as its phases land.
 
 | Resolver setting | Previous policy | Temporary release policy |
 | --- | --- | --- |

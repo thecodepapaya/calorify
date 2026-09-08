@@ -296,7 +296,10 @@ test('uses FTS stemmed identity only when the feature is enabled', async () => {
     fullTextEnabled: false,
   });
   const disabledResult = await disabled.resolve([scenario('tomato-disabled', [tomato])]);
-  assert.deepEqual(disabledResult.leaves[0]?.rejectionReasons, ['IDENTITY_MISMATCH']);
+  // With FTS disabled the stemmed identity tier never applies; the plural
+  // bridge comes from the fuzzy fallback's regular-plural folding instead.
+  assert.equal(disabledResult.leaves[0]?.reference?.sourceRecordId, 'tomatoes-raw');
+  assert.equal(disabledResult.leaves[0]?.candidates[0]?.identityTier, null);
   assert.deepEqual(disabledFixture.calls[1]?.params, [['tomato'], 30, false, null, false, false]);
 
   const enabledFixture = queryFixture([readyDataset], [tomatoRow]);
@@ -756,6 +759,137 @@ test('temporarily accepts the closest compatible fuzzy food at or above 0.4', as
 
   assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'ginger-root');
   assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
+});
+
+test('expanded fuzzy qualifiers accept USDA descriptor-qualified names', async (t) => {
+  await t.test('egg resolves the Grade A whole-egg row through plural folding', async () => {
+    const fixture = queryFixture([readyDataset], [candidate({
+      fdc_id: '748967',
+      description: 'Eggs, Grade A, Large, egg whole',
+      normalized_name: 'eggs grade a large egg whole',
+      identity_similarity: 0.42,
+    })]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('fuzzy-egg', [ingredient({
+      canonicalIdentity: 'egg',
+      nutritionBasis: 'AS_SERVED',
+      preparationCodes: ['UNKNOWN'],
+    })])]);
+
+    assert.equal(result.leaves[0]?.reference?.sourceRecordId, '748967');
+    assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
+  });
+
+  await t.test('brown rice resolves the long-grain row', async () => {
+    const fixture = queryFixture([readyDataset], [candidate({
+      fdc_id: '20089',
+      description: 'Rice, brown, long-grain, raw',
+      normalized_name: 'rice brown long grain',
+      identity_similarity: 0.55,
+    })]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('fuzzy-brown-rice', [ingredient({
+      canonicalIdentity: 'brown rice',
+      nutritionBasis: 'AS_SERVED',
+      preparationCodes: ['UNKNOWN'],
+    })])]);
+
+    assert.equal(result.leaves[0]?.reference?.sourceRecordId, '20089');
+    assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
+  });
+
+  await t.test('chicken resolves a cut row such as breast, meat only, skinless, boneless', async () => {
+    const fixture = queryFixture([readyDataset], [candidate({
+      fdc_id: '9294',
+      description: 'Chicken, breast, meat only, skinless, boneless',
+      normalized_name: 'chicken breast meat only skinless boneless',
+      identity_similarity: 0.45,
+    })]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('fuzzy-chicken', [ingredient({
+      canonicalIdentity: 'chicken',
+      nutritionBasis: 'AS_SERVED',
+      preparationCodes: ['UNKNOWN'],
+    })])]);
+
+    assert.equal(result.leaves[0]?.reference?.sourceRecordId, '9294');
+    assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
+  });
+});
+
+test('expanded fuzzy qualifiers never bridge into another food', async (t) => {
+  await t.test('milk never resolves milk chocolate', async () => {
+    const fixture = queryFixture([readyDataset], [candidate({
+      fdc_id: '19095',
+      description: 'Milk chocolate',
+      normalized_name: 'milk chocolate',
+      identity_similarity: 0.9,
+    })]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('unsafe-milk', [ingredient({
+      canonicalIdentity: 'milk',
+      nutritionBasis: 'AS_SERVED',
+      preparationCodes: ['UNKNOWN'],
+    })])]);
+
+    assert.equal(result.leaves[0]?.reference, null);
+    assert.deepEqual(result.leaves[0]?.rejectionReasons, ['IDENTITY_MISMATCH']);
+  });
+
+  await t.test('chicken never resolves chicken fat', async () => {
+    const fixture = queryFixture([readyDataset], [candidate({
+      fdc_id: '173564',
+      description: 'Fat, chicken',
+      normalized_name: 'fat chicken',
+      identity_similarity: 0.65,
+    })]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('unsafe-chicken-fat', [ingredient({
+      canonicalIdentity: 'chicken',
+      nutritionBasis: 'AS_SERVED',
+      preparationCodes: ['UNKNOWN'],
+    })])]);
+
+    assert.equal(result.leaves[0]?.reference, null);
+    assert.deepEqual(result.leaves[0]?.rejectionReasons, ['IDENTITY_MISMATCH']);
+  });
+
+  await t.test('coconut never resolves coconut oil', async () => {
+    const fixture = queryFixture([readyDataset], [candidate({
+      fdc_id: '2710182',
+      description: 'Coconut oil',
+      normalized_name: 'coconut oil',
+      identity_similarity: 0.95,
+    })]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('unsafe-coconut', [ingredient({
+      canonicalIdentity: 'coconut',
+      nutritionBasis: 'AS_SERVED',
+      preparationCodes: ['UNKNOWN'],
+    })])]);
+
+    assert.equal(result.leaves[0]?.reference, null);
+    assert.deepEqual(result.leaves[0]?.rejectionReasons, ['IDENTITY_MISMATCH']);
+  });
+
+  await t.test('pea never resolves peanut even with plural folding', async () => {
+    const fixture = queryFixture([readyDataset], [candidate({
+      fdc_id: '16087',
+      description: 'Peanuts, all types, raw',
+      normalized_name: 'peanuts',
+      identity_similarity: 0.75,
+    })]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('unsafe-pea', [ingredient({
+      canonicalIdentity: 'pea',
+      lookupAliases: ['peas'],
+      nutritionBasis: 'AS_SERVED',
+      preparationCodes: ['UNKNOWN'],
+    })])]);
+
+    assert.equal(result.leaves[0]?.reference, null);
+    assert.deepEqual(result.leaves[0]?.rejectionReasons, ['IDENTITY_MISMATCH']);
+  });
 });
 
 test('filters generic candidates to trusted food rows before applying the limit', async () => {

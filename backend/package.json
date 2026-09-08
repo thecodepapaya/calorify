@@ -19,7 +19,8 @@
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",
         "usda:migrate": "tsx src/scripts/usda-migrate.ts",
         "usda:bootstrap": "tsx src/scripts/usda-bootstrap.ts",
-        "usda:lookup": "tsx src/scripts/usda-lookup-cli.ts"
+        "usda:lookup": "tsx src/scripts/usda-lookup-cli.ts",
+        "usda:resolver-eval": "tsx src/scripts/usda-resolver-eval.ts"
     },
     "keywords": [
         "calorify",

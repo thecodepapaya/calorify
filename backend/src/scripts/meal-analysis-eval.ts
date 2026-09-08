@@ -122,7 +122,7 @@ function safePart(value: unknown): string {
     .replace(/^-|-$/g, '');
 }
 
-async function loadDataset(path: string): Promise<MealAnalysisEvalDataset> {
+export async function loadDataset(path: string): Promise<MealAnalysisEvalDataset> {
   const resolved = isAbsolute(path) ? path : resolve(process.cwd(), path);
   const parsed = JSON.parse(await readFile(resolved, 'utf8')) as MealAnalysisEvalDataset;
   if (!Number.isInteger(parsed.version) || !Array.isArray(parsed.cases) || parsed.cases.length === 0) {
