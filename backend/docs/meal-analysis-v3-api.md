@@ -74,3 +74,9 @@ with different input returns a conflict. Resume and mutations remain scoped to
 the original authenticated user. This is result-level persistence: it does not
 yet persist interpretation and resolution checkpoints, so answering can repeat
 provider and USDA work.
+
+A run that fails after the durable row exists records its terminal public
+error in `failure_data` (`code`, `retryable`, `recoveryAction`, `failedAt`),
+never alongside a result. `/resume` replays that error instead of re-running
+the analysis, so a failed session can never read as still processing; the
+client's retry action starts a new analysis ID.

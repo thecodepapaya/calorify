@@ -6,6 +6,7 @@ export interface StoredMealAnalysisV3Session {
   input: unknown;
   digest: string;
   result?: unknown;
+  failure?: unknown;
   nutritionAnswers?: unknown;
   mealTypeAnswer?: string;
 }
@@ -37,6 +38,7 @@ interface SessionRow {
   input_data: unknown;
   input_digest: string;
   result_data: unknown | null;
+  failure_data: unknown | null;
   nutrition_answers: unknown | null;
   meal_type_answer: string | null;
 }
@@ -63,6 +65,7 @@ function mapHistoryRow(row: HistoryRow): MealAnalysisV3HistoryEntry {
     input: asOptionalJson(row.input_data) ?? {},
     digest: row.input_digest,
     ...(row.result_data == null ? {} : { result: asOptionalJson(row.result_data) }),
+    ...(row.failure_data == null ? {} : { failure: asOptionalJson(row.failure_data) }),
     ...(row.nutrition_answers == null ? {} : { nutritionAnswers: asOptionalJson(row.nutrition_answers) }),
     ...(row.meal_type_answer == null ? {} : { mealTypeAnswer: row.meal_type_answer }),
     ...(row.feedback_signal == null ? {} : { feedbackSignal: row.feedback_signal }),
@@ -90,8 +93,9 @@ export async function listMealAnalysisV3History(
     ),
     query<HistoryRow>(
       `SELECT user_id, analysis_id, input_data, input_digest, result_data,
-              nutrition_answers, meal_type_answer, feedback_signal, feedback_at,
-              logged_at, logged_meal, deleted_at, created_at, updated_at
+              failure_data, nutrition_answers, meal_type_answer, feedback_signal,
+              feedback_at, logged_at, logged_meal, deleted_at, created_at,
+              updated_at
          FROM meal_analysis_v3_session
         WHERE ($1::text IS NULL OR input_data ->> 'kind' = $1)
         ORDER BY updated_at DESC, analysis_id DESC
@@ -112,7 +116,7 @@ export async function loadMealAnalysisV3Session(
 ): Promise<StoredMealAnalysisV3Session | undefined> {
   const result = await query<SessionRow>(
     `SELECT user_id, analysis_id, input_data, input_digest, result_data,
-            nutrition_answers, meal_type_answer
+            failure_data, nutrition_answers, meal_type_answer
        FROM meal_analysis_v3_session
       WHERE user_id = $1 AND analysis_id = $2`,
     [userId, analysisId]
@@ -125,6 +129,7 @@ export async function loadMealAnalysisV3Session(
     input: row.input_data,
     digest: row.input_digest,
     ...(row.result_data == null ? {} : { result: row.result_data }),
+    ...(row.failure_data == null ? {} : { failure: asOptionalJson(row.failure_data) }),
     ...(row.nutrition_answers == null ? {} : { nutritionAnswers: row.nutrition_answers }),
     ...(row.meal_type_answer == null ? {} : { mealTypeAnswer: row.meal_type_answer }),
   };
@@ -136,14 +141,15 @@ export async function saveMealAnalysisV3Session(
   const result = await query(
     `INSERT INTO meal_analysis_v3_session (
        user_id, analysis_id, input_data, input_digest, result_data,
-       nutrition_answers, meal_type_answer, updated_at
-     ) VALUES ($1, $2, $3::jsonb, $4, $5::jsonb, $6::jsonb, $7, NOW())
+       nutrition_answers, meal_type_answer, failure_data, updated_at
+     ) VALUES ($1, $2, $3::jsonb, $4, $5::jsonb, $6::jsonb, $7, $8::jsonb, NOW())
      ON CONFLICT (user_id, analysis_id) DO UPDATE SET
        input_data = EXCLUDED.input_data,
        input_digest = EXCLUDED.input_digest,
        result_data = EXCLUDED.result_data,
        nutrition_answers = EXCLUDED.nutrition_answers,
        meal_type_answer = EXCLUDED.meal_type_answer,
+       failure_data = EXCLUDED.failure_data,
        updated_at = NOW()
      WHERE meal_analysis_v3_session.input_digest = EXCLUDED.input_digest`,
     [
@@ -156,6 +162,7 @@ export async function saveMealAnalysisV3Session(
         ? null
         : JSON.stringify(session.nutritionAnswers),
       session.mealTypeAnswer ?? null,
+      session.failure === undefined ? null : JSON.stringify(session.failure),
     ]
   );
   return result.rowCount === 1;

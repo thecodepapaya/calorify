@@ -16,6 +16,7 @@ import { mealContextSchema } from '../../services/meal-analysis-v3/domain.js';
 import {
   classifyMealAnalysisV3Error,
   mealAnalysisV3ErrorMetadata,
+  type MealAnalysisV3PublicError,
 } from '../../services/meal-analysis-v3/errors.js';
 import {
   buildMealAnalysisV3PassProgress,
@@ -94,6 +95,7 @@ interface V3Session {
   input: StoredInput;
   digest: string;
   result?: MealAnalysisV3Result;
+  failure?: MealAnalysisV3PublicError & { failedAt: string };
   nutritionAnswers?: z.infer<typeof answerSchema>[];
   mealTypeAnswer?: 'BREAKFAST' | 'LUNCH' | 'DINNER' | 'SNACK';
 }
@@ -112,6 +114,7 @@ async function remember(key: string, session: V3Session): Promise<boolean> {
     input: session.input,
     digest: session.digest,
     result: session.result,
+    failure: session.failure,
     nutritionAnswers: session.nutritionAnswers,
     mealTypeAnswer: session.mealTypeAnswer,
   });
@@ -139,6 +142,7 @@ async function recall(userId: string, analysisId: string): Promise<V3Session | u
     input,
     digest: stored.digest,
     result: stored.result as MealAnalysisV3Result | undefined,
+    failure: stored.failure as V3Session['failure'],
     nutritionAnswers: stored.nutritionAnswers as z.infer<typeof answerSchema>[] | undefined,
     mealTypeAnswer: stored.mealTypeAnswer as V3Session['mealTypeAnswer'],
   };
@@ -299,10 +303,24 @@ async function runSession(reply: FastifyReply, session: V3Session): Promise<void
       },
     });
     session.result = result;
+    session.failure = undefined;
     await remember(sessionKey(session.userId, analysisId), session);
     reply.raw.write(`${JSON.stringify(publicEvent(analysisId, result))}\n`);
   } catch (error) {
     const publicError = classifyMealAnalysisV3Error(error);
+    // Persist the terminal failure so the durable session can never read as
+    // "still processing": /resume replays this instead of re-running the
+    // analysis, and the operator history shows the failure code.
+    session.result = undefined;
+    session.failure = { ...publicError, failedAt: new Date().toISOString() };
+    try {
+      await remember(sessionKey(session.userId, analysisId), session);
+    } catch (persistError) {
+      reply.request.log.error(
+        { ...safeErrorMetadata(persistError, 'meal_analysis_v3_failure_persist_failed') },
+        'Failed to persist the V3 terminal failure state'
+      );
+    }
     reply.request.log.error(
       {
         analysisId,
@@ -446,6 +464,17 @@ export async function foodRoutesV3(
     if (session.result) {
       startStream(reply, body.analysisId);
       reply.raw.write(`${JSON.stringify(publicEvent(body.analysisId, session.result))}\n`);
+      reply.raw.end();
+      return;
+    }
+    if (session.failure) {
+      startStream(reply, body.analysisId);
+      const { code, retryable, recoveryAction } = session.failure;
+      reply.raw.write(`${JSON.stringify({
+        event: 'ERROR',
+        analysisId: body.analysisId,
+        data: { code, retryable, recoveryAction },
+      })}\n`);
       reply.raw.end();
       return;
     }

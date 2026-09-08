@@ -43,6 +43,10 @@ function details(title: string, value: unknown): string {
 }
 
 function status(entry: MealAnalysisV3HistoryEntry): string {
+  const failure = record(entry.failure);
+  if (failure && typeof failure.code === 'string') {
+    return `FAILED ${failure.code.replaceAll('_', ' ')}`;
+  }
   const outcome = record(entry.result)?.outcome;
   if (typeof outcome === 'string') return outcome.replaceAll('_', ' ');
   return 'IN PROGRESS';
@@ -59,7 +63,7 @@ function entryCard(entry: MealAnalysisV3HistoryEntry): string {
     entry.loggedAt ? `<p>Logged at ${escapeHtml(entry.loggedAt)}${entry.deletedAt ? ' (deleted)' : ''}</p>${details('Logged meal', entry.loggedMeal)}` : '',
   ].join('');
   const preview = imageUrl(entry);
-  return `<article><header><div><small>${escapeHtml(String(input.kind ?? 'UNKNOWN'))} · ${escapeHtml(status(entry))}</small><h2>${escapeHtml(title)}</h2></div><time>${escapeHtml(entry.updatedAt)}</time></header>${preview ? `<img src="${escapeHtml(preview)}" alt="Meal input" loading="lazy">` : ''}<p>Analysis ID: <code>${escapeHtml(entry.analysisId)}</code></p><section><h3>V3 flow</h3>${details('1. Input captured', entry.input)}${details('2. Latest pipeline result', entry.result)}${actions || '<p>No user follow-up has been recorded.</p>'}</section></article>`;
+  return `<article><header><div><small>${escapeHtml(String(input.kind ?? 'UNKNOWN'))} · ${escapeHtml(status(entry))}</small><h2>${escapeHtml(title)}</h2></div><time>${escapeHtml(entry.updatedAt)}</time></header>${preview ? `<img src="${escapeHtml(preview)}" alt="Meal input" loading="lazy">` : ''}<p>Analysis ID: <code>${escapeHtml(entry.analysisId)}</code></p><section><h3>V3 flow</h3>${details('1. Input captured', entry.input)}${details('2. Latest pipeline result', entry.result)}${details('3. Terminal failure', entry.failure)}${actions || '<p>No user follow-up has been recorded.</p>'}</section></article>`;
 }
 
 export function renderAnalysisHistory(page: MealAnalysisV3HistoryPage): string {

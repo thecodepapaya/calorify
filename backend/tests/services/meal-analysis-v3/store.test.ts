@@ -81,6 +81,46 @@ test('upserts the complete V3 session snapshot', async () => {
   assert.equal(params[6], 'DINNER');
 });
 
+test('persists and reloads a terminal failure state', async () => {
+  databaseQuery.mock.mockImplementationOnce(async () => ({ rows: [], rowCount: 1 }));
+  const failure = {
+    code: 'INVALID_MODEL_OUTPUT',
+    retryable: true,
+    recoveryAction: 'RETRY',
+    failedAt: '2026-09-08T16:43:50.493Z',
+  };
+  assert.equal(await saveMealAnalysisV3Session({
+    userId: 'user-1',
+    analysisId: '11111111-1111-4111-8111-111111111111',
+    input: { text: 'dal' },
+    digest: 'digest',
+    failure,
+  }), true);
+  const saveCall = databaseQuery.mock.calls.at(-1)?.arguments as [string, unknown[]];
+  assert.match(saveCall[0], /failure_data/);
+  assert.deepEqual(JSON.parse(saveCall[1][7] as string), failure);
+
+  databaseQuery.mock.mockImplementationOnce(async () => ({
+    rows: [{
+      user_id: 'user-1',
+      analysis_id: '11111111-1111-4111-8111-111111111111',
+      input_data: { text: 'dal' },
+      input_digest: 'digest',
+      result_data: null,
+      failure_data: failure,
+      nutrition_answers: null,
+      meal_type_answer: null,
+    }],
+    rowCount: 1,
+  }));
+  const session = await loadMealAnalysisV3Session(
+    'user-1',
+    '11111111-1111-4111-8111-111111111111'
+  );
+  assert.deepEqual(session?.failure, failure);
+  assert.equal(session?.result, undefined);
+});
+
 test('feedback and log mutations require one owned completed row', async () => {
   databaseQuery.mock.mockImplementationOnce(async () => ({ rows: [], rowCount: 1 }));
   assert.equal(await recordMealAnalysisV3Feedback(
