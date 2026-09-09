@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { parseAndValidateInterpretation } from '../../../src/services/meal-analysis-v3/domain.js';
 import {
   applyQuestionAnswers,
   calculateMeal,
@@ -10,8 +11,43 @@ import {
 import {
   countQuestionProposal,
   foodProposal,
+  input,
   nutritionReferences,
+  proposalValue,
 } from './fixtures.js';
+
+test('ingredient-amount questions name the ingredient', () => {
+  const value = proposalValue() as unknown as {
+    components: Array<Record<string, unknown>>;
+  };
+  const sabzi = structuredClone(value.components[0]!);
+  const scenarios = (sabzi.scenarios as Array<Record<string, unknown>>).map(
+    (scenario, index) => ({
+      ...scenario,
+      assumptions: [{
+        answerKind: 'OPTION',
+        dimensionKey: 'ingredient-amount:oil',
+        questionKind: 'INGREDIENT_AMOUNT',
+        optionCode: index === 0 ? 'less' : 'more',
+        optionLabel: index === 0 ? 'Less' : 'More',
+        origin: 'MODEL_INFERRED',
+        evidence: { origin: 'MODEL_INFERRED', text: 'The oil amount is uncertain.' },
+      }],
+    })
+  );
+  sabzi.scenarios = scenarios;
+  value.components = [sabzi];
+  const parsed = parseAndValidateInterpretation(value, input);
+  assert.equal(parsed.outcome, 'FOOD');
+  if (parsed.outcome !== 'FOOD') return;
+  const resolved = resolveInterpretation(parsed, nutritionReferences(parsed));
+  const questions = planNutritionQuestions(resolved);
+  const amountQuestion = questions.find(
+    (question) => question.target.dimension === 'INGREDIENT_AMOUNT'
+  );
+  assert.ok(amountQuestion);
+  assert.equal(amountQuestion.prompt, 'How much Oil was in the Kaddu sabzi?');
+});
 
 test('calculation uses exactly one FINISHED_MASS or UNIT_COUNT scale', () => {
   const proposal = foodProposal();

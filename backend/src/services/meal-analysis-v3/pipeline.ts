@@ -9,11 +9,16 @@ import {
   type QuestionAnswer,
 } from './calculation.js';
 import {
+  mealTypeCandidateSchema,
   normalizedMealInputSchema,
   parseAndValidateInterpretation,
+  questionKindSchema,
+  resolvedInterpretationSchema,
+  type MealTypeCandidate,
   type NormalizedMealInput,
   type ResolvedInterpretation,
 } from './domain.js';
+import type { MealAnalysisLlmAttempt } from '../meal-analysis/llm.js';
 import {
   createModelMealInterpreter,
   type MealInterpretationImage,
@@ -21,6 +26,7 @@ import {
   type MealInterpreter,
 } from './interpretation.js';
 import {
+  MEAL_TYPES,
   resolveMealType,
   type MealType,
   type MealTypeQuestion,
@@ -78,6 +84,94 @@ export interface MealAnalysisInputResponse {
   mealTypeAnswer?: MealType;
 }
 
+/**
+ * Everything a paused NEEDS_INPUT session needs to finish deterministically:
+ * /answer replays from this snapshot instead of re-running interpretation,
+ * so the questions a user answered can never diverge from the re-planned set.
+ */
+export interface MealAnalysisV3InterpretationSnapshot {
+  resolved: ResolvedInterpretation;
+  questions: MealAnalysisQuestionBundle;
+  mealTypeCandidate: MealTypeCandidate;
+  generatedCopy?: { mealName: string | null; servingSizeText: string | null; tip: string };
+  providerAttempts: MealAnalysisLlmAttempt[];
+}
+
+const generatedCopySchema = z.object({
+  mealName: z.string().min(1).nullable(),
+  servingSizeText: z.string().min(1).nullable(),
+  tip: z.string().min(1),
+}).strict();
+
+const providerAttemptSchema = z.object({
+  operation: z.string().optional(),
+  provider: z.enum(['openrouter', 'openai']),
+  model: z.string().min(1),
+  outcome: z.enum(['success', 'error']),
+  durationMs: z.number().finite().min(0),
+  errorKind: z.string().optional(),
+});
+
+const questionResponseSchema = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('OPTION'),
+    options: z.array(z.object({
+      optionId: z.string().min(1),
+      label: z.string().min(1),
+    })).min(2),
+  }),
+  z.object({
+    kind: z.literal('NUMBER'),
+    unitCode: z.string().min(1),
+    min: z.number().finite(),
+    max: z.number().finite(),
+    step: z.number().positive(),
+    integerOnly: z.boolean(),
+  }),
+]);
+
+const nutritionQuestionSchema = z.object({
+  questionId: z.string().min(1),
+  scope: z.literal('NUTRITION'),
+  target: z.object({
+    componentId: z.string().min(1),
+    dimension: questionKindSchema,
+    dimensionKey: z.string().min(1),
+  }),
+  prompt: z.string().min(1),
+  response: questionResponseSchema,
+  allowUseEstimate: z.literal(true),
+  impactScore: z.number().finite(),
+});
+
+const mealTypeQuestionSchema = z.object({
+  questionId: z.literal('meal-type'),
+  scope: z.literal('MEAL_TYPE'),
+  prompt: z.string().min(1),
+  options: z.array(z.object({
+    optionId: z.enum(MEAL_TYPES),
+    label: z.string().min(1),
+  })),
+});
+
+const questionBundleSchema = z.object({
+  nutritionQuestions: z.array(nutritionQuestionSchema),
+  mealTypeQuestion: mealTypeQuestionSchema.optional(),
+}).strict();
+
+const interpretationSnapshotSchema = z.object({
+  resolved: resolvedInterpretationSchema,
+  questions: questionBundleSchema,
+  mealTypeCandidate: mealTypeCandidateSchema,
+  generatedCopy: generatedCopySchema.optional(),
+  providerAttempts: z.array(providerAttemptSchema),
+}).strict();
+
+/** Validates a persisted interpretation snapshot before a deterministic replay. */
+export function parseInterpretationSnapshot(value: unknown): MealAnalysisV3InterpretationSnapshot {
+  return interpretationSnapshotSchema.parse(value);
+}
+
 export type MealAnalysisV3Result =
   | CompleteMealAnalysisResult
   | { outcome: 'NEEDS_INPUT'; questions: MealAnalysisQuestionBundle }
@@ -99,6 +193,7 @@ export interface RunMealAnalysisV3Options {
   requestInput?: (
     questions: MealAnalysisQuestionBundle
   ) => Promise<MealAnalysisInputResponse>;
+  onInterpretationSnapshot?: (snapshot: MealAnalysisV3InterpretationSnapshot) => void;
   observer?: StageObserver;
   interpretationObserver?: (snapshot: MealInterpretationPassSnapshot) => void;
   interpreter?: MealInterpreter;
@@ -109,11 +204,11 @@ export interface RunMealAnalysisV3Options {
 
 const NOOP_OBSERVER: StageObserver = () => {};
 
-function mealTypeHint(proposal: Extract<
-  ReturnType<typeof parseAndValidateInterpretation>,
-  { outcome: 'FOOD' }
->) {
-  const candidate = proposal.mealTypeCandidate;
+function mealTypeHint(candidate: MealTypeCandidate): {
+  value: MealType;
+  origin: 'USER_TEXT' | 'MODEL_INFERRED';
+  confidence: number;
+} | undefined {
   if (candidate.value === null) return undefined;
   if (candidate.origin !== 'USER_TEXT' && candidate.origin !== 'MODEL_INFERRED') {
     return undefined;
@@ -127,13 +222,13 @@ function mealTypeHint(proposal: Extract<
 
 function initialMealTypeResolution(
   input: NormalizedMealInput,
-  proposal: Extract<ReturnType<typeof parseAndValidateInterpretation>, { outcome: 'FOOD' }>,
+  candidate: MealTypeCandidate,
   answer: MealType | undefined,
   requestReceivedAt: string
 ): MealTypeResolution {
   return resolveMealType({
     answer,
-    hint: mealTypeHint(proposal),
+    hint: mealTypeHint(candidate),
     inputKind: input.kind,
     imageOrigin: input.kind === 'IMAGE' ? input.imageOrigin : undefined,
     capturedAt: input.context.capturedAt,
@@ -262,13 +357,13 @@ export async function runMealAnalysisV3(
     return terminal(recorder, unresolvedNutrition(nutritionStage.run));
   }
 
-  let resolved: ResolvedInterpretation = nutritionStage.resolved;
-  let calculation: CalculatedMeal = await recorder.record('CALCULATED', resolved, () =>
+  const resolved: ResolvedInterpretation = nutritionStage.resolved;
+  const calculation: CalculatedMeal = await recorder.record('CALCULATED', resolved, () =>
     calculateMeal(resolved)
   );
   const initialMealType = initialMealTypeResolution(
     input,
-    proposal,
+    proposal.mealTypeCandidate,
     options.mealTypeAnswer,
     requestReceivedAt
   );
@@ -282,22 +377,81 @@ export async function runMealAnalysisV3(
     } satisfies MealAnalysisQuestionBundle;
   });
 
-  let nutritionAnswers = parseAnswers(options.nutritionAnswers);
-  let mealTypeAnswer = options.mealTypeAnswer;
+  return applyAnswersAndFinalize({
+    recorder,
+    input,
+    requestReceivedAt,
+    mealTypeCandidate: proposal.mealTypeCandidate,
+    generatedCopy: interpreted.firstPass?.food_detected
+      ? {
+        mealName: interpreted.firstPass.mealName,
+        servingSizeText: interpreted.firstPass.servingSizeText,
+        tip: interpreted.firstPass.tip,
+      }
+      : undefined,
+    providerAttempts: interpreted.providerAttempts,
+    resolved,
+    calculation,
+    questions,
+    initialMealType,
+    nutritionAnswers: parseAnswers(options.nutritionAnswers),
+    mealTypeAnswer: options.mealTypeAnswer,
+    requestInput: options.requestInput,
+    presenter: options.presenter ?? createMealPresenter(),
+    emitSnapshot: options.onInterpretationSnapshot,
+  });
+}
+
+/**
+ * Shared tail of both entry points: applies supplied answers, resolves the
+ * meal type, presents, and integrity-checks. `emitSnapshot` fires only on the
+ * route-reachable NEEDS_INPUT pause (answers missing and no requestInput
+ * callback), where `resolved` is still the pre-answer state a deterministic
+ * /answer replay needs.
+ */
+async function applyAnswersAndFinalize(params: {
+  recorder: StageRecorder;
+  input: NormalizedMealInput;
+  requestReceivedAt: string;
+  mealTypeCandidate: MealTypeCandidate;
+  generatedCopy: MealAnalysisV3InterpretationSnapshot['generatedCopy'];
+  providerAttempts: MealAnalysisLlmAttempt[];
+  resolved: ResolvedInterpretation;
+  calculation: CalculatedMeal;
+  questions: MealAnalysisQuestionBundle;
+  initialMealType: MealTypeResolution;
+  nutritionAnswers: QuestionAnswer[] | undefined;
+  mealTypeAnswer: MealType | undefined;
+  requestInput?: (questions: MealAnalysisQuestionBundle) => Promise<MealAnalysisInputResponse>;
+  presenter: MealPresenter;
+  emitSnapshot?: (snapshot: MealAnalysisV3InterpretationSnapshot) => void;
+}): Promise<MealAnalysisV3Result> {
+  const { recorder, input, requestReceivedAt, mealTypeCandidate, generatedCopy, providerAttempts } = params;
+  let { resolved, calculation } = params;
+  const { questions, initialMealType } = params;
+  let nutritionAnswers = params.nutritionAnswers;
+  let mealTypeAnswer = params.mealTypeAnswer;
   const nutritionInputMissing = questions.nutritionQuestions.length > 0 && nutritionAnswers === undefined;
   const mealTypeInputMissing = initialMealType.status === 'NEEDS_INPUT' && mealTypeAnswer === undefined;
   if (nutritionInputMissing || mealTypeInputMissing) {
-    if (!options.requestInput) {
+    if (!params.requestInput) {
       await recorder.skip('ANSWERS_APPLIED', questions.nutritionQuestions, 'answers not supplied');
       await recorder.skip('RECALCULATED', calculation, 'answers not supplied');
       await recorder.record('MEAL_TYPE_RESOLVED', {
-        hint: proposal.mealTypeCandidate,
+        hint: mealTypeCandidate,
         answer: mealTypeAnswer ?? null,
       }, () => initialMealType);
       await skipStages(recorder, ['PRESENTED', 'INTEGRITY_CHECKED'], 'input is required');
+      params.emitSnapshot?.({
+        resolved,
+        questions,
+        mealTypeCandidate,
+        ...(generatedCopy === undefined ? {} : { generatedCopy }),
+        providerAttempts,
+      });
       return terminal(recorder, { outcome: 'NEEDS_INPUT', questions });
     }
-    const response = await options.requestInput(questions);
+    const response = await params.requestInput(questions);
     nutritionAnswers = nutritionAnswers ?? parseAnswers(response.nutritionAnswers);
     mealTypeAnswer = mealTypeAnswer ?? response.mealTypeAnswer;
   }
@@ -322,42 +476,29 @@ export async function runMealAnalysisV3(
   }
 
   const finalMealType = await recorder.record('MEAL_TYPE_RESOLVED', {
-    hint: proposal.mealTypeCandidate,
+    hint: mealTypeCandidate,
     answer: mealTypeAnswer ?? null,
-  }, () => initialMealTypeResolution(input, proposal, mealTypeAnswer, requestReceivedAt));
+  }, () => initialMealTypeResolution(input, mealTypeCandidate, mealTypeAnswer, requestReceivedAt));
   if (finalMealType.status === 'NEEDS_INPUT') {
     await skipStages(recorder, ['PRESENTED', 'INTEGRITY_CHECKED'], 'meal type answer is required');
     return terminal(recorder, { outcome: 'NEEDS_INPUT', questions });
   }
 
   const beforePresentation = JSON.stringify({ resolved, calculation });
-  const presenter = options.presenter ?? createMealPresenter();
   const presentation = await recorder.record('PRESENTED', {
     components: resolved.components,
     mealType: finalMealType,
     locale: input.context.locale,
     countryCode: input.context.countryCode,
-    generatedCopy: interpreted.firstPass?.food_detected
-      ? {
-        mealName: interpreted.firstPass.mealName,
-        servingSizeText: interpreted.firstPass.servingSizeText,
-        tip: interpreted.firstPass.tip,
-      }
-      : undefined,
-    providerAttempts: interpreted.providerAttempts,
-  }, () => presenter.present({
+    generatedCopy,
+    providerAttempts,
+  }, () => params.presenter.present({
     interpretation: resolved,
     mealType: finalMealType,
     locale: input.context.locale,
     countryCode: input.context.countryCode,
-    generatedCopy: interpreted.firstPass?.food_detected
-      ? {
-        mealName: interpreted.firstPass.mealName,
-        servingSizeText: interpreted.firstPass.servingSizeText,
-        tip: interpreted.firstPass.tip,
-      }
-      : undefined,
-    providerAttempts: interpreted.providerAttempts,
+    generatedCopy,
+    providerAttempts,
   }));
   const result = await recorder.record('INTEGRITY_CHECKED', {
     resolved,
@@ -372,4 +513,56 @@ export async function runMealAnalysisV3(
     return complete;
   });
   return terminal(recorder, result);
+}
+
+export interface ResumeMealAnalysisV3Options {
+  input: unknown;
+  snapshot: unknown;
+  nutritionAnswers?: unknown[];
+  mealTypeAnswer?: MealType;
+  requestReceivedAt?: string;
+  observer?: StageObserver;
+  presenter?: MealPresenter;
+}
+
+/**
+ * Deterministic /answer replay: finishes a paused session from the stored
+ * interpretation snapshot without re-running interpretation or USDA lookup,
+ * so the answered question bundle can never diverge from the applied one.
+ */
+export async function resumeMealAnalysisV3FromSnapshot(
+  options: ResumeMealAnalysisV3Options
+): Promise<MealAnalysisV3Result> {
+  const recorder = createStageRecorder(options.observer ?? NOOP_OBSERVER);
+  const requestReceivedAt = options.requestReceivedAt ?? new Date().toISOString();
+  const input = await recorder.record('INPUT_NORMALIZED', options.input, () =>
+    normalizedMealInputSchema.parse(options.input)
+  );
+  const snapshot = parseInterpretationSnapshot(options.snapshot);
+  await skipStages(recorder, ['INTERPRETED', 'VALIDATED', 'NUTRITION_RESOLVED'], 'replayed from the stored interpretation snapshot');
+  const calculation = await recorder.record('CALCULATED', snapshot.resolved, () =>
+    calculateMeal(snapshot.resolved)
+  );
+  const initialMealType = initialMealTypeResolution(
+    input,
+    snapshot.mealTypeCandidate,
+    options.mealTypeAnswer,
+    requestReceivedAt
+  );
+  const questions = await recorder.record('QUESTIONS_PLANNED', calculation, () => snapshot.questions);
+  return applyAnswersAndFinalize({
+    recorder,
+    input,
+    requestReceivedAt,
+    mealTypeCandidate: snapshot.mealTypeCandidate,
+    generatedCopy: snapshot.generatedCopy,
+    providerAttempts: snapshot.providerAttempts,
+    resolved: snapshot.resolved,
+    calculation,
+    questions,
+    initialMealType,
+    nutritionAnswers: parseAnswers(options.nutritionAnswers),
+    mealTypeAnswer: options.mealTypeAnswer,
+    presenter: options.presenter ?? createMealPresenter(),
+  });
 }

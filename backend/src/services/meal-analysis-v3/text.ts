@@ -24,3 +24,9 @@ export function matchableText(value: string): string {
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
 }
+
+/** Stable ASCII slug shared by scenario/leaf IDs and dimension keys. */
+export function slug(value: string): string {
+  const result = value.normalize('NFKD').replace(/[^A-Za-z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+  return result.slice(0, 48) || 'item';
+}

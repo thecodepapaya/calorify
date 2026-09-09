@@ -8,6 +8,7 @@ import {
   type ImageUploadRateLimitHook,
 } from '../../middleware/foodRateLimit.js';
 import {
+  resumeMealAnalysisV3FromSnapshot,
   runMealAnalysisV3,
   type MealAnalysisQuestionBundle,
   type MealAnalysisV3Result,
@@ -98,6 +99,7 @@ interface V3Session {
   failure?: MealAnalysisV3PublicError & { failedAt: string };
   nutritionAnswers?: z.infer<typeof answerSchema>[];
   mealTypeAnswer?: 'BREAKFAST' | 'LUNCH' | 'DINNER' | 'SNACK';
+  interpretationSnapshot?: unknown;
 }
 
 const sessions = new Map<string, V3Session>();
@@ -117,6 +119,7 @@ async function remember(key: string, session: V3Session): Promise<boolean> {
     failure: session.failure,
     nutritionAnswers: session.nutritionAnswers,
     mealTypeAnswer: session.mealTypeAnswer,
+    interpretationSnapshot: session.interpretationSnapshot,
   });
   if (!saved) return false;
   sessions.delete(key);
@@ -145,6 +148,7 @@ async function recall(userId: string, analysisId: string): Promise<V3Session | u
     failure: stored.failure as V3Session['failure'],
     nutritionAnswers: stored.nutritionAnswers as z.infer<typeof answerSchema>[] | undefined,
     mealTypeAnswer: stored.mealTypeAnswer as V3Session['mealTypeAnswer'],
+    interpretationSnapshot: stored.interpretationSnapshot,
   };
   sessions.set(key, session);
   return session;
@@ -257,7 +261,11 @@ function startStream(reply: FastifyReply, analysisId: string): void {
   reply.raw.write(`${JSON.stringify({ event: 'STARTED', analysisId, data: {} })}\n`);
 }
 
-async function runSession(reply: FastifyReply, session: V3Session): Promise<void> {
+async function streamSessionResult(
+  reply: FastifyReply,
+  session: V3Session,
+  run: (emitProgress: (progress: MealAnalysisV3Progress) => void) => Promise<MealAnalysisV3Result>
+): Promise<void> {
   const analysisId = session.input.analysisId;
   startStream(reply, analysisId);
   const emitProgress = (progress: MealAnalysisV3Progress): void => {
@@ -269,39 +277,7 @@ async function runSession(reply: FastifyReply, session: V3Session): Promise<void
     })}\n`);
   };
   try {
-    let image: { bytes: Uint8Array; mediaType: 'image/webp' } | undefined;
-    const normalizedInput = 'imageId' in session.input
-      ? {
-          kind: 'IMAGE' as const,
-          imageId: session.input.imageId,
-          imageOrigin: session.input.imageOrigin,
-          context: session.input.context,
-        }
-      : {
-          kind: 'TEXT' as const,
-          text: session.input.text,
-          context: session.input.context,
-        };
-    if (normalizedInput.kind === 'IMAGE') {
-      const response = await fetch(buildOracleDownloadUrl(normalizedInput.imageId), {
-        signal: AbortSignal.timeout(15_000),
-      });
-      if (!response.ok) throw new Error(`Image download failed with status ${response.status}`);
-      image = { bytes: new Uint8Array(await response.arrayBuffer()), mediaType: 'image/webp' };
-    }
-    const result = await runMealAnalysisV3({
-      input: normalizedInput,
-      image,
-      nutritionAnswers: session.nutritionAnswers,
-      mealTypeAnswer: session.mealTypeAnswer,
-      interpretationObserver(snapshot) {
-        emitProgress(buildMealAnalysisV3PassProgress(snapshot));
-      },
-      observer(observation) {
-        const progress = buildMealAnalysisV3Progress(observation);
-        if (progress) emitProgress(progress);
-      },
-    });
+    const result = await run(emitProgress);
     session.result = result;
     session.failure = undefined;
     await remember(sessionKey(session.userId, analysisId), session);
@@ -337,6 +313,70 @@ async function runSession(reply: FastifyReply, session: V3Session): Promise<void
   } finally {
     reply.raw.end();
   }
+}
+
+/** Maps the stored request body onto the pipeline's discriminated input shape. */
+function normalizedSessionInput(session: V3Session):
+  | { kind: 'IMAGE'; imageId: string; imageOrigin: 'CAMERA_NOW' | 'GALLERY'; context: z.infer<typeof mealContextSchema> }
+  | { kind: 'TEXT'; text: string; context: z.infer<typeof mealContextSchema> } {
+  return 'imageId' in session.input
+    ? {
+        kind: 'IMAGE' as const,
+        imageId: session.input.imageId,
+        imageOrigin: session.input.imageOrigin,
+        context: session.input.context,
+      }
+    : {
+        kind: 'TEXT' as const,
+        text: session.input.text,
+        context: session.input.context,
+      };
+}
+
+async function runSession(reply: FastifyReply, session: V3Session): Promise<void> {
+  await streamSessionResult(reply, session, async (emitProgress) => {
+    let image: { bytes: Uint8Array; mediaType: 'image/webp' } | undefined;
+    const normalizedInput = normalizedSessionInput(session);
+    if (normalizedInput.kind === 'IMAGE') {
+      const response = await fetch(buildOracleDownloadUrl(normalizedInput.imageId), {
+        signal: AbortSignal.timeout(15_000),
+      });
+      if (!response.ok) throw new Error(`Image download failed with status ${response.status}`);
+      image = { bytes: new Uint8Array(await response.arrayBuffer()), mediaType: 'image/webp' };
+    }
+    return runMealAnalysisV3({
+      input: normalizedInput,
+      image,
+      nutritionAnswers: session.nutritionAnswers,
+      mealTypeAnswer: session.mealTypeAnswer,
+      onInterpretationSnapshot: (snapshot) => {
+        session.interpretationSnapshot = snapshot;
+      },
+      interpretationObserver(snapshot) {
+        emitProgress(buildMealAnalysisV3PassProgress(snapshot));
+      },
+      observer(observation) {
+        const progress = buildMealAnalysisV3Progress(observation);
+        if (progress) emitProgress(progress);
+      },
+    });
+  });
+}
+
+/** Finishes a paused session from its stored interpretation snapshot; no model calls. */
+async function runSessionFromSnapshot(reply: FastifyReply, session: V3Session): Promise<void> {
+  await streamSessionResult(reply, session, async (emitProgress) =>
+    resumeMealAnalysisV3FromSnapshot({
+      input: normalizedSessionInput(session),
+      snapshot: session.interpretationSnapshot,
+      nutritionAnswers: session.nutritionAnswers,
+      mealTypeAnswer: session.mealTypeAnswer,
+      observer(observation) {
+        const progress = buildMealAnalysisV3Progress(observation);
+        if (progress) emitProgress(progress);
+      },
+    })
+  );
 }
 
 export interface FoodRoutesV3Options {
@@ -440,6 +480,12 @@ export async function foodRoutesV3(
     if (!answersMatchBundle(body.answers, expected)) {
       return reply.status(400).send(createErrorResponse('Answers do not match the pending bundle'));
     }
+    // Deterministic replay requires the interpretation snapshot captured when
+    // the session paused on NEEDS_INPUT. Sessions from before that column
+    // exists have no fallback: the client must analyze the meal again.
+    if (session.interpretationSnapshot === undefined) {
+      return reply.status(409).send(createErrorResponse('This analysis predates clarification memory; analyze the meal again'));
+    }
     const mealTypeAnswer = body.answers.find(({ questionId }) => questionId === 'meal-type');
     if (mealTypeAnswer && mealTypeAnswer.kind !== 'OPTION') {
       return reply.status(400).send(createErrorResponse('Meal type requires an option'));
@@ -449,7 +495,7 @@ export async function foodRoutesV3(
       : undefined;
     session.nutritionAnswers = body.answers.filter(({ questionId }) => questionId !== 'meal-type');
     await remember(sessionKey(userId, body.analysisId), session);
-    await runSession(reply, session);
+    await runSessionFromSnapshot(reply, session);
   });
 
   fastify.post('/resume', {

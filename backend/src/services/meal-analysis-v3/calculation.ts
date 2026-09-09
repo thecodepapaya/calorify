@@ -1,4 +1,5 @@
 import { interpretationProposalSchema } from './domain.js';
+import { slug } from './text.js';
 import type {
   FoodInterpretationProposal,
   MacroEstimate,
@@ -257,7 +258,11 @@ export function planNutritionQuestions(
           dimension: first.questionKind,
           dimensionKey,
         },
-        prompt: questionPrompt(component.displayName, first.questionKind),
+        prompt: questionPrompt(
+          component.displayName,
+          first.questionKind,
+          ingredientDisplayName(component, first.dimensionKey)
+        ),
         response,
         allowUseEstimate: true,
         impactScore: 0,
@@ -691,17 +696,41 @@ function normalizedWidthScore(
   ));
 }
 
-function questionPrompt(componentName: string, kind: NutritionQuestionKind): string {
+function questionPrompt(
+  componentName: string,
+  kind: NutritionQuestionKind,
+  ingredientName?: string
+): string {
   switch (kind) {
     case 'COUNT': return `How many ${componentName} did you have?`;
     case 'UNIT_SIZE': return `What size was each ${componentName}?`;
     case 'TOTAL_AMOUNT': return `How much ${componentName} did you have?`;
     case 'INGREDIENT_VARIANT': return `Which kind of ${componentName} was it?`;
-    case 'INGREDIENT_AMOUNT': return `How much of the uncertain ingredient was in the ${componentName}?`;
+    case 'INGREDIENT_AMOUNT':
+      // The user cannot answer about an unnamed ingredient; always name it
+      // when the dimension identifies one.
+      return ingredientName === undefined
+        ? `How much of the uncertain ingredient was in the ${componentName}?`
+        : `How much ${ingredientName} was in the ${componentName}?`;
     case 'INGREDIENT_PRESENCE': return `Which ingredients were in the ${componentName}?`;
     case 'PREPARATION': return `How was the ${componentName} prepared?`;
     case 'ADDED_OR_RETAINED_FAT': return `How much oil or fat was in the ${componentName}?`;
   }
+}
+
+/** Resolves the ingredient display name encoded in an ingredient-scoped dimension key. */
+function ingredientDisplayName(
+  component: ResolvedComponent,
+  dimensionKey: string
+): string | undefined {
+  const separator = dimensionKey.indexOf(':');
+  if (separator < 0) return undefined;
+  if (dimensionKey.slice(0, separator) !== 'ingredient-amount') return undefined;
+  const target = dimensionKey.slice(separator + 1);
+  const leaves = component.scenarios[0]?.ingredients ?? [];
+  const match = leaves.find((leaf) => slug(leaf.displayName) === target) ??
+    leaves.find((leaf) => leaf.leafId === target);
+  return match?.displayName;
 }
 
 function questionId(componentId: string, dimensionKey: string): string {

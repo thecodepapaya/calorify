@@ -9,6 +9,7 @@ export interface StoredMealAnalysisV3Session {
   failure?: unknown;
   nutritionAnswers?: unknown;
   mealTypeAnswer?: string;
+  interpretationSnapshot?: unknown;
 }
 
 export const ANALYSIS_HISTORY_PAGE_SIZE = 10;
@@ -41,6 +42,7 @@ interface SessionRow {
   failure_data: unknown | null;
   nutrition_answers: unknown | null;
   meal_type_answer: string | null;
+  interpretation_snapshot: unknown | null;
 }
 
 interface HistoryRow extends SessionRow {
@@ -116,7 +118,8 @@ export async function loadMealAnalysisV3Session(
 ): Promise<StoredMealAnalysisV3Session | undefined> {
   const result = await query<SessionRow>(
     `SELECT user_id, analysis_id, input_data, input_digest, result_data,
-            failure_data, nutrition_answers, meal_type_answer
+            failure_data, nutrition_answers, meal_type_answer,
+            interpretation_snapshot
        FROM meal_analysis_v3_session
       WHERE user_id = $1 AND analysis_id = $2`,
     [userId, analysisId]
@@ -132,6 +135,9 @@ export async function loadMealAnalysisV3Session(
     ...(row.failure_data == null ? {} : { failure: asOptionalJson(row.failure_data) }),
     ...(row.nutrition_answers == null ? {} : { nutritionAnswers: row.nutrition_answers }),
     ...(row.meal_type_answer == null ? {} : { mealTypeAnswer: row.meal_type_answer }),
+    ...(row.interpretation_snapshot == null
+      ? {}
+      : { interpretationSnapshot: asOptionalJson(row.interpretation_snapshot) }),
   };
 }
 
@@ -141,8 +147,9 @@ export async function saveMealAnalysisV3Session(
   const result = await query(
     `INSERT INTO meal_analysis_v3_session (
        user_id, analysis_id, input_data, input_digest, result_data,
-       nutrition_answers, meal_type_answer, failure_data, updated_at
-     ) VALUES ($1, $2, $3::jsonb, $4, $5::jsonb, $6::jsonb, $7, $8::jsonb, NOW())
+       nutrition_answers, meal_type_answer, failure_data,
+       interpretation_snapshot, updated_at
+     ) VALUES ($1, $2, $3::jsonb, $4, $5::jsonb, $6::jsonb, $7, $8::jsonb, $9::jsonb, NOW())
      ON CONFLICT (user_id, analysis_id) DO UPDATE SET
        input_data = EXCLUDED.input_data,
        input_digest = EXCLUDED.input_digest,
@@ -150,6 +157,7 @@ export async function saveMealAnalysisV3Session(
        nutrition_answers = EXCLUDED.nutrition_answers,
        meal_type_answer = EXCLUDED.meal_type_answer,
        failure_data = EXCLUDED.failure_data,
+       interpretation_snapshot = EXCLUDED.interpretation_snapshot,
        updated_at = NOW()
      WHERE meal_analysis_v3_session.input_digest = EXCLUDED.input_digest`,
     [
@@ -163,6 +171,9 @@ export async function saveMealAnalysisV3Session(
         : JSON.stringify(session.nutritionAnswers),
       session.mealTypeAnswer ?? null,
       session.failure === undefined ? null : JSON.stringify(session.failure),
+      session.interpretationSnapshot === undefined
+        ? null
+        : JSON.stringify(session.interpretationSnapshot),
     ]
   );
   return result.rowCount === 1;

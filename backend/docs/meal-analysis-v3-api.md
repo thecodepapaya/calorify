@@ -34,14 +34,13 @@ resolver candidates, and database details never cross this boundary. Clients
 retain the latest non-empty copy fields and preserve populated ingredient lists
 when a component-only snapshot is replayed by a clarification stream.
 
-`NEEDS_INPUT` closes the initial stream. The current answer adapter reruns the
-pipeline and therefore its new stream reports early stage values again. A UI
-must keep one analysis-scoped high-water mark across both streams: ignore a
-numeric/phase regression while still accepting newer non-empty meal and
-ingredient copy. The app normally pauses at `0.80` and resumes visible progress
-at `0.82`. This client rule avoids a second visual fill; it does not mean the
-backend has checkpointed the repeated work. The complete stage/value mapping
-and checkpointing roadmap are in the
+`NEEDS_INPUT` closes the initial stream. The answer adapter replays from the
+stored interpretation snapshot, so its stream skips the interpretation stages
+and reports progress from `CALCULATED` onward. A UI should still keep one
+analysis-scoped high-water mark across both streams: ignore a numeric/phase
+regression while still accepting newer non-empty meal and ingredient copy. The
+app normally pauses at `0.80` and resumes visible progress at `0.82`. The
+complete stage/value mapping is in the
 [cross-component architecture](../../docs/plans/meal-analysis-reliability.md#8-progress-and-rich-loading-ui).
 
 `ERROR.data.code` is a bounded public category, never a raw exception message:
@@ -69,11 +68,14 @@ question exactly once using an option ID from the supplied choices. The
 ## Session behavior
 
 The backend stores validated input, the latest result, accepted answers,
-feedback, and log state in `meal_analysis_v3_session`. Retrying an analysis ID
-with different input returns a conflict. Resume and mutations remain scoped to
-the original authenticated user. This is result-level persistence: it does not
-yet persist interpretation and resolution checkpoints, so answering can repeat
-provider and USDA work.
+feedback, log state, and — for sessions paused on `NEEDS_INPUT` — the
+nutrition-resolved interpretation snapshot in `meal_analysis_v3_session`.
+Retrying an analysis ID with different input returns a conflict. Resume and
+mutations remain scoped to the original authenticated user. `/answer` replays
+from the snapshot deterministically: no provider or USDA work repeats, and the
+answered bundle can never diverge from the applied questions. Sessions stored
+before the snapshot column existed have no replay path; answering them returns
+a conflict and the meal must be analyzed again.
 
 A run that fails after the durable row exists records its terminal public
 error in `failure_data` (`code`, `retryable`, `recoveryAction`, `failedAt`),

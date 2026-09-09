@@ -14,7 +14,7 @@ import {
   type ScenarioAssumption,
 } from './domain.js';
 import { MEAL_TYPES } from './mealType.js';
-import { normalized } from './text.js';
+import { normalized, slug } from './text.js';
 
 const label = z.string().trim().min(1).max(160);
 // Models commonly represent an optional JSON field as null. Normalize that
@@ -379,7 +379,7 @@ The first-pass JSON is supplied in the user message. For every meal item, return
 - Use origin=user_stated only when the original meal input explicitly specifies the ingredient or its amount in any form, including volumes and household measures the model converts to grams.
 - A variation may only reference an ingredient that appears in the same meal item's ingredients list. Never declare a variation for an ingredient the input explicitly excluded; omit both the ingredient and its variation instead.
 - Declare only plausible material uncertainty using the standardized variationType enum. Numeric uncertainty lives in amountGrams min/estimate/max; an INGREDIENT_AMOUNT or INGREDIENT_PRESENCE variation references that ingredient without repeating numeric options.
-- Declare an INGREDIENT_AMOUNT variation only for an ingredient whose origin is user_stated. The user cannot quantify an ingredient they never mentioned; for a model-inferred ingredient, keep that uncertainty in the amountGrams range without declaring the variation.
+- Declare an INGREDIENT_AMOUNT variation for a model-inferred ingredient whose finished amount is materially uncertain; the app asks the user a relative less/typical/more quantity question that names the ingredient. Never declare one for a user_stated ingredient: the user already quantified it, so keep its amount clamped in the ingredient amountGrams.
 - INGREDIENT_VARIANT alternatives contain USDA-style canonical identities such as "milk, skim" or "milk, whole", excluding the baseline canonicalIdentity. PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
 - Portion, count, and unit-size uncertainty belongs only in the first-pass ranges, not in variations.
 
@@ -415,11 +415,6 @@ interface Dimension {
   origin: 'USER_TEXT' | 'MODEL_INFERRED';
   numeric?: { unitCode: 'COUNT' | 'GRAM'; min: number; max: number; step: number; integerOnly: boolean };
   options: DimensionOption[];
-}
-
-function slug(value: string): string {
-  const result = value.normalize('NFKD').replace(/[^A-Za-z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
-  return result.slice(0, 48) || 'item';
 }
 
 function uniqueId(base: string, used: Set<string>): string {
@@ -555,13 +550,26 @@ function createDimensions(
     if (variation.variationType === 'INGREDIENT_AMOUNT' && ingredient) {
       const range = ingredient.amountGrams;
       if (range.min !== range.max) {
+        const origin = internalOrigin(range.origin, input);
+        const options = numericOptions([range.min, range.estimate, range.max], range.estimate, (state, value) =>
+          replaceIngredient(state, ingredient.ingredientName, (item) => value === 0 ? null : { ...item, grams: value })
+        );
         dimension = {
           key: `ingredient-amount:${slug(ingredient.ingredientName)}`,
           questionKind: 'INGREDIENT_AMOUNT',
-          origin: internalOrigin(range.origin, input),
-          options: numericOptions([range.min, range.estimate, range.max], range.estimate, (state, value) =>
-            replaceIngredient(state, ingredient.ingredientName, (item) => value === 0 ? null : { ...item, grams: value })
-          ).map((option) => ({ ...option, label: `${option.numericValue} g`, numericValue: undefined })),
+          origin,
+          // User-stated amounts may read as grams; a model-inferred ingredient
+          // must never ask the user to estimate grams, so its options stay
+          // relative (Less/Typical/More).
+          options:
+            origin === 'USER_TEXT'
+              ? options.map((option) => ({ ...option, label: `${option.numericValue} g`, numericValue: undefined }))
+              : options.map((option, index, all) => ({
+                ...option,
+                code: index === 0 ? 'less' : index === all.length - 1 ? 'more' : 'typical',
+                label: index === 0 ? 'Less' : index === all.length - 1 ? 'More' : 'Typical',
+                numericValue: undefined,
+              })),
         };
       }
     } else if (variation.variationType === 'INGREDIENT_PRESENCE' && ingredient) {

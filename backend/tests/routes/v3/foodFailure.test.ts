@@ -10,6 +10,10 @@ const runMealAnalysisV3 = mock.fn(async () => {
   throw new Error('provider exploded');
 });
 
+const resumeMealAnalysisV3FromSnapshot = mock.fn(async () => {
+  throw new Error('resumeMealAnalysisV3FromSnapshot is not expected in these tests');
+});
+
 let storedRow: Record<string, unknown> | null = null;
 let lastSave: { sql: string; params: unknown[] } | null = null;
 
@@ -77,7 +81,7 @@ await mock.module('../../../src/services/infrastructure/database.js', {
 });
 
 await mock.module('../../../src/services/meal-analysis-v3/pipeline.js', {
-  namedExports: { runMealAnalysisV3 },
+  namedExports: { runMealAnalysisV3, resumeMealAnalysisV3FromSnapshot },
 });
 
 await mock.module('../../../src/utils/locale.js', {
@@ -120,6 +124,96 @@ test('persists a terminal failure state when the pipeline fails', async () => {
     assert.equal(failure.retryable, true);
     assert.equal(failure.recoveryAction, 'RETRY');
     assert.equal(typeof failure.failedAt, 'string');
+  } finally {
+    await app.close();
+  }
+});
+
+test('answer replays from the stored snapshot with a normalized pipeline input', async () => {
+  const snapshot = {
+    resolved: {
+      outcome: 'FOOD',
+      mealName: 'Roti',
+      components: [],
+      mealTypeCandidate: { value: null, origin: 'MODEL_INFERRED', confidence: 0.2, evidence: null },
+    },
+    questions: { nutritionQuestions: [] },
+  };
+  storedRow = {
+    user_id: 'user-123',
+    analysis_id: '33333333-3333-4333-8333-333333333333',
+    input_data: {
+      analysisId: '33333333-3333-4333-8333-333333333333',
+      text: '4 roti',
+      context,
+    },
+    input_digest: 'digest',
+    result_data: {
+      outcome: 'NEEDS_INPUT',
+      questions: {
+        nutritionQuestions: [{
+          questionId: 'nutrition:roti:unit-size',
+          scope: 'NUTRITION',
+          target: { componentId: 'roti', dimension: 'UNIT_SIZE', dimensionKey: 'unit-size' },
+          prompt: 'What size was each Roti?',
+          response: { kind: 'OPTION', options: [{ optionId: 'medium', label: 'Medium' }] },
+          allowUseEstimate: true,
+          impactScore: 0.5,
+        }],
+        mealTypeQuestion: {
+          questionId: 'meal-type',
+          scope: 'MEAL_TYPE',
+          prompt: 'Which meal is this?',
+          options: [
+            { optionId: 'BREAKFAST', label: 'Breakfast' },
+            { optionId: 'LUNCH', label: 'Lunch' },
+            { optionId: 'DINNER', label: 'Dinner' },
+            { optionId: 'SNACK', label: 'Snack' },
+          ],
+        },
+      },
+    },
+    failure_data: null,
+    nutrition_answers: null,
+    meal_type_answer: null,
+    interpretation_snapshot: snapshot,
+  };
+  let captured: {
+    input: unknown;
+    snapshot: unknown;
+    nutritionAnswers: unknown;
+    mealTypeAnswer: unknown;
+  } | undefined;
+  resumeMealAnalysisV3FromSnapshot.mock.mockImplementationOnce(async (options: never) => {
+    captured = options as never;
+    return { outcome: 'COMPLETE', mealType: { value: 'LUNCH', origin: 'USER_CLARIFICATION' } };
+  });
+  const app: FastifyInstance = await buildApp({ logger: false });
+  try {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/v3/food/answer',
+      headers: { authorization: 'Bearer valid-token' },
+      payload: {
+        analysisId: '33333333-3333-4333-8333-333333333333',
+        bundleRevision: 1,
+        answers: [
+          { questionId: 'nutrition:roti:unit-size', kind: 'USE_ESTIMATE' },
+          { questionId: 'meal-type', kind: 'OPTION', optionId: 'LUNCH' },
+        ],
+      },
+    });
+    assert.equal(res.statusCode, 200);
+    assert.match(res.body, /"event":"COMPLETE"/);
+    assert.ok(captured);
+    // Regression: the replay must receive the pipeline's discriminated input
+    // shape (kind plus fields), not the raw stored request body.
+    assert.deepEqual(captured.input, { kind: 'TEXT', text: '4 roti', context });
+    assert.deepEqual(captured.snapshot, snapshot);
+    assert.deepEqual(captured.nutritionAnswers, [
+      { questionId: 'nutrition:roti:unit-size', kind: 'USE_ESTIMATE' },
+    ]);
+    assert.equal(captured.mealTypeAnswer, 'LUNCH');
   } finally {
     await app.close();
   }

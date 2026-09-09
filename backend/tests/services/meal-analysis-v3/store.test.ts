@@ -81,6 +81,45 @@ test('upserts the complete V3 session snapshot', async () => {
   assert.equal(params[6], 'DINNER');
 });
 
+test('persists and reloads the interpretation snapshot for paused sessions', async () => {
+  const snapshot = {
+    resolved: { outcome: 'FOOD', mealName: 'Dal', components: [], mealTypeCandidate: {} },
+    questions: { nutritionQuestions: [] },
+  };
+  databaseQuery.mock.mockImplementationOnce(async () => ({ rows: [], rowCount: 1 }));
+  assert.equal(await saveMealAnalysisV3Session({
+    userId: 'user-1',
+    analysisId: '11111111-1111-4111-8111-111111111111',
+    input: { text: 'dal' },
+    digest: 'digest',
+    result: { outcome: 'NEEDS_INPUT', questions: { nutritionQuestions: [] } },
+    interpretationSnapshot: snapshot,
+  }), true);
+  const saveCall = databaseQuery.mock.calls.at(-1)?.arguments as [string, unknown[]];
+  assert.match(saveCall[0], /interpretation_snapshot/);
+  assert.deepEqual(JSON.parse(saveCall[1][8] as string), snapshot);
+
+  databaseQuery.mock.mockImplementationOnce(async () => ({
+    rows: [{
+      user_id: 'user-1',
+      analysis_id: '11111111-1111-4111-8111-111111111111',
+      input_data: { text: 'dal' },
+      input_digest: 'digest',
+      result_data: null,
+      failure_data: null,
+      nutrition_answers: null,
+      meal_type_answer: null,
+      interpretation_snapshot: JSON.stringify(snapshot),
+    }],
+    rowCount: 1,
+  }));
+  const loaded = await loadMealAnalysisV3Session(
+    'user-1',
+    '11111111-1111-4111-8111-111111111111'
+  );
+  assert.deepEqual(loaded?.interpretationSnapshot, snapshot);
+});
+
 test('persists and reloads a terminal failure state', async () => {
   databaseQuery.mock.mockImplementationOnce(async () => ({ rows: [], rowCount: 1 }));
   const failure = {

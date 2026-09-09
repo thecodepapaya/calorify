@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createFixtureMealInterpreter } from '../../../src/services/meal-analysis-v3/interpretation.js';
-import { runMealAnalysisV3 } from '../../../src/services/meal-analysis-v3/pipeline.js';
+import {
+  resumeMealAnalysisV3FromSnapshot,
+  runMealAnalysisV3,
+  type MealAnalysisV3InterpretationSnapshot,
+} from '../../../src/services/meal-analysis-v3/pipeline.js';
 import type { NutritionFallback } from '../../../src/services/meal-analysis-v3/llmNutritionFallback.js';
 import type { NutritionResolver } from '../../../src/services/meal-analysis-v3/nutrition.js';
 import type { StageObservation } from '../../../src/services/meal-analysis-v3/observability.js';
@@ -118,6 +122,83 @@ test('non-interactive pipeline returns the full question bundle without choosing
     assert.equal(result.questions.nutritionQuestions.length, 2);
     assert.equal(result.questions.mealTypeQuestion?.questionId, 'meal-type');
   }
+});
+
+test('paused session captures an interpretation snapshot for deterministic replay', async () => {
+  let interpretationCalls = 0;
+  let snapshot: MealAnalysisV3InterpretationSnapshot | undefined;
+  const paused = await runMealAnalysisV3({
+    input,
+    interpreter: {
+      async interpret(...args) {
+        interpretationCalls += 1;
+        return createFixtureMealInterpreter(proposalValue()).interpret(...args);
+      },
+    },
+    nutritionResolver: fixtureResolver(),
+    presenter: fixturePresenter,
+    onInterpretationSnapshot: (captured) => {
+      snapshot = captured;
+    },
+  });
+
+  assert.equal(paused.outcome, 'NEEDS_INPUT');
+  assert.equal(interpretationCalls, 1);
+  assert.ok(snapshot);
+  if (paused.outcome === 'NEEDS_INPUT') {
+    assert.deepEqual(snapshot.questions, paused.questions);
+  }
+});
+
+test('snapshot replay produces the same complete result as the direct answer run', async () => {
+  let snapshot: MealAnalysisV3InterpretationSnapshot | undefined;
+  const paused = await runMealAnalysisV3({
+    input,
+    interpreter: createFixtureMealInterpreter(proposalValue()),
+    nutritionResolver: fixtureResolver(),
+    presenter: fixturePresenter,
+    onInterpretationSnapshot: (captured) => {
+      snapshot = captured;
+    },
+  });
+  assert.equal(paused.outcome, 'NEEDS_INPUT');
+  assert.ok(snapshot);
+  if (paused.outcome !== 'NEEDS_INPUT') return;
+
+  const answers = paused.questions.nutritionQuestions.map((question) => ({
+    questionId: question.questionId,
+    kind: 'USE_ESTIMATE' as const,
+  }));
+  const replayed = await resumeMealAnalysisV3FromSnapshot({
+    input,
+    // The production path round-trips the snapshot through JSONB.
+    snapshot: JSON.parse(JSON.stringify(snapshot)),
+    nutritionAnswers: answers,
+    mealTypeAnswer: 'LUNCH',
+    presenter: fixturePresenter,
+  });
+  const direct = await runMealAnalysisV3({
+    input,
+    interpreter: createFixtureMealInterpreter(proposalValue()),
+    nutritionResolver: fixtureResolver(),
+    presenter: fixturePresenter,
+    nutritionAnswers: answers,
+    mealTypeAnswer: 'LUNCH',
+  });
+
+  assert.equal(replayed.outcome, 'COMPLETE');
+  assert.deepEqual(replayed, direct);
+});
+
+test('snapshot replay rejects a snapshot that fails validation', async () => {
+  await assert.rejects(
+    resumeMealAnalysisV3FromSnapshot({
+      input,
+      snapshot: { unexpected: true },
+      nutritionAnswers: [],
+      mealTypeAnswer: 'LUNCH',
+    })
+  );
 });
 
 test('pipeline uses MODEL_INFERRED nutrition only after USDA leaves a reference unresolved', async () => {

@@ -324,7 +324,7 @@ export type FoodRetrievalIntent = z.infer<typeof foodRetrievalIntentSchema>;
 
 export const NUTRITION_BASES = ['RAW', 'DRY', 'COOKED', 'DRAINED', 'RETAINED', 'AS_SERVED'] as const;
 
-export const ingredientLeafSchema = z.object({
+const ingredientLeafObjectSchema = z.object({
   leafId: identifier,
   displayName: foodLabel,
   canonicalIdentity: foodLabel,
@@ -336,7 +336,9 @@ export const ingredientLeafSchema = z.object({
   nutritionBasisGrams: positiveNumber,
   preparationCodes: z.array(preparationCodeSchema).min(1).max(6),
   retainedFat: z.boolean(),
-}).strict().superRefine((leaf, ctx) => {
+}).strict();
+
+export const ingredientLeafSchema = ingredientLeafObjectSchema.superRefine((leaf, ctx) => {
   if (leaf.retrievalIntent === 'BRANDED_PRODUCT' && leaf.productQuery === undefined) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'branded products require a product query', path: ['productQuery'] });
   }
@@ -377,7 +379,7 @@ export const effectivePortionSchema = z.discriminatedUnion('kind', [
 
 export type EffectivePortion = z.infer<typeof effectivePortionSchema>;
 
-export const recipeScenarioSchema = z.object({
+const recipeScenarioObjectSchema = z.object({
   scenarioId: identifier,
   assumptions: z.array(scenarioAssumptionSchema).max(8),
   ingredients: z.array(ingredientLeafSchema).min(1).max(24),
@@ -385,7 +387,9 @@ export const recipeScenarioSchema = z.object({
   finishedYieldUnits: positiveNumber.nullable(),
   effectivePortion: effectivePortionSchema,
   effectivePreparationCodes: z.array(preparationCodeSchema).min(1).max(6),
-}).strict().superRefine((scenario, ctx) => {
+}).strict();
+
+export const recipeScenarioSchema = recipeScenarioObjectSchema.superRefine((scenario, ctx) => {
   requireUnique(scenario.assumptions.map((item) => item.dimensionKey), ctx, ['assumptions'], 'assumption dimensions');
   requireUnique(scenario.ingredients.map((item) => item.leafId), ctx, ['ingredients'], 'ingredient leaf IDs');
   requireUnique(scenario.effectivePreparationCodes, ctx, ['effectivePreparationCodes'], 'preparation codes');
@@ -469,7 +473,7 @@ export const componentProposalSchema = componentProposalObjectSchema.superRefine
 
 export type ComponentProposal = z.infer<typeof componentProposalSchema>;
 
-const mealTypeCandidateSchema = z.object({
+export const mealTypeCandidateSchema = z.object({
   value: z.enum(MEAL_TYPES).nullable(),
   origin: provenanceOriginSchema,
   confidence: z.number().finite().min(0).max(1),
@@ -483,6 +487,8 @@ const mealTypeCandidateSchema = z.object({
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'an unresolved meal type cannot claim USER_TEXT provenance' });
   }
 });
+
+export type MealTypeCandidate = z.infer<typeof mealTypeCandidateSchema>;
 
 const foodInterpretationProposalSchema = z.object({
   outcome: z.literal('FOOD'),
@@ -601,6 +607,39 @@ export type ResolvedComponent = Omit<ComponentProposal, 'scenarios'> & {
 export type ResolvedInterpretation = Omit<FoodInterpretationProposal, 'components'> & {
   components: ResolvedComponent[];
 };
+
+export const macroVectorSchema = z.object({
+  caloriesKcal: z.number().finite(),
+  proteinGrams: z.number().finite(),
+  carbsGrams: z.number().finite(),
+  fatGrams: z.number().finite(),
+  fiberGrams: z.number().finite(),
+}).strict();
+
+const resolvedNutritionReferenceSchema = z.object({
+  source: z.string().min(1),
+  sourceRecordId: z.string().min(1),
+  datasetVersion: z.string().min(1),
+  verifiedZero: z.boolean(),
+  per100g: macroVectorSchema,
+}).strict();
+
+export const resolvedIngredientLeafSchema = ingredientLeafObjectSchema.extend({
+  nutritionReference: resolvedNutritionReferenceSchema,
+});
+
+export const resolvedRecipeScenarioSchema = recipeScenarioObjectSchema.extend({
+  ingredients: z.array(resolvedIngredientLeafSchema).min(1).max(24),
+});
+
+export const resolvedComponentSchema = componentProposalObjectSchema.extend({
+  scenarios: z.array(resolvedRecipeScenarioSchema).min(1).max(100),
+});
+
+/** Validation shape for a nutrition-resolved interpretation persisted for replay. */
+export const resolvedInterpretationSchema = foodInterpretationProposalSchema.extend({
+  components: z.array(resolvedComponentSchema).min(1).max(20),
+});
 
 function validateOriginEvidence(
   origin: ProvenanceOrigin,

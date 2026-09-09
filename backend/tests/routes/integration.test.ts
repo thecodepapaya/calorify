@@ -69,6 +69,9 @@ await mock.module('../../src/services/meal-analysis-v3/pipeline.js', {
       outcome: 'NO_FOOD',
       reason: 'test',
     })),
+    resumeMealAnalysisV3FromSnapshot: mock.fn(async () => {
+      throw new Error('resumeMealAnalysisV3FromSnapshot is not expected in these tests');
+    }),
   },
 });
 

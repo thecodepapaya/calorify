@@ -224,6 +224,58 @@ test('compact schemas enforce canonical preparation and variation enums', () => 
   assert.equal(secondPassResponseSchema.safeParse(invalidIngredientVariation).success, false);
 });
 
+test('model-inferred ingredient-amount variations render relative options, never grams', async () => {
+  const result = await createTwoPassFixtureMealInterpreter(
+    structuredClone(firstPass),
+    structuredClone(secondPass)
+  ).interpret(compactInput);
+  assert.equal(result.proposal.outcome, 'FOOD');
+  if (result.proposal.outcome !== 'FOOD') return;
+  const daal = result.proposal.components.find(({ componentId }) => componentId === 'daal');
+  assert.ok(daal);
+  const labels = new Set<string>();
+  for (const scenario of daal.scenarios) {
+    for (const assumption of scenario.assumptions) {
+      if (
+        assumption.dimensionKey === 'ingredient-amount:cooking-fat' &&
+        assumption.answerKind === 'OPTION'
+      ) {
+        labels.add(assumption.optionLabel);
+      }
+    }
+  }
+  assert.deepEqual([...labels].sort(), ['Less', 'More', 'Typical']);
+});
+
+test('user-stated ingredient-amount variations keep gram labels', async () => {
+  const userStated = structuredClone(secondPass);
+  const fat = userStated.mealItems[0]!.ingredients.find(
+    ({ ingredientName }) => ingredientName === 'cooking fat'
+  );
+  assert.ok(fat);
+  fat.amountGrams.origin = 'user_stated';
+  const result = await createTwoPassFixtureMealInterpreter(
+    structuredClone(firstPass),
+    userStated
+  ).interpret(compactInput);
+  assert.equal(result.proposal.outcome, 'FOOD');
+  if (result.proposal.outcome !== 'FOOD') return;
+  const daal = result.proposal.components.find(({ componentId }) => componentId === 'daal');
+  assert.ok(daal);
+  const labels = new Set<string>();
+  for (const scenario of daal.scenarios) {
+    for (const assumption of scenario.assumptions) {
+      if (
+        assumption.dimensionKey === 'ingredient-amount:cooking-fat' &&
+        assumption.answerKind === 'OPTION'
+      ) {
+        labels.add(assumption.optionLabel);
+      }
+    }
+  }
+  assert.deepEqual([...labels].sort(), ['14 g', '4 g', '8 g']);
+});
+
 test('compact ingredient aliases are unique and exclude the canonical identity', () => {
   const duplicate = structuredClone(secondPass);
   duplicate.mealItems[0]!.ingredients[0]!.lookupAliases = ['toor dal', 'Toor Dal'];
