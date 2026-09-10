@@ -16,6 +16,9 @@ Use this page to find the document that matches the work you are doing.
   — canonical implemented text/image lifecycle, two-pass interpretation,
   scenarios and ranges, clarification, progress UI, persistence and log sync,
   design tradeoffs, known limitations, and considered future features.
+- [Meal-analysis program status](plans/meal-analysis-program-status.md) —
+  working tracker of pending work, durable decisions, and progress across
+  the V3 backend and app; architecture stays in the reliability plan.
 - [GPT-5.6 Luna one-call meal-analysis evaluation](plans/luna-one-call-meal-analysis-evaluation.md)
   — live three-repeat comparison of a combined parsing-and-decomposition call
   with the current two-call baseline, including cost, latency, and decision.
