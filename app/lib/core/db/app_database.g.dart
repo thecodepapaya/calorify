@@ -171,6 +171,17 @@ class $MealInfoTableTable extends MealInfoTable
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
+  static const VerificationMeta _v3ResultJsonMeta = const VerificationMeta(
+    'v3ResultJson',
+  );
+  @override
+  late final GeneratedColumn<String> v3ResultJson = GeneratedColumn<String>(
+    'v3_result_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _healthConnectRecordIdMeta =
       const VerificationMeta('healthConnectRecordId');
   @override
@@ -233,6 +244,7 @@ class $MealInfoTableTable extends MealInfoTable
     healthScoreReason,
     analysisId,
     analysisSnapshotJson,
+    v3ResultJson,
     healthConnectRecordId,
     healthConnectRecordVersion,
     mealLogSyncVersion,
@@ -367,6 +379,15 @@ class $MealInfoTableTable extends MealInfoTable
         ),
       );
     }
+    if (data.containsKey('v3_result_json')) {
+      context.handle(
+        _v3ResultJsonMeta,
+        v3ResultJson.isAcceptableOrUnknown(
+          data['v3_result_json']!,
+          _v3ResultJsonMeta,
+        ),
+      );
+    }
     if (data.containsKey('health_connect_record_id')) {
       context.handle(
         _healthConnectRecordIdMeta,
@@ -482,6 +503,10 @@ class $MealInfoTableTable extends MealInfoTable
         DriftSqlType.string,
         data['${effectivePrefix}analysis_snapshot_json'],
       ),
+      v3ResultJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}v3_result_json'],
+      ),
       healthConnectRecordId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}health_connect_record_id'],
@@ -528,13 +553,17 @@ class MealInfoTableData extends DataClass
   final String? analysisId;
   final String? analysisSnapshotJson;
 
+  /// The complete final V3 server response (COMPLETE event payload), preserved
+  /// verbatim; local deterministic analyses leave it null.
+  final String? v3ResultJson;
+
   /// Stable identity for the corresponding app-owned Health Connect record.
   final String? healthConnectRecordId;
 
   /// Version sent with [healthConnectRecordId] for idempotent updates.
   final int healthConnectRecordVersion;
 
-  /// Local mutation version mirrored onto the owning V2 analysis session.
+  /// Local mutation version mirrored onto the owning V3 analysis session.
   final int mealLogSyncVersion;
 
   /// Last version acknowledged by the backend.
@@ -555,6 +584,7 @@ class MealInfoTableData extends DataClass
     this.healthScoreReason,
     this.analysisId,
     this.analysisSnapshotJson,
+    this.v3ResultJson,
     this.healthConnectRecordId,
     required this.healthConnectRecordVersion,
     required this.mealLogSyncVersion,
@@ -587,6 +617,9 @@ class MealInfoTableData extends DataClass
     }
     if (!nullToAbsent || analysisSnapshotJson != null) {
       map['analysis_snapshot_json'] = Variable<String>(analysisSnapshotJson);
+    }
+    if (!nullToAbsent || v3ResultJson != null) {
+      map['v3_result_json'] = Variable<String>(v3ResultJson);
     }
     if (!nullToAbsent || healthConnectRecordId != null) {
       map['health_connect_record_id'] = Variable<String>(healthConnectRecordId);
@@ -631,6 +664,10 @@ class MealInfoTableData extends DataClass
           analysisSnapshotJson == null && nullToAbsent
               ? const Value.absent()
               : Value(analysisSnapshotJson),
+      v3ResultJson:
+          v3ResultJson == null && nullToAbsent
+              ? const Value.absent()
+              : Value(v3ResultJson),
       healthConnectRecordId:
           healthConnectRecordId == null && nullToAbsent
               ? const Value.absent()
@@ -666,6 +703,7 @@ class MealInfoTableData extends DataClass
       analysisSnapshotJson: serializer.fromJson<String?>(
         json['analysisSnapshotJson'],
       ),
+      v3ResultJson: serializer.fromJson<String?>(json['v3ResultJson']),
       healthConnectRecordId: serializer.fromJson<String?>(
         json['healthConnectRecordId'],
       ),
@@ -697,6 +735,7 @@ class MealInfoTableData extends DataClass
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
       'analysisId': serializer.toJson<String?>(analysisId),
       'analysisSnapshotJson': serializer.toJson<String?>(analysisSnapshotJson),
+      'v3ResultJson': serializer.toJson<String?>(v3ResultJson),
       'healthConnectRecordId': serializer.toJson<String?>(
         healthConnectRecordId,
       ),
@@ -724,6 +763,7 @@ class MealInfoTableData extends DataClass
     Value<String?> healthScoreReason = const Value.absent(),
     Value<String?> analysisId = const Value.absent(),
     Value<String?> analysisSnapshotJson = const Value.absent(),
+    Value<String?> v3ResultJson = const Value.absent(),
     Value<String?> healthConnectRecordId = const Value.absent(),
     int? healthConnectRecordVersion,
     int? mealLogSyncVersion,
@@ -750,6 +790,7 @@ class MealInfoTableData extends DataClass
         analysisSnapshotJson.present
             ? analysisSnapshotJson.value
             : this.analysisSnapshotJson,
+    v3ResultJson: v3ResultJson.present ? v3ResultJson.value : this.v3ResultJson,
     healthConnectRecordId:
         healthConnectRecordId.present
             ? healthConnectRecordId.value
@@ -787,6 +828,10 @@ class MealInfoTableData extends DataClass
           data.analysisSnapshotJson.present
               ? data.analysisSnapshotJson.value
               : this.analysisSnapshotJson,
+      v3ResultJson:
+          data.v3ResultJson.present
+              ? data.v3ResultJson.value
+              : this.v3ResultJson,
       healthConnectRecordId:
           data.healthConnectRecordId.present
               ? data.healthConnectRecordId.value
@@ -824,6 +869,7 @@ class MealInfoTableData extends DataClass
           ..write('healthScoreReason: $healthScoreReason, ')
           ..write('analysisId: $analysisId, ')
           ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
+          ..write('v3ResultJson: $v3ResultJson, ')
           ..write('healthConnectRecordId: $healthConnectRecordId, ')
           ..write('healthConnectRecordVersion: $healthConnectRecordVersion, ')
           ..write('mealLogSyncVersion: $mealLogSyncVersion, ')
@@ -849,6 +895,7 @@ class MealInfoTableData extends DataClass
     healthScoreReason,
     analysisId,
     analysisSnapshotJson,
+    v3ResultJson,
     healthConnectRecordId,
     healthConnectRecordVersion,
     mealLogSyncVersion,
@@ -873,6 +920,7 @@ class MealInfoTableData extends DataClass
           other.healthScoreReason == this.healthScoreReason &&
           other.analysisId == this.analysisId &&
           other.analysisSnapshotJson == this.analysisSnapshotJson &&
+          other.v3ResultJson == this.v3ResultJson &&
           other.healthConnectRecordId == this.healthConnectRecordId &&
           other.healthConnectRecordVersion == this.healthConnectRecordVersion &&
           other.mealLogSyncVersion == this.mealLogSyncVersion &&
@@ -895,6 +943,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<String?> healthScoreReason;
   final Value<String?> analysisId;
   final Value<String?> analysisSnapshotJson;
+  final Value<String?> v3ResultJson;
   final Value<String?> healthConnectRecordId;
   final Value<int> healthConnectRecordVersion;
   final Value<int> mealLogSyncVersion;
@@ -915,6 +964,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.healthScoreReason = const Value.absent(),
     this.analysisId = const Value.absent(),
     this.analysisSnapshotJson = const Value.absent(),
+    this.v3ResultJson = const Value.absent(),
     this.healthConnectRecordId = const Value.absent(),
     this.healthConnectRecordVersion = const Value.absent(),
     this.mealLogSyncVersion = const Value.absent(),
@@ -936,6 +986,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.healthScoreReason = const Value.absent(),
     this.analysisId = const Value.absent(),
     this.analysisSnapshotJson = const Value.absent(),
+    this.v3ResultJson = const Value.absent(),
     this.healthConnectRecordId = const Value.absent(),
     this.healthConnectRecordVersion = const Value.absent(),
     this.mealLogSyncVersion = const Value.absent(),
@@ -965,6 +1016,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Expression<String>? healthScoreReason,
     Expression<String>? analysisId,
     Expression<String>? analysisSnapshotJson,
+    Expression<String>? v3ResultJson,
     Expression<String>? healthConnectRecordId,
     Expression<int>? healthConnectRecordVersion,
     Expression<int>? mealLogSyncVersion,
@@ -987,6 +1039,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       if (analysisId != null) 'analysis_id': analysisId,
       if (analysisSnapshotJson != null)
         'analysis_snapshot_json': analysisSnapshotJson,
+      if (v3ResultJson != null) 'v3_result_json': v3ResultJson,
       if (healthConnectRecordId != null)
         'health_connect_record_id': healthConnectRecordId,
       if (healthConnectRecordVersion != null)
@@ -1014,6 +1067,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Value<String?>? healthScoreReason,
     Value<String?>? analysisId,
     Value<String?>? analysisSnapshotJson,
+    Value<String?>? v3ResultJson,
     Value<String?>? healthConnectRecordId,
     Value<int>? healthConnectRecordVersion,
     Value<int>? mealLogSyncVersion,
@@ -1035,6 +1089,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
       analysisId: analysisId ?? this.analysisId,
       analysisSnapshotJson: analysisSnapshotJson ?? this.analysisSnapshotJson,
+      v3ResultJson: v3ResultJson ?? this.v3ResultJson,
       healthConnectRecordId:
           healthConnectRecordId ?? this.healthConnectRecordId,
       healthConnectRecordVersion:
@@ -1094,6 +1149,9 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
         analysisSnapshotJson.value,
       );
     }
+    if (v3ResultJson.present) {
+      map['v3_result_json'] = Variable<String>(v3ResultJson.value);
+    }
     if (healthConnectRecordId.present) {
       map['health_connect_record_id'] = Variable<String>(
         healthConnectRecordId.value,
@@ -1133,6 +1191,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
           ..write('healthScoreReason: $healthScoreReason, ')
           ..write('analysisId: $analysisId, ')
           ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
+          ..write('v3ResultJson: $v3ResultJson, ')
           ..write('healthConnectRecordId: $healthConnectRecordId, ')
           ..write('healthConnectRecordVersion: $healthConnectRecordVersion, ')
           ..write('mealLogSyncVersion: $mealLogSyncVersion, ')
@@ -3003,6 +3062,17 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
+  static const VerificationMeta _v3ResultJsonMeta = const VerificationMeta(
+    'v3ResultJson',
+  );
+  @override
+  late final GeneratedColumn<String> v3ResultJson = GeneratedColumn<String>(
+    'v3_result_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _healthConnectRecordIdMeta =
       const VerificationMeta('healthConnectRecordId');
   @override
@@ -3100,6 +3170,7 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     healthScoreReason,
     analysisId,
     analysisSnapshotJson,
+    v3ResultJson,
     healthConnectRecordId,
     healthConnectRecordVersion,
     mealLogSyncVersion,
@@ -3234,6 +3305,15 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         analysisSnapshotJson.isAcceptableOrUnknown(
           data['analysis_snapshot_json']!,
           _analysisSnapshotJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('v3_result_json')) {
+      context.handle(
+        _v3ResultJsonMeta,
+        v3ResultJson.isAcceptableOrUnknown(
+          data['v3_result_json']!,
+          _v3ResultJsonMeta,
         ),
       );
     }
@@ -3376,6 +3456,10 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         DriftSqlType.string,
         data['${effectivePrefix}analysis_snapshot_json'],
       ),
+      v3ResultJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}v3_result_json'],
+      ),
       healthConnectRecordId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}health_connect_record_id'],
@@ -3435,13 +3519,17 @@ class FavoriteMealTableData extends DataClass
   final String? analysisId;
   final String? analysisSnapshotJson;
 
+  /// The complete final V3 server response (COMPLETE event payload), preserved
+  /// verbatim; local deterministic analyses leave it null.
+  final String? v3ResultJson;
+
   /// Stable identity for the corresponding app-owned Health Connect record.
   final String? healthConnectRecordId;
 
   /// Version sent with [healthConnectRecordId] for idempotent updates.
   final int healthConnectRecordVersion;
 
-  /// Local mutation version mirrored onto the owning V2 analysis session.
+  /// Local mutation version mirrored onto the owning V3 analysis session.
   final int mealLogSyncVersion;
 
   /// Last version acknowledged by the backend.
@@ -3465,6 +3553,7 @@ class FavoriteMealTableData extends DataClass
     this.healthScoreReason,
     this.analysisId,
     this.analysisSnapshotJson,
+    this.v3ResultJson,
     this.healthConnectRecordId,
     required this.healthConnectRecordVersion,
     required this.mealLogSyncVersion,
@@ -3500,6 +3589,9 @@ class FavoriteMealTableData extends DataClass
     }
     if (!nullToAbsent || analysisSnapshotJson != null) {
       map['analysis_snapshot_json'] = Variable<String>(analysisSnapshotJson);
+    }
+    if (!nullToAbsent || v3ResultJson != null) {
+      map['v3_result_json'] = Variable<String>(v3ResultJson);
     }
     if (!nullToAbsent || healthConnectRecordId != null) {
       map['health_connect_record_id'] = Variable<String>(healthConnectRecordId);
@@ -3551,6 +3643,10 @@ class FavoriteMealTableData extends DataClass
           analysisSnapshotJson == null && nullToAbsent
               ? const Value.absent()
               : Value(analysisSnapshotJson),
+      v3ResultJson:
+          v3ResultJson == null && nullToAbsent
+              ? const Value.absent()
+              : Value(v3ResultJson),
       healthConnectRecordId:
           healthConnectRecordId == null && nullToAbsent
               ? const Value.absent()
@@ -3595,6 +3691,7 @@ class FavoriteMealTableData extends DataClass
       analysisSnapshotJson: serializer.fromJson<String?>(
         json['analysisSnapshotJson'],
       ),
+      v3ResultJson: serializer.fromJson<String?>(json['v3ResultJson']),
       healthConnectRecordId: serializer.fromJson<String?>(
         json['healthConnectRecordId'],
       ),
@@ -3629,6 +3726,7 @@ class FavoriteMealTableData extends DataClass
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
       'analysisId': serializer.toJson<String?>(analysisId),
       'analysisSnapshotJson': serializer.toJson<String?>(analysisSnapshotJson),
+      'v3ResultJson': serializer.toJson<String?>(v3ResultJson),
       'healthConnectRecordId': serializer.toJson<String?>(
         healthConnectRecordId,
       ),
@@ -3659,6 +3757,7 @@ class FavoriteMealTableData extends DataClass
     Value<String?> healthScoreReason = const Value.absent(),
     Value<String?> analysisId = const Value.absent(),
     Value<String?> analysisSnapshotJson = const Value.absent(),
+    Value<String?> v3ResultJson = const Value.absent(),
     Value<String?> healthConnectRecordId = const Value.absent(),
     int? healthConnectRecordVersion,
     int? mealLogSyncVersion,
@@ -3688,6 +3787,7 @@ class FavoriteMealTableData extends DataClass
         analysisSnapshotJson.present
             ? analysisSnapshotJson.value
             : this.analysisSnapshotJson,
+    v3ResultJson: v3ResultJson.present ? v3ResultJson.value : this.v3ResultJson,
     healthConnectRecordId:
         healthConnectRecordId.present
             ? healthConnectRecordId.value
@@ -3728,6 +3828,10 @@ class FavoriteMealTableData extends DataClass
           data.analysisSnapshotJson.present
               ? data.analysisSnapshotJson.value
               : this.analysisSnapshotJson,
+      v3ResultJson:
+          data.v3ResultJson.present
+              ? data.v3ResultJson.value
+              : this.v3ResultJson,
       healthConnectRecordId:
           data.healthConnectRecordId.present
               ? data.healthConnectRecordId.value
@@ -3772,6 +3876,7 @@ class FavoriteMealTableData extends DataClass
           ..write('healthScoreReason: $healthScoreReason, ')
           ..write('analysisId: $analysisId, ')
           ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
+          ..write('v3ResultJson: $v3ResultJson, ')
           ..write('healthConnectRecordId: $healthConnectRecordId, ')
           ..write('healthConnectRecordVersion: $healthConnectRecordVersion, ')
           ..write('mealLogSyncVersion: $mealLogSyncVersion, ')
@@ -3800,6 +3905,7 @@ class FavoriteMealTableData extends DataClass
     healthScoreReason,
     analysisId,
     analysisSnapshotJson,
+    v3ResultJson,
     healthConnectRecordId,
     healthConnectRecordVersion,
     mealLogSyncVersion,
@@ -3827,6 +3933,7 @@ class FavoriteMealTableData extends DataClass
           other.healthScoreReason == this.healthScoreReason &&
           other.analysisId == this.analysisId &&
           other.analysisSnapshotJson == this.analysisSnapshotJson &&
+          other.v3ResultJson == this.v3ResultJson &&
           other.healthConnectRecordId == this.healthConnectRecordId &&
           other.healthConnectRecordVersion == this.healthConnectRecordVersion &&
           other.mealLogSyncVersion == this.mealLogSyncVersion &&
@@ -3853,6 +3960,7 @@ class FavoriteMealTableCompanion
   final Value<String?> healthScoreReason;
   final Value<String?> analysisId;
   final Value<String?> analysisSnapshotJson;
+  final Value<String?> v3ResultJson;
   final Value<String?> healthConnectRecordId;
   final Value<int> healthConnectRecordVersion;
   final Value<int> mealLogSyncVersion;
@@ -3876,6 +3984,7 @@ class FavoriteMealTableCompanion
     this.healthScoreReason = const Value.absent(),
     this.analysisId = const Value.absent(),
     this.analysisSnapshotJson = const Value.absent(),
+    this.v3ResultJson = const Value.absent(),
     this.healthConnectRecordId = const Value.absent(),
     this.healthConnectRecordVersion = const Value.absent(),
     this.mealLogSyncVersion = const Value.absent(),
@@ -3900,6 +4009,7 @@ class FavoriteMealTableCompanion
     this.healthScoreReason = const Value.absent(),
     this.analysisId = const Value.absent(),
     this.analysisSnapshotJson = const Value.absent(),
+    this.v3ResultJson = const Value.absent(),
     this.healthConnectRecordId = const Value.absent(),
     this.healthConnectRecordVersion = const Value.absent(),
     this.mealLogSyncVersion = const Value.absent(),
@@ -3932,6 +4042,7 @@ class FavoriteMealTableCompanion
     Expression<String>? healthScoreReason,
     Expression<String>? analysisId,
     Expression<String>? analysisSnapshotJson,
+    Expression<String>? v3ResultJson,
     Expression<String>? healthConnectRecordId,
     Expression<int>? healthConnectRecordVersion,
     Expression<int>? mealLogSyncVersion,
@@ -3957,6 +4068,7 @@ class FavoriteMealTableCompanion
       if (analysisId != null) 'analysis_id': analysisId,
       if (analysisSnapshotJson != null)
         'analysis_snapshot_json': analysisSnapshotJson,
+      if (v3ResultJson != null) 'v3_result_json': v3ResultJson,
       if (healthConnectRecordId != null)
         'health_connect_record_id': healthConnectRecordId,
       if (healthConnectRecordVersion != null)
@@ -3987,6 +4099,7 @@ class FavoriteMealTableCompanion
     Value<String?>? healthScoreReason,
     Value<String?>? analysisId,
     Value<String?>? analysisSnapshotJson,
+    Value<String?>? v3ResultJson,
     Value<String?>? healthConnectRecordId,
     Value<int>? healthConnectRecordVersion,
     Value<int>? mealLogSyncVersion,
@@ -4011,6 +4124,7 @@ class FavoriteMealTableCompanion
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
       analysisId: analysisId ?? this.analysisId,
       analysisSnapshotJson: analysisSnapshotJson ?? this.analysisSnapshotJson,
+      v3ResultJson: v3ResultJson ?? this.v3ResultJson,
       healthConnectRecordId:
           healthConnectRecordId ?? this.healthConnectRecordId,
       healthConnectRecordVersion:
@@ -4073,6 +4187,9 @@ class FavoriteMealTableCompanion
         analysisSnapshotJson.value,
       );
     }
+    if (v3ResultJson.present) {
+      map['v3_result_json'] = Variable<String>(v3ResultJson.value);
+    }
     if (healthConnectRecordId.present) {
       map['health_connect_record_id'] = Variable<String>(
         healthConnectRecordId.value,
@@ -4121,6 +4238,7 @@ class FavoriteMealTableCompanion
           ..write('healthScoreReason: $healthScoreReason, ')
           ..write('analysisId: $analysisId, ')
           ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
+          ..write('v3ResultJson: $v3ResultJson, ')
           ..write('healthConnectRecordId: $healthConnectRecordId, ')
           ..write('healthConnectRecordVersion: $healthConnectRecordVersion, ')
           ..write('mealLogSyncVersion: $mealLogSyncVersion, ')
@@ -6549,6 +6667,7 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
       Value<String?> healthScoreReason,
       Value<String?> analysisId,
       Value<String?> analysisSnapshotJson,
+      Value<String?> v3ResultJson,
       Value<String?> healthConnectRecordId,
       Value<int> healthConnectRecordVersion,
       Value<int> mealLogSyncVersion,
@@ -6571,6 +6690,7 @@ typedef $$MealInfoTableTableUpdateCompanionBuilder =
       Value<String?> healthScoreReason,
       Value<String?> analysisId,
       Value<String?> analysisSnapshotJson,
+      Value<String?> v3ResultJson,
       Value<String?> healthConnectRecordId,
       Value<int> healthConnectRecordVersion,
       Value<int> mealLogSyncVersion,
@@ -6658,6 +6778,11 @@ class $$MealInfoTableTableFilterComposer
 
   ColumnFilters<String> get analysisSnapshotJson => $composableBuilder(
     column: $table.analysisSnapshotJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get v3ResultJson => $composableBuilder(
+    column: $table.v3ResultJson,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -6766,6 +6891,11 @@ class $$MealInfoTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get v3ResultJson => $composableBuilder(
+    column: $table.v3ResultJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get healthConnectRecordId => $composableBuilder(
     column: $table.healthConnectRecordId,
     builder: (column) => ColumnOrderings(column),
@@ -6851,6 +6981,11 @@ class $$MealInfoTableTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<String> get v3ResultJson => $composableBuilder(
+    column: $table.v3ResultJson,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get healthConnectRecordId => $composableBuilder(
     column: $table.healthConnectRecordId,
     builder: (column) => column,
@@ -6926,6 +7061,7 @@ class $$MealInfoTableTableTableManager
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<String?> analysisId = const Value.absent(),
                 Value<String?> analysisSnapshotJson = const Value.absent(),
+                Value<String?> v3ResultJson = const Value.absent(),
                 Value<String?> healthConnectRecordId = const Value.absent(),
                 Value<int> healthConnectRecordVersion = const Value.absent(),
                 Value<int> mealLogSyncVersion = const Value.absent(),
@@ -6946,6 +7082,7 @@ class $$MealInfoTableTableTableManager
                 healthScoreReason: healthScoreReason,
                 analysisId: analysisId,
                 analysisSnapshotJson: analysisSnapshotJson,
+                v3ResultJson: v3ResultJson,
                 healthConnectRecordId: healthConnectRecordId,
                 healthConnectRecordVersion: healthConnectRecordVersion,
                 mealLogSyncVersion: mealLogSyncVersion,
@@ -6968,6 +7105,7 @@ class $$MealInfoTableTableTableManager
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<String?> analysisId = const Value.absent(),
                 Value<String?> analysisSnapshotJson = const Value.absent(),
+                Value<String?> v3ResultJson = const Value.absent(),
                 Value<String?> healthConnectRecordId = const Value.absent(),
                 Value<int> healthConnectRecordVersion = const Value.absent(),
                 Value<int> mealLogSyncVersion = const Value.absent(),
@@ -6988,6 +7126,7 @@ class $$MealInfoTableTableTableManager
                 healthScoreReason: healthScoreReason,
                 analysisId: analysisId,
                 analysisSnapshotJson: analysisSnapshotJson,
+                v3ResultJson: v3ResultJson,
                 healthConnectRecordId: healthConnectRecordId,
                 healthConnectRecordVersion: healthConnectRecordVersion,
                 mealLogSyncVersion: mealLogSyncVersion,
@@ -7825,6 +7964,7 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
       Value<String?> healthScoreReason,
       Value<String?> analysisId,
       Value<String?> analysisSnapshotJson,
+      Value<String?> v3ResultJson,
       Value<String?> healthConnectRecordId,
       Value<int> healthConnectRecordVersion,
       Value<int> mealLogSyncVersion,
@@ -7850,6 +7990,7 @@ typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
       Value<String?> healthScoreReason,
       Value<String?> analysisId,
       Value<String?> analysisSnapshotJson,
+      Value<String?> v3ResultJson,
       Value<String?> healthConnectRecordId,
       Value<int> healthConnectRecordVersion,
       Value<int> mealLogSyncVersion,
@@ -7940,6 +8081,11 @@ class $$FavoriteMealTableTableFilterComposer
 
   ColumnFilters<String> get analysisSnapshotJson => $composableBuilder(
     column: $table.analysisSnapshotJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get v3ResultJson => $composableBuilder(
+    column: $table.v3ResultJson,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -8063,6 +8209,11 @@ class $$FavoriteMealTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get v3ResultJson => $composableBuilder(
+    column: $table.v3ResultJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get healthConnectRecordId => $composableBuilder(
     column: $table.healthConnectRecordId,
     builder: (column) => ColumnOrderings(column),
@@ -8163,6 +8314,11 @@ class $$FavoriteMealTableTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<String> get v3ResultJson => $composableBuilder(
+    column: $table.v3ResultJson,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get healthConnectRecordId => $composableBuilder(
     column: $table.healthConnectRecordId,
     builder: (column) => column,
@@ -8258,6 +8414,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<String?> analysisId = const Value.absent(),
                 Value<String?> analysisSnapshotJson = const Value.absent(),
+                Value<String?> v3ResultJson = const Value.absent(),
                 Value<String?> healthConnectRecordId = const Value.absent(),
                 Value<int> healthConnectRecordVersion = const Value.absent(),
                 Value<int> mealLogSyncVersion = const Value.absent(),
@@ -8281,6 +8438,7 @@ class $$FavoriteMealTableTableTableManager
                 healthScoreReason: healthScoreReason,
                 analysisId: analysisId,
                 analysisSnapshotJson: analysisSnapshotJson,
+                v3ResultJson: v3ResultJson,
                 healthConnectRecordId: healthConnectRecordId,
                 healthConnectRecordVersion: healthConnectRecordVersion,
                 mealLogSyncVersion: mealLogSyncVersion,
@@ -8306,6 +8464,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<String?> analysisId = const Value.absent(),
                 Value<String?> analysisSnapshotJson = const Value.absent(),
+                Value<String?> v3ResultJson = const Value.absent(),
                 Value<String?> healthConnectRecordId = const Value.absent(),
                 Value<int> healthConnectRecordVersion = const Value.absent(),
                 Value<int> mealLogSyncVersion = const Value.absent(),
@@ -8329,6 +8488,7 @@ class $$FavoriteMealTableTableTableManager
                 healthScoreReason: healthScoreReason,
                 analysisId: analysisId,
                 analysisSnapshotJson: analysisSnapshotJson,
+                v3ResultJson: v3ResultJson,
                 healthConnectRecordId: healthConnectRecordId,
                 healthConnectRecordVersion: healthConnectRecordVersion,
                 mealLogSyncVersion: mealLogSyncVersion,

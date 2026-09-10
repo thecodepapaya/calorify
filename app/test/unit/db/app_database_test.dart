@@ -425,6 +425,42 @@ void main() {
     expect(await database.isHealthConnectPromptDismissed(), isTrue);
   });
 
+  test('V3 server response is preserved and survives edits', () async {
+    const v3Response = '{"mealName":"Roti","components":[]}';
+    await database.logMeal(
+      _meal('Roti'),
+      analysisId: '00000000-0000-4000-8000-000000000601',
+      v3ResultJson: v3Response,
+    );
+
+    final row =
+        await database
+            .customSelect(
+              'SELECT v3_result_json FROM meal_info_table '
+              "WHERE analysis_id = '00000000-0000-4000-8000-000000000601'",
+            )
+            .getSingle();
+    expect(row.readNullable<String>('v3_result_json'), v3Response);
+
+    final stored = (await database.paginatedMealsHistory(offset: 0)).single;
+    await database.upsertMeal(
+      LoggedMeal(
+        clientId: stored.clientId,
+        meal: _meal('Edited roti'),
+        createdAt: stored.createdAt,
+      ),
+    );
+
+    final afterEdit =
+        await database
+            .customSelect(
+              'SELECT v3_result_json FROM meal_info_table '
+              'WHERE id = ${stored.clientId}',
+            )
+            .getSingle();
+    expect(afterEdit.readNullable<String>('v3_result_json'), v3Response);
+  });
+
   test('baseline schema creates every outbox unique index', () async {
     // Drift's Migrator.createTable does not create @TableIndex indexes, which
     // is how the pre-squash databases lost them. The baseline must create
@@ -468,7 +504,7 @@ void main() {
 
       final version =
           await database.customSelect('PRAGMA user_version').getSingle();
-      expect(version.read<int>('user_version'), 1);
+      expect(version.read<int>('user_version'), 2);
 
       expect(await database.paginatedMealsHistory(offset: 0), isEmpty);
 

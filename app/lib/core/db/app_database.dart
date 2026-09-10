@@ -65,9 +65,10 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   // The schema was squashed into this baseline on 2026-09-09 by collapsing the
   // previous 29-step migration ladder. Databases from before the squash are
-  // wiped and rebuilt; see the onUpgrade handler below.
+  // wiped and rebuilt; see the onUpgrade handler below. v2 adds the preserved
+  // V3 server response column.
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration {
@@ -85,6 +86,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         if (from > 1) {
           await _dropAllEntities();
           await m.createAll();
+        }
+        if (from < 2) {
+          await m.addColumn(mealInfoTable, mealInfoTable.v3ResultJson);
         }
       },
     );
@@ -432,6 +436,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     Meal mealInfo, {
     String? analysisId,
     PipelineResultData? analysisSnapshot,
+    String? v3ResultJson,
     DateTime? loggedAt,
   }) async {
     final normalizedAnalysisId = analysisId?.trim();
@@ -466,6 +471,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
                 ? null
                 : jsonEncode(analysisSnapshot.toProto3Json()),
           ),
+          v3ResultJson: Value(v3ResultJson),
           healthConnectRecordId:
               recordId == null ? const Value.absent() : Value(recordId),
           healthConnectRecordVersion:

@@ -27,6 +27,10 @@ class MealInfoTable extends Table {
   // a backend session, so the exact rows/versions used must live with the meal.
   TextColumn get analysisSnapshotJson => text().nullable()();
 
+  /// The complete final V3 server response (COMPLETE event payload), preserved
+  /// verbatim; local deterministic analyses leave it null.
+  TextColumn get v3ResultJson => text().nullable()();
+
   /// Stable identity for the corresponding app-owned Health Connect record.
   TextColumn get healthConnectRecordId => text().nullable()();
 

@@ -10,6 +10,7 @@ extension MealToCompanion on Meal {
     String? imageUrl,
     Value<String?> analysisId = const Value.absent(),
     Value<String?> analysisSnapshotJson = const Value.absent(),
+    Value<String?> v3ResultJson = const Value.absent(),
     Value<String?> healthConnectRecordId = const Value.absent(),
     Value<int> healthConnectRecordVersion = const Value.absent(),
     Value<int> mealLogSyncVersion = const Value.absent(),
@@ -42,6 +43,7 @@ extension MealToCompanion on Meal {
       // an absent value preserves the key during later edits.
       analysisId: analysisId,
       analysisSnapshotJson: analysisSnapshotJson,
+      v3ResultJson: v3ResultJson,
       healthConnectRecordId: healthConnectRecordId,
       healthConnectRecordVersion: healthConnectRecordVersion,
       mealLogSyncVersion: mealLogSyncVersion,

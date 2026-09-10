@@ -19,6 +19,7 @@ Future<void> logMeal(
   BuildContext? parentContext,
   String? analysisId,
   PipelineResultData? analysisSnapshot,
+  String? v3ResultJson,
 }) async {
   final loggedAt = DateTime.now();
   final container = ProviderScope.containerOf(context, listen: false);
@@ -28,6 +29,7 @@ Future<void> logMeal(
     mealInfo,
     analysisId: analysisId,
     analysisSnapshot: analysisSnapshot,
+    v3ResultJson: v3ResultJson,
     loggedAt: loggedAt,
   );
 

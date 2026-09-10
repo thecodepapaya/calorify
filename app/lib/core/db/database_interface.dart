@@ -67,10 +67,12 @@ abstract class DatabaseInterface {
   Future<void> setDailyCalorieGoal(int goal);
 
   /// Log a meal. [analysisId] identifies its V3 analysis when available.
+  /// [v3ResultJson] preserves the complete final V3 server response verbatim.
   Future<void> logMeal(
     Meal mealInfo, {
     String? analysisId,
     PipelineResultData? analysisSnapshot,
+    String? v3ResultJson,
     DateTime? loggedAt,
   });
 

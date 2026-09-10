@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
@@ -445,6 +446,9 @@ class _MealTipState extends State<_MealTip> {
         parentContext: widget.parentContext,
         analysisId: widget.v3AnalysisId ?? _pipelineContext?.result.analysisId,
         analysisSnapshot: _pipelineContext?.result,
+        v3ResultJson: widget.v3Result == null
+            ? null
+            : jsonEncode(widget.v3Result!.rawJson),
       );
       if (!mounted) return;
       Navigator.of(context).pop();

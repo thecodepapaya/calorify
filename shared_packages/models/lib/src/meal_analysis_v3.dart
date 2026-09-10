@@ -343,6 +343,7 @@ class MealAnalysisV3CompleteResult {
     required this.macroRanges,
     required this.components,
     required this.receipt,
+    this.rawJson = const {},
   });
 
   factory MealAnalysisV3CompleteResult.fromJson(Map<String, dynamic> json) {
@@ -369,6 +370,7 @@ class MealAnalysisV3CompleteResult {
         _requiredList(json, 'components').map(_asMap),
       ),
       receipt: UnmodifiableMapView(_requiredMap(json, 'receipt')),
+      rawJson: UnmodifiableMapView(json),
     );
   }
 
@@ -380,6 +382,10 @@ class MealAnalysisV3CompleteResult {
   final MealAnalysisV3MacroRanges macroRanges;
   final List<Map<String, dynamic>> components;
   final Map<String, dynamic> receipt;
+
+  /// The exact COMPLETE event payload as received from the server, preserved
+  /// verbatim for durable storage and later reprocessing.
+  final Map<String, dynamic> rawJson;
 }
 
 class MealAnalysisV3TerminalIssue {
