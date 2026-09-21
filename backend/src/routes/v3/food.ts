@@ -35,6 +35,11 @@ import {
   uploadMealImageToOracle,
 } from '../../services/infrastructure/objectStorage.js';
 import {
+  getLangSmithClient,
+  mirrorAnalysisFeedbackInLangSmith,
+} from '../../services/infrastructure/langsmith.js';
+import config from '../../config.js';
+import {
   InvalidWebpError,
   MAX_MEAL_IMAGE_BYTES,
   validateStaticWebp,
@@ -333,7 +338,18 @@ function normalizedSessionInput(session: V3Session):
       };
 }
 
-async function runSession(reply: FastifyReply, session: V3Session): Promise<void> {
+/** Tags every graph run (and its LangSmith trace, when tracing is on). */
+function analysisRunMetadata(analysisId: string, session: V3Session): Record<string, string> {
+  const locale = session.input.context.locale;
+  return {
+    analysisId,
+    userId: session.userId,
+    ...(locale === undefined ? {} : { locale }),
+    llmProvider: config.LLM_PROVIDER,
+  };
+}
+
+async function runSession(reply: FastifyReply, session: V3Session, analysisId: string): Promise<void> {
   await streamSessionResult(reply, session, async (emitProgress) => {
     let image: { bytes: Uint8Array; mediaType: 'image/webp' } | undefined;
     const normalizedInput = normalizedSessionInput(session);
@@ -349,6 +365,7 @@ async function runSession(reply: FastifyReply, session: V3Session): Promise<void
       image,
       nutritionAnswers: session.nutritionAnswers,
       mealTypeAnswer: session.mealTypeAnswer,
+      metadata: analysisRunMetadata(analysisId, session),
       onInterpretationSnapshot: (snapshot) => {
         session.interpretationSnapshot = snapshot;
       },
@@ -364,13 +381,14 @@ async function runSession(reply: FastifyReply, session: V3Session): Promise<void
 }
 
 /** Finishes a paused session from its stored interpretation snapshot; no model calls. */
-async function runSessionFromSnapshot(reply: FastifyReply, session: V3Session): Promise<void> {
+async function runSessionFromSnapshot(reply: FastifyReply, session: V3Session, analysisId: string): Promise<void> {
   await streamSessionResult(reply, session, async (emitProgress) =>
     resumeMealAnalysisV3FromSnapshot({
       input: normalizedSessionInput(session),
       snapshot: session.interpretationSnapshot,
       nutritionAnswers: session.nutritionAnswers,
       mealTypeAnswer: session.mealTypeAnswer,
+      metadata: analysisRunMetadata(analysisId, session),
       observer(observation) {
         const progress = buildMealAnalysisV3Progress(observation);
         if (progress) emitProgress(progress);
@@ -439,7 +457,7 @@ export async function foodRoutesV3(
     if (!existing && !await remember(key, session)) {
       return reply.status(409).send(createErrorResponse('Analysis ID already has different input'));
     }
-    await runSession(reply, session);
+    await runSession(reply, session, body.analysisId);
   });
 
   fastify.post('/analyze-image', {
@@ -462,7 +480,7 @@ export async function foodRoutesV3(
     if (!existing && !await remember(key, session)) {
       return reply.status(409).send(createErrorResponse('Analysis ID already has different input'));
     }
-    await runSession(reply, session);
+    await runSession(reply, session, body.analysisId);
   });
 
   fastify.post('/answer', {
@@ -495,7 +513,7 @@ export async function foodRoutesV3(
       : undefined;
     session.nutritionAnswers = body.answers.filter(({ questionId }) => questionId !== 'meal-type');
     await remember(sessionKey(userId, body.analysisId), session);
-    await runSessionFromSnapshot(reply, session);
+    await runSessionFromSnapshot(reply, session, body.analysisId);
   });
 
   fastify.post('/resume', {
@@ -524,7 +542,7 @@ export async function foodRoutesV3(
       reply.raw.end();
       return;
     }
-    await runSession(reply, session);
+    await runSession(reply, session, body.analysisId);
   });
 
   fastify.post('/feedback', async (request, reply) => {
@@ -533,6 +551,14 @@ export async function foodRoutesV3(
     const userId = getCurrentUserId(request);
     if (!await recordMealAnalysisV3Feedback(userId, body.analysisId, body.signal)) {
       return reply.status(409).send(createErrorResponse('Feedback requires a completed analysis'));
+    }
+    const langSmithClient = getLangSmithClient();
+    if (langSmithClient) {
+      // Best-effort mirror; never blocks or fails the request.
+      void mirrorAnalysisFeedbackInLangSmith(langSmithClient, {
+        analysisId: body.analysisId,
+        signal: body.signal,
+      });
     }
     return { success: true };
   });

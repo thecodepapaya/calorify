@@ -61,7 +61,7 @@ The current flow deliberately does not support:
 - exact restaurant, branded-product, or proprietary-recipe integrations;
 - user-calibrated bowls, cups, plates, or utensils;
 - on-device interpretation or local nutrition settlement;
-- dynamic agent/tool loops or LangGraph orchestration; or
+- dynamic agent/tool loops; or
 - V2 clients, payloads, or sessions.
 
 ## End-to-end lifecycle

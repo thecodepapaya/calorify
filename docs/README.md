@@ -31,6 +31,10 @@ Use this page to find the document that matches the work you are doing.
   local USDA mirror: preparation relaxation, widened fuzzy qualifiers,
   retrieval recall, guardrails, and promotion criteria.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
+- [LangGraph/LangSmith meal-analysis pipeline rewrite](plans/langgraph-meal-analysis-pipeline.md)
+  — implemented re-expression of the V3 orchestration as a LangGraph
+  `StateGraph` with LangSmith observability; the deterministic core, snapshot
+  replay, and route contract are unchanged.
 
 ## Implemented workflows
 
