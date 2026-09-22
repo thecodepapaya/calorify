@@ -1,11 +1,43 @@
 import { createHash } from 'node:crypto';
 import { readFile, stat } from 'node:fs/promises';
 import type {
+  MealAnalysisV3Stage,
   StageObservation,
   StageObserver,
 } from '../services/meal-analysis-v3/observability.js';
 
 export const MAX_MEAL_ANALYSIS_CLI_IMAGE_BYTES = 10 * 1024 * 1024;
+
+/**
+ * Maps each observable stage to the LangGraph node that emits it, so the CLI
+ * can show graph progress alongside stage progress. Mirrors
+ * backend/src/services/meal-analysis-v3/graph/nodes.ts. MEAL_TYPE_RESOLVED
+ * is emitted by pauseForInput on the NEEDS_INPUT pause path and by finalize
+ * otherwise; TERMINAL is recorded by the pipeline facade after the graph
+ * completes.
+ */
+export const GRAPH_NODE_BY_STAGE: Record<MealAnalysisV3Stage, string> = {
+  INPUT_NORMALIZED: 'normalizeInput',
+  INTERPRETED: 'interpret',
+  VALIDATED: 'validate',
+  NUTRITION_RESOLVED: 'resolveNutrition',
+  CALCULATED: 'calculate',
+  QUESTIONS_PLANNED: 'planQuestions',
+  ANSWERS_APPLIED: 'applyAnswers',
+  RECALCULATED: 'applyAnswers',
+  MEAL_TYPE_RESOLVED: 'pauseForInput | finalize',
+  PRESENTED: 'finalize',
+  INTEGRITY_CHECKED: 'finalize',
+  TERMINAL: 'pipeline facade',
+};
+
+/** Human-mode banner describing the graph that the CLI is about to run. */
+export const MEAL_ANALYSIS_GRAPH_OVERVIEW = [
+  'Engine: LangGraph StateGraph (services/meal-analysis-v3/graph)',
+  'Fresh:  normalizeInput -> interpret -> validate -> resolveNutrition -> calculate',
+  '        -> planQuestions -> pauseForInput | applyAnswers -> finalize',
+  'Resume: resumeFromSnapshot -> calculate -> planQuestions -> ... (snapshot replay, no model calls)',
+].join('\n');
 
 export type MealAnalysisCliImageMediaType =
   | 'image/jpeg'
@@ -193,7 +225,8 @@ export function createHumanStageObserver(
 ): StageObserver {
   return async (observation) => {
     const sequence = String(observation.sequence).padStart(2, '0');
-    output.write(`[${sequence}] ${observation.stage} · ${Math.round(observation.durationMs)} ms\n`);
+    const node = GRAPH_NODE_BY_STAGE[observation.stage];
+    output.write(`[${sequence}] ${observation.stage} · node:${node} · ${Math.round(observation.durationMs)} ms\n`);
     await writeObservation?.(observableObservation(observation));
   };
 }

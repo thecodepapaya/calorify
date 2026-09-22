@@ -16,7 +16,8 @@ Backend services are grouped by ownership under `src/services/`:
   provider coordination, and presentation enrichment.
 - `meal-analysis-v3/` owns the isolated recipe-scenario domain, trusted
   nutrition resolver, pure calculation, bounded questions, presentation, and
-  ephemeral shared runner used by the hypothesis CLI.
+  the LangGraph `StateGraph` orchestration (with the facade runner) shared by
+  the route, the hypothesis CLI, and the eval harness.
 - `usda/` owns reference-data import, bootstrap, lookup, and ranking helpers.
 - `summaries/` owns daily AI-summary generation and deterministic statistics.
 - `infrastructure/` owns databases, migrations, external clients, storage,
@@ -107,8 +108,10 @@ snapshot behavior. Cross-module suites use a scope name such as
   `CALORIFY_POSTGRES_CONTRACT_TEST=true` and `DATABASE_URL` identifies a safe
   test database; the remaining suite is self-contained.
 
-`meal-analysis` runs the isolated V3 hypothesis core for either text or a local
-image. It exposes both compact LLM passes and every downstream stage, uses the active local USDA database,
+`meal-analysis` runs the V3 core as a LangGraph `StateGraph` for either text
+or a local image. It prints graph progress (an engine banner plus one line
+per stage annotated with the emitting graph node), exposes both compact LLM
+passes and every downstream stage, uses the active local USDA database,
 asks only a bounded material question bundle, and never selects silent
 defaults. Pass `--json` for NDJSON and `NEEDS_INPUT` behavior. See the
 [meal-analysis CLI guide](docs/meal-analysis-cli.md) for setup, arguments,

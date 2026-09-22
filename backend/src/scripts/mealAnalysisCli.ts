@@ -38,6 +38,7 @@ import {
   createNdjsonStageObserver,
   loadMealAnalysisCliImage,
   parseMealAnalysisCliAnswers,
+  MEAL_ANALYSIS_GRAPH_OVERVIEW,
 } from './mealAnalysisCliIo.js';
 
 export const MEAL_ANALYSIS_CLI_EXIT = {
@@ -286,7 +287,10 @@ export async function runMealAnalysisCli(argv = process.argv): Promise<number> {
     initializeDatabase();
     databaseInitialized = true;
 
-    if (!cliOptions.json) interactive = interactiveInputReader(cliOptions);
+    if (!cliOptions.json) {
+      stdout.write(`${MEAL_ANALYSIS_GRAPH_OVERVIEW}\n`);
+      interactive = interactiveInputReader(cliOptions);
+    }
     const result = await runMealAnalysisV3({
       input,
       ...(loadedImage

@@ -237,3 +237,10 @@ snapshot-replay parity tests through the graph), and `npm run
 test:coverage` at the existing 80/70 gates. No live model calls were made:
 the eval runner's interpreter path is unchanged, and the graph is proven
 byte-identical through the fixture-based suite.
+
+The CLI (`npm run meal-analysis`) prints graph progress directly: an engine
+banner describing both graphs, then one line per stage annotated with the
+emitting graph node, e.g. `[04] NUTRITION_RESOLVED · node:resolveNutrition ·
+5.6 s`. Verified end to end against the local USDA mirror with the fixture
+interpreter (zero model calls): all twelve observations through their graph
+nodes, terminating in a COMPLETE result (873 kcal) with exit code 0.

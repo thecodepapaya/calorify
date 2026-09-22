@@ -11,13 +11,18 @@ import { join } from 'node:path';
 import test from 'node:test';
 import {
   MAX_MEAL_ANALYSIS_CLI_IMAGE_BYTES,
+  MEAL_ANALYSIS_GRAPH_OVERVIEW,
   MealAnalysisCliInputError,
+  GRAPH_NODE_BY_STAGE,
   createHumanStageObserver,
   createNdjsonStageObserver,
   loadMealAnalysisCliImage,
   parseMealAnalysisCliAnswers,
 } from '../../src/scripts/mealAnalysisCliIo.js';
-import type { StageObservation } from '../../src/services/meal-analysis-v3/observability.js';
+import {
+  MEAL_ANALYSIS_V3_STAGES,
+  type StageObservation,
+} from '../../src/services/meal-analysis-v3/observability.js';
 
 function jpeg(): Buffer {
   return Buffer.from([
@@ -144,8 +149,20 @@ test('human observer prints one concise line and forwards the full observation',
   );
   await observer(observation());
 
-  assert.equal(written, '[03] INTERPRETED · 17 ms\n');
+  assert.equal(written, '[03] INTERPRETED · node:interpret · 17 ms\n');
   assert.deepEqual(observations, [observation()]);
+});
+
+test('every observable stage maps to a graph node for progress display', () => {
+  for (const stage of MEAL_ANALYSIS_V3_STAGES) {
+    assert.ok(
+      GRAPH_NODE_BY_STAGE[stage] !== undefined && GRAPH_NODE_BY_STAGE[stage].length > 0,
+      `stage ${stage} must map to a graph node`
+    );
+  }
+  assert.ok(MEAL_ANALYSIS_GRAPH_OVERVIEW.includes('LangGraph StateGraph'));
+  assert.ok(MEAL_ANALYSIS_GRAPH_OVERVIEW.includes('normalizeInput'));
+  assert.ok(MEAL_ANALYSIS_GRAPH_OVERVIEW.includes('resumeFromSnapshot'));
 });
 
 test('NDJSON observer emits exactly one sanitized observation per line', async () => {

@@ -2,8 +2,9 @@
 
 The local CLI exercises the new backend meal-analysis core before it is wired
 to HTTP or persistence. It accepts text in any language or one local image,
-runs every calculation stage, asks one bounded clarification bundle when
-needed, and exposes each stage's exact input and output.
+runs the LangGraph-orchestrated calculation flow, asks one bounded
+clarification bundle when needed, and exposes each stage's exact input and
+output.
 
 This is an ephemeral development tool. One interactive process keeps resolved
 model and USDA state in memory while answers are entered, so it does not rerun
@@ -74,10 +75,15 @@ npm run meal-analysis -- \
   --time-zone America/New_York
 ```
 
-Normal interactive mode prints one concise line per stage:
+Normal interactive mode prints an engine banner, then one concise line per
+stage annotated with the LangGraph node that emitted it:
 
 ```text
-[01] INPUT_NORMALIZED · 1 ms
+Engine: LangGraph StateGraph (services/meal-analysis-v3/graph)
+Fresh:  normalizeInput -> interpret -> validate -> resolveNutrition -> calculate
+        -> planQuestions -> pauseForInput | applyAnswers -> finalize
+Resume: resumeFromSnapshot -> calculate -> planQuestions -> ... (snapshot replay, no model calls)
+[01] INPUT_NORMALIZED · node:normalizeInput · 1 ms
 ```
 
 The complete input and output for every stage is written as a separate,
@@ -95,7 +101,9 @@ will initially display only the calorie point and range.
 
 ## Observable stages
 
-The same shared runner emits:
+The CLI, the route, and the eval harness all drive the same LangGraph
+`StateGraph` (`src/services/meal-analysis-v3/graph/`); each stage below is
+emitted by the graph node shown in the CLI progress line. The runner emits:
 
 1. `INPUT_NORMALIZED`
 2. `INTERPRETED`
