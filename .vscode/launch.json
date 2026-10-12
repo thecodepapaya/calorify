@@ -5,7 +5,7 @@
             "name": "Run dev (mock db)",
             "request": "launch",
             "type": "dart",
-            "cwd": "${workspaceFolder}/app",
+            "cwd": "${workspaceFolder}/app/calorify",
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
@@ -16,7 +16,7 @@
             "name": "Run dev",
             "request": "launch",
             "type": "dart",
-            "cwd": "${workspaceFolder}/app",
+            "cwd": "${workspaceFolder}/app/calorify",
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
@@ -28,7 +28,7 @@
             "name": "Run staging",
             "request": "launch",
             "type": "dart",
-            "cwd": "${workspaceFolder}/app",
+            "cwd": "${workspaceFolder}/app/calorify",
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
@@ -40,7 +40,7 @@
             "request": "launch",
             "flutterMode": "profile",
             "type": "dart",
-            "cwd": "${workspaceFolder}/app",
+            "cwd": "${workspaceFolder}/app/calorify",
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
@@ -51,7 +51,7 @@
             "name": "Run prod",
             "request": "launch",
             "type": "dart",
-            "cwd": "${workspaceFolder}/app",
+            "cwd": "${workspaceFolder}/app/calorify",
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
@@ -63,7 +63,7 @@
             "request": "launch",
             "flutterMode": "profile",
             "type": "dart",
-            "cwd": "${workspaceFolder}/app",
+            "cwd": "${workspaceFolder}/app/calorify",
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
@@ -80,14 +80,16 @@
             "name": "Watch App (Debug)",
             "request": "launch",
             "type": "dart",
-            "program": "watch_app/lib/main.dart"
+            "cwd": "${workspaceFolder}/app/watch",
+            "program": "lib/main.dart"
         },
         {
             "name": "Watch App (Profile)",
             "request": "launch",
             "flutterMode": "profile",
             "type": "dart",
-            "program": "watch_app/lib/main.dart"
+            "cwd": "${workspaceFolder}/app/watch",
+            "program": "lib/main.dart"
         },
         {
             "name": "Backend: Dev",

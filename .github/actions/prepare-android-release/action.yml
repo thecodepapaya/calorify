@@ -65,8 +65,8 @@ runs:
         ANDROID_KEY_PROPERTIES_B64: ${{ inputs.android-key-properties-b64 }}
       run: |
         set -euo pipefail
-        printf '%s' "$ANDROID_KEYSTORE_B64" | base64 --decode > app/android/app/upload-keystore.jks
-        printf '%s' "$ANDROID_KEY_PROPERTIES_B64" | base64 --decode > app/android/key.properties
+        printf '%s' "$ANDROID_KEYSTORE_B64" | base64 --decode > app/calorify/android/app/upload-keystore.jks
+        printf '%s' "$ANDROID_KEY_PROPERTIES_B64" | base64 --decode > app/calorify/android/key.properties
 
     - name: Set up Shorebird
       uses: shorebirdtech/setup-shorebird@4dd9d7dc2d7930bfeadb053b6e94b5110779d1e5 # v1

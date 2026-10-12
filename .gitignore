@@ -55,7 +55,7 @@ migrate_working_dir/
 **/build/
 
 # Golden test generated images
-app/test/golden/failures/
+app/calorify/test/golden/failures/
 .release-artifacts/
 
 # Local coverage reports

@@ -29,13 +29,13 @@ jobs:
           /opt/ghc /usr/local/share/boost
       - name: Reclaim test build artifacts before APK build
         run: flutter clean
-        working-directory: app
+        working-directory: app/calorify
       - name: Restore phone dependencies
         run: flutter pub get
-        working-directory: app
+        working-directory: app/calorify
       - name: Build phone Android debug app
         run: flutter build apk --debug --flavor dev --no-pub
-        working-directory: app
+        working-directory: app/calorify
 
   watch:
     name: Build watch Android debug APK
@@ -61,15 +61,15 @@ jobs:
         run: python3 scripts/audit_translations.py
       - name: Install watch dependencies
         run: flutter pub get
-        working-directory: watch_app
+        working-directory: app/watch
       - name: Analyze watch app
         run: flutter analyze
-        working-directory: watch_app
+        working-directory: app/watch
       - name: Test watch app
         run: flutter test --coverage --concurrency=1
-        working-directory: watch_app
+        working-directory: app/watch
       - name: Enforce watch coverage baseline
-        run: python3 scripts/check_lcov_coverage.py watch_app/coverage/lcov.info --minimum 25
+        run: python3 scripts/check_lcov_coverage.py app/watch/coverage/lcov.info --minimum 25
       - name: Build watch Android debug app
         run: flutter build apk --debug --no-pub
-        working-directory: watch_app
+        working-directory: app/watch

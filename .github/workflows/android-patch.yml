@@ -58,4 +58,4 @@ jobs:
           args: >-
             --flavor=prod
             --dart-define=MEASURE_API_KEY=${{ secrets.MEASURE_API_KEY }}
-          working-directory: app
+          working-directory: app/calorify

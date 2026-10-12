@@ -148,7 +148,7 @@ setup_environment() {
 }
 
 extract_version_code() {
-    VERSION_CODE=$(python3 - "$GIT_ROOT/app/pubspec.yaml" <<'PY'
+    VERSION_CODE=$(python3 - "$GIT_ROOT/app/calorify/pubspec.yaml" <<'PY'
 import re
 import sys
 from pathlib import Path
@@ -162,7 +162,7 @@ PY
 )
 
     if [ -z "$VERSION_CODE" ]; then
-        print_error "Could not extract version code from app/pubspec.yaml"
+        print_error "Could not extract version code from app/calorify/pubspec.yaml"
         exit 1
     fi
 }
@@ -283,7 +283,7 @@ build_release_context() {
     git log --no-merges --pretty=format:'- %s (%h)' "$RELEASE_RANGE" > "$commits_file"
 
     git diff --name-only "$RELEASE_RANGE" -- . \
-        ':(exclude)shared_packages/i18n/lib/i18n/*.i18n.json' \
+        ':(exclude)app/shared_packages/i18n/lib/i18n/*.i18n.json' \
         ':(exclude)**/*.g.dart' \
         ':(exclude)**/*.lock' \
         ':(exclude)**/build/**' \
@@ -292,7 +292,7 @@ build_release_context() {
         > "$files_file"
 
     git diff --stat=80,40 "$RELEASE_RANGE" -- . \
-        ':(exclude)shared_packages/i18n/lib/i18n/*.i18n.json' \
+        ':(exclude)app/shared_packages/i18n/lib/i18n/*.i18n.json' \
         ':(exclude)**/*.g.dart' \
         ':(exclude)**/*.lock' \
         ':(exclude)**/build/**' \

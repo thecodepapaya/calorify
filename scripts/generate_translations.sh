@@ -88,7 +88,7 @@ setup() {
         print_error "Run this script from inside the Calorify repository"
         return 1
     }
-    I18N_PKG_DIR="$GIT_ROOT/shared_packages/i18n"
+    I18N_PKG_DIR="$GIT_ROOT/app/shared_packages/i18n"
     if [ ! -d "$I18N_PKG_DIR/$I18N_DIR" ]; then
         print_error "Translation directory not found: $I18N_PKG_DIR/$I18N_DIR"
         return 1

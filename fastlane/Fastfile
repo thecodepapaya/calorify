@@ -109,7 +109,7 @@ platform :android do
 
   private_lane :validate_play_release_notes do
     repository_root = File.expand_path("..", __dir__)
-    version_code = pubspec_version_code(path: "app/pubspec.yaml")
+    version_code = pubspec_version_code(path: "app/calorify/pubspec.yaml")
     path = File.join(repository_root, "fastlane/metadata/android/en-US/changelogs/#{version_code}.txt")
     UI.user_error!("Missing English Play changelog: #{path}") unless File.file?(path)
 
@@ -132,7 +132,7 @@ platform :android do
     upload_to_play_store(
       track: track,
       release_status: ENV.fetch("PLAY_RELEASE_STATUS", "completed"),
-      aab: "app/build/app/outputs/bundle/prodRelease/app-prod-release.aab",
+      aab: "app/calorify/build/app/outputs/bundle/prodRelease/app-prod-release.aab",
       json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
       package_name: package_name,
       metadata_path: "fastlane/metadata/android",

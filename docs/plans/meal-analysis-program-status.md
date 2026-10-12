@@ -125,6 +125,6 @@ Recent commits, oldest first:
 ## Verification
 
 - Backend: `cd backend && npm run type-check && npm run lint && npm test`
-- App db: `cd app && flutter test test/unit/db/app_database_test.dart`
-- App non-golden: `cd app && flutter test test/unit test/widget`
-- App analysis: `cd app && flutter analyze --no-pub`
+- App db: `cd app/calorify && flutter test test/unit/db/app_database_test.dart`
+- App non-golden: `cd app/calorify && flutter test test/unit test/widget`
+- App analysis: `cd app/calorify && flutter analyze --no-pub`

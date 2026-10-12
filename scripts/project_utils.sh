@@ -12,7 +12,7 @@ source "$SCRIPT_DIR/common.sh"
 #   find_pubspec_projects [max_depth]
 # Prints one project path per line, relative to git root (no leading ./)
 find_pubspec_projects() {
-    local max_depth="${1:-3}"
+    local max_depth="${1:-4}"
 
     while IFS= read -r -d '' file; do
         local project_dir

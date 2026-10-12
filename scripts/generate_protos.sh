@@ -23,7 +23,7 @@ change_to_git_root
 ROOT_DIR="$PWD"
 
 PROTO_DIR="${ROOT_DIR}/protos"
-DART_OUT="${ROOT_DIR}/shared_packages/models/lib/src"
+DART_OUT="${ROOT_DIR}/app/shared_packages/models/lib/src"
 TS_OUT="${ROOT_DIR}/backend/src"
 PROTOC_VERSION="34.1"
 PROTOC_PLUGIN_VERSION="24.0.0"

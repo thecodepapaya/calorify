@@ -53,7 +53,7 @@ function repoRoot(): string {
 }
 
 async function discoverLocaleTags(): Promise<string[]> {
-  const dir = join(repoRoot(), 'shared_packages/i18n/lib/i18n');
+  const dir = join(repoRoot(), 'app/shared_packages/i18n/lib/i18n');
   const entries = await readdir(dir);
   return entries
     .filter((f) => f.endsWith('.i18n.json'))

@@ -4,8 +4,6 @@ on:
   pull_request:
     paths:
       - "app/**"
-      - "watch_app/**"
-      - "shared_packages/**"
       - "protos/**"
       - "scripts/audit_translations.py"
       - "scripts/check_lcov_coverage.py"
@@ -15,8 +13,6 @@ on:
     branches: [main]
     paths:
       - "app/**"
-      - "watch_app/**"
-      - "shared_packages/**"
       - "protos/**"
       - "scripts/audit_translations.py"
       - "scripts/check_lcov_coverage.py"
@@ -47,9 +43,9 @@ jobs:
         run: |
           set -euo pipefail
           for package in i18n models services specs utils widgets; do
-            printf '::group::shared_packages/%s\n' "$package"
+            printf '::group::app/shared_packages/%s\n' "$package"
             (
-              cd "shared_packages/$package"
+              cd "app/shared_packages/$package"
               flutter pub get
               flutter analyze --no-pub
               if [ -d test ]; then
@@ -88,12 +84,12 @@ jobs:
         run: python3 scripts/audit_translations.py
       - name: Install watch dependencies
         run: flutter pub get
-        working-directory: watch_app
+        working-directory: app/watch
       - name: Analyze watch app
         run: flutter analyze
-        working-directory: watch_app
+        working-directory: app/watch
       - name: Test watch app
         run: flutter test --coverage --concurrency=1
-        working-directory: watch_app
+        working-directory: app/watch
       - name: Enforce watch coverage baseline
-        run: python3 scripts/check_lcov_coverage.py watch_app/coverage/lcov.info --minimum 25
+        run: python3 scripts/check_lcov_coverage.py app/watch/coverage/lcov.info --minimum 25

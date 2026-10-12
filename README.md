@@ -219,10 +219,10 @@ flowchart TB
 
 ## Project layout
 
-- `app/` — Flutter phone app
-- `watch_app/` — Wear OS companion app
+- `app/calorify/` — Flutter phone app
+- `app/watch/` — Wear OS companion app
+- `app/shared_packages/` — shared app code and design resources
 - `backend/` — API and nutrition services
-- `shared_packages/` — shared app code and design resources
 
 ## Get started
 
@@ -232,9 +232,9 @@ You’ll need Flutter, Node.js, and Docker installed locally.
 git clone <repository-url>
 cd calorify
 
-cd app && flutter pub get
-cd ../watch_app && flutter pub get
-cd ../backend && npm ci
+cd app/calorify && flutter pub get
+cd ../watch && flutter pub get
+cd ../../backend && npm ci
 cp env.example .env
 ```
 

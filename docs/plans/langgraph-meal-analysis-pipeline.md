@@ -68,9 +68,9 @@ accepted.
 ### Graph shape
 
 One `StateGraph` in `backend/src/services/meal-analysis-v3/graph/` with nodes
-mapped one-to-one from the current stages:
+mapped one-to-one from the legacy stages:
 
-| Node | Wraps today's | Notes |
+| Node | Emits stage(s) | Notes |
 | --- | --- | --- |
 | `normalizeInput` | `INPUT_NORMALIZED` | zod parse of normalized meal input |
 | `interpret` | `INTERPRETED` | two LLM passes via the injected interpreter |
@@ -78,18 +78,55 @@ mapped one-to-one from the current stages:
 | `resolveNutrition` | `NUTRITION_RESOLVED` | USDA resolver + bounded LLM fallback |
 | `calculate` | `CALCULATED` | `calculateMeal` scenario arithmetic |
 | `planQuestions` | `QUESTIONS_PLANNED` | question bundle, meal-type question |
-| `applyAnswers` | `ANSWERS_APPLIED` | resume path only |
-| `finalize` | `RECALCULATED`/`MEAL_TYPE_RESOLVED`/`PRESENTED`/`INTEGRITY_CHECKED` | recalc, meal type, presentation, integrity gate |
+| `pauseForInput` | skips + `MEAL_TYPE_RESOLVED` | NEEDS_INPUT pause; emits the interpretation snapshot |
+| `applyAnswers` | `ANSWERS_APPLIED`/`RECALCULATED` | optional `requestInput` call, then applies answers |
+| `finalize` | `MEAL_TYPE_RESOLVED`/`PRESENTED`/`INTEGRITY_CHECKED` | meal type, presentation, integrity gate |
+| `resumeFromSnapshot` | `INPUT_NORMALIZED` + skips | resume-graph entry; parses the stored snapshot |
 
 State is a single `Annotation.Root` object holding input, resolved
 interpretation, calculation, question bundle, answers, and terminal outcome.
-Deps (interpreter, nutrition resolver, presenter) travel in graph config, not
-state, so fixture injection keeps working for tests, CLI, and eval.
+Deps (interpreter, nutrition resolver, presenter) are bound as closures when
+the graph is compiled, never into state, so fixture injection keeps working
+for tests, CLI, and eval.
 
-`NEEDS_INPUT` uses LangGraph's native human-in-the-loop: `planQuestions`
-calls `interrupt(questions)`; the answer request resumes with
-`Command({ resume: answers })`. Terminal outcomes (`COMPLETE`, `NO_FOOD`,
-`UNUSABLE_INPUT`, `UNRESOLVED`) end at `END` with the existing result shapes.
+Branching is plain conditional edges. `NEEDS_INPUT` pauses by routing to
+`pauseForInput` (answers missing and no `requestInput` callback); terminal
+outcomes (`NO_FOOD`, `UNUSABLE_INPUT`, `UNRESOLVED`) route straight to `END`
+with the existing result shapes. The pipeline facade records `TERMINAL` after
+either graph completes.
+
+**Fresh analysis** (`buildMealAnalysisGraph`):
+
+```mermaid
+flowchart TD
+    START([START]) --> normalizeInput["normalizeInput<br/>INPUT_NORMALIZED"]
+    normalizeInput --> interpret["interpret<br/>INTERPRETED (two LLM passes)"]
+    interpret --> validate["validate<br/>VALIDATED"]
+    validate -- "terminal NO_FOOD / UNUSABLE_INPUT" --> END1([END])
+    validate -- "food" --> resolveNutrition["resolveNutrition<br/>NUTRITION_RESOLVED<br/>(USDA + model fallback)"]
+    resolveNutrition -- "unresolved" --> END2([END])
+    resolveNutrition -- "resolved" --> calculate["calculate<br/>CALCULATED"]
+    calculate --> planQuestions["planQuestions<br/>QUESTIONS_PLANNED"]
+    planQuestions -- "answers missing,<br/>no requestInput" --> pauseForInput["pauseForInput<br/>skip remaining stages,<br/>emit interpretation snapshot"]
+    planQuestions -- "answers available" --> applyAnswers["applyAnswers<br/>ANSWERS_APPLIED + RECALCULATED<br/>(may call requestInput)"]
+    pauseForInput --> END3([END<br/>NEEDS_INPUT])
+    applyAnswers --> finalize["finalize<br/>MEAL_TYPE_RESOLVED + PRESENTED<br/>+ INTEGRITY_CHECKED"]
+    finalize --> END4([END<br/>COMPLETE or NEEDS_INPUT])
+```
+
+**Deterministic /answer replay** (`buildMealAnalysisResumeGraph`):
+
+```mermaid
+flowchart TD
+    START([START /answer]) --> resumeFromSnapshot["resumeFromSnapshot<br/>INPUT_NORMALIZED + parse snapshot,<br/>skip INTERPRETED / VALIDATED / NUTRITION_RESOLVED"]
+    resumeFromSnapshot --> calculate["calculate<br/>CALCULATED"]
+    calculate --> planQuestions["planQuestions<br/>replay the persisted question bundle"]
+    planQuestions -- "answers missing" --> pauseForInput["pauseForInput<br/>(no snapshot emitted here)"]
+    planQuestions -- "answers available" --> applyAnswers["applyAnswers<br/>ANSWERS_APPLIED + RECALCULATED"]
+    pauseForInput --> END1([END<br/>NEEDS_INPUT])
+    applyAnswers --> finalize["finalize<br/>MEAL_TYPE_RESOLVED + PRESENTED<br/>+ INTEGRITY_CHECKED"]
+    finalize --> END2([END<br/>COMPLETE or NEEDS_INPUT])
+```
 
 ### Pause/resume and persistence
 

@@ -7,9 +7,9 @@ on:
       - "backend/src/protos/**"
       - "backend/package.json"
       - "backend/package-lock.json"
-      - "shared_packages/models/lib/src/protos/**"
-      - "shared_packages/models/pubspec.yaml"
-      - "shared_packages/models/pubspec.lock"
+      - "app/shared_packages/models/lib/src/protos/**"
+      - "app/shared_packages/models/pubspec.yaml"
+      - "app/shared_packages/models/pubspec.lock"
       - "scripts/common.sh"
       - "scripts/generate_protos.sh"
       - ".github/workflows/ci-contracts.yml"
@@ -20,9 +20,9 @@ on:
       - "backend/src/protos/**"
       - "backend/package.json"
       - "backend/package-lock.json"
-      - "shared_packages/models/lib/src/protos/**"
-      - "shared_packages/models/pubspec.yaml"
-      - "shared_packages/models/pubspec.lock"
+      - "app/shared_packages/models/lib/src/protos/**"
+      - "app/shared_packages/models/pubspec.yaml"
+      - "app/shared_packages/models/pubspec.lock"
       - "scripts/common.sh"
       - "scripts/generate_protos.sh"
       - ".github/workflows/ci-contracts.yml"
@@ -74,7 +74,7 @@ jobs:
       - name: Require committed generated output
         run: |
           changes=$(git status --short --untracked-files=all -- \
-            backend/src/protos shared_packages/models/lib/src/protos)
+            backend/src/protos app/shared_packages/models/lib/src/protos)
           if [ -n "$changes" ]; then
             printf '%s\n' "$changes"
             printf 'Generated contract files are stale. Run ./scripts/generate_protos.sh and commit the result.\n'

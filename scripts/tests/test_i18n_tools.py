@@ -81,7 +81,7 @@ class TranslationAuditCliTest(unittest.TestCase):
         translated_text: str | None,
         source_text: str = "This sentence should have been translated.",
     ) -> Path:
-        i18n_dir = root / "shared_packages" / "i18n" / "lib" / "i18n"
+        i18n_dir = root / "app" / "shared_packages" / "i18n" / "lib" / "i18n"
         i18n_dir.mkdir(parents=True)
         source = {
             "language": "English",

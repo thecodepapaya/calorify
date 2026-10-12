@@ -8,7 +8,7 @@ Use this page to find the document that matches the work you are doing.
 - [Security policy](../SECURITY.md) — vulnerability reporting and secret handling.
 - [Backend development](../backend/README.md) — API setup, commands, and contracts.
 - [Backend deployment runbook](../backend/DEPLOYMENT.md) — staging, production, rollback, and USDA operations.
-- [Wear OS companion](../watch_app/README.md) — watch setup and phone synchronization.
+- [Wear OS companion](../app/watch/README.md) — watch setup and phone synchronization.
 
 ## Plans and decisions
 
@@ -62,8 +62,8 @@ Use this page to find the document that matches the work you are doing.
 
 - [GitHub Actions](github-actions.md) — workflow triggers, required checks, and
   the manual-only build and staging-deployment policy.
-- [Shared Flutter packages](../shared_packages/README.md)
-- [Translation regeneration](../shared_packages/i18n/README.md)
-- [Wear OS audit tracker](../watch_app/AUDIT_TRACKER.md)
+- [Shared Flutter packages](../app/shared_packages/README.md)
+- [Translation regeneration](../app/shared_packages/i18n/README.md)
+- [Wear OS audit tracker](../app/watch/AUDIT_TRACKER.md)
 - [Play Store metadata](../fastlane/metadata/README.md)
 - [Website screenshot guidelines](../web/IMAGE_GUIDELINES.md)

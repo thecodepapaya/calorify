@@ -124,7 +124,7 @@ def main() -> int:
     args = parser.parse_args()
 
     root = Path(args.root).resolve()
-    i18n_dir = root / "shared_packages" / "i18n" / "lib" / "i18n"
+    i18n_dir = root / "app" / "shared_packages" / "i18n" / "lib" / "i18n"
     source_path = i18n_dir / "en.i18n.json"
     try:
         source = load_catalog(source_path)

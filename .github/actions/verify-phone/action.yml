@@ -17,19 +17,19 @@ runs:
 
     - name: Install phone dependencies
       shell: bash
-      working-directory: app
+      working-directory: app/calorify
       run: flutter pub get
 
     - name: Analyze phone app
       shell: bash
-      working-directory: app
+      working-directory: app/calorify
       run: flutter analyze
 
     - name: Test phone app
       shell: bash
-      working-directory: app
+      working-directory: app/calorify
       run: flutter test --coverage test/unit test/widget --concurrency=1
 
     - name: Enforce phone coverage baseline
       shell: bash
-      run: python3 scripts/check_lcov_coverage.py app/coverage/lcov.info --minimum 25
+      run: python3 scripts/check_lcov_coverage.py app/calorify/coverage/lcov.info --minimum 25

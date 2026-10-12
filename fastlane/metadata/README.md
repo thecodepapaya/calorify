@@ -29,14 +29,14 @@ For example:
 
 ### Automated From Git History (Recommended)
 
-Use `generate_release_notes.sh` after bumping `app/pubspec.yaml` to the version code you plan to release:
+Use `generate_release_notes.sh` after bumping `app/calorify/pubspec.yaml` to the version code you plan to release:
 
 1. **Preview generated release notes:**
    ```bash
    ./scripts/generate_release_notes.sh --dry-run
    ```
    This will:
-   - Read the current version code from `app/pubspec.yaml`
+   - Read the current version code from `app/calorify/pubspec.yaml`
    - Find the previous release from `fastlane/metadata/android/en-US/changelogs`
    - Summarize release-note-worthy git changes with OpenAI `gpt-5.6-luna`
    - Print the English notes without writing files

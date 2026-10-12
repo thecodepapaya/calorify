@@ -20,7 +20,7 @@ PROJECTS=()
 while IFS= read -r project; do
     # Skip empty lines just in case
     [ -n "$project" ] && PROJECTS+=("$project")
-done < <(find_pubspec_projects 3)
+done < <(find_pubspec_projects 4)
 
 if [ ${#PROJECTS[@]} -eq 0 ]; then
     print_warning "No pubspec.yaml files found."

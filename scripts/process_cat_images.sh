@@ -47,10 +47,10 @@ Environment:
 
 Examples:
   # Simple: keep filenames (foo.jpg -> foo-processed.png)
-  $(basename "$0") ./cat_images_raw ./app/assets/images
+  $(basename "$0") ./cat_images_raw ./app/calorify/assets/images
 
   # Numbered: cat8.png, cat9.png, ...
-  $(basename "$0") ./cat_images_raw ./app/assets/images cat 8
+  $(basename "$0") ./cat_images_raw ./app/calorify/assets/images cat 8
 EOF
 }
 

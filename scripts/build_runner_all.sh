@@ -21,7 +21,7 @@ print_header "Finding Flutter/Dart projects with build_runner"
 PROJECTS=()
 while IFS= read -r project; do
     [ -n "$project" ] && PROJECTS+=("$project")
-done < <(find_pubspec_projects 3)
+done < <(find_pubspec_projects 4)
 
 if [ ${#PROJECTS[@]} -eq 0 ]; then
     print_warning "No pubspec.yaml files found."

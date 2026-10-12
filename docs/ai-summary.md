@@ -45,11 +45,11 @@ app startup/resume
 ```
 
 The app boundary is defined by
-[`AiSummaryGenerator`](../app/lib/core/ai_summary/ai_summary_models.dart).
-[`BackendAiSummaryGenerator`](../app/lib/core/ai_summary/backend_ai_summary_generator.dart)
+[`AiSummaryGenerator`](../app/calorify/lib/core/ai_summary/ai_summary_models.dart).
+[`BackendAiSummaryGenerator`](../app/calorify/lib/core/ai_summary/backend_ai_summary_generator.dart)
 owns Firebase authentication and HTTP serialization. The foreground and
 single-flight behavior is in
-[`AiSummaryCoordinator`](../app/lib/core/ai_summary/ai_summary_coordinator.dart).
+[`AiSummaryCoordinator`](../app/calorify/lib/core/ai_summary/ai_summary_coordinator.dart).
 A future on-device generator may implement the same interface without changing
 snapshot collection, cache storage, or UI consumption.
 
@@ -71,7 +71,7 @@ sparse-data checks.
 The authoritative backend schema is in
 [`service.ts`](../backend/src/services/summaries/service.ts). The app
 request types are in
-[`ai_summary_models.dart`](../app/lib/core/ai_summary/ai_summary_models.dart).
+[`ai_summary_models.dart`](../app/calorify/lib/core/ai_summary/ai_summary_models.dart).
 
 ## API and concurrency
 

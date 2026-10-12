@@ -19,7 +19,7 @@ Flutter app
 ```
 
 The phone upload call is implemented in
-[`food_repository.dart`](../app/lib/core/repositories/food_repository.dart).
+[`food_repository.dart`](../app/calorify/lib/core/repositories/food_repository.dart).
 The route is in
 [`food.ts`](../backend/src/routes/v3/food.ts), WebP validation is in
 [`webpValidation.ts`](../backend/src/services/infrastructure/webpValidation.ts), and Oracle
