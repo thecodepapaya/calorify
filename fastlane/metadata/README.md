@@ -1,115 +1,50 @@
-# Play Store Metadata
+# Play Store Release Metadata
 
-This directory contains the English (United States) changelog used for Google Play Store releases. Other Play Store locales are intentionally managed outside this repository.
+This directory stores Google Play Store release changelogs for the English (`en-US`) locale. Other locales are managed outside this repository.
 
 ## Changelog Structure
 
-Changelogs are organized by locale and version code:
+Changelog files are mapped to the build version code (the integer after the `+` in `app/calorify/pubspec.yaml`):
 
-```
-fastlane/metadata/android/
-  └── en-US/
-      └── changelogs/
-          └── [version_code].txt
+```text
+fastlane/metadata/android/en-US/changelogs/[version_code].txt
 ```
 
-### Locale Format
+*Example: version `1.2.1+22` corresponds to `fastlane/metadata/android/en-US/changelogs/22.txt`.*
 
-Only `en-US` is supported by the release-note automation. Do not add other locale directories unless their complete Play Store listings, including titles, are first configured and the release workflow is deliberately updated.
+## Formatting Rules
 
-### Version Code
+- **Format**: 1–4 bullet points, each starting with `- `.
+- **Characters**: Printable ASCII only. Angle brackets (`<`, `>`) and markdown formatting are rejected by the release runner.
+- **Length**: Maximum 500 characters.
 
-The changelog file name should match the version code from your `pubspec.yaml` file. The version code is the number after the `+` in the version string.
+## Creating Changelogs
 
-For example:
-- Version `1.2.1+22` → changelog file: `22.txt`
-- Version `1.2.2+23` → changelog file: `23.txt`
+### Automated (Recommended)
 
-## Adding Changelogs
-
-### Automated From Git History (Recommended)
-
-Use `generate_release_notes.sh` after bumping `app/calorify/pubspec.yaml` to the version code you plan to release:
-
-1. **Preview generated release notes:**
-   ```bash
-   ./scripts/generate_release_notes.sh --dry-run
-   ```
-   This will:
-   - Read the current version code from `app/calorify/pubspec.yaml`
-   - Find the previous release from `fastlane/metadata/android/en-US/changelogs`
-   - Summarize release-note-worthy git changes with OpenAI `gpt-5.6-luna`
-   - Print the English notes without writing files
-
-2. **Create release notes for the current version:**
-   ```bash
-   ./scripts/generate_release_notes.sh
-   ```
-   Or through Fastlane:
-   ```bash
-   bundle exec fastlane android release_notes
-   ```
-
-3. **Override the release boundary if needed:**
-   ```bash
-   ./scripts/generate_release_notes.sh --since <git-ref>
-   ```
-
-4. **Replace existing notes for the current version:**
-   ```bash
-   ./scripts/generate_release_notes.sh --overwrite
-   ```
-
-The script refuses to overwrite an existing changelog file unless `--overwrite` is provided. Review the generated file before running the Play Store upload lane:
+Generate release notes summarizing git commits via `gpt-5.6-luna`:
 
 ```bash
-bundle exec fastlane android release
+# Preview notes without writing to disk
+./scripts/generate_release_notes.sh --dry-run
+
+# Generate and write changelog file for current version
+./scripts/generate_release_notes.sh
+
+# Force-overwrite existing changelog
+./scripts/generate_release_notes.sh --overwrite
 ```
 
-The script resolves the API key via `scripts/resolve_openai_api_key.py`: `OPENAI_API_KEY` first, then the optional one-line `scripts/.openai_api_key` file (gitignored).
+*Requires `OPENAI_API_KEY` set or stored in gitignored `scripts/.openai_api_key`.*
 
-### Automated From Provided Text
+### Manual
 
-Use the `create_changelog.sh` compatibility command when you already have English release notes. It delegates to the same validated, staged implementation as `generate_release_notes.sh`:
+Create `fastlane/metadata/android/en-US/changelogs/<version_code>.txt` directly:
 
-1. **Create the English changelog:**
-   ```bash
-   ./scripts/create_changelog.sh "Your changelog text here"
-   ```
-   This saves the text to the current version's `en-US` changelog.
-
-2. **Create changelog from existing file:**
-   ```bash
-   ./scripts/create_changelog.sh --file fastlane/metadata/android/en-US/changelogs/22.txt
-   ```
-
-### Manual Method
-
-1. **Check your current version code** in `pubspec.yaml` (the number after `+`)
-
-2. **Create or update the English changelog file:**
-   ```
-   fastlane/metadata/android/en-US/changelogs/[version_code].txt
-   ```
-
-3. **Write your changelog** - Use 1–4 meaningful lines beginning with `- `. Keep it within 500 characters and use printable ASCII characters only; angle-bracket markup is rejected.
-
-## Example
-
-For version `1.2.1+22`:
-
-**File:** `fastlane/metadata/android/en-US/changelogs/22.txt`
-```
+```text
 - Improved AI meal recognition accuracy
 - Fixed crash when syncing with Health Connect
-- Performance optimizations for faster app startup
-- Updated app translations
+- Faster app startup performance
 ```
 
-## Notes
-
-- Fastlane uploads the matching `en-US` changelog while skipping store-listing metadata, images, and screenshots
-- The release lane rejects missing, malformed, non-ASCII, or overlong English notes before uploading
-- If a changelog file doesn't exist for a version code, Fastlane will skip it (no error)
-- Changelogs are required for new releases but optional for updates
-- Keep changelogs under 500 characters for best display on Play Store
+Fastlane automatically bundles the matching changelog during `bundle exec fastlane android release`.

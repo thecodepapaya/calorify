@@ -1,16 +1,15 @@
 # Calorify for Wear OS
 
-The watch app is a compact companion to the Calorify phone app. Its UI uses the shared Calorify color, typography, and component language while adapting navigation, touch targets, density, and feedback to a round watch display.
+The Wear OS companion app for Calorify. Designed for round watch displays with AMOLED-friendly dark styling, readable typography, and 44dp touch targets.
 
 ## Features
 
-- Voice-first meal descriptions with partial transcription, retry guidance, and explicit confirmation.
-- Nutrition analysis proxied through the paired phone.
-- Daily calories, goals, recent meals, favorites, and history.
-- Offline meal and deletion queues that retry when the paired phone reconnects.
-- Wear OS Data Layer synchronization with visible connection and sync states.
+- **Voice meal logging**: Partial transcription, speech confirmation, and phone-proxied analysis.
+- **Glanceable stats**: Daily calories, goal progress, macro overview, and recent meals.
+- **Offline resilient**: Local SQLite cache and queued mutations (logs/deletions) that replay upon reconnect.
+- **Wear OS Data Layer**: Correlated JSON messaging with connection and sync state indicators.
 
-## Setup
+## Setup & Running
 
 ```bash
 cd app/watch
@@ -20,12 +19,18 @@ flutter test
 flutter run
 ```
 
-The watch does not store a backend authentication session or initialize Firebase. The phone and watch Android applications must still use compatible application identities and signing certificates for the Wear OS Data Layer.
+> **Note**: The watch does not run Firebase or backend sessions; it proxies requests through the paired phone. Phone and watch builds must share compatible application IDs and signing certificates.
 
-Microphone permission is required for voice logging. Use a paired phone/watch emulator set or physical devices when testing synchronization; ordinary widget tests do not exercise Google Play Services transport.
+Microphone permission is required for voice logging. Use a paired phone/watch emulator set or physical devices to verify Google Play Services Data Layer communication.
 
-## Sync design
+## Architecture
 
-The native Android layer transports correlated JSON requests between devices. Flutter services handle dashboard refresh, meal logging/deletion, favorites, user profile, and calorie goals. Cached state keeps the watch usable while disconnected, and pending mutations are replayed after reconnection.
+- **Watch Services** (`lib/core/services/`): Local SQLite cache, mutation outbox queue, speech recognition, and Data Layer transport.
+- **Phone Bridge** (`app/calorify/lib/core/services/wear_os_service.dart`): Responds to watch requests, serves dashboard snapshots, and executes meal mutations.
 
-The phone-side implementation lives in `app/calorify/lib/core/services/wear_os_service.dart`; watch transport and queue logic live under `app/watch/lib/core/services/`.
+## Reliability Roadmap
+
+- Replace activity-bound phone listener with a background receiver service.
+- Explicit peer verification via `CapabilityClient` handshake.
+- Fine-grained transport error recovery (distinguishing disconnects, auth, and analysis errors).
+- Automated paired-device integration tests for reconnect and replay queues.

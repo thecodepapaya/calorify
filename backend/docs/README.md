@@ -1,23 +1,15 @@
-# Backend documentation
+# Backend Documentation
 
-- [USDA lookup CLI](usda-lookup-cli.md) — inspect selected and partial local
-  database matches through the production V3 resolver without modifying data.
-- [Meal-analysis V3 API](meal-analysis-v3-api.md) — authenticated HTTP routes,
-  atomic question bundles, terminal events, and durable session behavior.
-- [Meal-analysis history](analysis-history.md) — protected, read-only operator
-  inspector for durable V3 sessions and recorded user follow-up.
-- [Meal-analysis V3 hypothesis CLI](meal-analysis-cli.md) — observable two-pass
-  text and image interpretation, derived scenarios, active local USDA grounding,
-  per-ingredient generic/branded/ambiguous retrieval routing, bounded questions,
-  five-macro ranges, and terminal outcomes.
-- [Meal-analysis enum reference](meal-analysis-enums.md) — canonical compact
-  model and deterministic enum values, including preparation methods.
-- [Meal-analysis model eval](../evals/README.md) — exact-model evaluation of the
-  two decomposition passes and their semantic bounds.
-- [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — implemented
-  provider metrics, reserved stage/client instrumentation, and target queries.
+Index of backend design notes, CLI guides, API contracts, and operational documentation.
 
-The canonical cross-component flow, decisions, tradeoffs, and roadmap are in
-the [meal-analysis V3 architecture and roadmap](../../docs/plans/meal-analysis-reliability.md).
-This directory holds backend-specific implementation and operational evidence;
-the repository-level docs index links to all other documentation.
+## Documentation Index
+
+- [Meal-analysis V3 API](meal-analysis-v3-api.md) — Authenticated HTTP routes, NDJSON streaming events, question bundles, and durable session lifecycle.
+- [Meal-analysis V3 CLI](meal-analysis-cli.md) — Observable developer tool for text and image analysis, scenario calculation, and question planning.
+- [USDA Lookup CLI](usda-lookup-cli.md) — Tool to inspect ingredient matching through the V3 USDA resolver against the local database.
+- [Meal-analysis Model & Resolver Evals](../evals/README.md) — LLM pass evaluations and USDA resolver hit-rate benchmark runner.
+- [Meal-analysis Enum Reference](meal-analysis-enums.md) — Canonical compact model enums, preparation methods, and deterministic codes.
+- [Meal-analysis History](analysis-history.md) — Protected operator inspector for stored V3 sessions and results.
+- [Prometheus Metrics](meal-analysis-prometheus.md) — Provider telemetry, stage metrics, and Grafana queries.
+
+For cross-component system architecture, see the [Meal-Analysis V3 Reliability Plan](../../docs/plans/meal-analysis-reliability.md). For all project documentation, see the [Documentation Index](../../docs/README.md).

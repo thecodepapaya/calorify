@@ -1,226 +1,95 @@
 # Calorify Backend
 
-Fastify and TypeScript API for authenticated nutrition analysis, USDA-grounded macro calculation, user data, summaries, and operational metrics.
+Fastify and TypeScript API for authenticated nutrition analysis, USDA-grounded macro calculations, AI summaries, and operational observability.
 
 ## Architecture
 
-- PostgreSQL stores application data, analysis sessions, and feedback. A separate shared PostgreSQL database stores imported USDA reference rows.
-- Firebase Admin verifies client identity.
-- OpenRouter is the sole meal-analysis provider.
-- Model output is schema-validated before USDA matching and deterministic macro calculation.
-- Prometheus metrics, structured logs, Loki, and Grafana provide observability.
+- **PostgreSQL**: Stores application data, analysis sessions, and feedback. A separate shared database holds imported USDA reference data.
+- **Firebase Admin**: Verifies client authentication and token identity.
+- **OpenRouter / OpenAI**: Powers the two-pass structured meal decomposition and daily summaries.
+- **USDA Grounding**: Pure deterministic arithmetic scales verified reference nutrients; model-fallback nutrition is explicitly flagged.
+- **Observability**: Prometheus metrics, Loki, and Grafana.
 
-Backend services are grouped by ownership under `src/services/`:
+### Service Modules (`src/services/`)
 
-- `meal-analysis/` owns the analysis pipeline, durable state, history, prompts,
-  provider coordination, and presentation enrichment.
-- `meal-analysis-v3/` owns the isolated recipe-scenario domain, trusted
-  nutrition resolver, pure calculation, bounded questions, presentation, and
-  the LangGraph `StateGraph` orchestration (with the facade runner) shared by
-  the route, the hypothesis CLI, and the eval harness.
-- `usda/` owns reference-data import, bootstrap, lookup, and ranking helpers.
-- `summaries/` owns daily AI-summary generation and deterministic statistics.
-- `infrastructure/` owns databases, migrations, external clients, storage,
-  validation, and metrics.
+- `meal-analysis/` — Session management, provider coordination, and presentation enrichment.
+- `meal-analysis-v3/` — LangGraph `StateGraph` pipeline: component & ingredient interpretation, USDA resolution, scenario calculation, and question planning.
+- `usda/` — Reference data import, maintenance, and multi-tier ingredient ranking.
+- `summaries/` — Daily nutritional statistics and localized AI prose generation.
+- `infrastructure/` — Database pools, storage (Oracle Object Storage), WebP validation, and metrics.
 
-## Setup
+## Setup & Local Development
 
-```bash
-npm ci
-cp env.example .env
-```
+1. **Install dependencies and configure environment**:
+   ```bash
+   npm ci
+   cp env.example .env
+   ```
+   *Fill in `.env` with local database URLs, provider API keys, and bucket URLs.*
 
-Populate `.env` with local-only values. A complete local environment includes
-separate `DATABASE_URL` and read-only `USDA_DATABASE_URL` values, the relevant
-AI provider keys, `ORACLE_BUCKET_UPLOAD_URL`, and
-`ORACLE_BUCKET_DOWNLOAD_URL`. Firebase authentication
-requires an ignored service-account JSON and `FIREBASE_SERVICE_ACCOUNT_PATH`.
+2. **Start local databases** (Application on `:5433`, read-only USDA on `:5434`):
+   ```bash
+   docker compose -f docker-compose.yml -f docker-compose.local.yml \
+     --profile staging up -d --wait db-staging db-usda
+   ```
 
-Start the separate application and USDA databases:
+3. **Bootstrap USDA reference data** (first run only):
+   ```bash
+   docker build -t calorify-backend-local:latest .
+   docker compose -f docker-compose.yml -f docker-compose.local.yml \
+     --profile maintenance run --rm usda-maintenance
+   ```
 
-```bash
-docker compose -f docker-compose.yml -f docker-compose.local.yml \
-  --profile staging up -d --wait db-staging db-usda
-```
+4. **Start the API service**:
+   ```bash
+   npm run dev
+   ```
 
-On the first run, build the maintenance image and populate the USDA database
-through its owner-only maintenance flow:
-
-```bash
-docker build -t calorify-backend-local:latest .
-docker compose -f docker-compose.yml -f docker-compose.local.yml \
-  --profile maintenance run --rm usda-maintenance
-```
-
-Then start the host backend:
+## Key Commands
 
 ```bash
-npm run dev
+npm run dev              # Start development server with hot-reload
+npm run build            # Compile TypeScript to dist/
+npm start                # Run compiled production server
+npm run type-check       # Verify TypeScript types
+npm run lint             # Run ESLint checks
+
+# Testing
+npm test                 # Run tests via Node native test runner and tsx
+npm run test:coverage    # Enforce 80% line/stmt and 70% branch coverage
+
+# Meal-Analysis & USDA CLIs
+npm run meal-analysis:local                          # Interactive guided meal analysis
+npm run meal-analysis -- --text "dal and rice"      # Headless text analysis
+npm run meal-analysis:eval -- --model openai/gpt-5.6-luna  # Evaluate LLM passes
+npm run usda:resolver-eval                           # Evaluate USDA retrieval baseline
+npm run usda:lookup -- --query "rolled oats"        # Inspect USDA resolver matching
 ```
 
-For the host backend, `DATABASE_URL` uses `localhost:5433` and
-`USDA_DATABASE_URL` uses the read-only USDA role on `localhost:5434`. The
-local Compose override only exposes that USDA port to the host; the base
-staging and production topology remains unchanged.
+## Testing Conventions
 
-In VS Code, start the local dependencies first and then use `Backend: Dev`.
-Run the meal-analysis CLI manually from a separate terminal. It needs the
-local USDA service, but not the Fastify server or application database.
+All tests live under `tests/` mirroring `src/` (e.g. `src/services/usda/lookup.ts` -> `tests/services/usda/lookup.test.ts`).
+- Production directories must never contain test files.
+- Run `npm test` to execute all tests serially.
+- Enforce code quality with `npm run test:coverage` and `npm run lint`.
 
-## Commands
+## External Integrations
 
-```bash
-npm run dev          # hot reload
-npm run type-check
-npm run lint
-npm test
-npm run test:coverage
-npm run build
-npm start
+- **V3 Meal Analysis API**: Authenticated NDJSON stream supporting progressive UI stages, atomic clarification questions, and deterministic replays. See [Meal-Analysis V3 API Guide](docs/meal-analysis-v3-api.md).
+- **USDA Reference Data**: Read-only connection to materialized USDA FoodData Central records. Migrations and imports are isolated to maintenance containers. See [Nutrition Resolver Retrieval](../docs/plans/nutrition-resolver-retrieval.md).
+- **Daily AI Summaries**: Non-blocking client catch-up calling `POST /api/v1/food/ai-summary/generate`, backed by deterministic stats and idempotent row locks. See [Daily AI Summaries](../docs/ai-summary.md).
+- **Meal Image Uploads**: Authenticated WebP upload to private object storage returning an opaque image ID. See [Meal Image Uploads](../docs/meal-image-uploads.md).
 
-npm run meal-analysis -- --text "dal and rice"
-npm run meal-analysis:eval -- --model openai/gpt-5.6-luna
-npm run usda:migrate    # schema only; never downloads a USDA archive
-npm run usda:bootstrap
-npm run usda:refresh
-```
+## Configuration & Security Rules
 
-## Testing
+- Never commit `.env`, credentials, service account keys, or signed bucket URLs.
+- Set `DEBUG=false` in production.
+- Request and response bodies are excluded from application logs to protect private dietary data.
+- Refer to [`DEPLOYMENT.md`](DEPLOYMENT.md) for production VM configurations, deployment workflows, and rollback procedures.
 
-All backend tests live under `tests/`; production source directories must not
-contain test files. The test tree mirrors the complete `src/` path, so
-`src/services/usda/lookup.ts` maps directly to
-`tests/services/usda/lookup.test.ts`. Keep the same basename when a test owns
-one source module.
+## Observability & Diagnostics
 
-Tests for specialized contracts add a descriptive suffix while remaining in
-the mirrored directory. For example, `store.postgres.test.ts` exercises the
-real PostgreSQL store contract and `import.snapshot.test.ts` verifies USDA
-snapshot behavior. Cross-module suites use a scope name such as
-`routes/integration.test.ts`.
-
-- `npm test` runs every `tests/**/*.test.ts` file serially with Node's native
-  test runner and TypeScript support from `tsx`.
-- `npm run test:coverage` enforces 80% line, function, and statement coverage
-  plus 70% branch coverage over production source.
-- `npm run lint` checks both `src/` and `tests/`.
-- The PostgreSQL contract test skips unless
-  `CALORIFY_POSTGRES_CONTRACT_TEST=true` and `DATABASE_URL` identifies a safe
-  test database; the remaining suite is self-contained.
-
-`meal-analysis` runs the V3 core as a LangGraph `StateGraph` for either text
-or a local image. It prints graph progress (an engine banner plus one line
-per stage annotated with the emitting graph node), exposes both compact LLM
-passes and every downstream stage, uses the active local USDA database,
-asks only a bounded material question bundle, and never selects silent
-defaults. Pass `--json` for NDJSON and `NEEDS_INPUT` behavior. See the
-[meal-analysis CLI guide](docs/meal-analysis-cli.md) for setup, arguments,
-stages, exit codes, and fixture replay.
-
-`meal-analysis:local` is the guided launcher. It imports USDA only when no
-active materialized snapshot exists, prompts for text or image input and
-context, and then runs the same observable CLI.
-
-`meal-analysis:eval` evaluates the two compact LLM passes directly, using one
-exact OpenRouter model without fallbacks. Its 20-case representative global
-stress dataset runs three repetitions per case by default and reports
-assertion-level pass rates without a release threshold. USDA, calories, macros,
-clarification, and presentation are outside this eval. See the
-[meal-analysis eval guide](evals/README.md) for scoring, options, and artifacts.
-
-## Model routing
-
-Meal analysis attempts:
-
-1. `OPENROUTER_MEAL_MODEL` via OpenRouter (`openai/gpt-5.6-luna` by default).
-   The two-pass hypothesis CLI uses `OPENROUTER_MEAL_V3_MODEL`
-   (`openai/gpt-5.6-luna` by default) for this primary attempt.
-Network errors, rate limits, quota exhaustion, malformed JSON, and
-schema-invalid responses fail the meal-analysis model call. Daily AI summaries
-also use only their configured OpenRouter model.
-
-## Daily AI summaries
-
-The phone starts a non-blocking catch-up when the app opens or resumes. It
-builds a bounded snapshot from the previous seven completed local calendar
-days, applies the sparse-data threshold locally, and calls the authenticated
-`POST /api/v1/food/ai-summary/generate` endpoint only when today's local cache
-is empty. The endpoint validates the same boundaries, computes deterministic
-statistics, and asks OpenRouter only for the prose. A completed row is replayed
-for the same Firebase UID and local date without another provider call.
-
-`ai_summaries` is also the retry and concurrency record. Active claims return
-`202` with `Retry-After`, failed claims cool down for 15 minutes, stale claims
-may be recovered after two minutes, and each UID/date is capped at three
-provider attempts. Completion and failure writes include the claimed attempt
-number, preventing a stale worker from modifying a newer claim. The phone
-honors `Retry-After`; an unavailable Firebase token stops before any request and
-does not start its failure cooldown.
-
-The validated request, resolved locale, deterministic statistics, and bounded
-failure metadata remain in the application data store. General logs and metrics
-do not contain the meal snapshot. The complete cross-component workflow is
-documented in [Daily AI summaries](../docs/ai-summary.md).
-
-## USDA grounding
-
-USDA FoodData Central CSV data is imported into a shared PostgreSQL reference
-database. Deployed APIs connect with a read-only role; a one-off maintenance
-container owns migrations and imports. Lookup evaluates the model's ordered
-canonical identity and aliases with exact normalized names and indexed trigram
-candidates, then uses separate preparation states when ranking accepted
-matches. Calories and macros are scaled from the selected per-100-g reference
-row. New imports also store per-nutrient presence flags. V3 reuses legacy
-materialized snapshots; missing fiber is intentionally treated as zero, while
-a presence-aware snapshot still rejects missing calories, protein,
-carbohydrate, or fat. This can understate fiber when the source omitted it.
-The current release temporarily accepts compatible fuzzy matches at `0.4` and
-breaks equal-rank conflicts by similarity, then numeric FDC ID, to prefer an
-approximate calorie result over an unresolved analysis. The accuracy tradeoff
-and removal criteria are canonical in the
-[nutrition resolver retrieval plan](../docs/plans/nutrition-resolver-retrieval.md#temporary-release-accuracy-tradeoff).
-
-The importer accepts only the USDA `Energy` nutrient expressed in kcal. A read-boundary guard repairs legacy reference rows that were previously imported from kilojoules.
-
-The API reports ready only when its application database and the shared USDA database are reachable and one active USDA dataset has been fully materialized. A missing dataset is restored through the maintenance container; ordinary API startup never imports USDA data. An atomic refresh keeps the previous active dataset usable until the replacement is complete.
-
-## Configuration
-
-`env.example` documents all supported values. Important rules:
-
-- Never commit `.env`, `production.env`, `staging.env`, service accounts, signing keys, or pre-authenticated URLs.
-- Keep `POSTGRES_PROD_PASSWORD` and `POSTGRES_STAGING_PASSWORD` consistent with their environment-specific `DATABASE_URL` values.
-- Keep the USDA owner and reader passwords in the VM's ignored Compose environment only; API containers receive the reader URL, never the owner URL.
-- `DEBUG` must be `false` in production.
-- `ORACLE_BUCKET_UPLOAD_URL` is a backend-only bearer credential and is required in production.
-- `ORACLE_BUCKET_DOWNLOAD_URL` is the far-future, read-only PAR base returned for meal-history images; listing must remain disabled and it is required in production.
-- Request and response bodies are never written to application logs because payloads contain health data.
-- After deploying the backend upload flow, revoke the legacy app-exposed upload PAR; application migrations cannot remove the old credential from existing backups or archived WAL.
-
-## Deployment and operations
-
-[`DEPLOYMENT.md`](DEPLOYMENT.md) is the single backend runbook. It covers the
-GHCR release flow, VM runtime contract, Compose services, staging and production,
-the shared USDA database, observability, rollback, and storage maintenance.
-
-## Observability
-
-- `GET /health` — process liveness only; it does not check dependencies.
-- `GET /ready` — readiness; requires PostgreSQL and an active, materialized USDA dataset.
-- `GET /metrics` — Prometheus exposition.
-- `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
-- `npm run meal-analysis:eval -- --model openai/gpt-5.6-luna` — direct two-pass
-  model accuracy and stability diagnostics.
-- `npm run meal-analysis -- --text "dal and rice"` — observable local V3
-  hypothesis flow for text or image input.
-- `DEPLOYMENT.md` — Loki/Grafana runtime and troubleshooting commands.
-- [`docs/README.md`](docs/README.md) — backend design notes, release evidence,
-  metrics, and evaluation references.
-
-## Contracts
-
-The app uses only the authenticated
-[`/api/v3/food` meal-analysis contract](docs/meal-analysis-v3-api.md). V3
-sessions, question answers, feedback, and log confirmations are durable.
-
-Protobuf definitions live in the repository-level `protos/` directory. After changing a contract, regenerate outputs with `scripts/generate_protos.sh`, run backend checks, and run affected Flutter tests.
+- `GET /health` — Process liveness.
+- `GET /ready` — Readiness (requires reachable application and USDA databases).
+- `GET /metrics` — Prometheus telemetry. See [Meal-Analysis Prometheus Metrics](docs/meal-analysis-prometheus.md).
+- `GET /analysis-history` — Protected operator inspector for stored sessions. See [Analysis History](docs/analysis-history.md).

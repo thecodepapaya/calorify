@@ -1,252 +1,75 @@
 # Calorify
 
-Calorify is a friendly nutrition tracker for Android and Wear OS. Log a meal by typing or photographing it, get a helpful calorie and macro estimate, and keep your progress close at hand—even when you’re offline.
+Calorify is an offline-first nutrition tracker for Android and Wear OS. Log meals via text description or photo, receive reliable calorie and macro estimates grounded in USDA data, and track daily goals across devices.
 
-> Calorie estimates are for information only and aren’t medical advice.
+> **Disclaimer**: Calorie estimates are for informational purposes only and do not constitute medical advice.
 
 ## Highlights
 
-- AI-assisted meal logging from text or photos
-- Nutrition estimates grounded in USDA food data
-- Clarifying questions when portions are uncertain
-- Goals, history, favorites, and Health Connect support
-- A Wear OS companion for quick voice logging
+- **AI-Assisted Meal Logging**: Two-pass structured interpretation from natural language or camera photos.
+- **USDA-Grounded Estimates**: Deterministic calculation using verified USDA food records with explicit fallback boundaries.
+- **Smart Clarification**: Asks targeted questions only when uncertainty materially affects nutrition totals.
+- **Offline-First & Durable Sync**: Local SQLite storage via Drift with an outbox pattern for backend confirmation and Health Connect export.
+- **Wear OS Companion**: Compact smartwatch app with voice-first logging and peer synchronization.
 
-## Meal analysis at a glance
+## Architecture & Analysis Pipeline
 
 ```mermaid
 flowchart LR
-  A[Text or private photo] --> B[Two-pass interpretation]
-  B --> C[USDA-first ingredient resolution]
-  C --> D[Scenario calculation and ranges]
-  D --> E{Material uncertainty?}
-  E -->|Yes| F[One atomic question bundle]
+  A[Text or Photo] --> B[Two-Pass Model Interpretation]
+  B --> C[USDA-First Ingredient Resolution]
+  C --> D[Scenario Calculation & Ranges]
+  D --> E{Material Uncertainty?}
+  E -->|Yes| F[Atomic Question Bundle]
   F --> D
-  E -->|No| G[Integrity check and presentation]
-  G --> H[Local save]
-  H -. durable outbox .-> I[Server log confirmation]
+  E -->|No| G[Presentation & Validation]
+  G --> H[Local Save]
+  H -. Durable Outbox .-> I[Server Sync & Confirmation]
 ```
 
-### Why it works this way
+### Core Principles
 
-- **Two model passes:** component detection and ingredient decomposition stay
-  small, structured, and independently validated.
-- **USDA first:** trusted records are preferred; any bounded model fallback is
-  explicitly labelled. Deterministic ingredient arithmetic—not model-written
-  calories—produces totals.
-- **Scenarios before questions:** plausible recipes and portions produce points
-  and ranges; the app asks only when an answer materially improves nutrition.
-- **Stage-driven progress:** the rich sheet shows component headings after pass
-  one, fills in their ingredient lists after pass two, and stays visually
-  monotonic across clarification.
-- **Local-first saving:** meals remain usable offline while a durable outbox
-  synchronizes confirmation later.
+- **Two Model Passes**: Component detection and ingredient decomposition stay small, structured, and validated independently.
+- **USDA Grounding**: Reference foods provide authoritative nutrient baselines; deterministic arithmetic calculates totals.
+- **Scenarios Before Questions**: Explores plausible recipe scenarios and ranges first; asks only when answers materially narrow uncertainty.
+- **Offline Reliability**: Saves immediately to the local device database, queuing sync operations for when connectivity is restored.
 
-For contracts, tradeoffs, and future work, see the
-[V3 architecture and roadmap](docs/plans/meal-analysis-reliability.md).
+For deep architectural design and roadmap, see the [V3 Architecture Plan](docs/plans/meal-analysis-reliability.md).
 
-## App flow and feature map
+## Repository Layout
 
-```mermaid
-%%{init: {"flowchart": {"defaultRenderer": "elk", "nodeSpacing": 30, "rankSpacing": 50}}}%%
-flowchart TB
-  USER([User])
+- [`app/calorify/`](app/calorify/README.md) — Primary Flutter mobile application for Android.
+- [`app/watch/`](app/watch/README.md) — Companion Wear OS application.
+- [`app/shared_packages/`](app/shared_packages/README.md) — Shared Dart models, protobufs, design tokens, and utilities.
+- [`backend/`](backend/README.md) — Fastify/TypeScript backend, nutrition engine, and USDA database.
 
-  subgraph PHONE["Android phone app · Flutter"]
-    direction TB
+## Getting Started
 
-    subgraph STARTUP["Startup and onboarding"]
-      direction LR
-      LAUNCH["Launch app"] --> SPLASH["Splash and initialization"]
-      SPLASH --> INIT["Load language and local database<br/>restore Firebase guest session<br/>initialize Health Connect, notifications,<br/>analytics, crash reporting, and Wear OS"]
-      INIT --> GUARD{"Onboarding complete?"}
-      GUARD -->|No| ONBOARD["13-step onboarding<br/>welcome → weight goal → activity → motivation<br/>→ gender → height → current weight → health context<br/>→ target weight → age → tracking guidance<br/>→ Health Connect → meal reminders"]
-      ONBOARD --> PROFILE_SAVE["Save profile, units, goal,<br/>permissions, and reminder choices"]
-      PROFILE_SAVE --> MAIN
-      GUARD -->|Yes| MAIN["Responsive main shell<br/>phone dock or tablet navigation rail"]
-    end
-
-    subgraph PRIMARY["Primary navigation"]
-      direction LR
-      MAIN --> DASH["Dashboard"]
-      MAIN --> LOG["Log meal"]
-      MAIN --> HISTORY["History"]
-      MAIN --> MENU["App menu"]
-
-      DASH --> DASH_FEATURES["Daily calorie goal and progress<br/>calories burned · macro split<br/>7-day intake chart · today's meals<br/>Health Connect setup/status"]
-      HISTORY --> HISTORY_FEATURES["Paginated meal timeline<br/>grouped by day · open details<br/>edit or delete logged meals"]
-      MENU --> PROFILE["Profile<br/>personal metrics · goals and activity<br/>BMI/BMR/TDEE-derived values · edit profile"]
-      MENU --> SETTINGS["Settings"]
-    end
-
-    subgraph CAPTURE["Meal capture and analysis"]
-      direction TB
-      LOG --> INPUT{"Choose an input"}
-      INPUT -->|Camera or gallery| PHOTO["Compress photo on device"]
-      PHOTO --> UPLOAD["Upload to private object storage"]
-      UPLOAD --> IMAGE_API["Start streamed image analysis"]
-
-      INPUT -->|Typed description| TEXT_API["Start streamed V3 text analysis"]
-
-      INPUT -->|Favorite or custom meal| QUICK["Review/edit saved nutrition<br/>and choose meal type"]
-      QUICK --> SAVE
-
-      IMAGE_API --> PIPELINE["Live V3 progress<br/>interpret components and ingredients<br/>→ resolve nutrition → calculate scenarios<br/>→ plan questions → validate and present"]
-      TEXT_API --> PIPELINE
-      PIPELINE --> FOOD{"Food detected?"}
-      FOOD -->|No| RETRY["Explain no-food result<br/>retry with another input"]
-      RETRY --> INPUT
-      FOOD -->|Yes| CLARIFY{"More detail needed?"}
-      CLARIFY -->|Yes| QUESTIONS["Answer material portion, ingredient,<br/>preparation, or meal-type questions"]
-      QUESTIONS --> PIPELINE
-      CLARIFY -->|No| RESULT["Meal result<br/>serving text · calories and range<br/>protein · carbs · fat · fiber · tip"]
-      RESULT -->|Rate result| FEEDBACK["Helpful / not helpful"]
-      RESULT -->|Confirm| SAVE["Save the logged meal locally"]
-    end
-
-    subgraph LIBRARY["Meal library and daily management"]
-      direction LR
-      SAVE --> TODAY["Dashboard and today's totals refresh"]
-      SAVE --> HISTORY
-      TODAY --> DETAILS["Meal details"]
-      HISTORY_FEATURES --> DETAILS
-      DETAILS --> EDIT["Edit name, type, time,<br/>nutrition, score, and image"]
-      DETAILS --> DELETE["Delete meal"]
-      DETAILS --> FAVORITE["Add/remove favorite"]
-      FAVORITE --> FAVORITES["Favorites library<br/>search · sort · quick log<br/>edit · remove · undo"]
-      FAVORITES --> QUICK
-      EDIT --> SAVE
-    end
-
-    subgraph PREFERENCES["Settings and supporting flows"]
-      direction TB
-      SETTINGS --> PERSONALIZE["Language · light/dark/system theme<br/>metric/imperial height and weight units"]
-      SETTINGS --> REMINDERS["Meal reminder schedule<br/>local notification permissions"]
-      SETTINGS --> HEALTH_SETTINGS["Health Connect permissions<br/>read activity/calories · opt-in nutrition export<br/>disconnect or delete app-written health records"]
-      SETTINGS --> SUPPORT["Send feedback email · export meal history CSV<br/>About/legal · app version"]
-      SETTINGS --> PRIVACY["Clear all local app data"]
-      SETTINGS --> DEV["Debug builds: database inspector,<br/>analysis observability, mock states,<br/>and diagnostics"]
-    end
-
-    subgraph LOCAL_DATA["Offline-first phone data"]
-      direction LR
-      DB[("Drift / SQLite<br/>profile · preferences · meals · favorites<br/>local nutrition cache · durable sync queues")]
-      OUTBOX["Transactional outboxes<br/>meal-log confirmations/deletions<br/>and Health Connect upserts/deletions"]
-    end
-
-    PROFILE_SAVE --> DB
-    PERSONALIZE --> DB
-    REMINDERS --> DB
-    FAVORITES --> DB
-    SAVE --> DB
-    EDIT --> DB
-    DELETE --> DB
-    DB --> OUTBOX
-  end
-
-  subgraph WATCH["Wear OS companion · Flutter"]
-    direction TB
-    W_START["Launch watch app"] --> W_CACHE["Restore cached meals,<br/>favorites, goal, and pending operations"]
-    W_CACHE --> W_HOME["Watch dashboard<br/>connection/sync state · calorie progress<br/>macro glance · today's recent meals"]
-    W_HOME --> W_ACTION{"Choose action"}
-    W_ACTION -->|Voice log| VOICE["Microphone permission → live transcript<br/>confirm speech → analyze through phone"]
-    W_ACTION -->|Favorites| W_FAV["Browse cached favorites<br/>and quick log"]
-    W_ACTION -->|History| W_HISTORY["Browse cached meal history"]
-    W_ACTION -->|Delete| W_DELETE["Optimistic meal deletion"]
-    VOICE --> W_RESULT["Review calories/macros<br/>confirm meal"]
-    W_RESULT --> W_MUTATION["Log meal"]
-    W_FAV --> W_MUTATION
-    W_DELETE --> W_MUTATION
-    W_MUTATION --> CONNECTED{"Paired phone connected?"}
-    CONNECTED -->|Yes| DATA_LAYER["Correlated JSON request<br/>over Wear OS Data Layer"]
-    CONNECTED -->|No| W_QUEUE[("Watch SQLite cache<br/>durable log/delete queue")]
-    W_QUEUE -->|30-second retry or reconnect| DATA_LAYER
-    DATA_LAYER --> PHONE_BRIDGE["Phone Wear OS service<br/>today's meals · calorie goal · favorites<br/>analyze text · log/delete meal"]
-    PHONE_BRIDGE --> DB
-    DB -->|Fresh dashboard snapshot| DATA_LAYER
-    DATA_LAYER --> W_CACHE
-  end
-
-  subgraph BACKEND["Authenticated backend · Fastify / Node.js"]
-    direction TB
-    API["Firebase ID-token authentication<br/>App Check context · validation · rate limits"]
-    API --> V3["Streamed meal API V3<br/>text/image · progress · atomic answers<br/>resume · feedback · confirm log"]
-    API --> V1["Supporting API v1<br/>profile · meal-analysis tips<br/>meal-history CSV export · AI summary"]
-    V3 --> ENGINE["Nutrition engine<br/>two-pass structured interpretation<br/>coherent scenarios · deterministic calculation"]
-    ENGINE --> USDA_LOOKUP["USDA lookup and nutrient calculation<br/>with bounded model fallback"]
-    ENGINE --> SESSION[("PostgreSQL<br/>analysis sessions · snapshots · confirmed logs<br/>profiles · feedback · summary state")]
-    V1 --> SESSION
-    SUMMARY_JOB["Hourly job<br/>process users near local 03:00<br/>batch nutritional summaries"] --> SESSION
-    OPS["Health/readiness endpoints<br/>structured logs · Prometheus metrics<br/>analysis and provider observability"] --> API
-  end
-
-  subgraph EXTERNAL["Platform and external services"]
-    direction LR
-    FIREBASE["Firebase<br/>anonymous/Google auth · App Check<br/>Crashlytics · Analytics · FCM · app banners"]
-    OBJECTS[("Oracle Object Storage<br/>meal photos and nutrition-pack artifact")]
-    MODELS["OpenRouter / OpenAI<br/>meal interpretation and summaries"]
-    USDA[("USDA FoodData Central<br/>imported nutrition dataset")]
-    HEALTH["Android Health Connect<br/>active calories and nutrition records"]
-    NOTIFY["Android notifications<br/>meal reminders and app messages"]
-  end
-
-  USER --> LAUNCH
-  USER --> W_START
-  SPLASH --> FIREBASE
-  API --> FIREBASE
-  UPLOAD --> OBJECTS
-  IMAGE_API --> API
-  TEXT_API --> API
-  QUESTIONS --> API
-  FEEDBACK --> API
-  OUTBOX -->|Retry on startup, resume, and mutation| API
-  OUTBOX -->|When nutrition sync is enabled| HEALTH
-  HEALTH -->|Active calories and authorization state| DASH_FEATURES
-  HEALTH_SETTINGS --> HEALTH
-  REMINDERS --> NOTIFY
-  FIREBASE --> NOTIFY
-  ENGINE --> MODELS
-  SUMMARY_JOB --> MODELS
-  USDA --> USDA_LOOKUP
-  OBJECTS --> ENGINE
-  PROFILE_SAVE -->|Profile sync| V1
-  SUPPORT -->|CSV export| V1
-
-  SHARED["Shared packages across phone and watch<br/>protobuf models · localization · themes/specs<br/>widgets · utilities · services"]
-  SHARED -.-> INIT
-  SHARED -.-> W_CACHE
-```
-
-## Project layout
-
-- `app/calorify/` — Flutter phone app
-- `app/watch/` — Wear OS companion app
-- `app/shared_packages/` — shared app code and design resources
-- `backend/` — API and nutrition services
-
-## Get started
-
-You’ll need Flutter, Node.js, and Docker installed locally.
+Prerequisites: Flutter SDK, Node.js (v22+), and Docker.
 
 ```bash
+# Clone the repository
 git clone <repository-url>
 cd calorify
 
+# Install dependencies
 cd app/calorify && flutter pub get
 cd ../watch && flutter pub get
 cd ../../backend && npm ci
 cp env.example .env
 ```
 
-Add your local backend settings to `backend/.env`, then follow the setup notes in [backend/README.md](backend/README.md). Run either app from its directory with `flutter run`.
+Configure `backend/.env` with local settings and follow the [Backend Setup Guide](backend/README.md). Run either app from its directory using `flutter run`.
 
-## Learn more
+## Documentation
 
-- [Documentation index](docs/README.md)
-- [Backend setup and development](backend/README.md)
-- [Backend deployment and operations](backend/DEPLOYMENT.md)
-- [Security guidance](SECURITY.md)
+- [Documentation Index](docs/README.md) — Complete index of all guides, architecture plans, and runbooks.
+- [Phone App Guide](app/calorify/README.md) — Testing, coverage, and development workflow.
+- [Wear OS Guide](app/watch/README.md) — Watch development and Data Layer synchronization.
+- [Backend Guide](backend/README.md) — API services, USDA bootstrap, and local test runners.
+- [Deployment Runbook](backend/DEPLOYMENT.md) — Staging, production, and cloud operations.
+- [Security Policy](SECURITY.md) — Secret handling and vulnerability disclosure.
 
 ## Contributing
 
-Bug fixes, thoughtful improvements, and feedback are welcome. Please keep credentials out of source control and add coverage for behavior changes.
+Contributions and bug fixes are welcome. Please ensure credentials are never committed, adhere to existing architectural invariants, and add test coverage for behavioral changes.

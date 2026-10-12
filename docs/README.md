@@ -1,69 +1,41 @@
-# Calorify documentation
+# Calorify Documentation
 
-Use this page to find the document that matches the work you are doing.
+Central index for Calorify system architecture, component documentation, technical plans, and operational runbooks.
 
-## Start here
+## Getting Started
 
-- [Project overview](../README.md) — product scope, setup, and repository map.
-- [Security policy](../SECURITY.md) — vulnerability reporting and secret handling.
-- [Backend development](../backend/README.md) — API setup, commands, and contracts.
-- [Backend deployment runbook](../backend/DEPLOYMENT.md) — staging, production, rollback, and USDA operations.
-- [Wear OS companion](../app/watch/README.md) — watch setup and phone synchronization.
+- [Project Overview](../README.md) — Product vision, core pipeline, and repository structure.
+- [Phone Application](../app/calorify/README.md) — Android Flutter app, setup, and testing suites.
+- [Wear OS Companion](../app/watch/README.md) — Smartwatch app, speech capture, and Data Layer synchronization.
+- [Shared Packages](../app/shared_packages/README.md) — Shared domain models, tokens, and utilities.
+- [Backend Development](../backend/README.md) — Fastify API services, USDA database, and local runners.
+- [Backend Deployment Runbook](../backend/DEPLOYMENT.md) — Production/staging VM deployment, migrations, and rollback.
+- [Security Policy](../SECURITY.md) — Secret handling and vulnerability disclosure.
 
-## Plans and decisions
+## Architecture & Plans
 
-- [Meal-analysis V3 architecture and roadmap](plans/meal-analysis-reliability.md)
-  — canonical implemented text/image lifecycle, two-pass interpretation,
-  scenarios and ranges, clarification, progress UI, persistence and log sync,
-  design tradeoffs, known limitations, and considered future features.
-- [Meal-analysis program status](plans/meal-analysis-program-status.md) —
-  working tracker of pending work, durable decisions, and progress across
-  the V3 backend and app; architecture stays in the reliability plan.
-- [GPT-5.6 Luna one-call meal-analysis evaluation](plans/luna-one-call-meal-analysis-evaluation.md)
-  — live three-repeat comparison of a combined parsing-and-decomposition call
-  with the current two-call baseline, including cost, latency, and decision.
-- [Nutrition resolver retrieval](plans/nutrition-resolver-retrieval.md) —
-  canonical FTS, USDA NFS, and generic-spices fallback decisions, resolver
-  invariants, the temporary release accuracy tradeoff, and deferred embedding
-  design and rollout criteria.
-- [USDA ingredient hit rate](plans/usda-ingredient-hit-rate.md) — measured
-  fallback ladder for resolving almost every pass-2 ingredient against the
-  local USDA mirror: preparation relaxation, widened fuzzy qualifiers,
-  retrieval recall, guardrails, and promotion criteria.
-- [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
-- [LangGraph/LangSmith meal-analysis pipeline rewrite](plans/langgraph-meal-analysis-pipeline.md)
-  — implemented re-expression of the V3 orchestration as a LangGraph
-  `StateGraph` with LangSmith observability; the deterministic core, snapshot
-  replay, and route contract are unchanged.
+- [Meal-Analysis V3 Architecture & Roadmap](plans/meal-analysis-reliability.md) — Canonical specification for the end-to-end two-pass analysis lifecycle, scenario calculations, question bounds, and durable sync.
+- [Nutrition Resolver Retrieval](plans/nutrition-resolver-retrieval.md) — Retrieval hierarchy, full-text search, USDA matching heuristics, and accuracy guardrails.
+- [USDA Ingredient Hit Rate](plans/usda-ingredient-hit-rate.md) — Fallback ladder and resolution metrics for ingredient matching against the USDA mirror.
+- [LangGraph Meal-Analysis Pipeline](plans/langgraph-meal-analysis-pipeline.md) — Orchestration of the meal analysis workflow using a LangGraph `StateGraph`.
+- [Luna One-Call Evaluation](plans/luna-one-call-meal-analysis-evaluation.md) — Live benchmark comparing combined vs. two-call LLM meal analysis.
+- [Suggested Nutrition Targets](plans/suggested-nutrition-targets.md) — Backend-owned target calculations and client contract.
 
-## Implemented workflows
+## Feature Workflows
 
-- [Daily AI summaries](ai-summary.md) — foreground generation, bounded local
-  snapshots, OpenRouter prose, daily idempotency, caching, and diagnostics.
-- [Meal-image uploads](meal-image-uploads.md) — authenticated backend upload,
-  bounded WebP validation, Oracle handoff, visibility, and lifecycle limits.
-- [Meal-analysis V3 API](../backend/docs/meal-analysis-v3-api.md) — the only
-  supported app/backend meal-analysis transport and session contract.
-- [Meal-analysis history](../backend/docs/analysis-history.md) — protected
-  operator inspector for durable V3 analysis sessions.
-- [Meal-analysis V3 hypothesis CLI](../backend/docs/meal-analysis-cli.md) — run
-  the shared ephemeral V3 core, now LangGraph-orchestrated, with observable
-  per-node graph progress for two-pass text or image stages.
-- [Meal-analysis enum reference](../backend/docs/meal-analysis-enums.md) — exact
-  model-facing and deterministic codes, including preparation methods.
+- [Daily AI Summaries](ai-summary.md) — Bounded local meal snapshots, deterministic stats, and localized AI prose generation.
+- [Meal-Image Uploads](meal-image-uploads.md) — Authenticated WebP upload pipeline and object storage architecture.
+- [Meal-Analysis V3 API](../backend/docs/meal-analysis-v3-api.md) — Streamed NDJSON API routes, event contracts, and session lifecycle.
+- [Meal-Analysis V3 CLI](../backend/docs/meal-analysis-cli.md) — Interactive and automated developer tool for meal analysis testing.
 
-## Backend references
+## Reference Documentation
 
-- [Meal-analysis Prometheus metrics](../backend/docs/meal-analysis-prometheus.md)
-  — implemented provider telemetry and explicitly unwired stage/client metrics.
-- [Meal-analysis model eval](../backend/evals/README.md)
-
-## Other references
-
-- [GitHub Actions](github-actions.md) — workflow triggers, required checks, and
-  the manual-only build and staging-deployment policy.
-- [Shared Flutter packages](../app/shared_packages/README.md)
-- [Translation regeneration](../app/shared_packages/i18n/README.md)
-- [Wear OS audit tracker](../app/watch/AUDIT_TRACKER.md)
-- [Play Store metadata](../fastlane/metadata/README.md)
-- [Website screenshot guidelines](../web/IMAGE_GUIDELINES.md)
+- [Backend Documentation Index](../backend/docs/README.md) — Index of backend-specific guides and references.
+- [Model & Resolver Evals](../backend/evals/README.md) — Evaluation harness for LLM decomposition and USDA matching.
+- [Meal-Analysis Enum Reference](../backend/docs/meal-analysis-enums.md) — Canonical enum values and preparation codes.
+- [Prometheus Metrics](../backend/docs/meal-analysis-prometheus.md) — Implemented telemetry metrics and Grafana queries.
+- [Meal-Analysis History](../backend/docs/analysis-history.md) — Protected operator inspection interface.
+- [Translation Regeneration](../app/shared_packages/i18n/README.md) — Localization management and safe `slang` update procedures.
+- [GitHub Actions Workflows](github-actions.md) — CI/CD automation, required status checks, and release pipelines.
+- [Play Store Release Metadata](../fastlane/metadata/README.md) — Changelog file formatting and release-note generation scripts.
+- [Website Image Guidelines](../web/IMAGE_GUIDELINES.md) — Specifications and assets for product screenshots.
