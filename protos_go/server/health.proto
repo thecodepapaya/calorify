@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package server;
+option go_package = "internal/gen/server";
+
+message HealthResponse{
+  string status = 1;
+}

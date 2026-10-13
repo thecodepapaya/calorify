@@ -1,0 +1,19 @@
+# Go build binaries
+bin/
+server
+
+# Environment & secrets (NEVER commit secrets to Git)
+.env
+.env.*
+*.env
+firebase-adminsdk.json
+firebase-service-account.json
+
+# Test & coverage
+*.out
+coverage/
+
+# OS & IDE
+.DS_Store
+.vscode/
+.idea/
