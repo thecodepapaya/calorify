@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.12
 // 	protoc        v7.34.1
-// source: common/notifications.proto
+// source: server/notifications.proto
 
-package common
+package server
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -57,11 +57,11 @@ func (x DeviceType) String() string {
 }
 
 func (DeviceType) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_notifications_proto_enumTypes[0].Descriptor()
+	return file_server_notifications_proto_enumTypes[0].Descriptor()
 }
 
 func (DeviceType) Type() protoreflect.EnumType {
-	return &file_common_notifications_proto_enumTypes[0]
+	return &file_server_notifications_proto_enumTypes[0]
 }
 
 func (x DeviceType) Number() protoreflect.EnumNumber {
@@ -70,20 +70,21 @@ func (x DeviceType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use DeviceType.Descriptor instead.
 func (DeviceType) EnumDescriptor() ([]byte, []int) {
-	return file_common_notifications_proto_rawDescGZIP(), []int{0}
+	return file_server_notifications_proto_rawDescGZIP(), []int{0}
 }
 
 type FcmToken struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
-	DeviceType    *DeviceType            `protobuf:"varint,2,opt,name=device_type,json=deviceType,proto3,enum=common.DeviceType,oneof" json:"device_type,omitempty"`
+	UserId        int32                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+	DeviceType    *DeviceType            `protobuf:"varint,3,opt,name=device_type,json=deviceType,proto3,enum=server.DeviceType,oneof" json:"device_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *FcmToken) Reset() {
 	*x = FcmToken{}
-	mi := &file_common_notifications_proto_msgTypes[0]
+	mi := &file_server_notifications_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -95,7 +96,7 @@ func (x *FcmToken) String() string {
 func (*FcmToken) ProtoMessage() {}
 
 func (x *FcmToken) ProtoReflect() protoreflect.Message {
-	mi := &file_common_notifications_proto_msgTypes[0]
+	mi := &file_server_notifications_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -108,7 +109,14 @@ func (x *FcmToken) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FcmToken.ProtoReflect.Descriptor instead.
 func (*FcmToken) Descriptor() ([]byte, []int) {
-	return file_common_notifications_proto_rawDescGZIP(), []int{0}
+	return file_server_notifications_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *FcmToken) GetUserId() int32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
 }
 
 func (x *FcmToken) GetToken() string {
@@ -125,14 +133,15 @@ func (x *FcmToken) GetDeviceType() DeviceType {
 	return DeviceType_DEVICE_UNKNOWN
 }
 
-var File_common_notifications_proto protoreflect.FileDescriptor
+var File_server_notifications_proto protoreflect.FileDescriptor
 
-const file_common_notifications_proto_rawDesc = "" +
+const file_server_notifications_proto_rawDesc = "" +
 	"\n" +
-	"\x1acommon/notifications.proto\x12\x06common\"j\n" +
-	"\bFcmToken\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\x128\n" +
-	"\vdevice_type\x18\x02 \x01(\x0e2\x12.common.DeviceTypeH\x00R\n" +
+	"\x1aserver/notifications.proto\x12\x06server\"\x83\x01\n" +
+	"\bFcmToken\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x05R\x06userId\x12\x14\n" +
+	"\x05token\x18\x02 \x01(\tR\x05token\x128\n" +
+	"\vdevice_type\x18\x03 \x01(\x0e2\x12.server.DeviceTypeH\x00R\n" +
 	"deviceType\x88\x01\x01B\x0e\n" +
 	"\f_device_type*T\n" +
 	"\n" +
@@ -142,28 +151,28 @@ const file_common_notifications_proto_rawDesc = "" +
 	"\n" +
 	"DEVICE_IOS\x10\x02\x12\x0e\n" +
 	"\n" +
-	"DEVICE_WEB\x10\x03B#Z!backend/internal/proto_gen/commonb\x06proto3"
+	"DEVICE_WEB\x10\x03B#Z!backend/internal/gen_proto/serverb\x06proto3"
 
 var (
-	file_common_notifications_proto_rawDescOnce sync.Once
-	file_common_notifications_proto_rawDescData []byte
+	file_server_notifications_proto_rawDescOnce sync.Once
+	file_server_notifications_proto_rawDescData []byte
 )
 
-func file_common_notifications_proto_rawDescGZIP() []byte {
-	file_common_notifications_proto_rawDescOnce.Do(func() {
-		file_common_notifications_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_common_notifications_proto_rawDesc), len(file_common_notifications_proto_rawDesc)))
+func file_server_notifications_proto_rawDescGZIP() []byte {
+	file_server_notifications_proto_rawDescOnce.Do(func() {
+		file_server_notifications_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_server_notifications_proto_rawDesc), len(file_server_notifications_proto_rawDesc)))
 	})
-	return file_common_notifications_proto_rawDescData
+	return file_server_notifications_proto_rawDescData
 }
 
-var file_common_notifications_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_common_notifications_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_common_notifications_proto_goTypes = []any{
-	(DeviceType)(0),  // 0: common.DeviceType
-	(*FcmToken)(nil), // 1: common.FcmToken
+var file_server_notifications_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_server_notifications_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_server_notifications_proto_goTypes = []any{
+	(DeviceType)(0),  // 0: server.DeviceType
+	(*FcmToken)(nil), // 1: server.FcmToken
 }
-var file_common_notifications_proto_depIdxs = []int32{
-	0, // 0: common.FcmToken.device_type:type_name -> common.DeviceType
+var file_server_notifications_proto_depIdxs = []int32{
+	0, // 0: server.FcmToken.device_type:type_name -> server.DeviceType
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -171,28 +180,28 @@ var file_common_notifications_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_common_notifications_proto_init() }
-func file_common_notifications_proto_init() {
-	if File_common_notifications_proto != nil {
+func init() { file_server_notifications_proto_init() }
+func file_server_notifications_proto_init() {
+	if File_server_notifications_proto != nil {
 		return
 	}
-	file_common_notifications_proto_msgTypes[0].OneofWrappers = []any{}
+	file_server_notifications_proto_msgTypes[0].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_common_notifications_proto_rawDesc), len(file_common_notifications_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_server_notifications_proto_rawDesc), len(file_server_notifications_proto_rawDesc)),
 			NumEnums:      1,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_common_notifications_proto_goTypes,
-		DependencyIndexes: file_common_notifications_proto_depIdxs,
-		EnumInfos:         file_common_notifications_proto_enumTypes,
-		MessageInfos:      file_common_notifications_proto_msgTypes,
+		GoTypes:           file_server_notifications_proto_goTypes,
+		DependencyIndexes: file_server_notifications_proto_depIdxs,
+		EnumInfos:         file_server_notifications_proto_enumTypes,
+		MessageInfos:      file_server_notifications_proto_msgTypes,
 	}.Build()
-	File_common_notifications_proto = out.File
-	file_common_notifications_proto_goTypes = nil
-	file_common_notifications_proto_depIdxs = nil
+	File_server_notifications_proto = out.File
+	file_server_notifications_proto_goTypes = nil
+	file_server_notifications_proto_depIdxs = nil
 }

@@ -508,7 +508,7 @@ const file_common_meal_proto_rawDesc = "" +
 	"\x03LOW\x10\x01\x12\n" +
 	"\n" +
 	"\x06MEDIUM\x10\x02\x12\b\n" +
-	"\x04HIGH\x10\x03B#Z!backend/internal/proto_gen/commonb\x06proto3"
+	"\x04HIGH\x10\x03B#Z!backend/internal/gen_proto/commonb\x06proto3"
 
 var (
 	file_common_meal_proto_rawDescOnce sync.Once

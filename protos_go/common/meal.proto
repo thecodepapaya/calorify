@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package common;
-option go_package = "backend/internal/proto_gen/common";
+option go_package = "backend/internal/gen_proto/common";
 
 enum MealType {
   MEAL_TYPE_UNKNOWN   = 0;
@@ -24,12 +24,18 @@ enum CalorieConfidence {
   HIGH        = 3;
 }
 
-message MealMacro {
-  int32 calories = 1;
-  int32 carbs    = 2;
-  int32 protein  = 3;
-  int32 fat      = 4;
-  int32 fiber    = 5;
+message Measurement{
+  int32          value     = 1;
+  optional int32 min_value = 2;
+  optional int32 max_value = 3;
+}
+
+message Macros {
+  Measurement calories = 1;
+  Measurement carbs    = 2;
+  Measurement protein  = 3;
+  Measurement fat      = 4;
+  Measurement fiber    = 5;
 }
 
 message MealHealth {
@@ -41,6 +47,7 @@ message MealMetadata {
   optional string image_url        = 1;
   optional string meal_description = 2;
   optional string timestamp        = 3;
+  optional string tip              = 4;
 }
 
 message Meal {
@@ -48,7 +55,7 @@ message Meal {
   string                name     = 2;
   string                quantity = 3;
   MealType              type     = 4;
-  MealMacro             macros   = 5;
+  Macros                macros   = 5;
   optional MealHealth   health   = 6;
   optional MealMetadata metadata = 7;
 }

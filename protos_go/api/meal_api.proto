@@ -1,4 +1,25 @@
 syntax = "proto3";
 
 package api;
-option go_package = "backend/internal/proto_gen/api";
+import "google/protobuf/timestamp.proto";
+import "protos_go/common/meal.proto";
+option go_package = "backend/internal/gen_proto/api";
+
+message MetaInfo{
+  optional string                    locale       = 1;
+  optional string                    timezone     = 2;
+  optional string                    country_code = 3;
+  optional google.protobuf.Timestamp timestamp    = 4;
+}
+
+message MealAnalysisRequest{
+  optional string text        = 1;
+  optional string image_url   = 2;
+  MetaInfo        meta_info   = 3;
+  string          analysis_id = 4;
+}
+
+message MealAnalysisResponse{
+  common.Meal meal        = 1;
+  string      analysis_id = 2;
+}

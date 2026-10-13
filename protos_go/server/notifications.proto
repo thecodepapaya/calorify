@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package common;
-option go_package = "backend/internal/proto_gen/common";
+package server;
+option go_package = "backend/internal/gen_proto/server";
 
 enum DeviceType {
   DEVICE_UNKNOWN = 0;
@@ -10,7 +10,7 @@ enum DeviceType {
   DEVICE_WEB     = 3;
 }
 
-message FcmToken {
+message Fcm {
   string              token       = 1;
   optional DeviceType device_type = 2;
 }

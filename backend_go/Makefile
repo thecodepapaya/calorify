@@ -1,6 +1,7 @@
 .PHONY: proto run build
 
 proto:
+	rm -rf internal/gen_proto
 	protoc \
 		-I ../protos_go \
 		--go_out=. \

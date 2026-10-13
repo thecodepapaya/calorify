@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package common;
-option go_package = "backend/internal/proto_gen/common";
+option go_package = "backend/internal/gen_proto/common";
 
 enum Gender {
   OTHER  = 0;
@@ -23,20 +23,41 @@ enum ActivityLevel {
   EXTREMELY_ACTIVE  = 4;
 }
 
-enum UnitSystem {
-  METRIC   = 0;
-  IMPERIAL = 1;
+enum HeightUnit{
+  CM = 0;
+  FT = 1;
 }
 
-message UserProfile {
-  optional double        height             = 1;
-  optional double        weight             = 2;
-  optional double        target_weight      = 3;
-  optional Gender        gender             = 4;
-  optional string        date_of_birth      = 5; // ISO calendar date (e.g., "1990-01-15")
-  optional WeightGoal    weight_goal        = 6;
-  optional ActivityLevel activity_level     = 7;
-  optional UnitSystem    height_unit        = 8;
-  optional UnitSystem    weight_unit        = 9;
-  optional int32         daily_calorie_goal = 10;
+message Height{
+  double     value = 1;
+  HeightUnit unit  = 2;
+}
+
+enum WeightUnit{
+  KG = 0;
+  LB = 1;
+}
+
+message Weight{
+  double     value = 1;
+  WeightUnit unit  = 2;
+}
+
+message User {
+  int32           id          = 1;
+  string          firebase_id = 2;
+  optional string name        = 3;
+  optional string email       = 4;
+}
+
+message HealthData {
+  int32                  user_id            = 1;
+  optional Height        height             = 2;
+  optional Weight        weight             = 3;
+  optional Weight        target_weight      = 4;
+  optional Gender        gender             = 5;
+  optional string        date_of_birth      = 6; // ISO calendar date (e.g., "1990-01-15")
+  optional WeightGoal    weight_goal        = 7;
+  optional ActivityLevel activity_level     = 8;
+  optional int32         daily_calorie_goal = 9;
 }

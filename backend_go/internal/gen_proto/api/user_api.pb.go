@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.12
 // 	protoc        v7.34.1
-// source: api/meal_api.proto
+// source: api/user_api.proto
 
 package api
 
@@ -20,14 +20,14 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-var File_api_meal_api_proto protoreflect.FileDescriptor
+var File_api_user_api_proto protoreflect.FileDescriptor
 
-const file_api_meal_api_proto_rawDesc = "" +
+const file_api_user_api_proto_rawDesc = "" +
 	"\n" +
-	"\x12api/meal_api.proto\x12\x03apiB Z\x1ebackend/internal/proto_gen/apib\x06proto3"
+	"\x12api/user_api.proto\x12\x03apiB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
 
-var file_api_meal_api_proto_goTypes = []any{}
-var file_api_meal_api_proto_depIdxs = []int32{
+var file_api_user_api_proto_goTypes = []any{}
+var file_api_user_api_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -35,25 +35,25 @@ var file_api_meal_api_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_api_meal_api_proto_init() }
-func file_api_meal_api_proto_init() {
-	if File_api_meal_api_proto != nil {
+func init() { file_api_user_api_proto_init() }
+func file_api_user_api_proto_init() {
+	if File_api_user_api_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_meal_api_proto_rawDesc), len(file_api_meal_api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_user_api_proto_rawDesc), len(file_api_user_api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_api_meal_api_proto_goTypes,
-		DependencyIndexes: file_api_meal_api_proto_depIdxs,
+		GoTypes:           file_api_user_api_proto_goTypes,
+		DependencyIndexes: file_api_user_api_proto_depIdxs,
 	}.Build()
-	File_api_meal_api_proto = out.File
-	file_api_meal_api_proto_goTypes = nil
-	file_api_meal_api_proto_depIdxs = nil
+	File_api_user_api_proto = out.File
+	file_api_user_api_proto_goTypes = nil
+	file_api_user_api_proto_depIdxs = nil
 }

@@ -1,4 +1,22 @@
 syntax = "proto3";
 
 package api;
-option go_package = "backend/internal/proto_gen/api";
+import "protos_go/common/user.proto";
+import "protos_go/server/notifications.proto";
+option go_package = "backend/internal/gen_proto/api";
+
+message CreateUserResponse{
+  common.User user = 1;
+}
+
+message UpdateFcmTokenRequest{
+  server.Fcm fcm = 1;
+}
+
+message HealthDataRequest{
+  common.HealthData health_data = 1;
+}
+
+message HealthDataResponse{
+  common.HealthData health_data = 1;
+}
