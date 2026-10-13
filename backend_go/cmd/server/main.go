@@ -10,7 +10,7 @@ import (
 
 func main() {
 	cfg := config.Load()
-	log.Printf("Running server at %v", cfg.Port)
+	log.Printf("Starting API server at %v", cfg.Port)
 
 	ctx := context.Background()
 	dbPool, dbErr := database.Connect(ctx, cfg.DatabaseURL)

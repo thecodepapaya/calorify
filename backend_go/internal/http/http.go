@@ -26,12 +26,12 @@ func New(cfg config.Config, db *pgxpool.Pool) *App {
 	return s
 }
 
-func (s *App) routes() {
-	healthHandler := health.HealthHandler{DB: s.DB}
-	s.Router.HandleFunc("/ready", healthHandler.Ready)
+func (a *App) routes() {
+	healthHandler := health.HealthHandler{DB: a.DB}
+	a.Router.HandleFunc("/ready", healthHandler.Ready)
 }
 
-func (s *App) Start() error {
-	wrapped := middleware.Logging(s.Router)
-	return http.ListenAndServe(s.Config.Port, wrapped)
+func (a *App) Start() error {
+	loggingWrapped := middleware.Logging(a.Router)
+	return http.ListenAndServe(a.Config.Port, loggingWrapped)
 }

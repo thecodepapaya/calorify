@@ -71,7 +71,7 @@ const file_server_health_proto_rawDesc = "" +
 	"\n" +
 	"\x13server/health.proto\x12\x06server\"(\n" +
 	"\x0eHealthResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06statusB\x15Z\x13internal/gen/serverb\x06proto3"
+	"\x06status\x18\x01 \x01(\tR\x06statusB#Z!backend/internal/proto_gen/serverb\x06proto3"
 
 var (
 	file_server_health_proto_rawDescOnce sync.Once

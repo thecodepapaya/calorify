@@ -1,1 +1,3 @@
-package usda
+package main
+
+func main() {}

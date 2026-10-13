@@ -1,3 +1,4 @@
 syntax = "proto3";
 
 package api;
+option go_package = "backend/internal/proto_gen/api";

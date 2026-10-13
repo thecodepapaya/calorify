@@ -1,7 +1,7 @@
 package health
 
 import (
-	"backend/internal/gen/server"
+	"backend/internal/proto_gen/server"
 	"net/http"
 
 	"github.com/jackc/pgx/v5/pgxpool"

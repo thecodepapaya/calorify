@@ -1,18 +1,19 @@
 syntax = "proto3";
 
 package common;
+option go_package = "backend/internal/proto_gen/common";
 
 enum MealType {
-  UNKNOWN   = 0;
-  BREAKFAST = 1;
-  LUNCH     = 2;
-  DINNER    = 3;
-  SNACK     = 4;
+  MEAL_TYPE_UNKNOWN   = 0;
+  MEAL_TYPE_BREAKFAST = 1;
+  MEAL_TYPE_LUNCH     = 2;
+  MEAL_TYPE_DINNER    = 3;
+  MEAL_TYPE_SNACK     = 4;
 }
 
 enum HealthScore {
-  HEALTHY   = 0;
-  NEUTRAL   = 1;
+  NEUTRAL   = 0;
+  HEALTHY   = 1;
   UNHEALTHY = 2;
 }
 

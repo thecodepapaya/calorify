@@ -1,6 +1,6 @@
 # Go build binaries
 bin/
-server
+cmd/server/server
 
 # Environment & secrets (NEVER commit secrets to Git)
 .env
