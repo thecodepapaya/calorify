@@ -11,3 +11,5 @@ message GenericError{
   string              message = 2;
   google.protobuf.Any details = 3;
 }
+
+message Empty{}

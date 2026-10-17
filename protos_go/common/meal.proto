@@ -31,11 +31,11 @@ message Measurement{
 }
 
 message Macros {
-  Measurement calories = 1;
-  Measurement carbs    = 2;
-  Measurement protein  = 3;
-  Measurement fat      = 4;
-  Measurement fiber    = 5;
+  Measurement calorie = 1;
+  Measurement carb    = 2;
+  Measurement protein = 3;
+  Measurement fat     = 4;
+  Measurement fiber   = 5;
 }
 
 message MealHealth {

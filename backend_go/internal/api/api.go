@@ -25,7 +25,7 @@ type App struct {
 
 func New(cfg config.Config, db *pgxpool.Pool) *App {
 	mux := http.NewServeMux()
-	firebaseApp := firebase_app.Initialize()
+	firebaseApp := firebase_app.Initialize(cfg)
 	a := &App{
 		DB:          db,
 		Config:      cfg,
@@ -63,7 +63,7 @@ func (a *App) RespondProto(status int, msg proto.Message, w http.ResponseWriter)
 	w.Write(data)
 }
 
-func (a *App) DecodeProto(msg proto.Message, r *http.Request, w http.ResponseWriter) (proto.Message, error) {
+func (a *App) DecodeProto(msg proto.Message, w http.ResponseWriter, r *http.Request) (proto.Message, error) {
 	body, err := io.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {

@@ -11,6 +11,7 @@ import (
 
 var publicRoutes = map[string]bool{
 	"/ready": true,
+	"/user":  true, // TODO: remove later
 }
 
 func Auth(next http.Handler, authClient *auth.Client) http.Handler {
@@ -31,7 +32,7 @@ func Auth(next http.Handler, authClient *auth.Client) http.Handler {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
-		ctx := context.WithValue(r.Context(), "user_id", userId)
+		ctx := context.WithValue(r.Context(), "user_uid", userId)
 		log.Printf("User %v\n", userId)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})

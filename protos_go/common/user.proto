@@ -1,6 +1,9 @@
 syntax = "proto3";
 
 package common;
+import "google/protobuf/timestamp.proto";
+
+import "common/meal.proto";
 option go_package = "backend/internal/gen_proto/common";
 
 enum Gender {
@@ -44,19 +47,19 @@ message Weight{
 }
 
 message User {
-  // int32           id          = 1;
-  // string          firebase_id = 2;
-  optional string name  = 1;
-  optional string email = 2;
+  optional string                    name           = 1;
+  optional string                    email          = 2;
+  optional google.protobuf.Timestamp created_at     = 3;
+  optional google.protobuf.Timestamp last_active_at = 4;
 }
 
 message HealthData {
-  optional Height        height             = 1;
-  optional Weight        weight             = 2;
-  optional Weight        target_weight      = 3;
-  optional Gender        gender             = 4;
-  optional string        date_of_birth      = 5; // ISO calendar date (e.g., "1990-01-15")
-  optional WeightGoal    weight_goal        = 6;
-  optional ActivityLevel activity_level     = 7;
-  optional int32         daily_calorie_goal = 8;
+  optional Height        height           = 1;
+  optional Weight        weight           = 2;
+  optional Weight        target_weight    = 3;
+  optional Gender        gender           = 4;
+  optional string        date_of_birth    = 5; // ISO calendar date (e.g., "1990-01-15")
+  optional WeightGoal    weight_goal      = 6;
+  optional ActivityLevel activity_level   = 7;
+  optional Macros        daily_macro_goal = 8;
 }

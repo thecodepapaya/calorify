@@ -9,6 +9,7 @@ package common
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -371,11 +372,11 @@ func (x *Weight) GetUnit() WeightUnit {
 }
 
 type User struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// int32           id          = 1;
-	// string          firebase_id = 2;
-	Name          *string `protobuf:"bytes,1,opt,name=name,proto3,oneof" json:"name,omitempty"`
-	Email         *string `protobuf:"bytes,2,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          *string                `protobuf:"bytes,1,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	Email         *string                `protobuf:"bytes,2,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	LastActiveAt  *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=last_active_at,json=lastActiveAt,proto3,oneof" json:"last_active_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -424,18 +425,32 @@ func (x *User) GetEmail() string {
 	return ""
 }
 
+func (x *User) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *User) GetLastActiveAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.LastActiveAt
+	}
+	return nil
+}
+
 type HealthData struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Height           *Height                `protobuf:"bytes,1,opt,name=height,proto3,oneof" json:"height,omitempty"`
-	Weight           *Weight                `protobuf:"bytes,2,opt,name=weight,proto3,oneof" json:"weight,omitempty"`
-	TargetWeight     *Weight                `protobuf:"bytes,3,opt,name=target_weight,json=targetWeight,proto3,oneof" json:"target_weight,omitempty"`
-	Gender           *Gender                `protobuf:"varint,4,opt,name=gender,proto3,enum=common.Gender,oneof" json:"gender,omitempty"`
-	DateOfBirth      *string                `protobuf:"bytes,5,opt,name=date_of_birth,json=dateOfBirth,proto3,oneof" json:"date_of_birth,omitempty"` // ISO calendar date (e.g., "1990-01-15")
-	WeightGoal       *WeightGoal            `protobuf:"varint,6,opt,name=weight_goal,json=weightGoal,proto3,enum=common.WeightGoal,oneof" json:"weight_goal,omitempty"`
-	ActivityLevel    *ActivityLevel         `protobuf:"varint,7,opt,name=activity_level,json=activityLevel,proto3,enum=common.ActivityLevel,oneof" json:"activity_level,omitempty"`
-	DailyCalorieGoal *int32                 `protobuf:"varint,8,opt,name=daily_calorie_goal,json=dailyCalorieGoal,proto3,oneof" json:"daily_calorie_goal,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Height         *Height                `protobuf:"bytes,1,opt,name=height,proto3,oneof" json:"height,omitempty"`
+	Weight         *Weight                `protobuf:"bytes,2,opt,name=weight,proto3,oneof" json:"weight,omitempty"`
+	TargetWeight   *Weight                `protobuf:"bytes,3,opt,name=target_weight,json=targetWeight,proto3,oneof" json:"target_weight,omitempty"`
+	Gender         *Gender                `protobuf:"varint,4,opt,name=gender,proto3,enum=common.Gender,oneof" json:"gender,omitempty"`
+	DateOfBirth    *string                `protobuf:"bytes,5,opt,name=date_of_birth,json=dateOfBirth,proto3,oneof" json:"date_of_birth,omitempty"` // ISO calendar date (e.g., "1990-01-15")
+	WeightGoal     *WeightGoal            `protobuf:"varint,6,opt,name=weight_goal,json=weightGoal,proto3,enum=common.WeightGoal,oneof" json:"weight_goal,omitempty"`
+	ActivityLevel  *ActivityLevel         `protobuf:"varint,7,opt,name=activity_level,json=activityLevel,proto3,enum=common.ActivityLevel,oneof" json:"activity_level,omitempty"`
+	DailyMacroGoal *Macros                `protobuf:"bytes,8,opt,name=daily_macro_goal,json=dailyMacroGoal,proto3,oneof" json:"daily_macro_goal,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *HealthData) Reset() {
@@ -517,29 +532,34 @@ func (x *HealthData) GetActivityLevel() ActivityLevel {
 	return ActivityLevel_SEDENTARY
 }
 
-func (x *HealthData) GetDailyCalorieGoal() int32 {
-	if x != nil && x.DailyCalorieGoal != nil {
-		return *x.DailyCalorieGoal
+func (x *HealthData) GetDailyMacroGoal() *Macros {
+	if x != nil {
+		return x.DailyMacroGoal
 	}
-	return 0
+	return nil
 }
 
 var File_common_user_proto protoreflect.FileDescriptor
 
 const file_common_user_proto_rawDesc = "" +
 	"\n" +
-	"\x11common/user.proto\x12\x06common\"F\n" +
+	"\x11common/user.proto\x12\x06common\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11common/meal.proto\"F\n" +
 	"\x06Height\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x01R\x05value\x12&\n" +
 	"\x04unit\x18\x02 \x01(\x0e2\x12.common.HeightUnitR\x04unit\"F\n" +
 	"\x06Weight\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x01R\x05value\x12&\n" +
-	"\x04unit\x18\x02 \x01(\x0e2\x12.common.WeightUnitR\x04unit\"M\n" +
+	"\x04unit\x18\x02 \x01(\x0e2\x12.common.WeightUnitR\x04unit\"\xf6\x01\n" +
 	"\x04User\x12\x17\n" +
 	"\x04name\x18\x01 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x19\n" +
-	"\x05email\x18\x02 \x01(\tH\x01R\x05email\x88\x01\x01B\a\n" +
+	"\x05email\x18\x02 \x01(\tH\x01R\x05email\x88\x01\x01\x12>\n" +
+	"\n" +
+	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampH\x02R\tcreatedAt\x88\x01\x01\x12E\n" +
+	"\x0elast_active_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampH\x03R\flastActiveAt\x88\x01\x01B\a\n" +
 	"\x05_nameB\b\n" +
-	"\x06_email\"\xa5\x04\n" +
+	"\x06_emailB\r\n" +
+	"\v_created_atB\x11\n" +
+	"\x0f_last_active_at\"\xaf\x04\n" +
 	"\n" +
 	"HealthData\x12+\n" +
 	"\x06height\x18\x01 \x01(\v2\x0e.common.HeightH\x00R\x06height\x88\x01\x01\x12+\n" +
@@ -549,16 +569,16 @@ const file_common_user_proto_rawDesc = "" +
 	"\rdate_of_birth\x18\x05 \x01(\tH\x04R\vdateOfBirth\x88\x01\x01\x128\n" +
 	"\vweight_goal\x18\x06 \x01(\x0e2\x12.common.WeightGoalH\x05R\n" +
 	"weightGoal\x88\x01\x01\x12A\n" +
-	"\x0eactivity_level\x18\a \x01(\x0e2\x15.common.ActivityLevelH\x06R\ractivityLevel\x88\x01\x01\x121\n" +
-	"\x12daily_calorie_goal\x18\b \x01(\x05H\aR\x10dailyCalorieGoal\x88\x01\x01B\t\n" +
+	"\x0eactivity_level\x18\a \x01(\x0e2\x15.common.ActivityLevelH\x06R\ractivityLevel\x88\x01\x01\x12=\n" +
+	"\x10daily_macro_goal\x18\b \x01(\v2\x0e.common.MacrosH\aR\x0edailyMacroGoal\x88\x01\x01B\t\n" +
 	"\a_heightB\t\n" +
 	"\a_weightB\x10\n" +
 	"\x0e_target_weightB\t\n" +
 	"\a_genderB\x10\n" +
 	"\x0e_date_of_birthB\x0e\n" +
 	"\f_weight_goalB\x11\n" +
-	"\x0f_activity_levelB\x15\n" +
-	"\x13_daily_calorie_goal*)\n" +
+	"\x0f_activity_levelB\x13\n" +
+	"\x11_daily_macro_goal*)\n" +
 	"\x06Gender\x12\t\n" +
 	"\x05OTHER\x10\x00\x12\b\n" +
 	"\x04MALE\x10\x01\x12\n" +
@@ -599,30 +619,35 @@ func file_common_user_proto_rawDescGZIP() []byte {
 var file_common_user_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
 var file_common_user_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_common_user_proto_goTypes = []any{
-	(Gender)(0),        // 0: common.Gender
-	(WeightGoal)(0),    // 1: common.WeightGoal
-	(ActivityLevel)(0), // 2: common.ActivityLevel
-	(HeightUnit)(0),    // 3: common.HeightUnit
-	(WeightUnit)(0),    // 4: common.WeightUnit
-	(*Height)(nil),     // 5: common.Height
-	(*Weight)(nil),     // 6: common.Weight
-	(*User)(nil),       // 7: common.User
-	(*HealthData)(nil), // 8: common.HealthData
+	(Gender)(0),                   // 0: common.Gender
+	(WeightGoal)(0),               // 1: common.WeightGoal
+	(ActivityLevel)(0),            // 2: common.ActivityLevel
+	(HeightUnit)(0),               // 3: common.HeightUnit
+	(WeightUnit)(0),               // 4: common.WeightUnit
+	(*Height)(nil),                // 5: common.Height
+	(*Weight)(nil),                // 6: common.Weight
+	(*User)(nil),                  // 7: common.User
+	(*HealthData)(nil),            // 8: common.HealthData
+	(*timestamppb.Timestamp)(nil), // 9: google.protobuf.Timestamp
+	(*Macros)(nil),                // 10: common.Macros
 }
 var file_common_user_proto_depIdxs = []int32{
-	3, // 0: common.Height.unit:type_name -> common.HeightUnit
-	4, // 1: common.Weight.unit:type_name -> common.WeightUnit
-	5, // 2: common.HealthData.height:type_name -> common.Height
-	6, // 3: common.HealthData.weight:type_name -> common.Weight
-	6, // 4: common.HealthData.target_weight:type_name -> common.Weight
-	0, // 5: common.HealthData.gender:type_name -> common.Gender
-	1, // 6: common.HealthData.weight_goal:type_name -> common.WeightGoal
-	2, // 7: common.HealthData.activity_level:type_name -> common.ActivityLevel
-	8, // [8:8] is the sub-list for method output_type
-	8, // [8:8] is the sub-list for method input_type
-	8, // [8:8] is the sub-list for extension type_name
-	8, // [8:8] is the sub-list for extension extendee
-	0, // [0:8] is the sub-list for field type_name
+	3,  // 0: common.Height.unit:type_name -> common.HeightUnit
+	4,  // 1: common.Weight.unit:type_name -> common.WeightUnit
+	9,  // 2: common.User.created_at:type_name -> google.protobuf.Timestamp
+	9,  // 3: common.User.last_active_at:type_name -> google.protobuf.Timestamp
+	5,  // 4: common.HealthData.height:type_name -> common.Height
+	6,  // 5: common.HealthData.weight:type_name -> common.Weight
+	6,  // 6: common.HealthData.target_weight:type_name -> common.Weight
+	0,  // 7: common.HealthData.gender:type_name -> common.Gender
+	1,  // 8: common.HealthData.weight_goal:type_name -> common.WeightGoal
+	2,  // 9: common.HealthData.activity_level:type_name -> common.ActivityLevel
+	10, // 10: common.HealthData.daily_macro_goal:type_name -> common.Macros
+	11, // [11:11] is the sub-list for method output_type
+	11, // [11:11] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_common_user_proto_init() }
@@ -630,6 +655,7 @@ func file_common_user_proto_init() {
 	if File_common_user_proto != nil {
 		return
 	}
+	file_common_meal_proto_init()
 	file_common_user_proto_msgTypes[2].OneofWrappers = []any{}
 	file_common_user_proto_msgTypes[3].OneofWrappers = []any{}
 	type x struct{}

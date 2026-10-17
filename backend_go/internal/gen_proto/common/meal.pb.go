@@ -239,8 +239,8 @@ func (x *Measurement) GetMaxValue() int32 {
 
 type Macros struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Calories      *Measurement           `protobuf:"bytes,1,opt,name=calories,proto3" json:"calories,omitempty"`
-	Carbs         *Measurement           `protobuf:"bytes,2,opt,name=carbs,proto3" json:"carbs,omitempty"`
+	Calorie       *Measurement           `protobuf:"bytes,1,opt,name=calorie,proto3" json:"calorie,omitempty"`
+	Carb          *Measurement           `protobuf:"bytes,2,opt,name=carb,proto3" json:"carb,omitempty"`
 	Protein       *Measurement           `protobuf:"bytes,3,opt,name=protein,proto3" json:"protein,omitempty"`
 	Fat           *Measurement           `protobuf:"bytes,4,opt,name=fat,proto3" json:"fat,omitempty"`
 	Fiber         *Measurement           `protobuf:"bytes,5,opt,name=fiber,proto3" json:"fiber,omitempty"`
@@ -278,16 +278,16 @@ func (*Macros) Descriptor() ([]byte, []int) {
 	return file_common_meal_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Macros) GetCalories() *Measurement {
+func (x *Macros) GetCalorie() *Measurement {
 	if x != nil {
-		return x.Calories
+		return x.Calorie
 	}
 	return nil
 }
 
-func (x *Macros) GetCarbs() *Measurement {
+func (x *Macros) GetCarb() *Measurement {
 	if x != nil {
-		return x.Carbs
+		return x.Carb
 	}
 	return nil
 }
@@ -529,10 +529,10 @@ const file_common_meal_proto_rawDesc = "" +
 	"\n" +
 	"_min_valueB\f\n" +
 	"\n" +
-	"_max_value\"\xe5\x01\n" +
-	"\x06Macros\x12/\n" +
-	"\bcalories\x18\x01 \x01(\v2\x13.common.MeasurementR\bcalories\x12)\n" +
-	"\x05carbs\x18\x02 \x01(\v2\x13.common.MeasurementR\x05carbs\x12-\n" +
+	"_max_value\"\xe1\x01\n" +
+	"\x06Macros\x12-\n" +
+	"\acalorie\x18\x01 \x01(\v2\x13.common.MeasurementR\acalorie\x12'\n" +
+	"\x04carb\x18\x02 \x01(\v2\x13.common.MeasurementR\x04carb\x12-\n" +
 	"\aprotein\x18\x03 \x01(\v2\x13.common.MeasurementR\aprotein\x12%\n" +
 	"\x03fat\x18\x04 \x01(\v2\x13.common.MeasurementR\x03fat\x12)\n" +
 	"\x05fiber\x18\x05 \x01(\v2\x13.common.MeasurementR\x05fiber\"\xa7\x01\n" +
@@ -604,8 +604,8 @@ var file_common_meal_proto_goTypes = []any{
 	(*Meal)(nil),           // 7: common.Meal
 }
 var file_common_meal_proto_depIdxs = []int32{
-	3,  // 0: common.Macros.calories:type_name -> common.Measurement
-	3,  // 1: common.Macros.carbs:type_name -> common.Measurement
+	3,  // 0: common.Macros.calorie:type_name -> common.Measurement
+	3,  // 1: common.Macros.carb:type_name -> common.Measurement
 	3,  // 2: common.Macros.protein:type_name -> common.Measurement
 	3,  // 3: common.Macros.fat:type_name -> common.Measurement
 	3,  // 4: common.Macros.fiber:type_name -> common.Measurement
