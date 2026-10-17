@@ -9,9 +9,8 @@ import (
 func Logging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
-
 		next.ServeHTTP(w, r)
-		end := time.Since(start)
-		log.Printf("[%v] [%v] %v", r.Method, end, r.URL.Path)
+		duration := time.Since(start)
+		log.Printf("[%v] [%v] %v", r.Method, duration, r.URL.Path)
 	})
 }

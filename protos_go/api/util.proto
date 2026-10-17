@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package api;
+import "google/protobuf/any.proto";
+
+import "common/user.proto";
+import "server/notifications.proto";
+option go_package = "backend/internal/gen_proto/api";
+
+message GenericError{
+  string              message = 2;
+  google.protobuf.Any details = 3;
+}

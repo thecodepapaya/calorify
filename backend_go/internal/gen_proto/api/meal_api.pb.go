@@ -7,9 +7,12 @@
 package api
 
 import (
+	common "backend/internal/gen_proto/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -20,19 +23,252 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type MetaInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Locale        *string                `protobuf:"bytes,1,opt,name=locale,proto3,oneof" json:"locale,omitempty"`
+	Timezone      *string                `protobuf:"bytes,2,opt,name=timezone,proto3,oneof" json:"timezone,omitempty"`
+	CountryCode   *string                `protobuf:"bytes,3,opt,name=country_code,json=countryCode,proto3,oneof" json:"country_code,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MetaInfo) Reset() {
+	*x = MetaInfo{}
+	mi := &file_api_meal_api_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MetaInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MetaInfo) ProtoMessage() {}
+
+func (x *MetaInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MetaInfo.ProtoReflect.Descriptor instead.
+func (*MetaInfo) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *MetaInfo) GetLocale() string {
+	if x != nil && x.Locale != nil {
+		return *x.Locale
+	}
+	return ""
+}
+
+func (x *MetaInfo) GetTimezone() string {
+	if x != nil && x.Timezone != nil {
+		return *x.Timezone
+	}
+	return ""
+}
+
+func (x *MetaInfo) GetCountryCode() string {
+	if x != nil && x.CountryCode != nil {
+		return *x.CountryCode
+	}
+	return ""
+}
+
+func (x *MetaInfo) GetTimestamp() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Timestamp
+	}
+	return nil
+}
+
+type MealAnalysisRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Text          *string                `protobuf:"bytes,1,opt,name=text,proto3,oneof" json:"text,omitempty"`
+	ImageUrl      *string                `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
+	MetaInfo      *MetaInfo              `protobuf:"bytes,3,opt,name=meta_info,json=metaInfo,proto3" json:"meta_info,omitempty"`
+	AnalysisId    string                 `protobuf:"bytes,4,opt,name=analysis_id,json=analysisId,proto3" json:"analysis_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MealAnalysisRequest) Reset() {
+	*x = MealAnalysisRequest{}
+	mi := &file_api_meal_api_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MealAnalysisRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MealAnalysisRequest) ProtoMessage() {}
+
+func (x *MealAnalysisRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MealAnalysisRequest.ProtoReflect.Descriptor instead.
+func (*MealAnalysisRequest) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *MealAnalysisRequest) GetText() string {
+	if x != nil && x.Text != nil {
+		return *x.Text
+	}
+	return ""
+}
+
+func (x *MealAnalysisRequest) GetImageUrl() string {
+	if x != nil && x.ImageUrl != nil {
+		return *x.ImageUrl
+	}
+	return ""
+}
+
+func (x *MealAnalysisRequest) GetMetaInfo() *MetaInfo {
+	if x != nil {
+		return x.MetaInfo
+	}
+	return nil
+}
+
+func (x *MealAnalysisRequest) GetAnalysisId() string {
+	if x != nil {
+		return x.AnalysisId
+	}
+	return ""
+}
+
+type MealAnalysisResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meal          *common.Meal           `protobuf:"bytes,1,opt,name=meal,proto3" json:"meal,omitempty"`
+	AnalysisId    string                 `protobuf:"bytes,2,opt,name=analysis_id,json=analysisId,proto3" json:"analysis_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MealAnalysisResponse) Reset() {
+	*x = MealAnalysisResponse{}
+	mi := &file_api_meal_api_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MealAnalysisResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MealAnalysisResponse) ProtoMessage() {}
+
+func (x *MealAnalysisResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MealAnalysisResponse.ProtoReflect.Descriptor instead.
+func (*MealAnalysisResponse) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *MealAnalysisResponse) GetMeal() *common.Meal {
+	if x != nil {
+		return x.Meal
+	}
+	return nil
+}
+
+func (x *MealAnalysisResponse) GetAnalysisId() string {
+	if x != nil {
+		return x.AnalysisId
+	}
+	return ""
+}
+
 var File_api_meal_api_proto protoreflect.FileDescriptor
 
 const file_api_meal_api_proto_rawDesc = "" +
 	"\n" +
-	"\x12api/meal_api.proto\x12\x03apiB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
+	"\x12api/meal_api.proto\x12\x03api\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11common/meal.proto\"\xe6\x01\n" +
+	"\bMetaInfo\x12\x1b\n" +
+	"\x06locale\x18\x01 \x01(\tH\x00R\x06locale\x88\x01\x01\x12\x1f\n" +
+	"\btimezone\x18\x02 \x01(\tH\x01R\btimezone\x88\x01\x01\x12&\n" +
+	"\fcountry_code\x18\x03 \x01(\tH\x02R\vcountryCode\x88\x01\x01\x12=\n" +
+	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampH\x03R\ttimestamp\x88\x01\x01B\t\n" +
+	"\a_localeB\v\n" +
+	"\t_timezoneB\x0f\n" +
+	"\r_country_codeB\f\n" +
+	"\n" +
+	"_timestamp\"\xb4\x01\n" +
+	"\x13MealAnalysisRequest\x12\x17\n" +
+	"\x04text\x18\x01 \x01(\tH\x00R\x04text\x88\x01\x01\x12 \n" +
+	"\timage_url\x18\x02 \x01(\tH\x01R\bimageUrl\x88\x01\x01\x12*\n" +
+	"\tmeta_info\x18\x03 \x01(\v2\r.api.MetaInfoR\bmetaInfo\x12\x1f\n" +
+	"\vanalysis_id\x18\x04 \x01(\tR\n" +
+	"analysisIdB\a\n" +
+	"\x05_textB\f\n" +
+	"\n" +
+	"_image_url\"Y\n" +
+	"\x14MealAnalysisResponse\x12 \n" +
+	"\x04meal\x18\x01 \x01(\v2\f.common.MealR\x04meal\x12\x1f\n" +
+	"\vanalysis_id\x18\x02 \x01(\tR\n" +
+	"analysisIdB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
 
-var file_api_meal_api_proto_goTypes = []any{}
+var (
+	file_api_meal_api_proto_rawDescOnce sync.Once
+	file_api_meal_api_proto_rawDescData []byte
+)
+
+func file_api_meal_api_proto_rawDescGZIP() []byte {
+	file_api_meal_api_proto_rawDescOnce.Do(func() {
+		file_api_meal_api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_meal_api_proto_rawDesc), len(file_api_meal_api_proto_rawDesc)))
+	})
+	return file_api_meal_api_proto_rawDescData
+}
+
+var file_api_meal_api_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_api_meal_api_proto_goTypes = []any{
+	(*MetaInfo)(nil),              // 0: api.MetaInfo
+	(*MealAnalysisRequest)(nil),   // 1: api.MealAnalysisRequest
+	(*MealAnalysisResponse)(nil),  // 2: api.MealAnalysisResponse
+	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
+	(*common.Meal)(nil),           // 4: common.Meal
+}
 var file_api_meal_api_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	3, // 0: api.MetaInfo.timestamp:type_name -> google.protobuf.Timestamp
+	0, // 1: api.MealAnalysisRequest.meta_info:type_name -> api.MetaInfo
+	4, // 2: api.MealAnalysisResponse.meal:type_name -> common.Meal
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_api_meal_api_proto_init() }
@@ -40,18 +276,21 @@ func file_api_meal_api_proto_init() {
 	if File_api_meal_api_proto != nil {
 		return
 	}
+	file_api_meal_api_proto_msgTypes[0].OneofWrappers = []any{}
+	file_api_meal_api_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_meal_api_proto_rawDesc), len(file_api_meal_api_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_api_meal_api_proto_goTypes,
 		DependencyIndexes: file_api_meal_api_proto_depIdxs,
+		MessageInfos:      file_api_meal_api_proto_msgTypes,
 	}.Build()
 	File_api_meal_api_proto = out.File
 	file_api_meal_api_proto_goTypes = nil

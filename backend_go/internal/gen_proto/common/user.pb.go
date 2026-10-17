@@ -371,11 +371,11 @@ func (x *Weight) GetUnit() WeightUnit {
 }
 
 type User struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	FirebaseId    string                 `protobuf:"bytes,2,opt,name=firebase_id,json=firebaseId,proto3" json:"firebase_id,omitempty"`
-	Name          *string                `protobuf:"bytes,3,opt,name=name,proto3,oneof" json:"name,omitempty"`
-	Email         *string                `protobuf:"bytes,4,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// int32           id          = 1;
+	// string          firebase_id = 2;
+	Name          *string `protobuf:"bytes,1,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	Email         *string `protobuf:"bytes,2,opt,name=email,proto3,oneof" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -410,20 +410,6 @@ func (*User) Descriptor() ([]byte, []int) {
 	return file_common_user_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *User) GetId() int32 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-func (x *User) GetFirebaseId() string {
-	if x != nil {
-		return x.FirebaseId
-	}
-	return ""
-}
-
 func (x *User) GetName() string {
 	if x != nil && x.Name != nil {
 		return *x.Name
@@ -440,15 +426,14 @@ func (x *User) GetEmail() string {
 
 type HealthData struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
-	UserId           int32                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Height           *Height                `protobuf:"bytes,2,opt,name=height,proto3,oneof" json:"height,omitempty"`
-	Weight           *Weight                `protobuf:"bytes,3,opt,name=weight,proto3,oneof" json:"weight,omitempty"`
-	TargetWeight     *Weight                `protobuf:"bytes,4,opt,name=target_weight,json=targetWeight,proto3,oneof" json:"target_weight,omitempty"`
-	Gender           *Gender                `protobuf:"varint,5,opt,name=gender,proto3,enum=common.Gender,oneof" json:"gender,omitempty"`
-	DateOfBirth      *string                `protobuf:"bytes,6,opt,name=date_of_birth,json=dateOfBirth,proto3,oneof" json:"date_of_birth,omitempty"` // ISO calendar date (e.g., "1990-01-15")
-	WeightGoal       *WeightGoal            `protobuf:"varint,7,opt,name=weight_goal,json=weightGoal,proto3,enum=common.WeightGoal,oneof" json:"weight_goal,omitempty"`
-	ActivityLevel    *ActivityLevel         `protobuf:"varint,8,opt,name=activity_level,json=activityLevel,proto3,enum=common.ActivityLevel,oneof" json:"activity_level,omitempty"`
-	DailyCalorieGoal *int32                 `protobuf:"varint,9,opt,name=daily_calorie_goal,json=dailyCalorieGoal,proto3,oneof" json:"daily_calorie_goal,omitempty"`
+	Height           *Height                `protobuf:"bytes,1,opt,name=height,proto3,oneof" json:"height,omitempty"`
+	Weight           *Weight                `protobuf:"bytes,2,opt,name=weight,proto3,oneof" json:"weight,omitempty"`
+	TargetWeight     *Weight                `protobuf:"bytes,3,opt,name=target_weight,json=targetWeight,proto3,oneof" json:"target_weight,omitempty"`
+	Gender           *Gender                `protobuf:"varint,4,opt,name=gender,proto3,enum=common.Gender,oneof" json:"gender,omitempty"`
+	DateOfBirth      *string                `protobuf:"bytes,5,opt,name=date_of_birth,json=dateOfBirth,proto3,oneof" json:"date_of_birth,omitempty"` // ISO calendar date (e.g., "1990-01-15")
+	WeightGoal       *WeightGoal            `protobuf:"varint,6,opt,name=weight_goal,json=weightGoal,proto3,enum=common.WeightGoal,oneof" json:"weight_goal,omitempty"`
+	ActivityLevel    *ActivityLevel         `protobuf:"varint,7,opt,name=activity_level,json=activityLevel,proto3,enum=common.ActivityLevel,oneof" json:"activity_level,omitempty"`
+	DailyCalorieGoal *int32                 `protobuf:"varint,8,opt,name=daily_calorie_goal,json=dailyCalorieGoal,proto3,oneof" json:"daily_calorie_goal,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -481,13 +466,6 @@ func (x *HealthData) ProtoReflect() protoreflect.Message {
 // Deprecated: Use HealthData.ProtoReflect.Descriptor instead.
 func (*HealthData) Descriptor() ([]byte, []int) {
 	return file_common_user_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *HealthData) GetUserId() int32 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
 }
 
 func (x *HealthData) GetHeight() *Height {
@@ -556,27 +534,23 @@ const file_common_user_proto_rawDesc = "" +
 	"\x04unit\x18\x02 \x01(\x0e2\x12.common.HeightUnitR\x04unit\"F\n" +
 	"\x06Weight\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x01R\x05value\x12&\n" +
-	"\x04unit\x18\x02 \x01(\x0e2\x12.common.WeightUnitR\x04unit\"~\n" +
-	"\x04User\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1f\n" +
-	"\vfirebase_id\x18\x02 \x01(\tR\n" +
-	"firebaseId\x12\x17\n" +
-	"\x04name\x18\x03 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x19\n" +
-	"\x05email\x18\x04 \x01(\tH\x01R\x05email\x88\x01\x01B\a\n" +
+	"\x04unit\x18\x02 \x01(\x0e2\x12.common.WeightUnitR\x04unit\"M\n" +
+	"\x04User\x12\x17\n" +
+	"\x04name\x18\x01 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x19\n" +
+	"\x05email\x18\x02 \x01(\tH\x01R\x05email\x88\x01\x01B\a\n" +
 	"\x05_nameB\b\n" +
-	"\x06_email\"\xbe\x04\n" +
+	"\x06_email\"\xa5\x04\n" +
 	"\n" +
-	"HealthData\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x05R\x06userId\x12+\n" +
-	"\x06height\x18\x02 \x01(\v2\x0e.common.HeightH\x00R\x06height\x88\x01\x01\x12+\n" +
-	"\x06weight\x18\x03 \x01(\v2\x0e.common.WeightH\x01R\x06weight\x88\x01\x01\x128\n" +
-	"\rtarget_weight\x18\x04 \x01(\v2\x0e.common.WeightH\x02R\ftargetWeight\x88\x01\x01\x12+\n" +
-	"\x06gender\x18\x05 \x01(\x0e2\x0e.common.GenderH\x03R\x06gender\x88\x01\x01\x12'\n" +
-	"\rdate_of_birth\x18\x06 \x01(\tH\x04R\vdateOfBirth\x88\x01\x01\x128\n" +
-	"\vweight_goal\x18\a \x01(\x0e2\x12.common.WeightGoalH\x05R\n" +
+	"HealthData\x12+\n" +
+	"\x06height\x18\x01 \x01(\v2\x0e.common.HeightH\x00R\x06height\x88\x01\x01\x12+\n" +
+	"\x06weight\x18\x02 \x01(\v2\x0e.common.WeightH\x01R\x06weight\x88\x01\x01\x128\n" +
+	"\rtarget_weight\x18\x03 \x01(\v2\x0e.common.WeightH\x02R\ftargetWeight\x88\x01\x01\x12+\n" +
+	"\x06gender\x18\x04 \x01(\x0e2\x0e.common.GenderH\x03R\x06gender\x88\x01\x01\x12'\n" +
+	"\rdate_of_birth\x18\x05 \x01(\tH\x04R\vdateOfBirth\x88\x01\x01\x128\n" +
+	"\vweight_goal\x18\x06 \x01(\x0e2\x12.common.WeightGoalH\x05R\n" +
 	"weightGoal\x88\x01\x01\x12A\n" +
-	"\x0eactivity_level\x18\b \x01(\x0e2\x15.common.ActivityLevelH\x06R\ractivityLevel\x88\x01\x01\x121\n" +
-	"\x12daily_calorie_goal\x18\t \x01(\x05H\aR\x10dailyCalorieGoal\x88\x01\x01B\t\n" +
+	"\x0eactivity_level\x18\a \x01(\x0e2\x15.common.ActivityLevelH\x06R\ractivityLevel\x88\x01\x01\x121\n" +
+	"\x12daily_calorie_goal\x18\b \x01(\x05H\aR\x10dailyCalorieGoal\x88\x01\x01B\t\n" +
 	"\a_heightB\t\n" +
 	"\a_weightB\x10\n" +
 	"\x0e_target_weightB\t\n" +

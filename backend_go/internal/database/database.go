@@ -10,13 +10,13 @@ import (
 func Connect(ctx context.Context, connString string) (*pgxpool.Pool, error) {
 	pool, err := pgxpool.New(ctx, connString)
 	if err != nil {
-		log.Printf("Failed to establish DB connection: %v", connString)
+		log.Printf("Failed to establish DB connection at: %v\n", connString)
 		return nil, err
 	}
 
 	pingErr := pool.Ping(ctx)
 	if pingErr != nil {
-		log.Printf("Ping to DB failed. URL: %v", connString)
+		log.Printf("Ping to DB failed. URL: %v\n", connString)
 		pool.Close()
 		return nil, pingErr
 	}

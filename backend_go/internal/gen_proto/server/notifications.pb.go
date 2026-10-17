@@ -73,29 +73,28 @@ func (DeviceType) EnumDescriptor() ([]byte, []int) {
 	return file_server_notifications_proto_rawDescGZIP(), []int{0}
 }
 
-type FcmToken struct {
+type Fcm struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int32                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
-	DeviceType    *DeviceType            `protobuf:"varint,3,opt,name=device_type,json=deviceType,proto3,enum=server.DeviceType,oneof" json:"device_type,omitempty"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	DeviceType    *DeviceType            `protobuf:"varint,2,opt,name=device_type,json=deviceType,proto3,enum=server.DeviceType,oneof" json:"device_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *FcmToken) Reset() {
-	*x = FcmToken{}
+func (x *Fcm) Reset() {
+	*x = Fcm{}
 	mi := &file_server_notifications_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *FcmToken) String() string {
+func (x *Fcm) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FcmToken) ProtoMessage() {}
+func (*Fcm) ProtoMessage() {}
 
-func (x *FcmToken) ProtoReflect() protoreflect.Message {
+func (x *Fcm) ProtoReflect() protoreflect.Message {
 	mi := &file_server_notifications_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -107,26 +106,19 @@ func (x *FcmToken) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FcmToken.ProtoReflect.Descriptor instead.
-func (*FcmToken) Descriptor() ([]byte, []int) {
+// Deprecated: Use Fcm.ProtoReflect.Descriptor instead.
+func (*Fcm) Descriptor() ([]byte, []int) {
 	return file_server_notifications_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *FcmToken) GetUserId() int32 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
-}
-
-func (x *FcmToken) GetToken() string {
+func (x *Fcm) GetToken() string {
 	if x != nil {
 		return x.Token
 	}
 	return ""
 }
 
-func (x *FcmToken) GetDeviceType() DeviceType {
+func (x *Fcm) GetDeviceType() DeviceType {
 	if x != nil && x.DeviceType != nil {
 		return *x.DeviceType
 	}
@@ -137,11 +129,10 @@ var File_server_notifications_proto protoreflect.FileDescriptor
 
 const file_server_notifications_proto_rawDesc = "" +
 	"\n" +
-	"\x1aserver/notifications.proto\x12\x06server\"\x83\x01\n" +
-	"\bFcmToken\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x05R\x06userId\x12\x14\n" +
-	"\x05token\x18\x02 \x01(\tR\x05token\x128\n" +
-	"\vdevice_type\x18\x03 \x01(\x0e2\x12.server.DeviceTypeH\x00R\n" +
+	"\x1aserver/notifications.proto\x12\x06server\"e\n" +
+	"\x03Fcm\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x128\n" +
+	"\vdevice_type\x18\x02 \x01(\x0e2\x12.server.DeviceTypeH\x00R\n" +
 	"deviceType\x88\x01\x01B\x0e\n" +
 	"\f_device_type*T\n" +
 	"\n" +
@@ -168,11 +159,11 @@ func file_server_notifications_proto_rawDescGZIP() []byte {
 var file_server_notifications_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_server_notifications_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_server_notifications_proto_goTypes = []any{
-	(DeviceType)(0),  // 0: server.DeviceType
-	(*FcmToken)(nil), // 1: server.FcmToken
+	(DeviceType)(0), // 0: server.DeviceType
+	(*Fcm)(nil),     // 1: server.Fcm
 }
 var file_server_notifications_proto_depIdxs = []int32{
-	0, // 0: server.FcmToken.device_type:type_name -> server.DeviceType
+	0, // 0: server.Fcm.device_type:type_name -> server.DeviceType
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api;
 import "google/protobuf/timestamp.proto";
-import "protos_go/common/meal.proto";
+import "common/meal.proto";
 option go_package = "backend/internal/gen_proto/api";
 
 message MetaInfo{

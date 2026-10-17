@@ -7,6 +7,7 @@
 package server
 
 import (
+	common "backend/internal/gen_proto/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -21,16 +22,398 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type MealComponent struct {
+type Origin int32
+
+const (
+	Origin_MODEL_INFERRED     Origin = 0
+	Origin_USER_STATED        Origin = 1
+	Origin_USER_CLARIFICATION Origin = 2
+)
+
+// Enum value maps for Origin.
+var (
+	Origin_name = map[int32]string{
+		0: "MODEL_INFERRED",
+		1: "USER_STATED",
+		2: "USER_CLARIFICATION",
+	}
+	Origin_value = map[string]int32{
+		"MODEL_INFERRED":     0,
+		"USER_STATED":        1,
+		"USER_CLARIFICATION": 2,
+	}
+)
+
+func (x Origin) Enum() *Origin {
+	p := new(Origin)
+	*p = x
+	return p
+}
+
+func (x Origin) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Origin) Descriptor() protoreflect.EnumDescriptor {
+	return file_server_meal_proto_enumTypes[0].Descriptor()
+}
+
+func (Origin) Type() protoreflect.EnumType {
+	return &file_server_meal_proto_enumTypes[0]
+}
+
+func (x Origin) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Origin.Descriptor instead.
+func (Origin) EnumDescriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{0}
+}
+
+type IngredientType int32
+
+const (
+	IngredientType_BASE    IngredientType = 0
+	IngredientType_BRANDED IngredientType = 1
+)
+
+// Enum value maps for IngredientType.
+var (
+	IngredientType_name = map[int32]string{
+		0: "BASE",
+		1: "BRANDED",
+	}
+	IngredientType_value = map[string]int32{
+		"BASE":    0,
+		"BRANDED": 1,
+	}
+)
+
+func (x IngredientType) Enum() *IngredientType {
+	p := new(IngredientType)
+	*p = x
+	return p
+}
+
+func (x IngredientType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (IngredientType) Descriptor() protoreflect.EnumDescriptor {
+	return file_server_meal_proto_enumTypes[1].Descriptor()
+}
+
+func (IngredientType) Type() protoreflect.EnumType {
+	return &file_server_meal_proto_enumTypes[1]
+}
+
+func (x IngredientType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use IngredientType.Descriptor instead.
+func (IngredientType) EnumDescriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{1}
+}
+
+type PreparationMethod int32
+
+const (
+	PreparationMethod_UNKNOWN PreparationMethod = 0
+	// Raw
+	PreparationMethod_RAW PreparationMethod = 1
+	// Moist Heat
+	PreparationMethod_BOILED          PreparationMethod = 2
+	PreparationMethod_SIMMERED        PreparationMethod = 3
+	PreparationMethod_STEAMED         PreparationMethod = 4
+	PreparationMethod_PRESSURE_COOKED PreparationMethod = 5
+	PreparationMethod_POACHED         PreparationMethod = 6
+	// Dry Heat
+	PreparationMethod_BAKED   PreparationMethod = 7
+	PreparationMethod_ROASTED PreparationMethod = 8
+	PreparationMethod_GRILLED PreparationMethod = 9
+	PreparationMethod_TOASTED PreparationMethod = 10
+	// Fat-Based Heat
+	PreparationMethod_SAUTEED       PreparationMethod = 11
+	PreparationMethod_STIR_FRIED    PreparationMethod = 12
+	PreparationMethod_SHALLOW_FRIED PreparationMethod = 13
+	PreparationMethod_DEEP_FRIED    PreparationMethod = 14
+	// Mechanical & Processing
+	PreparationMethod_BLENDED   PreparationMethod = 15
+	PreparationMethod_JUICED    PreparationMethod = 16
+	PreparationMethod_FERMENTED PreparationMethod = 17
+	PreparationMethod_PICKLED   PreparationMethod = 18
+	PreparationMethod_DRIED     PreparationMethod = 19
+	PreparationMethod_SMOKED    PreparationMethod = 20
+	// Fallbacks
+	PreparationMethod_COOKED_UNKNOWN PreparationMethod = 21
+	PreparationMethod_OTHER          PreparationMethod = 22
+)
+
+// Enum value maps for PreparationMethod.
+var (
+	PreparationMethod_name = map[int32]string{
+		0:  "UNKNOWN",
+		1:  "RAW",
+		2:  "BOILED",
+		3:  "SIMMERED",
+		4:  "STEAMED",
+		5:  "PRESSURE_COOKED",
+		6:  "POACHED",
+		7:  "BAKED",
+		8:  "ROASTED",
+		9:  "GRILLED",
+		10: "TOASTED",
+		11: "SAUTEED",
+		12: "STIR_FRIED",
+		13: "SHALLOW_FRIED",
+		14: "DEEP_FRIED",
+		15: "BLENDED",
+		16: "JUICED",
+		17: "FERMENTED",
+		18: "PICKLED",
+		19: "DRIED",
+		20: "SMOKED",
+		21: "COOKED_UNKNOWN",
+		22: "OTHER",
+	}
+	PreparationMethod_value = map[string]int32{
+		"UNKNOWN":         0,
+		"RAW":             1,
+		"BOILED":          2,
+		"SIMMERED":        3,
+		"STEAMED":         4,
+		"PRESSURE_COOKED": 5,
+		"POACHED":         6,
+		"BAKED":           7,
+		"ROASTED":         8,
+		"GRILLED":         9,
+		"TOASTED":         10,
+		"SAUTEED":         11,
+		"STIR_FRIED":      12,
+		"SHALLOW_FRIED":   13,
+		"DEEP_FRIED":      14,
+		"BLENDED":         15,
+		"JUICED":          16,
+		"FERMENTED":       17,
+		"PICKLED":         18,
+		"DRIED":           19,
+		"SMOKED":          20,
+		"COOKED_UNKNOWN":  21,
+		"OTHER":           22,
+	}
+)
+
+func (x PreparationMethod) Enum() *PreparationMethod {
+	p := new(PreparationMethod)
+	*p = x
+	return p
+}
+
+func (x PreparationMethod) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (PreparationMethod) Descriptor() protoreflect.EnumDescriptor {
+	return file_server_meal_proto_enumTypes[2].Descriptor()
+}
+
+func (PreparationMethod) Type() protoreflect.EnumType {
+	return &file_server_meal_proto_enumTypes[2]
+}
+
+func (x PreparationMethod) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use PreparationMethod.Descriptor instead.
+func (PreparationMethod) EnumDescriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{2}
+}
+
+type PortionExact struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Value         int32                  `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	PerUnitGram   *common.Measurement    `protobuf:"bytes,2,opt,name=per_unit_gram,json=perUnitGram,proto3" json:"per_unit_gram,omitempty"`
+	Origin        Origin                 `protobuf:"varint,3,opt,name=origin,proto3,enum=server.Origin" json:"origin,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
+func (x *PortionExact) Reset() {
+	*x = PortionExact{}
+	mi := &file_server_meal_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PortionExact) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PortionExact) ProtoMessage() {}
+
+func (x *PortionExact) ProtoReflect() protoreflect.Message {
+	mi := &file_server_meal_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PortionExact.ProtoReflect.Descriptor instead.
+func (*PortionExact) Descriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *PortionExact) GetValue() int32 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
+}
+
+func (x *PortionExact) GetPerUnitGram() *common.Measurement {
+	if x != nil {
+		return x.PerUnitGram
+	}
+	return nil
+}
+
+func (x *PortionExact) GetOrigin() Origin {
+	if x != nil {
+		return x.Origin
+	}
+	return Origin_MODEL_INFERRED
+}
+
+type PortionBulk struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         int32                  `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Origin        Origin                 `protobuf:"varint,2,opt,name=origin,proto3,enum=server.Origin" json:"origin,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PortionBulk) Reset() {
+	*x = PortionBulk{}
+	mi := &file_server_meal_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PortionBulk) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PortionBulk) ProtoMessage() {}
+
+func (x *PortionBulk) ProtoReflect() protoreflect.Message {
+	mi := &file_server_meal_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PortionBulk.ProtoReflect.Descriptor instead.
+func (*PortionBulk) Descriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *PortionBulk) GetValue() int32 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
+}
+
+func (x *PortionBulk) GetOrigin() Origin {
+	if x != nil {
+		return x.Origin
+	}
+	return Origin_MODEL_INFERRED
+}
+
+type PortionPinch struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         int32                  `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Origin        Origin                 `protobuf:"varint,2,opt,name=origin,proto3,enum=server.Origin" json:"origin,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PortionPinch) Reset() {
+	*x = PortionPinch{}
+	mi := &file_server_meal_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PortionPinch) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PortionPinch) ProtoMessage() {}
+
+func (x *PortionPinch) ProtoReflect() protoreflect.Message {
+	mi := &file_server_meal_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PortionPinch.ProtoReflect.Descriptor instead.
+func (*PortionPinch) Descriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *PortionPinch) GetValue() int32 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
+}
+
+func (x *PortionPinch) GetOrigin() Origin {
+	if x != nil {
+		return x.Origin
+	}
+	return Origin_MODEL_INFERRED
+}
+
+type MealComponent struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Name  string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Alias []string               `protobuf:"bytes,2,rep,name=alias,proto3" json:"alias,omitempty"`
+	// Types that are valid to be assigned to Portion:
+	//
+	//	*MealComponent_Exact
+	//	*MealComponent_Bulk
+	//	*MealComponent_Pinch
+	Portion           isMealComponent_Portion `protobuf_oneof:"portion"`
+	PreparationMethod PreparationMethod       `protobuf:"varint,6,opt,name=preparation_method,json=preparationMethod,proto3,enum=server.PreparationMethod" json:"preparation_method,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
 func (x *MealComponent) Reset() {
 	*x = MealComponent{}
-	mi := &file_server_meal_proto_msgTypes[0]
+	mi := &file_server_meal_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +425,7 @@ func (x *MealComponent) String() string {
 func (*MealComponent) ProtoMessage() {}
 
 func (x *MealComponent) ProtoReflect() protoreflect.Message {
-	mi := &file_server_meal_proto_msgTypes[0]
+	mi := &file_server_meal_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +438,7 @@ func (x *MealComponent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MealComponent.ProtoReflect.Descriptor instead.
 func (*MealComponent) Descriptor() ([]byte, []int) {
-	return file_server_meal_proto_rawDescGZIP(), []int{0}
+	return file_server_meal_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *MealComponent) GetName() string {
@@ -65,16 +448,94 @@ func (x *MealComponent) GetName() string {
 	return ""
 }
 
+func (x *MealComponent) GetAlias() []string {
+	if x != nil {
+		return x.Alias
+	}
+	return nil
+}
+
+func (x *MealComponent) GetPortion() isMealComponent_Portion {
+	if x != nil {
+		return x.Portion
+	}
+	return nil
+}
+
+func (x *MealComponent) GetExact() *PortionExact {
+	if x != nil {
+		if x, ok := x.Portion.(*MealComponent_Exact); ok {
+			return x.Exact
+		}
+	}
+	return nil
+}
+
+func (x *MealComponent) GetBulk() *PortionBulk {
+	if x != nil {
+		if x, ok := x.Portion.(*MealComponent_Bulk); ok {
+			return x.Bulk
+		}
+	}
+	return nil
+}
+
+func (x *MealComponent) GetPinch() *PortionPinch {
+	if x != nil {
+		if x, ok := x.Portion.(*MealComponent_Pinch); ok {
+			return x.Pinch
+		}
+	}
+	return nil
+}
+
+func (x *MealComponent) GetPreparationMethod() PreparationMethod {
+	if x != nil {
+		return x.PreparationMethod
+	}
+	return PreparationMethod_UNKNOWN
+}
+
+type isMealComponent_Portion interface {
+	isMealComponent_Portion()
+}
+
+type MealComponent_Exact struct {
+	Exact *PortionExact `protobuf:"bytes,3,opt,name=exact,proto3,oneof"`
+}
+
+type MealComponent_Bulk struct {
+	Bulk *PortionBulk `protobuf:"bytes,4,opt,name=bulk,proto3,oneof"`
+}
+
+type MealComponent_Pinch struct {
+	Pinch *PortionPinch `protobuf:"bytes,5,opt,name=pinch,proto3,oneof"`
+}
+
+func (*MealComponent_Exact) isMealComponent_Portion() {}
+
+func (*MealComponent_Bulk) isMealComponent_Portion() {}
+
+func (*MealComponent_Pinch) isMealComponent_Portion() {}
+
 type MealIngredient struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Name  string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Alias []string               `protobuf:"bytes,2,rep,name=alias,proto3" json:"alias,omitempty"`
+	// Types that are valid to be assigned to Portion:
+	//
+	//	*MealIngredient_Exact
+	//	*MealIngredient_Bulk
+	//	*MealIngredient_Pinch
+	Portion        isMealIngredient_Portion `protobuf_oneof:"portion"`
+	IngredientType IngredientType           `protobuf:"varint,6,opt,name=ingredient_type,json=ingredientType,proto3,enum=server.IngredientType" json:"ingredient_type,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *MealIngredient) Reset() {
 	*x = MealIngredient{}
-	mi := &file_server_meal_proto_msgTypes[1]
+	mi := &file_server_meal_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -86,7 +547,7 @@ func (x *MealIngredient) String() string {
 func (*MealIngredient) ProtoMessage() {}
 
 func (x *MealIngredient) ProtoReflect() protoreflect.Message {
-	mi := &file_server_meal_proto_msgTypes[1]
+	mi := &file_server_meal_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -99,7 +560,7 @@ func (x *MealIngredient) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MealIngredient.ProtoReflect.Descriptor instead.
 func (*MealIngredient) Descriptor() ([]byte, []int) {
-	return file_server_meal_proto_rawDescGZIP(), []int{1}
+	return file_server_meal_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *MealIngredient) GetName() string {
@@ -109,15 +570,258 @@ func (x *MealIngredient) GetName() string {
 	return ""
 }
 
+func (x *MealIngredient) GetAlias() []string {
+	if x != nil {
+		return x.Alias
+	}
+	return nil
+}
+
+func (x *MealIngredient) GetPortion() isMealIngredient_Portion {
+	if x != nil {
+		return x.Portion
+	}
+	return nil
+}
+
+func (x *MealIngredient) GetExact() *PortionExact {
+	if x != nil {
+		if x, ok := x.Portion.(*MealIngredient_Exact); ok {
+			return x.Exact
+		}
+	}
+	return nil
+}
+
+func (x *MealIngredient) GetBulk() *PortionBulk {
+	if x != nil {
+		if x, ok := x.Portion.(*MealIngredient_Bulk); ok {
+			return x.Bulk
+		}
+	}
+	return nil
+}
+
+func (x *MealIngredient) GetPinch() *PortionPinch {
+	if x != nil {
+		if x, ok := x.Portion.(*MealIngredient_Pinch); ok {
+			return x.Pinch
+		}
+	}
+	return nil
+}
+
+func (x *MealIngredient) GetIngredientType() IngredientType {
+	if x != nil {
+		return x.IngredientType
+	}
+	return IngredientType_BASE
+}
+
+type isMealIngredient_Portion interface {
+	isMealIngredient_Portion()
+}
+
+type MealIngredient_Exact struct {
+	Exact *PortionExact `protobuf:"bytes,3,opt,name=exact,proto3,oneof"`
+}
+
+type MealIngredient_Bulk struct {
+	Bulk *PortionBulk `protobuf:"bytes,4,opt,name=bulk,proto3,oneof"`
+}
+
+type MealIngredient_Pinch struct {
+	Pinch *PortionPinch `protobuf:"bytes,5,opt,name=pinch,proto3,oneof"`
+}
+
+func (*MealIngredient_Exact) isMealIngredient_Portion() {}
+
+func (*MealIngredient_Bulk) isMealIngredient_Portion() {}
+
+func (*MealIngredient_Pinch) isMealIngredient_Portion() {}
+
+type Pass1 struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	MealType      *common.MealType       `protobuf:"varint,2,opt,name=meal_type,json=mealType,proto3,enum=common.MealType,oneof" json:"meal_type,omitempty"`
+	Components    []*MealComponent       `protobuf:"bytes,3,rep,name=components,proto3" json:"components,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Pass1) Reset() {
+	*x = Pass1{}
+	mi := &file_server_meal_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Pass1) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Pass1) ProtoMessage() {}
+
+func (x *Pass1) ProtoReflect() protoreflect.Message {
+	mi := &file_server_meal_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Pass1.ProtoReflect.Descriptor instead.
+func (*Pass1) Descriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *Pass1) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Pass1) GetMealType() common.MealType {
+	if x != nil && x.MealType != nil {
+		return *x.MealType
+	}
+	return common.MealType(0)
+}
+
+func (x *Pass1) GetComponents() []*MealComponent {
+	if x != nil {
+		return x.Components
+	}
+	return nil
+}
+
+type Pass2 struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ingredients   []*MealIngredient      `protobuf:"bytes,1,rep,name=ingredients,proto3" json:"ingredients,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Pass2) Reset() {
+	*x = Pass2{}
+	mi := &file_server_meal_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Pass2) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Pass2) ProtoMessage() {}
+
+func (x *Pass2) ProtoReflect() protoreflect.Message {
+	mi := &file_server_meal_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Pass2.ProtoReflect.Descriptor instead.
+func (*Pass2) Descriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *Pass2) GetIngredients() []*MealIngredient {
+	if x != nil {
+		return x.Ingredients
+	}
+	return nil
+}
+
 var File_server_meal_proto protoreflect.FileDescriptor
 
 const file_server_meal_proto_rawDesc = "" +
 	"\n" +
-	"\x11server/meal.proto\x12\x06server\"#\n" +
+	"\x11server/meal.proto\x12\x06server\x1a\x11common/meal.proto\"\x85\x01\n" +
+	"\fPortionExact\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\x05R\x05value\x127\n" +
+	"\rper_unit_gram\x18\x02 \x01(\v2\x13.common.MeasurementR\vperUnitGram\x12&\n" +
+	"\x06origin\x18\x03 \x01(\x0e2\x0e.server.OriginR\x06origin\"K\n" +
+	"\vPortionBulk\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\x05R\x05value\x12&\n" +
+	"\x06origin\x18\x02 \x01(\x0e2\x0e.server.OriginR\x06origin\"L\n" +
+	"\fPortionPinch\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\x05R\x05value\x12&\n" +
+	"\x06origin\x18\x02 \x01(\x0e2\x0e.server.OriginR\x06origin\"\x95\x02\n" +
 	"\rMealComponent\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\"$\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
+	"\x05alias\x18\x02 \x03(\tR\x05alias\x12,\n" +
+	"\x05exact\x18\x03 \x01(\v2\x14.server.PortionExactH\x00R\x05exact\x12)\n" +
+	"\x04bulk\x18\x04 \x01(\v2\x13.server.PortionBulkH\x00R\x04bulk\x12,\n" +
+	"\x05pinch\x18\x05 \x01(\v2\x14.server.PortionPinchH\x00R\x05pinch\x12H\n" +
+	"\x12preparation_method\x18\x06 \x01(\x0e2\x19.server.PreparationMethodR\x11preparationMethodB\t\n" +
+	"\aportion\"\x8d\x02\n" +
 	"\x0eMealIngredient\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04nameB#Z!backend/internal/gen_proto/serverb\x06proto3"
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
+	"\x05alias\x18\x02 \x03(\tR\x05alias\x12,\n" +
+	"\x05exact\x18\x03 \x01(\v2\x14.server.PortionExactH\x00R\x05exact\x12)\n" +
+	"\x04bulk\x18\x04 \x01(\v2\x13.server.PortionBulkH\x00R\x04bulk\x12,\n" +
+	"\x05pinch\x18\x05 \x01(\v2\x14.server.PortionPinchH\x00R\x05pinch\x12?\n" +
+	"\x0fingredient_type\x18\x06 \x01(\x0e2\x16.server.IngredientTypeR\x0eingredientTypeB\t\n" +
+	"\aportion\"\x94\x01\n" +
+	"\x05Pass1\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x122\n" +
+	"\tmeal_type\x18\x02 \x01(\x0e2\x10.common.MealTypeH\x00R\bmealType\x88\x01\x01\x125\n" +
+	"\n" +
+	"components\x18\x03 \x03(\v2\x15.server.MealComponentR\n" +
+	"componentsB\f\n" +
+	"\n" +
+	"_meal_type\"A\n" +
+	"\x05Pass2\x128\n" +
+	"\vingredients\x18\x01 \x03(\v2\x16.server.MealIngredientR\vingredients*E\n" +
+	"\x06Origin\x12\x12\n" +
+	"\x0eMODEL_INFERRED\x10\x00\x12\x0f\n" +
+	"\vUSER_STATED\x10\x01\x12\x16\n" +
+	"\x12USER_CLARIFICATION\x10\x02*'\n" +
+	"\x0eIngredientType\x12\b\n" +
+	"\x04BASE\x10\x00\x12\v\n" +
+	"\aBRANDED\x10\x01*\xcf\x02\n" +
+	"\x11PreparationMethod\x12\v\n" +
+	"\aUNKNOWN\x10\x00\x12\a\n" +
+	"\x03RAW\x10\x01\x12\n" +
+	"\n" +
+	"\x06BOILED\x10\x02\x12\f\n" +
+	"\bSIMMERED\x10\x03\x12\v\n" +
+	"\aSTEAMED\x10\x04\x12\x13\n" +
+	"\x0fPRESSURE_COOKED\x10\x05\x12\v\n" +
+	"\aPOACHED\x10\x06\x12\t\n" +
+	"\x05BAKED\x10\a\x12\v\n" +
+	"\aROASTED\x10\b\x12\v\n" +
+	"\aGRILLED\x10\t\x12\v\n" +
+	"\aTOASTED\x10\n" +
+	"\x12\v\n" +
+	"\aSAUTEED\x10\v\x12\x0e\n" +
+	"\n" +
+	"STIR_FRIED\x10\f\x12\x11\n" +
+	"\rSHALLOW_FRIED\x10\r\x12\x0e\n" +
+	"\n" +
+	"DEEP_FRIED\x10\x0e\x12\v\n" +
+	"\aBLENDED\x10\x0f\x12\n" +
+	"\n" +
+	"\x06JUICED\x10\x10\x12\r\n" +
+	"\tFERMENTED\x10\x11\x12\v\n" +
+	"\aPICKLED\x10\x12\x12\t\n" +
+	"\x05DRIED\x10\x13\x12\n" +
+	"\n" +
+	"\x06SMOKED\x10\x14\x12\x12\n" +
+	"\x0eCOOKED_UNKNOWN\x10\x15\x12\t\n" +
+	"\x05OTHER\x10\x16B#Z!backend/internal/gen_proto/serverb\x06proto3"
 
 var (
 	file_server_meal_proto_rawDescOnce sync.Once
@@ -131,17 +835,43 @@ func file_server_meal_proto_rawDescGZIP() []byte {
 	return file_server_meal_proto_rawDescData
 }
 
-var file_server_meal_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_server_meal_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_server_meal_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_server_meal_proto_goTypes = []any{
-	(*MealComponent)(nil),  // 0: server.MealComponent
-	(*MealIngredient)(nil), // 1: server.MealIngredient
+	(Origin)(0),                // 0: server.Origin
+	(IngredientType)(0),        // 1: server.IngredientType
+	(PreparationMethod)(0),     // 2: server.PreparationMethod
+	(*PortionExact)(nil),       // 3: server.PortionExact
+	(*PortionBulk)(nil),        // 4: server.PortionBulk
+	(*PortionPinch)(nil),       // 5: server.PortionPinch
+	(*MealComponent)(nil),      // 6: server.MealComponent
+	(*MealIngredient)(nil),     // 7: server.MealIngredient
+	(*Pass1)(nil),              // 8: server.Pass1
+	(*Pass2)(nil),              // 9: server.Pass2
+	(*common.Measurement)(nil), // 10: common.Measurement
+	(common.MealType)(0),       // 11: common.MealType
 }
 var file_server_meal_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	10, // 0: server.PortionExact.per_unit_gram:type_name -> common.Measurement
+	0,  // 1: server.PortionExact.origin:type_name -> server.Origin
+	0,  // 2: server.PortionBulk.origin:type_name -> server.Origin
+	0,  // 3: server.PortionPinch.origin:type_name -> server.Origin
+	3,  // 4: server.MealComponent.exact:type_name -> server.PortionExact
+	4,  // 5: server.MealComponent.bulk:type_name -> server.PortionBulk
+	5,  // 6: server.MealComponent.pinch:type_name -> server.PortionPinch
+	2,  // 7: server.MealComponent.preparation_method:type_name -> server.PreparationMethod
+	3,  // 8: server.MealIngredient.exact:type_name -> server.PortionExact
+	4,  // 9: server.MealIngredient.bulk:type_name -> server.PortionBulk
+	5,  // 10: server.MealIngredient.pinch:type_name -> server.PortionPinch
+	1,  // 11: server.MealIngredient.ingredient_type:type_name -> server.IngredientType
+	11, // 12: server.Pass1.meal_type:type_name -> common.MealType
+	6,  // 13: server.Pass1.components:type_name -> server.MealComponent
+	7,  // 14: server.Pass2.ingredients:type_name -> server.MealIngredient
+	15, // [15:15] is the sub-list for method output_type
+	15, // [15:15] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_server_meal_proto_init() }
@@ -149,18 +879,30 @@ func file_server_meal_proto_init() {
 	if File_server_meal_proto != nil {
 		return
 	}
+	file_server_meal_proto_msgTypes[3].OneofWrappers = []any{
+		(*MealComponent_Exact)(nil),
+		(*MealComponent_Bulk)(nil),
+		(*MealComponent_Pinch)(nil),
+	}
+	file_server_meal_proto_msgTypes[4].OneofWrappers = []any{
+		(*MealIngredient_Exact)(nil),
+		(*MealIngredient_Bulk)(nil),
+		(*MealIngredient_Pinch)(nil),
+	}
+	file_server_meal_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_server_meal_proto_rawDesc), len(file_server_meal_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   2,
+			NumEnums:      3,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_server_meal_proto_goTypes,
 		DependencyIndexes: file_server_meal_proto_depIdxs,
+		EnumInfos:         file_server_meal_proto_enumTypes,
 		MessageInfos:      file_server_meal_proto_msgTypes,
 	}.Build()
 	File_server_meal_proto = out.File
