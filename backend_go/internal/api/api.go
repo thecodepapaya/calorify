@@ -3,7 +3,6 @@ package api
 import (
 	"backend/internal/config"
 	firebase_app "backend/internal/firebase"
-	"backend/internal/gen_proto/api"
 	"backend/internal/middleware"
 	"context"
 	"io"
@@ -38,8 +37,10 @@ func New(cfg config.Config, db *pgxpool.Pool) *App {
 
 func (a *App) routes() {
 	a.Router.HandleFunc("GET /ready", a.Ready)
-	a.Router.HandleFunc("GET /user", a.User)
-	a.Router.HandleFunc("PUT /user", a.User)
+	a.Router.HandleFunc("GET /users", a.GetUser)
+	a.Router.HandleFunc("PUT /users", a.UpsertUser)
+	a.Router.HandleFunc("GET /users/health-data", a.GetUserHealthData)
+	a.Router.HandleFunc("PUT /users/health-data", a.UpsertUserHealthData)
 }
 
 func (a *App) Start() error {
@@ -67,20 +68,18 @@ func (a *App) DecodeProto(msg proto.Message, w http.ResponseWriter, r *http.Requ
 	body, err := io.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {
-		e := api.GenericError{
-			Message: "Failed to read request body stream",
-		}
-		a.RespondProto(http.StatusBadRequest, &e, w)
 		return nil, err
 	}
 	err = protojson.Unmarshal(body, msg)
 	if err != nil {
-		e := api.GenericError{
-			Message: "Invalid request format",
-		}
-		a.RespondProto(http.StatusBadRequest, &e, w)
 		return nil, err
 	}
 
 	return msg, nil
 }
+
+// func Register[Req any, Ptr interface { *Req; proto.Message }, Res proto.Message](<
+//     a *App,
+//     pattern string,
+//     handler func(ctx context.Context, req Ptr>) (Res, error),
+// )

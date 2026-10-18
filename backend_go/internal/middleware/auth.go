@@ -10,14 +10,21 @@ import (
 )
 
 var publicRoutes = map[string]bool{
-	"/ready": true,
-	"/user":  true, // TODO: remove later
+	"/ready":             true,
+	"/users":             true, // TODO: remove later
+	"/users/health-data": true, // TODO: remove later
 }
 
 func Auth(next http.Handler, authClient *auth.Client) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if publicRoutes[r.URL.Path] {
-			next.ServeHTTP(w, r)
+			// next.ServeHTTP(w, r)
+			// return
+			// TODO: Undo later
+			userUid := "0oiiKhs2X3OnmHvFsLCmT9CIABG2"
+			ctx := context.WithValue(r.Context(), "user_uid", userUid)
+			log.Printf("User %v\n", userUid)
+			next.ServeHTTP(w, r.WithContext(ctx))
 			return
 		}
 

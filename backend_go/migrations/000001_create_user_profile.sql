@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS health_data (
-    user_id int PRIMARY KEY REFERENCES users (id) ON DELETE CASCADE,
+    id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_uid int REFERENCES users (uid) ON DELETE CASCADE,
     height DOUBLE PRECISION,
     height_unit VARCHAR(5) CHECK (height_unit IN ('CM', 'FT')),
     weight DOUBLE PRECISION,
