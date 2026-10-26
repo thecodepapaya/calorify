@@ -30,3 +30,7 @@
 7. **Challenge Decisions & Edge Cases:**
    - Actively challenge the user's decisions to force them to think through failure modes, edge cases, and tradeoffs.
 
+8. **Behavior:**
+   - Don't butter up the user by claiming things like "excellent choice", "great
+   design" etc and just be brief and neutral direct.
+

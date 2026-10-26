@@ -36,11 +36,11 @@ func New(cfg config.Config, db *pgxpool.Pool) *App {
 }
 
 func (a *App) routes() {
-	a.Router.HandleFunc("GET /ready", a.Ready)
-	a.Router.HandleFunc("GET /users", a.GetUser)
-	a.Router.HandleFunc("PUT /users", a.UpsertUser)
-	a.Router.HandleFunc("GET /users/health-data", a.GetUserHealthData)
-	a.Router.HandleFunc("PUT /users/health-data", a.UpsertUserHealthData)
+	Register(a, "GET /ready", a.Ready)
+	Register(a, "GET /users", a.GetUser)
+	Register(a, "PUT /users", a.UpsertUser)
+	Register(a, "GET /users/health-data", a.GetUserHealthData)
+	Register(a, "POST /users/health-data", a.UpdateUserHealthData)
 }
 
 func (a *App) Start() error {
@@ -53,7 +53,7 @@ func (a *App) Start() error {
 	return http.ListenAndServe(a.Config.Port, logging)
 }
 
-func (a *App) RespondProto(status int, msg proto.Message, w http.ResponseWriter) {
+func respondProto(status int, msg proto.Message, w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 	data, err := protojson.Marshal(msg)
 	if err != nil {
@@ -64,11 +64,14 @@ func (a *App) RespondProto(status int, msg proto.Message, w http.ResponseWriter)
 	w.Write(data)
 }
 
-func (a *App) DecodeProto(msg proto.Message, w http.ResponseWriter, r *http.Request) (proto.Message, error) {
+func decodeProto(msg proto.Message, r *http.Request) (proto.Message, error) {
 	body, err := io.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {
 		return nil, err
+	}
+	if len(body) == 0 {
+		return msg, nil
 	}
 	err = protojson.Unmarshal(body, msg)
 	if err != nil {
@@ -78,8 +81,31 @@ func (a *App) DecodeProto(msg proto.Message, w http.ResponseWriter, r *http.Requ
 	return msg, nil
 }
 
-// func Register[Req any, Ptr interface { *Req; proto.Message }, Res proto.Message](<
-//     a *App,
-//     pattern string,
-//     handler func(ctx context.Context, req Ptr>) (Res, error),
-// )
+func Register[Req any, Ptr interface {
+	*Req
+	proto.Message
+}, Res proto.Message](
+	a *App,
+	pattern string,
+	handler func(ctx context.Context, req Ptr) (int, Res, error),
+) {
+	handlerFunc := func(w http.ResponseWriter, r *http.Request) {
+		var req Req
+		ptr := Ptr(&req)
+		_, err := decodeProto(ptr, r)
+		if err != nil {
+			log.Printf("Error parsing proto body: %v\n", err)
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		status, res, err := handler(r.Context(), ptr)
+		if err != nil {
+			log.Printf("Error executing logic for endpoint %v: %v\n", pattern, err)
+			w.WriteHeader(status)
+			return
+		}
+		respondProto(status, res, w)
+	}
+
+	a.Router.HandleFunc(pattern, handlerFunc)
+}

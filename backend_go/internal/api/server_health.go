@@ -1,16 +1,18 @@
 package api
 
 import (
+	"backend/internal/gen_proto/api"
 	"backend/internal/gen_proto/server"
+	"context"
+	"log"
 	"net/http"
 )
 
-func (a *App) Ready(w http.ResponseWriter, r *http.Request) {
-	err := a.DB.Ping(r.Context())
+func (a *App) Ready(ctx context.Context, req *api.Empty) (int, *server.HealthResponse, error) {
+	err := a.DB.Ping(ctx)
 	if err != nil {
-		http.Error(w, "Database not ready", http.StatusServiceUnavailable)
-		return
+		log.Println("Cannot ping DB!!")
+		return http.StatusServiceUnavailable, &server.HealthResponse{}, err
 	}
-	res := server.HealthResponse{Status: "ok"}
-	a.RespondProto(http.StatusOK, &res, w)
+	return http.StatusOK, &server.HealthResponse{Status: "ok"}, nil
 }

@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS health_data (
     id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_uid int REFERENCES users (uid) ON DELETE CASCADE,
+    user_uid VARCHAR(255) REFERENCES users (uid) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     height DOUBLE PRECISION,
     height_unit VARCHAR(5) CHECK (height_unit IN ('CM', 'FT')),
     weight DOUBLE PRECISION,
@@ -44,12 +45,12 @@ CREATE TABLE IF NOT EXISTS health_data (
 
 CREATE TABLE IF NOT EXISTS meals (
     id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_id int NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+    user_uid VARCHAR(255) NOT NULL REFERENCES users (uid) ON DELETE CASCADE,
     name VARCHAR(255),
     quantity VARCHAR(255),
     meal_image_url TEXT,
     meal_description TEXT,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     meal_type VARCHAR(30) CHECK (
         meal_type IN (
             'MEAL_TYPE_UNKNOWN',
@@ -85,4 +86,6 @@ CREATE TABLE IF NOT EXISTS meals (
     fiber_max int
 );
 
-CREATE INDEX IF NOT EXISTS index_meals_user_id_timestamp ON meals (user_id, timestamp DESC);
+CREATE INDEX IF NOT EXISTS index_meals_user_uid_timestamp ON meals (user_uid, timestamp DESC);
+
+CREATE INDEX IF NOT EXISTS health_data_find_by_uid ON health_data (user_uid);

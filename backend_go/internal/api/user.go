@@ -2,6 +2,7 @@ package api
 
 import (
 	"backend/internal/gen_proto/api"
+	"context"
 	"errors"
 	"log"
 	"net/http"
@@ -9,77 +10,56 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func (a *App) GetUser(w http.ResponseWriter, r *http.Request) {
-	userUid, _ := r.Context().Value("user_uid").(string)
-	user, err := a.GetUserByUid(r.Context(), userUid)
-	res := api.UserDetailsResponse{
+func (a *App) GetUser(ctx context.Context, req *api.Empty) (int, *api.UserDetailsResponse, error) {
+	userUid, _ := ctx.Value("user_uid").(string)
+	user, err := a.GetUserByUid(ctx, userUid)
+	res := &api.UserDetailsResponse{
 		User: user,
 	}
 	if errors.Is(err, pgx.ErrNoRows) {
 		log.Printf("No user found with uid: %v\n", userUid)
-		a.RespondProto(http.StatusOK, &res, w)
-		return
+		return http.StatusNotFound, res, err
 	} else if err != nil {
 		log.Printf("Error querying user uid : %v\n", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+		return http.StatusInternalServerError, res, err
 	}
-
-	a.RespondProto(http.StatusOK, &res, w)
+	return http.StatusOK, res, nil
 }
 
-func (a *App) UpsertUser(w http.ResponseWriter, r *http.Request) {
-	userUid, _ := r.Context().Value("user_uid").(string)
-	var req api.UpdateUserRequest
-	_, err := a.DecodeProto(&req, w, r)
-	if err != nil {
-		log.Printf("Error querying user uid : %v\n", err)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	err = a.UpsertUserByUid(r.Context(), userUid, req.User)
+func (a *App) UpsertUser(ctx context.Context, req *api.UpdateUserRequest) (int, *api.Empty, error) {
+	userUid, _ := ctx.Value("user_uid").(string)
+	err := a.UpsertUserByUid(ctx, userUid, req.User)
 	if err != nil {
 		log.Printf("Error upsert user: %v\n", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+		return http.StatusInternalServerError, &api.Empty{}, err
 	}
-
-	a.RespondProto(http.StatusOK, &req, w)
+	return http.StatusOK, &api.Empty{}, nil
 }
 
-func (a *App) GetUserHealthData(w http.ResponseWriter, r *http.Request) {
-	userUid, _ := r.Context().Value("user_uid").(string)
-	healthData, err := a.GetHealthData(r.Context(), userUid)
-	res := api.HealthDataResponse{
+func (a *App) GetUserHealthData(ctx context.Context, req *api.Empty) (int, *api.HealthDataResponse, error) {
+	userUid, _ := ctx.Value("user_uid").(string)
+	healthData, err := a.GetHealthData(ctx, userUid)
+	res := &api.HealthDataResponse{
 		HealthData: healthData,
 	}
 	if errors.Is(err, pgx.ErrNoRows) {
-		log.Printf("No user found with uid: %v\n", userUid)
-		a.RespondProto(http.StatusOK, &res, w)
-		return
+		log.Printf("No health data found for uid: %v\n", userUid)
+		return http.StatusOK, res, err
 	} else if err != nil {
 		log.Printf("Error querying user uid : %v\n", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+		return http.StatusInternalServerError, res, err
+
 	}
-	a.RespondProto(http.StatusOK, &res, w)
+	return http.StatusOK, res, nil
 }
 
-func (a *App) UpsertUserHealthData(w http.ResponseWriter, r *http.Request) {
-	userUid, _ := r.Context().Value("user_uid").(string)
-	var req api.HealthDataRequest
-	_, err := a.DecodeProto(&req, w, r)
-	if err != nil {
-		log.Printf("Error querying user uid : %v\n", err)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	err = a.UpsertHealthData(r.Context(), userUid, req.HealthData)
+func (a *App) UpdateUserHealthData(ctx context.Context, req *api.HealthDataRequest) (int, *api.Empty, error) {
+	userUid, _ := ctx.Value("user_uid").(string)
+	err := a.InsertHealthData(ctx, userUid, req.HealthData)
 	if err != nil {
 		log.Printf("Error upsert user: %v\n", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+		return http.StatusInternalServerError, &api.Empty{}, err
 	}
+	return http.StatusOK, &api.Empty{}, nil
 
-	a.RespondProto(http.StatusOK, &req, w)
 }
