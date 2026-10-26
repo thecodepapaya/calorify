@@ -13,6 +13,7 @@ var publicRoutes = map[string]bool{
 	"/ready":             true,
 	"/users":             true, // TODO: remove later
 	"/users/health-data": true, // TODO: remove later
+	"/users/meals":       true, // TODO: remove later
 }
 
 func Auth(next http.Handler, authClient *auth.Client) http.Handler {

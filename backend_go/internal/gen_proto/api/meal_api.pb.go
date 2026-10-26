@@ -211,6 +211,358 @@ func (x *MealAnalysisResponse) GetAnalysisId() string {
 	return ""
 }
 
+type GetMealRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MealId        int32                  `protobuf:"varint,1,opt,name=meal_id,json=mealId,proto3" json:"meal_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMealRequest) Reset() {
+	*x = GetMealRequest{}
+	mi := &file_api_meal_api_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMealRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMealRequest) ProtoMessage() {}
+
+func (x *GetMealRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMealRequest.ProtoReflect.Descriptor instead.
+func (*GetMealRequest) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetMealRequest) GetMealId() int32 {
+	if x != nil {
+		return x.MealId
+	}
+	return 0
+}
+
+type GetMealResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meal          *common.Meal           `protobuf:"bytes,1,opt,name=meal,proto3" json:"meal,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMealResponse) Reset() {
+	*x = GetMealResponse{}
+	mi := &file_api_meal_api_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMealResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMealResponse) ProtoMessage() {}
+
+func (x *GetMealResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMealResponse.ProtoReflect.Descriptor instead.
+func (*GetMealResponse) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetMealResponse) GetMeal() *common.Meal {
+	if x != nil {
+		return x.Meal
+	}
+	return nil
+}
+
+type ListMealRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PageSize      int32                  `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	PageToken     string                 `protobuf:"bytes,2,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMealRequest) Reset() {
+	*x = ListMealRequest{}
+	mi := &file_api_meal_api_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMealRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMealRequest) ProtoMessage() {}
+
+func (x *ListMealRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMealRequest.ProtoReflect.Descriptor instead.
+func (*ListMealRequest) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ListMealRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *ListMealRequest) GetPageToken() string {
+	if x != nil {
+		return x.PageToken
+	}
+	return ""
+}
+
+type ListMealResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meals         []*common.Meal         `protobuf:"bytes,1,rep,name=meals,proto3" json:"meals,omitempty"`
+	NextPageToken string                 `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMealResponse) Reset() {
+	*x = ListMealResponse{}
+	mi := &file_api_meal_api_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMealResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMealResponse) ProtoMessage() {}
+
+func (x *ListMealResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMealResponse.ProtoReflect.Descriptor instead.
+func (*ListMealResponse) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ListMealResponse) GetMeals() []*common.Meal {
+	if x != nil {
+		return x.Meals
+	}
+	return nil
+}
+
+func (x *ListMealResponse) GetNextPageToken() string {
+	if x != nil {
+		return x.NextPageToken
+	}
+	return ""
+}
+
+type LogMealRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MealId        int32                  `protobuf:"varint,1,opt,name=meal_id,json=mealId,proto3" json:"meal_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogMealRequest) Reset() {
+	*x = LogMealRequest{}
+	mi := &file_api_meal_api_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogMealRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogMealRequest) ProtoMessage() {}
+
+func (x *LogMealRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogMealRequest.ProtoReflect.Descriptor instead.
+func (*LogMealRequest) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *LogMealRequest) GetMealId() int32 {
+	if x != nil {
+		return x.MealId
+	}
+	return 0
+}
+
+type LogMealResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogMealResponse) Reset() {
+	*x = LogMealResponse{}
+	mi := &file_api_meal_api_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogMealResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogMealResponse) ProtoMessage() {}
+
+func (x *LogMealResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogMealResponse.ProtoReflect.Descriptor instead.
+func (*LogMealResponse) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{8}
+}
+
+type UpdateMealRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MealId        int32                  `protobuf:"varint,1,opt,name=meal_id,json=mealId,proto3" json:"meal_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateMealRequest) Reset() {
+	*x = UpdateMealRequest{}
+	mi := &file_api_meal_api_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateMealRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateMealRequest) ProtoMessage() {}
+
+func (x *UpdateMealRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateMealRequest.ProtoReflect.Descriptor instead.
+func (*UpdateMealRequest) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *UpdateMealRequest) GetMealId() int32 {
+	if x != nil {
+		return x.MealId
+	}
+	return 0
+}
+
+type UpdateMealResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateMealResponse) Reset() {
+	*x = UpdateMealResponse{}
+	mi := &file_api_meal_api_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateMealResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateMealResponse) ProtoMessage() {}
+
+func (x *UpdateMealResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_meal_api_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateMealResponse.ProtoReflect.Descriptor instead.
+func (*UpdateMealResponse) Descriptor() ([]byte, []int) {
+	return file_api_meal_api_proto_rawDescGZIP(), []int{10}
+}
+
 var File_api_meal_api_proto protoreflect.FileDescriptor
 
 const file_api_meal_api_proto_rawDesc = "" +
@@ -238,7 +590,24 @@ const file_api_meal_api_proto_rawDesc = "" +
 	"\x14MealAnalysisResponse\x12 \n" +
 	"\x04meal\x18\x01 \x01(\v2\f.common.MealR\x04meal\x12\x1f\n" +
 	"\vanalysis_id\x18\x02 \x01(\tR\n" +
-	"analysisIdB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
+	"analysisId\")\n" +
+	"\x0eGetMealRequest\x12\x17\n" +
+	"\ameal_id\x18\x01 \x01(\x05R\x06mealId\"3\n" +
+	"\x0fGetMealResponse\x12 \n" +
+	"\x04meal\x18\x01 \x01(\v2\f.common.MealR\x04meal\"M\n" +
+	"\x0fListMealRequest\x12\x1b\n" +
+	"\tpage_size\x18\x01 \x01(\x05R\bpageSize\x12\x1d\n" +
+	"\n" +
+	"page_token\x18\x02 \x01(\tR\tpageToken\"^\n" +
+	"\x10ListMealResponse\x12\"\n" +
+	"\x05meals\x18\x01 \x03(\v2\f.common.MealR\x05meals\x12&\n" +
+	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\")\n" +
+	"\x0eLogMealRequest\x12\x17\n" +
+	"\ameal_id\x18\x01 \x01(\x05R\x06mealId\"\x11\n" +
+	"\x0fLogMealResponse\",\n" +
+	"\x11UpdateMealRequest\x12\x17\n" +
+	"\ameal_id\x18\x01 \x01(\x05R\x06mealId\"\x14\n" +
+	"\x12UpdateMealResponseB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
 
 var (
 	file_api_meal_api_proto_rawDescOnce sync.Once
@@ -252,23 +621,33 @@ func file_api_meal_api_proto_rawDescGZIP() []byte {
 	return file_api_meal_api_proto_rawDescData
 }
 
-var file_api_meal_api_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_api_meal_api_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_api_meal_api_proto_goTypes = []any{
 	(*MetaInfo)(nil),              // 0: api.MetaInfo
 	(*MealAnalysisRequest)(nil),   // 1: api.MealAnalysisRequest
 	(*MealAnalysisResponse)(nil),  // 2: api.MealAnalysisResponse
-	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
-	(*common.Meal)(nil),           // 4: common.Meal
+	(*GetMealRequest)(nil),        // 3: api.GetMealRequest
+	(*GetMealResponse)(nil),       // 4: api.GetMealResponse
+	(*ListMealRequest)(nil),       // 5: api.ListMealRequest
+	(*ListMealResponse)(nil),      // 6: api.ListMealResponse
+	(*LogMealRequest)(nil),        // 7: api.LogMealRequest
+	(*LogMealResponse)(nil),       // 8: api.LogMealResponse
+	(*UpdateMealRequest)(nil),     // 9: api.UpdateMealRequest
+	(*UpdateMealResponse)(nil),    // 10: api.UpdateMealResponse
+	(*timestamppb.Timestamp)(nil), // 11: google.protobuf.Timestamp
+	(*common.Meal)(nil),           // 12: common.Meal
 }
 var file_api_meal_api_proto_depIdxs = []int32{
-	3, // 0: api.MetaInfo.timestamp:type_name -> google.protobuf.Timestamp
-	0, // 1: api.MealAnalysisRequest.meta_info:type_name -> api.MetaInfo
-	4, // 2: api.MealAnalysisResponse.meal:type_name -> common.Meal
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	11, // 0: api.MetaInfo.timestamp:type_name -> google.protobuf.Timestamp
+	0,  // 1: api.MealAnalysisRequest.meta_info:type_name -> api.MetaInfo
+	12, // 2: api.MealAnalysisResponse.meal:type_name -> common.Meal
+	12, // 3: api.GetMealResponse.meal:type_name -> common.Meal
+	12, // 4: api.ListMealResponse.meals:type_name -> common.Meal
+	5,  // [5:5] is the sub-list for method output_type
+	5,  // [5:5] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_api_meal_api_proto_init() }
@@ -284,7 +663,7 @@ func file_api_meal_api_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_meal_api_proto_rawDesc), len(file_api_meal_api_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

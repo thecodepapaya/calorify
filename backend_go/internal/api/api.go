@@ -41,6 +41,12 @@ func (a *App) routes() {
 	Register(a, "PUT /users", a.UpsertUser)
 	Register(a, "GET /users/health-data", a.GetUserHealthData)
 	Register(a, "POST /users/health-data", a.UpdateUserHealthData)
+	Register(a, "GET /users/meals/{meal_id}", a.GetMeal)
+	Register(a, "GET /users/meals", a.ListMeal)
+	Register(a, "POST /users/meals", a.LogMeal)
+	Register(a, "PUT /users/meals/{meal_id}", a.UpdateMeal)
+	Register(a, "DELETE /users/meals/{meal_id}", a.DeleteMeal)
+	Register(a, "POST /users/meals/analysis", a.AnalyzeMeal)
 }
 
 func (a *App) Start() error {
@@ -90,6 +96,10 @@ func Register[Req any, Ptr interface {
 	handler func(ctx context.Context, req Ptr) (int, Res, error),
 ) {
 	handlerFunc := func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
+		if meal_id := r.PathValue("meal_id"); meal_id != "" {
+			ctx = context.WithValue(ctx, "meal_id", meal_id)
+		}
 		var req Req
 		ptr := Ptr(&req)
 		_, err := decodeProto(ptr, r)
@@ -98,7 +108,7 @@ func Register[Req any, Ptr interface {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		status, res, err := handler(r.Context(), ptr)
+		status, res, err := handler(ctx, ptr)
 		if err != nil {
 			log.Printf("Error executing logic for endpoint %v: %v\n", pattern, err)
 			w.WriteHeader(status)

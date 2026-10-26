@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package api;
 import "google/protobuf/timestamp.proto";
+
 import "common/meal.proto";
 option go_package = "backend/internal/gen_proto/api";
 
@@ -23,3 +24,33 @@ message MealAnalysisResponse{
   common.Meal meal        = 1;
   string      analysis_id = 2;
 }
+
+message GetMealRequest {
+  int32 meal_id = 1;
+}
+
+message GetMealResponse {
+  common.Meal meal = 1;
+}
+
+message ListMealRequest {
+  int32  page_size  = 1;
+  string page_token = 2;
+}
+
+message ListMealResponse {
+  repeated common.Meal meals           = 1;
+  string               next_page_token = 2;
+}
+
+message LogMealRequest {
+  int32 meal_id = 1;
+}
+
+message LogMealResponse {}
+
+message UpdateMealRequest {
+  int32 meal_id = 1;
+}
+
+message UpdateMealResponse {}
