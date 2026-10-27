@@ -7,5 +7,7 @@ import (
 )
 
 func (a *App) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest) (int, *api.MealAnalysisResponse, error) {
+
+	a.Analysis.AnalyzeMeal()
 	return http.StatusNotImplemented, &api.MealAnalysisResponse{}, nil
 }
