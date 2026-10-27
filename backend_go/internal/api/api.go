@@ -1,6 +1,7 @@
 package api
 
 import (
+	"backend/internal/analysis"
 	"backend/internal/config"
 	firebase_app "backend/internal/firebase"
 	"backend/internal/middleware"
@@ -20,13 +21,15 @@ type App struct {
 	Config      config.Config
 	Router      *http.ServeMux
 	FirebaseApp *firebase.App
+	Analysis    *analysis.Service
 }
 
-func New(cfg config.Config, db *pgxpool.Pool) *App {
+func New(cfg config.Config, db *pgxpool.Pool, analysis *analysis.Service) *App {
 	mux := http.NewServeMux()
 	firebaseApp := firebase_app.Initialize(cfg)
 	a := &App{
 		DB:          db,
+		Analysis:    analysis,
 		Config:      cfg,
 		Router:      mux,
 		FirebaseApp: firebaseApp,
