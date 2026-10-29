@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package server;
+import "google/protobuf/timestamp.proto";
+option go_package = "backend/internal/gen_proto/server";
+
+message MealAnalysisStatus{
+  enum AnalysisStatus{
+    INITIATED                = 0;
+    COMPONENT_DECOMPOSITION  = 1;
+    INGREDIENT_DECOMPOSITION = 2;
+    USDA_MACRO_HYDRATION     = 3;
+    CLARIFICATION            = 4;
+    CLARIFICATION_RESPONSE   = 5;
+    PRESENTATION             = 6;
+  }
+
+  string                             id                         = 1;
+  string                             user_uid                   = 2;
+  optional string                    text                       = 3;
+  optional string                    image_url                  = 4;
+  google.protobuf.Timestamp          created_at                 = 5;
+  optional string                    decomposed_component       = 6;
+  optional google.protobuf.Timestamp decomposed_component_at    = 7;
+  optional string                    decomposed_ingredient      = 8;
+  optional google.protobuf.Timestamp decomposed_ingredient_at   = 9;
+  optional string                    usda_enriched              = 10;
+  optional google.protobuf.Timestamp usda_enriched_at           = 11;
+  optional string                    clarification_questions    = 12;
+  optional google.protobuf.Timestamp clarification_questions_at = 13;
+  optional string                    clarification_response     = 14;
+  optional google.protobuf.Timestamp clarification_response_at  = 15;
+  optional string                    final_response             = 16;
+  optional google.protobuf.Timestamp final_response_at          = 17;
+  AnalysisStatus                     status                     = 18;
+  google.protobuf.Timestamp          updated_at                 = 19;
+}

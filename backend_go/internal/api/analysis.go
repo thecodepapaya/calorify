@@ -1,27 +1,21 @@
 package api
 
 import (
+	"backend/internal/analysis"
 	"backend/internal/gen_proto/api"
 	"context"
+	"errors"
 	"net/http"
 )
 
 func (a *App) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest) (int, *api.MealAnalysisResponse, error) {
-	// validate text/image input
-	// log a "analysis" with analysis id
-	// do LLM pass 1
-	// store update (response) in analysis
-	// do LLM pass 2
-	// store response in analysis
-	// usda db query
-	// store enriched json in analysis
-	// generate clarification questions
-	// store questions in analysis
-	// send question to user
-	// get answers and store in analysis
-	// prepare final presentation
-	// store in analysis
-	// send to user
-	a.Analysis.AnalyzeMeal()
-	return http.StatusNotImplemented, &api.MealAnalysisResponse{}, nil
+	res, err := a.Analysis.AnalyzeMeal(ctx, req)
+	if errors.Is(err, analysis.ErrorInvalidInput) {
+		return http.StatusBadRequest, &api.MealAnalysisResponse{}, err
+	} else if errors.Is(err, analysis.ErrorLargeImage) {
+		return http.StatusRequestEntityTooLarge, &api.MealAnalysisResponse{}, err
+	} else if err != nil {
+		return http.StatusInternalServerError, &api.MealAnalysisResponse{}, err
+	}
+	return http.StatusAccepted, res, nil
 }

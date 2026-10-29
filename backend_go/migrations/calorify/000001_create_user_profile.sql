@@ -86,6 +86,35 @@ CREATE TABLE IF NOT EXISTS meals (
     fiber_max int
 );
 
-CREATE INDEX IF NOT EXISTS index_meals_user_uid_timestamp ON meals (user_uid, timestamp DESC);
+CREATE INDEX IF NOT EXISTS index_meals_user_uid_timestamp ON meals (user_uid, created_at DESC);
 
 CREATE INDEX IF NOT EXISTS health_data_find_by_uid ON health_data (user_uid);
+
+CREATE TABLE IF NOT EXISTS meal_analysis (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    user_uid VARCHAR(255) REFERENCES users (uid) ON DELETE CASCADE,
+    text TEXT,
+    image_base64 TEXT,
+    image_mime_type VARCHAR(50) DEFAULT 'image/webp',
+    status VARCHAR(50) CHECK (
+        status IN (
+            'INITIATED',
+            'COMPONENT_DECOMPOSITION',
+            'INGREDIENT_DECOMPOSITION',
+            'USDA_MACRO_HYDRATION',
+            'CLARIFICATION',
+            'CLARIFICATION_RESPONSE',
+            'PRESENTATION'
+        )
+    ) DEFAULT 'INITIATED',
+    decomposed_component JSONB,
+    decomposed_component_at TIMESTAMPTZ,
+    decomposed_ingredient JSONB,
+    decomposed_ingredient_at TIMESTAMPTZ,
+    usda_enriched JSONB,
+    usda_enriched_at TIMESTAMPTZ,
+    final_response JSONB,
+    final_response_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);

@@ -14,13 +14,20 @@ message MetaInfo{
 }
 
 message MealAnalysisRequest{
-  optional string text        = 1;
-  optional string image_url   = 2;
-  MetaInfo        meta_info   = 3;
-  string          analysis_id = 4;
+  optional string text         = 1;
+  optional string image_base64 = 2;
+  MetaInfo        meta_info    = 3;
 }
 
 message MealAnalysisResponse{
+  string analysis_id = 1;
+}
+
+message AnalysisStatusRequest{
+  string analysis_id = 1;
+}
+
+message AnalysisStatusResponse{
   common.Meal meal        = 1;
   string      analysis_id = 2;
 }

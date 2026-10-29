@@ -7,8 +7,6 @@
 package api
 
 import (
-	_ "backend/internal/gen_proto/common"
-	_ "backend/internal/gen_proto/server"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -116,7 +114,7 @@ var File_api_util_proto protoreflect.FileDescriptor
 
 const file_api_util_proto_rawDesc = "" +
 	"\n" +
-	"\x0eapi/util.proto\x12\x03api\x1a\x19google/protobuf/any.proto\x1a\x11common/user.proto\x1a\x1aserver/notifications.proto\"X\n" +
+	"\x0eapi/util.proto\x12\x03api\x1a\x19google/protobuf/any.proto\"X\n" +
 	"\fGenericError\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12.\n" +
 	"\adetails\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\adetails\"\a\n" +

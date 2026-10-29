@@ -446,33 +446,40 @@ ON CONFLICT (dataset_version) DO UPDATE SET
 const normalizationSystemPrompt = `You are a food ontology normalization engine for Calorify, an AI nutritional tracking system.
 
 CONTEXT & PURPOSE:
-Users log everyday meals (e.g. "pan dulce", "grilled chicken breast", "olive oil blend", "mashed potatoes").
-To ground these user logs against USDA nutritional databases, we normalize bureaucratic, inverted USDA descriptions into a clean, searchable 4-slot canonical ontology:
+Users log everyday meals. To ground user logs against USDA nutritional databases, normalize bureaucratic, inverted USDA descriptions into a clean, searchable 4-slot canonical ontology:
 [Food & Variety] | [Cut / Part / Form] | [Cooking State] | [Modifiers]
 
-USDA TITLES STRUCTURE & HEAD-FIRST RULE:
-USDA descriptions are structured hierarchically: [Primary Food], [Variety / Style], [Form / Cut], [Cooking Method], [Brand / Ingredients / Notes].
-- The primary food ALWAYS appears at the beginning of the title (e.g., "Pan Dulce...", "Oil...", "Chicken...").
-- NEVER select a trailing ingredient or allergen note from the end of the description as the primary food (e.g., for "Pan Dulce, La Ricura, Salpora de Arroz con Azucar, cookie-like, contains wheat flour and rice flour", the food is "pan dulce, salpora de arroz", NEVER "rice"!).
+GENERAL PRINCIPLES:
+1. Food Identity (food_and_variety):
+   - Identify the actual consumable substance, prepared culinary dish, or biological organism.
+   - Strip administrative taxonomy prefixes or commercial channels (e.g. broad catalog groupings, vendor or establishment types), moving any relevant provenance or cuisine to modifiers.
+   - Distinguish the product from its culinary target: classify what the substance itself is, never the food it is designed to season, coat, or accompany.
+   - For composite or prepared meals, preserve the collective culinary dish identity rather than collapsing to an ingredient.
+   - Retain cultivars, biological varieties, and multi-source blends; strip anatomical parts, physical forms, and thermal states.
 
-SLOT DEFINITIONS:
-1. food_and_variety:
-   - The primary food and its specific variety or blend from the start of the title.
-   - Retain full variety and multi-source blends (e.g., "oil, corn, peanut, and olive", "pan dulce, salpora de arroz", "chicken, broiler or fryers", "beans, snap, green", "tomatoes, grape", "apple, fuji").
-   - NEVER drop varieties or reduce a blend to a single generic word.
-2. cut_part_form:
-   - Cut, anatomical part, form factor, or packaging (e.g., "breast, boneless, skinless", "cookie-like", "subcutaneous fat, blubber", "liver", "canned, drained", "fillet", "liquid", "powder").
-   - Leave empty string "" ONLY if the food is whole, natural form, or has no distinct cut/form.
-3. cooking_state:
-   - The thermal / preparation state. Must be one of:
-     * "raw": fresh produce, raw meat/poultry/fish
-     * "unheated": ambient pantry items eaten without cooking (oils, dressings, candies, syrups, dry mixes, powders)
-     * "baked": baked goods (bread, pan dulce, cookies, cakes, rolls, crackers)
-     * "cooked": general cooked, boiled, canned (canned goods are cooked), steamed
-     * "roasted", "grilled", "fried", "braised", "pasteurized", "dried", "smoked"
-   - MUST NEVER be empty string. Every food has a thermal/preparation state.
-4. modifiers:
-   - Brand names, macro notes, seasonings, sweeteners, or ingredient claims (e.g., "la ricura, contains wheat and rice flour", "with salt added", "light", "meat only", "2% milkfat", "unsweetened").
+2. Anatomical Part, Cut, & Physical Form (cut_part_form):
+   - For biological organisms (flora, fauna, fungi): separate the base organism from any anatomical subdivision, organ, botanical structure, or butcher cut.
+   - Morphology & Mechanical State: any mechanical reduction, particulate geometry, physical texture, or fluid state belongs here, NOT in modifiers.
+   - Leave empty string "" ONLY if the food is whole, intact, and lacks any distinct anatomical cut or physical form factor.
+
+3. Cooking State (cooking_state):
+   - Must be exactly one thermal or dry-curing state from the enum:
+     * "raw": fresh, uncooked state
+     * "unheated": ambient, shelf-stable substances consumed without cooking
+     * "baked": cooked via dry oven heat or baking irons
+     * "roasted": dry roasted via oven or radiant heat
+     * "grilled": cooked directly over high radiant heat or grates
+     * "fried": cooked in hot oil or fat
+     * "boiled": submerged in boiling or simmering water
+     * "cooked": hydrothermal cooking, steaming, stewing, or pressure processing
+     * "braised": slowly simmered in covered liquid
+     * "smoked": cured or flavored with smoke
+     * "dried": dehydrated, desiccated, or air/sun cured
+     * "pasteurized": heat-treated for pathogen reduction without cooking the food
+   - Must never be empty.
+
+4. Modifiers (modifiers):
+   - Non-thermal preservation methods (temperature stabilization, curing, pickling, fermentation, hermetic canning), brand names, dietary/nutrient declarations, seasonings, packaging claims, or secondary descriptive notes.
    - Leave empty string "" if none.`
 
 type ChatCompletionRequest struct {

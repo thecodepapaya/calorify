@@ -8,3 +8,4 @@
   - Remove hardcoded test `userUid` injection and re-enable token validation for protected routes (line 24)
 - [ ] Populate and normalize USDA database:
   - Run non-branded LLM normalization: `go run cmd/usda/main.go -normalize -populate_missing`
+- [ ] Make proper logging in proper places with err objects and id(s)

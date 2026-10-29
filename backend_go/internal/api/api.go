@@ -115,6 +115,7 @@ func Register[Req any, Ptr interface {
 		if err != nil {
 			log.Printf("Error executing logic for endpoint %v: %v\n", pattern, err)
 			w.WriteHeader(status)
+			// TODO: w.Write() with err as response body
 			return
 		}
 		respondProto(status, res, w)
