@@ -49,8 +49,6 @@ func (s *Service) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest)
 		AnalysisId: id,
 	}, nil
 
-	// do LLM pass 2
-	// store response in analysis
 	// usda db query
 	// store enriched json in analysis
 	// generate clarification questions
@@ -84,7 +82,12 @@ func (s *Service) runPipeline(id string, req *api.MealAnalysisRequest) {
 		log.Printf("Failed to decompose to meal ingredients %v", err)
 		return
 	}
-	enrichUsdaMacro(ctx, id, pass2)
+	enriched, err := s.enrichUsdaMacro(ctx, id, pass2)
+	if err != nil {
+		log.Printf("Failed to hydrate macros from USDA DB %v", err)
+		return
+	}
+	_ = enriched
 	generateClarification()
 	sendClarification()
 	prepareFinalResponse()
@@ -200,9 +203,11 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 	return pass2, nil
 }
 
-func enrichUsdaMacro(ctx context.Context, id string, pass2 *server.Pass2) {
+func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.Pass2) (string, error) {
 	// usda db query
 	// store enriched json in analysis
+
+	return "", nil
 }
 
 func generateClarification() {

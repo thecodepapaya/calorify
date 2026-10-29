@@ -12,9 +12,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
-	"sync"
-	"sync/atomic"
 	"time"
 
 	"backend/internal/config"
@@ -443,331 +442,171 @@ ON CONFLICT (dataset_version) DO UPDATE SET
 	log.Printf("SUCCESS: Ingestion complete. Ingested/updated a total of %d foods across all datasets.", totalAll)
 }
 
-const normalizationSystemPrompt = `You are a food ontology normalization engine for Calorify, an AI nutritional tracking system.
-
-CONTEXT & PURPOSE:
-Users log everyday meals. To ground user logs against USDA nutritional databases, normalize bureaucratic, inverted USDA descriptions into a clean, searchable 4-slot canonical ontology:
-[Food & Variety] | [Cut / Part / Form] | [Cooking State] | [Modifiers]
-
-GENERAL PRINCIPLES:
-1. Food Identity (food_and_variety):
-   - Identify the actual consumable substance, prepared culinary dish, or biological organism.
-   - Strip administrative taxonomy prefixes or commercial channels (e.g. broad catalog groupings, vendor or establishment types), moving any relevant provenance or cuisine to modifiers.
-   - Distinguish the product from its culinary target: classify what the substance itself is, never the food it is designed to season, coat, or accompany.
-   - For composite or prepared meals, preserve the collective culinary dish identity rather than collapsing to an ingredient.
-   - Retain cultivars, biological varieties, and multi-source blends; strip anatomical parts, physical forms, and thermal states.
-
-2. Anatomical Part, Cut, & Physical Form (cut_part_form):
-   - For biological organisms (flora, fauna, fungi): separate the base organism from any anatomical subdivision, organ, botanical structure, or butcher cut.
-   - Morphology & Mechanical State: any mechanical reduction, particulate geometry, physical texture, or fluid state belongs here, NOT in modifiers.
-   - Leave empty string "" ONLY if the food is whole, intact, and lacks any distinct anatomical cut or physical form factor.
-
-3. Cooking State (cooking_state):
-   - Must be exactly one thermal or dry-curing state from the enum:
-     * "raw": fresh, uncooked state
-     * "unheated": ambient, shelf-stable substances consumed without cooking
-     * "baked": cooked via dry oven heat or baking irons
-     * "roasted": dry roasted via oven or radiant heat
-     * "grilled": cooked directly over high radiant heat or grates
-     * "fried": cooked in hot oil or fat
-     * "boiled": submerged in boiling or simmering water
-     * "cooked": hydrothermal cooking, steaming, stewing, or pressure processing
-     * "braised": slowly simmered in covered liquid
-     * "smoked": cured or flavored with smoke
-     * "dried": dehydrated, desiccated, or air/sun cured
-     * "pasteurized": heat-treated for pathogen reduction without cooking the food
-   - Must never be empty.
-
-4. Modifiers (modifiers):
-   - Non-thermal preservation methods (temperature stabilization, curing, pickling, fermentation, hermetic canning), brand names, dietary/nutrient declarations, seasonings, packaging claims, or secondary descriptive notes.
-   - Leave empty string "" if none.`
-
-type ChatCompletionRequest struct {
-	Model          string          `json:"model"`
-	Messages       []ChatMessage   `json:"messages"`
-	Temperature    float32         `json:"temperature"`
-	MaxTokens      int             `json:"max_tokens"`
-	Thinking       bool            `json:"thinking"`
-	ResponseFormat *ResponseFormat `json:"response_format,omitempty"`
+type EmbedRequest struct {
+	Model string   `json:"model"`
+	Input []string `json:"input"`
 }
 
-type ResponseFormat struct {
-	Type       string      `json:"type"`
-	JSONSchema *JSONSchema `json:"json_schema,omitempty"`
+type EmbedResponse struct {
+	Model      string      `json:"model"`
+	Embeddings [][]float32 `json:"embeddings"`
 }
 
-type JSONSchema struct {
-	Name   string      `json:"name"`
-	Strict bool        `json:"strict"`
-	Schema interface{} `json:"schema"`
-}
-
-type FoodSlots struct {
-	FoodAndVariety string `json:"food_and_variety"`
-	CutPartForm    string `json:"cut_part_form"`
-	CookingState   string `json:"cooking_state"`
-	Modifiers      string `json:"modifiers"`
-}
-
-var foodNormalizationJSONSchema = &ResponseFormat{
-	Type: "json_schema",
-	JSONSchema: &JSONSchema{
-		Name:   "food_normalization",
-		Strict: true,
-		Schema: map[string]interface{}{
-			"type": "object",
-			"properties": map[string]interface{}{
-				"food_and_variety": map[string]string{"type": "string"},
-				"cut_part_form":    map[string]string{"type": "string"},
-				"cooking_state": map[string]interface{}{
-					"type": "string",
-					"enum": []string{
-						"raw", "unheated", "baked", "cooked", "boiled",
-						"roasted", "grilled", "fried", "braised", "pasteurized", "dried", "smoked",
-					},
-				},
-				"modifiers": map[string]string{"type": "string"},
-			},
-			"required":             []string{"food_and_variety", "cut_part_form", "cooking_state", "modifiers"},
-			"additionalProperties": false,
-		},
-	},
-}
-
-type ChatMessage struct {
-	Role    string `json:"role"`
-	Content string `json:"content"`
-}
-
-type ChatCompletionResponse struct {
-	Choices []struct {
-		Message struct {
-			Content          string `json:"content"`
-			ReasoningContent string `json:"reasoning_content,omitempty"`
-		} `json:"message"`
-	} `json:"choices"`
-}
-
-func callLMStudioOnce(client *http.Client, baseURL string, description string) (string, error) {
-	endpoint := strings.TrimRight(baseURL, "/") + "/chat/completions"
-
-	reqBody := ChatCompletionRequest{
-		Model: "default",
-		Messages: []ChatMessage{
-			{Role: "system", Content: normalizationSystemPrompt},
-			{Role: "user", Content: "Input: " + description},
-		},
-		Thinking:       false,
-		Temperature:    0.0,
-		MaxTokens:      200,
-		ResponseFormat: foodNormalizationJSONSchema,
+func formatVector(vec []float32) string {
+	var b strings.Builder
+	b.WriteByte('[')
+	for i, v := range vec {
+		if i > 0 {
+			b.WriteByte(',')
+		}
+		b.WriteString(strconv.FormatFloat(float64(v), 'f', 6, 32))
 	}
+	b.WriteByte(']')
+	return b.String()
+}
 
+func embedBatchOllama(client *http.Client, ollamaURL string, model string, texts []string) ([][]float32, error) {
+	reqBody := EmbedRequest{
+		Model: model,
+		Input: texts,
+	}
 	payload, err := json.Marshal(reqBody)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	req, err := http.NewRequest("POST", endpoint, bytes.NewBuffer(payload))
+	endpoint := strings.TrimRight(ollamaURL, "/") + "/api/embed"
+	resp, err := client.Post(endpoint, "application/json", bytes.NewBuffer(payload))
 	if err != nil {
-		return "", err
-	}
-	req.Header.Set("Content-Type", "application/json")
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return "", err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		body, _ := io.ReadAll(resp.Body)
-		return "", fmt.Errorf("status %d: %s", resp.StatusCode, string(body))
+		return nil, fmt.Errorf("status %d: %s", resp.StatusCode, string(body))
 	}
 
-	var chatResp ChatCompletionResponse
-	if err := json.NewDecoder(resp.Body).Decode(&chatResp); err != nil {
-		return "", err
+	var res EmbedResponse
+	if err := json.NewDecoder(resp.Body).Decode(&res); err != nil {
+		return nil, err
 	}
-
-	if len(chatResp.Choices) == 0 {
-		return "", fmt.Errorf("no choice returned")
+	if len(res.Embeddings) != len(texts) {
+		return nil, fmt.Errorf("expected %d embeddings, got %d", len(texts), len(res.Embeddings))
 	}
-
-	raw := strings.TrimSpace(chatResp.Choices[0].Message.Content)
-	if raw == "" && chatResp.Choices[0].Message.ReasoningContent != "" {
-		rc := chatResp.Choices[0].Message.ReasoningContent
-		start := strings.LastIndex(rc, "{")
-		end := strings.LastIndex(rc, "}")
-		if start != -1 && end != -1 && end > start {
-			raw = rc[start : end+1]
-		}
-	}
-
-	// Attempt structured JSON unmarshal
-	var slots FoodSlots
-	if err := json.Unmarshal([]byte(raw), &slots); err == nil && slots.FoodAndVariety != "" {
-		canonical := fmt.Sprintf("%s | %s | %s | %s",
-			strings.ToLower(strings.TrimSpace(slots.FoodAndVariety)),
-			strings.ToLower(strings.TrimSpace(slots.CutPartForm)),
-			strings.ToLower(strings.TrimSpace(slots.CookingState)),
-			strings.ToLower(strings.TrimSpace(slots.Modifiers)),
-		)
-		return canonical, nil
-	}
-
-	// Fallback to pipe parsing if plain text returned
-	for _, line := range strings.Split(raw, "\n") {
-		line = strings.TrimSpace(line)
-		line = strings.Trim(line, "\"`*")
-		if strings.Count(line, "|") == 3 {
-			return strings.ToLower(line), nil
-		}
-	}
-
-	return "", fmt.Errorf("unable to parse canonical name: %s", raw)
+	return res.Embeddings, nil
 }
 
-func callLMStudio(client *http.Client, baseURL string, description string) (string, error) {
-	res, err := callLMStudioOnce(client, baseURL, description)
-	if err != nil {
-		time.Sleep(300 * time.Millisecond)
-		return callLMStudioOnce(client, baseURL, description)
-	}
-	return res, nil
-}
-
-type FoodToNormalize struct {
+type FoodToEmbed struct {
 	FdcID       int64
 	Description string
 }
 
-func runNormalization(ctx context.Context, pool *pgxpool.Pool, lmStudioURL string, numWorkers int, limit int, overwrite bool, delay time.Duration) {
-	client := &http.Client{Timeout: 60 * time.Second}
+func runEmbedding(ctx context.Context, pool *pgxpool.Pool, ollamaURL string, model string, batchSize int, limit int, overwrite bool) {
+	client := &http.Client{Timeout: 120 * time.Second}
 
-	log.Printf("Connecting to LM Studio at %s...", lmStudioURL)
-	testURL := strings.TrimRight(lmStudioURL, "/") + "/models"
-	testReq, _ := http.NewRequestWithContext(ctx, "GET", testURL, nil)
-	testResp, err := client.Do(testReq)
-	if err != nil || testResp.StatusCode != http.StatusOK {
-		log.Fatalf("Cannot connect to LM Studio at %s. Please make sure LM Studio's Local Server is running! (Error: %v)", lmStudioURL, err)
+	log.Printf("Connecting to Ollama at %s (model: %s)...", ollamaURL, model)
+	testReq, err := http.NewRequestWithContext(ctx, "GET", strings.TrimRight(ollamaURL, "/")+"/api/tags", nil)
+	if err == nil {
+		if testResp, err := client.Do(testReq); err == nil {
+			testResp.Body.Close()
+		} else {
+			log.Fatalf("Cannot connect to Ollama at %s. Please make sure Ollama is running! (%v)", ollamaURL, err)
+		}
 	}
-	testResp.Body.Close()
-	log.Println("LM Studio server is online and ready.")
 
-	whereConditions := []string{"data_type != 'branded_food'"}
+	whereClause := "WHERE data_type != 'branded_food'"
 	if !overwrite {
-		whereConditions = append(whereConditions, "canonical_name IS NULL")
+		whereClause += " AND embedding IS NULL"
 	}
 
-	whereClause := "WHERE " + strings.Join(whereConditions, " AND ")
-
-	query := fmt.Sprintf(`
-		SELECT fdc_id, description
-		  FROM usda_foods
-		 %s
-		 ORDER BY fdc_id
-	`, whereClause)
-
+	query := fmt.Sprintf(`SELECT fdc_id, description FROM usda_foods %s ORDER BY fdc_id`, whereClause)
 	if limit > 0 {
 		query += fmt.Sprintf(" LIMIT %d", limit)
 	}
 
 	rows, err := pool.Query(ctx, query)
 	if err != nil {
-		log.Fatalf("Querying foods to normalize: %v", err)
+		log.Fatalf("Querying foods to embed: %v", err)
 	}
 	defer rows.Close()
 
-	var foods []FoodToNormalize
+	var foods []FoodToEmbed
 	for rows.Next() {
-		var f FoodToNormalize
+		var f FoodToEmbed
 		if err := rows.Scan(&f.FdcID, &f.Description); err != nil {
 			log.Fatalf("Scanning row: %v", err)
 		}
 		foods = append(foods, f)
 	}
 
-	if len(foods) == 0 {
-		log.Println("No non-branded foods matching criteria need canonical_name populated.")
+	total := len(foods)
+	if total == 0 {
+		log.Println("No foods awaiting embedding.")
 		return
 	}
 
-	modeStr := "missing only"
-	if overwrite {
-		modeStr = "overwrite existing"
-	}
-	log.Printf("Starting normalization of %d non-branded foods (%s) using %d worker(s) (delay: %v)...", len(foods), modeStr, numWorkers, delay)
+	log.Printf("Starting embedding for %d non-branded foods (batch size: %d, model: %s)...", total, batchSize, model)
+	startTime := time.Now()
+	processed := 0
 
-	jobs := make(chan FoodToNormalize, len(foods))
-	for _, f := range foods {
-		jobs <- f
-	}
-	close(jobs)
+	for i := 0; i < total; i += batchSize {
+		end := i + batchSize
+		if end > total {
+			end = total
+		}
+		chunk := foods[i:end]
 
-	var (
-		wg        sync.WaitGroup
-		processed int64
-		success   int64
-		startTime = time.Now()
-	)
+		texts := make([]string, len(chunk))
+		for j, f := range chunk {
+			texts[j] = "title: none | content: " + f.Description
+		}
 
-	for w := 0; w < numWorkers; w++ {
-		wg.Add(1)
-		go func(workerID int) {
-			defer wg.Done()
-			for food := range jobs {
-				canonical, err := callLMStudio(client, lmStudioURL, food.Description)
-				count := atomic.AddInt64(&processed, 1)
+		embeddings, err := embedBatchOllama(client, ollamaURL, model, texts)
+		if err != nil {
+			log.Fatalf("Embedding batch [%d-%d] failed: %v", i, end, err)
+		}
 
-				if err != nil {
-					log.Printf("[%d/%d] ERROR '%s': %v (setting canonical_name = NULL)", count, len(foods), food.Description, err)
-					_, _ = pool.Exec(ctx, `UPDATE usda_foods SET canonical_name = NULL, updated_at = CURRENT_TIMESTAMP WHERE fdc_id = $1`, food.FdcID)
-				} else {
-					_, dbErr := pool.Exec(ctx, `UPDATE usda_foods SET canonical_name = $1, updated_at = CURRENT_TIMESTAMP WHERE fdc_id = $2`, canonical, food.FdcID)
-					if dbErr != nil {
-						log.Printf("[%d/%d] DB ERROR: %v", count, len(foods), dbErr)
-					} else {
-						atomic.AddInt64(&success, 1)
-						log.Printf("[%d/%d] %s -> %s", count, len(foods), food.Description, canonical)
-					}
-				}
+		dbBatch := &pgx.Batch{}
+		for j, f := range chunk {
+			vecStr := formatVector(embeddings[j])
+			dbBatch.Queue("UPDATE usda_foods SET embedding = $1::vector, updated_at = CURRENT_TIMESTAMP WHERE fdc_id = $2", vecStr, f.FdcID)
+		}
 
-				if delay > 0 {
-					time.Sleep(delay)
-				}
+		br := pool.SendBatch(ctx, dbBatch)
+		for range chunk {
+			if _, err := br.Exec(); err != nil {
+				_ = br.Close()
+				log.Fatalf("Failed updating database embedding: %v", err)
 			}
-		}(w + 1)
+		}
+		if err := br.Close(); err != nil {
+			log.Fatalf("Failed closing db batch: %v", err)
+		}
+
+		processed += len(chunk)
+		elapsed := time.Since(startTime)
+		rate := float64(processed) / elapsed.Seconds()
+		pct := float64(processed) / float64(total) * 100
+		log.Printf("[%d/%d] (%.1f%%) Embedded in %v (%.1f foods/sec)", processed, total, pct, elapsed.Round(time.Second), rate)
 	}
 
-	wg.Wait()
-	duration := time.Since(startTime)
-	log.Printf("COMPLETE: Normalized %d/%d foods in %v (%.1f foods/sec).", success, len(foods), duration, float64(success)/duration.Seconds())
+	totalDuration := time.Since(startTime)
+	log.Printf("SUCCESS: Completed embedding %d foods in %v (%.1f foods/sec).", total, totalDuration.Round(time.Second), float64(total)/totalDuration.Seconds())
 }
 
 func main() {
 	var (
-		ingestFlag          = flag.Bool("ingest", false, "Ingest raw USDA data from zip files into usda_foods")
-		skipBrandedFlag     = flag.Bool("skip-branded", false, "Skip ingesting branded foods during ingestion")
-		normalizeFlag       = flag.Bool("normalize", false, "Normalize non-branded USDA food names via LM Studio into canonical_name")
-		overwriteFlag       = flag.Bool("overwrite", false, "Overwrite existing canonical_name values during normalization")
-		populateMissingFlag = flag.Bool("populate_missing", false, "Only normalize foods where canonical_name is NULL (default: true)")
-		populateMissingDash = flag.Bool("populate-missing", false, "Alias for -populate_missing")
-		missingFlag         = flag.Bool("missing", false, "Alias for -populate_missing")
-		allFlag             = flag.Bool("all", false, "Run both ingestion and normalization")
-		lmStudioURL         = flag.String("lmstudio", "http://localhost:1234/v1", "LM Studio OpenAI-compatible base URL")
-		workers             = flag.Int("workers", 1, "Concurrent worker routines for LM Studio calls")
-		limit               = flag.Int("limit", 0, "Maximum number of rows to normalize (0 = unlimited)")
-		delay               = flag.Duration("delay", 2*time.Second, "Delay between LLM calls per worker to reduce load/heat (default: 2s)")
-		resetCanonicalFlag  = flag.Bool("reset-canonical", false, "Reset all canonical_name entries in usda_foods to NULL")
-		resetFlag           = flag.Bool("reset", false, "Alias for -reset-canonical")
+		ingestFlag      = flag.Bool("ingest", false, "Ingest raw USDA data from zip files into usda_foods")
+		skipBrandedFlag = flag.Bool("skip-branded", false, "Skip ingesting branded foods during ingestion")
+		embedFlag       = flag.Bool("embed", false, "Generate embeddings for foods missing embedding via Ollama")
+		embedAllFlag    = flag.Bool("embed-all", false, "Overwrite existing embeddings for all non-branded foods")
+		ollamaURL       = flag.String("ollama", "http://localhost:11434", "Ollama base URL")
+		model           = flag.String("model", "embeddinggemma-2", "Embedding model name in Ollama")
+		batchSize       = flag.Int("batch", 64, "Batch size for embedding requests")
+		limit           = flag.Int("limit", 0, "Limit number of foods to embed (0 = unlimited)")
 	)
 	flag.Parse()
-
-	overwrite := *overwriteFlag
-	if *populateMissingFlag || *populateMissingDash || *missingFlag {
-		overwrite = false
-	}
 
 	ctx := context.Background()
 	cfg := config.Load()
@@ -783,44 +622,29 @@ func main() {
 		log.Fatalf("USDA database ping failed (is docker running?): %v", err)
 	}
 
-	if *resetCanonicalFlag || *resetFlag {
-		log.Println("Resetting all canonical_name entries in usda_foods to NULL...")
-		res, err := pool.Exec(ctx, "UPDATE usda_foods SET canonical_name = NULL, updated_at = CURRENT_TIMESTAMP WHERE canonical_name IS NOT NULL")
-		if err != nil {
-			log.Fatalf("Failed to reset canonical_name values: %v", err)
-		}
-		log.Printf("SUCCESS: Reset %d canonical_name entries to NULL.", res.RowsAffected())
-		if !*normalizeFlag && !*allFlag && !*ingestFlag {
-			return
-		}
-	}
-
-	if !*ingestFlag && !*normalizeFlag && !*allFlag {
-		var totalCount, nonBrandedCount, unnormalizedNonBranded int
-		_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods").Scan(&totalCount)
-		_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type != 'branded_food'").Scan(&nonBrandedCount)
-		_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type != 'branded_food' AND canonical_name IS NULL").Scan(&unnormalizedNonBranded)
-
-		if totalCount == 0 {
-			log.Println("usda_foods table is empty. Running initial ingestion...")
-			ingestRawData(ctx, pool, *skipBrandedFlag)
-		} else {
-			log.Printf("Status: usda_foods contains %d records (%d non-branded, %d awaiting normalization).", totalCount, nonBrandedCount, unnormalizedNonBranded)
-			log.Println("To ingest all datasets: go run cmd/usda/main.go -ingest")
-			log.Println("To ingest non-branded only: go run cmd/usda/main.go -ingest -skip-branded")
-			log.Println("To normalize (missing only, default): go run cmd/usda/main.go -normalize")
-			log.Println("To normalize (overwrite existing): go run cmd/usda/main.go -normalize -overwrite")
-			log.Println("To reset all canonical names: go run cmd/usda/main.go -reset-canonical")
-			log.Println("To test on a subset: go run cmd/usda/main.go -normalize -limit 5")
-			return
-		}
-	}
-
-	if *ingestFlag || *allFlag {
+	if *ingestFlag {
 		ingestRawData(ctx, pool, *skipBrandedFlag)
+		return
 	}
 
-	if *normalizeFlag || *allFlag {
-		runNormalization(ctx, pool, *lmStudioURL, *workers, *limit, overwrite, *delay)
+	if *embedFlag || *embedAllFlag {
+		runEmbedding(ctx, pool, *ollamaURL, *model, *batchSize, *limit, *embedAllFlag)
+		return
+	}
+
+	var totalCount, nonBrandedCount, unEmbeddedCount int
+	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods").Scan(&totalCount)
+	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type != 'branded_food'").Scan(&nonBrandedCount)
+	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type != 'branded_food' AND embedding IS NULL").Scan(&unEmbeddedCount)
+
+	if totalCount == 0 {
+		log.Println("usda_foods table is empty. Running initial ingestion...")
+		ingestRawData(ctx, pool, *skipBrandedFlag)
+	} else {
+		log.Printf("Status: usda_foods contains %d records (%d non-branded, %d missing embeddings).", totalCount, nonBrandedCount, unEmbeddedCount)
+		log.Println("To re-ingest all datasets: go run cmd/usda/main.go -ingest")
+		log.Println("To re-ingest non-branded only: go run cmd/usda/main.go -ingest -skip-branded")
+		log.Println("To generate embeddings (missing only): go run cmd/usda/main.go -embed")
+		log.Println("To test embedding a small subset: go run cmd/usda/main.go -embed -limit 10")
 	}
 }

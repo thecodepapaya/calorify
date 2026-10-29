@@ -61,3 +61,22 @@ func (s *Service) SaveMealIngredient(ctx context.Context, id string, pass2 *serv
 	}
 	return nil
 }
+
+func (s *Service) searchUsda(ctx context.Context, text string) error {
+	const query = `
+	SELECT 
+    	fdc_id, 
+    	description, 
+    	kcal_per_100g, 
+    	protein_per_100g, 
+    	carbs_per_100g, 
+    	fat_per_100g, 
+    	fiber_per_100g,
+    	similarity(normalized_name, $1) AS sim
+	FROM usda_foods
+	WHERE normalized_name % $1
+	ORDER BY (similarity(normalized_name, $1) * 0.7 + quality_score * 0.3) DESC
+	LIMIT 1;
+	`
+	return nil
+}

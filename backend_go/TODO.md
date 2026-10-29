@@ -9,3 +9,5 @@
 - [ ] Populate and normalize USDA database:
   - Run non-branded LLM normalization: `go run cmd/usda/main.go -normalize -populate_missing`
 - [ ] Make proper logging in proper places with err objects and id(s)
+- [ ] Right now quantity is decided in pass2 but should be done in pass 1
+- [ ] Pretty and comprehensive dashboards for checking analytics for meal analysis, traffic volume, analytics and telemetry
