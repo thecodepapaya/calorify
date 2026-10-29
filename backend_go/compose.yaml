@@ -21,7 +21,7 @@ services:
     ports: [ "5432:5432" ]
     volumes: [ calorify_pgdata:/var/lib/postgresql/data ]
     healthcheck:
-      test: [ "CMD", "pg_isready -U user" ]
+      test: [ "CMD", "pg_isready", "-U", "user" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -37,7 +37,7 @@ services:
     ports: [ "5433:5432" ]
     volumes: [ usda_pgdata:/var/lib/postgresql/data ]
     healthcheck:
-      test: [ "CMD", "pg_isready -U user" ]
+      test: [ "CMD", "pg_isready", "-U", "user" ]
       interval: 10s
       timeout: 5s
       retries: 5

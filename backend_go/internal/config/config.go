@@ -15,7 +15,7 @@ func Load() Config {
 	databaseUrl := os.Getenv("DATABASE_URL")
 	usdaDatabaseUrl := os.Getenv("USDA_DATABASE_URL")
 	firebaseSdk := os.Getenv("FIREBASE_ADMIN_SDK")
-	openAiAPiKey := os.Getenv("OPENAI_API_KEY")
+	openaiAPiKey := os.Getenv("OPENAI_API_KEY")
 	if port == "" {
 		port = "8000"
 	}
@@ -33,6 +33,6 @@ func Load() Config {
 		DatabaseURL:     databaseUrl,
 		UsdaDatabaseURL: usdaDatabaseUrl,
 		FirebaseSdkPath: firebaseSdk,
-		OpenAiApiKey:    openAiAPiKey,
+		OpenAiApiKey:    openaiAPiKey,
 	}
 }

@@ -32,7 +32,26 @@ func (s *Service) SaveMealComponent(ctx context.Context, id string, pass1 *serve
 	}
 	const query = `
 	UPDATE meal_analysis 
-	SET decomposed_component = $2, decomposed_component_at = $3, updated_at = $4, status = 'COMPONENT_DECOMPOSITION'
+	SET decomposed_component = $2, decomposed_component_at = $3, updated_at = $4, status = 'COMPONENT_DECOMPOSED'
+	WHERE id = $1
+	`
+	_, err = s.DB.Exec(ctx, query, id, json, now, now)
+	if err != nil {
+		log.Printf("Failed to update meal component in DB")
+		return err
+	}
+	return nil
+}
+
+func (s *Service) SaveMealIngredient(ctx context.Context, id string, pass2 *server.Pass2) error {
+	now := time.Now()
+	json, err := protojson.Marshal(pass2)
+	if err != nil {
+		return err
+	}
+	const query = `
+	UPDATE meal_analysis 
+	SET decomposed_ingredient = $2, decomposed_ingredient_at = $3, updated_at = $4, status = 'INGREDIENT_DECOMPOSED'
 	WHERE id = $1
 	`
 	_, err = s.DB.Exec(ctx, query, id, json, now, now)

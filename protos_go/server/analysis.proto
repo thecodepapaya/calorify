@@ -6,13 +6,13 @@ option go_package = "backend/internal/gen_proto/server";
 
 message MealAnalysisStatus{
   enum AnalysisStatus{
-    INITIATED                = 0;
-    COMPONENT_DECOMPOSITION  = 1;
-    INGREDIENT_DECOMPOSITION = 2;
-    USDA_MACRO_HYDRATION     = 3;
-    CLARIFICATION            = 4;
-    CLARIFICATION_RESPONSE   = 5;
-    PRESENTATION             = 6;
+    INITIATED               = 0;
+    COMPONENT_DECOMPOSED    = 1;
+    INGREDIENT_DECOMPOSED   = 2;
+    USDA_MACRO_HYDRATED     = 3;
+    CLARIFICATION_GENERATED = 4;
+    CLARIFICATION_RESOLVED  = 5;
+    PRESENTED               = 6;
   }
 
   string                             id                         = 1;

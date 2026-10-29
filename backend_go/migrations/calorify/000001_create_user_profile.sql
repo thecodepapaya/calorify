@@ -99,12 +99,12 @@ CREATE TABLE IF NOT EXISTS meal_analysis (
     status VARCHAR(50) CHECK (
         status IN (
             'INITIATED',
-            'COMPONENT_DECOMPOSITION',
-            'INGREDIENT_DECOMPOSITION',
-            'USDA_MACRO_HYDRATION',
-            'CLARIFICATION',
-            'CLARIFICATION_RESPONSE',
-            'PRESENTATION'
+            'COMPONENT_DECOMPOSED',
+            'INGREDIENT_DECOMPOSED',
+            'USDA_MACRO_HYDRATED',
+            'CLARIFICATION_GENERATED',
+            'CLARIFICATION_RESOLVED',
+            'PRESENTED'
         )
     ) DEFAULT 'INITIATED',
     decomposed_component JSONB,

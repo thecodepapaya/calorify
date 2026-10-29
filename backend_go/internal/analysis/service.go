@@ -13,6 +13,7 @@ import (
 	"github.com/openai/openai-go"
 	"github.com/openai/openai-go/option"
 	"github.com/openai/openai-go/shared"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type Service struct {
@@ -78,7 +79,11 @@ func (s *Service) runPipeline(id string, req *api.MealAnalysisRequest) {
 		log.Printf("Failed to decompose to meal components %v", err)
 		return
 	}
-	pass2, err := decomposeIngredients(ctx, id, pass1)
+	pass2, err := s.decomposeIngredients(ctx, id, pass1)
+	if err != nil {
+		log.Printf("Failed to decompose to meal ingredients %v", err)
+		return
+	}
 	enrichUsdaMacro(ctx, id, pass2)
 	generateClarification()
 	sendClarification()
@@ -119,7 +124,6 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 		ReasoningEffort: shared.ReasoningEffortLow,
 		Model:           openai.ChatModel(llm_model),
-		Temperature:     openai.Float(0),
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(pass1Prompt),
 			openai.UserMessage(parts),
@@ -154,10 +158,46 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	return pass1, nil
 }
 
-func decomposeIngredients(ctx context.Context, id string, pass1 *server.Pass1) (*server.Pass2, error) {
-	// do LLM pass 2
-	// store response in analysis
-	return &server.Pass2{}, nil
+func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *server.Pass1) (*server.Pass2, error) {
+	str, err := protojson.Marshal(pass1)
+	if err != nil {
+		log.Printf("Failed to parse pass1 input")
+		return nil, err
+	}
+	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
+		ReasoningEffort: shared.ReasoningEffortLow,
+		Model:           openai.ChatModel(llm_model),
+		Messages: []openai.ChatCompletionMessageParamUnion{
+			openai.SystemMessage(pass2Prompt),
+			openai.UserMessage(string(str)),
+		},
+		ResponseFormat: openai.ChatCompletionNewParamsResponseFormatUnion{
+			OfJSONSchema: &openai.ResponseFormatJSONSchemaParam{
+				JSONSchema: openai.ResponseFormatJSONSchemaJSONSchemaParam{
+					Name:   "pass2_decomposition",
+					Strict: openai.Bool(true),
+					Schema: pass2Schema,
+				},
+			},
+		},
+	})
+	if err != nil {
+		log.Printf("No response from provider for decomposed ingredients")
+		return nil, err
+	}
+
+	rawJson := res.Choices[0].Message.Content
+	pass2, err := parsePass2Response(rawJson)
+	if err != nil {
+		log.Printf("Failed to parse response to schema")
+		return nil, err
+	}
+	err = s.SaveMealIngredient(ctx, id, pass2)
+	if err != nil {
+		log.Printf("Failed to save decomposed components to DB")
+		return nil, err
+	}
+	return pass2, nil
 }
 
 func enrichUsdaMacro(ctx context.Context, id string, pass2 *server.Pass2) {

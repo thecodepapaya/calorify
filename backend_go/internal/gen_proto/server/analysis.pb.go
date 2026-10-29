@@ -25,34 +25,34 @@ const (
 type MealAnalysisStatus_AnalysisStatus int32
 
 const (
-	MealAnalysisStatus_INITIATED                MealAnalysisStatus_AnalysisStatus = 0
-	MealAnalysisStatus_COMPONENT_DECOMPOSITION  MealAnalysisStatus_AnalysisStatus = 1
-	MealAnalysisStatus_INGREDIENT_DECOMPOSITION MealAnalysisStatus_AnalysisStatus = 2
-	MealAnalysisStatus_USDA_MACRO_HYDRATION     MealAnalysisStatus_AnalysisStatus = 3
-	MealAnalysisStatus_CLARIFICATION            MealAnalysisStatus_AnalysisStatus = 4
-	MealAnalysisStatus_CLARIFICATION_RESPONSE   MealAnalysisStatus_AnalysisStatus = 5
-	MealAnalysisStatus_PRESENTATION             MealAnalysisStatus_AnalysisStatus = 6
+	MealAnalysisStatus_INITIATED               MealAnalysisStatus_AnalysisStatus = 0
+	MealAnalysisStatus_COMPONENT_DECOMPOSED    MealAnalysisStatus_AnalysisStatus = 1
+	MealAnalysisStatus_INGREDIENT_DECOMPOSED   MealAnalysisStatus_AnalysisStatus = 2
+	MealAnalysisStatus_USDA_MACRO_HYDRATED     MealAnalysisStatus_AnalysisStatus = 3
+	MealAnalysisStatus_CLARIFICATION_GENERATED MealAnalysisStatus_AnalysisStatus = 4
+	MealAnalysisStatus_CLARIFICATION_RESOLVED  MealAnalysisStatus_AnalysisStatus = 5
+	MealAnalysisStatus_PRESENTED               MealAnalysisStatus_AnalysisStatus = 6
 )
 
 // Enum value maps for MealAnalysisStatus_AnalysisStatus.
 var (
 	MealAnalysisStatus_AnalysisStatus_name = map[int32]string{
 		0: "INITIATED",
-		1: "COMPONENT_DECOMPOSITION",
-		2: "INGREDIENT_DECOMPOSITION",
-		3: "USDA_MACRO_HYDRATION",
-		4: "CLARIFICATION",
-		5: "CLARIFICATION_RESPONSE",
-		6: "PRESENTATION",
+		1: "COMPONENT_DECOMPOSED",
+		2: "INGREDIENT_DECOMPOSED",
+		3: "USDA_MACRO_HYDRATED",
+		4: "CLARIFICATION_GENERATED",
+		5: "CLARIFICATION_RESOLVED",
+		6: "PRESENTED",
 	}
 	MealAnalysisStatus_AnalysisStatus_value = map[string]int32{
-		"INITIATED":                0,
-		"COMPONENT_DECOMPOSITION":  1,
-		"INGREDIENT_DECOMPOSITION": 2,
-		"USDA_MACRO_HYDRATION":     3,
-		"CLARIFICATION":            4,
-		"CLARIFICATION_RESPONSE":   5,
-		"PRESENTATION":             6,
+		"INITIATED":               0,
+		"COMPONENT_DECOMPOSED":    1,
+		"INGREDIENT_DECOMPOSED":   2,
+		"USDA_MACRO_HYDRATED":     3,
+		"CLARIFICATION_GENERATED": 4,
+		"CLARIFICATION_RESOLVED":  5,
+		"PRESENTED":               6,
 	}
 )
 
@@ -301,13 +301,13 @@ const file_server_analysis_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xb5\x01\n" +
 	"\x0eAnalysisStatus\x12\r\n" +
-	"\tINITIATED\x10\x00\x12\x1b\n" +
-	"\x17COMPONENT_DECOMPOSITION\x10\x01\x12\x1c\n" +
-	"\x18INGREDIENT_DECOMPOSITION\x10\x02\x12\x18\n" +
-	"\x14USDA_MACRO_HYDRATION\x10\x03\x12\x11\n" +
-	"\rCLARIFICATION\x10\x04\x12\x1a\n" +
-	"\x16CLARIFICATION_RESPONSE\x10\x05\x12\x10\n" +
-	"\fPRESENTATION\x10\x06B\a\n" +
+	"\tINITIATED\x10\x00\x12\x18\n" +
+	"\x14COMPONENT_DECOMPOSED\x10\x01\x12\x19\n" +
+	"\x15INGREDIENT_DECOMPOSED\x10\x02\x12\x17\n" +
+	"\x13USDA_MACRO_HYDRATED\x10\x03\x12\x1b\n" +
+	"\x17CLARIFICATION_GENERATED\x10\x04\x12\x1a\n" +
+	"\x16CLARIFICATION_RESOLVED\x10\x05\x12\r\n" +
+	"\tPRESENTED\x10\x06B\a\n" +
 	"\x05_textB\f\n" +
 	"\n" +
 	"_image_urlB\x17\n" +
