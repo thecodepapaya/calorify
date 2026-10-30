@@ -69,7 +69,7 @@ jobs:
           df -h /
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
+        uses: ruby/setup-ruby@26e5b7d197ebf60545ee9667bcbace0be11ccaec # v1
         with:
           ruby-version: "3.3.0"
           bundler-cache: true
@@ -96,7 +96,7 @@ jobs:
           SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
 
       - name: Build Android AppBundle with Shorebird
-        uses: shorebirdtech/shorebird-release@fb52cad53f4ed5ce39883d51a26916ead502b93d # v1
+        uses: shorebirdtech/shorebird-release@8605c991e8f513451c775ae3909984e9476748a2 # v1
         env:
           MEASURE_API_KEY: ${{ secrets.MEASURE_API_KEY }}
         with:

@@ -53,7 +53,7 @@ jobs:
           shorebird-token: ${{ secrets.SHOREBIRD_TOKEN }}
 
       - name: Create Shorebird Android patch
-        uses: shorebirdtech/shorebird-patch@4437c3d4f9bf07ca32da005a13d95dd802ebcd22 # v1
+        uses: shorebirdtech/shorebird-patch@df613ff20052aad0942166646c947de8ae61ba67 # v1
         env:
           MEASURE_API_KEY: ${{ secrets.MEASURE_API_KEY }}
         with:
