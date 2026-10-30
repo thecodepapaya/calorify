@@ -10,7 +10,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"math"
 	"net/http"
 	"strconv"
@@ -31,37 +30,31 @@ func (s *Service) getEmbeddings(ctx context.Context, texts []string) ([][]float3
 	}
 	bodyBytes, err := json.Marshal(payload)
 	if err != nil {
-		log.Printf("Failed to marshal Ollama payload: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to marshal ollama payload: %w", err)
 	}
 
 	req, err := http.NewRequestWithContext(ctx, "POST", s.OllamaURL+"/api/embed", bytes.NewReader(bodyBytes))
 	if err != nil {
-		log.Printf("Failed create new Ollama req: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to create ollama request: %w", err)
 	}
 	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Printf("Failed to get embeddings from Ollama: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to get embeddings from ollama: %w", err)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("Non 200 response from Ollama: %v", err)
 		return nil, fmt.Errorf("ollama returned status %d", resp.StatusCode)
 	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil || len(body) == 0 {
-		log.Printf("resp body empty or failed to read response body: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("ollama response body empty or unreadable: %w", err)
 	}
 	var res ollamaEmbedResponse
 	err = json.Unmarshal(body, &res)
 	if err != nil {
-		log.Printf("Failed to unmarshal Ollama response: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to unmarshal ollama response: %w", err)
 	}
 	return res.Embeddings, nil
 }

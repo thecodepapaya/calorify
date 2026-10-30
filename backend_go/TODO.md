@@ -11,3 +11,4 @@
 - [ ] Make proper logging in proper places with err objects and id(s)
 - [ ] Right now quantity is decided in pass2 but should be done in pass 1
 - [ ] Pretty and comprehensive dashboards for checking analytics for meal analysis, traffic volume, analytics and telemetry
+- [ ] write "failed" to analysis table entry when analysis failed at any point

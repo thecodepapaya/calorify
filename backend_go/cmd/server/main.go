@@ -7,37 +7,48 @@ import (
 	"backend/internal/database"
 	"backend/internal/telemetry"
 	"context"
-	"log"
+	"log/slog"
+	"os"
 )
 
 func main() {
+	handler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		Level: slog.LevelInfo,
+	})
+	slog.SetDefault(slog.New(handler))
+
 	cfg := config.Load()
-	log.Printf("Starting API server at %v\n", cfg.Port)
+	slog.Info("starting API server", "port", cfg.Port)
 
 	ctx := context.Background()
 	shutdownTelemetry, err := telemetry.Init(ctx, cfg.AppName, cfg.OtelEndpoint)
 	if err != nil {
-		log.Printf("Warning: failed to initialize telemetry: %v\n", err)
+		slog.Warn("failed to initialize telemetry", "error", err)
 	} else {
 		defer func() {
 			if err := shutdownTelemetry(context.Background()); err != nil {
-				log.Printf("Failed to flush telemetry: %v\n", err)
+				slog.Error("failed to flush telemetry", "error", err)
 			}
 		}()
 	}
 	dbPool, dbErr := database.Connect(ctx, cfg.DatabaseURL)
 	if dbErr != nil {
-		log.Fatalf("Failed to connect to DB: %v\n", dbErr)
+		slog.Error("failed to connect to DB", "error", dbErr)
+		os.Exit(1)
 	}
 	defer dbPool.Close()
 
 	usdaDbPool, dbErr := database.Connect(ctx, cfg.UsdaDatabaseURL)
 	if dbErr != nil {
-		log.Fatalf("Failed to connect to USDA DB: %v\n", dbErr)
+		slog.Error("failed to connect to USDA DB", "error", dbErr)
+		os.Exit(1)
 	}
 	defer usdaDbPool.Close()
 
 	analysis := analysis.New(dbPool, usdaDbPool, cfg.OpenAiApiKey, cfg.OllamaURL)
 	app := api.New(cfg, dbPool, analysis)
-	app.Start()
+	if err := app.Start(); err != nil {
+		slog.Error("server stopped with error", "error", err)
+		os.Exit(1)
+	}
 }

@@ -6,8 +6,9 @@ import (
 	firebase_app "backend/internal/firebase"
 	"backend/internal/middleware"
 	"context"
+	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"net/http"
 
 	firebase "firebase.google.com/go/v4"
@@ -55,7 +56,7 @@ func (a *App) routes() {
 func (a *App) Start() error {
 	authClient, err := a.FirebaseApp.Auth(context.Background())
 	if err != nil {
-		log.Fatalf("Failed to initialize Firebase Auth client: %v\n", err)
+		return fmt.Errorf("failed to initialize Firebase Auth client: %w", err)
 	}
 	auth := middleware.Auth(a.Router, authClient)
 	logging := middleware.Logging(auth)
@@ -66,6 +67,7 @@ func respondProto(status int, msg proto.Message, w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 	data, err := protojson.Marshal(msg)
 	if err != nil {
+		slog.Error("failed to marshal proto response", "error", err)
 		http.Error(w, "Failed to respond", http.StatusInternalServerError)
 		return
 	}
@@ -107,13 +109,13 @@ func Register[Req any, Ptr interface {
 		ptr := Ptr(&req)
 		_, err := decodeProto(ptr, r)
 		if err != nil {
-			log.Printf("Error parsing proto body: %v\n", err)
+			slog.WarnContext(ctx, "failed to parse request body", "endpoint", pattern, "error", err)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 		status, res, err := handler(ctx, ptr)
 		if err != nil {
-			log.Printf("Error executing logic for endpoint %v: %v\n", pattern, err)
+			slog.ErrorContext(ctx, "endpoint handler returned error", "endpoint", pattern, "status", status, "error", err)
 			w.WriteHeader(status)
 			// TODO: w.Write() with err as response body
 			return

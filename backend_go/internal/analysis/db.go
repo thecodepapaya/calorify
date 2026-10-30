@@ -4,7 +4,8 @@ import (
 	"backend/internal/gen_proto/common"
 	"backend/internal/gen_proto/server"
 	"context"
-	"log"
+	"fmt"
+	"log/slog"
 	"time"
 
 	"google.golang.org/protobuf/encoding/protojson"
@@ -38,8 +39,7 @@ func (s *Service) SaveMealComponent(ctx context.Context, id string, pass1 *serve
 	`
 	_, err = s.DB.Exec(ctx, query, id, json, now, now)
 	if err != nil {
-		log.Printf("Failed to update meal component in DB")
-		return err
+		return fmt.Errorf("failed to update meal component: %w", err)
 	}
 	return nil
 }
@@ -57,8 +57,7 @@ func (s *Service) SaveMealIngredient(ctx context.Context, id string, pass2 *serv
 	`
 	_, err = s.DB.Exec(ctx, query, id, json, now, now)
 	if err != nil {
-		log.Printf("Failed to update meal component in DB")
-		return err
+		return fmt.Errorf("failed to update meal ingredient: %w", err)
 	}
 	return nil
 }
@@ -76,8 +75,7 @@ func (s *Service) SaveUsdaEnriched(ctx context.Context, id string, enriched *ser
 	`
 	_, err = s.DB.Exec(ctx, query, id, json, now, now)
 	if err != nil {
-		log.Printf("Failed to update usda enriched in DB: %v", err)
-		return err
+		return fmt.Errorf("failed to update usda enriched: %w", err)
 	}
 	return nil
 }
@@ -116,15 +114,14 @@ func (s *Service) searchUsda(ctx context.Context, vectorStr string) (*UsdaCandid
 			&r.FiberPer100g,
 			&r.Similarity)
 		if err != nil {
-			log.Printf("Cannot read row to struct")
+			slog.WarnContext(ctx, "failed to scan usda candidate row", "error", err)
 			continue
 		}
 		rowsData = append(rowsData, &r)
 	}
 	err = rows.Err()
 	if err != nil {
-		log.Printf("Failed to iterate through rows: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to iterate usda rows: %w", err)
 	}
 
 	if len(rowsData) == 0 {
@@ -147,8 +144,7 @@ func (s *Service) SaveFinalResponse(ctx context.Context, id string, meal *common
 	`
 	_, err = s.DB.Exec(ctx, query, id, json, now, now)
 	if err != nil {
-		log.Printf("Failed to update final response in DB: %v", err)
-		return err
+		return fmt.Errorf("failed to update final response: %w", err)
 	}
 	return nil
 }

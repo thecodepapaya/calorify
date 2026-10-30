@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"log"
+	"log/slog"
 	"net/http"
 	"strings"
 
@@ -25,24 +25,26 @@ func Auth(next http.Handler, authClient *auth.Client) http.Handler {
 			// TODO: Undo later
 			userUid := "0oiiKhs2X3OnmHvFsLCmT9CIABG2"
 			ctx := context.WithValue(r.Context(), "user_uid", userUid)
-			log.Printf("User %v\n", userUid)
+			slog.DebugContext(ctx, "authenticated public route override", "user_uid", userUid)
 			next.ServeHTTP(w, r.WithContext(ctx))
 			return
 		}
 
-		auth := r.Header.Get("Authorization")
-		if !strings.HasPrefix(auth, "Bearer ") {
+		authHeader := r.Header.Get("Authorization")
+		if !strings.HasPrefix(authHeader, "Bearer ") {
+			slog.WarnContext(r.Context(), "missing or invalid bearer token", "path", r.URL.Path)
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
-		idToken := strings.TrimPrefix(auth, "Bearer ")
+		idToken := strings.TrimPrefix(authHeader, "Bearer ")
 		userId, err := validateToken(idToken, authClient, r.Context())
 		if err != nil {
+			slog.WarnContext(r.Context(), "failed to verify auth token", "path", r.URL.Path, "error", err)
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
 		ctx := context.WithValue(r.Context(), "user_uid", userId)
-		log.Printf("User %v\n", userId)
+		slog.DebugContext(ctx, "authenticated request", "user_uid", userId)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

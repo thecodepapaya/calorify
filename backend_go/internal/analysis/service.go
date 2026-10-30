@@ -7,9 +7,8 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
+	"log/slog"
 	"time"
-
-	"log"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/openai/openai-go"
@@ -79,7 +78,7 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 			err := fmt.Errorf("pipeline panic: %v", r)
 			span.RecordError(err)
 			span.SetStatus(codes.Error, err.Error())
-			log.Printf("Analysis pipeline panicked for id %s: %v", id, r)
+			slog.ErrorContext(ctx, "analysis pipeline panicked", "analysis_id", id, "panic", r)
 		}
 	}()
 
@@ -87,21 +86,21 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "decomposeComponents failed")
-		log.Printf("Failed to decompose to meal components %v", err)
+		slog.ErrorContext(ctx, "failed to decompose meal components", "analysis_id", id, "error", err)
 		return
 	}
 	pass2, err := s.decomposeIngredients(ctx, id, pass1)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "decomposeIngredients failed")
-		log.Printf("Failed to decompose to meal ingredients %v", err)
+		slog.ErrorContext(ctx, "failed to decompose meal ingredients", "analysis_id", id, "error", err)
 		return
 	}
 	enriched, err := s.enrichUsdaMacro(ctx, id, pass2)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "enrichUsdaMacro failed")
-		log.Printf("Failed to hydrate macros from USDA DB %v", err)
+		slog.ErrorContext(ctx, "failed to hydrate macros from USDA DB", "analysis_id", id, "error", err)
 		return
 	}
 	generateClarification()
@@ -110,9 +109,11 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "prepareFinalResponse failed")
+		slog.ErrorContext(ctx, "failed to prepare final response", "analysis_id", id, "error", err)
 		return
 	}
 	span.SetStatus(codes.Ok, "completed")
+	slog.InfoContext(ctx, "analysis pipeline completed successfully", "analysis_id", id)
 }
 
 func validateInput(req *api.MealAnalysisRequest) error {
@@ -173,7 +174,7 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("No response from provider for decomposed components")
+		slog.ErrorContext(ctx, "failed to call LLM for decomposed components", "analysis_id", id, "error", err)
 		return nil, err
 	}
 
@@ -182,7 +183,7 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("Failed to parse response to schema")
+		slog.ErrorContext(ctx, "failed to parse pass1 response schema", "analysis_id", id, "error", err)
 		return nil, err
 	}
 	span.SetAttributes(
@@ -195,7 +196,7 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("Failed to save decomposed components to DB")
+		slog.ErrorContext(ctx, "failed to save decomposed components to DB", "analysis_id", id, "error", err)
 		return nil, err
 	}
 
@@ -210,7 +211,7 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("Failed to parse pass1 input")
+		slog.ErrorContext(ctx, "failed to marshal pass1 for decomposition", "analysis_id", id, "error", err)
 		return nil, err
 	}
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
@@ -233,7 +234,7 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("No response from provider for decomposed ingredients")
+		slog.ErrorContext(ctx, "failed to call LLM for decomposed ingredients", "analysis_id", id, "error", err)
 		return nil, err
 	}
 
@@ -242,7 +243,7 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("Failed to parse response to schema")
+		slog.ErrorContext(ctx, "failed to parse pass2 response schema", "analysis_id", id, "error", err)
 		return nil, err
 	}
 	span.SetAttributes(
@@ -253,7 +254,7 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("Failed to save decomposed components to DB")
+		slog.ErrorContext(ctx, "failed to save decomposed ingredients to DB", "analysis_id", id, "error", err)
 		return nil, err
 	}
 	return pass2, nil
@@ -271,7 +272,7 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("Failed to get embeddings: %v", err)
+		slog.ErrorContext(ctx, "failed to get embeddings from ollama", "analysis_id", id, "error", err)
 		return nil, err
 	}
 
@@ -281,13 +282,13 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 		if err != nil {
 			span.RecordError(err)
 			span.SetStatus(codes.Error, err.Error())
-			log.Printf("Error in finding match for ingredient: %v", err)
+			slog.ErrorContext(ctx, "failed to search usda database", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name, "error", err)
 			return nil, err
 		} else if candidate == nil {
 			err = fmt.Errorf("failed to find match for ingredient")
 			span.RecordError(err)
 			span.SetStatus(codes.Error, err.Error())
-			log.Printf("failed to find match for ingredient: %v", err)
+			slog.WarnContext(ctx, "no usda candidate found for ingredient", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name)
 			return nil, err
 		}
 		enrichedIngredient[i] = ingredientCandidateToEnriched(pass2.Ingredients[i], candidate)
@@ -305,7 +306,7 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("Failed to save enriched json to DB %v", err)
+		slog.ErrorContext(ctx, "failed to save usda enriched data to DB", "analysis_id", id, "error", err)
 		return nil, err
 	}
 	return &enriched, nil
@@ -314,7 +315,7 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 func generateClarification() {
 	// generate clarification questions
 	// store questions in analysis
-	log.Printf("Skipped clarifications")
+	slog.Debug("clarifications generation skipped")
 
 }
 
@@ -322,7 +323,7 @@ func sendClarification() {
 	// skipped for now
 	// send question to user
 	// get answers and store in analysis
-	log.Printf("Skipped clarifications response")
+	slog.Debug("clarifications sending skipped")
 }
 
 func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1, enriched *server.UsdaEnriched) (*common.Meal, error) {
@@ -352,7 +353,7 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
-		log.Printf("Failed to save final response to DB %v", err)
+		slog.ErrorContext(ctx, "failed to save final response to DB", "analysis_id", id, "error", err)
 		return nil, err
 	}
 	return &meal, nil
