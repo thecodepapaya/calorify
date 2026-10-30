@@ -5,6 +5,7 @@ import (
 	"backend/internal/api"
 	"backend/internal/config"
 	"backend/internal/database"
+	"backend/internal/telemetry"
 	"context"
 	"log"
 )
@@ -14,6 +15,16 @@ func main() {
 	log.Printf("Starting API server at %v\n", cfg.Port)
 
 	ctx := context.Background()
+	shutdownTelemetry, err := telemetry.Init(ctx, cfg.AppName, cfg.OtelEndpoint)
+	if err != nil {
+		log.Printf("Warning: failed to initialize telemetry: %v\n", err)
+	} else {
+		defer func() {
+			if err := shutdownTelemetry(context.Background()); err != nil {
+				log.Printf("Failed to flush telemetry: %v\n", err)
+			}
+		}()
+	}
 	dbPool, dbErr := database.Connect(ctx, cfg.DatabaseURL)
 	if dbErr != nil {
 		log.Fatalf("Failed to connect to DB: %v\n", dbErr)

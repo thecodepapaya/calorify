@@ -71,10 +71,23 @@ services:
       retries: 3
       start_period: 10s
 
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    container_name: phoenix
+    restart: unless-stopped
+    ports:
+      - "6006:6006"
+    environment:
+      - PHOENIX_WORKING_DIR=/mnt/data
+      - PHOENIX_ENABLE_AUTH=false
+    volumes:
+      - phoenix_data:/mnt/data
+
 volumes:
   calorify_pgdata:
   usda_pgdata:
   ollama_models:
+  phoenix_data:
 
 secrets:
   firebase-adminsdk.json:

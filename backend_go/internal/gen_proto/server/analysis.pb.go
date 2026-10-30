@@ -32,6 +32,7 @@ const (
 	MealAnalysisStatus_CLARIFICATION_GENERATED MealAnalysisStatus_AnalysisStatus = 4
 	MealAnalysisStatus_CLARIFICATION_RESOLVED  MealAnalysisStatus_AnalysisStatus = 5
 	MealAnalysisStatus_PRESENTED               MealAnalysisStatus_AnalysisStatus = 6
+	MealAnalysisStatus_FAILED                  MealAnalysisStatus_AnalysisStatus = 7
 )
 
 // Enum value maps for MealAnalysisStatus_AnalysisStatus.
@@ -44,6 +45,7 @@ var (
 		4: "CLARIFICATION_GENERATED",
 		5: "CLARIFICATION_RESOLVED",
 		6: "PRESENTED",
+		7: "FAILED",
 	}
 	MealAnalysisStatus_AnalysisStatus_value = map[string]int32{
 		"INITIATED":               0,
@@ -53,6 +55,7 @@ var (
 		"CLARIFICATION_GENERATED": 4,
 		"CLARIFICATION_RESOLVED":  5,
 		"PRESENTED":               6,
+		"FAILED":                  7,
 	}
 )
 
@@ -275,7 +278,7 @@ var File_server_analysis_proto protoreflect.FileDescriptor
 
 const file_server_analysis_proto_rawDesc = "" +
 	"\n" +
-	"\x15server/analysis.proto\x12\x06server\x1a\x1fgoogle/protobuf/timestamp.proto\"\xfc\f\n" +
+	"\x15server/analysis.proto\x12\x06server\x1a\x1fgoogle/protobuf/timestamp.proto\"\x88\r\n" +
 	"\x12MealAnalysisStatus\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\buser_uid\x18\x02 \x01(\tR\auserUid\x12\x17\n" +
@@ -299,7 +302,7 @@ const file_server_analysis_proto_rawDesc = "" +
 	"\x11final_response_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampH\rR\x0ffinalResponseAt\x88\x01\x01\x12A\n" +
 	"\x06status\x18\x12 \x01(\x0e2).server.MealAnalysisStatus.AnalysisStatusR\x06status\x129\n" +
 	"\n" +
-	"updated_at\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xb5\x01\n" +
+	"updated_at\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xc1\x01\n" +
 	"\x0eAnalysisStatus\x12\r\n" +
 	"\tINITIATED\x10\x00\x12\x18\n" +
 	"\x14COMPONENT_DECOMPOSED\x10\x01\x12\x19\n" +
@@ -307,7 +310,9 @@ const file_server_analysis_proto_rawDesc = "" +
 	"\x13USDA_MACRO_HYDRATED\x10\x03\x12\x1b\n" +
 	"\x17CLARIFICATION_GENERATED\x10\x04\x12\x1a\n" +
 	"\x16CLARIFICATION_RESOLVED\x10\x05\x12\r\n" +
-	"\tPRESENTED\x10\x06B\a\n" +
+	"\tPRESENTED\x10\x06\x12\n" +
+	"\n" +
+	"\x06FAILED\x10\aB\a\n" +
 	"\x05_textB\f\n" +
 	"\n" +
 	"_image_urlB\x17\n" +

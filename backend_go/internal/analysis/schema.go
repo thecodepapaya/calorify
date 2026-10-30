@@ -8,22 +8,14 @@ import (
 )
 
 // Pass 1: Meal Component Decomposition Prompt
-const pass1Prompt = `You are a clinical nutrition and food decomposition AI.
-Your task is to analyze user food descriptions or images and decompose them into distinct meal components with portions and cooking methods.
+const pass1Prompt = `Decompose food input (text/image) into meal components, portions, and clinical health insights.
 
 RULES:
-1. Identify the overall meal name (short, natural, 2-6 words).
-2. Infer meal_type based on foods described or time of day (BREAKFAST, LUNCH, DINNER, SNACK, or UNKNOWN).
-3. Decompose the meal into individual distinct food components (e.g. "Scrambled Eggs", "Whole Wheat Toast", "Butter", "Black Coffee").
-4. For each component:
-   - Identify primary name and short English search aliases suitable for USDA nutritional database lookup.
-   - Identify the preparation_method (e.g. RAW, BOILED, STEAMED, BAKED, ROASTED, GRILLED, TOASTED, SAUTEED, SHALLOW_FRIED, DEEP_FRIED, etc.).
-   - Estimate the portion:
-     * EXACT: For discrete count items (e.g. 2 eggs, 1 slice of bread). Specify count value and estimated per_unit_grams with min/max bounds.
-     * BULK: For volume or weight-measured foods (e.g. rice, oatmeal, soup, pasta, curries). Specify value in estimated total grams with min_value and max_value bounds.
-     * PINCH: For garnishes, seasonings, trace amounts (salt, pepper, herbs). Value is typically 1-5 grams.
-   - If user explicitly stated quantity, set origin to "USER_STATED". Otherwise set origin to "MODEL_INFERRED".
-5. NEVER generate calories, macros, or nutritional values in this pass. Focus strictly on food identity and portion estimation.`
+1. Context: Use country for regional cuisine, timezone/time for meal_type, and locale for user-facing text (name, quantity, tip, health_score_reason, component name).
+2. Database Aliases: Regardless of locale, component aliases MUST contain plain English USDA search terms (e.g. "Palak Paneer" -> ["spinach cottage cheese curry"]).
+3. Components & Portions: Decompose into distinct items with preparation_method. Portions: EXACT (count + per_unit_grams), BULK (grams), or PINCH (1-5g), with min/max bounds. Set origin to USER_STATED or MODEL_INFERRED.
+4. Health & Tip: Assign health_score (HEALTHY, NEUTRAL, UNHEALTHY) with a 1-sentence reason and a practical localized dietary tip.
+5. NEVER output calories or macros.`
 
 // Pass 1 JSON Schema for OpenAI Structured Outputs
 var pass1Schema = map[string]any{

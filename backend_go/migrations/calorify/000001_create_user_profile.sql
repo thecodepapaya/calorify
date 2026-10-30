@@ -104,7 +104,8 @@ CREATE TABLE IF NOT EXISTS meal_analysis (
             'USDA_MACRO_HYDRATED',
             'CLARIFICATION_GENERATED',
             'CLARIFICATION_RESOLVED',
-            'PRESENTED'
+            'PRESENTED',
+            'FAILED'
         )
     ) DEFAULT 'INITIATED',
     decomposed_component JSONB,

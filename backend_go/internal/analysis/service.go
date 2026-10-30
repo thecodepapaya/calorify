@@ -15,6 +15,10 @@ import (
 	"github.com/openai/openai-go"
 	"github.com/openai/openai-go/option"
 	"github.com/openai/openai-go/shared"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -47,51 +51,68 @@ func (s *Service) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest)
 		return &api.MealAnalysisResponse{}, err
 	}
 
-	go s.runPipeline(id, req)
+	userUid, _ := ctx.Value("user_uid").(string)
+	go s.runPipeline(id, userUid, req)
 
 	return &api.MealAnalysisResponse{
 		AnalysisId: id,
 	}, nil
-
-	// generate clarification questions
-	// store questions in analysis
-	// send question to user
-	// get answers and store in analysis
-	// prepare final presentation
-	// store in analysis
-	// send to user
-
 }
 
-func (s *Service) runPipeline(id string, req *api.MealAnalysisRequest) {
+func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRequest) {
 	// TODO: make this pipeline idempotent
 	bgCtx := context.Background()
 	ctx, cancel := context.WithTimeout(bgCtx, 30*time.Second)
 	defer cancel()
+
+	tr := otel.Tracer("meal_analysis")
+	ctx, span := tr.Start(ctx, "meal_analysis_pipeline", trace.WithAttributes(
+		attribute.String("analysis.id", id),
+		attribute.String("user.uid", userUid),
+		attribute.String("input.text", req.GetText()),
+		attribute.Bool("input.has_image", req.GetImageBase64() != ""),
+	))
+	defer span.End()
+
 	defer func() {
 		if r := recover(); r != nil {
+			err := fmt.Errorf("pipeline panic: %v", r)
+			span.RecordError(err)
+			span.SetStatus(codes.Error, err.Error())
 			log.Printf("Analysis pipeline panicked for id %s: %v", id, r)
 		}
 	}()
 
 	pass1, err := s.decomposeComponents(ctx, id, req)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "decomposeComponents failed")
 		log.Printf("Failed to decompose to meal components %v", err)
 		return
 	}
 	pass2, err := s.decomposeIngredients(ctx, id, pass1)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "decomposeIngredients failed")
 		log.Printf("Failed to decompose to meal ingredients %v", err)
 		return
 	}
 	enriched, err := s.enrichUsdaMacro(ctx, id, pass2)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "enrichUsdaMacro failed")
 		log.Printf("Failed to hydrate macros from USDA DB %v", err)
 		return
 	}
 	generateClarification()
 	sendClarification()
-	s.prepareFinalResponse(ctx, id, req, pass1, enriched)
+	_, err = s.prepareFinalResponse(ctx, id, req, pass1, enriched)
+	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "prepareFinalResponse failed")
+		return
+	}
+	span.SetStatus(codes.Ok, "completed")
 }
 
 func validateInput(req *api.MealAnalysisRequest) error {
@@ -115,7 +136,14 @@ func (s *Service) initiateAnalysis(ctx context.Context, req *api.MealAnalysisReq
 }
 
 func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.MealAnalysisRequest) (*server.Pass1, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_components")
+	defer span.End()
+
 	var parts []openai.ChatCompletionContentPartUnionParam
+	contextHeader := buildContextPrefix(req)
+	if contextHeader != "" {
+		parts = append(parts, openai.TextContentPart(contextHeader))
+	}
 	if req.GetText() != "" {
 		parts = append(parts, openai.TextContentPart(req.GetText()))
 	}
@@ -143,6 +171,8 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 		},
 	})
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("No response from provider for decomposed components")
 		return nil, err
 	}
@@ -150,11 +180,21 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	rawJson := res.Choices[0].Message.Content
 	pass1, err := parsePass1Response(rawJson)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("Failed to parse response to schema")
 		return nil, err
 	}
+	span.SetAttributes(
+		attribute.String("meal.name", pass1.Name),
+		attribute.String("meal.type", pass1.GetMealType().String()),
+		attribute.Int("components.count", len(pass1.Components)),
+	)
+
 	err = s.SaveMealComponent(ctx, id, pass1)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("Failed to save decomposed components to DB")
 		return nil, err
 	}
@@ -163,8 +203,13 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 }
 
 func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *server.Pass1) (*server.Pass2, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_ingredients")
+	defer span.End()
+
 	str, err := protojson.Marshal(pass1)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("Failed to parse pass1 input")
 		return nil, err
 	}
@@ -186,6 +231,8 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 		},
 	})
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("No response from provider for decomposed ingredients")
 		return nil, err
 	}
@@ -193,11 +240,19 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 	rawJson := res.Choices[0].Message.Content
 	pass2, err := parsePass2Response(rawJson)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("Failed to parse response to schema")
 		return nil, err
 	}
+	span.SetAttributes(
+		attribute.Int("ingredients.count", len(pass2.Ingredients)),
+	)
+
 	err = s.SaveMealIngredient(ctx, id, pass2)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("Failed to save decomposed components to DB")
 		return nil, err
 	}
@@ -205,12 +260,17 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 }
 
 func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.Pass2) (*server.UsdaEnriched, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "enrich_usda_macro")
+	defer span.End()
+
 	var ingredients []string
 	for _, ing := range pass2.Ingredients {
 		ingredients = append(ingredients, "task: search result | query: "+ing.Name)
 	}
 	embeddings, err := s.getEmbeddings(ctx, ingredients)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("Failed to get embeddings: %v", err)
 		return nil, err
 	}
@@ -219,19 +279,32 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 	for i := range embeddings {
 		candidate, err := s.searchUsda(ctx, formatVector(embeddings[i]))
 		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, err.Error())
 			log.Printf("Error in finding match for ingredient: %v", err)
 			return nil, err
 		} else if candidate == nil {
+			err = fmt.Errorf("failed to find match for ingredient")
+			span.RecordError(err)
+			span.SetStatus(codes.Error, err.Error())
 			log.Printf("failed to find match for ingredient: %v", err)
-			return nil, fmt.Errorf("failed to find match for ingredient")
+			return nil, err
 		}
 		enrichedIngredient[i] = ingredientCandidateToEnriched(pass2.Ingredients[i], candidate)
-
 	}
 	enriched := server.UsdaEnriched{Ingredients: enrichedIngredient, TotalMacros: aggregateMacro(enrichedIngredient)}
 
+	if enriched.TotalMacros != nil && enriched.TotalMacros.Calorie != nil {
+		span.SetAttributes(
+			attribute.Int64("macro.energy_kcal", int64(enriched.TotalMacros.Calorie.Value)),
+		)
+	}
+	span.SetAttributes(attribute.Int("enriched.ingredients_count", len(enriched.Ingredients)))
+
 	err = s.SaveUsdaEnriched(ctx, id, &enriched)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("Failed to save enriched json to DB %v", err)
 		return nil, err
 	}
@@ -253,6 +326,9 @@ func sendClarification() {
 }
 
 func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1, enriched *server.UsdaEnriched) (*common.Meal, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "prepare_final_response")
+	defer span.End()
+
 	mealTime := time.Now().UTC().Format(time.RFC3339)
 	meal := common.Meal{
 		Name:     pass1.Name,
@@ -268,8 +344,14 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 		},
 	}
 
+	span.SetAttributes(
+		attribute.String("final.meal_name", meal.Name),
+	)
+
 	err := s.SaveFinalResponse(ctx, id, &meal)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		log.Printf("Failed to save final response to DB %v", err)
 		return nil, err
 	}

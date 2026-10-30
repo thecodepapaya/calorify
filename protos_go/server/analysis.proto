@@ -13,6 +13,7 @@ message MealAnalysisStatus{
     CLARIFICATION_GENERATED = 4;
     CLARIFICATION_RESOLVED  = 5;
     PRESENTED               = 6;
+    FAILED                  = 7;
   }
 
   string                             id                         = 1;

@@ -1,6 +1,7 @@
 package analysis
 
 import (
+	"backend/internal/gen_proto/api"
 	"backend/internal/gen_proto/common"
 	"backend/internal/gen_proto/server"
 	"bytes"
@@ -14,6 +15,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var ErrorInvalidInput = errors.New("Either text or imageUrl must be provided")
@@ -189,4 +191,33 @@ func addMeasurement(src, dst *common.Measurement) {
 	dst.MinValue += src.MinValue
 	dst.Value += src.Value
 	dst.MaxValue += src.MaxValue
+}
+
+func buildContextPrefix(req *api.MealAnalysisRequest) string {
+	meta := req.GetMetaInfo()
+	if meta == nil {
+		return ""
+	}
+	var sb strings.Builder
+	hasMeta := false
+	if meta.GetCountryCode() != "" {
+		sb.WriteString(fmt.Sprintf("- Geographic Country: %s\n", meta.GetCountryCode()))
+		hasMeta = true
+	}
+	if meta.GetLocale() != "" {
+		sb.WriteString(fmt.Sprintf("- User Locale: %s\n", meta.GetLocale()))
+		hasMeta = true
+	}
+	if meta.GetTimezone() != "" {
+		sb.WriteString(fmt.Sprintf("- Timezone: %s\n", meta.GetTimezone()))
+		hasMeta = true
+	}
+	if ts := meta.GetTimestamp(); ts != nil {
+		sb.WriteString(fmt.Sprintf("- Capture Time: %s\n", ts.AsTime().Format(time.RFC3339)))
+		hasMeta = true
+	}
+	if !hasMeta {
+		return ""
+	}
+	return "CONTEXT METADATA:\n" + sb.String()
 }
