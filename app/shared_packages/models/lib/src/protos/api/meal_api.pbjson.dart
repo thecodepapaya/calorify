@@ -233,3 +233,27 @@ const UpdateMealResponse$json = {
 /// Descriptor for `UpdateMealResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List updateMealResponseDescriptor =
     $convert.base64Decode('ChJVcGRhdGVNZWFsUmVzcG9uc2U=');
+
+@$core.Deprecated('Use mealFeedbackRequestDescriptor instead')
+const MealFeedbackRequest$json = {
+  '1': 'MealFeedbackRequest',
+  '2': [
+    {
+      '1': 'is_liked',
+      '3': 1,
+      '4': 1,
+      '5': 8,
+      '9': 0,
+      '10': 'isLiked',
+      '17': true
+    },
+  ],
+  '8': [
+    {'1': '_is_liked'},
+  ],
+};
+
+/// Descriptor for `MealFeedbackRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List mealFeedbackRequestDescriptor = $convert.base64Decode(
+    'ChNNZWFsRmVlZGJhY2tSZXF1ZXN0Eh4KCGlzX2xpa2VkGAEgASgISABSB2lzTGlrZWSIAQFCCw'
+    'oJX2lzX2xpa2Vk');

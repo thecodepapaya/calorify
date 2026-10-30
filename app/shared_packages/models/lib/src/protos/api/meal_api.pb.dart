@@ -795,12 +795,11 @@ class MealFeedbackRequest extends $pb.GeneratedMessage {
   factory MealFeedbackRequest({
     $core.bool? isLiked,
   }) {
-    final $result = create();
-    if (isLiked != null) {
-      $result.isLiked = isLiked;
-    }
-    return $result;
+    final result = create();
+    if (isLiked != null) result.isLiked = isLiked;
+    return result;
   }
+
   MealFeedbackRequest._();
 
   factory MealFeedbackRequest.fromBuffer($core.List<$core.int> data,
