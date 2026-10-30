@@ -1,3 +1,7 @@
+# Workflow: Android / Shorebird patch
+# Description: Creates and publishes an over-the-air Shorebird code patch for an existing Android release.
+# Triggers: Manual dispatch (workflow_dispatch) specifying target release version.
+
 name: Android / Shorebird patch
 
 on:

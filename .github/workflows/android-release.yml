@@ -1,3 +1,7 @@
+# Workflow: Android / Release to Play
+# Description: Verifies phone app, sets up Shorebird/credentials, builds release AppBundle with Shorebird, and uploads to Google Play track.
+# Triggers: Manual dispatch (workflow_dispatch) with Google Play track and release status options.
+
 name: Android / Release to Play
 
 on:

@@ -1,3 +1,7 @@
+# Workflow: CI / Backend
+# Description: Type-check, lint (go vet), and test backend code against a PostgreSQL container; optionally build production container image.
+# Triggers: Pull requests touching backend/** or protos/**, reusable calls from deploy workflows, and manual dispatch.
+
 name: CI / Backend
 
 on:

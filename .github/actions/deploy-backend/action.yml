@@ -1,10 +1,11 @@
 name: Deploy backend
-description: Deploy an immutable backend image to staging or production on the shared Calorify VM.
+description: Deploy an immutable backend image to production on the Calorify VM.
 
 inputs:
   target:
-    description: Runtime target on the shared Calorify VM.
-    required: true
+    description: Runtime target on the Calorify VM (production).
+    required: false
+    default: production
   image-tag:
     description: Immutable GHCR tag in sha-<full-commit-sha> form.
     required: true
@@ -43,8 +44,8 @@ runs:
         IMAGE_TAG: ${{ inputs.image-tag }}
       run: |
         set -euo pipefail
-        if [[ "$DEPLOY_TARGET" != staging && "$DEPLOY_TARGET" != production ]]; then
-          printf 'target must be staging or production\n' >&2
+        if [[ "$DEPLOY_TARGET" != production ]]; then
+          printf 'target must be production\n' >&2
           exit 1
         fi
         if [[ ! "$IMAGE_TAG" =~ ^sha-[0-9a-f]{40}$ ]]; then

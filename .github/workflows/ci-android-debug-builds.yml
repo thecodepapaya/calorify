@@ -1,3 +1,7 @@
+# Workflow: CI / Android debug builds
+# Description: Re-runs phone and watch verification suites, then compiles debug APKs for testing on Android devices and emulators.
+# Triggers: Manual dispatch (workflow_dispatch).
+
 name: CI / Android debug builds
 
 on:

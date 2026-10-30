@@ -1,3 +1,7 @@
+# Workflow: CI / Generated contracts
+# Description: Regenerates Protocol Buffer code for Go and Dart and verifies committed outputs are up to date.
+# Triggers: Pull requests and pushes to main affecting protos, contract generators, or proto models; plus manual dispatch.
+
 name: CI / Generated contracts
 
 on:
