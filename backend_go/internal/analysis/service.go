@@ -89,7 +89,7 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 		slog.ErrorContext(ctx, "failed to decompose meal components", "analysis_id", id, "error", err)
 		return
 	}
-	pass2, err := s.decomposeIngredients(ctx, id, pass1)
+	pass2, err := s.decomposeIngredients(ctx, id, req, pass1)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "decomposeIngredients failed")
@@ -203,7 +203,7 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	return pass1, nil
 }
 
-func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *server.Pass1) (*server.Pass2, error) {
+func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1) (*server.Pass2, error) {
 	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_ingredients")
 	defer span.End()
 
@@ -214,12 +214,18 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 		slog.ErrorContext(ctx, "failed to marshal pass1 for decomposition", "analysis_id", id, "error", err)
 		return nil, err
 	}
+
+	userContent := string(str)
+	if prefix := buildContextPrefix(req); prefix != "" {
+		userContent = prefix + "\n\n" + userContent
+	}
+
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 		ReasoningEffort: shared.ReasoningEffortLow,
 		Model:           openai.ChatModel(llm_model),
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(pass2Prompt),
-			openai.UserMessage(string(str)),
+			openai.UserMessage(userContent),
 		},
 		ResponseFormat: openai.ChatCompletionNewParamsResponseFormatUnion{
 			OfJSONSchema: &openai.ResponseFormatJSONSchemaParam{
@@ -331,6 +337,9 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 	defer span.End()
 
 	mealTime := time.Now().UTC().Format(time.RFC3339)
+	if ts := req.GetMetaInfo().GetTimestamp(); ts != nil {
+		mealTime = ts.AsTime().UTC().Format(time.RFC3339)
+	}
 	meal := common.Meal{
 		Name:     pass1.Name,
 		Quantity: pass1.Quantity,

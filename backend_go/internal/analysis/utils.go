@@ -206,7 +206,13 @@ func buildContextPrefix(req *api.MealAnalysisRequest) string {
 		hasMeta = true
 	}
 	if ts := meta.GetTimestamp(); ts != nil {
-		sb.WriteString(fmt.Sprintf("- Capture Time: %s\n", ts.AsTime().Format(time.RFC3339)))
+		t := ts.AsTime()
+		if meta.GetTimezone() != "" {
+			if loc, err := time.LoadLocation(meta.GetTimezone()); err == nil {
+				t = t.In(loc)
+			}
+		}
+		sb.WriteString(fmt.Sprintf("- Capture Time: %s\n", t.Format(time.RFC3339)))
 		hasMeta = true
 	}
 	if !hasMeta {

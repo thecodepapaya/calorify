@@ -157,18 +157,14 @@ var pass1Schema = map[string]any{
 }
 
 // Pass 2: Base Ingredient Decomposition Prompt
-const pass2Prompt = `You are a clinical nutrition AI.
-You receive decomposed meal components and their preparation methods.
-Your task is to break down each component into its elemental base or branded food ingredients for USDA food database matching.
+const pass2Prompt = `Decompose meal components into elemental base foods or branded items for USDA database matching.
 
 RULES:
-1. For each component, identify the constituent single-ingredient foods (e.g., "Omelette" decomposes into "Whole egg", "Cooking oil / Butter", "Milk", "Salt").
-2. Classify ingredient_type as "BASE" (whole raw/cooked commodity food) or "BRANDED" (commercial packaged food product).
-3. Provide standardized USDA-friendly search aliases (e.g. "egg, whole, raw, fresh" or "butter, salted").
-4. Split total component portions accurately across ingredients:
-   - Estimate portion values (nominal value, min_value, max_value in grams) and grams per unit (with per_unit_min_grams and per_unit_max_grams for EXACT items).
-   - Account for hidden fats/oils used in cooking methods like SAUTEED, SHALLOW_FRIED, or DEEP_FRIED.
-5. NEVER invent fantasy nutrients; only decompose ingredients and their estimated gram amounts.`
+1. Context: Use regional country/cuisine context if provided to infer realistic cooking mediums (e.g. olive oil vs butter vs ghee) and ingredient variations.
+2. USDA Naming Format: USDA entries follow an inverted taxonomy: [Food], [Cut/Form], [Cooking State], [Modifiers] (e.g. "Chicken, breast, meat only, cooked, roasted" or "Egg, whole, cooked, scrambled"). For each ingredient, aliases MUST include search terms in this comma-separated format.
+3. Ingredients & Types: Decompose into constituent foods classified as "BASE" (raw/cooked commodity) or "BRANDED" (commercial packaged product).
+4. Cooking Mediums: Always allocate cooking fats/oils (5-15g) for cooked dishes according to preparation_method.
+5. Portions: Split total component portions accurately with realistic min/max bounds in grams. NEVER output calories or macros.`
 
 // Pass 2 JSON Schema for OpenAI Structured Outputs
 var pass2Schema = map[string]any{
