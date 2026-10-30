@@ -72,13 +72,18 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 		attribute.Bool("input.has_image", req.GetImageBase64() != ""),
 	))
 	defer span.End()
-
 	defer func() {
 		if r := recover(); r != nil {
 			err := fmt.Errorf("pipeline panic: %v", r)
 			span.RecordError(err)
 			span.SetStatus(codes.Error, err.Error())
 			slog.ErrorContext(ctx, "analysis pipeline panicked", "analysis_id", id, "panic", r)
+		}
+
+		failCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := s.MarkAnalysisFailed(failCtx, id); err != nil {
+			slog.ErrorContext(ctx, "failed to mark analysis as failed in db", "analysis_id", id, "error", err)
 		}
 	}()
 

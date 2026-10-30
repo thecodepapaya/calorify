@@ -148,3 +148,17 @@ func (s *Service) SaveFinalResponse(ctx context.Context, id string, meal *common
 	}
 	return nil
 }
+
+func (s *Service) MarkAnalysisFailed(ctx context.Context, id string) error {
+	now := time.Now()
+	const query = `
+	UPDATE meal_analysis
+	SET updated_at = $2, status = 'FAILED'
+	WHERE id = $1 AND status != 'PRESENTED'
+	`
+	_, err := s.DB.Exec(ctx, query, id, now)
+	if err != nil {
+		return fmt.Errorf("failed to update failed status for analysis: %w", err)
+	}
+	return nil
+}

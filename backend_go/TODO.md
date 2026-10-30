@@ -36,8 +36,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [x] **Analysis Pipeline Execution & DB Storage**: Asynchronous background pipeline (`go s.runPipeline`) saving Pass 1 components, Pass 2 ingredients, USDA enriched macros, and final meal response in `meal_analysis` table (`internal/analysis/service.go`).
 - [ ] **Pass 1 & Pass 2 Decomposition Refinements**:
   - Move meal quantity decision from Pass 2 to Pass 1 (`internal/analysis/service.go`).
-- [ ] **Pipeline Error & Failure Tracking**:
-  - Write `"FAILED"` status to the `meal_analysis` table entry when the analysis pipeline fails or panics at any step.
+- [x] **Pipeline Error & Failure Tracking**: Write `"FAILED"` status to the `meal_analysis` table entry when the analysis pipeline fails or panics at any step (using `MarkAnalysisFailed` in deferred cleanup with a separate timeout context).
 - [ ] **Analysis Status & Polling Endpoint**:
   - Register and implement `GET /users/meals/analysis/{analysis_id}` (or `POST /users/meals/analysis/status` via `api.AnalysisStatusRequest`) to check async pipeline progress and retrieve final results.
 - [ ] **Clarification Questions Workflow**:
