@@ -18,7 +18,7 @@ import (
 )
 
 var ErrorInvalidInput = errors.New("Either text or imageUrl must be provided")
-var ErrorLargeImage = errors.New("Max supported image size 200KiB")
+var ErrorLargeImage = errors.New("Max supported image size 500KiB")
 
 const llm_model = "gpt-6-luna"
 const EmbeddingModel = "embeddinggemma-2"

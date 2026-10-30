@@ -80,22 +80,47 @@ func (s *Service) SaveUsdaEnriched(ctx context.Context, id string, enriched *ser
 	return nil
 }
 
-func (s *Service) searchUsda(ctx context.Context, vectorStr string) (*UsdaCandidate, error) {
-	const query = `
-	SELECT 
-    	fdc_id, 
-    	description, 
-    	kcal_per_100g, 
-    	protein_per_100g, 
-    	carbs_per_100g, 
-    	fat_per_100g, 
-    	fiber_per_100g,
-    	1 - (embedding <=> $1::vector) AS similarity
-	FROM usda_foods
-	WHERE embedding IS NOT NULL
-	ORDER BY embedding <=> $1::vector ASC
-	LIMIT 1;
-	`
+func (s *Service) searchUsda(ctx context.Context, vectorStr string, ingredientType server.IngredientType) (*UsdaCandidate, error) {
+	var query string
+	if ingredientType == server.IngredientType_BASE {
+		// Prefer foundation, SR legacy, and survey foods over branded products
+		query = `
+		SELECT
+			fdc_id,
+			description,
+			kcal_per_100g,
+			protein_per_100g,
+			carbs_per_100g,
+			fat_per_100g,
+			fiber_per_100g,
+			1 - (embedding <=> $1::vector) AS similarity
+		FROM usda_foods
+		WHERE embedding IS NOT NULL
+		ORDER BY
+			CASE WHEN data_type = 'branded_food' THEN 1 ELSE 0 END ASC,
+			embedding <=> $1::vector ASC
+		LIMIT 1;
+		`
+	} else {
+		// Prefer branded foods if tagged as BRANDED
+		query = `
+		SELECT
+			fdc_id,
+			description,
+			kcal_per_100g,
+			protein_per_100g,
+			carbs_per_100g,
+			fat_per_100g,
+			fiber_per_100g,
+			1 - (embedding <=> $1::vector) AS similarity
+		FROM usda_foods
+		WHERE embedding IS NOT NULL
+		ORDER BY
+			CASE WHEN data_type = 'branded_food' THEN 0 ELSE 1 END ASC,
+			embedding <=> $1::vector ASC
+		LIMIT 1;
+		`
+	}
 	rows, err := s.UsdaDB.Query(ctx, query, vectorStr)
 	if err != nil {
 		return nil, err

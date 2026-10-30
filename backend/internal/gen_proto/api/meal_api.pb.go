@@ -643,6 +643,50 @@ func (*UpdateMealResponse) Descriptor() ([]byte, []int) {
 	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{12}
 }
 
+type MealFeedbackRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	IsLiked       *bool                  `protobuf:"varint,1,opt,name=is_liked,json=isLiked,proto3,oneof" json:"is_liked,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MealFeedbackRequest) Reset() {
+	*x = MealFeedbackRequest{}
+	mi := &file_protos_api_meal_api_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MealFeedbackRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MealFeedbackRequest) ProtoMessage() {}
+
+func (x *MealFeedbackRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_api_meal_api_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MealFeedbackRequest.ProtoReflect.Descriptor instead.
+func (*MealFeedbackRequest) Descriptor() ([]byte, []int) {
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *MealFeedbackRequest) GetIsLiked() bool {
+	if x != nil && x.IsLiked != nil {
+		return *x.IsLiked
+	}
+	return false
+}
+
 var File_protos_api_meal_api_proto protoreflect.FileDescriptor
 
 const file_protos_api_meal_api_proto_rawDesc = "" +
@@ -690,7 +734,10 @@ const file_protos_api_meal_api_proto_rawDesc = "" +
 	"\x0fLogMealResponse\",\n" +
 	"\x11UpdateMealRequest\x12\x17\n" +
 	"\ameal_id\x18\x01 \x01(\x05R\x06mealId\"\x14\n" +
-	"\x12UpdateMealResponseB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
+	"\x12UpdateMealResponse\"B\n" +
+	"\x13MealFeedbackRequest\x12\x1e\n" +
+	"\bis_liked\x18\x01 \x01(\bH\x00R\aisLiked\x88\x01\x01B\v\n" +
+	"\t_is_likedB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
 
 var (
 	file_protos_api_meal_api_proto_rawDescOnce sync.Once
@@ -704,7 +751,7 @@ func file_protos_api_meal_api_proto_rawDescGZIP() []byte {
 	return file_protos_api_meal_api_proto_rawDescData
 }
 
-var file_protos_api_meal_api_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_protos_api_meal_api_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_protos_api_meal_api_proto_goTypes = []any{
 	(*MetaInfo)(nil),               // 0: api.MetaInfo
 	(*MealAnalysisRequest)(nil),    // 1: api.MealAnalysisRequest
@@ -719,15 +766,16 @@ var file_protos_api_meal_api_proto_goTypes = []any{
 	(*LogMealResponse)(nil),        // 10: api.LogMealResponse
 	(*UpdateMealRequest)(nil),      // 11: api.UpdateMealRequest
 	(*UpdateMealResponse)(nil),     // 12: api.UpdateMealResponse
-	(*timestamppb.Timestamp)(nil),  // 13: google.protobuf.Timestamp
-	(*common.Meal)(nil),            // 14: common.Meal
+	(*MealFeedbackRequest)(nil),    // 13: api.MealFeedbackRequest
+	(*timestamppb.Timestamp)(nil),  // 14: google.protobuf.Timestamp
+	(*common.Meal)(nil),            // 15: common.Meal
 }
 var file_protos_api_meal_api_proto_depIdxs = []int32{
-	13, // 0: api.MetaInfo.timestamp:type_name -> google.protobuf.Timestamp
+	14, // 0: api.MetaInfo.timestamp:type_name -> google.protobuf.Timestamp
 	0,  // 1: api.MealAnalysisRequest.meta_info:type_name -> api.MetaInfo
-	14, // 2: api.AnalysisStatusResponse.meal:type_name -> common.Meal
-	14, // 3: api.GetMealResponse.meal:type_name -> common.Meal
-	14, // 4: api.ListMealResponse.meals:type_name -> common.Meal
+	15, // 2: api.AnalysisStatusResponse.meal:type_name -> common.Meal
+	15, // 3: api.GetMealResponse.meal:type_name -> common.Meal
+	15, // 4: api.ListMealResponse.meals:type_name -> common.Meal
 	5,  // [5:5] is the sub-list for method output_type
 	5,  // [5:5] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
@@ -742,13 +790,14 @@ func file_protos_api_meal_api_proto_init() {
 	}
 	file_protos_api_meal_api_proto_msgTypes[0].OneofWrappers = []any{}
 	file_protos_api_meal_api_proto_msgTypes[1].OneofWrappers = []any{}
+	file_protos_api_meal_api_proto_msgTypes[13].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_api_meal_api_proto_rawDesc), len(file_protos_api_meal_api_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

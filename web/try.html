@@ -72,9 +72,34 @@
                         <i data-lucide="utensils-crossed"></i>
                         <span>Describe Your Meal</span>
                     </h2>
-                    <div class="demo-mode-badge">
+                    <div class="demo-mode-badge" id="demo-mode-badge">
                         <span class="pulse-dot"></span>
-                        <span>Pretend Polling API Active</span>
+                        <span id="demo-mode-text">Connecting to API...</span>
+                    </div>
+                </div>
+
+                <div class="api-config-strip" id="api-config-strip">
+                    <div class="api-config-left">
+                        <span class="api-config-label"><i data-lucide="server" style="width:14px;height:14px;"></i> Backend API:</span>
+                        <code id="api-endpoint-display" class="api-endpoint-code">http://localhost:8000</code>
+                        <button type="button" class="btn-api-edit" id="btn-edit-api">Change</button>
+                    </div>
+                    <div class="api-config-right">
+                        <button type="button" class="btn-toggle-mode" id="btn-toggle-demo-mode">Switch to Preset Demo Mode</button>
+                    </div>
+                </div>
+
+                <div id="api-error-banner" class="api-error-banner" style="display: none;">
+                    <div class="api-error-content">
+                        <i data-lucide="alert-triangle"></i>
+                        <div class="api-error-text">
+                            <strong id="api-error-title">Backend API Connection Error</strong>
+                            <p id="api-error-message">Could not connect to Go backend at http://localhost:8000. Start the server with: <code>cd backend &amp;&amp; go run ./cmd/server</code></p>
+                        </div>
+                    </div>
+                    <div class="api-error-actions">
+                        <button type="button" class="btn-error-action" id="btn-retry-api"><i data-lucide="refresh-cw" style="width:12px;height:12px;"></i> Retry</button>
+                        <button type="button" class="btn-error-action secondary" id="btn-run-sim-fallback">Run Preset Simulation</button>
                     </div>
                 </div>
 
@@ -131,7 +156,7 @@
             <div id="telemetry-bar" class="telemetry-strip" style="display: none;">
                 <div class="telemetry-status">
                     <div id="telemetry-dot" class="telemetry-indicator active"></div>
-                    <span id="telemetry-endpoint" class="telemetry-endpoint">GET /api/v1/meals/analysis/:id/status</span>
+                    <span id="telemetry-endpoint" class="telemetry-endpoint">GET /users/meals/analysis/:id</span>
                 </div>
                 <div class="telemetry-metric">
                     <span id="telemetry-cycle" class="telemetry-cycle">Poll #1 • 140ms</span>
