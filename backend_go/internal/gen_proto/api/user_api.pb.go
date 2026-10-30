@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.12
 // 	protoc        v7.34.1
-// source: api/user_api.proto
+// source: protos/api/user_api.proto
 
 package api
 
@@ -31,7 +31,7 @@ type UserDetailsRequest struct {
 
 func (x *UserDetailsRequest) Reset() {
 	*x = UserDetailsRequest{}
-	mi := &file_api_user_api_proto_msgTypes[0]
+	mi := &file_protos_api_user_api_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +43,7 @@ func (x *UserDetailsRequest) String() string {
 func (*UserDetailsRequest) ProtoMessage() {}
 
 func (x *UserDetailsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_user_api_proto_msgTypes[0]
+	mi := &file_protos_api_user_api_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,7 +56,7 @@ func (x *UserDetailsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserDetailsRequest.ProtoReflect.Descriptor instead.
 func (*UserDetailsRequest) Descriptor() ([]byte, []int) {
-	return file_api_user_api_proto_rawDescGZIP(), []int{0}
+	return file_protos_api_user_api_proto_rawDescGZIP(), []int{0}
 }
 
 type UpdateUserRequest struct {
@@ -68,7 +68,7 @@ type UpdateUserRequest struct {
 
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
-	mi := &file_api_user_api_proto_msgTypes[1]
+	mi := &file_protos_api_user_api_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -80,7 +80,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_user_api_proto_msgTypes[1]
+	mi := &file_protos_api_user_api_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -93,7 +93,7 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_api_user_api_proto_rawDescGZIP(), []int{1}
+	return file_protos_api_user_api_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *UpdateUserRequest) GetUser() *common.User {
@@ -112,7 +112,7 @@ type UserDetailsResponse struct {
 
 func (x *UserDetailsResponse) Reset() {
 	*x = UserDetailsResponse{}
-	mi := &file_api_user_api_proto_msgTypes[2]
+	mi := &file_protos_api_user_api_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -124,7 +124,7 @@ func (x *UserDetailsResponse) String() string {
 func (*UserDetailsResponse) ProtoMessage() {}
 
 func (x *UserDetailsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_user_api_proto_msgTypes[2]
+	mi := &file_protos_api_user_api_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -137,7 +137,7 @@ func (x *UserDetailsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserDetailsResponse.ProtoReflect.Descriptor instead.
 func (*UserDetailsResponse) Descriptor() ([]byte, []int) {
-	return file_api_user_api_proto_rawDescGZIP(), []int{2}
+	return file_protos_api_user_api_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *UserDetailsResponse) GetUser() *common.User {
@@ -156,7 +156,7 @@ type UpdateFcmTokenRequest struct {
 
 func (x *UpdateFcmTokenRequest) Reset() {
 	*x = UpdateFcmTokenRequest{}
-	mi := &file_api_user_api_proto_msgTypes[3]
+	mi := &file_protos_api_user_api_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -168,7 +168,7 @@ func (x *UpdateFcmTokenRequest) String() string {
 func (*UpdateFcmTokenRequest) ProtoMessage() {}
 
 func (x *UpdateFcmTokenRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_user_api_proto_msgTypes[3]
+	mi := &file_protos_api_user_api_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -181,7 +181,7 @@ func (x *UpdateFcmTokenRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateFcmTokenRequest.ProtoReflect.Descriptor instead.
 func (*UpdateFcmTokenRequest) Descriptor() ([]byte, []int) {
-	return file_api_user_api_proto_rawDescGZIP(), []int{3}
+	return file_protos_api_user_api_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *UpdateFcmTokenRequest) GetFcm() *server.Fcm {
@@ -200,7 +200,7 @@ type HealthDataRequest struct {
 
 func (x *HealthDataRequest) Reset() {
 	*x = HealthDataRequest{}
-	mi := &file_api_user_api_proto_msgTypes[4]
+	mi := &file_protos_api_user_api_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -212,7 +212,7 @@ func (x *HealthDataRequest) String() string {
 func (*HealthDataRequest) ProtoMessage() {}
 
 func (x *HealthDataRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_user_api_proto_msgTypes[4]
+	mi := &file_protos_api_user_api_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -225,7 +225,7 @@ func (x *HealthDataRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthDataRequest.ProtoReflect.Descriptor instead.
 func (*HealthDataRequest) Descriptor() ([]byte, []int) {
-	return file_api_user_api_proto_rawDescGZIP(), []int{4}
+	return file_protos_api_user_api_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *HealthDataRequest) GetHealthData() *common.HealthData {
@@ -244,7 +244,7 @@ type HealthDataResponse struct {
 
 func (x *HealthDataResponse) Reset() {
 	*x = HealthDataResponse{}
-	mi := &file_api_user_api_proto_msgTypes[5]
+	mi := &file_protos_api_user_api_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -256,7 +256,7 @@ func (x *HealthDataResponse) String() string {
 func (*HealthDataResponse) ProtoMessage() {}
 
 func (x *HealthDataResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_user_api_proto_msgTypes[5]
+	mi := &file_protos_api_user_api_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -269,7 +269,7 @@ func (x *HealthDataResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthDataResponse.ProtoReflect.Descriptor instead.
 func (*HealthDataResponse) Descriptor() ([]byte, []int) {
-	return file_api_user_api_proto_rawDescGZIP(), []int{5}
+	return file_protos_api_user_api_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *HealthDataResponse) GetHealthData() *common.HealthData {
@@ -279,11 +279,11 @@ func (x *HealthDataResponse) GetHealthData() *common.HealthData {
 	return nil
 }
 
-var File_api_user_api_proto protoreflect.FileDescriptor
+var File_protos_api_user_api_proto protoreflect.FileDescriptor
 
-const file_api_user_api_proto_rawDesc = "" +
+const file_protos_api_user_api_proto_rawDesc = "" +
 	"\n" +
-	"\x12api/user_api.proto\x12\x03api\x1a\x11common/user.proto\x1a\x1aserver/notifications.proto\"\x14\n" +
+	"\x19protos/api/user_api.proto\x12\x03api\x1a\x18protos/common/user.proto\x1a!protos/server/notifications.proto\"\x14\n" +
 	"\x12UserDetailsRequest\"5\n" +
 	"\x11UpdateUserRequest\x12 \n" +
 	"\x04user\x18\x01 \x01(\v2\f.common.UserR\x04user\"7\n" +
@@ -299,19 +299,19 @@ const file_api_user_api_proto_rawDesc = "" +
 	"healthDataB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
 
 var (
-	file_api_user_api_proto_rawDescOnce sync.Once
-	file_api_user_api_proto_rawDescData []byte
+	file_protos_api_user_api_proto_rawDescOnce sync.Once
+	file_protos_api_user_api_proto_rawDescData []byte
 )
 
-func file_api_user_api_proto_rawDescGZIP() []byte {
-	file_api_user_api_proto_rawDescOnce.Do(func() {
-		file_api_user_api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_user_api_proto_rawDesc), len(file_api_user_api_proto_rawDesc)))
+func file_protos_api_user_api_proto_rawDescGZIP() []byte {
+	file_protos_api_user_api_proto_rawDescOnce.Do(func() {
+		file_protos_api_user_api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_protos_api_user_api_proto_rawDesc), len(file_protos_api_user_api_proto_rawDesc)))
 	})
-	return file_api_user_api_proto_rawDescData
+	return file_protos_api_user_api_proto_rawDescData
 }
 
-var file_api_user_api_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_api_user_api_proto_goTypes = []any{
+var file_protos_api_user_api_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_protos_api_user_api_proto_goTypes = []any{
 	(*UserDetailsRequest)(nil),    // 0: api.UserDetailsRequest
 	(*UpdateUserRequest)(nil),     // 1: api.UpdateUserRequest
 	(*UserDetailsResponse)(nil),   // 2: api.UserDetailsResponse
@@ -322,7 +322,7 @@ var file_api_user_api_proto_goTypes = []any{
 	(*server.Fcm)(nil),            // 7: server.Fcm
 	(*common.HealthData)(nil),     // 8: common.HealthData
 }
-var file_api_user_api_proto_depIdxs = []int32{
+var file_protos_api_user_api_proto_depIdxs = []int32{
 	6, // 0: api.UpdateUserRequest.user:type_name -> common.User
 	6, // 1: api.UserDetailsResponse.user:type_name -> common.User
 	7, // 2: api.UpdateFcmTokenRequest.fcm:type_name -> server.Fcm
@@ -335,26 +335,26 @@ var file_api_user_api_proto_depIdxs = []int32{
 	0, // [0:5] is the sub-list for field type_name
 }
 
-func init() { file_api_user_api_proto_init() }
-func file_api_user_api_proto_init() {
-	if File_api_user_api_proto != nil {
+func init() { file_protos_api_user_api_proto_init() }
+func file_protos_api_user_api_proto_init() {
+	if File_protos_api_user_api_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_user_api_proto_rawDesc), len(file_api_user_api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_api_user_api_proto_rawDesc), len(file_protos_api_user_api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_api_user_api_proto_goTypes,
-		DependencyIndexes: file_api_user_api_proto_depIdxs,
-		MessageInfos:      file_api_user_api_proto_msgTypes,
+		GoTypes:           file_protos_api_user_api_proto_goTypes,
+		DependencyIndexes: file_protos_api_user_api_proto_depIdxs,
+		MessageInfos:      file_protos_api_user_api_proto_msgTypes,
 	}.Build()
-	File_api_user_api_proto = out.File
-	file_api_user_api_proto_goTypes = nil
-	file_api_user_api_proto_depIdxs = nil
+	File_protos_api_user_api_proto = out.File
+	file_protos_api_user_api_proto_goTypes = nil
+	file_protos_api_user_api_proto_depIdxs = nil
 }

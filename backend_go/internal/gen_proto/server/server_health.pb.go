@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.12
 // 	protoc        v7.34.1
-// source: server/server_health.proto
+// source: protos/server/server_health.proto
 
 package server
 
@@ -30,7 +30,7 @@ type HealthResponse struct {
 
 func (x *HealthResponse) Reset() {
 	*x = HealthResponse{}
-	mi := &file_server_server_health_proto_msgTypes[0]
+	mi := &file_protos_server_server_health_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +42,7 @@ func (x *HealthResponse) String() string {
 func (*HealthResponse) ProtoMessage() {}
 
 func (x *HealthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_server_server_health_proto_msgTypes[0]
+	mi := &file_protos_server_server_health_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +55,7 @@ func (x *HealthResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthResponse.ProtoReflect.Descriptor instead.
 func (*HealthResponse) Descriptor() ([]byte, []int) {
-	return file_server_server_health_proto_rawDescGZIP(), []int{0}
+	return file_protos_server_server_health_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *HealthResponse) GetStatus() string {
@@ -65,31 +65,31 @@ func (x *HealthResponse) GetStatus() string {
 	return ""
 }
 
-var File_server_server_health_proto protoreflect.FileDescriptor
+var File_protos_server_server_health_proto protoreflect.FileDescriptor
 
-const file_server_server_health_proto_rawDesc = "" +
+const file_protos_server_server_health_proto_rawDesc = "" +
 	"\n" +
-	"\x1aserver/server_health.proto\x12\x06server\"(\n" +
+	"!protos/server/server_health.proto\x12\x06server\"(\n" +
 	"\x0eHealthResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06statusB#Z!backend/internal/gen_proto/serverb\x06proto3"
 
 var (
-	file_server_server_health_proto_rawDescOnce sync.Once
-	file_server_server_health_proto_rawDescData []byte
+	file_protos_server_server_health_proto_rawDescOnce sync.Once
+	file_protos_server_server_health_proto_rawDescData []byte
 )
 
-func file_server_server_health_proto_rawDescGZIP() []byte {
-	file_server_server_health_proto_rawDescOnce.Do(func() {
-		file_server_server_health_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_server_server_health_proto_rawDesc), len(file_server_server_health_proto_rawDesc)))
+func file_protos_server_server_health_proto_rawDescGZIP() []byte {
+	file_protos_server_server_health_proto_rawDescOnce.Do(func() {
+		file_protos_server_server_health_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_protos_server_server_health_proto_rawDesc), len(file_protos_server_server_health_proto_rawDesc)))
 	})
-	return file_server_server_health_proto_rawDescData
+	return file_protos_server_server_health_proto_rawDescData
 }
 
-var file_server_server_health_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_server_server_health_proto_goTypes = []any{
+var file_protos_server_server_health_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_protos_server_server_health_proto_goTypes = []any{
 	(*HealthResponse)(nil), // 0: server.HealthResponse
 }
-var file_server_server_health_proto_depIdxs = []int32{
+var file_protos_server_server_health_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -97,26 +97,26 @@ var file_server_server_health_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_server_server_health_proto_init() }
-func file_server_server_health_proto_init() {
-	if File_server_server_health_proto != nil {
+func init() { file_protos_server_server_health_proto_init() }
+func file_protos_server_server_health_proto_init() {
+	if File_protos_server_server_health_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_server_server_health_proto_rawDesc), len(file_server_server_health_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_server_server_health_proto_rawDesc), len(file_protos_server_server_health_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_server_server_health_proto_goTypes,
-		DependencyIndexes: file_server_server_health_proto_depIdxs,
-		MessageInfos:      file_server_server_health_proto_msgTypes,
+		GoTypes:           file_protos_server_server_health_proto_goTypes,
+		DependencyIndexes: file_protos_server_server_health_proto_depIdxs,
+		MessageInfos:      file_protos_server_server_health_proto_msgTypes,
 	}.Build()
-	File_server_server_health_proto = out.File
-	file_server_server_health_proto_goTypes = nil
-	file_server_server_health_proto_depIdxs = nil
+	File_protos_server_server_health_proto = out.File
+	file_protos_server_server_health_proto_goTypes = nil
+	file_protos_server_server_health_proto_depIdxs = nil
 }

@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.12
 // 	protoc        v7.34.1
-// source: server/notifications.proto
+// source: protos/server/notifications.proto
 
 package server
 
@@ -57,11 +57,11 @@ func (x DeviceType) String() string {
 }
 
 func (DeviceType) Descriptor() protoreflect.EnumDescriptor {
-	return file_server_notifications_proto_enumTypes[0].Descriptor()
+	return file_protos_server_notifications_proto_enumTypes[0].Descriptor()
 }
 
 func (DeviceType) Type() protoreflect.EnumType {
-	return &file_server_notifications_proto_enumTypes[0]
+	return &file_protos_server_notifications_proto_enumTypes[0]
 }
 
 func (x DeviceType) Number() protoreflect.EnumNumber {
@@ -70,7 +70,7 @@ func (x DeviceType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use DeviceType.Descriptor instead.
 func (DeviceType) EnumDescriptor() ([]byte, []int) {
-	return file_server_notifications_proto_rawDescGZIP(), []int{0}
+	return file_protos_server_notifications_proto_rawDescGZIP(), []int{0}
 }
 
 type Fcm struct {
@@ -83,7 +83,7 @@ type Fcm struct {
 
 func (x *Fcm) Reset() {
 	*x = Fcm{}
-	mi := &file_server_notifications_proto_msgTypes[0]
+	mi := &file_protos_server_notifications_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -95,7 +95,7 @@ func (x *Fcm) String() string {
 func (*Fcm) ProtoMessage() {}
 
 func (x *Fcm) ProtoReflect() protoreflect.Message {
-	mi := &file_server_notifications_proto_msgTypes[0]
+	mi := &file_protos_server_notifications_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -108,7 +108,7 @@ func (x *Fcm) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Fcm.ProtoReflect.Descriptor instead.
 func (*Fcm) Descriptor() ([]byte, []int) {
-	return file_server_notifications_proto_rawDescGZIP(), []int{0}
+	return file_protos_server_notifications_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Fcm) GetToken() string {
@@ -125,11 +125,11 @@ func (x *Fcm) GetDeviceType() DeviceType {
 	return DeviceType_DEVICE_UNKNOWN
 }
 
-var File_server_notifications_proto protoreflect.FileDescriptor
+var File_protos_server_notifications_proto protoreflect.FileDescriptor
 
-const file_server_notifications_proto_rawDesc = "" +
+const file_protos_server_notifications_proto_rawDesc = "" +
 	"\n" +
-	"\x1aserver/notifications.proto\x12\x06server\"e\n" +
+	"!protos/server/notifications.proto\x12\x06server\"e\n" +
 	"\x03Fcm\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x128\n" +
 	"\vdevice_type\x18\x02 \x01(\x0e2\x12.server.DeviceTypeH\x00R\n" +
@@ -145,24 +145,24 @@ const file_server_notifications_proto_rawDesc = "" +
 	"DEVICE_WEB\x10\x03B#Z!backend/internal/gen_proto/serverb\x06proto3"
 
 var (
-	file_server_notifications_proto_rawDescOnce sync.Once
-	file_server_notifications_proto_rawDescData []byte
+	file_protos_server_notifications_proto_rawDescOnce sync.Once
+	file_protos_server_notifications_proto_rawDescData []byte
 )
 
-func file_server_notifications_proto_rawDescGZIP() []byte {
-	file_server_notifications_proto_rawDescOnce.Do(func() {
-		file_server_notifications_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_server_notifications_proto_rawDesc), len(file_server_notifications_proto_rawDesc)))
+func file_protos_server_notifications_proto_rawDescGZIP() []byte {
+	file_protos_server_notifications_proto_rawDescOnce.Do(func() {
+		file_protos_server_notifications_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_protos_server_notifications_proto_rawDesc), len(file_protos_server_notifications_proto_rawDesc)))
 	})
-	return file_server_notifications_proto_rawDescData
+	return file_protos_server_notifications_proto_rawDescData
 }
 
-var file_server_notifications_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_server_notifications_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_server_notifications_proto_goTypes = []any{
+var file_protos_server_notifications_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_protos_server_notifications_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_protos_server_notifications_proto_goTypes = []any{
 	(DeviceType)(0), // 0: server.DeviceType
 	(*Fcm)(nil),     // 1: server.Fcm
 }
-var file_server_notifications_proto_depIdxs = []int32{
+var file_protos_server_notifications_proto_depIdxs = []int32{
 	0, // 0: server.Fcm.device_type:type_name -> server.DeviceType
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
@@ -171,28 +171,28 @@ var file_server_notifications_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_server_notifications_proto_init() }
-func file_server_notifications_proto_init() {
-	if File_server_notifications_proto != nil {
+func init() { file_protos_server_notifications_proto_init() }
+func file_protos_server_notifications_proto_init() {
+	if File_protos_server_notifications_proto != nil {
 		return
 	}
-	file_server_notifications_proto_msgTypes[0].OneofWrappers = []any{}
+	file_protos_server_notifications_proto_msgTypes[0].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_server_notifications_proto_rawDesc), len(file_server_notifications_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_server_notifications_proto_rawDesc), len(file_protos_server_notifications_proto_rawDesc)),
 			NumEnums:      1,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_server_notifications_proto_goTypes,
-		DependencyIndexes: file_server_notifications_proto_depIdxs,
-		EnumInfos:         file_server_notifications_proto_enumTypes,
-		MessageInfos:      file_server_notifications_proto_msgTypes,
+		GoTypes:           file_protos_server_notifications_proto_goTypes,
+		DependencyIndexes: file_protos_server_notifications_proto_depIdxs,
+		EnumInfos:         file_protos_server_notifications_proto_enumTypes,
+		MessageInfos:      file_protos_server_notifications_proto_msgTypes,
 	}.Build()
-	File_server_notifications_proto = out.File
-	file_server_notifications_proto_goTypes = nil
-	file_server_notifications_proto_depIdxs = nil
+	File_protos_server_notifications_proto = out.File
+	file_protos_server_notifications_proto_goTypes = nil
+	file_protos_server_notifications_proto_depIdxs = nil
 }

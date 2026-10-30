@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.12
 // 	protoc        v7.34.1
-// source: api/meal_api.proto
+// source: protos/api/meal_api.proto
 
 package api
 
@@ -35,7 +35,7 @@ type MetaInfo struct {
 
 func (x *MetaInfo) Reset() {
 	*x = MetaInfo{}
-	mi := &file_api_meal_api_proto_msgTypes[0]
+	mi := &file_protos_api_meal_api_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -47,7 +47,7 @@ func (x *MetaInfo) String() string {
 func (*MetaInfo) ProtoMessage() {}
 
 func (x *MetaInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[0]
+	mi := &file_protos_api_meal_api_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -60,7 +60,7 @@ func (x *MetaInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaInfo.ProtoReflect.Descriptor instead.
 func (*MetaInfo) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{0}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *MetaInfo) GetLocale() string {
@@ -102,7 +102,7 @@ type MealAnalysisRequest struct {
 
 func (x *MealAnalysisRequest) Reset() {
 	*x = MealAnalysisRequest{}
-	mi := &file_api_meal_api_proto_msgTypes[1]
+	mi := &file_protos_api_meal_api_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -114,7 +114,7 @@ func (x *MealAnalysisRequest) String() string {
 func (*MealAnalysisRequest) ProtoMessage() {}
 
 func (x *MealAnalysisRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[1]
+	mi := &file_protos_api_meal_api_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -127,7 +127,7 @@ func (x *MealAnalysisRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MealAnalysisRequest.ProtoReflect.Descriptor instead.
 func (*MealAnalysisRequest) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{1}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *MealAnalysisRequest) GetText() string {
@@ -160,7 +160,7 @@ type MealAnalysisResponse struct {
 
 func (x *MealAnalysisResponse) Reset() {
 	*x = MealAnalysisResponse{}
-	mi := &file_api_meal_api_proto_msgTypes[2]
+	mi := &file_protos_api_meal_api_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -172,7 +172,7 @@ func (x *MealAnalysisResponse) String() string {
 func (*MealAnalysisResponse) ProtoMessage() {}
 
 func (x *MealAnalysisResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[2]
+	mi := &file_protos_api_meal_api_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -185,7 +185,7 @@ func (x *MealAnalysisResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MealAnalysisResponse.ProtoReflect.Descriptor instead.
 func (*MealAnalysisResponse) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{2}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *MealAnalysisResponse) GetAnalysisId() string {
@@ -204,7 +204,7 @@ type AnalysisStatusRequest struct {
 
 func (x *AnalysisStatusRequest) Reset() {
 	*x = AnalysisStatusRequest{}
-	mi := &file_api_meal_api_proto_msgTypes[3]
+	mi := &file_protos_api_meal_api_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -216,7 +216,7 @@ func (x *AnalysisStatusRequest) String() string {
 func (*AnalysisStatusRequest) ProtoMessage() {}
 
 func (x *AnalysisStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[3]
+	mi := &file_protos_api_meal_api_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -229,7 +229,7 @@ func (x *AnalysisStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisStatusRequest.ProtoReflect.Descriptor instead.
 func (*AnalysisStatusRequest) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{3}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *AnalysisStatusRequest) GetAnalysisId() string {
@@ -249,7 +249,7 @@ type AnalysisStatusResponse struct {
 
 func (x *AnalysisStatusResponse) Reset() {
 	*x = AnalysisStatusResponse{}
-	mi := &file_api_meal_api_proto_msgTypes[4]
+	mi := &file_protos_api_meal_api_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -261,7 +261,7 @@ func (x *AnalysisStatusResponse) String() string {
 func (*AnalysisStatusResponse) ProtoMessage() {}
 
 func (x *AnalysisStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[4]
+	mi := &file_protos_api_meal_api_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -274,7 +274,7 @@ func (x *AnalysisStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisStatusResponse.ProtoReflect.Descriptor instead.
 func (*AnalysisStatusResponse) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{4}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *AnalysisStatusResponse) GetMeal() *common.Meal {
@@ -300,7 +300,7 @@ type GetMealRequest struct {
 
 func (x *GetMealRequest) Reset() {
 	*x = GetMealRequest{}
-	mi := &file_api_meal_api_proto_msgTypes[5]
+	mi := &file_protos_api_meal_api_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -312,7 +312,7 @@ func (x *GetMealRequest) String() string {
 func (*GetMealRequest) ProtoMessage() {}
 
 func (x *GetMealRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[5]
+	mi := &file_protos_api_meal_api_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -325,7 +325,7 @@ func (x *GetMealRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMealRequest.ProtoReflect.Descriptor instead.
 func (*GetMealRequest) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{5}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetMealRequest) GetMealId() int32 {
@@ -344,7 +344,7 @@ type GetMealResponse struct {
 
 func (x *GetMealResponse) Reset() {
 	*x = GetMealResponse{}
-	mi := &file_api_meal_api_proto_msgTypes[6]
+	mi := &file_protos_api_meal_api_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -356,7 +356,7 @@ func (x *GetMealResponse) String() string {
 func (*GetMealResponse) ProtoMessage() {}
 
 func (x *GetMealResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[6]
+	mi := &file_protos_api_meal_api_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -369,7 +369,7 @@ func (x *GetMealResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMealResponse.ProtoReflect.Descriptor instead.
 func (*GetMealResponse) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{6}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetMealResponse) GetMeal() *common.Meal {
@@ -389,7 +389,7 @@ type ListMealRequest struct {
 
 func (x *ListMealRequest) Reset() {
 	*x = ListMealRequest{}
-	mi := &file_api_meal_api_proto_msgTypes[7]
+	mi := &file_protos_api_meal_api_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -401,7 +401,7 @@ func (x *ListMealRequest) String() string {
 func (*ListMealRequest) ProtoMessage() {}
 
 func (x *ListMealRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[7]
+	mi := &file_protos_api_meal_api_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -414,7 +414,7 @@ func (x *ListMealRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMealRequest.ProtoReflect.Descriptor instead.
 func (*ListMealRequest) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{7}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ListMealRequest) GetPageSize() int32 {
@@ -441,7 +441,7 @@ type ListMealResponse struct {
 
 func (x *ListMealResponse) Reset() {
 	*x = ListMealResponse{}
-	mi := &file_api_meal_api_proto_msgTypes[8]
+	mi := &file_protos_api_meal_api_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -453,7 +453,7 @@ func (x *ListMealResponse) String() string {
 func (*ListMealResponse) ProtoMessage() {}
 
 func (x *ListMealResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[8]
+	mi := &file_protos_api_meal_api_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -466,7 +466,7 @@ func (x *ListMealResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListMealResponse.ProtoReflect.Descriptor instead.
 func (*ListMealResponse) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{8}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ListMealResponse) GetMeals() []*common.Meal {
@@ -492,7 +492,7 @@ type LogMealRequest struct {
 
 func (x *LogMealRequest) Reset() {
 	*x = LogMealRequest{}
-	mi := &file_api_meal_api_proto_msgTypes[9]
+	mi := &file_protos_api_meal_api_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -504,7 +504,7 @@ func (x *LogMealRequest) String() string {
 func (*LogMealRequest) ProtoMessage() {}
 
 func (x *LogMealRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[9]
+	mi := &file_protos_api_meal_api_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -517,7 +517,7 @@ func (x *LogMealRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogMealRequest.ProtoReflect.Descriptor instead.
 func (*LogMealRequest) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{9}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *LogMealRequest) GetMealId() int32 {
@@ -535,7 +535,7 @@ type LogMealResponse struct {
 
 func (x *LogMealResponse) Reset() {
 	*x = LogMealResponse{}
-	mi := &file_api_meal_api_proto_msgTypes[10]
+	mi := &file_protos_api_meal_api_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -547,7 +547,7 @@ func (x *LogMealResponse) String() string {
 func (*LogMealResponse) ProtoMessage() {}
 
 func (x *LogMealResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[10]
+	mi := &file_protos_api_meal_api_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -560,7 +560,7 @@ func (x *LogMealResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogMealResponse.ProtoReflect.Descriptor instead.
 func (*LogMealResponse) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{10}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{10}
 }
 
 type UpdateMealRequest struct {
@@ -572,7 +572,7 @@ type UpdateMealRequest struct {
 
 func (x *UpdateMealRequest) Reset() {
 	*x = UpdateMealRequest{}
-	mi := &file_api_meal_api_proto_msgTypes[11]
+	mi := &file_protos_api_meal_api_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -584,7 +584,7 @@ func (x *UpdateMealRequest) String() string {
 func (*UpdateMealRequest) ProtoMessage() {}
 
 func (x *UpdateMealRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[11]
+	mi := &file_protos_api_meal_api_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -597,7 +597,7 @@ func (x *UpdateMealRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMealRequest.ProtoReflect.Descriptor instead.
 func (*UpdateMealRequest) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{11}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *UpdateMealRequest) GetMealId() int32 {
@@ -615,7 +615,7 @@ type UpdateMealResponse struct {
 
 func (x *UpdateMealResponse) Reset() {
 	*x = UpdateMealResponse{}
-	mi := &file_api_meal_api_proto_msgTypes[12]
+	mi := &file_protos_api_meal_api_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -627,7 +627,7 @@ func (x *UpdateMealResponse) String() string {
 func (*UpdateMealResponse) ProtoMessage() {}
 
 func (x *UpdateMealResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_meal_api_proto_msgTypes[12]
+	mi := &file_protos_api_meal_api_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -640,14 +640,14 @@ func (x *UpdateMealResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMealResponse.ProtoReflect.Descriptor instead.
 func (*UpdateMealResponse) Descriptor() ([]byte, []int) {
-	return file_api_meal_api_proto_rawDescGZIP(), []int{12}
+	return file_protos_api_meal_api_proto_rawDescGZIP(), []int{12}
 }
 
-var File_api_meal_api_proto protoreflect.FileDescriptor
+var File_protos_api_meal_api_proto protoreflect.FileDescriptor
 
-const file_api_meal_api_proto_rawDesc = "" +
+const file_protos_api_meal_api_proto_rawDesc = "" +
 	"\n" +
-	"\x12api/meal_api.proto\x12\x03api\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11common/meal.proto\"\xe6\x01\n" +
+	"\x19protos/api/meal_api.proto\x12\x03api\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18protos/common/meal.proto\"\xe6\x01\n" +
 	"\bMetaInfo\x12\x1b\n" +
 	"\x06locale\x18\x01 \x01(\tH\x00R\x06locale\x88\x01\x01\x12\x1f\n" +
 	"\btimezone\x18\x02 \x01(\tH\x01R\btimezone\x88\x01\x01\x12&\n" +
@@ -693,19 +693,19 @@ const file_api_meal_api_proto_rawDesc = "" +
 	"\x12UpdateMealResponseB Z\x1ebackend/internal/gen_proto/apib\x06proto3"
 
 var (
-	file_api_meal_api_proto_rawDescOnce sync.Once
-	file_api_meal_api_proto_rawDescData []byte
+	file_protos_api_meal_api_proto_rawDescOnce sync.Once
+	file_protos_api_meal_api_proto_rawDescData []byte
 )
 
-func file_api_meal_api_proto_rawDescGZIP() []byte {
-	file_api_meal_api_proto_rawDescOnce.Do(func() {
-		file_api_meal_api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_meal_api_proto_rawDesc), len(file_api_meal_api_proto_rawDesc)))
+func file_protos_api_meal_api_proto_rawDescGZIP() []byte {
+	file_protos_api_meal_api_proto_rawDescOnce.Do(func() {
+		file_protos_api_meal_api_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_protos_api_meal_api_proto_rawDesc), len(file_protos_api_meal_api_proto_rawDesc)))
 	})
-	return file_api_meal_api_proto_rawDescData
+	return file_protos_api_meal_api_proto_rawDescData
 }
 
-var file_api_meal_api_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_api_meal_api_proto_goTypes = []any{
+var file_protos_api_meal_api_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_protos_api_meal_api_proto_goTypes = []any{
 	(*MetaInfo)(nil),               // 0: api.MetaInfo
 	(*MealAnalysisRequest)(nil),    // 1: api.MealAnalysisRequest
 	(*MealAnalysisResponse)(nil),   // 2: api.MealAnalysisResponse
@@ -722,7 +722,7 @@ var file_api_meal_api_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),  // 13: google.protobuf.Timestamp
 	(*common.Meal)(nil),            // 14: common.Meal
 }
-var file_api_meal_api_proto_depIdxs = []int32{
+var file_protos_api_meal_api_proto_depIdxs = []int32{
 	13, // 0: api.MetaInfo.timestamp:type_name -> google.protobuf.Timestamp
 	0,  // 1: api.MealAnalysisRequest.meta_info:type_name -> api.MetaInfo
 	14, // 2: api.AnalysisStatusResponse.meal:type_name -> common.Meal
@@ -735,28 +735,28 @@ var file_api_meal_api_proto_depIdxs = []int32{
 	0,  // [0:5] is the sub-list for field type_name
 }
 
-func init() { file_api_meal_api_proto_init() }
-func file_api_meal_api_proto_init() {
-	if File_api_meal_api_proto != nil {
+func init() { file_protos_api_meal_api_proto_init() }
+func file_protos_api_meal_api_proto_init() {
+	if File_protos_api_meal_api_proto != nil {
 		return
 	}
-	file_api_meal_api_proto_msgTypes[0].OneofWrappers = []any{}
-	file_api_meal_api_proto_msgTypes[1].OneofWrappers = []any{}
+	file_protos_api_meal_api_proto_msgTypes[0].OneofWrappers = []any{}
+	file_protos_api_meal_api_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_meal_api_proto_rawDesc), len(file_api_meal_api_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_api_meal_api_proto_rawDesc), len(file_protos_api_meal_api_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_api_meal_api_proto_goTypes,
-		DependencyIndexes: file_api_meal_api_proto_depIdxs,
-		MessageInfos:      file_api_meal_api_proto_msgTypes,
+		GoTypes:           file_protos_api_meal_api_proto_goTypes,
+		DependencyIndexes: file_protos_api_meal_api_proto_depIdxs,
+		MessageInfos:      file_protos_api_meal_api_proto_msgTypes,
 	}.Build()
-	File_api_meal_api_proto = out.File
-	file_api_meal_api_proto_goTypes = nil
-	file_api_meal_api_proto_depIdxs = nil
+	File_protos_api_meal_api_proto = out.File
+	file_protos_api_meal_api_proto_goTypes = nil
+	file_protos_api_meal_api_proto_depIdxs = nil
 }

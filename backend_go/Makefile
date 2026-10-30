@@ -3,10 +3,11 @@
 proto:
 	rm -rf internal/gen_proto
 	protoc \
-		-I ../protos_go \
+		-I .. \
+		-I /opt/homebrew/include \
 		--go_out=. \
 		--go_opt=module=backend \
-		$$(find ../protos_go -name "*.proto")
+		$$(find ../protos -name "*.proto" -not -path "*/app/*")
 
 run:
 	go run ./cmd/server

@@ -36,5 +36,5 @@
    design" etc and just be brief and neutral direct.
 
 8. **Context:**
-   - backend/ and protos/ are old directories. This go re-write is being written in backend_go and protos_go and would replace the old directories. 
+   - backend/ is the old directory. This Go rewrite is being written in backend_go, and protos/ contains the consolidated proto definitions.
 

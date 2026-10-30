@@ -134,7 +134,12 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [x] **USDA Embedding Generation CLI**: Implemented in `cmd/usda/main.go -embed` and `-embed-all` to generate 768-dim embeddings using Ollama (`embeddinggemma-2`).
 - [x] ~~**USDA Batch LLM Normalization (`-normalize -populate_missing`)**~~: *(Not Applicable)* Superseded by dense vector search via EmbeddingGemma-2 & pgvector in Stage 3 architecture (`plans/stage-3-usda-nutrient-resolution.md`), avoiding cost-prohibitive offline batch LLM normalization.
 - [ ] **USDA Retrieval Benchmark / Eval Harness**:
-  - Implement eval CLI tool (`cmd/usda_eval`) to benchmark vector search and top-k retrieval accuracy against the validation meal ingredient corpus.
+  - Implement eval CLI tool (`cmd/usda_eval`) to benchmark vector search and top-k retrieval accuracy against the validation meal ingredient corpus (`evals/usda-resolver.cases.json`).
+  - Calculate top-1 and top-5 retrieval accuracy, cosine similarity distributions, and recall metrics across cuisines and preparation forms.
+- [ ] **Meal Analysis LLM Pass Eval Harness**:
+  - Implement eval runner CLI (`cmd/meal_eval`) to execute Pass 1 (Component decomposition) and Pass 2 (Ingredient decomposition) against `evals/meal-analysis.cases.json`.
+  - Validate JSON schema conformance, component count assertions, preserved user-stated quantities, and portion estimate bounds (`estimateMin` - `estimateMax`).
+  - Measure per-case latency and pass rates across international test cases.
 - [ ] **Local Meal Analysis CLI**:
   - Implement an interactive offline CLI (similar to `meal-analysis-cli.ts`) for developer testing of image and text analysis without running the HTTP server.
 
@@ -157,4 +162,4 @@ This document tracks technical debt, implemented functionality, active bug fixes
 
 - [x] **User Details & Health Data Endpoints**: Implemented `GET /users`, `PUT /users`, `GET /users/health-data`, and `POST /users/health-data` in `internal/api/user.go` and `internal/api/db.go`.
 - [x] **Meal Analysis Intake Endpoint**: Implemented `POST /users/meals/analysis` in `internal/api/analysis.go`.
-- [x] ~~**Legacy Fastify Route Patterns (`/api/v1/...`, `/api/v3/...`)**~~: *(Not Applicable)* `backend_go` replaces legacy REST routes with a cleaner protobuf-based API surface defined in `protos_go/`.
+- [x] ~~**Legacy Fastify Route Patterns (`/api/v1/...`, `/api/v3/...`)**~~: *(Not Applicable)* `backend_go` replaces legacy REST routes with a cleaner protobuf-based API surface defined in `protos/`.

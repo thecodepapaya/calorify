@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.12
 // 	protoc        v7.34.1
-// source: common/user.proto
+// source: protos/common/user.proto
 
 package common
 
@@ -55,11 +55,11 @@ func (x Gender) String() string {
 }
 
 func (Gender) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_user_proto_enumTypes[0].Descriptor()
+	return file_protos_common_user_proto_enumTypes[0].Descriptor()
 }
 
 func (Gender) Type() protoreflect.EnumType {
-	return &file_common_user_proto_enumTypes[0]
+	return &file_protos_common_user_proto_enumTypes[0]
 }
 
 func (x Gender) Number() protoreflect.EnumNumber {
@@ -68,7 +68,7 @@ func (x Gender) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Gender.Descriptor instead.
 func (Gender) EnumDescriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{0}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{0}
 }
 
 type WeightGoal int32
@@ -104,11 +104,11 @@ func (x WeightGoal) String() string {
 }
 
 func (WeightGoal) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_user_proto_enumTypes[1].Descriptor()
+	return file_protos_common_user_proto_enumTypes[1].Descriptor()
 }
 
 func (WeightGoal) Type() protoreflect.EnumType {
-	return &file_common_user_proto_enumTypes[1]
+	return &file_protos_common_user_proto_enumTypes[1]
 }
 
 func (x WeightGoal) Number() protoreflect.EnumNumber {
@@ -117,7 +117,7 @@ func (x WeightGoal) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use WeightGoal.Descriptor instead.
 func (WeightGoal) EnumDescriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{1}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{1}
 }
 
 type ActivityLevel int32
@@ -159,11 +159,11 @@ func (x ActivityLevel) String() string {
 }
 
 func (ActivityLevel) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_user_proto_enumTypes[2].Descriptor()
+	return file_protos_common_user_proto_enumTypes[2].Descriptor()
 }
 
 func (ActivityLevel) Type() protoreflect.EnumType {
-	return &file_common_user_proto_enumTypes[2]
+	return &file_protos_common_user_proto_enumTypes[2]
 }
 
 func (x ActivityLevel) Number() protoreflect.EnumNumber {
@@ -172,7 +172,7 @@ func (x ActivityLevel) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ActivityLevel.Descriptor instead.
 func (ActivityLevel) EnumDescriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{2}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{2}
 }
 
 type HeightUnit int32
@@ -205,11 +205,11 @@ func (x HeightUnit) String() string {
 }
 
 func (HeightUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_user_proto_enumTypes[3].Descriptor()
+	return file_protos_common_user_proto_enumTypes[3].Descriptor()
 }
 
 func (HeightUnit) Type() protoreflect.EnumType {
-	return &file_common_user_proto_enumTypes[3]
+	return &file_protos_common_user_proto_enumTypes[3]
 }
 
 func (x HeightUnit) Number() protoreflect.EnumNumber {
@@ -218,7 +218,7 @@ func (x HeightUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use HeightUnit.Descriptor instead.
 func (HeightUnit) EnumDescriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{3}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{3}
 }
 
 type WeightUnit int32
@@ -251,11 +251,11 @@ func (x WeightUnit) String() string {
 }
 
 func (WeightUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_common_user_proto_enumTypes[4].Descriptor()
+	return file_protos_common_user_proto_enumTypes[4].Descriptor()
 }
 
 func (WeightUnit) Type() protoreflect.EnumType {
-	return &file_common_user_proto_enumTypes[4]
+	return &file_protos_common_user_proto_enumTypes[4]
 }
 
 func (x WeightUnit) Number() protoreflect.EnumNumber {
@@ -264,7 +264,7 @@ func (x WeightUnit) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use WeightUnit.Descriptor instead.
 func (WeightUnit) EnumDescriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{4}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{4}
 }
 
 type Height struct {
@@ -277,7 +277,7 @@ type Height struct {
 
 func (x *Height) Reset() {
 	*x = Height{}
-	mi := &file_common_user_proto_msgTypes[0]
+	mi := &file_protos_common_user_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -289,7 +289,7 @@ func (x *Height) String() string {
 func (*Height) ProtoMessage() {}
 
 func (x *Height) ProtoReflect() protoreflect.Message {
-	mi := &file_common_user_proto_msgTypes[0]
+	mi := &file_protos_common_user_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -302,7 +302,7 @@ func (x *Height) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Height.ProtoReflect.Descriptor instead.
 func (*Height) Descriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{0}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Height) GetValue() float64 {
@@ -329,7 +329,7 @@ type Weight struct {
 
 func (x *Weight) Reset() {
 	*x = Weight{}
-	mi := &file_common_user_proto_msgTypes[1]
+	mi := &file_protos_common_user_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -341,7 +341,7 @@ func (x *Weight) String() string {
 func (*Weight) ProtoMessage() {}
 
 func (x *Weight) ProtoReflect() protoreflect.Message {
-	mi := &file_common_user_proto_msgTypes[1]
+	mi := &file_protos_common_user_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -354,7 +354,7 @@ func (x *Weight) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Weight.ProtoReflect.Descriptor instead.
 func (*Weight) Descriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{1}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Weight) GetValue() float64 {
@@ -383,7 +383,7 @@ type User struct {
 
 func (x *User) Reset() {
 	*x = User{}
-	mi := &file_common_user_proto_msgTypes[2]
+	mi := &file_protos_common_user_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -395,7 +395,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_common_user_proto_msgTypes[2]
+	mi := &file_protos_common_user_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -408,7 +408,7 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{2}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *User) GetName() string {
@@ -455,7 +455,7 @@ type HealthData struct {
 
 func (x *HealthData) Reset() {
 	*x = HealthData{}
-	mi := &file_common_user_proto_msgTypes[3]
+	mi := &file_protos_common_user_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -467,7 +467,7 @@ func (x *HealthData) String() string {
 func (*HealthData) ProtoMessage() {}
 
 func (x *HealthData) ProtoReflect() protoreflect.Message {
-	mi := &file_common_user_proto_msgTypes[3]
+	mi := &file_protos_common_user_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -480,7 +480,7 @@ func (x *HealthData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthData.ProtoReflect.Descriptor instead.
 func (*HealthData) Descriptor() ([]byte, []int) {
-	return file_common_user_proto_rawDescGZIP(), []int{3}
+	return file_protos_common_user_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *HealthData) GetHeight() *Height {
@@ -539,11 +539,11 @@ func (x *HealthData) GetDailyMacroGoal() *Macros {
 	return nil
 }
 
-var File_common_user_proto protoreflect.FileDescriptor
+var File_protos_common_user_proto protoreflect.FileDescriptor
 
-const file_common_user_proto_rawDesc = "" +
+const file_protos_common_user_proto_rawDesc = "" +
 	"\n" +
-	"\x11common/user.proto\x12\x06common\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11common/meal.proto\"F\n" +
+	"\x18protos/common/user.proto\x12\x06common\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18protos/common/meal.proto\"F\n" +
 	"\x06Height\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x01R\x05value\x12&\n" +
 	"\x04unit\x18\x02 \x01(\x0e2\x12.common.HeightUnitR\x04unit\"F\n" +
@@ -605,20 +605,20 @@ const file_common_user_proto_rawDesc = "" +
 	"\x02LB\x10\x01B#Z!backend/internal/gen_proto/commonb\x06proto3"
 
 var (
-	file_common_user_proto_rawDescOnce sync.Once
-	file_common_user_proto_rawDescData []byte
+	file_protos_common_user_proto_rawDescOnce sync.Once
+	file_protos_common_user_proto_rawDescData []byte
 )
 
-func file_common_user_proto_rawDescGZIP() []byte {
-	file_common_user_proto_rawDescOnce.Do(func() {
-		file_common_user_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_common_user_proto_rawDesc), len(file_common_user_proto_rawDesc)))
+func file_protos_common_user_proto_rawDescGZIP() []byte {
+	file_protos_common_user_proto_rawDescOnce.Do(func() {
+		file_protos_common_user_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_protos_common_user_proto_rawDesc), len(file_protos_common_user_proto_rawDesc)))
 	})
-	return file_common_user_proto_rawDescData
+	return file_protos_common_user_proto_rawDescData
 }
 
-var file_common_user_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
-var file_common_user_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_common_user_proto_goTypes = []any{
+var file_protos_common_user_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_protos_common_user_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_protos_common_user_proto_goTypes = []any{
 	(Gender)(0),                   // 0: common.Gender
 	(WeightGoal)(0),               // 1: common.WeightGoal
 	(ActivityLevel)(0),            // 2: common.ActivityLevel
@@ -631,7 +631,7 @@ var file_common_user_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil), // 9: google.protobuf.Timestamp
 	(*Macros)(nil),                // 10: common.Macros
 }
-var file_common_user_proto_depIdxs = []int32{
+var file_protos_common_user_proto_depIdxs = []int32{
 	3,  // 0: common.Height.unit:type_name -> common.HeightUnit
 	4,  // 1: common.Weight.unit:type_name -> common.WeightUnit
 	9,  // 2: common.User.created_at:type_name -> google.protobuf.Timestamp
@@ -650,30 +650,30 @@ var file_common_user_proto_depIdxs = []int32{
 	0,  // [0:11] is the sub-list for field type_name
 }
 
-func init() { file_common_user_proto_init() }
-func file_common_user_proto_init() {
-	if File_common_user_proto != nil {
+func init() { file_protos_common_user_proto_init() }
+func file_protos_common_user_proto_init() {
+	if File_protos_common_user_proto != nil {
 		return
 	}
-	file_common_meal_proto_init()
-	file_common_user_proto_msgTypes[2].OneofWrappers = []any{}
-	file_common_user_proto_msgTypes[3].OneofWrappers = []any{}
+	file_protos_common_meal_proto_init()
+	file_protos_common_user_proto_msgTypes[2].OneofWrappers = []any{}
+	file_protos_common_user_proto_msgTypes[3].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_common_user_proto_rawDesc), len(file_common_user_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_common_user_proto_rawDesc), len(file_protos_common_user_proto_rawDesc)),
 			NumEnums:      5,
 			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_common_user_proto_goTypes,
-		DependencyIndexes: file_common_user_proto_depIdxs,
-		EnumInfos:         file_common_user_proto_enumTypes,
-		MessageInfos:      file_common_user_proto_msgTypes,
+		GoTypes:           file_protos_common_user_proto_goTypes,
+		DependencyIndexes: file_protos_common_user_proto_depIdxs,
+		EnumInfos:         file_protos_common_user_proto_enumTypes,
+		MessageInfos:      file_protos_common_user_proto_msgTypes,
 	}.Build()
-	File_common_user_proto = out.File
-	file_common_user_proto_goTypes = nil
-	file_common_user_proto_depIdxs = nil
+	File_protos_common_user_proto = out.File
+	file_protos_common_user_proto_goTypes = nil
+	file_protos_common_user_proto_depIdxs = nil
 }

@@ -1,0 +1,221 @@
+{
+  "version": 1,
+  "description": "USDA resolver hit-rate corpus of pass-2-style ingredient identities. The first term of each group is the USDA-style canonical identity the second pass would emit under the head, specific, state format (category head noun, then the specific food, then its form or state, with nfs when the specific food is unknown); the remaining terms are lookup aliases (the first three are used). Coverage spans preparation and nutrition-basis forms (raw, cooked, dry, drained, retained fats), spices and herbs, oils, dairy, grains and flours, beverages, sweeteners, nuts and seeds, branded products, ambiguous product-versus-generic identities, and regional vocabulary carried by aliases. The corpus is a measurement, not a gate: misses are findings, and several groups are expected to miss.",
+  "cases": [
+    {
+      "id": "indian-thali-lunch",
+      "groups": [
+        { "terms": ["pigeon peas, mature seeds, cooked", "toor dal", "split pigeon pea"] },
+        { "terms": ["rice, white, cooked", "steamed rice"] },
+        { "terms": ["bottle gourd, cooked", "lauki", "calabash"] },
+        { "terms": ["ghee, clarified butter", "ghee"] },
+        { "terms": ["spices, turmeric, ground", "haldi"] },
+        { "terms": ["spices, cumin seed, ground", "jeera"] },
+        { "terms": ["yogurt, plain, whole milk", "curd", "dahi"] }
+      ]
+    },
+    {
+      "id": "indian-breakfast",
+      "groups": [
+        { "terms": ["rice, flattened, cooked", "poha", "beaten rice"] },
+        { "terms": ["semolina, enriched, dry", "sooji", "rava"] },
+        { "terms": ["tea, black, brewed", "masala chai", "chai"] },
+        { "terms": ["peppers, hot chili, green, raw", "green chilli"] },
+        { "terms": ["spices, mustard seed, ground"] },
+        { "terms": ["curry leaves, raw"] }
+      ]
+    },
+    {
+      "id": "south-indian-meal",
+      "groups": [
+        { "terms": ["black gram, mature seeds, raw", "urad dal", "black gram"] },
+        { "terms": ["rice, parboiled, raw", "idli rice"] },
+        { "terms": ["nuts, coconut meat, raw", "coconut"] },
+        { "terms": ["spices, sambar powder"] },
+        { "terms": ["spices, asafoetida, ground", "hing"] }
+      ]
+    },
+    {
+      "id": "american-breakfast",
+      "groups": [
+        { "terms": ["eggs, scrambled", "eggs"] },
+        { "terms": ["bacon, cooked", "bacon"] },
+        { "terms": ["pancakes, buttermilk, cooked", "pancakes"] },
+        { "terms": ["syrup, maple"] },
+        { "terms": ["coffee, black, brewed", "coffee"] },
+        { "terms": ["butter, salted", "butter"] },
+        { "terms": ["orange juice, raw"] }
+      ]
+    },
+    {
+      "id": "branded-beverages",
+      "groups": [
+        { "terms": ["pepsi cola", "cola soft drink"], "intent": "BRANDED_PRODUCT", "productQuery": "pepsi cola" },
+        { "terms": ["coca cola", "cola soft drink"], "intent": "BRANDED_PRODUCT", "productQuery": "coca cola" },
+        { "terms": ["red bull energy drink", "energy drink"], "intent": "BRANDED_PRODUCT", "productQuery": "red bull" },
+        { "terms": ["water"] }
+      ]
+    },
+    {
+      "id": "branded-pantry",
+      "groups": [
+        { "terms": ["amul butter", "butter"], "intent": "BRANDED_PRODUCT", "productQuery": "amul butter" },
+        { "terms": ["nutella hazelnut spread", "hazelnut spread"], "intent": "BRANDED_PRODUCT", "productQuery": "nutella" },
+        { "terms": ["heinz tomato ketchup", "ketchup"], "intent": "BRANDED_PRODUCT", "productQuery": "heinz ketchup" }
+      ]
+    },
+    {
+      "id": "middle-eastern-mezze",
+      "groups": [
+        { "terms": ["chickpeas, mature seeds, cooked", "chickpeas", "garbanzo beans"] },
+        { "terms": ["sesame butter, tahini", "tahini", "sesame paste"] },
+        { "terms": ["beans, fava, mature seeds, cooked", "fava beans", "broad beans"] },
+        { "terms": ["bread, pita, white", "pita bread", "pita"] },
+        { "terms": ["oil, olive, extra virgin", "olive oil"] },
+        { "terms": ["cheese, feta", "feta"] }
+      ]
+    },
+    {
+      "id": "east-asian-stirfry",
+      "groups": [
+        { "terms": ["tofu, firm, raw", "firm tofu", "bean curd"] },
+        { "terms": ["oil, sesame, toasted", "sesame oil"] },
+        { "terms": ["soy sauce, shoyu"] },
+        { "terms": ["cabbage, bok choy, raw", "bok choy", "chinese cabbage"] },
+        { "terms": ["mushrooms, shiitake, dried", "shiitake mushrooms"] },
+        { "terms": ["rice, white, jasmine, cooked", "jasmine rice", "rice"] }
+      ]
+    },
+    {
+      "id": "smoothie-bowl",
+      "groups": [
+        { "terms": ["strawberries, frozen, unsweetened", "strawberries"] },
+        { "terms": ["banana, raw"] },
+        { "terms": ["yogurt, greek, plain", "greek yogurt", "strained yogurt"] },
+        { "terms": ["honey"] },
+        { "terms": ["seeds, flaxseed, ground", "flaxseed"] },
+        { "terms": ["granola, homemade", "muesli"] }
+      ]
+    },
+    {
+      "id": "salad-bar",
+      "groups": [
+        { "terms": ["spinach, raw", "baby spinach"] },
+        { "terms": ["cucumber, raw", "kheera"] },
+        { "terms": ["tomatoes, cherry, raw", "tomatoes"] },
+        { "terms": ["carrots, raw", "carrots"] },
+        { "terms": ["avocado, raw"] },
+        { "terms": ["salad dressing, italian", "olive oil dressing"] }
+      ]
+    },
+    {
+      "id": "mexican-plate",
+      "groups": [
+        { "terms": ["tortillas, corn", "tortilla"] },
+        { "terms": ["beans, black, mature seeds, cooked", "black beans", "frijoles negros"] },
+        { "terms": ["peppers, jalapeno, raw", "jalapeno"] },
+        { "terms": ["cheese, fresh", "queso fresco", "fresh cheese"] },
+        { "terms": ["cilantro, raw", "coriander leaves"] },
+        { "terms": ["lime juice, raw", "lime"] }
+      ]
+    },
+    {
+      "id": "italian-dinner",
+      "groups": [
+        { "terms": ["spaghetti, enriched, cooked", "durum wheat pasta", "spaghetti"] },
+        { "terms": ["cheese, parmesan, hard", "parmesan cheese", "parmigiano reggiano"] },
+        { "terms": ["basil, fresh"] },
+        { "terms": ["tomato puree, canned", "passata"] },
+        { "terms": ["garlic, raw", "garlic"] }
+      ]
+    },
+    {
+      "id": "baking-pantry",
+      "groups": [
+        { "terms": ["wheat flour, white, all purpose, enriched", "maida"] },
+        { "terms": ["wheat flour, whole grain", "atta"] },
+        { "terms": ["sugar, brown", "raw cane sugar"] },
+        { "terms": ["butter, unsalted", "butter"] },
+        { "terms": ["eggs, large, raw", "eggs"] },
+        { "terms": ["oats, rolled, dry", "oats"] },
+        { "terms": ["chocolate, dark", "baking chocolate"] }
+      ]
+    },
+    {
+      "id": "seafood-grill",
+      "groups": [
+        { "terms": ["fish, salmon, cooked", "salmon fillet", "salmon"] },
+        { "terms": ["shrimp, cooked", "prawns"] },
+        { "terms": ["lemon, raw", "lemon"] },
+        { "terms": ["butter, melted", "butter"] },
+        { "terms": ["parsley, raw", "parsley"] }
+      ]
+    },
+    {
+      "id": "west-african-stew",
+      "groups": [
+        { "terms": ["yam, raw", "white yam", "african yam"] },
+        { "terms": ["oil, palm"] },
+        { "terms": ["fish, dried", "smoked fish"] },
+        { "terms": ["peppers, scotch bonnet, raw", "habanero"] },
+        { "terms": ["melon seeds, egusi", "egusi seeds"] },
+        { "terms": ["bitter leaf, cooked", "bitter leaves"] }
+      ]
+    },
+    {
+      "id": "preparation-stress",
+      "groups": [
+        { "terms": ["carrots, raw", "carrots"] },
+        { "terms": ["potatoes, boiled", "cooked potatoes"] },
+        { "terms": ["sweet potato, baked", "roasted sweet potato"] },
+        { "terms": ["chickpeas, canned, drained", "canned chickpeas"] },
+        { "terms": ["lentils, dry", "raw lentils"] },
+        { "terms": ["lentils, cooked", "boiled lentils"] },
+        { "terms": ["onions, sauteed", "fried onions"] },
+        { "terms": ["broccoli, steamed", "broccoli"] }
+      ]
+    },
+    {
+      "id": "beverages-and-sweeteners",
+      "groups": [
+        { "terms": ["tea, black, brewed", "tea"] },
+        { "terms": ["coffee, espresso, brewed", "coffee"] },
+        { "terms": ["yogurt drink, mango", "mango lassi", "yogurt smoothie"] },
+        { "terms": ["coconut water"] },
+        { "terms": ["sugar, cane, unrefined", "jaggery"] },
+        { "terms": ["syrup, agave", "agave nectar", "agave syrup"] },
+        { "terms": ["syrup, maple"] }
+      ]
+    },
+    {
+      "id": "nuts-and-seeds",
+      "groups": [
+        { "terms": ["nuts, almonds, raw", "almonds", "badam"] },
+        { "terms": ["nuts, cashews, raw", "kaju"] },
+        { "terms": ["peanuts, raw", "groundnuts"] },
+        { "terms": ["nuts, walnuts, english", "walnuts", "akhrot"] },
+        { "terms": ["seeds, sesame, whole, dried", "til"] },
+        { "terms": ["seeds, pumpkin, raw", "pepitas"] }
+      ]
+    },
+    {
+      "id": "dairy-and-eggs",
+      "groups": [
+        { "terms": ["milk, whole", "full fat milk"] },
+        { "terms": ["milk, skim", "nonfat milk"] },
+        { "terms": ["cream, heavy", "double cream"] },
+        { "terms": ["cheese, paneer", "paneer", "indian cottage cheese"] },
+        { "terms": ["cheese, cheddar", "cheddar"] },
+        { "terms": ["cheese, mozzarella", "mozzarella"] },
+        { "terms": ["egg whites, raw", "egg white"] }
+      ]
+    },
+    {
+      "id": "ambiguous-products",
+      "groups": [
+        { "terms": ["cereal, corn flakes", "corn flakes"], "intent": "AMBIGUOUS" },
+        { "terms": ["protein powder, whey", "whey protein powder"], "intent": "AMBIGUOUS" }
+      ]
+    }
+  ]
+}
