@@ -1,15 +1,15 @@
-# Backend Documentation
+# Backend Go Documentation
 
-Index of backend design notes, CLI guides, API contracts, and operational documentation.
+Index of backend design notes, deployment runbooks, API contracts, evaluation datasets, and operational guides for `backend`.
 
 ## Documentation Index
 
-- [Meal-analysis V3 API](meal-analysis-v3-api.md) — Authenticated HTTP routes, NDJSON streaming events, question bundles, and durable session lifecycle.
-- [Meal-analysis V3 CLI](meal-analysis-cli.md) — Observable developer tool for text and image analysis, scenario calculation, and question planning.
-- [USDA Lookup CLI](usda-lookup-cli.md) — Tool to inspect ingredient matching through the V3 USDA resolver against the local database.
-- [Meal-analysis Model & Resolver Evals](../evals/README.md) — LLM pass evaluations and USDA resolver hit-rate benchmark runner.
-- [Meal-analysis Enum Reference](meal-analysis-enums.md) — Canonical compact model enums, preparation methods, and deterministic codes.
-- [Meal-analysis History](analysis-history.md) — Protected operator inspector for stored V3 sessions and results.
-- [Prometheus Metrics](meal-analysis-prometheus.md) — Provider telemetry, stage metrics, and Grafana queries.
+- [Deployment & Topology](DEPLOYMENT.md) — Production/staging VM configuration, Docker Compose topology, release flow, and rollback procedures.
+- [Meal-Analysis Pipeline](meal-analysis-pipeline.md) — Two-pass LLM decomposition, vector embedding retrieval, clarification handling, and asynchronous job lifecycle.
+- [Meal-Analysis Enum Reference](meal-analysis-enums.md) — Canonical compact model enums, preparation methods, and deterministic codes.
+- [Observability & Telemetry](observability.md) — OpenTelemetry distributed tracing, Prometheus performance metrics, and analysis session inspection.
+- [Evals & Benchmarks](../evals/README.md) — LLM decomposition test cases, USDA resolver accuracy benchmarks, and evaluation harnesses.
+- [Roadmap & Feature Status](../TODO.md) — Active tracking of ported features, technical debt, and implementation backlog.
 
-For cross-component system architecture, see the [Meal-Analysis V3 Reliability Plan](../../docs/plans/meal-analysis-reliability.md). For all project documentation, see the [Documentation Index](../../docs/README.md).
+For cross-component system design, refer to [`docs/plans/`](../../docs/plans/).
+

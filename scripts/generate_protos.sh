@@ -24,10 +24,8 @@ ROOT_DIR="$PWD"
 
 PROTO_DIR="${ROOT_DIR}/protos"
 DART_OUT="${ROOT_DIR}/app/shared_packages/models/lib/src"
-TS_OUT="${ROOT_DIR}/backend/src"
 PROTOC_VERSION="34.1"
 PROTOC_PLUGIN_VERSION="24.0.0"
-TS_PROTO_VERSION="2.11.0"
 STAGING_DIR=""
 INSTALL_DIR=""
 PRESERVE_INSTALL_DIR=false
@@ -110,35 +108,11 @@ check_protoc_gen_dart() {
   print_success "protoc-gen-dart found"
 }
 
-check_protoc_gen_ts() {
-  print_step "2.5" "Checking ts-proto"
-  
-  # Check if ts-proto is installed in backend/node_modules
-  local ts_proto_path="${ROOT_DIR}/backend/node_modules/.bin/protoc-gen-ts_proto"
-  
-  if [ ! -f "${ts_proto_path}" ]; then
-    print_error "ts-proto is required for TypeScript code generation."
-    print_info "Install the lockfile-pinned dependencies: npm ci --prefix backend"
-    exit 1
-  fi
-
-  local installed_version
-  installed_version=$(node -p "require('${ROOT_DIR}/backend/node_modules/ts-proto/package.json').version")
-  if [ "${installed_version}" != "${TS_PROTO_VERSION}" ]; then
-    print_error "Expected ts-proto ${TS_PROTO_VERSION}, found ${installed_version}."
-    print_info "Restore the pinned dependency with: npm ci --prefix backend"
-    exit 1
-  fi
-  
-  print_success "ts-proto found"
-}
-
 prepare_output_directories() {
   print_step "4" "Preparing output directories"
   STAGING_DIR=$(mktemp -d "${TMPDIR:-/tmp}/calorify-protos.XXXXXX")
   DART_STAGE="${STAGING_DIR}/dart"
-  TS_STAGE="${STAGING_DIR}/typescript"
-  mkdir -p "${DART_STAGE}" "${TS_STAGE}"
+  mkdir -p "${DART_STAGE}"
   print_success "Output directories ready"
   print_item "Staging: ${STAGING_DIR}"
 }
@@ -224,92 +198,52 @@ generate_dart_code() {
   fi
 }
 
-generate_typescript_code() {
-  print_step "7" "Generating TypeScript code"
-  build_include_flags
-  
-  local ts_proto_path="${ROOT_DIR}/backend/node_modules/.bin/protoc-gen-ts_proto"
-  
-  if [ ! -f "${ts_proto_path}" ]; then
-    print_error "ts-proto plugin not found at ${ts_proto_path}"
-    exit 1
-  fi
-  
-  # ts-proto options for strict TypeScript
-  local ts_proto_opts="esModuleInterop=true,outputEncodeMethods=false,outputJsonMethods=false,outputClientImpl=false,outputServices=false,useOptionals=messages,stringEnums=true,enumsAsLiterals=true"
-  
-  if protoc "${INCLUDE_FLAGS[@]}" \
-    --plugin="protoc-gen-ts_proto=${ts_proto_path}" \
-    --ts_proto_out="${TS_STAGE}" \
-    --ts_proto_opt="${ts_proto_opts}" \
-    "${PROTO_FILES[@]}" 2>&1; then
-    print_success "TypeScript code generated"
-  else
-    print_error "Failed to generate TypeScript code"
-    exit 1
-  fi
-}
-
 install_generated_code() {
-  print_step "8" "Installing generated code"
+  print_step "7" "Installing generated code"
 
   local staged_dart="${DART_STAGE}/protos"
-  local staged_typescript="${TS_STAGE}/protos"
   local target_dart="${DART_OUT}/protos"
-  local target_typescript="${TS_OUT}/protos"
 
-  if [ ! -d "${staged_dart}" ] || [ ! -d "${staged_typescript}" ]; then
-    print_error "Generation did not produce all expected proto trees."
+  if [ ! -d "${staged_dart}" ]; then
+    print_error "Generation did not produce expected Dart proto tree."
     exit 1
   fi
 
-  # Copy all candidates onto the repository filesystem before touching tracked
-  # outputs. Same-filesystem renames then make each swap atomic, while retained
-  # old trees let us roll the complete install back on any error.
   INSTALL_DIR=$(mktemp -d "${ROOT_DIR}/.proto-install.XXXXXX")
   mkdir -p "${INSTALL_DIR}/new" "${INSTALL_DIR}/old" "${INSTALL_DIR}/failed"
-  if ! cp -R "${staged_dart}" "${INSTALL_DIR}/new/dart" || \
-     ! cp -R "${staged_typescript}" "${INSTALL_DIR}/new/typescript"; then
+  if ! cp -R "${staged_dart}" "${INSTALL_DIR}/new/dart"; then
     print_error "Failed to stage generated outputs on the repository filesystem."
     exit 1
   fi
 
-  local targets=("${target_dart}" "${target_typescript}")
-  local candidates=(
-    "${INSTALL_DIR}/new/dart"
-    "${INSTALL_DIR}/new/typescript"
-  )
-  local backups=(
-    "${INSTALL_DIR}/old/dart"
-    "${INSTALL_DIR}/old/typescript"
-  )
-  local had_target=(0 0)
+  local targets=("${target_dart}")
+  local candidates=("${INSTALL_DIR}/new/dart")
+  local backups=("${INSTALL_DIR}/old/dart")
+  local had_target=(0)
   local installed=0
-  local index
+  local index=0
 
-  for index in 0 1; do
-    if [ -e "${targets[$index]}" ]; then
-      if ! mv "${targets[$index]}" "${backups[$index]}"; then
-        print_error "Failed to back up generated output: ${targets[$index]}"
-        rollback_generated_install "${installed}" || true
-        exit 1
-      fi
-      had_target[$index]=1
-    fi
-
-    if ! mv "${candidates[$index]}" "${targets[$index]}"; then
-      print_error "Failed to install generated output: ${targets[$index]}"
-      if [ "${had_target[$index]}" -eq 1 ]; then
-        if ! mv "${backups[$index]}" "${targets[$index]}"; then
-          PRESERVE_INSTALL_DIR=true
-          print_error "Could not restore ${targets[$index]}; recovery files remain in ${INSTALL_DIR}."
-        fi
-      fi
+  if [ -e "${targets[$index]}" ]; then
+    if ! mv "${targets[$index]}" "${backups[$index]}"; then
+      print_error "Failed to back up generated output: ${targets[$index]}"
       rollback_generated_install "${installed}" || true
       exit 1
     fi
-    installed=$((installed + 1))
-  done
+    had_target[$index]=1
+  fi
+
+  if ! mv "${candidates[$index]}" "${targets[$index]}"; then
+    print_error "Failed to install generated output: ${targets[$index]}"
+    if [ "${had_target[$index]}" -eq 1 ]; then
+      if ! mv "${backups[$index]}" "${targets[$index]}"; then
+        PRESERVE_INSTALL_DIR=true
+        print_error "Could not restore ${targets[$index]}; recovery files remain in ${INSTALL_DIR}."
+      fi
+    fi
+    rollback_generated_install "${installed}" || true
+    exit 1
+  fi
+  installed=$((installed + 1))
 
   if [ -d "${DART_STAGE}/google" ]; then
     rm -rf "${DART_OUT}/google"
@@ -320,9 +254,9 @@ install_generated_code() {
 }
 
 generate_go_code() {
-  if [ -d "${ROOT_DIR}/backend_go" ]; then
-    print_step "7.5" "Generating Go code"
-    (cd "${ROOT_DIR}/backend_go" && make proto)
+  if [ -d "${ROOT_DIR}/backend" ]; then
+    print_step "8" "Generating Go code"
+    (cd "${ROOT_DIR}/backend" && make proto)
     print_success "Go code generated"
   fi
 }
@@ -362,12 +296,10 @@ main() {
   
   check_protoc
   check_protoc_gen_dart
-  check_protoc_gen_ts
   discover_proto_files
   prepare_output_directories
   verify_proto_files
   generate_dart_code
-  generate_typescript_code
   install_generated_code
   generate_go_code
   
@@ -375,7 +307,9 @@ main() {
   print_summary_all_success "Protobuf generation complete!"
   print_info "Generated files:"
   print_item "Dart: ${DART_OUT}"
-  print_item "TypeScript: ${TS_OUT}"
+  if [ -d "${ROOT_DIR}/backend" ]; then
+    print_item "Go: ${ROOT_DIR}/backend/internal/gen_proto"
+  fi
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then

@@ -92,75 +92,22 @@
             "program": "lib/main.dart"
         },
         {
-            "name": "Backend: Dev",
-            "type": "node",
+            "name": "Backend: Server",
+            "type": "go",
             "request": "launch",
-            "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/tsx",
-            "runtimeArgs": [
-                "watch",
-                "src/index.ts"
-            ],
+            "mode": "auto",
+            "program": "${workspaceFolder}/backend/cmd/server",
             "cwd": "${workspaceFolder}/backend",
-            "env": {
-                "ENVIRONMENT": "development"
-            },
-            "envFile": "${workspaceFolder}/backend/.env",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "resolveSourceMapLocations": [
-                "${workspaceFolder}/backend/**",
-                "!**/node_modules/**"
-            ],
-            "sourceMaps": true,
-            "outputCapture": "std"
+            "envFile": "${workspaceFolder}/backend/.env"
         },
         {
-            "name": "Backend: Staging",
-            "type": "node",
+            "name": "Backend: USDA CLI",
+            "type": "go",
             "request": "launch",
-            "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/tsx",
-            "runtimeArgs": [
-                "src/index.ts"
-            ],
+            "mode": "auto",
+            "program": "${workspaceFolder}/backend/cmd/usda",
             "cwd": "${workspaceFolder}/backend",
-            "env": {
-                "ENVIRONMENT": "staging"
-            },
-            "envFile": "${workspaceFolder}/backend/staging.env",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "resolveSourceMapLocations": [
-                "${workspaceFolder}/backend/**",
-                "!**/node_modules/**"
-            ],
-            "sourceMaps": true,
-            "outputCapture": "std"
-        },
-        {
-            "name": "Backend: Prod",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "node",
-            "program": "${workspaceFolder}/backend/dist/index.js",
-            "cwd": "${workspaceFolder}/backend",
-            "env": {
-                "ENVIRONMENT": "production"
-            },
-            "envFile": "${workspaceFolder}/backend/production.env",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "sourceMaps": true,
-            "outputCapture": "std",
-            "preLaunchTask": "build-backend"
+            "envFile": "${workspaceFolder}/backend/.env"
         }
     ]
 }

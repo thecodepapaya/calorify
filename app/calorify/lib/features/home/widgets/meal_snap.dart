@@ -252,7 +252,7 @@ class _MealSnapState extends State<MealSnap> {
       _isUploadingImage = false;
     });
 
-    // Compress image using shared service for backend_go
+    // Compress image using shared service for backend
     Uint8List compressedImageByte;
     try {
       if (!mounted) return;

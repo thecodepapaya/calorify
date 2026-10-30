@@ -3,10 +3,12 @@
     "tasks": [
         {
             "label": "build-backend",
-            "type": "npm",
-            "script": "build",
-            "path": "backend",
-            "problemMatcher": "$tsc",
+            "type": "shell",
+            "command": "go build -o bin/server ./cmd/server",
+            "options": {
+                "cwd": "${workspaceFolder}/backend"
+            },
+            "problemMatcher": [],
             "group": {
                 "kind": "build",
                 "isDefault": true

@@ -914,7 +914,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     try {
       _showSnackbar('Testing profile API...');
 
-      // Call profile health-data API on backend_go
+      // Call profile health-data API on backend
       final response = await NetworkClient.instance.client
           .post<Map<String, dynamic>>(
             '/users/health-data',

@@ -68,20 +68,22 @@ clean_flutter_artifacts() {
 # ============================================================================
 # Clean Go Build Artifacts
 # ============================================================================
+# Clean Go Build Artifacts
+# ============================================================================
 
-clean_backend_go_artifacts() {
-    local project_path="$GIT_ROOT/backend_go"
+clean_backend_artifacts() {
+    local project_path="$GIT_ROOT/backend"
     if [ ! -d "$project_path" ]; then
         return 0
     fi
 
-    print_step "2" "Cleaning Go build artifacts in backend_go"
+    print_step "2" "Cleaning Go build artifacts in backend"
     if [ -d "$project_path/bin" ]; then
         if rm -rf "$project_path/bin" 2>/dev/null; then
-            CLEANED_ITEMS+=("backend_go/bin/")
+            CLEANED_ITEMS+=("backend/bin/")
             print_subitem "Removed bin/ directory"
         else
-            FAILED_ITEMS+=("backend_go/bin/")
+            FAILED_ITEMS+=("backend/bin/")
         fi
     fi
     return 0
@@ -113,8 +115,8 @@ else
     print_warning "No Flutter projects found"
 fi
 
-# Clean Go artifacts in backend_go
-clean_backend_go_artifacts
+# Clean Go artifacts in backend
+clean_backend_artifacts
 
 # Summary
 print_summary_header

@@ -1,50 +1,19 @@
-# Meal-Analysis Model & Resolver Evals
+# Evals & Benchmarks
 
-Evaluates meal-decomposition LLM passes and USDA ingredient retrieval accuracy without mixing them with application state or HTTP transports.
+Evaluation test cases and benchmark harnesses for meal analysis decomposition and USDA nutrient resolution in `backend`.
 
-## 1. LLM Pass Decomposition Eval
+## Test Cases
 
-Directly tests the two meal-decomposition LLM passes against 12 diverse international cases across 11 country contexts (composite dishes, street food, portions, native scripts).
+- `meal-analysis.cases.json`: Ground truth dataset of 12 diverse international meal cases across 11 country contexts (composite dishes, street food, portions, native scripts). Includes hard assertions on component recognition, preserved quantities, and plausibility bounds for portions.
+- `usda-resolver.cases.json`: Ingredient retrieval evaluation cases covering diverse cuisines, preparation forms, and matching scenarios.
 
-### Files
-- `meal-analysis.cases.json` — evaluation test cases and semantic boundary assertions.
-- `../src/evals/mealAnalysisEval.ts` — single-run scoring engine.
-- `../src/scripts/meal-analysis-eval.ts` — CLI runner and reporter.
-- `../tests/evals/mealAnalysisEval.test.ts` — mock test suite for the evaluator.
+## Planned Go Harnesses
 
-### Running
+1. **USDA Retrieval Benchmark / Eval Harness (`cmd/usda_eval`)**:
+   - Benchmarks vector search (`embeddinggemma-2` + pgvector cosine similarity) against `usda-resolver.cases.json`.
+   - Measures top-1 and top-5 hit rate, recall, and cosine distance distributions.
 
-```bash
-# Run default 3 repeats per case
-npm run meal-analysis:eval -- --model openai/gpt-5.6-luna
+2. **Meal Analysis LLM Pass Eval Harness (`cmd/meal_eval`)**:
+   - Benchmarks Pass 1 (Component decomposition) and Pass 2 (Ingredient decomposition) against `meal-analysis.cases.json`.
+   - Validates JSON schemas, component recognition, portion range plausibility (`estimateMin` - `estimateMax`), and execution latency.
 
-# Common options:
-#   --model <name>          OpenRouter model identifier
-#   --repeats <count>       Repetitions per case (default: 3)
-#   --delay-ms <ms>         Inter-call pause to avoid rate limits (default: 5000)
-#   --case <id>             Run a single specific case ID
-#   --output-directory <dir> Store JSON result artifacts in custom directory
-```
-
-*Requires `OPENROUTER_API_KEY`.*
-
-### Scoring & Assertions
-- **Hard Assertions**: Strict JSON schemas, semantic component recognition, preserved user-stated quantities, valid range ordering, and allowed ingredient provenance (`user_stated` vs `model_inferred`).
-- **Plausibility Windows**: Inferred portions must fall within predefined `estimateMin` and `estimateMax` bounds.
-- **Reporting**: Reports assertion-level pass rates and overall score. Artifacts (JSON outputs and summary) are stored in the artifact directory.
-
-## 2. USDA Resolver Eval
-
-Evaluates ingredient matching accuracy against the local PostgreSQL USDA mirror without calling any LLM.
-
-### Running
-
-```bash
-# Start local USDA database
-docker compose -f docker-compose.yml -f docker-compose.local.yml --profile staging up -d --wait db-usda
-
-# Run retrieval evaluation
-npm run usda:resolver-eval
-```
-
-Measures the resolve rate over unique ingredient leaves across cuisines, preparation forms, and fuzzy matching stages against `usda-resolver.cases.json`.

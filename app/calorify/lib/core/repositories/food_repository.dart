@@ -12,7 +12,7 @@ class FoodRepository {
 
   final NetworkClient _networkClient;
 
-  /// Initiates a meal analysis on backend_go (POST /users/meals/analysis).
+  /// Initiates a meal analysis on backend (POST /users/meals/analysis).
   Future<pgo.MealAnalysisResponse> initiateMealAnalysis({
     String? text,
     String? imageBase64,
@@ -39,7 +39,7 @@ class FoodRepository {
         );
   }
 
-  /// Fetches current analysis status from backend_go (GET /users/meals/analysis/{analysis_id}).
+  /// Fetches current analysis status from backend (GET /users/meals/analysis/{analysis_id}).
   Future<pgo.MealAnalysisStatus> getMealAnalysisStatus(String analysisId) {
     return _networkClient.apiCall<pgo.Empty, pgo.MealAnalysisStatus>(
       '/users/meals/analysis/$analysisId',
@@ -374,7 +374,7 @@ class FoodRepository {
         method: ProtoHttpMethod.post,
       );
     } on Object {
-      // Endpoint will activate once backend_go meal implementation is complete.
+      // Endpoint will activate once backend meal implementation is complete.
     }
   }
 
@@ -387,7 +387,7 @@ class FoodRepository {
         method: ProtoHttpMethod.delete,
       );
     } on Object {
-      // Endpoint will activate once backend_go meal implementation is complete.
+      // Endpoint will activate once backend meal implementation is complete.
     }
   }
 

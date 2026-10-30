@@ -127,7 +127,7 @@ class ImageCompressionService {
   }
 
   /// Compress an image file specifically for meal analysis, ensuring output is
-  /// WebP and under [maxBackendMealImageBytes] (200 KiB limit for backend_go).
+  /// WebP and under [maxBackendMealImageBytes] (200 KiB limit for backend).
   Future<Uint8List> compressMealImage(File image) async {
     try {
       final compressed = await FlutterImageCompress.compressWithFile(
