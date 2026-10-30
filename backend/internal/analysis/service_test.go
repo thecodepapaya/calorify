@@ -1,13 +1,13 @@
 package analysis
 
 import (
+	"backend/internal/database"
+	"backend/internal/gen_proto/server"
 	"context"
 	"fmt"
 	"os"
 	"testing"
 	"time"
-
-	"backend/internal/database"
 )
 
 type TestCaseGroup struct {
@@ -101,7 +101,7 @@ func TestUsdaVectorSearch(t *testing.T) {
 
 		for i, query := range group.Queries {
 			vecStr := formatVector(embeddings[i])
-			candidate, err := svc.searchUsda(ctx, vecStr)
+			candidate, err := svc.searchUsda(ctx, vecStr, server.IngredientType_BASE)
 			if err != nil {
 				t.Errorf("searchUsda failed for %q: %v", query, err)
 				continue

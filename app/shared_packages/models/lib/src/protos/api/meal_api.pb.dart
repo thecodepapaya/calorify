@@ -791,6 +791,61 @@ class UpdateMealResponse extends $pb.GeneratedMessage {
   static UpdateMealResponse? _defaultInstance;
 }
 
+class MealFeedbackRequest extends $pb.GeneratedMessage {
+  factory MealFeedbackRequest({
+    $core.bool? isLiked,
+  }) {
+    final $result = create();
+    if (isLiked != null) {
+      $result.isLiked = isLiked;
+    }
+    return $result;
+  }
+  MealFeedbackRequest._();
+
+  factory MealFeedbackRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MealFeedbackRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MealFeedbackRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'api'),
+      createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'isLiked')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealFeedbackRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealFeedbackRequest copyWith(void Function(MealFeedbackRequest) updates) =>
+      super.copyWith((message) => updates(message as MealFeedbackRequest))
+          as MealFeedbackRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MealFeedbackRequest create() => MealFeedbackRequest._();
+  @$core.override
+  MealFeedbackRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MealFeedbackRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MealFeedbackRequest>(create);
+  static MealFeedbackRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get isLiked => $_getBF(0);
+  @$pb.TagNumber(1)
+  set isLiked($core.bool value) => $_setBool(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasIsLiked() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearIsLiked() => $_clearField(1);
+}
+
 const $core.bool _omitFieldNames =
     $core.bool.fromEnvironment('protobuf.omit_field_names');
 const $core.bool _omitMessageNames =

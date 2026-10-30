@@ -8,7 +8,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
 
 - [ ] **Database DTO Layer**: Refactor database layer to use DTOs (Data Transfer Objects) for database interactions to prevent nil access errors in `internal/api/db.go:142` (e.g. `healthData.Height.Value`).
 - [ ] **Non-empty Responses**: Fix PUT/POST requests returning empty right now instead of created/updated object (e.g. `UpsertUser`, `UpdateUserHealthData`).
-- [ ] **Remove Auth Bypasses in `internal/middleware/auth.go`**:
+- [x] **Remove Auth Bypasses in `internal/middleware/auth.go`**:
   - Remove `/users`, `/users/health-data`, and `/users/meals` from `publicRoutes` (lines 14–16).
   - Remove hardcoded test `userUid` injection and re-enable token validation for protected routes (line 24).
 - [ ] **Structured Context Logging**: Implement proper logging across all packages using `slog` with contextual fields, error objects, user UIDs, and analysis IDs instead of raw strings.
@@ -37,9 +37,9 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [ ] **Pass 1 & Pass 2 Decomposition Refinements**:
   - Move meal quantity decision from Pass 2 to Pass 1 (`internal/analysis/service.go`).
 - [x] **Pipeline Error & Failure Tracking**: Write `"FAILED"` status to the `meal_analysis` table entry when the analysis pipeline fails or panics at any step (using `MarkAnalysisFailed` in deferred cleanup with a separate timeout context).
-- [ ] **Analysis Status & Polling Endpoint**:
-  - Build the meal analysis polling API: register and implement `GET /users/meals/analysis/{analysis_id}/status` (and `POST /users/meals/analysis/status` via `api.AnalysisStatusRequest`) to check asynchronous pipeline stages (`INITIATED`, `COMPONENT_DECOMPOSED`, `INGREDIENT_DECOMPOSED`, `USDA_MACRO_HYDRATED`, `PRESENTED`, `FAILED`) and retrieve intermediate progress and final results.
-  - **Web Client Migration**: When the backend polling API is built and exposed, migrate the web demo (`web/try.html` / `web/try.js`) to use this real polling endpoint instead of the simulated/pretend polling client (including CORS configuration and appropriate fallback handling).
+- [x] **Analysis Status & Polling Endpoint**:
+  - Build the meal analysis polling API: registered and implemented `GET /users/meals/analysis/{analysis_id}` (`GetMealAnalysisStatus` in `internal/api/analysis.go` and `GetAnalysisStatusById` in `internal/api/db.go` excluding `image_base64`) to check asynchronous pipeline stages and retrieve progress and final results.
+  - [x] **Web Client Migration**: Migrated the web demo (`web/try.html` / `web/try.js`) to use the real backend polling endpoint `GET /users/meals/analysis/{analysis_id}` and `POST /users/meals/analysis`, added CORS middleware (`backend/internal/middleware/cors.go`) with preflight `OPTIONS` handling in `internal/middleware/auth.go`, integrated anonymous Firebase authentication with auto user registration, and implemented seamless fallback to high-fidelity preset simulation when offline.
 - [ ] **Clarification Questions Workflow**:
   - Implement `generateClarification()`: generate atomic option or numeric questions when ingredients, preparation states, or portions have high uncertainty.
   - Implement `sendClarification()` and answer submission route (`POST /users/meals/analysis/{analysis_id}/answers`).

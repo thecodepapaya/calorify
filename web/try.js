@@ -2,8 +2,8 @@
  * Calorify Web Demo - Polling API Client & Interactive Simulation
  * 
  * Demonstrates the asynchronous multi-stage meal analysis pipeline:
- * 1. POST /api/v1/meals/analysis -> returns analysis_id
- * 2. GET /api/v1/meals/analysis/{analysis_id}/status -> polled until PRESENTED
+ * 1. POST /users/meals/analysis -> returns analysis_id
+ * 2. GET /users/meals/analysis/{analysis_id} -> polled until PRESENTED or FAILED
  * Stages:
  * - INITIATED (0)
  * - COMPONENT_DECOMPOSED (1)
@@ -466,28 +466,480 @@
     }
 
     // -------------------------------------------------------------------------
-    // Pretend Polling API Client
+    // Helper: Safe JSON parser & normalizers
     // -------------------------------------------------------------------------
-    class PretendAnalysisClient {
-        constructor(callbacks) {
-            this.callbacks = callbacks; // onTelemetry, onStageUpdate, onComplete, onError
+    function parseMaybeJson(val) {
+        if (!val) return null;
+        if (typeof val === 'object') return val;
+        try {
+            return JSON.parse(val);
+        } catch (_) {
+            return null;
+        }
+    }
+
+    function normalizeStatus(st) {
+        if (typeof st === 'number') {
+            const map = {
+                0: 'INITIATED',
+                1: 'COMPONENT_DECOMPOSED',
+                2: 'INGREDIENT_DECOMPOSED',
+                3: 'USDA_MACRO_HYDRATED',
+                4: 'CLARIFICATION_GENERATED',
+                5: 'CLARIFICATION_RESOLVED',
+                6: 'PRESENTED',
+                7: 'FAILED'
+            };
+            return map[st] || 'INITIATED';
+        }
+        return String(st || 'INITIATED').toUpperCase();
+    }
+
+    // -------------------------------------------------------------------------
+    // Hybrid Live Backend & Interactive Simulation Client
+    // -------------------------------------------------------------------------
+    class CalorifyAnalysisClient {
+        constructor(callbacks, options = {}) {
+            this.callbacks = callbacks; // onTelemetry, onStageUpdate, onComplete, onError, onModeChange
+            const isLocal = !window.location.hostname ||
+                window.location.hostname === 'localhost' ||
+                window.location.hostname === '127.0.0.1' ||
+                window.location.protocol === 'file:';
+            this.apiBaseUrl = options.apiBaseUrl || window.CALORIFY_API_URL || sessionStorage.getItem('calorify_api_url') ||
+                (isLocal ? 'http://localhost:8000' : 'https://api-calorify.thecodepapaya.dev');
+            this.firebaseApiKey = options.firebaseApiKey || 'AIzaSyDer6aCUz9rVX-DRwUVJqxbZ6OEoJG9PyY';
+
+            this.mode = sessionStorage.getItem('calorify_mode') || 'api'; // 'api' | 'demo'
             this.activeAnalysisId = null;
             this.pollTimer = null;
             this.pollCycle = 0;
-            this.activeData = null;
+            this.isLiveBackend = (this.mode === 'api');
+            this.activeSimData = null;
+            this.lastStageEmitted = 0;
+            this.cachedToken = null;
+            this.tokenExpiry = 0;
         }
 
-        /**
-         * Starts the asynchronous analysis session
-         * Corresponds to: POST /api/v1/meals/analysis
-         */
+        async testBackendConnection() {
+            try {
+                const controller = new AbortController();
+                const tid = setTimeout(() => controller.abort(), 1800);
+                const res = await fetch(`${this.apiBaseUrl}/ready`, { signal: controller.signal });
+                clearTimeout(tid);
+                return res.ok;
+            } catch (_) {
+                return false;
+            }
+        }
+
+        async getAuthToken() {
+            // Check manual dev override first
+            const manualToken = window.CALORIFY_AUTH_TOKEN || sessionStorage.getItem('calorify_auth_token');
+            if (manualToken) {
+                return manualToken;
+            }
+
+            const now = Date.now();
+            if (this.cachedToken && this.tokenExpiry > now + 60000) {
+                return this.cachedToken;
+            }
+
+            try {
+                const storedToken = sessionStorage.getItem('calorify_id_token');
+                const storedExp = parseInt(sessionStorage.getItem('calorify_token_exp') || '0', 10);
+                if (storedToken && storedExp > now + 60000) {
+                    this.cachedToken = storedToken;
+                    this.tokenExpiry = storedExp;
+                    return storedToken;
+                }
+            } catch (_) {}
+
+            const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.firebaseApiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ returnSecureToken: true })
+            });
+
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                const msg = errData.error?.message || `HTTP ${res.status}`;
+                throw new Error(`Firebase Auth error: ${msg}. (Make sure Anonymous Auth is enabled in Firebase Console, or provide token)`);
+            }
+
+            const data = await res.json();
+            const token = data.idToken;
+            const expiresInSec = parseInt(data.expiresIn || '3600', 10);
+            this.cachedToken = token;
+            this.tokenExpiry = now + (expiresInSec * 1000);
+
+            try {
+                sessionStorage.setItem('calorify_id_token', token);
+                sessionStorage.setItem('calorify_token_exp', String(this.tokenExpiry));
+            } catch (_) {}
+
+            // Upsert user in backend
+            fetch(`${this.apiBaseUrl}/users`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ user: { id: data.localId } })
+            }).catch(() => {});
+
+            return token;
+        }
+
         async initiateAnalysis(text) {
             this.cancel();
             this.pollCycle = 0;
-            const randomId = "ca_live_" + Math.random().toString(36).substring(2, 9);
+            this.lastStageEmitted = 0;
+
+            const trimmedText = text.trim();
+
+            if (this.mode === 'demo') {
+                this.isLiveBackend = false;
+                this.initiateSimulatedAnalysis(trimmedText);
+                return;
+            }
+
+            const startTime = performance.now();
+
+            try {
+                const authToken = await this.getAuthToken();
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+                const response = await fetch(`${this.apiBaseUrl}/users/meals/analysis`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`,
+                        'X-Calorify-App-Version': 'web-demo'
+                    },
+                    body: JSON.stringify({
+                        text: trimmedText,
+                        metaInfo: {
+                            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
+                        }
+                    }),
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                if (!response.ok && response.status !== 202) {
+                    const errBody = await response.text().catch(() => '');
+                    throw new Error(`Server returned HTTP ${response.status}: ${errBody || response.statusText}`);
+                }
+
+                const resJson = await response.json();
+                const analysisId = resJson.analysisId || resJson.analysis_id || resJson.id;
+                if (!analysisId) {
+                    throw new Error('Server response missing analysisId');
+                }
+
+                this.isLiveBackend = true;
+                this.activeAnalysisId = analysisId;
+
+                const latency = Math.round(performance.now() - startTime) + 'ms';
+                if (this.callbacks.onModeChange) {
+                    this.callbacks.onModeChange({ isLive: true, endpoint: this.apiBaseUrl });
+                }
+
+                this.callbacks.onTelemetry({
+                    method: 'POST',
+                    endpoint: '/users/meals/analysis',
+                    status: response.status,
+                    cycle: 0,
+                    latency: latency,
+                    phase: 'ACCEPTED',
+                    analysisId: this.activeAnalysisId
+                });
+
+                this.scheduleNextLivePoll(800);
+            } catch (err) {
+                console.error('Actual API initiation failed:', err);
+                this.cancel();
+                if (this.callbacks.onError) {
+                    this.callbacks.onError(err);
+                }
+            }
+        }
+
+        scheduleNextLivePoll(delayMs) {
+            this.pollTimer = setTimeout(() => this.executeLivePoll(), delayMs);
+        }
+
+        async executeLivePoll() {
+            if (!this.activeAnalysisId) return;
+            this.pollCycle++;
+            const startTime = performance.now();
+
+            try {
+                const token = await this.getAuthToken();
+                const response = await fetch(`${this.apiBaseUrl}/users/meals/analysis/${this.activeAnalysisId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const latency = Math.round(performance.now() - startTime) + 'ms';
+
+                if (!response.ok) {
+                    if (response.status === 404 && this.pollCycle < 3) {
+                        this.scheduleNextLivePoll(1000);
+                        return;
+                    }
+                    throw new Error(`Polling request returned HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const statusData = await response.json();
+                const rawStatus = statusData.status;
+                const statusName = normalizeStatus(rawStatus);
+
+                this.callbacks.onTelemetry({
+                    method: 'GET',
+                    endpoint: `/users/meals/analysis/${this.activeAnalysisId}`,
+                    status: response.status,
+                    cycle: this.pollCycle,
+                    latency: latency,
+                    phase: statusName,
+                    analysisId: this.activeAnalysisId
+                });
+
+                if (statusName === 'FAILED') {
+                    const errReason = statusData.errorMessage || statusData.error_message || 'Meal analysis marked as failed in backend';
+                    this.cancel();
+                    this.callbacks.onError(new Error(errReason));
+                    return;
+                }
+
+                this.dispatchLiveStageUpdates(statusData, statusName);
+
+                if (statusName === 'PRESENTED') {
+                    const finalMeal = this.formatFinalMealFromBackend(statusData);
+                    this.callbacks.onComplete(finalMeal);
+                    this.activeAnalysisId = null;
+                    return;
+                }
+
+                if (this.pollCycle >= 40) {
+                    throw new Error('Analysis timed out after 40 seconds');
+                }
+
+                this.scheduleNextLivePoll(1100);
+            } catch (err) {
+                console.error('Actual API polling error:', err);
+                this.cancel();
+                if (this.callbacks.onError) {
+                    this.callbacks.onError(err);
+                }
+            }
+        }
+
+        dispatchLiveStageUpdates(statusData, statusName) {
+            // Stage 1: INITIATED
+            if (this.lastStageEmitted < 1) {
+                this.lastStageEmitted = 1;
+                this.callbacks.onStageUpdate({
+                    stage: 1,
+                    status: 'INITIATED',
+                    progress: 20,
+                    data: {
+                        message: 'Session registered in Calorify Go backend. Starting component decomposition...',
+                        analysisId: this.activeAnalysisId,
+                        createdAt: statusData.createdAt || statusData.created_at || new Date().toISOString()
+                    }
+                });
+            }
+
+            // Stage 2: COMPONENT_DECOMPOSED
+            const pass1 = parseMaybeJson(statusData.decomposedComponent || statusData.decomposed_component);
+            if (pass1 && this.lastStageEmitted < 2) {
+                this.lastStageEmitted = 2;
+                const components = (pass1.components || []).map(c => {
+                    let portionHint = 'Standard portion';
+                    if (c.bulk?.value?.value) portionHint = `~${c.bulk.value.value}g`;
+                    else if (c.exact?.value) portionHint = `${c.exact.value} serving`;
+                    return {
+                        name: c.name || 'Dish Component',
+                        canonical: (c.alias && c.alias.length) ? c.alias.join(', ') : (c.name || 'Component'),
+                        prep: (c.preparationMethod || c.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
+                        portionHint: portionHint
+                    };
+                });
+
+                this.callbacks.onStageUpdate({
+                    stage: 2,
+                    status: 'COMPONENT_DECOMPOSED',
+                    progress: 45,
+                    data: {
+                        mealType: pass1.mealType || pass1.meal_type || 'LUNCH',
+                        components: components,
+                        timestamp: new Date().toLocaleTimeString()
+                    }
+                });
+            }
+
+            // Stage 3: INGREDIENT_DECOMPOSED
+            const pass2 = parseMaybeJson(statusData.decomposedIngredient || statusData.decomposed_ingredient);
+            if (pass2 && this.lastStageEmitted < 3) {
+                this.lastStageEmitted = 3;
+                const ingredients = (pass2.ingredients || []).map(ing => {
+                    let grams = 50, min = 40, max = 60;
+                    if (ing.bulk?.value) {
+                        grams = ing.bulk.value.value || 50;
+                        min = ing.bulk.value.minValue || ing.bulk.value.min_value || Math.floor(grams * 0.85);
+                        max = ing.bulk.value.maxValue || ing.bulk.value.max_value || Math.floor(grams * 1.15);
+                    } else if (ing.exact?.perUnitGram) {
+                        const count = ing.exact.value || 1;
+                        const perG = ing.exact.perUnitGram.value || 50;
+                        grams = count * perG;
+                        min = ing.exact.perUnitGram.minValue || ing.exact.perUnitGram.min_value || Math.floor(grams * 0.85);
+                        max = ing.exact.perUnitGram.maxValue || ing.exact.perUnitGram.max_value || Math.floor(grams * 1.15);
+                    }
+                    return {
+                        name: ing.name || 'Ingredient',
+                        canonical: (ing.alias && ing.alias.length) ? ing.alias.join(', ') : (ing.name || ''),
+                        prep: (ing.preparationMethod || ing.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
+                        grams: Math.round(grams),
+                        min: Math.round(min),
+                        max: Math.round(max)
+                    };
+                });
+
+                this.callbacks.onStageUpdate({
+                    stage: 3,
+                    status: 'INGREDIENT_DECOMPOSED',
+                    progress: 70,
+                    data: {
+                        ingredients: ingredients,
+                        timestamp: new Date().toLocaleTimeString()
+                    }
+                });
+            }
+
+            // Stage 4: USDA_MACRO_HYDRATED
+            const enriched = parseMaybeJson(statusData.usdaEnriched || statusData.usda_enriched);
+            if (enriched && this.lastStageEmitted < 4) {
+                this.lastStageEmitted = 4;
+                const usdaMatches = (enriched.ingredients || []).map(m => {
+                    const sim = typeof m.similarity === 'number' ? (m.similarity * 100).toFixed(1) + '%' : (m.similarity || '95.0%');
+                    const macros = m.macros || {};
+                    return {
+                        fdcId: String(m.fdcId || m.fdc_id || ''),
+                        food: m.description || m.name || 'USDA Grounded Reference Food',
+                        similarity: sim,
+                        cals: macros.calorie?.value || 0,
+                        p: macros.protein?.value || 0,
+                        c: macros.carb?.value || 0,
+                        f: macros.fat?.value || 0,
+                        fb: macros.fiber?.value || 0
+                    };
+                });
+
+                this.callbacks.onStageUpdate({
+                    stage: 4,
+                    status: 'USDA_MACRO_HYDRATED',
+                    progress: 90,
+                    data: {
+                        usdaMatches: usdaMatches,
+                        timestamp: new Date().toLocaleTimeString()
+                    }
+                });
+            }
+
+            // Stage 5: PRESENTED
+            const meal = parseMaybeJson(statusData.finalResponse || statusData.final_response);
+            if (meal && this.lastStageEmitted < 5) {
+                this.lastStageEmitted = 5;
+                const formatted = this.formatFinalMealFromBackend(statusData);
+                this.callbacks.onStageUpdate({
+                    stage: 5,
+                    status: 'PRESENTED',
+                    progress: 100,
+                    data: {
+                        mealTitle: formatted.title,
+                        mealType: formatted.mealType,
+                        final: formatted.final,
+                        ingredients: formatted.ingredients,
+                        timestamp: new Date().toLocaleTimeString()
+                    }
+                });
+            }
+        }
+
+        formatFinalMealFromBackend(statusData) {
+            const meal = parseMaybeJson(statusData.finalResponse || statusData.final_response) || {};
+            const pass1 = parseMaybeJson(statusData.decomposedComponent || statusData.decomposed_component) || {};
+            const pass2 = parseMaybeJson(statusData.decomposedIngredient || statusData.decomposed_ingredient) || {};
+
+            const m = meal.macros || {};
+            const cals = m.calorie?.value || 0;
+            const calsMin = m.calorie?.minValue || m.calorie?.min_value || Math.floor(cals * 0.9);
+            const calsMax = m.calorie?.maxValue || m.calorie?.max_value || Math.ceil(cals * 1.1);
+            const protein = m.protein?.value || 0;
+            const carbs = m.carb?.value || 0;
+            const fat = m.fat?.value || 0;
+            const fiber = m.fiber?.value || 0;
+
+            const h = meal.health || pass1.mealHealth || pass1.meal_health || {};
+            let healthScore = h.healthScore || h.health_score || 'HEALTHY';
+            if (healthScore === 1 || healthScore === '1' || healthScore === 'HEALTH_SCORE_HEALTHY') healthScore = 'HEALTHY';
+            else if (healthScore === 2 || healthScore === '2' || healthScore === 'HEALTH_SCORE_UNHEALTHY') healthScore = 'UNHEALTHY';
+            else if (healthScore === 0 || healthScore === '0' || healthScore === 'HEALTH_SCORE_NEUTRAL') healthScore = 'NEUTRAL';
+
+            const healthReason = h.healthScoreReason || h.health_score_reason ||
+                'Wholesome nutrient breakdown verified using USDA FoodData Central reference models.';
+
+            const tip = meal.metadata?.tip || pass1.tip ||
+                'Pair dietary fiber and high-quality protein to support sustained satiety and steady glycemic response.';
+
+            let mealType = meal.type || pass1.mealType || pass1.meal_type || 'LUNCH';
+            if (mealType === 1 || mealType === '1') mealType = 'BREAKFAST';
+            else if (mealType === 2 || mealType === '2') mealType = 'LUNCH';
+            else if (mealType === 3 || mealType === '3') mealType = 'DINNER';
+            else if (mealType === 4 || mealType === '4') mealType = 'SNACK';
+
+            const ingredients = (pass2.ingredients || []).map(ing => ({
+                name: ing.name,
+                canonical: (ing.alias && ing.alias.length) ? ing.alias.join(', ') : ing.name,
+                prep: (ing.preparationMethod || ing.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
+                grams: ing.bulk?.value?.value || (ing.exact?.value ? ing.exact.value * (ing.exact.perUnitGram?.value || 50) : 50)
+            }));
+
+            return {
+                title: meal.name || pass1.name || 'Analyzed Meal',
+                prompt: statusData.text || '',
+                mealType: mealType,
+                components: pass1.components || [],
+                ingredients: ingredients,
+                final: {
+                    calories: cals,
+                    caloriesMin: calsMin,
+                    caloriesMax: calsMax,
+                    protein: protein,
+                    carbs: carbs,
+                    fat: fat,
+                    fiber: fiber,
+                    healthScore: healthScore,
+                    healthReason: healthReason,
+                    tip: tip
+                }
+            };
+        }
+
+        initiateSimulatedAnalysis(text) {
+            this.cancel();
+            this.pollCycle = 0;
+            this.lastStageEmitted = 0;
+            const randomId = "ca_sim_" + Math.random().toString(36).substring(2, 9);
             this.activeAnalysisId = randomId;
 
-            // Pick preset or generate dynamic model
+            if (this.callbacks.onModeChange) {
+                this.callbacks.onModeChange({ isLive: false });
+            }
+
             let matchedData = null;
             const lower = text.toLowerCase();
             for (const key of Object.keys(PRESETS)) {
@@ -498,7 +950,6 @@
                 }
             }
 
-            // Check if closely matches any preset prompt keywords
             if (!matchedData) {
                 if (lower.includes("daal") || lower.includes("roti") || lower.includes("lentil")) {
                     matchedData = PRESETS.daal_roti;
@@ -517,12 +968,11 @@
                 }
             }
 
-            this.activeData = matchedData;
+            this.activeSimData = matchedData;
 
-            // Emit initial POST telemetry
             this.callbacks.onTelemetry({
                 method: "POST",
-                endpoint: "/api/v1/meals/analysis",
+                endpoint: "/users/meals/analysis",
                 status: 202,
                 cycle: 0,
                 latency: "142ms",
@@ -530,24 +980,18 @@
                 analysisId: this.activeAnalysisId
             });
 
-            // Start polling loop
-            this.scheduleNextPoll(600);
+            this.scheduleNextSimPoll(600);
         }
 
-        scheduleNextPoll(delayMs) {
-            this.pollTimer = setTimeout(() => this.executePoll(), delayMs);
+        scheduleNextSimPoll(delayMs) {
+            this.pollTimer = setTimeout(() => this.executeSimPoll(), delayMs);
         }
 
-        /**
-         * Simulates a single polling GET request
-         * Corresponds to: GET /api/v1/meals/analysis/{id}/status
-         */
-        async executePoll() {
+        executeSimPoll() {
             if (!this.activeAnalysisId) return;
             this.pollCycle++;
 
             const latency = Math.floor(180 + Math.random() * 120) + "ms";
-
             let stageStatus = "INITIATED";
             let progress = 10;
 
@@ -564,7 +1008,7 @@
                         createdAt: new Date().toISOString()
                     }
                 });
-                this.scheduleNextPoll(1000);
+                this.scheduleNextSimPoll(1000);
             } else if (this.pollCycle === 2) {
                 stageStatus = "COMPONENT_DECOMPOSED";
                 progress = 45;
@@ -573,12 +1017,12 @@
                     status: "COMPONENT_DECOMPOSED",
                     progress: progress,
                     data: {
-                        mealType: this.activeData.mealType,
-                        components: this.activeData.components,
+                        mealType: this.activeSimData.mealType,
+                        components: this.activeSimData.components,
                         timestamp: new Date().toLocaleTimeString()
                     }
                 });
-                this.scheduleNextPoll(1100);
+                this.scheduleNextSimPoll(1100);
             } else if (this.pollCycle === 3) {
                 stageStatus = "INGREDIENT_DECOMPOSED";
                 progress = 70;
@@ -587,11 +1031,11 @@
                     status: "INGREDIENT_DECOMPOSED",
                     progress: progress,
                     data: {
-                        ingredients: this.activeData.ingredients,
+                        ingredients: this.activeSimData.ingredients,
                         timestamp: new Date().toLocaleTimeString()
                     }
                 });
-                this.scheduleNextPoll(1100);
+                this.scheduleNextSimPoll(1100);
             } else if (this.pollCycle === 4) {
                 stageStatus = "USDA_MACRO_HYDRATED";
                 progress = 90;
@@ -600,11 +1044,11 @@
                     status: "USDA_MACRO_HYDRATED",
                     progress: progress,
                     data: {
-                        usdaMatches: this.activeData.usdaMatches,
+                        usdaMatches: this.activeSimData.usdaMatches,
                         timestamp: new Date().toLocaleTimeString()
                     }
                 });
-                this.scheduleNextPoll(1200);
+                this.scheduleNextSimPoll(1200);
             } else if (this.pollCycle >= 5) {
                 stageStatus = "PRESENTED";
                 progress = 100;
@@ -613,17 +1057,17 @@
                     status: "PRESENTED",
                     progress: progress,
                     data: {
-                        mealTitle: this.activeData.title,
-                        mealType: this.activeData.mealType,
-                        final: this.activeData.final,
-                        ingredients: this.activeData.ingredients,
+                        mealTitle: this.activeSimData.title,
+                        mealType: this.activeSimData.mealType,
+                        final: this.activeSimData.final,
+                        ingredients: this.activeSimData.ingredients,
                         timestamp: new Date().toLocaleTimeString()
                     }
                 });
 
                 this.callbacks.onTelemetry({
                     method: "GET",
-                    endpoint: `/api/v1/meals/analysis/${this.activeAnalysisId}/status`,
+                    endpoint: `/users/meals/analysis/${this.activeAnalysisId}`,
                     status: 200,
                     cycle: this.pollCycle,
                     latency: latency,
@@ -631,14 +1075,14 @@
                     analysisId: this.activeAnalysisId
                 });
 
-                this.callbacks.onComplete(this.activeData);
+                this.callbacks.onComplete(this.activeSimData);
                 this.activeAnalysisId = null;
                 return;
             }
 
             this.callbacks.onTelemetry({
                 method: "GET",
-                endpoint: `/api/v1/meals/analysis/${this.activeAnalysisId}/status`,
+                endpoint: `/users/meals/analysis/${this.activeAnalysisId}`,
                 status: 200,
                 cycle: this.pollCycle,
                 latency: latency,
@@ -666,6 +1110,18 @@
         const btnAnalyze = document.getElementById('btn-analyze');
         const btnClear = document.getElementById('btn-clear');
         const chips = document.querySelectorAll('.preset-chip');
+
+        const modeBadge = document.getElementById('demo-mode-badge');
+        const modeText = document.getElementById('demo-mode-text');
+
+        const apiEndpointDisplay = document.getElementById('api-endpoint-display');
+        const btnEditApi = document.getElementById('btn-edit-api');
+        const btnToggleDemoMode = document.getElementById('btn-toggle-demo-mode');
+        const apiErrorBanner = document.getElementById('api-error-banner');
+        const apiErrorTitle = document.getElementById('api-error-title');
+        const apiErrorMessage = document.getElementById('api-error-message');
+        const btnRetryApi = document.getElementById('btn-retry-api');
+        const btnRunSimFallback = document.getElementById('btn-run-sim-fallback');
 
         const telemetryBar = document.getElementById('telemetry-bar');
         const telemetryDot = document.getElementById('telemetry-dot');
@@ -726,12 +1182,13 @@
 
         function resetUI() {
             client.cancel();
+            if (apiErrorBanner) apiErrorBanner.style.display = 'none';
             if (telemetryBar) telemetryBar.style.display = 'none';
             if (stepperContainer) stepperContainer.style.display = 'none';
             if (resultsContainer) resultsContainer.style.display = 'none';
             if (intermediateContainer) intermediateContainer.innerHTML = '';
             if (finalCardContainer) finalCardContainer.innerHTML = '';
-            
+
             stepBoxes.forEach((box, i) => {
                 box.className = 'step-box pending';
                 const circle = box.querySelector('.step-icon-circle');
@@ -745,8 +1202,25 @@
             }
         }
 
-        // Initialize Polling Client
-        const client = new PretendAnalysisClient({
+        // Initialize Hybrid Analysis Client
+        const client = new CalorifyAnalysisClient({
+            onModeChange: (info) => {
+                if (info.isLive) {
+                    if (modeText) modeText.textContent = 'Live Backend Connected';
+                    if (modeBadge) {
+                        modeBadge.classList.add('live');
+                        modeBadge.title = `Connected to Go Backend at ${info.endpoint}`;
+                    }
+                    if (apiErrorBanner) apiErrorBanner.style.display = 'none';
+                } else {
+                    if (modeText) modeText.textContent = 'Preset Simulation Mode';
+                    if (modeBadge) {
+                        modeBadge.classList.remove('live');
+                        modeBadge.title = 'Running in browser simulation';
+                    }
+                }
+                updateModeUI();
+            },
             onTelemetry: (info) => {
                 if (!telemetryBar) return;
                 telemetryBar.style.display = 'flex';
@@ -764,6 +1238,7 @@
             onStageUpdate: (stageInfo) => {
                 if (stepperContainer) stepperContainer.style.display = 'block';
                 if (resultsContainer) resultsContainer.style.display = 'flex';
+                if (apiErrorBanner) apiErrorBanner.style.display = 'none';
 
                 // Update progress bar
                 if (progressBarFill) progressBarFill.style.width = `${stageInfo.progress}%`;
@@ -806,10 +1281,123 @@
             },
 
             onError: (err) => {
-                alert('Analysis error: ' + err.message);
-                resetUI();
+                console.error('API Error handler invoked:', err);
+                if (btnAnalyze) {
+                    btnAnalyze.disabled = false;
+                    btnAnalyze.innerHTML = '<i data-lucide="sparkles"></i><span>Analyze Meal</span>';
+                }
+                if (telemetryBar) {
+                    telemetryDot.className = 'telemetry-indicator';
+                    telemetryCode.textContent = 'ERR';
+                }
+                if (apiErrorBanner) {
+                    apiErrorBanner.style.display = 'flex';
+                    if (apiErrorTitle) apiErrorTitle.textContent = 'Backend API Error';
+                    if (apiErrorMessage) {
+                        apiErrorMessage.innerHTML = `${err.message || 'Request failed'}.<br><small style="color:#7F1D1D;">Target URL: <code>${client.apiBaseUrl}</code></small>`;
+                    }
+                }
+                refreshIcons();
             }
         });
+
+        function updateModeUI() {
+            if (apiEndpointDisplay) apiEndpointDisplay.textContent = client.apiBaseUrl;
+            if (client.mode === 'demo') {
+                if (modeText) modeText.textContent = 'Preset Demo Mode';
+                if (modeBadge) {
+                    modeBadge.classList.remove('live');
+                    modeBadge.title = 'Running in browser simulation';
+                }
+                if (btnToggleDemoMode) btnToggleDemoMode.textContent = 'Switch to Live Backend API';
+                if (apiErrorBanner) apiErrorBanner.style.display = 'none';
+            } else {
+                if (btnToggleDemoMode) btnToggleDemoMode.textContent = 'Switch to Preset Demo Mode';
+            }
+        }
+
+        async function checkConnection() {
+            updateModeUI();
+            if (client.mode === 'demo') return;
+
+            if (modeText) modeText.textContent = 'Probing API (:8000)...';
+            const online = await client.testBackendConnection();
+            if (online) {
+                if (modeText) modeText.textContent = 'Live Backend Connected';
+                if (modeBadge) {
+                    modeBadge.classList.add('live');
+                    modeBadge.title = `Connected to Go backend at ${client.apiBaseUrl}`;
+                }
+                if (apiErrorBanner) apiErrorBanner.style.display = 'none';
+            } else {
+                if (modeText) modeText.textContent = 'Backend Offline';
+                if (modeBadge) {
+                    modeBadge.classList.remove('live');
+                    modeBadge.title = `Could not reach ${client.apiBaseUrl}/ready`;
+                }
+                if (apiErrorBanner) {
+                    apiErrorBanner.style.display = 'flex';
+                    if (apiErrorTitle) apiErrorTitle.textContent = 'Backend API Offline';
+                    if (apiErrorMessage) {
+                        apiErrorMessage.innerHTML = `Cannot reach Calorify Go backend at <code>${client.apiBaseUrl}</code>. Start it with: <code>cd backend &amp;&amp; go run ./cmd/server</code>`;
+                    }
+                }
+            }
+            refreshIcons();
+        }
+
+        // Setup API controls
+        if (btnEditApi) {
+            btnEditApi.addEventListener('click', () => {
+                const current = client.apiBaseUrl;
+                const next = prompt('Enter Calorify Backend API Base URL:', current);
+                if (next && next.trim()) {
+                    client.apiBaseUrl = next.trim().replace(/\/+$/, '');
+                    sessionStorage.setItem('calorify_api_url', client.apiBaseUrl);
+                    checkConnection();
+                }
+            });
+        }
+
+        if (btnToggleDemoMode) {
+            btnToggleDemoMode.addEventListener('click', () => {
+                if (client.mode === 'demo') {
+                    client.mode = 'api';
+                    sessionStorage.setItem('calorify_mode', 'api');
+                    checkConnection();
+                } else {
+                    client.mode = 'demo';
+                    sessionStorage.setItem('calorify_mode', 'demo');
+                    updateModeUI();
+                }
+            });
+        }
+
+        if (btnRetryApi) {
+            btnRetryApi.addEventListener('click', () => {
+                if (apiErrorBanner) apiErrorBanner.style.display = 'none';
+                checkConnection().then(() => {
+                    if (textarea && textarea.value.trim() && btnAnalyze) {
+                        btnAnalyze.click();
+                    }
+                });
+            });
+        }
+
+        if (btnRunSimFallback) {
+            btnRunSimFallback.addEventListener('click', () => {
+                client.mode = 'demo';
+                sessionStorage.setItem('calorify_mode', 'demo');
+                if (apiErrorBanner) apiErrorBanner.style.display = 'none';
+                updateModeUI();
+                if (textarea && textarea.value.trim() && btnAnalyze) {
+                    btnAnalyze.click();
+                }
+            });
+        }
+
+        // Check connection on page load
+        checkConnection();
 
         // Click Analyze Button
         if (btnAnalyze) {
@@ -817,6 +1405,7 @@
                 const text = textarea.value.trim();
                 if (!text) return;
 
+                if (apiErrorBanner) apiErrorBanner.style.display = 'none';
                 btnAnalyze.disabled = true;
                 btnAnalyze.innerHTML = '<i data-lucide="loader-2" class="spin"></i><span>Analyzing...</span>';
                 refreshIcons();

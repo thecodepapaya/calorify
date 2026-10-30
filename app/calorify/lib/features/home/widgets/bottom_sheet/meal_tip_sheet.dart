@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
+import 'package:calorify/core/providers/home_providers.dart'
+    hide databaseInterfaceProvider;
 import 'package:models/models.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
@@ -116,8 +118,8 @@ class _MealTipState extends State<_MealTip> {
       meal.hasMetadata()
           ? meal.metadata
           : (widget.loggedMeal?.hasMetadata() ?? false)
-              ? widget.loggedMeal!.metadata
-              : MealMetadata();
+          ? widget.loggedMeal!.metadata
+          : MealMetadata();
 
   String get tip =>
       widget.v3Result?.tip.isNotEmpty == true
@@ -433,9 +435,10 @@ class _MealTipState extends State<_MealTip> {
         detectedMeal,
         parentContext: widget.parentContext,
         analysisId: widget.v3AnalysisId,
-        v3ResultJson: widget.v3Result == null
-            ? null
-            : jsonEncode(widget.v3Result!.rawJson),
+        v3ResultJson:
+            widget.v3Result == null
+                ? null
+                : jsonEncode(widget.v3Result!.rawJson),
       );
       if (!mounted) return;
       Navigator.of(context).pop();
@@ -560,6 +563,9 @@ class _MealTipState extends State<_MealTip> {
     if (analysisId == null || analysisId.isEmpty) return;
     setState(() => _isFeedbackSubmitting = true);
     try {
+      await ProviderScope.containerOf(context, listen: false)
+          .read(foodRepositoryProvider)
+          .submitAnalysisFeedback(analysisId: analysisId, isLiked: positive);
       if (!mounted) return;
       Analytics.instance.logEvent(
         positive

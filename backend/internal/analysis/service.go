@@ -123,7 +123,7 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 
 func validateInput(req *api.MealAnalysisRequest) error {
 	decodedSize := base64.StdEncoding.DecodedLen(len(req.GetImageBase64()))
-	if decodedSize > 200*1024 { // 200KiB limit
+	if decodedSize > 500*1024 { // 500KiB limit
 		return ErrorLargeImage
 	}
 	if req.GetImageBase64() != "" || req.GetText() != "" {
@@ -289,7 +289,7 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 
 	enrichedIngredient := make([]*server.EnrichedIngredient, len(embeddings))
 	for i := range embeddings {
-		candidate, err := s.searchUsda(ctx, formatVector(embeddings[i]))
+		candidate, err := s.searchUsda(ctx, formatVector(embeddings[i]), pass2.Ingredients[i].IngredientType)
 		if err != nil {
 			span.RecordError(err)
 			span.SetStatus(codes.Error, err.Error())
@@ -341,14 +341,18 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "prepare_final_response")
 	defer span.End()
 
-	mealTime := time.Now().UTC().Format(time.RFC3339)
+	captureTime := time.Now().UTC()
 	if ts := req.GetMetaInfo().GetTimestamp(); ts != nil {
-		mealTime = ts.AsTime().UTC().Format(time.RFC3339)
+		captureTime = ts.AsTime().UTC()
 	}
+	mealTime := captureTime.Format(time.RFC3339)
+
+	mealType := selectMealTypeByTimezone(captureTime, req.GetMetaInfo().GetTimezone(), pass1.GetMealType())
+
 	meal := common.Meal{
 		Name:     pass1.Name,
 		Quantity: pass1.Quantity,
-		Type:     pass1.GetMealType(),
+		Type:     mealType,
 		Macros:   enriched.TotalMacros,
 		Health:   pass1.MealHealth,
 		Metadata: &common.MealMetadata{
@@ -361,6 +365,7 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 
 	span.SetAttributes(
 		attribute.String("final.meal_name", meal.Name),
+		attribute.String("final.meal_type", meal.Type.String()),
 	)
 
 	err := s.SaveFinalResponse(ctx, id, &meal)
@@ -371,4 +376,28 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 		return nil, err
 	}
 	return &meal, nil
+}
+
+func selectMealTypeByTimezone(t time.Time, timezone string, fallback common.MealType) common.MealType {
+	if timezone != "" {
+		if loc, err := time.LoadLocation(timezone); err == nil {
+			t = t.In(loc)
+		}
+	}
+	hour := t.Hour()
+	switch {
+	case hour >= 5 && hour < 11:
+		return common.MealType_BREAKFAST
+	case hour >= 11 && hour < 16:
+		return common.MealType_LUNCH
+	case hour >= 16 && hour < 18:
+		return common.MealType_SNACK
+	case hour >= 18 && hour < 23:
+		return common.MealType_DINNER
+	default:
+		if fallback != common.MealType_UNKNOWN {
+			return fallback
+		}
+		return common.MealType_SNACK
+	}
 }

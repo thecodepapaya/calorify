@@ -61,3 +61,7 @@ message UpdateMealRequest {
 }
 
 message UpdateMealResponse {}
+
+message MealFeedbackRequest {
+  optional bool is_liked = 1;
+}

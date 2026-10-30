@@ -10,23 +10,13 @@ import (
 )
 
 var publicRoutes = map[string]bool{
-	"/ready":                true,
-	"/users":                true, // TODO: remove later
-	"/users/health-data":    true, // TODO: remove later
-	"/users/meals":          true, // TODO: remove later
-	"/users/meals/analysis": true, // TODO: remove later
+	"/ready": true,
 }
 
 func Auth(next http.Handler, authClient *auth.Client) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if publicRoutes[r.URL.Path] {
-			// next.ServeHTTP(w, r)
-			// return
-			// TODO: Undo later
-			userUid := "0oiiKhs2X3OnmHvFsLCmT9CIABG2"
-			ctx := context.WithValue(r.Context(), "user_uid", userUid)
-			slog.DebugContext(ctx, "authenticated public route override", "user_uid", userUid)
-			next.ServeHTTP(w, r.WithContext(ctx))
+		if r.Method == http.MethodOptions || publicRoutes[r.URL.Path] {
+			next.ServeHTTP(w, r)
 			return
 		}
 

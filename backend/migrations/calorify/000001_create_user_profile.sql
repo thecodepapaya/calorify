@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS meal_analysis (
     usda_enriched_at TIMESTAMPTZ,
     final_response JSONB,
     final_response_at TIMESTAMPTZ,
+    is_liked BOOLEAN,
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );

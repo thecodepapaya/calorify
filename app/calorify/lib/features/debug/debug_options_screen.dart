@@ -280,7 +280,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     late final String details;
 
     try {
-      final response = await client.get<Object?>('/');
+      final response = await client.get<Object?>('/ready');
       stopwatch.stop();
       isHealthy = true;
       dialogTitle = 'Backend is healthy';
@@ -843,7 +843,9 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
           .compressMealImage(File(image.path));
 
       if (!mounted) return;
-      _showSnackbar('Initiating analysis with image via /users/meals/analysis...');
+      _showSnackbar(
+        'Initiating analysis with image via /users/meals/analysis...',
+      );
       final response = await FoodRepository().initiateMealAnalysis(
         imageBase64: base64Encode(compressedBytes),
       );

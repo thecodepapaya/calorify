@@ -4,13 +4,13 @@ import 'dart:developer';
 import 'package:calorify/core/repositories/profile_repository.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/analytics.dart';
+import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/health_connect_sync_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/wear_os_service.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:i18n/i18n.dart';
@@ -187,25 +187,18 @@ class AppInitialization {
     }
   }
 
-  /// Initialize Firebase Auth with guest user for AI services
+  /// Initialize Firebase Auth: ensures a Firebase user exists upon opening the app
+  /// and syncs the user record to the backend via PUT /users.
   static Future<void> _initializeFirebaseAuth() async {
     try {
-      final auth = FirebaseAuth.instance;
-
-      // Check if user is already signed in
-      if (auth.currentUser != null) {
-        log('User session already available');
-        return;
-      }
-
-      // Sign in anonymously for AI services
-      final userCredential = await auth.signInAnonymously();
-      final uid = userCredential.user?.uid ?? 'unknown';
-      log('Guest user sign-in completed');
+      final user = await AuthService.instance.ensureSignedIn();
+      final uid = user?.uid ?? 'unknown';
       await Analytics.instance.setUserId(uid);
+      if (user != null) {
+        unawaited(AuthService.instance.syncUserToBackend(firebaseUser: user));
+      }
     } catch (e) {
-      log('Failed to sign in guest user: $e');
-      // Don't throw - app can still work without AI features
+      log('Failed to initialize Firebase Auth: $e');
     }
   }
 

@@ -48,6 +48,22 @@ class FoodRepository {
     );
   }
 
+  Future<void> submitAnalysisFeedback({
+    required String analysisId,
+    bool? isLiked,
+  }) async {
+    final request = pgo.MealFeedbackRequest();
+    if (isLiked != null) {
+      request.isLiked = isLiked;
+    }
+    await _networkClient.apiCall<pgo.MealFeedbackRequest, pgo.Empty>(
+      '/users/meals/analysis/$analysisId/feedback',
+      pgo.Empty.new,
+      request: request,
+      method: ProtoHttpMethod.post,
+    );
+  }
+
   /// Repeatedly polls GET /users/meals/analysis/{analysis_id} until completed or failed.
   Stream<MealAnalysisV3Event> pollMealAnalysis({
     required String analysisId,
@@ -134,10 +150,7 @@ class FoodRepository {
     required MealAnalysisV3RequestContext context,
     NetworkRequestCancellation? cancellation,
   }) async {
-    final response = await initiateMealAnalysis(
-      text: text,
-      context: context,
-    );
+    final response = await initiateMealAnalysis(text: text, context: context);
     final resolvedAnalysisId =
         response.analysisId.isNotEmpty ? response.analysisId : analysisId;
 
@@ -186,10 +199,7 @@ class FoodRepository {
     } on Object {
       // Backend answers endpoint is planned
     }
-    return pollMealAnalysis(
-      analysisId: analysisId,
-      cancellation: cancellation,
-    );
+    return pollMealAnalysis(analysisId: analysisId, cancellation: cancellation);
   }
 
   MealAnalysisV3Progress? _mapStatusToProgress(pgo.MealAnalysisStatus status) {
@@ -208,13 +218,16 @@ class FoodRepository {
             if (json is Map) {
               mealName = json['name'] as String?;
               if (json['components'] is List) {
-                components = (json['components'] as List)
-                    .whereType<Map<String, dynamic>>()
-                    .map((c) => MealAnalysisV3ProgressComponent(
-                          componentId: c['name']?.toString() ?? '',
-                          name: c['name']?.toString() ?? '',
-                        ))
-                    .toList();
+                components =
+                    (json['components'] as List)
+                        .whereType<Map<String, dynamic>>()
+                        .map(
+                          (c) => MealAnalysisV3ProgressComponent(
+                            componentId: c['name']?.toString() ?? '',
+                            name: c['name']?.toString() ?? '',
+                          ),
+                        )
+                        .toList();
               }
             }
           } catch (_) {}
@@ -231,11 +244,12 @@ class FoodRepository {
           try {
             final json = jsonDecode(status.decomposedIngredient);
             if (json is Map && json['ingredients'] is List) {
-              final ingNames = (json['ingredients'] as List)
-                  .whereType<Map<String, dynamic>>()
-                  .map((i) => i['name']?.toString() ?? '')
-                  .where((n) => n.isNotEmpty)
-                  .toList();
+              final ingNames =
+                  (json['ingredients'] as List)
+                      .whereType<Map<String, dynamic>>()
+                      .map((i) => i['name']?.toString() ?? '')
+                      .where((n) => n.isNotEmpty)
+                      .toList();
               if (ingNames.isNotEmpty) {
                 components = [
                   MealAnalysisV3ProgressComponent(
@@ -315,9 +329,10 @@ class FoodRepository {
       try {
         final compJson = jsonDecode(status.decomposedComponent);
         if (compJson is Map && compJson['components'] is List) {
-          components = (compJson['components'] as List)
-              .whereType<Map<String, dynamic>>()
-              .toList();
+          components =
+              (compJson['components'] as List)
+                  .whereType<Map<String, dynamic>>()
+                  .toList();
         }
       } catch (_) {}
     }
@@ -325,7 +340,8 @@ class FoodRepository {
     return MealAnalysisV3CompleteResult(
       mealName: meal.name.isNotEmpty ? meal.name : (textDescription ?? 'Meal'),
       servingSizeText: meal.quantity.isNotEmpty ? meal.quantity : '1 serving',
-      tip: meal.hasMetadata() && meal.metadata.hasTip() ? meal.metadata.tip : '',
+      tip:
+          meal.hasMetadata() && meal.metadata.hasTip() ? meal.metadata.tip : '',
       mealType: mealTypeStr,
       macros: MealAnalysisV3MacroPoints(
         calories: calories,

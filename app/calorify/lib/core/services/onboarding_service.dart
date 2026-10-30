@@ -39,9 +39,13 @@ class OnboardingService {
     _analytics.logEvent(AnalyticsEvent.onboardingComplete);
   }
 
-  /// Save or update health data (upsert)
+  /// Save or update health data (upsert).
+  ///
+  /// Persists to local DB first (blocking) and then fires and forgets the remote
+  /// sync to the server (non-blocking).
   Future<void> saveHealthData(HealthData data) async {
     await _profileRepository.saveLocalHealthData(data);
+    unawaited(_profileRepository.syncPendingHealthData());
   }
 
   /// Get saved health data

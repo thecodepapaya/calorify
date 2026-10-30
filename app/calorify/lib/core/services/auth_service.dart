@@ -1,21 +1,28 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:calorify/core/network/network_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart';
+import 'package:models/models.dart' as models;
 
 class AuthService {
   @visibleForTesting
-  AuthService.test({FirebaseAuth? auth, GoogleSignIn? googleSignIn})
-    : _firebaseAuth = auth ?? FirebaseAuth.instance,
-      _googleSignIn = googleSignIn ?? GoogleSignIn.instance {
+  AuthService.test({
+    FirebaseAuth? auth,
+    GoogleSignIn? googleSignIn,
+    NetworkClient? networkClient,
+  }) : _firebaseAuth = auth ?? FirebaseAuth.instance,
+       _googleSignIn = googleSignIn ?? GoogleSignIn.instance,
+       _networkClient = networkClient {
     _initializeToken();
   }
 
-  AuthService._()
+  AuthService._({NetworkClient? networkClient})
     : _firebaseAuth = FirebaseAuth.instance,
-      _googleSignIn = GoogleSignIn.instance {
+      _googleSignIn = GoogleSignIn.instance,
+      _networkClient = networkClient {
     _initializeToken();
   }
 
@@ -29,6 +36,7 @@ class AuthService {
 
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final NetworkClient? _networkClient;
   late final Future<void> _googleSignInInitialization =
       _googleSignIn.initialize();
 
@@ -84,6 +92,53 @@ class AuthService {
     await resolveAuthToken();
   }
 
+  /// Ensures that a Firebase user exists (creates an anonymous guest user if none exists)
+  /// and updates the auth token.
+  Future<User?> ensureSignedIn() async {
+    try {
+      var user = _firebaseAuth.currentUser;
+      if (user == null) {
+        final credential = await _firebaseAuth.signInAnonymously();
+        user = credential.user;
+        log('Guest Firebase user created: ${user?.uid}');
+      }
+      if (user != null) {
+        await resolveAuthToken();
+      }
+      return user;
+    } catch (e, st) {
+      log('Failed to ensure Firebase user: $e', error: e, stackTrace: st);
+      return null;
+    }
+  }
+
+  /// Syncs the user profile to backend via PUT /users
+  Future<bool> syncUserToBackend({User? firebaseUser}) async {
+    try {
+      final user = firebaseUser ?? currentUser;
+      if (user == null) return false;
+      final protoUser = models.User();
+      if (user.displayName != null && user.displayName!.isNotEmpty) {
+        protoUser.name = user.displayName!;
+      }
+      if (user.email != null && user.email!.isNotEmpty) {
+        protoUser.email = user.email!;
+      }
+      await (_networkClient ?? NetworkClient.instance)
+          .apiCall<models.UpdateUserRequest, models.Empty>(
+            '/users',
+            models.Empty.new,
+            request: models.UpdateUserRequest(user: protoUser),
+            method: ProtoHttpMethod.put,
+          );
+      log('User synced to backend: ${user.uid}');
+      return true;
+    } catch (e, st) {
+      log('Failed to sync user to backend: $e', error: e, stackTrace: st);
+      return false;
+    }
+  }
+
   Future<UserCredential?> signInWithGoogle() async {
     try {
       await _googleSignInInitialization;
@@ -101,6 +156,7 @@ class AuthService {
               ? await currentUser!.linkWithCredential(credential)
               : await _firebaseAuth.signInWithCredential(credential);
       await resolveAuthToken();
+      unawaited(syncUserToBackend(firebaseUser: result.user));
       return result;
     } catch (e, st) {
       log('Google sign-in failed:', error: e, stackTrace: st);

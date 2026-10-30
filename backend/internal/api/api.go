@@ -51,6 +51,8 @@ func (a *App) routes() {
 	Register(a, "PUT /users/meals/{meal_id}", a.UpdateMeal)
 	Register(a, "DELETE /users/meals/{meal_id}", a.DeleteMeal)
 	Register(a, "POST /users/meals/analysis", a.AnalyzeMeal)
+	Register(a, "GET /users/meals/analysis/{analysis_id}", a.GetMealAnalysisStatus)
+	Register(a, "POST /users/meals/analysis/{analysis_id}/feedback", a.SubmitAnalysisFeedback)
 }
 
 func (a *App) Start() error {
@@ -59,7 +61,8 @@ func (a *App) Start() error {
 		return fmt.Errorf("failed to initialize Firebase Auth client: %w", err)
 	}
 	auth := middleware.Auth(a.Router, authClient)
-	logging := middleware.Logging(auth)
+	cors := middleware.Cors(auth)
+	logging := middleware.Logging(cors)
 	return http.ListenAndServe(a.Config.Port, logging)
 }
 
@@ -84,7 +87,8 @@ func decodeProto(msg proto.Message, r *http.Request) (proto.Message, error) {
 	if len(body) == 0 {
 		return msg, nil
 	}
-	err = protojson.Unmarshal(body, msg)
+	opts := protojson.UnmarshalOptions{DiscardUnknown: true}
+	err = opts.Unmarshal(body, msg)
 	if err != nil {
 		return nil, err
 	}
@@ -104,6 +108,9 @@ func Register[Req any, Ptr interface {
 		ctx := r.Context()
 		if meal_id := r.PathValue("meal_id"); meal_id != "" {
 			ctx = context.WithValue(ctx, "meal_id", meal_id)
+		}
+		if analysis_id := r.PathValue("analysis_id"); analysis_id != "" {
+			ctx = context.WithValue(ctx, "analysis_id", analysis_id)
 		}
 		var req Req
 		ptr := Ptr(&req)
