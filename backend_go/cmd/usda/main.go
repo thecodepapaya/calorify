@@ -16,6 +16,7 @@ import (
 	"strings"
 	"time"
 
+	"backend/internal/analysis"
 	"backend/internal/config"
 
 	"github.com/jackc/pgx/v5"
@@ -602,7 +603,7 @@ func main() {
 		embedFlag       = flag.Bool("embed", false, "Generate embeddings for foods missing embedding via Ollama")
 		embedAllFlag    = flag.Bool("embed-all", false, "Overwrite existing embeddings for all non-branded foods")
 		ollamaURL       = flag.String("ollama", "http://localhost:11434", "Ollama base URL")
-		model           = flag.String("model", "embeddinggemma-2", "Embedding model name in Ollama")
+		model           = flag.String("model", analysis.EmbeddingModel, "Embedding model name in Ollama")
 		batchSize       = flag.Int("batch", 64, "Batch size for embedding requests")
 		limit           = flag.Int("limit", 0, "Limit number of foods to embed (0 = unlimited)")
 	)

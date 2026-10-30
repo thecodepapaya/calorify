@@ -26,7 +26,7 @@ func main() {
 	}
 	defer usdaDbPool.Close()
 
-	analysis := analysis.New(dbPool, usdaDbPool, cfg.OpenAiApiKey)
+	analysis := analysis.New(dbPool, usdaDbPool, cfg.OpenAiApiKey, cfg.OllamaURL)
 	app := api.New(cfg, dbPool, analysis)
 	app.Start()
 }

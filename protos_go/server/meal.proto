@@ -17,9 +17,8 @@ message PortionExact{
 }
 
 message PortionBulk{
-  int32  value  = 1;
-  Origin origin = 2;
-
+  common.Measurement value  = 1;
+  Origin             origin = 2;
 }
 
 message PortionPinch{
@@ -101,4 +100,18 @@ message Pass1{
 
 message Pass2{
   repeated MealIngredient ingredients = 1;
+}
+
+message EnrichedIngredient {
+  string             name        = 1;
+  int64              fdc_id      = 2;
+  string             description = 3;
+  float              similarity  = 4;
+  common.Measurement grams       = 5;
+  common.Macros      macros      = 6;
+}
+
+message UsdaEnriched {
+  repeated EnrichedIngredient ingredients  = 1;
+  common.Macros               total_macros = 2;
 }

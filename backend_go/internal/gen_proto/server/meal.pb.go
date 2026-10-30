@@ -294,7 +294,7 @@ func (x *PortionExact) GetOrigin() Origin {
 
 type PortionBulk struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Value         int32                  `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value         *common.Measurement    `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	Origin        Origin                 `protobuf:"varint,2,opt,name=origin,proto3,enum=server.Origin" json:"origin,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -330,11 +330,11 @@ func (*PortionBulk) Descriptor() ([]byte, []int) {
 	return file_server_meal_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *PortionBulk) GetValue() int32 {
+func (x *PortionBulk) GetValue() *common.Measurement {
 	if x != nil {
 		return x.Value
 	}
-	return 0
+	return nil
 }
 
 func (x *PortionBulk) GetOrigin() Origin {
@@ -744,6 +744,142 @@ func (x *Pass2) GetIngredients() []*MealIngredient {
 	return nil
 }
 
+type EnrichedIngredient struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	FdcId         int64                  `protobuf:"varint,2,opt,name=fdc_id,json=fdcId,proto3" json:"fdc_id,omitempty"`
+	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Similarity    float32                `protobuf:"fixed32,4,opt,name=similarity,proto3" json:"similarity,omitempty"`
+	Grams         *common.Measurement    `protobuf:"bytes,5,opt,name=grams,proto3" json:"grams,omitempty"`
+	Macros        *common.Macros         `protobuf:"bytes,6,opt,name=macros,proto3" json:"macros,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *EnrichedIngredient) Reset() {
+	*x = EnrichedIngredient{}
+	mi := &file_server_meal_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EnrichedIngredient) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnrichedIngredient) ProtoMessage() {}
+
+func (x *EnrichedIngredient) ProtoReflect() protoreflect.Message {
+	mi := &file_server_meal_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnrichedIngredient.ProtoReflect.Descriptor instead.
+func (*EnrichedIngredient) Descriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *EnrichedIngredient) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *EnrichedIngredient) GetFdcId() int64 {
+	if x != nil {
+		return x.FdcId
+	}
+	return 0
+}
+
+func (x *EnrichedIngredient) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *EnrichedIngredient) GetSimilarity() float32 {
+	if x != nil {
+		return x.Similarity
+	}
+	return 0
+}
+
+func (x *EnrichedIngredient) GetGrams() *common.Measurement {
+	if x != nil {
+		return x.Grams
+	}
+	return nil
+}
+
+func (x *EnrichedIngredient) GetMacros() *common.Macros {
+	if x != nil {
+		return x.Macros
+	}
+	return nil
+}
+
+type UsdaEnriched struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ingredients   []*EnrichedIngredient  `protobuf:"bytes,1,rep,name=ingredients,proto3" json:"ingredients,omitempty"`
+	TotalMacros   *common.Macros         `protobuf:"bytes,2,opt,name=total_macros,json=totalMacros,proto3" json:"total_macros,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UsdaEnriched) Reset() {
+	*x = UsdaEnriched{}
+	mi := &file_server_meal_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UsdaEnriched) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UsdaEnriched) ProtoMessage() {}
+
+func (x *UsdaEnriched) ProtoReflect() protoreflect.Message {
+	mi := &file_server_meal_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UsdaEnriched.ProtoReflect.Descriptor instead.
+func (*UsdaEnriched) Descriptor() ([]byte, []int) {
+	return file_server_meal_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *UsdaEnriched) GetIngredients() []*EnrichedIngredient {
+	if x != nil {
+		return x.Ingredients
+	}
+	return nil
+}
+
+func (x *UsdaEnriched) GetTotalMacros() *common.Macros {
+	if x != nil {
+		return x.TotalMacros
+	}
+	return nil
+}
+
 var File_server_meal_proto protoreflect.FileDescriptor
 
 const file_server_meal_proto_rawDesc = "" +
@@ -752,9 +888,9 @@ const file_server_meal_proto_rawDesc = "" +
 	"\fPortionExact\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x05R\x05value\x127\n" +
 	"\rper_unit_gram\x18\x02 \x01(\v2\x13.common.MeasurementR\vperUnitGram\x12&\n" +
-	"\x06origin\x18\x03 \x01(\x0e2\x0e.server.OriginR\x06origin\"K\n" +
-	"\vPortionBulk\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\x05R\x05value\x12&\n" +
+	"\x06origin\x18\x03 \x01(\x0e2\x0e.server.OriginR\x06origin\"`\n" +
+	"\vPortionBulk\x12)\n" +
+	"\x05value\x18\x01 \x01(\v2\x13.common.MeasurementR\x05value\x12&\n" +
 	"\x06origin\x18\x02 \x01(\x0e2\x0e.server.OriginR\x06origin\"L\n" +
 	"\fPortionPinch\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x05R\x05value\x12&\n" +
@@ -784,7 +920,19 @@ const file_server_meal_proto_rawDesc = "" +
 	"\n" +
 	"_meal_type\"A\n" +
 	"\x05Pass2\x128\n" +
-	"\vingredients\x18\x01 \x03(\v2\x16.server.MealIngredientR\vingredients*E\n" +
+	"\vingredients\x18\x01 \x03(\v2\x16.server.MealIngredientR\vingredients\"\xd4\x01\n" +
+	"\x12EnrichedIngredient\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x15\n" +
+	"\x06fdc_id\x18\x02 \x01(\x03R\x05fdcId\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x1e\n" +
+	"\n" +
+	"similarity\x18\x04 \x01(\x02R\n" +
+	"similarity\x12)\n" +
+	"\x05grams\x18\x05 \x01(\v2\x13.common.MeasurementR\x05grams\x12&\n" +
+	"\x06macros\x18\x06 \x01(\v2\x0e.common.MacrosR\x06macros\"\x7f\n" +
+	"\fUsdaEnriched\x12<\n" +
+	"\vingredients\x18\x01 \x03(\v2\x1a.server.EnrichedIngredientR\vingredients\x121\n" +
+	"\ftotal_macros\x18\x02 \x01(\v2\x0e.common.MacrosR\vtotalMacros*E\n" +
 	"\x06Origin\x12\x12\n" +
 	"\x0eMODEL_INFERRED\x10\x00\x12\x0f\n" +
 	"\vUSER_STATED\x10\x01\x12\x16\n" +
@@ -836,7 +984,7 @@ func file_server_meal_proto_rawDescGZIP() []byte {
 }
 
 var file_server_meal_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_server_meal_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_server_meal_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_server_meal_proto_goTypes = []any{
 	(Origin)(0),                // 0: server.Origin
 	(IngredientType)(0),        // 1: server.IngredientType
@@ -848,30 +996,38 @@ var file_server_meal_proto_goTypes = []any{
 	(*MealIngredient)(nil),     // 7: server.MealIngredient
 	(*Pass1)(nil),              // 8: server.Pass1
 	(*Pass2)(nil),              // 9: server.Pass2
-	(*common.Measurement)(nil), // 10: common.Measurement
-	(common.MealType)(0),       // 11: common.MealType
+	(*EnrichedIngredient)(nil), // 10: server.EnrichedIngredient
+	(*UsdaEnriched)(nil),       // 11: server.UsdaEnriched
+	(*common.Measurement)(nil), // 12: common.Measurement
+	(common.MealType)(0),       // 13: common.MealType
+	(*common.Macros)(nil),      // 14: common.Macros
 }
 var file_server_meal_proto_depIdxs = []int32{
-	10, // 0: server.PortionExact.per_unit_gram:type_name -> common.Measurement
+	12, // 0: server.PortionExact.per_unit_gram:type_name -> common.Measurement
 	0,  // 1: server.PortionExact.origin:type_name -> server.Origin
-	0,  // 2: server.PortionBulk.origin:type_name -> server.Origin
-	0,  // 3: server.PortionPinch.origin:type_name -> server.Origin
-	3,  // 4: server.MealComponent.exact:type_name -> server.PortionExact
-	4,  // 5: server.MealComponent.bulk:type_name -> server.PortionBulk
-	5,  // 6: server.MealComponent.pinch:type_name -> server.PortionPinch
-	2,  // 7: server.MealComponent.preparation_method:type_name -> server.PreparationMethod
-	3,  // 8: server.MealIngredient.exact:type_name -> server.PortionExact
-	4,  // 9: server.MealIngredient.bulk:type_name -> server.PortionBulk
-	5,  // 10: server.MealIngredient.pinch:type_name -> server.PortionPinch
-	1,  // 11: server.MealIngredient.ingredient_type:type_name -> server.IngredientType
-	11, // 12: server.Pass1.meal_type:type_name -> common.MealType
-	6,  // 13: server.Pass1.components:type_name -> server.MealComponent
-	7,  // 14: server.Pass2.ingredients:type_name -> server.MealIngredient
-	15, // [15:15] is the sub-list for method output_type
-	15, // [15:15] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	12, // 2: server.PortionBulk.value:type_name -> common.Measurement
+	0,  // 3: server.PortionBulk.origin:type_name -> server.Origin
+	0,  // 4: server.PortionPinch.origin:type_name -> server.Origin
+	3,  // 5: server.MealComponent.exact:type_name -> server.PortionExact
+	4,  // 6: server.MealComponent.bulk:type_name -> server.PortionBulk
+	5,  // 7: server.MealComponent.pinch:type_name -> server.PortionPinch
+	2,  // 8: server.MealComponent.preparation_method:type_name -> server.PreparationMethod
+	3,  // 9: server.MealIngredient.exact:type_name -> server.PortionExact
+	4,  // 10: server.MealIngredient.bulk:type_name -> server.PortionBulk
+	5,  // 11: server.MealIngredient.pinch:type_name -> server.PortionPinch
+	1,  // 12: server.MealIngredient.ingredient_type:type_name -> server.IngredientType
+	13, // 13: server.Pass1.meal_type:type_name -> common.MealType
+	6,  // 14: server.Pass1.components:type_name -> server.MealComponent
+	7,  // 15: server.Pass2.ingredients:type_name -> server.MealIngredient
+	12, // 16: server.EnrichedIngredient.grams:type_name -> common.Measurement
+	14, // 17: server.EnrichedIngredient.macros:type_name -> common.Macros
+	10, // 18: server.UsdaEnriched.ingredients:type_name -> server.EnrichedIngredient
+	14, // 19: server.UsdaEnriched.total_macros:type_name -> common.Macros
+	20, // [20:20] is the sub-list for method output_type
+	20, // [20:20] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_server_meal_proto_init() }
@@ -896,7 +1052,7 @@ func file_server_meal_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_server_meal_proto_rawDesc), len(file_server_meal_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

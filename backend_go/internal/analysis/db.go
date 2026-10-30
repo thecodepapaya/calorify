@@ -62,7 +62,26 @@ func (s *Service) SaveMealIngredient(ctx context.Context, id string, pass2 *serv
 	return nil
 }
 
-func (s *Service) searchUsda(ctx context.Context, text string) error {
+func (s *Service) SaveUsdaEnriched(ctx context.Context, id string, enriched *server.UsdaEnriched) error {
+	now := time.Now()
+	json, err := protojson.Marshal(enriched)
+	if err != nil {
+		return err
+	}
+	const query = `
+	UPDATE meal_analysis 
+	SET usda_enriched = $2, usda_enriched_at = $3, updated_at = $4, status = 'USDA_MACRO_HYDRATED'
+	WHERE id = $1
+	`
+	_, err = s.DB.Exec(ctx, query, id, json, now, now)
+	if err != nil {
+		log.Printf("Failed to update usda enriched in DB: %v", err)
+		return err
+	}
+	return nil
+}
+
+func (s *Service) searchUsda(ctx context.Context, vectorStr string) (*UsdaCandidate, error) {
 	const query = `
 	SELECT 
     	fdc_id, 
@@ -72,11 +91,44 @@ func (s *Service) searchUsda(ctx context.Context, text string) error {
     	carbs_per_100g, 
     	fat_per_100g, 
     	fiber_per_100g,
-    	similarity(normalized_name, $1) AS sim
+    	1 - (embedding <=> $1::vector) AS similarity
 	FROM usda_foods
-	WHERE normalized_name % $1
-	ORDER BY (similarity(normalized_name, $1) * 0.7 + quality_score * 0.3) DESC
+	WHERE embedding IS NOT NULL
+	ORDER BY embedding <=> $1::vector ASC
 	LIMIT 1;
 	`
-	return nil
+	rows, err := s.UsdaDB.Query(ctx, query, vectorStr)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var rowsData []*UsdaCandidate
+	for rows.Next() {
+		var r UsdaCandidate
+		err := rows.Scan(&r.FdcID,
+			&r.Description,
+			&r.KcalPer100g,
+			&r.ProteinPer100g,
+			&r.CarbsPer100g,
+			&r.FatPer100g,
+			&r.FiberPer100g,
+			&r.Similarity)
+		if err != nil {
+			log.Printf("Cannot read row to struct")
+			continue
+		}
+		rowsData = append(rowsData, &r)
+	}
+	err = rows.Err()
+	if err != nil {
+		log.Printf("Failed to iterate through rows: %v", err)
+		return nil, err
+	}
+
+	if len(rowsData) == 0 {
+		return nil, nil
+	}
+
+	return rowsData[0], nil
 }

@@ -25,9 +25,9 @@ enum CalorieConfidence {
 }
 
 message Measurement{
-  int32          value     = 1;
-  optional int32 min_value = 2;
-  optional int32 max_value = 3;
+  int32 value     = 1;
+  int32 min_value = 2;
+  int32 max_value = 3;
 }
 
 message Macros {

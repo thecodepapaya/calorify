@@ -19,8 +19,8 @@ RULES:
    - Identify primary name and short English search aliases suitable for USDA nutritional database lookup.
    - Identify the preparation_method (e.g. RAW, BOILED, STEAMED, BAKED, ROASTED, GRILLED, TOASTED, SAUTEED, SHALLOW_FRIED, DEEP_FRIED, etc.).
    - Estimate the portion:
-     * EXACT: For discrete count items (e.g. 2 eggs, 1 slice of bread). Specify estimated per_unit_grams.
-     * BULK: For volume or weight-measured foods (e.g. rice, oatmeal, soup, pasta, curries). Specify value in estimated total grams.
+     * EXACT: For discrete count items (e.g. 2 eggs, 1 slice of bread). Specify count value and estimated per_unit_grams with min/max bounds.
+     * BULK: For volume or weight-measured foods (e.g. rice, oatmeal, soup, pasta, curries). Specify value in estimated total grams with min_value and max_value bounds.
      * PINCH: For garnishes, seasonings, trace amounts (salt, pepper, herbs). Value is typically 1-5 grams.
    - If user explicitly stated quantity, set origin to "USER_STATED". Otherwise set origin to "MODEL_INFERRED".
 5. NEVER generate calories, macros, or nutritional values in this pass. Focus strictly on food identity and portion estimation.`
@@ -98,16 +98,32 @@ var pass1Schema = map[string]any{
 								"type":        "number",
 								"description": "Count for EXACT (e.g. 2 for 2 eggs), or estimated grams for BULK/PINCH",
 							},
+							"min_value": map[string]any{
+								"type":        "number",
+								"description": "Plausible lower bound: count for EXACT, or grams for BULK/PINCH",
+							},
+							"max_value": map[string]any{
+								"type":        "number",
+								"description": "Plausible upper bound: count for EXACT, or grams for BULK/PINCH",
+							},
 							"per_unit_grams": map[string]any{
 								"type":        []string{"number", "null"},
 								"description": "Estimated weight in grams per single unit if kind is EXACT, else null",
+							},
+							"per_unit_min_grams": map[string]any{
+								"type":        []string{"number", "null"},
+								"description": "Plausible lower-bound grams per single unit if kind is EXACT, else null",
+							},
+							"per_unit_max_grams": map[string]any{
+								"type":        []string{"number", "null"},
+								"description": "Plausible upper-bound grams per single unit if kind is EXACT, else null",
 							},
 							"origin": map[string]any{
 								"type": "string",
 								"enum": []string{"MODEL_INFERRED", "USER_STATED", "USER_CLARIFICATION"},
 							},
 						},
-						"required":             []string{"kind", "value", "per_unit_grams", "origin"},
+						"required":             []string{"kind", "value", "min_value", "max_value", "per_unit_grams", "per_unit_min_grams", "per_unit_max_grams", "origin"},
 						"additionalProperties": false,
 					},
 				},
@@ -130,7 +146,7 @@ RULES:
 2. Classify ingredient_type as "BASE" (whole raw/cooked commodity food) or "BRANDED" (commercial packaged food product).
 3. Provide standardized USDA-friendly search aliases (e.g. "egg, whole, raw, fresh" or "butter, salted").
 4. Split total component portions accurately across ingredients:
-   - Estimate portion values and grams per unit.
+   - Estimate portion values (nominal value, min_value, max_value in grams) and grams per unit (with per_unit_min_grams and per_unit_max_grams for EXACT items).
    - Account for hidden fats/oils used in cooking methods like SAUTEED, SHALLOW_FRIED, or DEEP_FRIED.
 5. NEVER invent fantasy nutrients; only decompose ingredients and their estimated gram amounts.`
 
@@ -169,16 +185,32 @@ var pass2Schema = map[string]any{
 								"type":        "number",
 								"description": "Count for EXACT, or grams for BULK/PINCH",
 							},
+							"min_value": map[string]any{
+								"type":        "number",
+								"description": "Plausible lower bound: count for EXACT, or grams for BULK/PINCH",
+							},
+							"max_value": map[string]any{
+								"type":        "number",
+								"description": "Plausible upper bound: count for EXACT, or grams for BULK/PINCH",
+							},
 							"per_unit_grams": map[string]any{
 								"type":        []string{"number", "null"},
 								"description": "Weight in grams per unit for EXACT items, else null",
+							},
+							"per_unit_min_grams": map[string]any{
+								"type":        []string{"number", "null"},
+								"description": "Plausible lower-bound grams per single unit if kind is EXACT, else null",
+							},
+							"per_unit_max_grams": map[string]any{
+								"type":        []string{"number", "null"},
+								"description": "Plausible upper-bound grams per single unit if kind is EXACT, else null",
 							},
 							"origin": map[string]any{
 								"type": "string",
 								"enum": []string{"MODEL_INFERRED", "USER_STATED", "USER_CLARIFICATION"},
 							},
 						},
-						"required":             []string{"kind", "value", "per_unit_grams", "origin"},
+						"required":             []string{"kind", "value", "min_value", "max_value", "per_unit_grams", "per_unit_min_grams", "per_unit_max_grams", "origin"},
 						"additionalProperties": false,
 					},
 				},
@@ -194,10 +226,14 @@ var pass2Schema = map[string]any{
 // Intermediate Go DTO structs for JSON unmarshaling
 
 type PortionDTO struct {
-	Kind         string   `json:"kind"`
-	Value        float64  `json:"value"`
-	PerUnitGrams *float64 `json:"per_unit_grams"`
-	Origin       string   `json:"origin"`
+	Kind            string   `json:"kind"`
+	Value           float64  `json:"value"`
+	MinValue        float64  `json:"min_value"`
+	MaxValue        float64  `json:"max_value"`
+	PerUnitGrams    *float64 `json:"per_unit_grams"`
+	PerUnitMinGrams *float64 `json:"per_unit_min_grams"`
+	PerUnitMaxGrams *float64 `json:"per_unit_max_grams"`
+	Origin          string   `json:"origin"`
 }
 
 type ComponentDTO struct {
@@ -238,8 +274,24 @@ func (p *PortionDTO) applyToComponent(c *server.MealComponent) {
 		var perUnit *common.Measurement
 		if p.PerUnitGrams != nil {
 			grams := int32(*p.PerUnitGrams)
+			minGrams := grams
+			if p.PerUnitMinGrams != nil && *p.PerUnitMinGrams > 0 {
+				minGrams = int32(*p.PerUnitMinGrams)
+			}
+			maxGrams := grams
+			if p.PerUnitMaxGrams != nil && *p.PerUnitMaxGrams > 0 {
+				maxGrams = int32(*p.PerUnitMaxGrams)
+			}
 			perUnit = &common.Measurement{
-				Value: grams,
+				Value:    grams,
+				MinValue: minGrams,
+				MaxValue: maxGrams,
+			}
+		} else {
+			perUnit = &common.Measurement{
+				Value:    0,
+				MinValue: 0,
+				MaxValue: 0,
 			}
 		}
 		c.Portion = &server.MealComponent_Exact{
@@ -257,9 +309,22 @@ func (p *PortionDTO) applyToComponent(c *server.MealComponent) {
 			},
 		}
 	default: // BULK
+		val := int32(p.Value)
+		minVal := int32(p.MinValue)
+		maxVal := int32(p.MaxValue)
+		if minVal == 0 || minVal > val {
+			minVal = val
+		}
+		if maxVal == 0 || maxVal < val {
+			maxVal = val
+		}
 		c.Portion = &server.MealComponent_Bulk{
 			Bulk: &server.PortionBulk{
-				Value:  int32(p.Value),
+				Value: &common.Measurement{
+					Value:    val,
+					MinValue: minVal,
+					MaxValue: maxVal,
+				},
 				Origin: origin,
 			},
 		}
@@ -273,8 +338,24 @@ func (p *PortionDTO) applyToIngredient(ing *server.MealIngredient) {
 		var perUnit *common.Measurement
 		if p.PerUnitGrams != nil {
 			grams := int32(*p.PerUnitGrams)
+			minGrams := grams
+			if p.PerUnitMinGrams != nil && *p.PerUnitMinGrams > 0 {
+				minGrams = int32(*p.PerUnitMinGrams)
+			}
+			maxGrams := grams
+			if p.PerUnitMaxGrams != nil && *p.PerUnitMaxGrams > 0 {
+				maxGrams = int32(*p.PerUnitMaxGrams)
+			}
 			perUnit = &common.Measurement{
-				Value: grams,
+				Value:    grams,
+				MinValue: minGrams,
+				MaxValue: maxGrams,
+			}
+		} else {
+			perUnit = &common.Measurement{
+				Value:    0,
+				MinValue: 0,
+				MaxValue: 0,
 			}
 		}
 		ing.Portion = &server.MealIngredient_Exact{
@@ -292,9 +373,22 @@ func (p *PortionDTO) applyToIngredient(ing *server.MealIngredient) {
 			},
 		}
 	default: // BULK
+		val := int32(p.Value)
+		minVal := int32(p.MinValue)
+		maxVal := int32(p.MaxValue)
+		if minVal == 0 || minVal > val {
+			minVal = val
+		}
+		if maxVal == 0 || maxVal < val {
+			maxVal = val
+		}
 		ing.Portion = &server.MealIngredient_Bulk{
 			Bulk: &server.PortionBulk{
-				Value:  int32(p.Value),
+				Value: &common.Measurement{
+					Value:    val,
+					MinValue: minVal,
+					MaxValue: maxVal,
+				},
 				Origin: origin,
 			},
 		}
@@ -367,4 +461,15 @@ func parsePass2Response(rawJson string) (*server.Pass2, error) {
 		return nil, err
 	}
 	return dto.ToProto(), nil
+}
+
+type UsdaCandidate struct {
+	FdcID          int64   `json:"fdc_id"`
+	Description    string  `json:"description"`
+	KcalPer100g    float32 `json:"kcal_per_100g"`
+	ProteinPer100g float32 `json:"protein_per_100g"`
+	CarbsPer100g   float32 `json:"carbs_per_100g"`
+	FatPer100g     float32 `json:"fat_per_100g"`
+	FiberPer100g   float32 `json:"fiber_per_100g"`
+	Similarity     float32 `json:"similarity"`
 }

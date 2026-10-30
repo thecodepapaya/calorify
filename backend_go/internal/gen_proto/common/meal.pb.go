@@ -180,8 +180,8 @@ func (CalorieConfidence) EnumDescriptor() ([]byte, []int) {
 type Measurement struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Value         int32                  `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
-	MinValue      *int32                 `protobuf:"varint,2,opt,name=min_value,json=minValue,proto3,oneof" json:"min_value,omitempty"`
-	MaxValue      *int32                 `protobuf:"varint,3,opt,name=max_value,json=maxValue,proto3,oneof" json:"max_value,omitempty"`
+	MinValue      int32                  `protobuf:"varint,2,opt,name=min_value,json=minValue,proto3" json:"min_value,omitempty"`
+	MaxValue      int32                  `protobuf:"varint,3,opt,name=max_value,json=maxValue,proto3" json:"max_value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -224,15 +224,15 @@ func (x *Measurement) GetValue() int32 {
 }
 
 func (x *Measurement) GetMinValue() int32 {
-	if x != nil && x.MinValue != nil {
-		return *x.MinValue
+	if x != nil {
+		return x.MinValue
 	}
 	return 0
 }
 
 func (x *Measurement) GetMaxValue() int32 {
-	if x != nil && x.MaxValue != nil {
-		return *x.MaxValue
+	if x != nil {
+		return x.MaxValue
 	}
 	return 0
 }
@@ -521,15 +521,11 @@ var File_common_meal_proto protoreflect.FileDescriptor
 
 const file_common_meal_proto_rawDesc = "" +
 	"\n" +
-	"\x11common/meal.proto\x12\x06common\"\x83\x01\n" +
+	"\x11common/meal.proto\x12\x06common\"]\n" +
 	"\vMeasurement\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\x05R\x05value\x12 \n" +
-	"\tmin_value\x18\x02 \x01(\x05H\x00R\bminValue\x88\x01\x01\x12 \n" +
-	"\tmax_value\x18\x03 \x01(\x05H\x01R\bmaxValue\x88\x01\x01B\f\n" +
-	"\n" +
-	"_min_valueB\f\n" +
-	"\n" +
-	"_max_value\"\xe1\x01\n" +
+	"\x05value\x18\x01 \x01(\x05R\x05value\x12\x1b\n" +
+	"\tmin_value\x18\x02 \x01(\x05R\bminValue\x12\x1b\n" +
+	"\tmax_value\x18\x03 \x01(\x05R\bmaxValue\"\xe1\x01\n" +
 	"\x06Macros\x12-\n" +
 	"\acalorie\x18\x01 \x01(\v2\x13.common.MeasurementR\acalorie\x12'\n" +
 	"\x04carb\x18\x02 \x01(\v2\x13.common.MeasurementR\x04carb\x12-\n" +
@@ -626,7 +622,6 @@ func file_common_meal_proto_init() {
 	if File_common_meal_proto != nil {
 		return
 	}
-	file_common_meal_proto_msgTypes[0].OneofWrappers = []any{}
 	file_common_meal_proto_msgTypes[2].OneofWrappers = []any{}
 	file_common_meal_proto_msgTypes[3].OneofWrappers = []any{}
 	file_common_meal_proto_msgTypes[4].OneofWrappers = []any{}

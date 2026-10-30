@@ -8,6 +8,7 @@ type Config struct {
 	UsdaDatabaseURL string
 	FirebaseSdkPath string
 	OpenAiApiKey    string
+	OllamaURL       string
 }
 
 func Load() Config {
@@ -16,6 +17,7 @@ func Load() Config {
 	usdaDatabaseUrl := os.Getenv("USDA_DATABASE_URL")
 	firebaseSdk := os.Getenv("FIREBASE_ADMIN_SDK")
 	openaiAPiKey := os.Getenv("OPENAI_API_KEY")
+	ollamaURL := os.Getenv("OLLAMA_URL")
 	if port == "" {
 		port = "8000"
 	}
@@ -28,11 +30,15 @@ func Load() Config {
 	if firebaseSdk == "" {
 		firebaseSdk = "firebase-adminsdk.json"
 	}
+	if ollamaURL == "" {
+		ollamaURL = "http://localhost:11434"
+	}
 	return Config{
 		Port:            ":" + port,
 		DatabaseURL:     databaseUrl,
 		UsdaDatabaseURL: usdaDatabaseUrl,
 		FirebaseSdkPath: firebaseSdk,
 		OpenAiApiKey:    openaiAPiKey,
+		OllamaURL:       ollamaURL,
 	}
 }

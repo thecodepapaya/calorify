@@ -5,6 +5,7 @@ import (
 	"backend/internal/gen_proto/server"
 	"context"
 	"encoding/base64"
+	"fmt"
 	"time"
 
 	"log"
@@ -20,14 +21,16 @@ type Service struct {
 	DB        *pgxpool.Pool
 	UsdaDB    *pgxpool.Pool
 	LlmClient *openai.Client
+	OllamaURL string
 }
 
-func New(db *pgxpool.Pool, usdaDB *pgxpool.Pool, apiKey string) *Service {
+func New(db *pgxpool.Pool, usdaDB *pgxpool.Pool, apiKey string, ollamaURL string) *Service {
 	client := openai.NewClient(option.WithAPIKey(apiKey))
 	service := Service{
 		DB:        db,
 		UsdaDB:    usdaDB,
 		LlmClient: &client,
+		OllamaURL: ollamaURL,
 	}
 
 	return &service
@@ -49,8 +52,6 @@ func (s *Service) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest)
 		AnalysisId: id,
 	}, nil
 
-	// usda db query
-	// store enriched json in analysis
 	// generate clarification questions
 	// store questions in analysis
 	// send question to user
@@ -87,10 +88,9 @@ func (s *Service) runPipeline(id string, req *api.MealAnalysisRequest) {
 		log.Printf("Failed to hydrate macros from USDA DB %v", err)
 		return
 	}
-	_ = enriched
 	generateClarification()
 	sendClarification()
-	prepareFinalResponse()
+	prepareFinalResponse(enriched)
 }
 
 func validateInput(req *api.MealAnalysisRequest) error {
@@ -203,11 +203,38 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, pass1 *se
 	return pass2, nil
 }
 
-func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.Pass2) (string, error) {
-	// usda db query
-	// store enriched json in analysis
+func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.Pass2) (*server.UsdaEnriched, error) {
+	var ingredients []string
+	for _, ing := range pass2.Ingredients {
+		ingredients = append(ingredients, "task: search result | query: "+ing.Name)
+	}
+	embeddings, err := s.getEmbeddings(ctx, ingredients)
+	if err != nil {
+		log.Printf("Failed to get embeddings: %v", err)
+		return nil, err
+	}
 
-	return "", nil
+	enrichedIngredient := make([]*server.EnrichedIngredient, len(embeddings))
+	for i := range embeddings {
+		candidate, err := s.searchUsda(ctx, formatVector(embeddings[i]))
+		if err != nil {
+			log.Printf("Error in finding match for ingredient: %v", err)
+			return nil, err
+		} else if candidate == nil {
+			log.Printf("failed to find match for ingredient: %v", err)
+			return nil, fmt.Errorf("failed to find match for ingredient")
+		}
+		enrichedIngredient[i] = ingredientCandidateToEnriched(pass2.Ingredients[i], candidate)
+
+	}
+	enriched := server.UsdaEnriched{Ingredients: enrichedIngredient, TotalMacros: aggregateMacro(enrichedIngredient)}
+
+	err = s.SaveUsdaEnriched(ctx, id, &enriched)
+	if err != nil {
+		log.Printf("Failed to save enriched json to DB %v", err)
+		return nil, err
+	}
+	return &enriched, nil
 }
 
 func generateClarification() {
@@ -221,7 +248,7 @@ func sendClarification() {
 	// get answers and store in analysis
 }
 
-func prepareFinalResponse() {
+func prepareFinalResponse(enriched *server.UsdaEnriched) {
 	// prepare final presentation
 	// store in analysis
 }
