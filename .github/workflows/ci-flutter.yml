@@ -1,3 +1,7 @@
+# Workflow: CI / Flutter
+# Description: Verifies shared packages, runs phone app tests and coverage, and verifies watch app tests and coverage.
+# Triggers: Pull requests and pushes to main touching app/**, protos/**, or translation scripts; plus manual dispatch.
+
 name: CI / Flutter
 
 on:

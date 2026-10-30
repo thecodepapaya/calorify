@@ -1,3 +1,7 @@
+# Workflow: Android / Promote Play release
+# Description: Promotes a previously uploaded and tested phone release between Google Play tracks (e.g. internal to beta/production).
+# Triggers: Manual dispatch (workflow_dispatch) specifying source and target tracks and expected version code.
+
 name: Android / Promote Play release
 
 on:

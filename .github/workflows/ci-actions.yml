@@ -1,3 +1,7 @@
+# Workflow: CI / GitHub Actions
+# Description: Lint workflow files with actionlint and audit security configurations with Zizmor.
+# Triggers: Pull requests and pushes to main affecting actions, workflows, or dependabot configuration, plus manual dispatch.
+
 name: CI / GitHub Actions
 
 on:
