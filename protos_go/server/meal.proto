@@ -93,9 +93,12 @@ message MealIngredient{
 }
 
 message Pass1{
-  string                   name       = 1;
-  optional common.MealType meal_type  = 2;
-  repeated MealComponent   components = 3;
+  string                   name        = 1;
+  string                   quantity    = 2;
+  optional common.MealType meal_type   = 3;
+  repeated MealComponent   components  = 4;
+  string                   tip         = 5;
+  common.MealHealth        meal_health = 6;
 }
 
 message Pass2{

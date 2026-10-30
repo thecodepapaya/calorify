@@ -503,7 +503,7 @@ type FoodToEmbed struct {
 	Description string
 }
 
-func runEmbedding(ctx context.Context, pool *pgxpool.Pool, ollamaURL string, model string, batchSize int, limit int, overwrite bool) {
+func runEmbedding(ctx context.Context, pool *pgxpool.Pool, ollamaURL string, model string, batchSize int, limit int, overwrite bool, includeBranded bool) {
 	client := &http.Client{Timeout: 120 * time.Second}
 
 	log.Printf("Connecting to Ollama at %s (model: %s)...", ollamaURL, model)
@@ -516,9 +516,17 @@ func runEmbedding(ctx context.Context, pool *pgxpool.Pool, ollamaURL string, mod
 		}
 	}
 
-	whereClause := "WHERE data_type != 'branded_food'"
+	var conditions []string
+	if !includeBranded {
+		conditions = append(conditions, "data_type != 'branded_food'")
+	}
 	if !overwrite {
-		whereClause += " AND embedding IS NULL"
+		conditions = append(conditions, "embedding IS NULL")
+	}
+
+	whereClause := ""
+	if len(conditions) > 0 {
+		whereClause = "WHERE " + strings.Join(conditions, " AND ")
 	}
 
 	query := fmt.Sprintf(`SELECT fdc_id, description FROM usda_foods %s ORDER BY fdc_id`, whereClause)
@@ -547,7 +555,11 @@ func runEmbedding(ctx context.Context, pool *pgxpool.Pool, ollamaURL string, mod
 		return
 	}
 
-	log.Printf("Starting embedding for %d non-branded foods (batch size: %d, model: %s)...", total, batchSize, model)
+	targetDesc := "non-branded foods"
+	if includeBranded {
+		targetDesc = "foods (including branded)"
+	}
+	log.Printf("Starting embedding for %d %s (batch size: %d, model: %s)...", total, targetDesc, batchSize, model)
 	startTime := time.Now()
 	processed := 0
 
@@ -600,12 +612,13 @@ func main() {
 	var (
 		ingestFlag      = flag.Bool("ingest", false, "Ingest raw USDA data from zip files into usda_foods")
 		skipBrandedFlag = flag.Bool("skip-branded", false, "Skip ingesting branded foods during ingestion")
-		embedFlag       = flag.Bool("embed", false, "Generate embeddings for foods missing embedding via Ollama")
-		embedAllFlag    = flag.Bool("embed-all", false, "Overwrite existing embeddings for all non-branded foods")
-		ollamaURL       = flag.String("ollama", "http://localhost:11434", "Ollama base URL")
-		model           = flag.String("model", analysis.EmbeddingModel, "Embedding model name in Ollama")
-		batchSize       = flag.Int("batch", 64, "Batch size for embedding requests")
-		limit           = flag.Int("limit", 0, "Limit number of foods to embed (0 = unlimited)")
+		embedFlag          = flag.Bool("embed", false, "Generate embeddings for foods missing embedding via Ollama")
+		embedAllFlag       = flag.Bool("embed-all", false, "Overwrite existing embeddings for all non-branded foods (or all foods if -include-branded is set)")
+		includeBrandedFlag = flag.Bool("include-branded", false, "Include branded foods during embedding")
+		ollamaURL          = flag.String("ollama", "http://localhost:11434", "Ollama base URL")
+		model              = flag.String("model", analysis.EmbeddingModel, "Embedding model name in Ollama")
+		batchSize          = flag.Int("batch", 64, "Batch size for embedding requests")
+		limit              = flag.Int("limit", 0, "Limit number of foods to embed (0 = unlimited)")
 	)
 	flag.Parse()
 
@@ -629,23 +642,25 @@ func main() {
 	}
 
 	if *embedFlag || *embedAllFlag {
-		runEmbedding(ctx, pool, *ollamaURL, *model, *batchSize, *limit, *embedAllFlag)
+		runEmbedding(ctx, pool, *ollamaURL, *model, *batchSize, *limit, *embedAllFlag, *includeBrandedFlag)
 		return
 	}
 
-	var totalCount, nonBrandedCount, unEmbeddedCount int
+	var totalCount, nonBrandedCount, unEmbeddedCount, unEmbeddedTotal int
 	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods").Scan(&totalCount)
 	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type != 'branded_food'").Scan(&nonBrandedCount)
 	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type != 'branded_food' AND embedding IS NULL").Scan(&unEmbeddedCount)
+	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE embedding IS NULL").Scan(&unEmbeddedTotal)
 
 	if totalCount == 0 {
 		log.Println("usda_foods table is empty. Running initial ingestion...")
 		ingestRawData(ctx, pool, *skipBrandedFlag)
 	} else {
-		log.Printf("Status: usda_foods contains %d records (%d non-branded, %d missing embeddings).", totalCount, nonBrandedCount, unEmbeddedCount)
+		log.Printf("Status: usda_foods contains %d records (%d non-branded, %d non-branded missing embeddings, %d total missing embeddings).", totalCount, nonBrandedCount, unEmbeddedCount, unEmbeddedTotal)
 		log.Println("To re-ingest all datasets: go run cmd/usda/main.go -ingest")
 		log.Println("To re-ingest non-branded only: go run cmd/usda/main.go -ingest -skip-branded")
-		log.Println("To generate embeddings (missing only): go run cmd/usda/main.go -embed")
-		log.Println("To test embedding a small subset: go run cmd/usda/main.go -embed -limit 10")
+		log.Println("To generate embeddings (missing non-branded): go run cmd/usda/main.go -embed")
+		log.Println("To generate embeddings (including branded): go run cmd/usda/main.go -embed -include-branded")
+		log.Println("To test embedding a small subset: go run cmd/usda/main.go -embed -include-branded -limit 10")
 	}
 }

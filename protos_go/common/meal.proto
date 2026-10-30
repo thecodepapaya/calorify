@@ -44,7 +44,7 @@ message MealHealth {
 }
 
 message MealMetadata {
-  optional string image_url        = 1;
+  optional string image_base64     = 1;
   optional string meal_description = 2;
   optional string timestamp        = 3;
   optional string tip              = 4;

@@ -643,8 +643,11 @@ func (*MealIngredient_Pinch) isMealIngredient_Portion() {}
 type Pass1 struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	MealType      *common.MealType       `protobuf:"varint,2,opt,name=meal_type,json=mealType,proto3,enum=common.MealType,oneof" json:"meal_type,omitempty"`
-	Components    []*MealComponent       `protobuf:"bytes,3,rep,name=components,proto3" json:"components,omitempty"`
+	Quantity      string                 `protobuf:"bytes,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	MealType      *common.MealType       `protobuf:"varint,3,opt,name=meal_type,json=mealType,proto3,enum=common.MealType,oneof" json:"meal_type,omitempty"`
+	Components    []*MealComponent       `protobuf:"bytes,4,rep,name=components,proto3" json:"components,omitempty"`
+	Tip           string                 `protobuf:"bytes,5,opt,name=tip,proto3" json:"tip,omitempty"`
+	MealHealth    *common.MealHealth     `protobuf:"bytes,6,opt,name=meal_health,json=mealHealth,proto3" json:"meal_health,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -686,6 +689,13 @@ func (x *Pass1) GetName() string {
 	return ""
 }
 
+func (x *Pass1) GetQuantity() string {
+	if x != nil {
+		return x.Quantity
+	}
+	return ""
+}
+
 func (x *Pass1) GetMealType() common.MealType {
 	if x != nil && x.MealType != nil {
 		return *x.MealType
@@ -696,6 +706,20 @@ func (x *Pass1) GetMealType() common.MealType {
 func (x *Pass1) GetComponents() []*MealComponent {
 	if x != nil {
 		return x.Components
+	}
+	return nil
+}
+
+func (x *Pass1) GetTip() string {
+	if x != nil {
+		return x.Tip
+	}
+	return ""
+}
+
+func (x *Pass1) GetMealHealth() *common.MealHealth {
+	if x != nil {
+		return x.MealHealth
 	}
 	return nil
 }
@@ -910,13 +934,17 @@ const file_server_meal_proto_rawDesc = "" +
 	"\x04bulk\x18\x04 \x01(\v2\x13.server.PortionBulkH\x00R\x04bulk\x12,\n" +
 	"\x05pinch\x18\x05 \x01(\v2\x14.server.PortionPinchH\x00R\x05pinch\x12?\n" +
 	"\x0fingredient_type\x18\x06 \x01(\x0e2\x16.server.IngredientTypeR\x0eingredientTypeB\t\n" +
-	"\aportion\"\x94\x01\n" +
+	"\aportion\"\xf7\x01\n" +
 	"\x05Pass1\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x122\n" +
-	"\tmeal_type\x18\x02 \x01(\x0e2\x10.common.MealTypeH\x00R\bmealType\x88\x01\x01\x125\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1a\n" +
+	"\bquantity\x18\x02 \x01(\tR\bquantity\x122\n" +
+	"\tmeal_type\x18\x03 \x01(\x0e2\x10.common.MealTypeH\x00R\bmealType\x88\x01\x01\x125\n" +
 	"\n" +
-	"components\x18\x03 \x03(\v2\x15.server.MealComponentR\n" +
-	"componentsB\f\n" +
+	"components\x18\x04 \x03(\v2\x15.server.MealComponentR\n" +
+	"components\x12\x10\n" +
+	"\x03tip\x18\x05 \x01(\tR\x03tip\x123\n" +
+	"\vmeal_health\x18\x06 \x01(\v2\x12.common.MealHealthR\n" +
+	"mealHealthB\f\n" +
 	"\n" +
 	"_meal_type\"A\n" +
 	"\x05Pass2\x128\n" +
@@ -1000,7 +1028,8 @@ var file_server_meal_proto_goTypes = []any{
 	(*UsdaEnriched)(nil),       // 11: server.UsdaEnriched
 	(*common.Measurement)(nil), // 12: common.Measurement
 	(common.MealType)(0),       // 13: common.MealType
-	(*common.Macros)(nil),      // 14: common.Macros
+	(*common.MealHealth)(nil),  // 14: common.MealHealth
+	(*common.Macros)(nil),      // 15: common.Macros
 }
 var file_server_meal_proto_depIdxs = []int32{
 	12, // 0: server.PortionExact.per_unit_gram:type_name -> common.Measurement
@@ -1018,16 +1047,17 @@ var file_server_meal_proto_depIdxs = []int32{
 	1,  // 12: server.MealIngredient.ingredient_type:type_name -> server.IngredientType
 	13, // 13: server.Pass1.meal_type:type_name -> common.MealType
 	6,  // 14: server.Pass1.components:type_name -> server.MealComponent
-	7,  // 15: server.Pass2.ingredients:type_name -> server.MealIngredient
-	12, // 16: server.EnrichedIngredient.grams:type_name -> common.Measurement
-	14, // 17: server.EnrichedIngredient.macros:type_name -> common.Macros
-	10, // 18: server.UsdaEnriched.ingredients:type_name -> server.EnrichedIngredient
-	14, // 19: server.UsdaEnriched.total_macros:type_name -> common.Macros
-	20, // [20:20] is the sub-list for method output_type
-	20, // [20:20] is the sub-list for method input_type
-	20, // [20:20] is the sub-list for extension type_name
-	20, // [20:20] is the sub-list for extension extendee
-	0,  // [0:20] is the sub-list for field type_name
+	14, // 15: server.Pass1.meal_health:type_name -> common.MealHealth
+	7,  // 16: server.Pass2.ingredients:type_name -> server.MealIngredient
+	12, // 17: server.EnrichedIngredient.grams:type_name -> common.Measurement
+	15, // 18: server.EnrichedIngredient.macros:type_name -> common.Macros
+	10, // 19: server.UsdaEnriched.ingredients:type_name -> server.EnrichedIngredient
+	15, // 20: server.UsdaEnriched.total_macros:type_name -> common.Macros
+	21, // [21:21] is the sub-list for method output_type
+	21, // [21:21] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_server_meal_proto_init() }

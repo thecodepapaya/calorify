@@ -2,6 +2,7 @@ package analysis
 
 import (
 	"backend/internal/gen_proto/api"
+	"backend/internal/gen_proto/common"
 	"backend/internal/gen_proto/server"
 	"context"
 	"encoding/base64"
@@ -90,7 +91,7 @@ func (s *Service) runPipeline(id string, req *api.MealAnalysisRequest) {
 	}
 	generateClarification()
 	sendClarification()
-	prepareFinalResponse(enriched)
+	s.prepareFinalResponse(ctx, id, req, pass1, enriched)
 }
 
 func validateInput(req *api.MealAnalysisRequest) error {
@@ -240,15 +241,37 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 func generateClarification() {
 	// generate clarification questions
 	// store questions in analysis
+	log.Printf("Skipped clarifications")
+
 }
 
 func sendClarification() {
 	// skipped for now
 	// send question to user
 	// get answers and store in analysis
+	log.Printf("Skipped clarifications response")
 }
 
-func prepareFinalResponse(enriched *server.UsdaEnriched) {
-	// prepare final presentation
-	// store in analysis
+func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1, enriched *server.UsdaEnriched) (*common.Meal, error) {
+	mealTime := time.Now().UTC().Format(time.RFC3339)
+	meal := common.Meal{
+		Name:     pass1.Name,
+		Quantity: pass1.Quantity,
+		Type:     pass1.GetMealType(),
+		Macros:   enriched.TotalMacros,
+		Health:   pass1.MealHealth,
+		Metadata: &common.MealMetadata{
+			ImageBase64:     req.ImageBase64,
+			MealDescription: req.Text,
+			Tip:             &pass1.Tip,
+			Timestamp:       &mealTime,
+		},
+	}
+
+	err := s.SaveFinalResponse(ctx, id, &meal)
+	if err != nil {
+		log.Printf("Failed to save final response to DB %v", err)
+		return nil, err
+	}
+	return &meal, nil
 }

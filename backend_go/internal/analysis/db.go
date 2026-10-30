@@ -1,6 +1,7 @@
 package analysis
 
 import (
+	"backend/internal/gen_proto/common"
 	"backend/internal/gen_proto/server"
 	"context"
 	"log"
@@ -131,4 +132,23 @@ func (s *Service) searchUsda(ctx context.Context, vectorStr string) (*UsdaCandid
 	}
 
 	return rowsData[0], nil
+}
+
+func (s *Service) SaveFinalResponse(ctx context.Context, id string, meal *common.Meal) error {
+	now := time.Now()
+	json, err := protojson.Marshal(meal)
+	if err != nil {
+		return err
+	}
+	const query = `
+	UPDATE meal_analysis 
+	SET final_response = $2, final_response_at = $3, updated_at = $4, status = 'PRESENTED'
+	WHERE id = $1
+	`
+	_, err = s.DB.Exec(ctx, query, id, json, now, now)
+	if err != nil {
+		log.Printf("Failed to update final response in DB: %v", err)
+		return err
+	}
+	return nil
 }

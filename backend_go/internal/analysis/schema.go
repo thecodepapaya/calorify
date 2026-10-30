@@ -33,6 +33,10 @@ var pass1Schema = map[string]any{
 			"type":        "string",
 			"description": "Short, natural display name for the meal",
 		},
+		"quantity": map[string]any{
+			"type":        "string",
+			"description": "Natural language summary of portion size or count (e.g. '1 bowl', '2 slices', '1 plate')",
+		},
 		"meal_type": map[string]any{
 			"type": "string",
 			"enum": []string{
@@ -42,6 +46,30 @@ var pass1Schema = map[string]any{
 				"MEAL_TYPE_DINNER",
 				"MEAL_TYPE_SNACK",
 			},
+		},
+		"tip": map[string]any{
+			"type":        "string",
+			"description": "Concise, actionable nutritional or dietary coaching tip specific to this meal",
+		},
+		"meal_health": map[string]any{
+			"type": "object",
+			"properties": map[string]any{
+				"health_score": map[string]any{
+					"type": "string",
+					"enum": []string{
+						"NEUTRAL",
+						"HEALTHY",
+						"UNHEALTHY",
+					},
+					"description": "Clinical health assessment rating for this meal",
+				},
+				"health_score_reason": map[string]any{
+					"type":        "string",
+					"description": "Short justification for the assigned health rating based on macronutrient balance, processing, and ingredients",
+				},
+			},
+			"required":             []string{"health_score", "health_score_reason"},
+			"additionalProperties": false,
 		},
 		"components": map[string]any{
 			"type": "array",
@@ -132,7 +160,7 @@ var pass1Schema = map[string]any{
 			},
 		},
 	},
-	"required":             []string{"name", "meal_type", "components"},
+	"required":             []string{"name", "quantity", "meal_type", "tip", "meal_health", "components"},
 	"additionalProperties": false,
 }
 
@@ -243,9 +271,17 @@ type ComponentDTO struct {
 	Portion           PortionDTO `json:"portion"`
 }
 
+type MealHealthDTO struct {
+	HealthScore       string `json:"health_score"`
+	HealthScoreReason string `json:"health_score_reason"`
+}
+
 type Pass1DTO struct {
 	Name       string         `json:"name"`
+	Quantity   string         `json:"quantity"`
 	MealType   string         `json:"meal_type"`
+	Tip        string         `json:"tip"`
+	MealHealth MealHealthDTO  `json:"meal_health"`
 	Components []ComponentDTO `json:"components"`
 }
 
@@ -402,6 +438,16 @@ func (d *Pass1DTO) ToProto() *server.Pass1 {
 		mealType = &mt
 	}
 
+	var healthScore common.HealthScore
+	if val, ok := common.HealthScore_value[d.MealHealth.HealthScore]; ok {
+		healthScore = common.HealthScore(val)
+	}
+
+	mealHealth := &common.MealHealth{
+		HealthScore:       &healthScore,
+		HealthScoreReason: &d.MealHealth.HealthScoreReason,
+	}
+
 	components := make([]*server.MealComponent, 0, len(d.Components))
 	for _, c := range d.Components {
 		var prepMethod server.PreparationMethod
@@ -419,9 +465,12 @@ func (d *Pass1DTO) ToProto() *server.Pass1 {
 	}
 
 	return &server.Pass1{
-		Name:       d.Name,
-		MealType:   mealType,
-		Components: components,
+		Name:        d.Name,
+		Quantity:    d.Quantity,
+		MealType:    mealType,
+		Tip:         d.Tip,
+		MealHealth:  mealHealth,
+		Components:  components,
 	}
 }
 

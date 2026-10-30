@@ -367,7 +367,7 @@ func (x *MealHealth) GetHealthScoreReason() string {
 
 type MealMetadata struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
-	ImageUrl        *string                `protobuf:"bytes,1,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
+	ImageBase64     *string                `protobuf:"bytes,1,opt,name=image_base64,json=imageBase64,proto3,oneof" json:"image_base64,omitempty"`
 	MealDescription *string                `protobuf:"bytes,2,opt,name=meal_description,json=mealDescription,proto3,oneof" json:"meal_description,omitempty"`
 	Timestamp       *string                `protobuf:"bytes,3,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
 	Tip             *string                `protobuf:"bytes,4,opt,name=tip,proto3,oneof" json:"tip,omitempty"`
@@ -405,9 +405,9 @@ func (*MealMetadata) Descriptor() ([]byte, []int) {
 	return file_common_meal_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *MealMetadata) GetImageUrl() string {
-	if x != nil && x.ImageUrl != nil {
-		return *x.ImageUrl
+func (x *MealMetadata) GetImageBase64() string {
+	if x != nil && x.ImageBase64 != nil {
+		return *x.ImageBase64
 	}
 	return ""
 }
@@ -537,14 +537,13 @@ const file_common_meal_proto_rawDesc = "" +
 	"\fhealth_score\x18\x01 \x01(\x0e2\x13.common.HealthScoreH\x00R\vhealthScore\x88\x01\x01\x123\n" +
 	"\x13health_score_reason\x18\x02 \x01(\tH\x01R\x11healthScoreReason\x88\x01\x01B\x0f\n" +
 	"\r_health_scoreB\x16\n" +
-	"\x14_health_score_reason\"\xd3\x01\n" +
-	"\fMealMetadata\x12 \n" +
-	"\timage_url\x18\x01 \x01(\tH\x00R\bimageUrl\x88\x01\x01\x12.\n" +
+	"\x14_health_score_reason\"\xdc\x01\n" +
+	"\fMealMetadata\x12&\n" +
+	"\fimage_base64\x18\x01 \x01(\tH\x00R\vimageBase64\x88\x01\x01\x12.\n" +
 	"\x10meal_description\x18\x02 \x01(\tH\x01R\x0fmealDescription\x88\x01\x01\x12!\n" +
 	"\ttimestamp\x18\x03 \x01(\tH\x02R\ttimestamp\x88\x01\x01\x12\x15\n" +
-	"\x03tip\x18\x04 \x01(\tH\x03R\x03tip\x88\x01\x01B\f\n" +
-	"\n" +
-	"_image_urlB\x13\n" +
+	"\x03tip\x18\x04 \x01(\tH\x03R\x03tip\x88\x01\x01B\x0f\n" +
+	"\r_image_base64B\x13\n" +
 	"\x11_meal_descriptionB\f\n" +
 	"\n" +
 	"_timestampB\x06\n" +
