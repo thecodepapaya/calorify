@@ -1,6 +1,7 @@
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:models/models.dart';
+import 'package:models/protos_go.dart' as pgo;
 
 class ProfileRepository {
   ProfileRepository({
@@ -8,11 +9,75 @@ class ProfileRepository {
     required NetworkClient networkClient,
   }) : _database = database,
        _uploadProfile = ((profile) async {
-         await networkClient.apiCall<UserProfile, ApiResult>(
-           '/api/v1/user/profile',
-           ApiResult.new,
-           request: profile,
-           method: ProtoHttpMethod.put,
+         final healthData = pgo.HealthData();
+         if (profile.hasHeight()) {
+           healthData.height = pgo.Height(
+             value: profile.height,
+             unit:
+                 profile.heightUnit == UnitSystem.IMPERIAL
+                     ? pgo.HeightUnit.FT
+                     : pgo.HeightUnit.CM,
+           );
+         }
+         if (profile.hasWeight()) {
+           healthData.weight = pgo.Weight(
+             value: profile.weight,
+             unit:
+                 profile.weightUnit == UnitSystem.IMPERIAL
+                     ? pgo.WeightUnit.LB
+                     : pgo.WeightUnit.KG,
+           );
+         }
+         if (profile.hasTargetWeight()) {
+           healthData.targetWeight = pgo.Weight(
+             value: profile.targetWeight,
+             unit:
+                 profile.weightUnit == UnitSystem.IMPERIAL
+                     ? pgo.WeightUnit.LB
+                     : pgo.WeightUnit.KG,
+           );
+         }
+         if (profile.hasGender()) {
+           healthData.gender = switch (profile.gender) {
+             Gender.MALE => pgo.Gender.MALE,
+             Gender.FEMALE => pgo.Gender.FEMALE,
+             _ => pgo.Gender.OTHER,
+           };
+         }
+         if (profile.hasDateOfBirth()) {
+           healthData.dateOfBirth = profile.dateOfBirth;
+         }
+         if (profile.hasWeightGoal()) {
+           healthData.weightGoal = switch (profile.weightGoal) {
+             WeightGoal.LOSE_WEIGHT => pgo.WeightGoal.LOSE_WEIGHT,
+             WeightGoal.MAINTAIN_WEIGHT => pgo.WeightGoal.MAINTAIN_WEIGHT,
+             WeightGoal.GAIN_WEIGHT => pgo.WeightGoal.GAIN_WEIGHT,
+             _ => pgo.WeightGoal.MAINTAIN_WEIGHT,
+           };
+         }
+         if (profile.hasActivityLevel()) {
+           healthData.activityLevel = switch (profile.activityLevel) {
+             ActivityLevel.SEDENTARY => pgo.ActivityLevel.SEDENTARY,
+             ActivityLevel.LIGHTLY_ACTIVE => pgo.ActivityLevel.LIGHTLY_ACTIVE,
+             ActivityLevel.MODERATELY_ACTIVE =>
+               pgo.ActivityLevel.MODERATELY_ACTIVE,
+             ActivityLevel.VERY_ACTIVE => pgo.ActivityLevel.VERY_ACTIVE,
+             ActivityLevel.EXTREMELY_ACTIVE =>
+               pgo.ActivityLevel.EXTREMELY_ACTIVE,
+             _ => pgo.ActivityLevel.SEDENTARY,
+           };
+         }
+         if (profile.hasDailyCalorieGoal()) {
+           healthData.dailyMacroGoal = pgo.Macros(
+             calorie: pgo.Measurement(value: profile.dailyCalorieGoal),
+           );
+         }
+
+         await networkClient.apiCall<pgo.HealthDataRequest, pgo.Empty>(
+           '/users/health-data',
+           pgo.Empty.new,
+           request: pgo.HealthDataRequest(healthData: healthData),
+           method: ProtoHttpMethod.post,
          );
        });
 

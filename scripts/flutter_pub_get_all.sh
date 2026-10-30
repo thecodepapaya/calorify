@@ -3,7 +3,6 @@
 # Source common utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/common.sh"
-source "$SCRIPT_DIR/project_utils.sh"
 
 # Store original directory
 store_original_dir

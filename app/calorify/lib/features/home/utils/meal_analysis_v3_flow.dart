@@ -102,7 +102,10 @@ Future<bool> showMealAnalysisV3Flow({
             ),
             imageBytes: imageBytes,
             v3Result: result,
-            v3AnalysisId: analysisId,
+            v3AnalysisId:
+                terminal.analysisId.isNotEmpty
+                    ? terminal.analysisId
+                    : analysisId,
           );
           return true;
         case MealAnalysisV3EventKind.noFood:

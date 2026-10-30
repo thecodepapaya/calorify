@@ -185,12 +185,23 @@ verify_proto_files() {
 generate_dart_code() {
   print_step "6" "Generating Dart code"
   build_include_flags
+
+  local well_known_protos=()
+  for candidate in /opt/homebrew/include /usr/local/include /usr/include; do
+    if [ -f "${candidate}/google/protobuf/timestamp.proto" ]; then
+      well_known_protos=(
+        "${candidate}/google/protobuf/timestamp.proto"
+        "${candidate}/google/protobuf/any.proto"
+      )
+      break
+    fi
+  done
   
   # Run protoc and filter out dependency resolution messages that appear in stdout
   # when the snapshot is being regenerated
   local protoc_output
   local protoc_exit=0
-  protoc_output=$(protoc "${INCLUDE_FLAGS[@]}" --dart_out="${DART_STAGE}" "${PROTO_FILES[@]}" 2>&1) || protoc_exit=$?
+  protoc_output=$(protoc "${INCLUDE_FLAGS[@]}" --dart_out="${DART_STAGE}" "${PROTO_FILES[@]}" "${well_known_protos[@]}" 2>&1) || protoc_exit=$?
   
   # Filter out known dependency messages that appear in the output
   local filtered_output=$(echo "${protoc_output}" | grep -v -E "^(Resolving dependencies|Downloading packages|No dependencies would change|Writing.*to text file|MSG.*Logs written)" || true)
@@ -300,7 +311,20 @@ install_generated_code() {
     installed=$((installed + 1))
   done
 
+  if [ -d "${DART_STAGE}/google" ]; then
+    rm -rf "${DART_OUT}/google"
+    cp -R "${DART_STAGE}/google" "${DART_OUT}/google"
+  fi
+
   print_success "Generated code installed"
+}
+
+generate_go_code() {
+  if [ -d "${ROOT_DIR}/backend_go" ]; then
+    print_step "7.5" "Generating Go code"
+    (cd "${ROOT_DIR}/backend_go" && make proto)
+    print_success "Go code generated"
+  fi
 }
 
 rollback_generated_install() {
@@ -345,6 +369,7 @@ main() {
   generate_dart_code
   generate_typescript_code
   install_generated_code
+  generate_go_code
   
   print_separator
   print_summary_all_success "Protobuf generation complete!"

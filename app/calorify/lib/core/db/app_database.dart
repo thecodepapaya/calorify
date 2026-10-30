@@ -63,12 +63,8 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final DataSourceType _dataSourceType;
   final bool _seedDevelopmentData;
 
-  // The schema was squashed into this baseline on 2026-09-09 by collapsing the
-  // previous 29-step migration ladder. Databases from before the squash are
-  // wiped and rebuilt; see the onUpgrade handler below. v2 adds the preserved
-  // V3 server response column.
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 1;
 
   @override
   MigrationStrategy get migration {
@@ -78,18 +74,8 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         if (_seedDevelopmentData) await _seedMockData();
       },
       onUpgrade: (m, from, to) async {
-        // The pre-squash migration ladder was collapsed into the v1
-        // baseline. A database from any earlier schema version is wiped and
-        // rebuilt from the baseline; its local history is not carried over.
-        // A database already at version 1 is either a baseline database or a
-        // pre-release database from before the ladder's first step existed.
-        if (from > 1) {
-          await _dropAllEntities();
-          await m.createAll();
-        }
-        if (from < 2) {
-          await m.addColumn(mealInfoTable, mealInfoTable.v3ResultJson);
-        }
+        await _dropAllEntities();
+        await m.createAll();
       },
     );
   }

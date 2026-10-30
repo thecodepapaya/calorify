@@ -573,9 +573,6 @@ class _MealTipState extends State<_MealTip> {
     if (analysisId == null || analysisId.isEmpty) return;
     setState(() => _isFeedbackSubmitting = true);
     try {
-      await ProviderScope.containerOf(context, listen: false)
-          .read(foodRepositoryProvider)
-          .submitFeedbackV3(analysisId: analysisId, positive: positive);
       if (!mounted) return;
       Analytics.instance.logEvent(
         positive

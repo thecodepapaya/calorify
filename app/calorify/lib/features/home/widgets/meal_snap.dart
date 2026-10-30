@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -251,12 +252,12 @@ class _MealSnapState extends State<MealSnap> {
       _isUploadingImage = false;
     });
 
-    // Compress image using shared service
+    // Compress image using shared service for backend_go
     Uint8List compressedImageByte;
     try {
       if (!mounted) return;
       compressedImageByte = await ImageCompressionService.instance
-          .compressImage(image);
+          .compressMealImage(image);
       if (!mounted) return;
     } on MealImageTooLargeException {
       if (!mounted) return;
@@ -270,62 +271,34 @@ class _MealSnapState extends State<MealSnap> {
       return;
     }
 
-    // Save compressed image to temporary file for API call
-    final tempDir = Directory.systemTemp;
-    final compressedFile = File(
-      '${tempDir.path}/meal_snap_${DateTime.now().millisecondsSinceEpoch}.webp',
-    );
     try {
-      await compressedFile.writeAsBytes(compressedImageByte);
-
-      try {
-        final repository = container.read(foodRepositoryProvider);
-        setState(() => _isUploadingImage = true);
-        final upload = await repository.uploadMealImageV3(compressedFile);
-        if (!mounted) return;
-        await showMealAnalysisV3Flow(
-          context: context,
-          start:
-              (analysisId, requestContext, cancellation) =>
-                  repository.analyzeImageV3(
-                    analysisId: analysisId,
-                    imageId: upload.imageId,
-                    imageOrigin: imageOrigin,
-                    context: requestContext,
-                    cancellation: cancellation,
-                  ),
-          imageBytes: compressedImageByte,
-        );
-      } on MealImageTooLargeException {
-        Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
-        if (!mounted) return;
-        showFlushbar(t.meal.imageTooLarge, context: context);
-        return;
-      } on Exception catch (e) {
-        Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
-        if (!mounted) return;
-        showFlushbar(t.meal.failedToProcessImage(error: e), context: context);
-        return;
-      } finally {
-        // Clean up temp file
-        try {
-          await compressedFile.delete();
-        } catch (e) {
-          // Ignore cleanup errors
-        }
-        _reset();
-      }
-
+      final repository = container.read(foodRepositoryProvider);
+      final base64Image = base64Encode(compressedImageByte);
       if (!mounted) return;
-    } catch (e) {
-      // Clean up temp file on error
-      try {
-        await compressedFile.delete();
-      } catch (deleteError) {
-        // Ignore cleanup errors
-      }
+      await showMealAnalysisV3Flow(
+        context: context,
+        start:
+            (analysisId, requestContext, cancellation) =>
+                repository.analyzeImageV3(
+                  analysisId: analysisId,
+                  imageBase64: base64Image,
+                  imageOrigin: imageOrigin,
+                  context: requestContext,
+                  cancellation: cancellation,
+                ),
+        imageBytes: compressedImageByte,
+      );
+    } on MealImageTooLargeException {
+      Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
+      if (!mounted) return;
+      showFlushbar(t.meal.imageTooLarge, context: context);
+      return;
+    } on Exception catch (e) {
+      Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
       if (!mounted) return;
       showFlushbar(t.meal.failedToProcessImage(error: e), context: context);
+      return;
+    } finally {
       _reset();
     }
   }

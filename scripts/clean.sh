@@ -3,7 +3,6 @@
 # Source common utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/common.sh"
-source "$SCRIPT_DIR/project_utils.sh"
 
 # Store original directory
 store_original_dir
@@ -67,106 +66,24 @@ clean_flutter_artifacts() {
 }
 
 # ============================================================================
-# Clean Python Build Artifacts
+# Clean Go Build Artifacts
 # ============================================================================
 
-clean_python_artifacts() {
-    local project_dir="$1"
-    local project_path="$GIT_ROOT/$project_dir"
-    
+clean_backend_go_artifacts() {
+    local project_path="$GIT_ROOT/backend_go"
     if [ ! -d "$project_path" ]; then
         return 0
     fi
-    
-    print_step "2" "Cleaning Python artifacts in $project_dir"
-    
-    cd "$project_path" || return 1
-    
-    # __pycache__ directories
-    while IFS= read -r -d '' dir; do
-        if rm -rf "$dir" 2>/dev/null; then
-            CLEANED_ITEMS+=("$project_dir/$dir")
-            print_subitem "Removed $dir"
+
+    print_step "2" "Cleaning Go build artifacts in backend_go"
+    if [ -d "$project_path/bin" ]; then
+        if rm -rf "$project_path/bin" 2>/dev/null; then
+            CLEANED_ITEMS+=("backend_go/bin/")
+            print_subitem "Removed bin/ directory"
         else
-            FAILED_ITEMS+=("$project_dir/$dir")
-        fi
-    done < <(find . -type d -name "__pycache__" -print0 2>/dev/null)
-    
-    # .pyc and .pyo files
-    while IFS= read -r -d '' file; do
-        if rm -f "$file" 2>/dev/null; then
-            CLEANED_ITEMS+=("$project_dir/$file")
-            print_subitem "Removed $file"
-        else
-            FAILED_ITEMS+=("$project_dir/$file")
-        fi
-    done < <(find . -type f \( -name "*.pyc" -o -name "*.pyo" \) -print0 2>/dev/null)
-    
-    # .pytest_cache
-    if [ -d ".pytest_cache" ]; then
-        if rm -rf ".pytest_cache" 2>/dev/null; then
-            CLEANED_ITEMS+=("$project_dir/.pytest_cache/")
-            print_subitem "Removed .pytest_cache/ directory"
-        else
-            FAILED_ITEMS+=("$project_dir/.pytest_cache/")
+            FAILED_ITEMS+=("backend_go/bin/")
         fi
     fi
-    
-    # .mypy_cache
-    if [ -d ".mypy_cache" ]; then
-        if rm -rf ".mypy_cache" 2>/dev/null; then
-            CLEANED_ITEMS+=("$project_dir/.mypy_cache/")
-            print_subitem "Removed .mypy_cache/ directory"
-        else
-            FAILED_ITEMS+=("$project_dir/.mypy_cache/")
-        fi
-    fi
-    
-    # .coverage and coverage.xml
-    for file in ".coverage" "coverage.xml" "htmlcov"; do
-        if [ -e "$file" ]; then
-            if rm -rf "$file" 2>/dev/null; then
-                CLEANED_ITEMS+=("$project_dir/$file")
-                print_subitem "Removed $file"
-            else
-                FAILED_ITEMS+=("$project_dir/$file")
-            fi
-        fi
-    done
-    
-    # dist/ and build/ directories (setuptools)
-    for dir in "dist" "build"; do
-        if [ -d "$dir" ]; then
-            if rm -rf "$dir" 2>/dev/null; then
-                CLEANED_ITEMS+=("$project_dir/$dir/")
-                print_subitem "Removed $dir/ directory"
-            else
-                FAILED_ITEMS+=("$project_dir/$dir/")
-            fi
-        fi
-    done
-    
-    # .egg-info directories
-    while IFS= read -r -d '' dir; do
-        if rm -rf "$dir" 2>/dev/null; then
-            CLEANED_ITEMS+=("$project_dir/$dir")
-            print_subitem "Removed $dir"
-        else
-            FAILED_ITEMS+=("$project_dir/$dir")
-        fi
-    done < <(find . -type d -name "*.egg-info" -print0 2>/dev/null)
-    
-    # .tox directory (if exists)
-    if [ -d ".tox" ]; then
-        if rm -rf ".tox" 2>/dev/null; then
-            CLEANED_ITEMS+=("$project_dir/.tox/")
-            print_subitem "Removed .tox/ directory"
-        else
-            FAILED_ITEMS+=("$project_dir/.tox/")
-        fi
-    fi
-    
-    cd "$GIT_ROOT" || return 1
     return 0
 }
 
@@ -196,10 +113,8 @@ else
     print_warning "No Flutter projects found"
 fi
 
-# Clean Python artifacts in backend directory
-if [ -d "$GIT_ROOT/backend" ]; then
-    clean_python_artifacts "backend"
-fi
+# Clean Go artifacts in backend_go
+clean_backend_go_artifacts
 
 # Summary
 print_summary_header

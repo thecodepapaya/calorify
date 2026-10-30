@@ -19,14 +19,14 @@ const LoggedMeal$json = {
   '1': 'LoggedMeal',
   '2': [
     {'1': 'client_id', '3': 1, '4': 1, '5': 5, '10': 'clientId'},
-    {'1': 'meal', '3': 2, '4': 1, '5': 11, '6': '.meal.Meal', '10': 'meal'},
+    {'1': 'meal', '3': 2, '4': 1, '5': 11, '6': '.common.Meal', '10': 'meal'},
     {'1': 'created_at', '3': 3, '4': 1, '5': 9, '10': 'createdAt'},
     {
       '1': 'metadata',
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.calorify.MealMetadata',
+      '6': '.common.MealMetadata',
       '9': 0,
       '10': 'metadata',
       '17': true
@@ -39,9 +39,9 @@ const LoggedMeal$json = {
 
 /// Descriptor for `LoggedMeal`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List loggedMealDescriptor = $convert.base64Decode(
-    'CgpMb2dnZWRNZWFsEhsKCWNsaWVudF9pZBgBIAEoBVIIY2xpZW50SWQSHgoEbWVhbBgCIAEoCz'
-    'IKLm1lYWwuTWVhbFIEbWVhbBIdCgpjcmVhdGVkX2F0GAMgASgJUgljcmVhdGVkQXQSNwoIbWV0'
-    'YWRhdGEYBCABKAsyFi5jYWxvcmlmeS5NZWFsTWV0YWRhdGFIAFIIbWV0YWRhdGGIAQFCCwoJX2'
+    'CgpMb2dnZWRNZWFsEhsKCWNsaWVudF9pZBgBIAEoBVIIY2xpZW50SWQSIAoEbWVhbBgCIAEoCz'
+    'IMLmNvbW1vbi5NZWFsUgRtZWFsEh0KCmNyZWF0ZWRfYXQYAyABKAlSCWNyZWF0ZWRBdBI1Cght'
+    'ZXRhZGF0YRgEIAEoCzIULmNvbW1vbi5NZWFsTWV0YWRhdGFIAFIIbWV0YWRhdGGIAQFCCwoJX2'
     '1ldGFkYXRh');
 
 @$core.Deprecated('Use favoriteMealDescriptor instead')

@@ -14,8 +14,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../calorify/meal_detection.pb.dart' as $1;
-import '../meal/meal.pb.dart' as $0;
+import '../common/meal.pb.dart' as $0;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
@@ -24,7 +23,7 @@ class LoggedMeal extends $pb.GeneratedMessage {
     $core.int? clientId,
     $0.Meal? meal,
     $core.String? createdAt,
-    $1.MealMetadata? metadata,
+    $0.MealMetadata? metadata,
   }) {
     final result = create();
     if (clientId != null) result.clientId = clientId;
@@ -50,8 +49,8 @@ class LoggedMeal extends $pb.GeneratedMessage {
     ..aI(1, _omitFieldNames ? '' : 'clientId')
     ..aOM<$0.Meal>(2, _omitFieldNames ? '' : 'meal', subBuilder: $0.Meal.create)
     ..aOS(3, _omitFieldNames ? '' : 'createdAt')
-    ..aOM<$1.MealMetadata>(4, _omitFieldNames ? '' : 'metadata',
-        subBuilder: $1.MealMetadata.create)
+    ..aOM<$0.MealMetadata>(4, _omitFieldNames ? '' : 'metadata',
+        subBuilder: $0.MealMetadata.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -102,15 +101,15 @@ class LoggedMeal extends $pb.GeneratedMessage {
   void clearCreatedAt() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $1.MealMetadata get metadata => $_getN(3);
+  $0.MealMetadata get metadata => $_getN(3);
   @$pb.TagNumber(4)
-  set metadata($1.MealMetadata value) => $_setField(4, value);
+  set metadata($0.MealMetadata value) => $_setField(4, value);
   @$pb.TagNumber(4)
   $core.bool hasMetadata() => $_has(3);
   @$pb.TagNumber(4)
   void clearMetadata() => $_clearField(4);
   @$pb.TagNumber(4)
-  $1.MealMetadata ensureMetadata() => $_ensure(3);
+  $0.MealMetadata ensureMetadata() => $_ensure(3);
 }
 
 class FavoriteMeal extends $pb.GeneratedMessage {

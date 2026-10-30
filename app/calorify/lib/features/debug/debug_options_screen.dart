@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -755,12 +756,12 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         'Choose, compress, and upload a gallery image without starting analysis',
       ),
       (
-        'Test Analyze Image (V3)',
-        'Upload + POST /api/v3/food/analyze-image (NDJSON) → questions → tip / log',
+        'Test Analyze Image',
+        'POST /users/meals/analysis (base64) → poll status → tip / log',
       ),
       (
-        'Test meal logging with clarifications',
-        'POST /api/v3/food/analyze-text (NDJSON) → questions → tip / log',
+        'Test meal analysis',
+        'POST /users/meals/analysis (text) → poll status → tip / log',
       ),
     ];
     final items = <Widget>[
@@ -774,25 +775,25 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       ),
       ListTile(
         leading: const Icon(AppIcons.upload),
-        title: const Text('Test image upload'),
+        title: const Text('Test image analysis initiation'),
         subtitle: const Text(
-          'Choose, compress, and upload a gallery image without starting analysis',
+          'Choose, compress (<200 KiB), and submit to /users/meals/analysis',
         ),
         onTap: _testImageUpload,
       ),
       ListTile(
         leading: const Icon(AppIcons.scanSearch),
-        title: const Text('Test Analyze Image (V3)'),
+        title: const Text('Test Analyze Image'),
         subtitle: const Text(
-          'Upload + POST /api/v3/food/analyze-image (NDJSON) → questions → tip / log',
+          'POST /users/meals/analysis (base64) → poll status → tip / log',
         ),
         onTap: _testAnalyzeImageV3,
       ),
       ListTile(
         leading: const Icon(AppIcons.route),
-        title: const Text('Test meal logging with clarifications'),
+        title: const Text('Test meal analysis'),
         subtitle: const Text(
-          'POST /api/v3/food/analyze-text (NDJSON) → questions → tip / log',
+          'POST /users/meals/analysis (text) → poll status → tip / log',
         ),
         onTap: _testMealLoggingWithClarificationsV3,
       ),
@@ -833,38 +834,29 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
   }
 
   Future<void> _testImageUpload() async {
-    File? compressedFile;
     try {
       final image = await ImagePickerService().pickImageFromGallery();
       if (image == null) return;
 
-      _showSnackbar('Compressing image...');
+      _showSnackbar('Compressing image (< 200 KiB)...');
       final compressedBytes = await ImageCompressionService.instance
-          .compressImage(image);
-      compressedFile = File(
-        '${Directory.systemTemp.path}/debug_upload_${DateTime.now().millisecondsSinceEpoch}.webp',
-      );
-      await compressedFile.writeAsBytes(compressedBytes);
+          .compressMealImage(File(image.path));
 
       if (!mounted) return;
-      _showSnackbar('Uploading compressed image...');
-      final upload = await FoodRepository().uploadMealImageV3(compressedFile);
+      _showSnackbar('Initiating analysis with image via /users/meals/analysis...');
+      final response = await FoodRepository().initiateMealAnalysis(
+        imageBase64: base64Encode(compressedBytes),
+      );
       if (!mounted) return;
 
       _showDataDialog(
-        'Image upload succeeded',
-        'Uploaded: ${_formatBytes(compressedBytes.length)}\n'
-            'Opaque image ID received: ${upload.imageId.isNotEmpty ? 'yes' : 'no'}',
+        'Meal analysis initiated',
+        'Image size: ${_formatBytes(compressedBytes.length)}\n'
+            'Analysis ID: ${response.analysisId}',
       );
     } catch (error) {
       if (!mounted) return;
-      _showSnackbar('Image upload failed: $error');
-    } finally {
-      if (compressedFile != null) {
-        try {
-          await compressedFile.delete();
-        } catch (_) {}
-      }
+      _showSnackbar('Meal analysis initiation failed: $error');
     }
   }
 
@@ -922,18 +914,20 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     try {
       _showSnackbar('Testing profile API...');
 
-      // Call profile API directly so we can show success/error (repository swallows exceptions)
+      // Call profile health-data API on backend_go
       final response = await NetworkClient.instance.client
           .post<Map<String, dynamic>>(
-            '/api/v1/user/profile',
+            '/users/health-data',
             data: <String, dynamic>{
-              'height': 175,
-              'weight': 70,
-              'targetWeight': 68,
-              'gender': 'MALE',
-              'dailyCalorieGoal': 2000,
-              'heightUnit': 'METRIC',
-              'weightUnit': 'METRIC',
+              'healthData': {
+                'height': {'value': 175.0, 'unit': 'CM'},
+                'weight': {'value': 70.0, 'unit': 'KG'},
+                'targetWeight': {'value': 68.0, 'unit': 'KG'},
+                'gender': 'MALE',
+                'dailyMacroGoal': {
+                  'calorie': {'value': 2000},
+                },
+              },
             },
           );
 
@@ -958,7 +952,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
   /// Full V3 text pipeline, including atomic question bundles and logging.
   Future<void> _testMealLoggingWithClarificationsV3() async {
     try {
-      _showSnackbar('Streaming POST /api/v3/food/analyze-text ...');
+      _showSnackbar('Triggering POST /users/meals/analysis ...');
       const testText =
           'I had a bowl with rice, curry, and a white side dish — portion was medium.';
       await showRoutedTextMealAnalysisFlow(

@@ -5,8 +5,7 @@
 // source: protos/app/meal.proto
 
 /* eslint-disable */
-import type { MealMetadata } from "../calorify/meal_detection";
-import type { Meal } from "../meal/meal";
+import type { Meal, MealMetadata } from "../common/meal";
 
 export const protobufPackage = "app";
 

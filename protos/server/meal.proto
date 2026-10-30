@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package server;
+import "protos/common/meal.proto";
+option go_package = "backend/internal/gen_proto/server";
+
+enum Origin{
+  MODEL_INFERRED     = 0;
+  USER_STATED        = 1;
+  USER_CLARIFICATION = 2;
+}
+
+message PortionExact{
+  int32              value         = 1;
+  common.Measurement per_unit_gram = 2;
+  Origin             origin        = 3;
+}
+
+message PortionBulk{
+  common.Measurement value  = 1;
+  Origin             origin = 2;
+}
+
+message PortionPinch{
+  int32  value  = 1;
+  Origin origin = 2;
+
+}
+
+enum IngredientType{
+  BASE    = 0;
+  BRANDED = 1;
+}
+
+enum PreparationMethod {
+  UNKNOWN = 0;
+
+  // Raw
+  RAW = 1;
+
+  // Moist Heat
+  BOILED          = 2;
+  SIMMERED        = 3;
+  STEAMED         = 4;
+  PRESSURE_COOKED = 5;
+  POACHED         = 6;
+
+  // Dry Heat
+  BAKED   = 7;
+  ROASTED = 8;
+  GRILLED = 9;
+  TOASTED = 10;
+
+  // Fat-Based Heat
+  SAUTEED       = 11;
+  STIR_FRIED    = 12;
+  SHALLOW_FRIED = 13;
+  DEEP_FRIED    = 14;
+
+  // Mechanical & Processing
+  BLENDED   = 15;
+  JUICED    = 16;
+  FERMENTED = 17;
+  PICKLED   = 18;
+  DRIED     = 19;
+  SMOKED    = 20;
+
+  // Fallbacks
+  COOKED_UNKNOWN = 21;
+  OTHER          = 22;
+}
+
+message MealComponent{
+  string          name  = 1;
+  repeated string alias = 2;
+  oneof portion{
+    PortionExact exact = 3;
+    PortionBulk  bulk  = 4;
+    PortionPinch pinch = 5;
+  }
+  PreparationMethod preparation_method = 6;
+}
+
+message MealIngredient{
+  string          name  = 1;
+  repeated string alias = 2;
+  oneof portion{
+    PortionExact exact = 3;
+    PortionBulk  bulk  = 4;
+    PortionPinch pinch = 5;
+  }
+  IngredientType ingredient_type = 6;
+}
+
+message Pass1{
+  string                   name        = 1;
+  string                   quantity    = 2;
+  optional common.MealType meal_type   = 3;
+  repeated MealComponent   components  = 4;
+  string                   tip         = 5;
+  common.MealHealth        meal_health = 6;
+}
+
+message Pass2{
+  repeated MealIngredient ingredients = 1;
+}
+
+message EnrichedIngredient {
+  string             name        = 1;
+  int64              fdc_id      = 2;
+  string             description = 3;
+  float              similarity  = 4;
+  common.Measurement grams       = 5;
+  common.Macros      macros      = 6;
+}
+
+message UsdaEnriched {
+  repeated EnrichedIngredient ingredients  = 1;
+  common.Macros               total_macros = 2;
+}

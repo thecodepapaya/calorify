@@ -152,7 +152,7 @@ void main() {
     expect(remote.updates, isEmpty);
   });
 
-  test('network profile sync uses full-replacement PUT semantics', () async {
+  test('network profile sync uses POST /users/health-data', () async {
     final adapter = _RecordingAdapter();
     final dio = Dio(BaseOptions(baseUrl: 'https://api.example.test'))
       ..httpClientAdapter = adapter;
@@ -169,12 +169,9 @@ void main() {
 
     await repository.syncPendingProfile();
 
-    expect(adapter.lastRequest?.method, 'PUT');
-    expect(adapter.lastRequest?.path, '/api/v1/user/profile');
-    expect(adapter.lastRequest?.data, {
-      'weight': 70.0,
-      'dailyCalorieGoal': 2100,
-    });
+    expect(adapter.lastRequest?.method, 'POST');
+    expect(adapter.lastRequest?.path, '/users/health-data');
+    expect(adapter.lastRequest?.data, containsPair('healthData', isA<Map>()));
   });
 
   test('normalizes legacy dateOfBirth timestamps only for upload', () async {

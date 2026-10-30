@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/network/firebase_performance_interceptor.dart';
-import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/network/rate_limit_exception.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
@@ -16,7 +14,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:protobuf/protobuf.dart';
 
-enum ProtoHttpMethod { get, post, put }
+enum ProtoHttpMethod { get, post, put, delete }
 
 class NetworkClient {
   NetworkClient._(this._dio);
@@ -149,48 +147,11 @@ class NetworkClient {
         endpoint,
         data: request?.toProto3Json(),
       ),
-    };
-    return parseResponse()..mergeFromProto3Json(response.data!);
-  }
-
-  Future<Stream<T>> streamPost<T>(
-    String endpoint,
-    T Function(Map<String, dynamic>) parseEvent, {
-    required Object data,
-    Duration? receiveTimeout,
-    NetworkRequestCancellation? cancellation,
-  }) async {
-    final payload = data is GeneratedMessage ? data.toProto3Json() : data;
-    final response = await _dio.post<ResponseBody>(
-      endpoint,
-      data: payload,
-      options: Options(
-        responseType: ResponseType.stream,
-        headers: {'Accept': 'application/x-ndjson'},
-        receiveTimeout: receiveTimeout ?? const Duration(minutes: 1),
+      ProtoHttpMethod.delete => await _dio.delete<Map<String, dynamic>>(
+        endpoint,
+        data: request?.toProto3Json(),
       ),
-      cancelToken: cancellation?.cancelToken,
-    );
-
-    final responseBody = response.data;
-    if (responseBody == null) {
-      throw DioException(
-        requestOptions: response.requestOptions,
-        message: 'Empty streamed response',
-      );
-    }
-
-    return utf8.decoder
-        .bind(responseBody.stream)
-        .transform(const LineSplitter())
-        .where((line) => line.trim().isNotEmpty)
-        .map((line) => jsonDecode(line) as Map<String, dynamic>)
-        .map((event) {
-          if (kDebugMode || EnvConfig.instance.usesStagingIdentity) {
-            debugPrint('[stream:$endpoint] step=${event['step'] ?? 'unknown'}');
-          }
-          return event;
-        })
-        .map(parseEvent);
+    };
+    return parseResponse()..mergeFromProto3Json(response.data ?? const {});
   }
 }

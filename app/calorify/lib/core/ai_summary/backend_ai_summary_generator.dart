@@ -25,7 +25,7 @@ class BackendAiSummaryGenerator implements AiSummaryGenerator {
     }
     try {
       final response = await _networkClient.client.post<Map<String, dynamic>>(
-        '/api/v1/food/ai-summary/generate',
+        '/users/ai-summary/generate',
         data: snapshot.toJson(),
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );

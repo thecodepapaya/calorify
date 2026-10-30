@@ -50,14 +50,14 @@ class MealLogSyncService {
             if (meal == null || loggedAt == null) {
               throw StateError('Meal log upsert is missing its snapshot');
             }
-            await _foodRepository.confirmMealLogV3(
+            await _foodRepository.logMeal(
               analysisId: operation.analysisId,
               meal: meal,
               loggedAt: loggedAt,
             );
           case MealLogSyncOperation.delete:
-            await _foodRepository.deleteMealLogV3(
-              analysisId: operation.analysisId,
+            await _foodRepository.deleteMeal(
+              mealId: operation.analysisId,
             );
         }
         await _database.markMealLogSyncCompleted(

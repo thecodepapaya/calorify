@@ -6,6 +6,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 const imageCompressionTargetDimension = 1536;
 const maxMealImageUploadBytes = 1024 * 1024;
+const maxBackendMealImageBytes = 200 * 1024;
 
 class ImageCompressionException implements Exception {
   const ImageCompressionException(this.message);
@@ -123,6 +124,38 @@ class ImageCompressionService {
       );
       throw ImageCompressionException(e.toString());
     }
+  }
+
+  /// Compress an image file specifically for meal analysis, ensuring output is
+  /// WebP and under [maxBackendMealImageBytes] (200 KiB limit for backend_go).
+  Future<Uint8List> compressMealImage(File image) async {
+    try {
+      final compressed = await FlutterImageCompress.compressWithFile(
+        image.path,
+        quality: 75,
+        format: CompressFormat.webp,
+        minWidth: 1024,
+        minHeight: 1024,
+      );
+      if (compressed != null &&
+          hasWebpSignature(compressed) &&
+          compressed.length <= maxBackendMealImageBytes) {
+        return compressed;
+      }
+    } catch (_) {}
+
+    final fallback = await FlutterImageCompress.compressWithFile(
+      image.path,
+      quality: 60,
+      format: CompressFormat.webp,
+      minWidth: 800,
+      minHeight: 800,
+    );
+    final webp = requireWebpCompressionOutput(fallback);
+    if (webp.length > maxBackendMealImageBytes) {
+      throw const MealImageTooLargeException();
+    }
+    return webp;
   }
 
   /// Compress an image file
