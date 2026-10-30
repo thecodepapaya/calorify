@@ -14,7 +14,13 @@ Meal _meal() => Meal(
   name: 'Oats',
   quantity: '1 bowl',
   type: MealType.BREAKFAST,
-  macros: MealMacro(calories: 300, protein: 12, carbs: 45, fat: 8, fiber: 6),
+  macros: Macros(
+    calorie: Measurement(value: 300),
+    protein: Measurement(value: 12),
+    carb: Measurement(value: 45),
+    fat: Measurement(value: 8),
+    fiber: Measurement(value: 6),
+  ),
 );
 
 void main() {

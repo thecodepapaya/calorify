@@ -29,7 +29,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final profileAsync = ref.watch(userProfileProvider);
+    final profileAsync = ref.watch(healthDataProvider);
 
     return profileAsync.when(
       loading: () => const Scaffold(body: Center(child: AppLoader())),
@@ -173,7 +173,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Widget _buildPersonalDetailsTile(
     BuildContext context,
-    UserProfile userProfile,
+    HealthData userProfile,
   ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -199,11 +199,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Widget _buildHeightTile(BuildContext context, UserProfile userProfile) {
+  Widget _buildHeightTile(BuildContext context, HealthData userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final height = userProfile.hasHeight() ? userProfile.height : null;
-    final heightUnit = userProfile.heightUnit.normalized;
+    final height = userProfile.hasHeight() ? userProfile.height.value : null;
+    final heightUnit =
+        userProfile.hasHeight() ? userProfile.height.unit : HeightUnit.CM;
 
     String heightText = t.profile.notSet;
     if (height != null) {
@@ -227,16 +228,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Widget _buildWeightTile(BuildContext context, UserProfile userProfile) {
+  Widget _buildWeightTile(BuildContext context, HealthData userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final weight = userProfile.hasWeight() ? userProfile.weight : null;
-    final weightUnit = userProfile.weightUnit.normalized;
+    final weight = userProfile.hasWeight() ? userProfile.weight.value : null;
+    final weightUnit =
+        userProfile.hasWeight() ? userProfile.weight.unit : WeightUnit.KG;
 
     String weightText = t.profile.notSet;
     if (weight != null) {
       weightText =
-          '${weight.toStringAsFixed(weightUnit.weightPrecision)} ${weightUnit.weightUnitDisplay}';
+          '${weight.toStringAsFixed(weightUnit.precision)} ${weightUnit.display}';
     }
 
     return ListTile(
@@ -256,7 +258,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Widget _buildAgeTile(BuildContext context, UserProfile userProfile) {
+  Widget _buildAgeTile(BuildContext context, HealthData userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final age = userProfile.age;
@@ -305,7 +307,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Widget _buildWeightGoalTile(BuildContext context, UserProfile userProfile) {
+  Widget _buildWeightGoalTile(BuildContext context, HealthData userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final weightGoal =
@@ -328,15 +330,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Widget _buildTargetWeightTile(BuildContext context, UserProfile userProfile) {
+  Widget _buildTargetWeightTile(BuildContext context, HealthData userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final targetWeight = userProfile.targetWeight;
-    final weightUnit = userProfile.weightUnit;
+    final targetWeight =
+        userProfile.hasTargetWeight() ? userProfile.targetWeight.value : null;
+    final weightUnit =
+        userProfile.hasTargetWeight()
+            ? userProfile.targetWeight.unit
+            : (userProfile.hasWeight()
+                ? userProfile.weight.unit
+                : WeightUnit.KG);
 
     String targetWeightText = t.profile.notSet;
-    targetWeightText =
-        '${targetWeight.toStringAsFixed(weightUnit.weightPrecision)} ${weightUnit.weightUnitDisplay}';
+    if (targetWeight != null) {
+      targetWeightText =
+          '${targetWeight.toStringAsFixed(weightUnit.precision)} ${weightUnit.display}';
+    }
 
     return ListTile(
       leading: Container(
@@ -357,7 +367,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Widget _buildActivityLevelTile(
     BuildContext context,
-    UserProfile userProfile,
+    HealthData userProfile,
   ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -384,7 +394,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget _buildCalculatedValuesTile(
     BuildContext context,
     WidgetRef ref,
-    UserProfile userProfile,
+    HealthData userProfile,
   ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -462,11 +472,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Future<void> _editProfile(
     BuildContext context,
     WidgetRef ref,
-    UserProfile userProfile,
+    HealthData userProfile,
   ) async {
     await context.router.push(EditProfileRoute(userProfile: userProfile));
     if (!context.mounted) return;
-    ref.invalidate(userProfileProvider);
+    ref.invalidate(healthDataProvider);
     ref.invalidate(savedDailyCalorieGoalProvider);
   }
 }

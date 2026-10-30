@@ -32,12 +32,12 @@ FavoriteMeal _buildFavoriteMeal({
         name: name,
         quantity: '1 bowl',
         type: MealType.LUNCH,
-        macros: MealMacro(
-          calories: calories,
-          protein: 18,
-          carbs: 52,
-          fat: 14,
-          fiber: 6,
+        macros: Macros(
+          calorie: Measurement(value: calories),
+          protein: Measurement(value: 18),
+          carb: Measurement(value: 52),
+          fat: Measurement(value: 14),
+          fiber: Measurement(value: 6),
         ),
         health: MealHealth(
           healthScore: HealthScore.HEALTHY,

@@ -7,48 +7,74 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:health/health.dart' hide MealType;
 import 'package:models/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 
+import 'package:calorify/core/providers/app_banner_providers.dart';
+import '../test/setup/all_tests.dart';
+
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
 
 class MockHealthService extends Mock implements HealthService {}
 
-class MockAnalytics extends Mock implements Analytics {}
-
-class FakeUserProfile extends Fake implements UserProfile {}
+class FakeHealthData extends Fake implements HealthData {}
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   late MockDatabaseInterface mockDatabaseInterface;
   late MockHealthService mockHealthService;
-  late MockAnalytics mockAnalytics;
 
   setUpAll(() {
-    registerFallbackValue(FakeUserProfile());
+    setupAllTests();
+    registerFallbackValue(FakeHealthData());
     registerFallbackValue(AnalyticsEvent.onboardingStart);
   });
 
   setUp(() {
     mockDatabaseInterface = MockDatabaseInterface();
     mockHealthService = MockHealthService();
-    mockAnalytics = MockAnalytics();
 
     DatabaseService.setMockInterface(mockDatabaseInterface);
-    Analytics.setMockInstance(mockAnalytics);
 
-    when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
     when(
-      () => mockDatabaseInterface.getUserProfile(),
+      () => mockDatabaseInterface.hasCompletedOnboarding(),
+    ).thenAnswer((_) async => false);
+    when(
+      () => mockDatabaseInterface.getOnboardingStep(),
+    ).thenAnswer((_) async => 0);
+    when(
+      () => mockDatabaseInterface.setOnboardingStep(any()),
+    ).thenAnswer((_) async {});
+    when(
+      () => mockDatabaseInterface.setOnboardingCompleted(),
+    ).thenAnswer((_) async {});
+    when(
+      () => mockDatabaseInterface.getPendingHealthDataSync(),
     ).thenAnswer((_) async => null);
     when(
-      () => mockDatabaseInterface.saveUserProfile(any()),
+      () => mockDatabaseInterface.getHealthData(),
+    ).thenAnswer((_) async => null);
+    when(
+      () => mockDatabaseInterface.saveHealthData(any()),
     ).thenAnswer((_) async {});
+    when(
+      () => mockDatabaseInterface.getThemeMode(),
+    ).thenAnswer((_) async => ThemeMode.system);
+    when(
+      () => mockDatabaseInterface.getLanguageCode(),
+    ).thenAnswer((_) async => 'en');
+
+    when(() => mockHealthService.init()).thenAnswer((_) async {});
+    when(
+      () => mockHealthService.isHealthConnectAvailable,
+    ).thenAnswer((_) async => true);
+    when(
+      () => mockHealthService.refreshAuthorizationStatus(),
+    ).thenAnswer((_) async => false);
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
@@ -59,12 +85,6 @@ void main() {
     when(() => mockHealthService.canWriteNutrition).thenReturn(false);
     when(() => mockHealthService.hasAnyHealthPermission).thenReturn(false);
     when(() => mockHealthService.hasAllHealthPermissions).thenReturn(false);
-    when(
-      () => mockDatabaseInterface.getThemeMode(),
-    ).thenAnswer((_) async => ThemeMode.system);
-    when(
-      () => mockDatabaseInterface.getLanguageCode(),
-    ).thenAnswer((_) async => 'en');
   });
 
   testWidgets('Full onboarding flow integration test', (
@@ -77,6 +97,7 @@ void main() {
           overrides: [
             databaseInterfaceProvider.overrideWithValue(mockDatabaseInterface),
             healthServiceProvider.overrideWithValue(mockHealthService),
+            bannerSelectionProvider.overrideWith((ref) => Stream.value(null)),
           ],
           child: const CalorifyApp(),
         ),
@@ -93,10 +114,14 @@ void main() {
     expect(find.textContaining('goal'), findsWidgets);
     await tester.tap(find.textContaining('Lose Weight'));
     await tester.pumpAndSettle();
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
 
     // Activity Level Screen
     expect(find.textContaining('active'), findsWidgets);
     await tester.tap(find.textContaining('Moderately Active'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
 
     // ... and so on for all steps

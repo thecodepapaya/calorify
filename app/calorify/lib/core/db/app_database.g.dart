@@ -1201,12 +1201,12 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   }
 }
 
-class $UserProfileTableTable extends UserProfileTable
-    with TableInfo<$UserProfileTableTable, UserProfileTableData> {
+class $HealthDataTableTable extends HealthDataTable
+    with TableInfo<$HealthDataTableTable, HealthDataTableData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UserProfileTableTable(this.attachedDatabase, [this._alias]);
+  $HealthDataTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1220,17 +1220,6 @@ class $UserProfileTableTable extends UserProfileTable
       'PRIMARY KEY AUTOINCREMENT',
     ),
   );
-  static const VerificationMeta _dailyCalorieGoalMeta = const VerificationMeta(
-    'dailyCalorieGoal',
-  );
-  @override
-  late final GeneratedColumn<int> dailyCalorieGoal = GeneratedColumn<int>(
-    'daily_calorie_goal',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-  );
   static const VerificationMeta _heightMeta = const VerificationMeta('height');
   @override
   late final GeneratedColumn<double> height = GeneratedColumn<double>(
@@ -1239,6 +1228,18 @@ class $UserProfileTableTable extends UserProfileTable
     true,
     type: DriftSqlType.double,
     requiredDuringInsert: false,
+  );
+  static const VerificationMeta _heightUnitMeta = const VerificationMeta(
+    'heightUnit',
+  );
+  @override
+  late final GeneratedColumn<String> heightUnit = GeneratedColumn<String>(
+    'height_unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('CM'),
   );
   static const VerificationMeta _weightMeta = const VerificationMeta('weight');
   @override
@@ -1259,6 +1260,18 @@ class $UserProfileTableTable extends UserProfileTable
     true,
     type: DriftSqlType.double,
     requiredDuringInsert: false,
+  );
+  static const VerificationMeta _weightUnitMeta = const VerificationMeta(
+    'weightUnit',
+  );
+  @override
+  late final GeneratedColumn<String> weightUnit = GeneratedColumn<String>(
+    'weight_unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('KG'),
   );
   static const VerificationMeta _genderMeta = const VerificationMeta('gender');
   @override
@@ -1302,29 +1315,60 @@ class $UserProfileTableTable extends UserProfileTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _heightUnitMeta = const VerificationMeta(
-    'heightUnit',
+  static const VerificationMeta _dailyCalorieGoalMeta = const VerificationMeta(
+    'dailyCalorieGoal',
   );
   @override
-  late final GeneratedColumn<String> heightUnit = GeneratedColumn<String>(
-    'height_unit',
+  late final GeneratedColumn<int> dailyCalorieGoal = GeneratedColumn<int>(
+    'daily_calorie_goal',
     aliasedName,
-    false,
-    type: DriftSqlType.string,
+    true,
+    type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultValue: const Constant('metric'),
   );
-  static const VerificationMeta _weightUnitMeta = const VerificationMeta(
-    'weightUnit',
+  static const VerificationMeta _dailyCarbGoalMeta = const VerificationMeta(
+    'dailyCarbGoal',
   );
   @override
-  late final GeneratedColumn<String> weightUnit = GeneratedColumn<String>(
-    'weight_unit',
+  late final GeneratedColumn<int> dailyCarbGoal = GeneratedColumn<int>(
+    'daily_carb_goal',
     aliasedName,
-    false,
-    type: DriftSqlType.string,
+    true,
+    type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultValue: const Constant('metric'),
+  );
+  static const VerificationMeta _dailyProteinGoalMeta = const VerificationMeta(
+    'dailyProteinGoal',
+  );
+  @override
+  late final GeneratedColumn<int> dailyProteinGoal = GeneratedColumn<int>(
+    'daily_protein_goal',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _dailyFatGoalMeta = const VerificationMeta(
+    'dailyFatGoal',
+  );
+  @override
+  late final GeneratedColumn<int> dailyFatGoal = GeneratedColumn<int>(
+    'daily_fat_goal',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _dailyFiberGoalMeta = const VerificationMeta(
+    'dailyFiberGoal',
+  );
+  @override
+  late final GeneratedColumn<int> dailyFiberGoal = GeneratedColumn<int>(
+    'daily_fiber_goal',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
   );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
@@ -1379,16 +1423,20 @@ class $UserProfileTableTable extends UserProfileTable
   @override
   List<GeneratedColumn> get $columns => [
     id,
-    dailyCalorieGoal,
     height,
+    heightUnit,
     weight,
     targetWeight,
+    weightUnit,
     gender,
     dateOfBirth,
     weightGoal,
     activityLevel,
-    heightUnit,
-    weightUnit,
+    dailyCalorieGoal,
+    dailyCarbGoal,
+    dailyProteinGoal,
+    dailyFatGoal,
+    dailyFiberGoal,
     createdAt,
     updatedAt,
     needsRemoteSync,
@@ -1398,10 +1446,10 @@ class $UserProfileTableTable extends UserProfileTable
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'user_profile_table';
+  static const String $name = 'health_data_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<UserProfileTableData> instance, {
+    Insertable<HealthDataTableData> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -1409,19 +1457,16 @@ class $UserProfileTableTable extends UserProfileTable
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('daily_calorie_goal')) {
-      context.handle(
-        _dailyCalorieGoalMeta,
-        dailyCalorieGoal.isAcceptableOrUnknown(
-          data['daily_calorie_goal']!,
-          _dailyCalorieGoalMeta,
-        ),
-      );
-    }
     if (data.containsKey('height')) {
       context.handle(
         _heightMeta,
         height.isAcceptableOrUnknown(data['height']!, _heightMeta),
+      );
+    }
+    if (data.containsKey('height_unit')) {
+      context.handle(
+        _heightUnitMeta,
+        heightUnit.isAcceptableOrUnknown(data['height_unit']!, _heightUnitMeta),
       );
     }
     if (data.containsKey('weight')) {
@@ -1437,6 +1482,12 @@ class $UserProfileTableTable extends UserProfileTable
           data['target_weight']!,
           _targetWeightMeta,
         ),
+      );
+    }
+    if (data.containsKey('weight_unit')) {
+      context.handle(
+        _weightUnitMeta,
+        weightUnit.isAcceptableOrUnknown(data['weight_unit']!, _weightUnitMeta),
       );
     }
     if (data.containsKey('gender')) {
@@ -1469,16 +1520,49 @@ class $UserProfileTableTable extends UserProfileTable
         ),
       );
     }
-    if (data.containsKey('height_unit')) {
+    if (data.containsKey('daily_calorie_goal')) {
       context.handle(
-        _heightUnitMeta,
-        heightUnit.isAcceptableOrUnknown(data['height_unit']!, _heightUnitMeta),
+        _dailyCalorieGoalMeta,
+        dailyCalorieGoal.isAcceptableOrUnknown(
+          data['daily_calorie_goal']!,
+          _dailyCalorieGoalMeta,
+        ),
       );
     }
-    if (data.containsKey('weight_unit')) {
+    if (data.containsKey('daily_carb_goal')) {
       context.handle(
-        _weightUnitMeta,
-        weightUnit.isAcceptableOrUnknown(data['weight_unit']!, _weightUnitMeta),
+        _dailyCarbGoalMeta,
+        dailyCarbGoal.isAcceptableOrUnknown(
+          data['daily_carb_goal']!,
+          _dailyCarbGoalMeta,
+        ),
+      );
+    }
+    if (data.containsKey('daily_protein_goal')) {
+      context.handle(
+        _dailyProteinGoalMeta,
+        dailyProteinGoal.isAcceptableOrUnknown(
+          data['daily_protein_goal']!,
+          _dailyProteinGoalMeta,
+        ),
+      );
+    }
+    if (data.containsKey('daily_fat_goal')) {
+      context.handle(
+        _dailyFatGoalMeta,
+        dailyFatGoal.isAcceptableOrUnknown(
+          data['daily_fat_goal']!,
+          _dailyFatGoalMeta,
+        ),
+      );
+    }
+    if (data.containsKey('daily_fiber_goal')) {
+      context.handle(
+        _dailyFiberGoalMeta,
+        dailyFiberGoal.isAcceptableOrUnknown(
+          data['daily_fiber_goal']!,
+          _dailyFiberGoalMeta,
+        ),
       );
     }
     if (data.containsKey('created_at')) {
@@ -1517,22 +1601,23 @@ class $UserProfileTableTable extends UserProfileTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  UserProfileTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  HealthDataTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return UserProfileTableData(
+    return HealthDataTableData(
       id:
           attachedDatabase.typeMapping.read(
             DriftSqlType.int,
             data['${effectivePrefix}id'],
           )!,
-      dailyCalorieGoal: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}daily_calorie_goal'],
-      ),
       height: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}height'],
       ),
+      heightUnit:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}height_unit'],
+          )!,
       weight: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}weight'],
@@ -1541,6 +1626,11 @@ class $UserProfileTableTable extends UserProfileTable
         DriftSqlType.double,
         data['${effectivePrefix}target_weight'],
       ),
+      weightUnit:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}weight_unit'],
+          )!,
       gender: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}gender'],
@@ -1557,16 +1647,26 @@ class $UserProfileTableTable extends UserProfileTable
         DriftSqlType.string,
         data['${effectivePrefix}activity_level'],
       ),
-      heightUnit:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}height_unit'],
-          )!,
-      weightUnit:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}weight_unit'],
-          )!,
+      dailyCalorieGoal: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_calorie_goal'],
+      ),
+      dailyCarbGoal: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_carb_goal'],
+      ),
+      dailyProteinGoal: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_protein_goal'],
+      ),
+      dailyFatGoal: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_fat_goal'],
+      ),
+      dailyFiberGoal: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_fiber_goal'],
+      ),
       createdAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -1590,40 +1690,48 @@ class $UserProfileTableTable extends UserProfileTable
   }
 
   @override
-  $UserProfileTableTable createAlias(String alias) {
-    return $UserProfileTableTable(attachedDatabase, alias);
+  $HealthDataTableTable createAlias(String alias) {
+    return $HealthDataTableTable(attachedDatabase, alias);
   }
 }
 
-class UserProfileTableData extends DataClass
-    implements Insertable<UserProfileTableData> {
+class HealthDataTableData extends DataClass
+    implements Insertable<HealthDataTableData> {
   final int id;
-  final int? dailyCalorieGoal;
   final double? height;
+  final String heightUnit;
   final double? weight;
   final double? targetWeight;
+  final String weightUnit;
   final String? gender;
   final DateTime? dateOfBirth;
   final String? weightGoal;
   final String? activityLevel;
-  final String heightUnit;
-  final String weightUnit;
+  final int? dailyCalorieGoal;
+  final int? dailyCarbGoal;
+  final int? dailyProteinGoal;
+  final int? dailyFatGoal;
+  final int? dailyFiberGoal;
   final DateTime createdAt;
   final DateTime updatedAt;
   final bool needsRemoteSync;
   final String? remoteSyncRevision;
-  const UserProfileTableData({
+  const HealthDataTableData({
     required this.id,
-    this.dailyCalorieGoal,
     this.height,
+    required this.heightUnit,
     this.weight,
     this.targetWeight,
+    required this.weightUnit,
     this.gender,
     this.dateOfBirth,
     this.weightGoal,
     this.activityLevel,
-    required this.heightUnit,
-    required this.weightUnit,
+    this.dailyCalorieGoal,
+    this.dailyCarbGoal,
+    this.dailyProteinGoal,
+    this.dailyFatGoal,
+    this.dailyFiberGoal,
     required this.createdAt,
     required this.updatedAt,
     required this.needsRemoteSync,
@@ -1633,18 +1741,17 @@ class UserProfileTableData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    if (!nullToAbsent || dailyCalorieGoal != null) {
-      map['daily_calorie_goal'] = Variable<int>(dailyCalorieGoal);
-    }
     if (!nullToAbsent || height != null) {
       map['height'] = Variable<double>(height);
     }
+    map['height_unit'] = Variable<String>(heightUnit);
     if (!nullToAbsent || weight != null) {
       map['weight'] = Variable<double>(weight);
     }
     if (!nullToAbsent || targetWeight != null) {
       map['target_weight'] = Variable<double>(targetWeight);
     }
+    map['weight_unit'] = Variable<String>(weightUnit);
     if (!nullToAbsent || gender != null) {
       map['gender'] = Variable<String>(gender);
     }
@@ -1657,8 +1764,21 @@ class UserProfileTableData extends DataClass
     if (!nullToAbsent || activityLevel != null) {
       map['activity_level'] = Variable<String>(activityLevel);
     }
-    map['height_unit'] = Variable<String>(heightUnit);
-    map['weight_unit'] = Variable<String>(weightUnit);
+    if (!nullToAbsent || dailyCalorieGoal != null) {
+      map['daily_calorie_goal'] = Variable<int>(dailyCalorieGoal);
+    }
+    if (!nullToAbsent || dailyCarbGoal != null) {
+      map['daily_carb_goal'] = Variable<int>(dailyCarbGoal);
+    }
+    if (!nullToAbsent || dailyProteinGoal != null) {
+      map['daily_protein_goal'] = Variable<int>(dailyProteinGoal);
+    }
+    if (!nullToAbsent || dailyFatGoal != null) {
+      map['daily_fat_goal'] = Variable<int>(dailyFatGoal);
+    }
+    if (!nullToAbsent || dailyFiberGoal != null) {
+      map['daily_fiber_goal'] = Variable<int>(dailyFiberGoal);
+    }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     map['needs_remote_sync'] = Variable<bool>(needsRemoteSync);
@@ -1668,21 +1788,19 @@ class UserProfileTableData extends DataClass
     return map;
   }
 
-  UserProfileTableCompanion toCompanion(bool nullToAbsent) {
-    return UserProfileTableCompanion(
+  HealthDataTableCompanion toCompanion(bool nullToAbsent) {
+    return HealthDataTableCompanion(
       id: Value(id),
-      dailyCalorieGoal:
-          dailyCalorieGoal == null && nullToAbsent
-              ? const Value.absent()
-              : Value(dailyCalorieGoal),
       height:
           height == null && nullToAbsent ? const Value.absent() : Value(height),
+      heightUnit: Value(heightUnit),
       weight:
           weight == null && nullToAbsent ? const Value.absent() : Value(weight),
       targetWeight:
           targetWeight == null && nullToAbsent
               ? const Value.absent()
               : Value(targetWeight),
+      weightUnit: Value(weightUnit),
       gender:
           gender == null && nullToAbsent ? const Value.absent() : Value(gender),
       dateOfBirth:
@@ -1697,8 +1815,26 @@ class UserProfileTableData extends DataClass
           activityLevel == null && nullToAbsent
               ? const Value.absent()
               : Value(activityLevel),
-      heightUnit: Value(heightUnit),
-      weightUnit: Value(weightUnit),
+      dailyCalorieGoal:
+          dailyCalorieGoal == null && nullToAbsent
+              ? const Value.absent()
+              : Value(dailyCalorieGoal),
+      dailyCarbGoal:
+          dailyCarbGoal == null && nullToAbsent
+              ? const Value.absent()
+              : Value(dailyCarbGoal),
+      dailyProteinGoal:
+          dailyProteinGoal == null && nullToAbsent
+              ? const Value.absent()
+              : Value(dailyProteinGoal),
+      dailyFatGoal:
+          dailyFatGoal == null && nullToAbsent
+              ? const Value.absent()
+              : Value(dailyFatGoal),
+      dailyFiberGoal:
+          dailyFiberGoal == null && nullToAbsent
+              ? const Value.absent()
+              : Value(dailyFiberGoal),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
       needsRemoteSync: Value(needsRemoteSync),
@@ -1709,23 +1845,27 @@ class UserProfileTableData extends DataClass
     );
   }
 
-  factory UserProfileTableData.fromJson(
+  factory HealthDataTableData.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return UserProfileTableData(
+    return HealthDataTableData(
       id: serializer.fromJson<int>(json['id']),
-      dailyCalorieGoal: serializer.fromJson<int?>(json['dailyCalorieGoal']),
       height: serializer.fromJson<double?>(json['height']),
+      heightUnit: serializer.fromJson<String>(json['heightUnit']),
       weight: serializer.fromJson<double?>(json['weight']),
       targetWeight: serializer.fromJson<double?>(json['targetWeight']),
+      weightUnit: serializer.fromJson<String>(json['weightUnit']),
       gender: serializer.fromJson<String?>(json['gender']),
       dateOfBirth: serializer.fromJson<DateTime?>(json['dateOfBirth']),
       weightGoal: serializer.fromJson<String?>(json['weightGoal']),
       activityLevel: serializer.fromJson<String?>(json['activityLevel']),
-      heightUnit: serializer.fromJson<String>(json['heightUnit']),
-      weightUnit: serializer.fromJson<String>(json['weightUnit']),
+      dailyCalorieGoal: serializer.fromJson<int?>(json['dailyCalorieGoal']),
+      dailyCarbGoal: serializer.fromJson<int?>(json['dailyCarbGoal']),
+      dailyProteinGoal: serializer.fromJson<int?>(json['dailyProteinGoal']),
+      dailyFatGoal: serializer.fromJson<int?>(json['dailyFatGoal']),
+      dailyFiberGoal: serializer.fromJson<int?>(json['dailyFiberGoal']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       needsRemoteSync: serializer.fromJson<bool>(json['needsRemoteSync']),
@@ -1739,16 +1879,20 @@ class UserProfileTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'dailyCalorieGoal': serializer.toJson<int?>(dailyCalorieGoal),
       'height': serializer.toJson<double?>(height),
+      'heightUnit': serializer.toJson<String>(heightUnit),
       'weight': serializer.toJson<double?>(weight),
       'targetWeight': serializer.toJson<double?>(targetWeight),
+      'weightUnit': serializer.toJson<String>(weightUnit),
       'gender': serializer.toJson<String?>(gender),
       'dateOfBirth': serializer.toJson<DateTime?>(dateOfBirth),
       'weightGoal': serializer.toJson<String?>(weightGoal),
       'activityLevel': serializer.toJson<String?>(activityLevel),
-      'heightUnit': serializer.toJson<String>(heightUnit),
-      'weightUnit': serializer.toJson<String>(weightUnit),
+      'dailyCalorieGoal': serializer.toJson<int?>(dailyCalorieGoal),
+      'dailyCarbGoal': serializer.toJson<int?>(dailyCarbGoal),
+      'dailyProteinGoal': serializer.toJson<int?>(dailyProteinGoal),
+      'dailyFatGoal': serializer.toJson<int?>(dailyFatGoal),
+      'dailyFiberGoal': serializer.toJson<int?>(dailyFiberGoal),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'needsRemoteSync': serializer.toJson<bool>(needsRemoteSync),
@@ -1756,38 +1900,51 @@ class UserProfileTableData extends DataClass
     };
   }
 
-  UserProfileTableData copyWith({
+  HealthDataTableData copyWith({
     int? id,
-    Value<int?> dailyCalorieGoal = const Value.absent(),
     Value<double?> height = const Value.absent(),
+    String? heightUnit,
     Value<double?> weight = const Value.absent(),
     Value<double?> targetWeight = const Value.absent(),
+    String? weightUnit,
     Value<String?> gender = const Value.absent(),
     Value<DateTime?> dateOfBirth = const Value.absent(),
     Value<String?> weightGoal = const Value.absent(),
     Value<String?> activityLevel = const Value.absent(),
-    String? heightUnit,
-    String? weightUnit,
+    Value<int?> dailyCalorieGoal = const Value.absent(),
+    Value<int?> dailyCarbGoal = const Value.absent(),
+    Value<int?> dailyProteinGoal = const Value.absent(),
+    Value<int?> dailyFatGoal = const Value.absent(),
+    Value<int?> dailyFiberGoal = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? needsRemoteSync,
     Value<String?> remoteSyncRevision = const Value.absent(),
-  }) => UserProfileTableData(
+  }) => HealthDataTableData(
     id: id ?? this.id,
-    dailyCalorieGoal:
-        dailyCalorieGoal.present
-            ? dailyCalorieGoal.value
-            : this.dailyCalorieGoal,
     height: height.present ? height.value : this.height,
+    heightUnit: heightUnit ?? this.heightUnit,
     weight: weight.present ? weight.value : this.weight,
     targetWeight: targetWeight.present ? targetWeight.value : this.targetWeight,
+    weightUnit: weightUnit ?? this.weightUnit,
     gender: gender.present ? gender.value : this.gender,
     dateOfBirth: dateOfBirth.present ? dateOfBirth.value : this.dateOfBirth,
     weightGoal: weightGoal.present ? weightGoal.value : this.weightGoal,
     activityLevel:
         activityLevel.present ? activityLevel.value : this.activityLevel,
-    heightUnit: heightUnit ?? this.heightUnit,
-    weightUnit: weightUnit ?? this.weightUnit,
+    dailyCalorieGoal:
+        dailyCalorieGoal.present
+            ? dailyCalorieGoal.value
+            : this.dailyCalorieGoal,
+    dailyCarbGoal:
+        dailyCarbGoal.present ? dailyCarbGoal.value : this.dailyCarbGoal,
+    dailyProteinGoal:
+        dailyProteinGoal.present
+            ? dailyProteinGoal.value
+            : this.dailyProteinGoal,
+    dailyFatGoal: dailyFatGoal.present ? dailyFatGoal.value : this.dailyFatGoal,
+    dailyFiberGoal:
+        dailyFiberGoal.present ? dailyFiberGoal.value : this.dailyFiberGoal,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
     needsRemoteSync: needsRemoteSync ?? this.needsRemoteSync,
@@ -1796,19 +1953,19 @@ class UserProfileTableData extends DataClass
             ? remoteSyncRevision.value
             : this.remoteSyncRevision,
   );
-  UserProfileTableData copyWithCompanion(UserProfileTableCompanion data) {
-    return UserProfileTableData(
+  HealthDataTableData copyWithCompanion(HealthDataTableCompanion data) {
+    return HealthDataTableData(
       id: data.id.present ? data.id.value : this.id,
-      dailyCalorieGoal:
-          data.dailyCalorieGoal.present
-              ? data.dailyCalorieGoal.value
-              : this.dailyCalorieGoal,
       height: data.height.present ? data.height.value : this.height,
+      heightUnit:
+          data.heightUnit.present ? data.heightUnit.value : this.heightUnit,
       weight: data.weight.present ? data.weight.value : this.weight,
       targetWeight:
           data.targetWeight.present
               ? data.targetWeight.value
               : this.targetWeight,
+      weightUnit:
+          data.weightUnit.present ? data.weightUnit.value : this.weightUnit,
       gender: data.gender.present ? data.gender.value : this.gender,
       dateOfBirth:
           data.dateOfBirth.present ? data.dateOfBirth.value : this.dateOfBirth,
@@ -1818,10 +1975,26 @@ class UserProfileTableData extends DataClass
           data.activityLevel.present
               ? data.activityLevel.value
               : this.activityLevel,
-      heightUnit:
-          data.heightUnit.present ? data.heightUnit.value : this.heightUnit,
-      weightUnit:
-          data.weightUnit.present ? data.weightUnit.value : this.weightUnit,
+      dailyCalorieGoal:
+          data.dailyCalorieGoal.present
+              ? data.dailyCalorieGoal.value
+              : this.dailyCalorieGoal,
+      dailyCarbGoal:
+          data.dailyCarbGoal.present
+              ? data.dailyCarbGoal.value
+              : this.dailyCarbGoal,
+      dailyProteinGoal:
+          data.dailyProteinGoal.present
+              ? data.dailyProteinGoal.value
+              : this.dailyProteinGoal,
+      dailyFatGoal:
+          data.dailyFatGoal.present
+              ? data.dailyFatGoal.value
+              : this.dailyFatGoal,
+      dailyFiberGoal:
+          data.dailyFiberGoal.present
+              ? data.dailyFiberGoal.value
+              : this.dailyFiberGoal,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       needsRemoteSync:
@@ -1837,18 +2010,22 @@ class UserProfileTableData extends DataClass
 
   @override
   String toString() {
-    return (StringBuffer('UserProfileTableData(')
+    return (StringBuffer('HealthDataTableData(')
           ..write('id: $id, ')
-          ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
           ..write('height: $height, ')
+          ..write('heightUnit: $heightUnit, ')
           ..write('weight: $weight, ')
           ..write('targetWeight: $targetWeight, ')
+          ..write('weightUnit: $weightUnit, ')
           ..write('gender: $gender, ')
           ..write('dateOfBirth: $dateOfBirth, ')
           ..write('weightGoal: $weightGoal, ')
           ..write('activityLevel: $activityLevel, ')
-          ..write('heightUnit: $heightUnit, ')
-          ..write('weightUnit: $weightUnit, ')
+          ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
+          ..write('dailyCarbGoal: $dailyCarbGoal, ')
+          ..write('dailyProteinGoal: $dailyProteinGoal, ')
+          ..write('dailyFatGoal: $dailyFatGoal, ')
+          ..write('dailyFiberGoal: $dailyFiberGoal, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('needsRemoteSync: $needsRemoteSync, ')
@@ -1860,16 +2037,20 @@ class UserProfileTableData extends DataClass
   @override
   int get hashCode => Object.hash(
     id,
-    dailyCalorieGoal,
     height,
+    heightUnit,
     weight,
     targetWeight,
+    weightUnit,
     gender,
     dateOfBirth,
     weightGoal,
     activityLevel,
-    heightUnit,
-    weightUnit,
+    dailyCalorieGoal,
+    dailyCarbGoal,
+    dailyProteinGoal,
+    dailyFatGoal,
+    dailyFiberGoal,
     createdAt,
     updatedAt,
     needsRemoteSync,
@@ -1878,86 +2059,106 @@ class UserProfileTableData extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is UserProfileTableData &&
+      (other is HealthDataTableData &&
           other.id == this.id &&
-          other.dailyCalorieGoal == this.dailyCalorieGoal &&
           other.height == this.height &&
+          other.heightUnit == this.heightUnit &&
           other.weight == this.weight &&
           other.targetWeight == this.targetWeight &&
+          other.weightUnit == this.weightUnit &&
           other.gender == this.gender &&
           other.dateOfBirth == this.dateOfBirth &&
           other.weightGoal == this.weightGoal &&
           other.activityLevel == this.activityLevel &&
-          other.heightUnit == this.heightUnit &&
-          other.weightUnit == this.weightUnit &&
+          other.dailyCalorieGoal == this.dailyCalorieGoal &&
+          other.dailyCarbGoal == this.dailyCarbGoal &&
+          other.dailyProteinGoal == this.dailyProteinGoal &&
+          other.dailyFatGoal == this.dailyFatGoal &&
+          other.dailyFiberGoal == this.dailyFiberGoal &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt &&
           other.needsRemoteSync == this.needsRemoteSync &&
           other.remoteSyncRevision == this.remoteSyncRevision);
 }
 
-class UserProfileTableCompanion extends UpdateCompanion<UserProfileTableData> {
+class HealthDataTableCompanion extends UpdateCompanion<HealthDataTableData> {
   final Value<int> id;
-  final Value<int?> dailyCalorieGoal;
   final Value<double?> height;
+  final Value<String> heightUnit;
   final Value<double?> weight;
   final Value<double?> targetWeight;
+  final Value<String> weightUnit;
   final Value<String?> gender;
   final Value<DateTime?> dateOfBirth;
   final Value<String?> weightGoal;
   final Value<String?> activityLevel;
-  final Value<String> heightUnit;
-  final Value<String> weightUnit;
+  final Value<int?> dailyCalorieGoal;
+  final Value<int?> dailyCarbGoal;
+  final Value<int?> dailyProteinGoal;
+  final Value<int?> dailyFatGoal;
+  final Value<int?> dailyFiberGoal;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   final Value<bool> needsRemoteSync;
   final Value<String?> remoteSyncRevision;
-  const UserProfileTableCompanion({
+  const HealthDataTableCompanion({
     this.id = const Value.absent(),
-    this.dailyCalorieGoal = const Value.absent(),
     this.height = const Value.absent(),
+    this.heightUnit = const Value.absent(),
     this.weight = const Value.absent(),
     this.targetWeight = const Value.absent(),
+    this.weightUnit = const Value.absent(),
     this.gender = const Value.absent(),
     this.dateOfBirth = const Value.absent(),
     this.weightGoal = const Value.absent(),
     this.activityLevel = const Value.absent(),
-    this.heightUnit = const Value.absent(),
-    this.weightUnit = const Value.absent(),
+    this.dailyCalorieGoal = const Value.absent(),
+    this.dailyCarbGoal = const Value.absent(),
+    this.dailyProteinGoal = const Value.absent(),
+    this.dailyFatGoal = const Value.absent(),
+    this.dailyFiberGoal = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
     this.needsRemoteSync = const Value.absent(),
     this.remoteSyncRevision = const Value.absent(),
   });
-  UserProfileTableCompanion.insert({
+  HealthDataTableCompanion.insert({
     this.id = const Value.absent(),
-    this.dailyCalorieGoal = const Value.absent(),
     this.height = const Value.absent(),
+    this.heightUnit = const Value.absent(),
     this.weight = const Value.absent(),
     this.targetWeight = const Value.absent(),
+    this.weightUnit = const Value.absent(),
     this.gender = const Value.absent(),
     this.dateOfBirth = const Value.absent(),
     this.weightGoal = const Value.absent(),
     this.activityLevel = const Value.absent(),
-    this.heightUnit = const Value.absent(),
-    this.weightUnit = const Value.absent(),
+    this.dailyCalorieGoal = const Value.absent(),
+    this.dailyCarbGoal = const Value.absent(),
+    this.dailyProteinGoal = const Value.absent(),
+    this.dailyFatGoal = const Value.absent(),
+    this.dailyFiberGoal = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
     this.needsRemoteSync = const Value.absent(),
     this.remoteSyncRevision = const Value.absent(),
   });
-  static Insertable<UserProfileTableData> custom({
+  static Insertable<HealthDataTableData> custom({
     Expression<int>? id,
-    Expression<int>? dailyCalorieGoal,
     Expression<double>? height,
+    Expression<String>? heightUnit,
     Expression<double>? weight,
     Expression<double>? targetWeight,
+    Expression<String>? weightUnit,
     Expression<String>? gender,
     Expression<DateTime>? dateOfBirth,
     Expression<String>? weightGoal,
     Expression<String>? activityLevel,
-    Expression<String>? heightUnit,
-    Expression<String>? weightUnit,
+    Expression<int>? dailyCalorieGoal,
+    Expression<int>? dailyCarbGoal,
+    Expression<int>? dailyProteinGoal,
+    Expression<int>? dailyFatGoal,
+    Expression<int>? dailyFiberGoal,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
     Expression<bool>? needsRemoteSync,
@@ -1965,16 +2166,20 @@ class UserProfileTableCompanion extends UpdateCompanion<UserProfileTableData> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (dailyCalorieGoal != null) 'daily_calorie_goal': dailyCalorieGoal,
       if (height != null) 'height': height,
+      if (heightUnit != null) 'height_unit': heightUnit,
       if (weight != null) 'weight': weight,
       if (targetWeight != null) 'target_weight': targetWeight,
+      if (weightUnit != null) 'weight_unit': weightUnit,
       if (gender != null) 'gender': gender,
       if (dateOfBirth != null) 'date_of_birth': dateOfBirth,
       if (weightGoal != null) 'weight_goal': weightGoal,
       if (activityLevel != null) 'activity_level': activityLevel,
-      if (heightUnit != null) 'height_unit': heightUnit,
-      if (weightUnit != null) 'weight_unit': weightUnit,
+      if (dailyCalorieGoal != null) 'daily_calorie_goal': dailyCalorieGoal,
+      if (dailyCarbGoal != null) 'daily_carb_goal': dailyCarbGoal,
+      if (dailyProteinGoal != null) 'daily_protein_goal': dailyProteinGoal,
+      if (dailyFatGoal != null) 'daily_fat_goal': dailyFatGoal,
+      if (dailyFiberGoal != null) 'daily_fiber_goal': dailyFiberGoal,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
       if (needsRemoteSync != null) 'needs_remote_sync': needsRemoteSync,
@@ -1983,35 +2188,43 @@ class UserProfileTableCompanion extends UpdateCompanion<UserProfileTableData> {
     });
   }
 
-  UserProfileTableCompanion copyWith({
+  HealthDataTableCompanion copyWith({
     Value<int>? id,
-    Value<int?>? dailyCalorieGoal,
     Value<double?>? height,
+    Value<String>? heightUnit,
     Value<double?>? weight,
     Value<double?>? targetWeight,
+    Value<String>? weightUnit,
     Value<String?>? gender,
     Value<DateTime?>? dateOfBirth,
     Value<String?>? weightGoal,
     Value<String?>? activityLevel,
-    Value<String>? heightUnit,
-    Value<String>? weightUnit,
+    Value<int?>? dailyCalorieGoal,
+    Value<int?>? dailyCarbGoal,
+    Value<int?>? dailyProteinGoal,
+    Value<int?>? dailyFatGoal,
+    Value<int?>? dailyFiberGoal,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
     Value<bool>? needsRemoteSync,
     Value<String?>? remoteSyncRevision,
   }) {
-    return UserProfileTableCompanion(
+    return HealthDataTableCompanion(
       id: id ?? this.id,
-      dailyCalorieGoal: dailyCalorieGoal ?? this.dailyCalorieGoal,
       height: height ?? this.height,
+      heightUnit: heightUnit ?? this.heightUnit,
       weight: weight ?? this.weight,
       targetWeight: targetWeight ?? this.targetWeight,
+      weightUnit: weightUnit ?? this.weightUnit,
       gender: gender ?? this.gender,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       weightGoal: weightGoal ?? this.weightGoal,
       activityLevel: activityLevel ?? this.activityLevel,
-      heightUnit: heightUnit ?? this.heightUnit,
-      weightUnit: weightUnit ?? this.weightUnit,
+      dailyCalorieGoal: dailyCalorieGoal ?? this.dailyCalorieGoal,
+      dailyCarbGoal: dailyCarbGoal ?? this.dailyCarbGoal,
+      dailyProteinGoal: dailyProteinGoal ?? this.dailyProteinGoal,
+      dailyFatGoal: dailyFatGoal ?? this.dailyFatGoal,
+      dailyFiberGoal: dailyFiberGoal ?? this.dailyFiberGoal,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       needsRemoteSync: needsRemoteSync ?? this.needsRemoteSync,
@@ -2025,17 +2238,20 @@ class UserProfileTableCompanion extends UpdateCompanion<UserProfileTableData> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (dailyCalorieGoal.present) {
-      map['daily_calorie_goal'] = Variable<int>(dailyCalorieGoal.value);
-    }
     if (height.present) {
       map['height'] = Variable<double>(height.value);
+    }
+    if (heightUnit.present) {
+      map['height_unit'] = Variable<String>(heightUnit.value);
     }
     if (weight.present) {
       map['weight'] = Variable<double>(weight.value);
     }
     if (targetWeight.present) {
       map['target_weight'] = Variable<double>(targetWeight.value);
+    }
+    if (weightUnit.present) {
+      map['weight_unit'] = Variable<String>(weightUnit.value);
     }
     if (gender.present) {
       map['gender'] = Variable<String>(gender.value);
@@ -2049,11 +2265,20 @@ class UserProfileTableCompanion extends UpdateCompanion<UserProfileTableData> {
     if (activityLevel.present) {
       map['activity_level'] = Variable<String>(activityLevel.value);
     }
-    if (heightUnit.present) {
-      map['height_unit'] = Variable<String>(heightUnit.value);
+    if (dailyCalorieGoal.present) {
+      map['daily_calorie_goal'] = Variable<int>(dailyCalorieGoal.value);
     }
-    if (weightUnit.present) {
-      map['weight_unit'] = Variable<String>(weightUnit.value);
+    if (dailyCarbGoal.present) {
+      map['daily_carb_goal'] = Variable<int>(dailyCarbGoal.value);
+    }
+    if (dailyProteinGoal.present) {
+      map['daily_protein_goal'] = Variable<int>(dailyProteinGoal.value);
+    }
+    if (dailyFatGoal.present) {
+      map['daily_fat_goal'] = Variable<int>(dailyFatGoal.value);
+    }
+    if (dailyFiberGoal.present) {
+      map['daily_fiber_goal'] = Variable<int>(dailyFiberGoal.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -2072,18 +2297,22 @@ class UserProfileTableCompanion extends UpdateCompanion<UserProfileTableData> {
 
   @override
   String toString() {
-    return (StringBuffer('UserProfileTableCompanion(')
+    return (StringBuffer('HealthDataTableCompanion(')
           ..write('id: $id, ')
-          ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
           ..write('height: $height, ')
+          ..write('heightUnit: $heightUnit, ')
           ..write('weight: $weight, ')
           ..write('targetWeight: $targetWeight, ')
+          ..write('weightUnit: $weightUnit, ')
           ..write('gender: $gender, ')
           ..write('dateOfBirth: $dateOfBirth, ')
           ..write('weightGoal: $weightGoal, ')
           ..write('activityLevel: $activityLevel, ')
-          ..write('heightUnit: $heightUnit, ')
-          ..write('weightUnit: $weightUnit, ')
+          ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
+          ..write('dailyCarbGoal: $dailyCarbGoal, ')
+          ..write('dailyProteinGoal: $dailyProteinGoal, ')
+          ..write('dailyFatGoal: $dailyFatGoal, ')
+          ..write('dailyFiberGoal: $dailyFiberGoal, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('needsRemoteSync: $needsRemoteSync, ')
@@ -5734,572 +5963,6 @@ class HealthConnectSyncQueueTableCompanion
   }
 }
 
-class $MealLogSyncQueueTableTable extends MealLogSyncQueueTable
-    with TableInfo<$MealLogSyncQueueTableTable, MealLogSyncQueueTableData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $MealLogSyncQueueTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _analysisIdMeta = const VerificationMeta(
-    'analysisId',
-  );
-  @override
-  late final GeneratedColumn<String> analysisId = GeneratedColumn<String>(
-    'analysis_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _operationMeta = const VerificationMeta(
-    'operation',
-  );
-  @override
-  late final GeneratedColumn<String> operation = GeneratedColumn<String>(
-    'operation',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _versionMeta = const VerificationMeta(
-    'version',
-  );
-  @override
-  late final GeneratedColumn<int> version = GeneratedColumn<int>(
-    'version',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _mealJsonMeta = const VerificationMeta(
-    'mealJson',
-  );
-  @override
-  late final GeneratedColumn<String> mealJson = GeneratedColumn<String>(
-    'meal_json',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _loggedAtMeta = const VerificationMeta(
-    'loggedAt',
-  );
-  @override
-  late final GeneratedColumn<DateTime> loggedAt = GeneratedColumn<DateTime>(
-    'logged_at',
-    aliasedName,
-    true,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _attemptsMeta = const VerificationMeta(
-    'attempts',
-  );
-  @override
-  late final GeneratedColumn<int> attempts = GeneratedColumn<int>(
-    'attempts',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(0),
-  );
-  static const VerificationMeta _lastErrorMeta = const VerificationMeta(
-    'lastError',
-  );
-  @override
-  late final GeneratedColumn<String> lastError = GeneratedColumn<String>(
-    'last_error',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
-  @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-    defaultValue: currentDateAndTime,
-  );
-  @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    analysisId,
-    operation,
-    version,
-    mealJson,
-    loggedAt,
-    attempts,
-    lastError,
-    updatedAt,
-  ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'meal_log_sync_queue_table';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<MealLogSyncQueueTableData> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('analysis_id')) {
-      context.handle(
-        _analysisIdMeta,
-        analysisId.isAcceptableOrUnknown(data['analysis_id']!, _analysisIdMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_analysisIdMeta);
-    }
-    if (data.containsKey('operation')) {
-      context.handle(
-        _operationMeta,
-        operation.isAcceptableOrUnknown(data['operation']!, _operationMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_operationMeta);
-    }
-    if (data.containsKey('version')) {
-      context.handle(
-        _versionMeta,
-        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_versionMeta);
-    }
-    if (data.containsKey('meal_json')) {
-      context.handle(
-        _mealJsonMeta,
-        mealJson.isAcceptableOrUnknown(data['meal_json']!, _mealJsonMeta),
-      );
-    }
-    if (data.containsKey('logged_at')) {
-      context.handle(
-        _loggedAtMeta,
-        loggedAt.isAcceptableOrUnknown(data['logged_at']!, _loggedAtMeta),
-      );
-    }
-    if (data.containsKey('attempts')) {
-      context.handle(
-        _attemptsMeta,
-        attempts.isAcceptableOrUnknown(data['attempts']!, _attemptsMeta),
-      );
-    }
-    if (data.containsKey('last_error')) {
-      context.handle(
-        _lastErrorMeta,
-        lastError.isAcceptableOrUnknown(data['last_error']!, _lastErrorMeta),
-      );
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  MealLogSyncQueueTableData map(
-    Map<String, dynamic> data, {
-    String? tablePrefix,
-  }) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return MealLogSyncQueueTableData(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      analysisId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}analysis_id'],
-          )!,
-      operation:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}operation'],
-          )!,
-      version:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}version'],
-          )!,
-      mealJson: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}meal_json'],
-      ),
-      loggedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}logged_at'],
-      ),
-      attempts:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}attempts'],
-          )!,
-      lastError: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}last_error'],
-      ),
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
-    );
-  }
-
-  @override
-  $MealLogSyncQueueTableTable createAlias(String alias) {
-    return $MealLogSyncQueueTableTable(attachedDatabase, alias);
-  }
-}
-
-class MealLogSyncQueueTableData extends DataClass
-    implements Insertable<MealLogSyncQueueTableData> {
-  final int id;
-  final String analysisId;
-  final String operation;
-  final int version;
-  final String? mealJson;
-  final DateTime? loggedAt;
-  final int attempts;
-  final String? lastError;
-  final DateTime updatedAt;
-  const MealLogSyncQueueTableData({
-    required this.id,
-    required this.analysisId,
-    required this.operation,
-    required this.version,
-    this.mealJson,
-    this.loggedAt,
-    required this.attempts,
-    this.lastError,
-    required this.updatedAt,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['analysis_id'] = Variable<String>(analysisId);
-    map['operation'] = Variable<String>(operation);
-    map['version'] = Variable<int>(version);
-    if (!nullToAbsent || mealJson != null) {
-      map['meal_json'] = Variable<String>(mealJson);
-    }
-    if (!nullToAbsent || loggedAt != null) {
-      map['logged_at'] = Variable<DateTime>(loggedAt);
-    }
-    map['attempts'] = Variable<int>(attempts);
-    if (!nullToAbsent || lastError != null) {
-      map['last_error'] = Variable<String>(lastError);
-    }
-    map['updated_at'] = Variable<DateTime>(updatedAt);
-    return map;
-  }
-
-  MealLogSyncQueueTableCompanion toCompanion(bool nullToAbsent) {
-    return MealLogSyncQueueTableCompanion(
-      id: Value(id),
-      analysisId: Value(analysisId),
-      operation: Value(operation),
-      version: Value(version),
-      mealJson:
-          mealJson == null && nullToAbsent
-              ? const Value.absent()
-              : Value(mealJson),
-      loggedAt:
-          loggedAt == null && nullToAbsent
-              ? const Value.absent()
-              : Value(loggedAt),
-      attempts: Value(attempts),
-      lastError:
-          lastError == null && nullToAbsent
-              ? const Value.absent()
-              : Value(lastError),
-      updatedAt: Value(updatedAt),
-    );
-  }
-
-  factory MealLogSyncQueueTableData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return MealLogSyncQueueTableData(
-      id: serializer.fromJson<int>(json['id']),
-      analysisId: serializer.fromJson<String>(json['analysisId']),
-      operation: serializer.fromJson<String>(json['operation']),
-      version: serializer.fromJson<int>(json['version']),
-      mealJson: serializer.fromJson<String?>(json['mealJson']),
-      loggedAt: serializer.fromJson<DateTime?>(json['loggedAt']),
-      attempts: serializer.fromJson<int>(json['attempts']),
-      lastError: serializer.fromJson<String?>(json['lastError']),
-      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'analysisId': serializer.toJson<String>(analysisId),
-      'operation': serializer.toJson<String>(operation),
-      'version': serializer.toJson<int>(version),
-      'mealJson': serializer.toJson<String?>(mealJson),
-      'loggedAt': serializer.toJson<DateTime?>(loggedAt),
-      'attempts': serializer.toJson<int>(attempts),
-      'lastError': serializer.toJson<String?>(lastError),
-      'updatedAt': serializer.toJson<DateTime>(updatedAt),
-    };
-  }
-
-  MealLogSyncQueueTableData copyWith({
-    int? id,
-    String? analysisId,
-    String? operation,
-    int? version,
-    Value<String?> mealJson = const Value.absent(),
-    Value<DateTime?> loggedAt = const Value.absent(),
-    int? attempts,
-    Value<String?> lastError = const Value.absent(),
-    DateTime? updatedAt,
-  }) => MealLogSyncQueueTableData(
-    id: id ?? this.id,
-    analysisId: analysisId ?? this.analysisId,
-    operation: operation ?? this.operation,
-    version: version ?? this.version,
-    mealJson: mealJson.present ? mealJson.value : this.mealJson,
-    loggedAt: loggedAt.present ? loggedAt.value : this.loggedAt,
-    attempts: attempts ?? this.attempts,
-    lastError: lastError.present ? lastError.value : this.lastError,
-    updatedAt: updatedAt ?? this.updatedAt,
-  );
-  MealLogSyncQueueTableData copyWithCompanion(
-    MealLogSyncQueueTableCompanion data,
-  ) {
-    return MealLogSyncQueueTableData(
-      id: data.id.present ? data.id.value : this.id,
-      analysisId:
-          data.analysisId.present ? data.analysisId.value : this.analysisId,
-      operation: data.operation.present ? data.operation.value : this.operation,
-      version: data.version.present ? data.version.value : this.version,
-      mealJson: data.mealJson.present ? data.mealJson.value : this.mealJson,
-      loggedAt: data.loggedAt.present ? data.loggedAt.value : this.loggedAt,
-      attempts: data.attempts.present ? data.attempts.value : this.attempts,
-      lastError: data.lastError.present ? data.lastError.value : this.lastError,
-      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('MealLogSyncQueueTableData(')
-          ..write('id: $id, ')
-          ..write('analysisId: $analysisId, ')
-          ..write('operation: $operation, ')
-          ..write('version: $version, ')
-          ..write('mealJson: $mealJson, ')
-          ..write('loggedAt: $loggedAt, ')
-          ..write('attempts: $attempts, ')
-          ..write('lastError: $lastError, ')
-          ..write('updatedAt: $updatedAt')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    id,
-    analysisId,
-    operation,
-    version,
-    mealJson,
-    loggedAt,
-    attempts,
-    lastError,
-    updatedAt,
-  );
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is MealLogSyncQueueTableData &&
-          other.id == this.id &&
-          other.analysisId == this.analysisId &&
-          other.operation == this.operation &&
-          other.version == this.version &&
-          other.mealJson == this.mealJson &&
-          other.loggedAt == this.loggedAt &&
-          other.attempts == this.attempts &&
-          other.lastError == this.lastError &&
-          other.updatedAt == this.updatedAt);
-}
-
-class MealLogSyncQueueTableCompanion
-    extends UpdateCompanion<MealLogSyncQueueTableData> {
-  final Value<int> id;
-  final Value<String> analysisId;
-  final Value<String> operation;
-  final Value<int> version;
-  final Value<String?> mealJson;
-  final Value<DateTime?> loggedAt;
-  final Value<int> attempts;
-  final Value<String?> lastError;
-  final Value<DateTime> updatedAt;
-  const MealLogSyncQueueTableCompanion({
-    this.id = const Value.absent(),
-    this.analysisId = const Value.absent(),
-    this.operation = const Value.absent(),
-    this.version = const Value.absent(),
-    this.mealJson = const Value.absent(),
-    this.loggedAt = const Value.absent(),
-    this.attempts = const Value.absent(),
-    this.lastError = const Value.absent(),
-    this.updatedAt = const Value.absent(),
-  });
-  MealLogSyncQueueTableCompanion.insert({
-    this.id = const Value.absent(),
-    required String analysisId,
-    required String operation,
-    required int version,
-    this.mealJson = const Value.absent(),
-    this.loggedAt = const Value.absent(),
-    this.attempts = const Value.absent(),
-    this.lastError = const Value.absent(),
-    this.updatedAt = const Value.absent(),
-  }) : analysisId = Value(analysisId),
-       operation = Value(operation),
-       version = Value(version);
-  static Insertable<MealLogSyncQueueTableData> custom({
-    Expression<int>? id,
-    Expression<String>? analysisId,
-    Expression<String>? operation,
-    Expression<int>? version,
-    Expression<String>? mealJson,
-    Expression<DateTime>? loggedAt,
-    Expression<int>? attempts,
-    Expression<String>? lastError,
-    Expression<DateTime>? updatedAt,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (analysisId != null) 'analysis_id': analysisId,
-      if (operation != null) 'operation': operation,
-      if (version != null) 'version': version,
-      if (mealJson != null) 'meal_json': mealJson,
-      if (loggedAt != null) 'logged_at': loggedAt,
-      if (attempts != null) 'attempts': attempts,
-      if (lastError != null) 'last_error': lastError,
-      if (updatedAt != null) 'updated_at': updatedAt,
-    });
-  }
-
-  MealLogSyncQueueTableCompanion copyWith({
-    Value<int>? id,
-    Value<String>? analysisId,
-    Value<String>? operation,
-    Value<int>? version,
-    Value<String?>? mealJson,
-    Value<DateTime?>? loggedAt,
-    Value<int>? attempts,
-    Value<String?>? lastError,
-    Value<DateTime>? updatedAt,
-  }) {
-    return MealLogSyncQueueTableCompanion(
-      id: id ?? this.id,
-      analysisId: analysisId ?? this.analysisId,
-      operation: operation ?? this.operation,
-      version: version ?? this.version,
-      mealJson: mealJson ?? this.mealJson,
-      loggedAt: loggedAt ?? this.loggedAt,
-      attempts: attempts ?? this.attempts,
-      lastError: lastError ?? this.lastError,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (analysisId.present) {
-      map['analysis_id'] = Variable<String>(analysisId.value);
-    }
-    if (operation.present) {
-      map['operation'] = Variable<String>(operation.value);
-    }
-    if (version.present) {
-      map['version'] = Variable<int>(version.value);
-    }
-    if (mealJson.present) {
-      map['meal_json'] = Variable<String>(mealJson.value);
-    }
-    if (loggedAt.present) {
-      map['logged_at'] = Variable<DateTime>(loggedAt.value);
-    }
-    if (attempts.present) {
-      map['attempts'] = Variable<int>(attempts.value);
-    }
-    if (lastError.present) {
-      map['last_error'] = Variable<String>(lastError.value);
-    }
-    if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('MealLogSyncQueueTableCompanion(')
-          ..write('id: $id, ')
-          ..write('analysisId: $analysisId, ')
-          ..write('operation: $operation, ')
-          ..write('version: $version, ')
-          ..write('mealJson: $mealJson, ')
-          ..write('loggedAt: $loggedAt, ')
-          ..write('attempts: $attempts, ')
-          ..write('lastError: $lastError, ')
-          ..write('updatedAt: $updatedAt')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $LocalAiSummaryTableTable extends LocalAiSummaryTable
     with TableInfo<$LocalAiSummaryTableTable, LocalAiSummaryTableData> {
   @override
@@ -6604,7 +6267,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $MealInfoTableTable mealInfoTable = $MealInfoTableTable(this);
-  late final $UserProfileTableTable userProfileTable = $UserProfileTableTable(
+  late final $HealthDataTableTable healthDataTable = $HealthDataTableTable(
     this,
   );
   late final $UserPreferencesTableTable userPreferencesTable =
@@ -6615,8 +6278,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $LocalNutritionCacheTableTable(this);
   late final $HealthConnectSyncQueueTableTable healthConnectSyncQueueTable =
       $HealthConnectSyncQueueTableTable(this);
-  late final $MealLogSyncQueueTableTable mealLogSyncQueueTable =
-      $MealLogSyncQueueTableTable(this);
   late final $LocalAiSummaryTableTable localAiSummaryTable =
       $LocalAiSummaryTableTable(this);
   late final Index mealInfoAnalysisIdUnique = Index(
@@ -6627,26 +6288,20 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     'health_connect_sync_client_record_unique',
     'CREATE UNIQUE INDEX health_connect_sync_client_record_unique ON health_connect_sync_queue_table (client_record_id)',
   );
-  late final Index mealLogSyncAnalysisIdUnique = Index(
-    'meal_log_sync_analysis_id_unique',
-    'CREATE UNIQUE INDEX meal_log_sync_analysis_id_unique ON meal_log_sync_queue_table (analysis_id)',
-  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     mealInfoTable,
-    userProfileTable,
+    healthDataTable,
     userPreferencesTable,
     favoriteMealTable,
     localNutritionCacheTable,
     healthConnectSyncQueueTable,
-    mealLogSyncQueueTable,
     localAiSummaryTable,
     mealInfoAnalysisIdUnique,
     healthConnectSyncClientRecordUnique,
-    mealLogSyncAnalysisIdUnique,
   ];
 }
 
@@ -7164,46 +6819,54 @@ typedef $$MealInfoTableTableProcessedTableManager =
       MealInfoTableData,
       PrefetchHooks Function()
     >;
-typedef $$UserProfileTableTableCreateCompanionBuilder =
-    UserProfileTableCompanion Function({
+typedef $$HealthDataTableTableCreateCompanionBuilder =
+    HealthDataTableCompanion Function({
       Value<int> id,
-      Value<int?> dailyCalorieGoal,
       Value<double?> height,
+      Value<String> heightUnit,
       Value<double?> weight,
       Value<double?> targetWeight,
+      Value<String> weightUnit,
       Value<String?> gender,
       Value<DateTime?> dateOfBirth,
       Value<String?> weightGoal,
       Value<String?> activityLevel,
-      Value<String> heightUnit,
-      Value<String> weightUnit,
+      Value<int?> dailyCalorieGoal,
+      Value<int?> dailyCarbGoal,
+      Value<int?> dailyProteinGoal,
+      Value<int?> dailyFatGoal,
+      Value<int?> dailyFiberGoal,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
       Value<bool> needsRemoteSync,
       Value<String?> remoteSyncRevision,
     });
-typedef $$UserProfileTableTableUpdateCompanionBuilder =
-    UserProfileTableCompanion Function({
+typedef $$HealthDataTableTableUpdateCompanionBuilder =
+    HealthDataTableCompanion Function({
       Value<int> id,
-      Value<int?> dailyCalorieGoal,
       Value<double?> height,
+      Value<String> heightUnit,
       Value<double?> weight,
       Value<double?> targetWeight,
+      Value<String> weightUnit,
       Value<String?> gender,
       Value<DateTime?> dateOfBirth,
       Value<String?> weightGoal,
       Value<String?> activityLevel,
-      Value<String> heightUnit,
-      Value<String> weightUnit,
+      Value<int?> dailyCalorieGoal,
+      Value<int?> dailyCarbGoal,
+      Value<int?> dailyProteinGoal,
+      Value<int?> dailyFatGoal,
+      Value<int?> dailyFiberGoal,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
       Value<bool> needsRemoteSync,
       Value<String?> remoteSyncRevision,
     });
 
-class $$UserProfileTableTableFilterComposer
-    extends Composer<_$AppDatabase, $UserProfileTableTable> {
-  $$UserProfileTableTableFilterComposer({
+class $$HealthDataTableTableFilterComposer
+    extends Composer<_$AppDatabase, $HealthDataTableTable> {
+  $$HealthDataTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -7215,13 +6878,13 @@ class $$UserProfileTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get dailyCalorieGoal => $composableBuilder(
-    column: $table.dailyCalorieGoal,
+  ColumnFilters<double> get height => $composableBuilder(
+    column: $table.height,
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<double> get height => $composableBuilder(
-    column: $table.height,
+  ColumnFilters<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7232,6 +6895,11 @@ class $$UserProfileTableTableFilterComposer
 
   ColumnFilters<double> get targetWeight => $composableBuilder(
     column: $table.targetWeight,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7255,13 +6923,28 @@ class $$UserProfileTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get heightUnit => $composableBuilder(
-    column: $table.heightUnit,
+  ColumnFilters<int> get dailyCalorieGoal => $composableBuilder(
+    column: $table.dailyCalorieGoal,
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get weightUnit => $composableBuilder(
-    column: $table.weightUnit,
+  ColumnFilters<int> get dailyCarbGoal => $composableBuilder(
+    column: $table.dailyCarbGoal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get dailyProteinGoal => $composableBuilder(
+    column: $table.dailyProteinGoal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get dailyFatGoal => $composableBuilder(
+    column: $table.dailyFatGoal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get dailyFiberGoal => $composableBuilder(
+    column: $table.dailyFiberGoal,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7286,9 +6969,9 @@ class $$UserProfileTableTableFilterComposer
   );
 }
 
-class $$UserProfileTableTableOrderingComposer
-    extends Composer<_$AppDatabase, $UserProfileTableTable> {
-  $$UserProfileTableTableOrderingComposer({
+class $$HealthDataTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $HealthDataTableTable> {
+  $$HealthDataTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -7300,13 +6983,13 @@ class $$UserProfileTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get dailyCalorieGoal => $composableBuilder(
-    column: $table.dailyCalorieGoal,
+  ColumnOrderings<double> get height => $composableBuilder(
+    column: $table.height,
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<double> get height => $composableBuilder(
-    column: $table.height,
+  ColumnOrderings<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -7317,6 +7000,11 @@ class $$UserProfileTableTableOrderingComposer
 
   ColumnOrderings<double> get targetWeight => $composableBuilder(
     column: $table.targetWeight,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -7340,13 +7028,28 @@ class $$UserProfileTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get heightUnit => $composableBuilder(
-    column: $table.heightUnit,
+  ColumnOrderings<int> get dailyCalorieGoal => $composableBuilder(
+    column: $table.dailyCalorieGoal,
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get weightUnit => $composableBuilder(
-    column: $table.weightUnit,
+  ColumnOrderings<int> get dailyCarbGoal => $composableBuilder(
+    column: $table.dailyCarbGoal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get dailyProteinGoal => $composableBuilder(
+    column: $table.dailyProteinGoal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get dailyFatGoal => $composableBuilder(
+    column: $table.dailyFatGoal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get dailyFiberGoal => $composableBuilder(
+    column: $table.dailyFiberGoal,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -7371,9 +7074,9 @@ class $$UserProfileTableTableOrderingComposer
   );
 }
 
-class $$UserProfileTableTableAnnotationComposer
-    extends Composer<_$AppDatabase, $UserProfileTableTable> {
-  $$UserProfileTableTableAnnotationComposer({
+class $$HealthDataTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $HealthDataTableTable> {
+  $$HealthDataTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -7383,19 +7086,24 @@ class $$UserProfileTableTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get dailyCalorieGoal => $composableBuilder(
-    column: $table.dailyCalorieGoal,
-    builder: (column) => column,
-  );
-
   GeneratedColumn<double> get height =>
       $composableBuilder(column: $table.height, builder: (column) => column);
+
+  GeneratedColumn<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<double> get weight =>
       $composableBuilder(column: $table.weight, builder: (column) => column);
 
   GeneratedColumn<double> get targetWeight => $composableBuilder(
     column: $table.targetWeight,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
     builder: (column) => column,
   );
 
@@ -7417,13 +7125,28 @@ class $$UserProfileTableTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<String> get heightUnit => $composableBuilder(
-    column: $table.heightUnit,
+  GeneratedColumn<int> get dailyCalorieGoal => $composableBuilder(
+    column: $table.dailyCalorieGoal,
     builder: (column) => column,
   );
 
-  GeneratedColumn<String> get weightUnit => $composableBuilder(
-    column: $table.weightUnit,
+  GeneratedColumn<int> get dailyCarbGoal => $composableBuilder(
+    column: $table.dailyCarbGoal,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get dailyProteinGoal => $composableBuilder(
+    column: $table.dailyProteinGoal,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get dailyFatGoal => $composableBuilder(
+    column: $table.dailyFatGoal,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get dailyFiberGoal => $composableBuilder(
+    column: $table.dailyFiberGoal,
     builder: (column) => column,
   );
 
@@ -7444,77 +7167,85 @@ class $$UserProfileTableTableAnnotationComposer
   );
 }
 
-class $$UserProfileTableTableTableManager
+class $$HealthDataTableTableTableManager
     extends
         RootTableManager<
           _$AppDatabase,
-          $UserProfileTableTable,
-          UserProfileTableData,
-          $$UserProfileTableTableFilterComposer,
-          $$UserProfileTableTableOrderingComposer,
-          $$UserProfileTableTableAnnotationComposer,
-          $$UserProfileTableTableCreateCompanionBuilder,
-          $$UserProfileTableTableUpdateCompanionBuilder,
+          $HealthDataTableTable,
+          HealthDataTableData,
+          $$HealthDataTableTableFilterComposer,
+          $$HealthDataTableTableOrderingComposer,
+          $$HealthDataTableTableAnnotationComposer,
+          $$HealthDataTableTableCreateCompanionBuilder,
+          $$HealthDataTableTableUpdateCompanionBuilder,
           (
-            UserProfileTableData,
+            HealthDataTableData,
             BaseReferences<
               _$AppDatabase,
-              $UserProfileTableTable,
-              UserProfileTableData
+              $HealthDataTableTable,
+              HealthDataTableData
             >,
           ),
-          UserProfileTableData,
+          HealthDataTableData,
           PrefetchHooks Function()
         > {
-  $$UserProfileTableTableTableManager(
+  $$HealthDataTableTableTableManager(
     _$AppDatabase db,
-    $UserProfileTableTable table,
+    $HealthDataTableTable table,
   ) : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer:
               () =>
-                  $$UserProfileTableTableFilterComposer($db: db, $table: table),
+                  $$HealthDataTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer:
-              () => $$UserProfileTableTableOrderingComposer(
+              () => $$HealthDataTableTableOrderingComposer(
                 $db: db,
                 $table: table,
               ),
           createComputedFieldComposer:
-              () => $$UserProfileTableTableAnnotationComposer(
+              () => $$HealthDataTableTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<int?> dailyCalorieGoal = const Value.absent(),
                 Value<double?> height = const Value.absent(),
+                Value<String> heightUnit = const Value.absent(),
                 Value<double?> weight = const Value.absent(),
                 Value<double?> targetWeight = const Value.absent(),
+                Value<String> weightUnit = const Value.absent(),
                 Value<String?> gender = const Value.absent(),
                 Value<DateTime?> dateOfBirth = const Value.absent(),
                 Value<String?> weightGoal = const Value.absent(),
                 Value<String?> activityLevel = const Value.absent(),
-                Value<String> heightUnit = const Value.absent(),
-                Value<String> weightUnit = const Value.absent(),
+                Value<int?> dailyCalorieGoal = const Value.absent(),
+                Value<int?> dailyCarbGoal = const Value.absent(),
+                Value<int?> dailyProteinGoal = const Value.absent(),
+                Value<int?> dailyFatGoal = const Value.absent(),
+                Value<int?> dailyFiberGoal = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<bool> needsRemoteSync = const Value.absent(),
                 Value<String?> remoteSyncRevision = const Value.absent(),
-              }) => UserProfileTableCompanion(
+              }) => HealthDataTableCompanion(
                 id: id,
-                dailyCalorieGoal: dailyCalorieGoal,
                 height: height,
+                heightUnit: heightUnit,
                 weight: weight,
                 targetWeight: targetWeight,
+                weightUnit: weightUnit,
                 gender: gender,
                 dateOfBirth: dateOfBirth,
                 weightGoal: weightGoal,
                 activityLevel: activityLevel,
-                heightUnit: heightUnit,
-                weightUnit: weightUnit,
+                dailyCalorieGoal: dailyCalorieGoal,
+                dailyCarbGoal: dailyCarbGoal,
+                dailyProteinGoal: dailyProteinGoal,
+                dailyFatGoal: dailyFatGoal,
+                dailyFiberGoal: dailyFiberGoal,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
                 needsRemoteSync: needsRemoteSync,
@@ -7523,32 +7254,40 @@ class $$UserProfileTableTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<int?> dailyCalorieGoal = const Value.absent(),
                 Value<double?> height = const Value.absent(),
+                Value<String> heightUnit = const Value.absent(),
                 Value<double?> weight = const Value.absent(),
                 Value<double?> targetWeight = const Value.absent(),
+                Value<String> weightUnit = const Value.absent(),
                 Value<String?> gender = const Value.absent(),
                 Value<DateTime?> dateOfBirth = const Value.absent(),
                 Value<String?> weightGoal = const Value.absent(),
                 Value<String?> activityLevel = const Value.absent(),
-                Value<String> heightUnit = const Value.absent(),
-                Value<String> weightUnit = const Value.absent(),
+                Value<int?> dailyCalorieGoal = const Value.absent(),
+                Value<int?> dailyCarbGoal = const Value.absent(),
+                Value<int?> dailyProteinGoal = const Value.absent(),
+                Value<int?> dailyFatGoal = const Value.absent(),
+                Value<int?> dailyFiberGoal = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<bool> needsRemoteSync = const Value.absent(),
                 Value<String?> remoteSyncRevision = const Value.absent(),
-              }) => UserProfileTableCompanion.insert(
+              }) => HealthDataTableCompanion.insert(
                 id: id,
-                dailyCalorieGoal: dailyCalorieGoal,
                 height: height,
+                heightUnit: heightUnit,
                 weight: weight,
                 targetWeight: targetWeight,
+                weightUnit: weightUnit,
                 gender: gender,
                 dateOfBirth: dateOfBirth,
                 weightGoal: weightGoal,
                 activityLevel: activityLevel,
-                heightUnit: heightUnit,
-                weightUnit: weightUnit,
+                dailyCalorieGoal: dailyCalorieGoal,
+                dailyCarbGoal: dailyCarbGoal,
+                dailyProteinGoal: dailyProteinGoal,
+                dailyFatGoal: dailyFatGoal,
+                dailyFiberGoal: dailyFiberGoal,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
                 needsRemoteSync: needsRemoteSync,
@@ -7569,25 +7308,25 @@ class $$UserProfileTableTableTableManager
       );
 }
 
-typedef $$UserProfileTableTableProcessedTableManager =
+typedef $$HealthDataTableTableProcessedTableManager =
     ProcessedTableManager<
       _$AppDatabase,
-      $UserProfileTableTable,
-      UserProfileTableData,
-      $$UserProfileTableTableFilterComposer,
-      $$UserProfileTableTableOrderingComposer,
-      $$UserProfileTableTableAnnotationComposer,
-      $$UserProfileTableTableCreateCompanionBuilder,
-      $$UserProfileTableTableUpdateCompanionBuilder,
+      $HealthDataTableTable,
+      HealthDataTableData,
+      $$HealthDataTableTableFilterComposer,
+      $$HealthDataTableTableOrderingComposer,
+      $$HealthDataTableTableAnnotationComposer,
+      $$HealthDataTableTableCreateCompanionBuilder,
+      $$HealthDataTableTableUpdateCompanionBuilder,
       (
-        UserProfileTableData,
+        HealthDataTableData,
         BaseReferences<
           _$AppDatabase,
-          $UserProfileTableTable,
-          UserProfileTableData
+          $HealthDataTableTable,
+          HealthDataTableData
         >,
       ),
-      UserProfileTableData,
+      HealthDataTableData,
       PrefetchHooks Function()
     >;
 typedef $$UserPreferencesTableTableCreateCompanionBuilder =
@@ -9254,304 +8993,6 @@ typedef $$HealthConnectSyncQueueTableTableProcessedTableManager =
       HealthConnectSyncQueueTableData,
       PrefetchHooks Function()
     >;
-typedef $$MealLogSyncQueueTableTableCreateCompanionBuilder =
-    MealLogSyncQueueTableCompanion Function({
-      Value<int> id,
-      required String analysisId,
-      required String operation,
-      required int version,
-      Value<String?> mealJson,
-      Value<DateTime?> loggedAt,
-      Value<int> attempts,
-      Value<String?> lastError,
-      Value<DateTime> updatedAt,
-    });
-typedef $$MealLogSyncQueueTableTableUpdateCompanionBuilder =
-    MealLogSyncQueueTableCompanion Function({
-      Value<int> id,
-      Value<String> analysisId,
-      Value<String> operation,
-      Value<int> version,
-      Value<String?> mealJson,
-      Value<DateTime?> loggedAt,
-      Value<int> attempts,
-      Value<String?> lastError,
-      Value<DateTime> updatedAt,
-    });
-
-class $$MealLogSyncQueueTableTableFilterComposer
-    extends Composer<_$AppDatabase, $MealLogSyncQueueTableTable> {
-  $$MealLogSyncQueueTableTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get analysisId => $composableBuilder(
-    column: $table.analysisId,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get operation => $composableBuilder(
-    column: $table.operation,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get version => $composableBuilder(
-    column: $table.version,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get mealJson => $composableBuilder(
-    column: $table.mealJson,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<DateTime> get loggedAt => $composableBuilder(
-    column: $table.loggedAt,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get attempts => $composableBuilder(
-    column: $table.attempts,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get lastError => $composableBuilder(
-    column: $table.lastError,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
-}
-
-class $$MealLogSyncQueueTableTableOrderingComposer
-    extends Composer<_$AppDatabase, $MealLogSyncQueueTableTable> {
-  $$MealLogSyncQueueTableTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get analysisId => $composableBuilder(
-    column: $table.analysisId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get operation => $composableBuilder(
-    column: $table.operation,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get version => $composableBuilder(
-    column: $table.version,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get mealJson => $composableBuilder(
-    column: $table.mealJson,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<DateTime> get loggedAt => $composableBuilder(
-    column: $table.loggedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get attempts => $composableBuilder(
-    column: $table.attempts,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get lastError => $composableBuilder(
-    column: $table.lastError,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
-}
-
-class $$MealLogSyncQueueTableTableAnnotationComposer
-    extends Composer<_$AppDatabase, $MealLogSyncQueueTableTable> {
-  $$MealLogSyncQueueTableTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get analysisId => $composableBuilder(
-    column: $table.analysisId,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<String> get operation =>
-      $composableBuilder(column: $table.operation, builder: (column) => column);
-
-  GeneratedColumn<int> get version =>
-      $composableBuilder(column: $table.version, builder: (column) => column);
-
-  GeneratedColumn<String> get mealJson =>
-      $composableBuilder(column: $table.mealJson, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get loggedAt =>
-      $composableBuilder(column: $table.loggedAt, builder: (column) => column);
-
-  GeneratedColumn<int> get attempts =>
-      $composableBuilder(column: $table.attempts, builder: (column) => column);
-
-  GeneratedColumn<String> get lastError =>
-      $composableBuilder(column: $table.lastError, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get updatedAt =>
-      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
-}
-
-class $$MealLogSyncQueueTableTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $MealLogSyncQueueTableTable,
-          MealLogSyncQueueTableData,
-          $$MealLogSyncQueueTableTableFilterComposer,
-          $$MealLogSyncQueueTableTableOrderingComposer,
-          $$MealLogSyncQueueTableTableAnnotationComposer,
-          $$MealLogSyncQueueTableTableCreateCompanionBuilder,
-          $$MealLogSyncQueueTableTableUpdateCompanionBuilder,
-          (
-            MealLogSyncQueueTableData,
-            BaseReferences<
-              _$AppDatabase,
-              $MealLogSyncQueueTableTable,
-              MealLogSyncQueueTableData
-            >,
-          ),
-          MealLogSyncQueueTableData,
-          PrefetchHooks Function()
-        > {
-  $$MealLogSyncQueueTableTableTableManager(
-    _$AppDatabase db,
-    $MealLogSyncQueueTableTable table,
-  ) : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer:
-              () => $$MealLogSyncQueueTableTableFilterComposer(
-                $db: db,
-                $table: table,
-              ),
-          createOrderingComposer:
-              () => $$MealLogSyncQueueTableTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => $$MealLogSyncQueueTableTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<String> analysisId = const Value.absent(),
-                Value<String> operation = const Value.absent(),
-                Value<int> version = const Value.absent(),
-                Value<String?> mealJson = const Value.absent(),
-                Value<DateTime?> loggedAt = const Value.absent(),
-                Value<int> attempts = const Value.absent(),
-                Value<String?> lastError = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
-              }) => MealLogSyncQueueTableCompanion(
-                id: id,
-                analysisId: analysisId,
-                operation: operation,
-                version: version,
-                mealJson: mealJson,
-                loggedAt: loggedAt,
-                attempts: attempts,
-                lastError: lastError,
-                updatedAt: updatedAt,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                required String analysisId,
-                required String operation,
-                required int version,
-                Value<String?> mealJson = const Value.absent(),
-                Value<DateTime?> loggedAt = const Value.absent(),
-                Value<int> attempts = const Value.absent(),
-                Value<String?> lastError = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
-              }) => MealLogSyncQueueTableCompanion.insert(
-                id: id,
-                analysisId: analysisId,
-                operation: operation,
-                version: version,
-                mealJson: mealJson,
-                loggedAt: loggedAt,
-                attempts: attempts,
-                lastError: lastError,
-                updatedAt: updatedAt,
-              ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
-          prefetchHooksCallback: null,
-        ),
-      );
-}
-
-typedef $$MealLogSyncQueueTableTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $MealLogSyncQueueTableTable,
-      MealLogSyncQueueTableData,
-      $$MealLogSyncQueueTableTableFilterComposer,
-      $$MealLogSyncQueueTableTableOrderingComposer,
-      $$MealLogSyncQueueTableTableAnnotationComposer,
-      $$MealLogSyncQueueTableTableCreateCompanionBuilder,
-      $$MealLogSyncQueueTableTableUpdateCompanionBuilder,
-      (
-        MealLogSyncQueueTableData,
-        BaseReferences<
-          _$AppDatabase,
-          $MealLogSyncQueueTableTable,
-          MealLogSyncQueueTableData
-        >,
-      ),
-      MealLogSyncQueueTableData,
-      PrefetchHooks Function()
-    >;
 typedef $$LocalAiSummaryTableTableCreateCompanionBuilder =
     LocalAiSummaryTableCompanion Function({
       required String summaryLocalDate,
@@ -9752,8 +9193,8 @@ class $AppDatabaseManager {
   $AppDatabaseManager(this._db);
   $$MealInfoTableTableTableManager get mealInfoTable =>
       $$MealInfoTableTableTableManager(_db, _db.mealInfoTable);
-  $$UserProfileTableTableTableManager get userProfileTable =>
-      $$UserProfileTableTableTableManager(_db, _db.userProfileTable);
+  $$HealthDataTableTableTableManager get healthDataTable =>
+      $$HealthDataTableTableTableManager(_db, _db.healthDataTable);
   $$UserPreferencesTableTableTableManager get userPreferencesTable =>
       $$UserPreferencesTableTableTableManager(_db, _db.userPreferencesTable);
   $$FavoriteMealTableTableTableManager get favoriteMealTable =>
@@ -9769,8 +9210,6 @@ class $AppDatabaseManager {
         _db,
         _db.healthConnectSyncQueueTable,
       );
-  $$MealLogSyncQueueTableTableTableManager get mealLogSyncQueueTable =>
-      $$MealLogSyncQueueTableTableTableManager(_db, _db.mealLogSyncQueueTable);
   $$LocalAiSummaryTableTableTableManager get localAiSummaryTable =>
       $$LocalAiSummaryTableTableTableManager(_db, _db.localAiSummaryTable);
 }

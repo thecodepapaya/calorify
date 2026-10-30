@@ -18,7 +18,7 @@ void main() {
   setUp(() {
     database = _MockDatabaseInterface();
     DatabaseService.setMockInterface(database);
-    when(() => database.getUserProfile()).thenAnswer((_) async => null);
+    when(() => database.getHealthData()).thenAnswer((_) async => null);
   });
 
   testWidgets('requires an explicit birthday selection before continuing', (

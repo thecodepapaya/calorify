@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:calorify/core/providers/app_dependencies.dart';
-import 'package:calorify/core/providers/home_providers.dart'
-    hide databaseInterfaceProvider;
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +15,6 @@ Future<void> logMeal(
   Meal mealInfo, {
   BuildContext? parentContext,
   String? analysisId,
-  PipelineResultData? analysisSnapshot,
   String? v3ResultJson,
 }) async {
   final loggedAt = DateTime.now();
@@ -28,24 +24,9 @@ Future<void> logMeal(
   await database.logMeal(
     mealInfo,
     analysisId: analysisId,
-    analysisSnapshot: analysisSnapshot,
     v3ResultJson: v3ResultJson,
     loggedAt: loggedAt,
   );
-
-  // The database committed this mutation together with a durable outbox row.
-  // Try immediately; connectivity failures remain queued for startup retry.
-  unawaited(() async {
-    try {
-      await container.read(mealLogSyncServiceProvider).syncPending();
-    } on Object catch (error, stackTrace) {
-      log(
-        'Unable to start meal log synchronization',
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-  }());
 
   if (!context.mounted) return;
   await _syncDataToHealthConnect(context);

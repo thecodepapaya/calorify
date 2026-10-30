@@ -333,7 +333,7 @@ class WatchDatabase extends _$WatchDatabase implements WatchSyncDatabase {
           meal =
               encodedProto is String
                   ? LoggedMeal.fromBuffer(base64Decode(encodedProto))
-                  : mealInfoFromLegacyJson(payload);
+                  : (LoggedMeal.create()..mergeFromProto3Json(payload));
         }
       }
     } catch (_) {
@@ -367,11 +367,11 @@ class WatchDatabase extends _$WatchDatabase implements WatchSyncDatabase {
       mealName: meal.meal.name,
       mealQuantity: meal.meal.quantity,
       mealType: meal.meal.type.legacyName,
-      calories: meal.meal.macros.calories,
-      protein: meal.meal.macros.protein,
-      carbs: meal.meal.macros.carbs,
-      fat: meal.meal.macros.fat,
-      fiber: meal.meal.macros.fiber,
+      calories: meal.meal.macros.calorie.value,
+      protein: meal.meal.macros.protein.value,
+      carbs: meal.meal.macros.carb.value,
+      fat: meal.meal.macros.fat.value,
+      fiber: meal.meal.macros.fiber.value,
       timestamp: timestamp,
       imageUrl: Value(
         meal.hasMetadata() && meal.metadata.hasImageUrl()
@@ -416,11 +416,11 @@ class WatchDatabase extends _$WatchDatabase implements WatchSyncDatabase {
       mealName: loggedMeal.meal.name,
       mealQuantity: loggedMeal.meal.quantity,
       mealType: loggedMeal.meal.type.legacyName,
-      calories: loggedMeal.meal.macros.calories,
-      protein: loggedMeal.meal.macros.protein,
-      carbs: loggedMeal.meal.macros.carbs,
-      fat: loggedMeal.meal.macros.fat,
-      fiber: loggedMeal.meal.macros.fiber,
+      calories: loggedMeal.meal.macros.calorie.value,
+      protein: loggedMeal.meal.macros.protein.value,
+      carbs: loggedMeal.meal.macros.carb.value,
+      fat: loggedMeal.meal.macros.fat.value,
+      fiber: loggedMeal.meal.macros.fiber.value,
       timestamp: timestamp,
       favoritedAt: favoritedAt,
       lastUsedAt: Value(lastUsedAt),
@@ -457,12 +457,12 @@ class WatchDatabase extends _$WatchDatabase implements WatchSyncDatabase {
         name: row.mealName,
         quantity: row.mealQuantity,
         type: mealTypeFromLegacyName(row.mealType),
-        macros: MealMacro(
-          calories: row.calories,
-          protein: row.protein,
-          carbs: row.carbs,
-          fat: row.fat,
-          fiber: row.fiber,
+        macros: Macros(
+          calorie: Measurement(value: row.calories),
+          protein: Measurement(value: row.protein),
+          carb: Measurement(value: row.carbs),
+          fat: Measurement(value: row.fat),
+          fiber: Measurement(value: row.fiber),
         ),
         health: _mealHealthFromLegacyColumns(
           score: row.healthScore,
@@ -496,12 +496,12 @@ class WatchDatabase extends _$WatchDatabase implements WatchSyncDatabase {
           name: row.mealName,
           quantity: row.mealQuantity,
           type: mealTypeFromLegacyName(row.mealType),
-          macros: MealMacro(
-            calories: row.calories,
-            protein: row.protein,
-            carbs: row.carbs,
-            fat: row.fat,
-            fiber: row.fiber,
+          macros: Macros(
+            calorie: Measurement(value: row.calories),
+            protein: Measurement(value: row.protein),
+            carb: Measurement(value: row.carbs),
+            fat: Measurement(value: row.fat),
+            fiber: Measurement(value: row.fiber),
           ),
           health: _mealHealthFromLegacyColumns(
             score: row.healthScore,

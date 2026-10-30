@@ -105,10 +105,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             var totalFat = 0;
             for (final meal in meals) {
               final macros = meal.meal.macros;
-              totalCalories += macros.calories;
-              totalProtein += macros.protein;
-              totalCarbs += macros.carbs;
-              totalFat += macros.fat;
+              totalCalories += macros.calorie.value;
+              totalProtein += macros.protein.value;
+              totalCarbs += macros.carb.value;
+              totalFat += macros.fat.value;
             }
 
             return ValueListenableBuilder<int?>(

@@ -15,25 +15,25 @@ class _MockDatabase extends Mock implements DatabaseInterface {}
 
 class _RecordingRemote {
   Object? error;
-  final updates = <UserProfile>[];
+  final updates = <HealthData>[];
 
-  Future<void> replaceUserProfile(UserProfile profile) async {
+  Future<void> replaceHealthData(HealthData data) async {
     if (error != null) throw error!;
-    updates.add(profile);
+    updates.add(data);
   }
 }
 
 class _BlockingRemote {
   final firstStarted = Completer<void>();
   final releaseFirst = Completer<void>();
-  final updates = <UserProfile>[];
+  final updates = <HealthData>[];
   var activeRequests = 0;
   var maxActiveRequests = 0;
 
-  Future<void> replaceUserProfile(UserProfile profile) async {
+  Future<void> replaceHealthData(HealthData data) async {
     activeRequests++;
     maxActiveRequests = max(maxActiveRequests, activeRequests);
-    updates.add(profile);
+    updates.add(data);
     try {
       if (updates.length == 1) {
         firstStarted.complete();
@@ -49,57 +49,61 @@ void main() {
   late _MockDatabase database;
   late _RecordingRemote remote;
   late ProfileRepository repository;
-  final profile = UserProfile(weight: 70, dailyCalorieGoal: 2100);
-  final pending = PendingProfileSync(profile: profile, revision: 'revision-1');
+  final healthData = HealthData(
+    weight: Weight(value: 70, unit: WeightUnit.KG),
+    dailyMacroGoal: Macros(calorie: Measurement(value: 2100)),
+  );
+  final pending =
+      PendingHealthDataSync(healthData: healthData, revision: 'revision-1');
 
   setUp(() {
     database = _MockDatabase();
     remote = _RecordingRemote();
     repository = ProfileRepository.forTesting(
       database: database,
-      uploadProfile: remote.replaceUserProfile,
+      uploadProfile: remote.replaceHealthData,
     );
   });
 
   test('save persists locally before sending and acknowledging', () async {
-    when(() => database.saveUserProfile(profile)).thenAnswer((_) async {});
+    when(() => database.saveHealthData(healthData)).thenAnswer((_) async {});
     when(
-      () => database.getPendingProfileSync(),
+      () => database.getPendingHealthDataSync(),
     ).thenAnswer((_) async => pending);
     when(
-      () => database.markProfileSynced('revision-1'),
+      () => database.markHealthDataSynced('revision-1'),
     ).thenAnswer((_) async => true);
 
-    expect(await repository.saveUserProfile(profile), isTrue);
+    expect(await repository.saveHealthData(healthData), isTrue);
 
     verifyInOrder([
-      () => database.saveUserProfile(profile),
-      () => database.getPendingProfileSync(),
-      () => database.markProfileSynced('revision-1'),
+      () => database.saveHealthData(healthData),
+      () => database.getPendingHealthDataSync(),
+      () => database.markHealthDataSynced('revision-1'),
     ]);
-    expect(remote.updates.single, profile);
+    expect(remote.updates.single, healthData);
   });
 
   test('network failure leaves the durable revision pending', () async {
     remote.error = StateError('offline');
     when(
-      () => database.getPendingProfileSync(),
+      () => database.getPendingHealthDataSync(),
     ).thenAnswer((_) async => pending);
 
-    expect(await repository.syncPendingProfile(), isFalse);
-    verifyNever(() => database.markProfileSynced(any()));
+    expect(await repository.syncPendingHealthData(), isFalse);
+    verifyNever(() => database.markHealthDataSynced(any()));
   });
 
   test('a superseded revision is not acknowledged as current', () async {
     var readCount = 0;
     when(
-      () => database.getPendingProfileSync(),
+      () => database.getPendingHealthDataSync(),
     ).thenAnswer((_) async => readCount++ == 0 ? pending : null);
     when(
-      () => database.markProfileSynced('revision-1'),
+      () => database.markHealthDataSynced('revision-1'),
     ).thenAnswer((_) async => false);
 
-    expect(await repository.syncPendingProfile(), isTrue);
+    expect(await repository.syncPendingHealthData(), isTrue);
     expect(remote.updates, hasLength(1));
   });
 
@@ -109,22 +113,25 @@ void main() {
       final blockingRemote = _BlockingRemote();
       repository = ProfileRepository.forTesting(
         database: database,
-        uploadProfile: blockingRemote.replaceUserProfile,
+        uploadProfile: blockingRemote.replaceHealthData,
       );
-      final newerProfile = UserProfile(weight: 80, dailyCalorieGoal: 2300);
-      final newerPending = PendingProfileSync(
-        profile: newerProfile,
+      final newerHealthData = HealthData(
+        weight: Weight(value: 80, unit: WeightUnit.KG),
+        dailyMacroGoal: Macros(calorie: Measurement(value: 2300)),
+      );
+      final newerPending = PendingHealthDataSync(
+        healthData: newerHealthData,
         revision: 'revision-2',
       );
-      PendingProfileSync? currentPending = pending;
+      PendingHealthDataSync? currentPending = pending;
 
       when(
-        () => database.getPendingProfileSync(),
+        () => database.getPendingHealthDataSync(),
       ).thenAnswer((_) async => currentPending);
-      when(() => database.saveUserProfile(newerProfile)).thenAnswer((_) async {
+      when(() => database.saveHealthData(newerHealthData)).thenAnswer((_) async {
         currentPending = newerPending;
       });
-      when(() => database.markProfileSynced(any())).thenAnswer((
+      when(() => database.markHealthDataSynced(any())).thenAnswer((
         invocation,
       ) async {
         final revision = invocation.positionalArguments.single as String;
@@ -133,22 +140,22 @@ void main() {
         return true;
       });
 
-      final olderSync = repository.syncPendingProfile();
+      final olderSync = repository.syncPendingHealthData();
       await blockingRemote.firstStarted.future;
-      final newerSync = repository.saveUserProfile(newerProfile);
+      final newerSync = repository.saveHealthData(newerHealthData);
       blockingRemote.releaseFirst.complete();
 
       expect(await Future.wait([olderSync, newerSync]), everyElement(isTrue));
       expect(blockingRemote.maxActiveRequests, 1);
-      expect(blockingRemote.updates.map((profile) => profile.weight), [70, 80]);
+      expect(blockingRemote.updates.map((d) => d.weight.value), [70, 80]);
       expect(currentPending, isNull);
     },
   );
 
   test('no pending revision performs no network request', () async {
-    when(() => database.getPendingProfileSync()).thenAnswer((_) async => null);
+    when(() => database.getPendingHealthDataSync()).thenAnswer((_) async => null);
 
-    expect(await repository.syncPendingProfile(), isTrue);
+    expect(await repository.syncPendingHealthData(), isTrue);
     expect(remote.updates, isEmpty);
   });
 
@@ -161,13 +168,13 @@ void main() {
       networkClient: NetworkClient.forTesting(dio),
     );
     when(
-      () => database.getPendingProfileSync(),
+      () => database.getPendingHealthDataSync(),
     ).thenAnswer((_) async => pending);
     when(
-      () => database.markProfileSynced('revision-1'),
+      () => database.markHealthDataSynced('revision-1'),
     ).thenAnswer((_) async => true);
 
-    await repository.syncPendingProfile();
+    await repository.syncPendingHealthData();
 
     expect(adapter.lastRequest?.method, 'POST');
     expect(adapter.lastRequest?.path, '/users/health-data');
@@ -175,22 +182,22 @@ void main() {
   });
 
   test('normalizes legacy dateOfBirth timestamps only for upload', () async {
-    final legacyProfile = UserProfile(
-      weight: 70,
+    final legacyProfile = HealthData(
+      weight: Weight(value: 70, unit: WeightUnit.KG),
       dateOfBirth: '2001-08-02T23:45:00+05:30',
     );
-    final legacyPending = PendingProfileSync(
-      profile: legacyProfile,
+    final legacyPending = PendingHealthDataSync(
+      healthData: legacyProfile,
       revision: 'legacy-revision',
     );
     when(
-      () => database.getPendingProfileSync(),
+      () => database.getPendingHealthDataSync(),
     ).thenAnswer((_) async => legacyPending);
     when(
-      () => database.markProfileSynced('legacy-revision'),
+      () => database.markHealthDataSynced('legacy-revision'),
     ).thenAnswer((_) async => true);
 
-    expect(await repository.syncPendingProfile(), isTrue);
+    expect(await repository.syncPendingHealthData(), isTrue);
 
     expect(remote.updates.single.dateOfBirth, '2001-08-02');
     expect(legacyProfile.dateOfBirth, '2001-08-02T23:45:00+05:30');

@@ -47,7 +47,7 @@ class DebugOptionsRoute extends PageRouteInfo<void> {
 class EditProfileRoute extends PageRouteInfo<EditProfileRouteArgs> {
   EditProfileRoute({
     Key? key,
-    required UserProfile userProfile,
+    required HealthData userProfile,
     List<PageRouteInfo>? children,
   }) : super(
          EditProfileRoute.name,
@@ -71,7 +71,7 @@ class EditProfileRouteArgs {
 
   final Key? key;
 
-  final UserProfile userProfile;
+  final HealthData userProfile;
 
   @override
   String toString() {

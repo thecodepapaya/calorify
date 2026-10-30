@@ -40,7 +40,13 @@ LoggedMeal _meal(String at, {String name = 'Dal'}) => LoggedMeal(
     name: name,
     quantity: 'secret quantity',
     type: MealType.LUNCH,
-    macros: MealMacro(calories: 400, protein: 20, carbs: 50, fat: 10, fiber: 8),
+    macros: Macros(
+      calorie: Measurement(value: 400),
+      protein: Measurement(value: 20),
+      carb: Measurement(value: 50),
+      fat: Measurement(value: 10),
+      fiber: Measurement(value: 8),
+    ),
   ),
 );
 
@@ -67,7 +73,7 @@ void main() {
     database = _Database();
     generator = _Generator();
     when(() => database.getLocalAiSummary(any())).thenAnswer((_) async => null);
-    when(() => database.getUserProfile()).thenAnswer((_) async => null);
+    when(() => database.getHealthData()).thenAnswer((_) async => null);
     when(() => database.saveLocalAiSummary(any())).thenAnswer((_) async {});
   });
 

@@ -23,7 +23,7 @@ class ActivityLevelScreen extends ConsumerStatefulWidget {
 class _ActivityLevelScreenState extends ConsumerState<ActivityLevelScreen> {
   ActivityLevel? _selectedLevel;
   bool _isLoading = true;
-  UserProfile? _userProfile;
+  HealthData? _userProfile;
   bool _isSaving = false;
 
   @override
@@ -33,10 +33,10 @@ class _ActivityLevelScreenState extends ConsumerState<ActivityLevelScreen> {
   }
 
   Future<void> _loadProfileData() async {
-    final data = await ref.read(onboardingServiceProvider).getProfileData();
+    final data = await ref.read(onboardingServiceProvider).getHealthData();
     if (!mounted) return;
     setState(() {
-      _userProfile = data ?? UserProfile();
+      _userProfile = data ?? HealthData();
       _selectedLevel =
           data != null && data.hasActivityLevel() ? data.activityLevel : null;
       _isLoading = false;
@@ -121,7 +121,7 @@ class _ActivityLevelScreenState extends ConsumerState<ActivityLevelScreen> {
     );
   }
 
-  void _continue(UserProfile profile) async {
+  void _continue(HealthData profile) async {
     if (_selectedLevel != null && !_isSaving) {
       setState(() => _isSaving = true);
       final updatedProfile = profile.deepCopy();
@@ -129,7 +129,7 @@ class _ActivityLevelScreenState extends ConsumerState<ActivityLevelScreen> {
       try {
         await ref
             .read(onboardingServiceProvider)
-            .saveProfileData(updatedProfile);
+            .saveHealthData(updatedProfile);
         if (!mounted) return;
         widget.onContinue();
       } catch (_) {

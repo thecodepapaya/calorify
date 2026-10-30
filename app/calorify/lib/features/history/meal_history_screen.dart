@@ -146,7 +146,7 @@ class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
         items.add(_DayDividerItem(date: mealDate, totalCalories: 0));
       }
 
-      caloriesForCurrentDay += loggedMeal.meal.macros.calories;
+      caloriesForCurrentDay += loggedMeal.meal.macros.calorie.value.round();
       items.add(_MealRowItem(loggedMeal));
     }
 

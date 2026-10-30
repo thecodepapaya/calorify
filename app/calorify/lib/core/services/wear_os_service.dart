@@ -100,7 +100,7 @@ class WearOsService {
 
   Future<Map<String, dynamic>> _handleMealLog(Map<String, dynamic> data) async {
     try {
-      final meal = mealInfoFromLegacyJson(data);
+      final meal = LoggedMeal()..mergeFromProto3Json(data, ignoreUnknownFields: true);
       final operationId = data['watch_operation_id'];
       final favoriteMealId = data['favorite_meal_id'];
       await _logMeal(
@@ -138,7 +138,7 @@ class WearOsService {
 
       return {
         'success': true,
-        'meals': meals.map(mealInfoToLegacyJson).toList(),
+        'meals': meals.map((m) => m.toProto3Json()).toList(),
       };
     } catch (e) {
       _logFailure('Watch meal history request', e);
@@ -160,8 +160,8 @@ class WearOsService {
 
   Future<Map<String, dynamic>> _handleGetUserProfile() async {
     try {
-      final profile = await _getUserProfile();
-      return {'success': true, 'profile': userProfileToLegacyJson(profile)};
+      final profile = await _getHealthData();
+      return {'success': true, 'profile': profile.toProto3Json()};
     } on _WearServiceException catch (error) {
       return _legacyFailure(error.message, error.code);
     } catch (e) {
@@ -179,7 +179,7 @@ class WearOsService {
 
       return {
         'success': true,
-        'favorites': favorites.map(favoriteMealToLegacyJson).toList(),
+        'favorites': favorites.map((f) => f.toProto3Json()).toList(),
       };
     } catch (e) {
       _logFailure('Watch favorites request', e);
@@ -201,7 +201,7 @@ class WearOsService {
 
       final response = await _analyzeTextV3(textDescription.trim());
 
-      return {'success': true, 'response': response.toProto3Json()};
+      return {'success': true, 'response': response.rawJson};
     } on _WearServiceException catch (error) {
       return {
         ..._legacyFailure(error.message, error.code),
@@ -273,8 +273,8 @@ class WearOsService {
         2000;
   }
 
-  Future<UserProfile> _getUserProfile() async {
-    final profile = await DatabaseService.databaseInterface.getUserProfile();
+  Future<HealthData> _getHealthData() async {
+    final profile = await DatabaseService.databaseInterface.getHealthData();
     if (profile == null) {
       throw const _WearServiceException('not_found', 'Profile not found');
     }
@@ -288,7 +288,7 @@ class WearOsService {
         .timeout(const Duration(seconds: 5));
   }
 
-  Future<MealDetectionResponse> _analyzeTextV3(String description) async {
+  Future<MealAnalysisV3CompleteResult> _analyzeTextV3(String description) async {
     final analysisId = const Uuid().v4();
     final requestContext = await createMealAnalysisV3Context();
     final events = await _foodRepository.analyzeTextV3(
@@ -300,11 +300,7 @@ class WearOsService {
     await for (final event in events) {
       if (event.kind == MealAnalysisV3EventKind.complete &&
           event.result != null) {
-        return MealDetectionResponse(
-          result: event.result!.toMealDetectionResult(
-            textDescription: description,
-          ),
-        );
+        return event.result!;
       }
       if (event.kind == MealAnalysisV3EventKind.needsInput) {
         throw _WearServiceException(

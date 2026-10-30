@@ -25,12 +25,12 @@ class _HealthProfileReinforcementState
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  late Future<UserProfile?> _profileFuture;
+  late Future<HealthData?> _profileFuture;
 
   @override
   void initState() {
     super.initState();
-    _profileFuture = ref.read(onboardingServiceProvider).getProfileData();
+    _profileFuture = ref.read(onboardingServiceProvider).getHealthData();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
@@ -66,7 +66,7 @@ class _HealthProfileReinforcementState
 
     return Padding(
       padding: const EdgeInsets.all(24.0),
-      child: FutureBuilder<UserProfile?>(
+      child: FutureBuilder<HealthData?>(
         future: _profileFuture,
         builder: (context, snapshot) {
           final profile = snapshot.data;
@@ -90,12 +90,13 @@ class _HealthProfileReinforcementState
 
           if ((profile?.hasTargetWeight() ?? false) &&
               (profile?.hasWeight() ?? false)) {
-            final diff = (profile!.targetWeight - profile.weight).abs();
+            final diff =
+                (profile!.targetWeight.value - profile.weight.value).abs();
             final direction =
-                profile.targetWeight > profile.weight
+                profile.targetWeight.value > profile.weight.value
                     ? t.onboarding.reinforcement.healthProfile.goalGain
                     : t.onboarding.reinforcement.healthProfile.goalLose;
-            final unit = profile.weightUnit.weightUnitDisplay;
+            final unit = profile.weight.unit.display;
             if (diff > 0) {
               description +=
                   ' ${t.onboarding.reinforcement.healthProfile.goalReach(direction: direction, diff: diff.toStringAsFixed(1), unit: unit)}';
@@ -135,7 +136,7 @@ class _HealthProfileReinforcementState
   Widget _buildContent(
     BuildContext context,
     String description,
-    UserProfile? profile,
+    HealthData? profile,
     bool hasValidBmi,
     double bmi,
     String bmiCategory,

@@ -54,12 +54,12 @@ void main() {
             name: 'Chicken Salad',
             quantity: '1 bowl',
             type: MealType.LUNCH,
-            macros: MealMacro(
-              calories: 350,
-              protein: 30,
-              carbs: 10,
-              fat: 15,
-              fiber: 5,
+            macros: Macros(
+              calorie: Measurement(value: 350),
+              protein: Measurement(value: 30),
+              carb: Measurement(value: 10),
+              fat: Measurement(value: 15),
+              fiber: Measurement(value: 5),
             ),
             health: MealHealth(healthScore: HealthScore.HEALTHY),
           ),

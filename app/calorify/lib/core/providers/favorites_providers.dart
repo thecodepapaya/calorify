@@ -37,8 +37,13 @@ final filteredFavoriteMealsProvider = Provider.autoDispose
       filtered.sort((a, b) {
         return switch (sortOption) {
           FavoriteSortOption.recent => _sortByRecent(a, b),
-          FavoriteSortOption.calories => b.loggedMeal.meal.macros.calories
-              .compareTo(a.loggedMeal.meal.macros.calories),
+          FavoriteSortOption.calories => b
+              .loggedMeal
+              .meal
+              .macros
+              .calorie
+              .value
+              .compareTo(a.loggedMeal.meal.macros.calorie.value),
           FavoriteSortOption.alphabetical => a.loggedMeal.meal.name
               .toLowerCase()
               .compareTo(b.loggedMeal.meal.name.toLowerCase()),

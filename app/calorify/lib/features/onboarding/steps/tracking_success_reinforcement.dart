@@ -24,12 +24,12 @@ class _TrackingSuccessReinforcementState
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  late Future<UserProfile?> _profileFuture;
+  late Future<HealthData?> _profileFuture;
 
   @override
   void initState() {
     super.initState();
-    _profileFuture = ref.read(onboardingServiceProvider).getProfileData();
+    _profileFuture = ref.read(onboardingServiceProvider).getHealthData();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
@@ -63,7 +63,7 @@ class _TrackingSuccessReinforcementState
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
-      child: FutureBuilder<UserProfile?>(
+      child: FutureBuilder<HealthData?>(
         future: _profileFuture,
         builder: (context, snapshot) {
           final profile = snapshot.data;

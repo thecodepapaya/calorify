@@ -26,7 +26,7 @@ class WeightStepScreen extends ConsumerStatefulWidget {
 
 class _WeightStepScreenState extends ConsumerState<WeightStepScreen> {
   double _weight = 70;
-  UnitSystem _unitSystem = UnitSystem.METRIC;
+  WeightUnit _unitSystem = WeightUnit.KG;
   bool _isSaving = false;
 
   @override
@@ -36,15 +36,17 @@ class _WeightStepScreenState extends ConsumerState<WeightStepScreen> {
   }
 
   Future<void> _loadData() async {
-    final profile = await ref.read(onboardingServiceProvider).getProfileData();
+    final profile = await ref.read(onboardingServiceProvider).getHealthData();
     if (!mounted) return;
     if (profile != null) {
       setState(() {
-        _unitSystem = profile.weightUnit.normalized;
+        if (profile.hasWeight()) {
+          _unitSystem = profile.weight.unit;
+        }
         final weight =
             widget.isTargetWeight
-                ? (profile.hasTargetWeight() ? profile.targetWeight : null)
-                : (profile.hasWeight() ? profile.weight : null);
+                ? (profile.hasTargetWeight() ? profile.targetWeight.value : null)
+                : (profile.hasWeight() ? profile.weight.value : null);
 
         if (weight != null) {
           _weight = weight;
@@ -139,10 +141,10 @@ class _WeightStepScreenState extends ConsumerState<WeightStepScreen> {
                   () {
                     if (_unitSystem.isMetric) return;
                     setState(() {
-                      final newUnit = UnitSystem.METRIC;
+                      final newUnit = WeightUnit.KG;
                       _weight = LocaleUtils.convertWeightToMetric(
                         _weight,
-                      ).clamp(newUnit.weightMin, newUnit.weightMax);
+                      ).clamp(newUnit.min, newUnit.max);
                       _unitSystem = newUnit;
                     });
                   },
@@ -154,10 +156,10 @@ class _WeightStepScreenState extends ConsumerState<WeightStepScreen> {
                   () {
                     if (_unitSystem.isImperial) return;
                     setState(() {
-                      final newUnit = UnitSystem.IMPERIAL;
+                      final newUnit = WeightUnit.LB;
                       _weight = LocaleUtils.convertWeightToImperial(
                         _weight,
-                      ).clamp(newUnit.weightMin, newUnit.weightMax);
+                      ).clamp(newUnit.min, newUnit.max);
                       _unitSystem = newUnit;
                     });
                   },
@@ -209,15 +211,14 @@ class _WeightStepScreenState extends ConsumerState<WeightStepScreen> {
     setState(() => _isSaving = true);
     try {
       final onboardingService = ref.read(onboardingServiceProvider);
-      final profile = await onboardingService.getProfileData() ?? UserProfile();
+      final profile = await onboardingService.getHealthData() ?? HealthData();
       final updatedProfile = profile.deepCopy();
       if (widget.isTargetWeight) {
-        updatedProfile.targetWeight = _weight;
+        updatedProfile.targetWeight = Weight(value: _weight, unit: _unitSystem);
       } else {
-        updatedProfile.weight = _weight;
+        updatedProfile.weight = Weight(value: _weight, unit: _unitSystem);
       }
-      updatedProfile.weightUnit = _unitSystem;
-      await onboardingService.saveProfileData(updatedProfile);
+      await onboardingService.saveHealthData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(
         widget.isTargetWeight

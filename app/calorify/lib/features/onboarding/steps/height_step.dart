@@ -20,7 +20,7 @@ class HeightStepScreen extends ConsumerStatefulWidget {
 
 class _HeightStepScreenState extends ConsumerState<HeightStepScreen> {
   double _height = 170;
-  UnitSystem _unitSystem = UnitSystem.METRIC;
+  HeightUnit _unitSystem = HeightUnit.CM;
   bool _unitSystemInitialized = false;
   bool _isSaving = false;
 
@@ -35,7 +35,7 @@ class _HeightStepScreenState extends ConsumerState<HeightStepScreen> {
     super.didChangeDependencies();
     // Only set locale-based default on first initialization (use app-selected locale)
     if (!_unitSystemInitialized) {
-      _unitSystem = LocaleUtils.getDefaultUnitSystem(
+      _unitSystem = LocaleUtils.getDefaultHeightUnit(
         TranslationProvider.of(context).locale.flutterLocale,
       );
       _unitSystemInitialized = true;
@@ -43,13 +43,15 @@ class _HeightStepScreenState extends ConsumerState<HeightStepScreen> {
   }
 
   Future<void> _loadData() async {
-    final profile = await ref.read(onboardingServiceProvider).getProfileData();
+    final profile = await ref.read(onboardingServiceProvider).getHealthData();
     if (!mounted) return;
     if (profile != null) {
       setState(() {
-        _unitSystem = profile.heightUnit.normalized;
+        if (profile.hasHeight()) {
+          _height = profile.height.value;
+          _unitSystem = profile.height.unit;
+        }
         _unitSystemInitialized = true;
-        if (profile.hasHeight()) _height = profile.height;
       });
     }
   }
@@ -128,7 +130,7 @@ class _HeightStepScreenState extends ConsumerState<HeightStepScreen> {
                   if (_unitSystem.isMetric) return;
                   setState(() {
                     _height = LocaleUtils.convertHeightToMetric(_height);
-                    _unitSystem = UnitSystem.METRIC;
+                    _unitSystem = HeightUnit.CM;
                   });
                 },
               ),
@@ -140,7 +142,7 @@ class _HeightStepScreenState extends ConsumerState<HeightStepScreen> {
                   if (_unitSystem.isImperial) return;
                   setState(() {
                     _height = LocaleUtils.convertHeightToImperial(_height);
-                    _unitSystem = UnitSystem.IMPERIAL;
+                    _unitSystem = HeightUnit.FT;
                   });
                 },
               ),
@@ -191,11 +193,10 @@ class _HeightStepScreenState extends ConsumerState<HeightStepScreen> {
     setState(() => _isSaving = true);
     try {
       final onboardingService = ref.read(onboardingServiceProvider);
-      final profile = await onboardingService.getProfileData() ?? UserProfile();
+      final profile = await onboardingService.getHealthData() ?? HealthData();
       final updatedProfile = profile.deepCopy();
-      updatedProfile.height = _height;
-      updatedProfile.heightUnit = _unitSystem;
-      await onboardingService.saveProfileData(updatedProfile);
+      updatedProfile.height = Height(value: _height, unit: _unitSystem);
+      await onboardingService.saveHealthData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetHeight);
       widget.onContinue();

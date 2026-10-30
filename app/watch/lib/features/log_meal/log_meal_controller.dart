@@ -7,8 +7,10 @@ import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 
 typedef MealTextDetector =
-    Future<MealDetectionResponse> Function({required String textDescription});
-typedef MealDetectedCallback = Future<void> Function(MealDetectionResult);
+    Future<MealAnalysisV3CompleteResult> Function({
+      required String textDescription,
+    });
+typedef MealDetectedCallback = Future<void> Function(Meal meal);
 typedef LogMealFeedbackCallback = void Function(LogMealFeedback);
 
 enum LogMealFeedback { medium, heavy }
@@ -327,7 +329,7 @@ class LogMealController extends ChangeNotifier {
   }
 
   Future<void> _submit(String description) async {
-    late final MealDetectionResponse response;
+    late final MealAnalysisV3CompleteResult response;
     try {
       response = await _detectText(textDescription: description);
     } catch (error) {
@@ -341,18 +343,34 @@ class LogMealController extends ChangeNotifier {
     }
 
     if (_disposed) return;
-    final result = response.result;
-    if (!result.mealIdentified) {
+    if (response.mealName.isEmpty) {
       _setIdleError(t.watch.voice.mealNotIdentified);
       _onFeedback?.call(LogMealFeedback.medium);
       return;
     }
 
+    final meal = Meal(
+      name: response.mealName,
+      quantity: response.servingSizeText,
+      type: mealTypeFromLegacyName(response.mealType),
+      macros: Macros(
+        calorie: Measurement(value: response.macros.calories.round()),
+        protein: Measurement(value: response.macros.protein.round()),
+        carb: Measurement(value: response.macros.carbs.round()),
+        fat: Measurement(value: response.macros.fat.round()),
+        fiber: Measurement(value: response.macros.fiber.round()),
+      ),
+      metadata: MealMetadata(
+        tip: response.tip,
+        mealDescription: description,
+      ),
+    );
+
     _phase = LogMealPhase.idle;
     _notify();
     _onFeedback?.call(LogMealFeedback.heavy);
     try {
-      await _onMealDetected(result);
+      await _onMealDetected(meal);
     } catch (error) {
       if (kDebugMode) debugPrint('Meal result navigation failed: $error');
     }

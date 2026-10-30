@@ -1,7 +1,7 @@
 import 'package:models/models.dart';
 import 'package:utils/utils.dart';
 
-/// Pure health and calorie calculations derived from a user profile.
+/// Pure health and calorie calculations derived from user health data.
 ///
 /// Keeping these calculations independent from onboarding, persistence, and
 /// Health Connect prevents those services from depending on each other.
@@ -18,7 +18,7 @@ class ProfileMetrics {
   static const double _targetBmi = 22;
   static const int _estimateBlockHours = 3;
 
-  double? basalMetabolicRate(UserProfile profile) {
+  double? basalMetabolicRate(HealthData profile) {
     final height = _heightInCentimeters(profile);
     final weight = _weightInKilograms(profile);
     if (!profile.hasDateOfBirth() ||
@@ -38,13 +38,13 @@ class ProfileMetrics {
     return base + (profile.gender == Gender.MALE ? _maleOffset : _femaleOffset);
   }
 
-  double? totalDailyEnergyExpenditure(UserProfile profile) {
+  double? totalDailyEnergyExpenditure(HealthData profile) {
     if (!profile.hasActivityLevel()) return null;
     final bmr = basalMetabolicRate(profile);
     return bmr == null ? null : bmr * profile.activityLevel.multiplier;
   }
 
-  double? dailyCalorieGoal(UserProfile profile) {
+  double? dailyCalorieGoal(HealthData profile) {
     if (!profile.hasWeightGoal()) return null;
     final tdee = totalDailyEnergyExpenditure(profile);
     if (tdee == null) return null;
@@ -59,7 +59,7 @@ class ProfileMetrics {
 
   /// Estimates calories burned in coarse blocks to avoid minute-by-minute UI
   /// jitter when Health Connect data is unavailable.
-  double? caloriesBurnedSoFar(UserProfile profile, {DateTime? at}) {
+  double? caloriesBurnedSoFar(HealthData profile, {DateTime? at}) {
     final tdee = totalDailyEnergyExpenditure(profile);
     if (tdee == null) return null;
     final hour = (at ?? DateTime.now()).hour;
@@ -67,17 +67,18 @@ class ProfileMetrics {
     return tdee * (completedHours / Duration.hoursPerDay);
   }
 
-  double? idealWeight(UserProfile profile) {
+  double? idealWeight(HealthData profile) {
     final height = _heightInCentimeters(profile);
     if (height == null) return null;
     final meters = height / 100;
     final kilograms = _targetBmi * meters * meters;
-    return profile.weightUnit.isMetric
+    final isMetric = !profile.hasWeight() || profile.weight.unit.isMetric;
+    return isMetric
         ? kilograms
         : LocaleUtils.convertWeightToImperial(kilograms);
   }
 
-  double? bodyMassIndex(UserProfile profile) {
+  double? bodyMassIndex(HealthData profile) {
     final height = _heightInCentimeters(profile);
     final weight = _weightInKilograms(profile);
     if (height == null || weight == null || height <= 0) return null;
@@ -85,17 +86,17 @@ class ProfileMetrics {
     return weight / (meters * meters);
   }
 
-  double? _heightInCentimeters(UserProfile profile) {
+  double? _heightInCentimeters(HealthData profile) {
     if (!profile.hasHeight()) return null;
-    return profile.heightUnit.isMetric
-        ? profile.height
-        : LocaleUtils.convertHeightToMetric(profile.height);
+    return profile.height.unit.isMetric
+        ? profile.height.value
+        : LocaleUtils.convertHeightToMetric(profile.height.value);
   }
 
-  double? _weightInKilograms(UserProfile profile) {
+  double? _weightInKilograms(HealthData profile) {
     if (!profile.hasWeight()) return null;
-    return profile.weightUnit.isMetric
-        ? profile.weight
-        : LocaleUtils.convertWeightToMetric(profile.weight);
+    return profile.weight.unit.isMetric
+        ? profile.weight.value
+        : LocaleUtils.convertWeightToMetric(profile.weight.value);
   }
 }

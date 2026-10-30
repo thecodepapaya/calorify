@@ -22,10 +22,10 @@ void main() {
     mockDatabaseInterface = MockDatabaseInterface();
     DatabaseService.setMockInterface(mockDatabaseInterface);
 
-    when(() => mockDatabaseInterface.getUserProfile()).thenAnswer(
-      (_) async => UserProfile(
-        height: 175,
-        weight: 70,
+    when(() => mockDatabaseInterface.getHealthData()).thenAnswer(
+      (_) async => HealthData(
+        height: Height(value: 175, unit: HeightUnit.CM),
+        weight: Weight(value: 70, unit: WeightUnit.KG),
         gender: Gender.MALE,
         activityLevel: ActivityLevel.MODERATELY_ACTIVE,
         weightGoal: WeightGoal.MAINTAIN_WEIGHT,

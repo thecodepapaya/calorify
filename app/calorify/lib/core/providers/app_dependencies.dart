@@ -41,7 +41,7 @@ final onboardingServiceProvider = Provider<OnboardingService>((ref) {
 
 final healthServiceProvider = Provider<HealthService>((ref) {
   return HealthService(
-    profileLoader: ref.watch(profileRepositoryProvider).getUserProfile,
+    profileLoader: ref.watch(profileRepositoryProvider).getHealthData,
   );
 });
 

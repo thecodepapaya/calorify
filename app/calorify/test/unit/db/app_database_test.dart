@@ -25,7 +25,13 @@ Meal _meal(String name) => Meal(
   name: name,
   quantity: '1 serving',
   type: MealType.SNACK,
-  macros: MealMacro(calories: 100, protein: 2, carbs: 20, fat: 1, fiber: 3),
+  macros: Macros(
+    calorie: Measurement(value: 100),
+    protein: Measurement(value: 2),
+    carb: Measurement(value: 20),
+    fat: Measurement(value: 1),
+    fiber: Measurement(value: 3),
+  ),
 );
 
 void main() {
@@ -85,76 +91,6 @@ void main() {
 
     await database.clearAllData();
     expect(await database.getLocalAiSummary('2026-08-25'), isNull);
-  });
-
-  test(
-    'analyzed meal save, edit, and delete share one durable outbox row',
-    () async {
-      const analysisId = '00000000-0000-4000-8000-000000000501';
-      final loggedAt = DateTime(2026, 8, 24, 12);
-      await database.logMeal(
-        _meal('Banana'),
-        analysisId: analysisId,
-        loggedAt: loggedAt,
-      );
-
-      var pending = await database.getPendingMealLogSyncs();
-      expect(pending, hasLength(1));
-      expect(pending.single.operation, MealLogSyncOperation.upsert);
-      expect(pending.single.version, 1);
-      expect(pending.single.meal?.name, 'Banana');
-
-      final stored = (await database.paginatedMealsHistory(offset: 0)).single;
-      await database.upsertMeal(
-        LoggedMeal(
-          clientId: stored.clientId,
-          meal: _meal('Edited banana'),
-          createdAt: stored.createdAt,
-        ),
-      );
-      pending = await database.getPendingMealLogSyncs();
-      expect(pending, hasLength(1));
-      expect(pending.single.version, 2);
-      expect(pending.single.meal?.name, 'Edited banana');
-
-      await database.deleteMeal(stored.clientId);
-      pending = await database.getPendingMealLogSyncs();
-      expect(pending, hasLength(1));
-      expect(pending.single.operation, MealLogSyncOperation.delete);
-      expect(pending.single.version, 3);
-      expect(pending.single.meal, isNull);
-    },
-  );
-
-  test(
-    'local deterministic analyses stay outside the backend session mirror',
-    () async {
-      const analysisId = '00000000-0000-4000-8000-000000000502';
-      await database.logMeal(
-        _meal('Local banana'),
-        analysisId: analysisId,
-        analysisSnapshot: PipelineResultData(
-          analysisId: analysisId,
-          receipt: MealAnalysisReceipt(
-            calculationOrigin:
-                CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC,
-          ),
-        ),
-      );
-
-      expect(await database.getPendingMealLogSyncs(), isEmpty);
-    },
-  );
-
-  test('acknowledged meal-log versions are not requeued at startup', () async {
-    const analysisId = '00000000-0000-4000-8000-000000000503';
-    await database.logMeal(_meal('Banana'), analysisId: analysisId);
-
-    final operation = (await database.getPendingMealLogSyncs()).single;
-    await database.markMealLogSyncCompleted(operation.id, operation.version);
-    await database.preparePendingMealLogSyncs();
-
-    expect(await database.getPendingMealLogSyncs(), isEmpty);
   });
 
   test(
@@ -377,7 +313,7 @@ void main() {
           name: 'Before',
           quantity: '1 serving',
           type: MealType.SNACK,
-          macros: MealMacro(calories: 100),
+          macros: Macros(calorie: Measurement(value: 100)),
           health: MealHealth(
             healthScore: HealthScore.HEALTHY,
             healthScoreReason: 'Fresh ingredients',
@@ -470,10 +406,6 @@ void main() {
       isTrue,
     );
     expect(
-      await _indexExists(database, 'meal_log_sync_analysis_id_unique'),
-      isTrue,
-    );
-    expect(
       await _indexExists(database, 'meal_info_analysis_id_unique'),
       isTrue,
     );
@@ -504,7 +436,7 @@ void main() {
 
       final version =
           await database.customSelect('PRAGMA user_version').getSingle();
-      expect(version.read<int>('user_version'), 2);
+      expect(version.read<int>('user_version'), 1);
 
       expect(await database.paginatedMealsHistory(offset: 0), isEmpty);
 
@@ -549,7 +481,12 @@ void main() {
         name: 'Reactive meal',
         quantity: '1 serving',
         type: MealType.LUNCH,
-        macros: MealMacro(calories: 400, protein: 20, carbs: 40, fat: 12),
+        macros: Macros(
+          calorie: Measurement(value: 400),
+          protein: Measurement(value: 20),
+          carb: Measurement(value: 40),
+          fat: Measurement(value: 12),
+        ),
       ),
     );
 
@@ -565,25 +502,33 @@ void main() {
     expect(await database.getDailyCalorieGoal(), isNotNull);
   });
 
-  test('profile outbox acknowledges only the revision that was sent', () async {
-    await database.saveUserProfile(
-      UserProfile(height: 170, weight: 70, dailyCalorieGoal: 2100),
+  test('health data outbox acknowledges only the revision that was sent', () async {
+    await database.saveHealthData(
+      HealthData(
+        height: Height(value: 170, unit: HeightUnit.CM),
+        weight: Weight(value: 70, unit: WeightUnit.KG),
+        dailyMacroGoal: Macros(calorie: Measurement(value: 2100)),
+      ),
     );
-    final first = await database.getPendingProfileSync();
+    final first = await database.getPendingHealthDataSync();
     expect(first, isNotNull);
-    expect(first!.profile.dailyCalorieGoal, 2100);
+    expect(first!.healthData.dailyMacroGoal.calorie.value, 2100);
 
-    await database.saveUserProfile(
-      UserProfile(height: 170, weight: 71, dailyCalorieGoal: 2200),
+    await database.saveHealthData(
+      HealthData(
+        height: Height(value: 170, unit: HeightUnit.CM),
+        weight: Weight(value: 71, unit: WeightUnit.KG),
+        dailyMacroGoal: Macros(calorie: Measurement(value: 2200)),
+      ),
     );
-    final second = await database.getPendingProfileSync();
+    final second = await database.getPendingHealthDataSync();
     expect(second, isNotNull);
     expect(second!.revision, isNot(first.revision));
 
-    expect(await database.markProfileSynced(first.revision), isFalse);
-    expect((await database.getPendingProfileSync())?.revision, second.revision);
-    expect(await database.markProfileSynced(second.revision), isTrue);
-    expect(await database.getPendingProfileSync(), isNull);
+    expect(await database.markHealthDataSynced(first.revision), isFalse);
+    expect((await database.getPendingHealthDataSync())?.revision, second.revision);
+    expect(await database.markHealthDataSynced(second.revision), isTrue);
+    expect(await database.getPendingHealthDataSync(), isNull);
   });
 }
 

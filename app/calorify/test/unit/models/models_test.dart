@@ -15,24 +15,29 @@ void main() {
         name: 'Apple',
         quantity: '1',
         type: MealType.SNACK,
-        macros: MealMacro(
-          calories: 95,
-          protein: 0,
-          carbs: 25,
-          fat: 0,
-          fiber: 4,
+        macros: Macros(
+          calorie: Measurement(value: 95),
+          protein: Measurement(value: 0),
+          carb: Measurement(value: 25),
+          fat: Measurement(value: 0),
+          fiber: Measurement(value: 4),
         ),
         health: MealHealth(healthScore: HealthScore.HEALTHY),
       ),
       createdAt: dateTimeToIso8601String(now),
     );
 
-    test('toJson and fromJson are symmetric', () {
-      final json = mealInfoToLegacyJson(loggedMeal);
-      final fromJson = mealInfoFromLegacyJson(json);
+    test('toProto3Json and mergeFromProto3Json are symmetric', () {
+      final json = loggedMeal.toProto3Json();
+      final fromJson =
+          LoggedMeal.create()
+            ..mergeFromProto3Json(Map<String, dynamic>.from(json as Map));
 
       expect(fromJson.meal.name, loggedMeal.meal.name);
-      expect(fromJson.meal.macros.calories, loggedMeal.meal.macros.calories);
+      expect(
+        fromJson.meal.macros.calorie.value,
+        loggedMeal.meal.macros.calorie.value,
+      );
       expect(fromJson.dateTime.day, loggedMeal.dateTime.day);
       expect(
         fromJson.meal.health.healthScore,
@@ -43,10 +48,10 @@ void main() {
     test('copyWith works correctly', () {
       final updatedMeal = loggedMeal.meal.deepCopy();
       updatedMeal.name = 'Banana';
-      updatedMeal.macros.calories = 105;
+      updatedMeal.macros.calorie.value = 105;
 
       expect(updatedMeal.name, 'Banana');
-      expect(updatedMeal.macros.calories, 105);
+      expect(updatedMeal.macros.calorie.value, 105);
       expect(updatedMeal.type, loggedMeal.meal.type);
     });
 
@@ -58,11 +63,11 @@ void main() {
     });
   });
 
-  group('UserProfile Model', () {
+  group('HealthData Model', () {
     test('isProfileComplete returns true for full profile', () {
-      final profile = UserProfile(
-        height: 180,
-        weight: 80,
+      final profile = HealthData(
+        height: Height(value: 180, unit: HeightUnit.CM),
+        weight: Weight(value: 80, unit: WeightUnit.KG),
         gender: Gender.MALE,
         dateOfBirth: dateTimeToIso8601Date(DateTime(1990, 1, 1)),
         activityLevel: ActivityLevel.MODERATELY_ACTIVE,
@@ -73,13 +78,15 @@ void main() {
     });
 
     test('isProfileComplete returns false for partial profile', () {
-      final profile = UserProfile(height: 180);
+      final profile = HealthData(
+        height: Height(value: 180, unit: HeightUnit.CM),
+      );
       expect(profile.isProfileComplete, isFalse);
     });
 
     test('age calculation is correct', () {
       final birthday = DateTime(DateTime.now().year - 25, 1, 1);
-      final profile = UserProfile(dateOfBirth: dateTimeToIso8601Date(birthday));
+      final profile = HealthData(dateOfBirth: dateTimeToIso8601Date(birthday));
       expect(profile.age, 25);
     });
   });

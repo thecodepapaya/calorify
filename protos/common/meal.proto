@@ -4,11 +4,11 @@ package common;
 option go_package = "backend/internal/gen_proto/common";
 
 enum MealType {
-  MEAL_TYPE_UNKNOWN   = 0;
-  MEAL_TYPE_BREAKFAST = 1;
-  MEAL_TYPE_LUNCH     = 2;
-  MEAL_TYPE_DINNER    = 3;
-  MEAL_TYPE_SNACK     = 4;
+  UNKNOWN   = 0;
+  BREAKFAST = 1;
+  LUNCH     = 2;
+  DINNER    = 3;
+  SNACK     = 4;
 }
 
 enum HealthScore {
@@ -48,6 +48,7 @@ message MealMetadata {
   optional string meal_description = 2;
   optional string timestamp        = 3;
   optional string tip              = 4;
+  optional string image_url        = 5;
 }
 
 message Meal {

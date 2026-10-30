@@ -24,28 +24,28 @@ const (
 type MealType int32
 
 const (
-	MealType_MEAL_TYPE_UNKNOWN   MealType = 0
-	MealType_MEAL_TYPE_BREAKFAST MealType = 1
-	MealType_MEAL_TYPE_LUNCH     MealType = 2
-	MealType_MEAL_TYPE_DINNER    MealType = 3
-	MealType_MEAL_TYPE_SNACK     MealType = 4
+	MealType_UNKNOWN   MealType = 0
+	MealType_BREAKFAST MealType = 1
+	MealType_LUNCH     MealType = 2
+	MealType_DINNER    MealType = 3
+	MealType_SNACK     MealType = 4
 )
 
 // Enum value maps for MealType.
 var (
 	MealType_name = map[int32]string{
-		0: "MEAL_TYPE_UNKNOWN",
-		1: "MEAL_TYPE_BREAKFAST",
-		2: "MEAL_TYPE_LUNCH",
-		3: "MEAL_TYPE_DINNER",
-		4: "MEAL_TYPE_SNACK",
+		0: "UNKNOWN",
+		1: "BREAKFAST",
+		2: "LUNCH",
+		3: "DINNER",
+		4: "SNACK",
 	}
 	MealType_value = map[string]int32{
-		"MEAL_TYPE_UNKNOWN":   0,
-		"MEAL_TYPE_BREAKFAST": 1,
-		"MEAL_TYPE_LUNCH":     2,
-		"MEAL_TYPE_DINNER":    3,
-		"MEAL_TYPE_SNACK":     4,
+		"UNKNOWN":   0,
+		"BREAKFAST": 1,
+		"LUNCH":     2,
+		"DINNER":    3,
+		"SNACK":     4,
 	}
 )
 
@@ -371,6 +371,7 @@ type MealMetadata struct {
 	MealDescription *string                `protobuf:"bytes,2,opt,name=meal_description,json=mealDescription,proto3,oneof" json:"meal_description,omitempty"`
 	Timestamp       *string                `protobuf:"bytes,3,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
 	Tip             *string                `protobuf:"bytes,4,opt,name=tip,proto3,oneof" json:"tip,omitempty"`
+	ImageUrl        *string                `protobuf:"bytes,5,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -429,6 +430,13 @@ func (x *MealMetadata) GetTimestamp() string {
 func (x *MealMetadata) GetTip() string {
 	if x != nil && x.Tip != nil {
 		return *x.Tip
+	}
+	return ""
+}
+
+func (x *MealMetadata) GetImageUrl() string {
+	if x != nil && x.ImageUrl != nil {
+		return *x.ImageUrl
 	}
 	return ""
 }
@@ -493,7 +501,7 @@ func (x *Meal) GetType() MealType {
 	if x != nil {
 		return x.Type
 	}
-	return MealType_MEAL_TYPE_UNKNOWN
+	return MealType_UNKNOWN
 }
 
 func (x *Meal) GetMacros() *Macros {
@@ -537,17 +545,20 @@ const file_protos_common_meal_proto_rawDesc = "" +
 	"\fhealth_score\x18\x01 \x01(\x0e2\x13.common.HealthScoreH\x00R\vhealthScore\x88\x01\x01\x123\n" +
 	"\x13health_score_reason\x18\x02 \x01(\tH\x01R\x11healthScoreReason\x88\x01\x01B\x0f\n" +
 	"\r_health_scoreB\x16\n" +
-	"\x14_health_score_reason\"\xdc\x01\n" +
+	"\x14_health_score_reason\"\x8c\x02\n" +
 	"\fMealMetadata\x12&\n" +
 	"\fimage_base64\x18\x01 \x01(\tH\x00R\vimageBase64\x88\x01\x01\x12.\n" +
 	"\x10meal_description\x18\x02 \x01(\tH\x01R\x0fmealDescription\x88\x01\x01\x12!\n" +
 	"\ttimestamp\x18\x03 \x01(\tH\x02R\ttimestamp\x88\x01\x01\x12\x15\n" +
-	"\x03tip\x18\x04 \x01(\tH\x03R\x03tip\x88\x01\x01B\x0f\n" +
+	"\x03tip\x18\x04 \x01(\tH\x03R\x03tip\x88\x01\x01\x12 \n" +
+	"\timage_url\x18\x05 \x01(\tH\x04R\bimageUrl\x88\x01\x01B\x0f\n" +
 	"\r_image_base64B\x13\n" +
 	"\x11_meal_descriptionB\f\n" +
 	"\n" +
 	"_timestampB\x06\n" +
-	"\x04_tip\"\x84\x02\n" +
+	"\x04_tipB\f\n" +
+	"\n" +
+	"_image_url\"\x84\x02\n" +
 	"\x04Meal\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1a\n" +
 	"\bquantity\x18\x03 \x01(\tR\bquantity\x12$\n" +
@@ -556,13 +567,14 @@ const file_protos_common_meal_proto_rawDesc = "" +
 	"\x06health\x18\x06 \x01(\v2\x12.common.MealHealthH\x00R\x06health\x88\x01\x01\x125\n" +
 	"\bmetadata\x18\a \x01(\v2\x14.common.MealMetadataH\x01R\bmetadata\x88\x01\x01B\t\n" +
 	"\a_healthB\v\n" +
-	"\t_metadata*z\n" +
-	"\bMealType\x12\x15\n" +
-	"\x11MEAL_TYPE_UNKNOWN\x10\x00\x12\x17\n" +
-	"\x13MEAL_TYPE_BREAKFAST\x10\x01\x12\x13\n" +
-	"\x0fMEAL_TYPE_LUNCH\x10\x02\x12\x14\n" +
-	"\x10MEAL_TYPE_DINNER\x10\x03\x12\x13\n" +
-	"\x0fMEAL_TYPE_SNACK\x10\x04*6\n" +
+	"\t_metadata*H\n" +
+	"\bMealType\x12\v\n" +
+	"\aUNKNOWN\x10\x00\x12\r\n" +
+	"\tBREAKFAST\x10\x01\x12\t\n" +
+	"\x05LUNCH\x10\x02\x12\n" +
+	"\n" +
+	"\x06DINNER\x10\x03\x12\t\n" +
+	"\x05SNACK\x10\x04*6\n" +
 	"\vHealthScore\x12\v\n" +
 	"\aNEUTRAL\x10\x00\x12\v\n" +
 	"\aHEALTHY\x10\x01\x12\r\n" +

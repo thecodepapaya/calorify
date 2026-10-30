@@ -1,6 +1,6 @@
 import 'package:calorify/core/services/banner_selection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:models/models.dart';
+import 'package:models/models.dart' hide Timestamp;
 
 const kBannersCollection = 'app_config/banners';
 

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:calorify_watch/core/repositories/food_repository.dart';
 import 'package:calorify_watch/core/services/watch_transport.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:models/models.dart';
 
 void main() {
   test('ambiguous dispatched analysis reports a timeout', () async {
@@ -39,18 +38,37 @@ void main() {
     );
   });
 
-  test('returns a successful phone-assisted V2 result', () async {
-    final expected = MealDetectionResponse(
-      result: MealDetectionResult(
-        mealIdentified: true,
-        meal: Meal(name: 'Poha'),
-      ),
-    );
+  test('returns a successful phone-assisted V3 result', () async {
+    const rawSample = {
+      'mealName': 'Poha',
+      'servingSizeText': '1 bowl',
+      'tip': 'Healthy breakfast',
+      'mealType': {'value': 'BREAKFAST'},
+      'macros': {
+        'calories': 250,
+        'protein': 5,
+        'carbs': 45,
+        'fat': 6,
+        'fiber': 2,
+      },
+      'macroRanges': {
+        'calories': {'min': 220, 'max': 280},
+        'protein': {'min': 4, 'max': 6},
+        'carbs': {'min': 40, 'max': 50},
+        'fat': {'min': 5, 'max': 7},
+        'fiber': {'min': 1, 'max': 3},
+      },
+      'components': <dynamic>[],
+      'receipt': {
+        'calculationOrigin': 'CALCULATION_ORIGIN_SERVER_USDA',
+        'confidence': 'HIGH',
+      },
+    };
     final repository = WatchFoodRepository(
       phoneDetector:
           (_) async => WatchTransportResult.success({
             'success': true,
-            'response': expected.toProto3Json(),
+            'response': rawSample,
           }),
     );
 
@@ -58,7 +76,6 @@ void main() {
       textDescription: 'A bowl of poha',
     );
 
-    expect(result.result.mealIdentified, isTrue);
-    expect(result.result.meal.name, 'Poha');
+    expect(result.mealName, 'Poha');
   });
 }

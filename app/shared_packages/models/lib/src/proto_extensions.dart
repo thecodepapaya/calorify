@@ -3,16 +3,15 @@ import 'dart:math';
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:models/models.dart';
 
-extension MealMacroExtension on MealMacro {
-  /// Adds two MealMacro objects together, summing all macro fields.
-  /// Handles null/zero values by using hasX() checks or defaulting to 0.
-  MealMacro operator +(MealMacro other) {
-    return MealMacro(
-      calories: calories + other.calories,
-      carbs: carbs + other.carbs,
-      protein: protein + other.protein,
-      fat: fat + other.fat,
-      fiber: fiber + other.fiber,
+extension MacrosExtension on Macros {
+  /// Adds two Macros objects together, summing all measurement values.
+  Macros operator +(Macros other) {
+    return Macros(
+      calorie: Measurement(value: calorie.value + other.calorie.value),
+      carb: Measurement(value: carb.value + other.carb.value),
+      protein: Measurement(value: protein.value + other.protein.value),
+      fat: Measurement(value: fat.value + other.fat.value),
+      fiber: Measurement(value: fiber.value + other.fiber.value),
     );
   }
 }
@@ -168,66 +167,52 @@ ActivityLevel activityLevelFromLegacyName(String? name) {
   }
 }
 
-extension UnitSystemLegacy on UnitSystem {
-  String get legacyName {
-    switch (this) {
-      case UnitSystem.METRIC:
-        return 'metric';
-      case UnitSystem.IMPERIAL:
-        return 'imperial';
-    }
-    return 'metric';
-  }
-}
+extension HeightUnitExtension on HeightUnit {
+  bool get isMetric => this == HeightUnit.CM;
+  bool get isImperial => this == HeightUnit.FT;
 
-UnitSystem unitSystemFromLegacyName(String? name) {
-  switch (name) {
-    case 'imperial':
-      return UnitSystem.IMPERIAL;
-    case 'metric':
-      return UnitSystem.METRIC;
-    default:
-      return UnitSystem.METRIC;
-  }
-}
+  int get precision => isMetric ? 0 : 1;
+  int get heightPrecision => precision;
+  double get step => 1.0 / pow(10, precision);
 
-extension UnitSystemExtension on UnitSystem {
-  UnitSystem get normalized => this;
-
-  bool get isMetric => this == UnitSystem.METRIC;
-  bool get isImperial => this == UnitSystem.IMPERIAL;
-
-  int get heightPrecision => isMetric ? 0 : 1;
-  int get weightPrecision => isMetric ? 1 : 0;
-
-  double get heightStep => 1.0 / pow(10, heightPrecision);
-  double get weightStep => 1.0 / pow(10, weightPrecision);
-
-  double get heightMin =>
+  double get min =>
       isMetric
           ? ScaleConstants.heightMetricMin
           : ScaleConstants.heightImperialMin;
+  double get heightMin => min;
 
-  double get heightMax =>
+  double get max =>
       isMetric
           ? ScaleConstants.heightMetricMax
           : ScaleConstants.heightImperialMax;
+  double get heightMax => max;
 
-  double get weightMin =>
+  String get display => isMetric ? 'cm' : 'ft';
+  String get heightUnitDisplay => display;
+}
+
+extension WeightUnitExtension on WeightUnit {
+  bool get isMetric => this == WeightUnit.KG;
+  bool get isImperial => this == WeightUnit.LB;
+
+  int get precision => isMetric ? 1 : 0;
+  int get weightPrecision => precision;
+  double get step => 1.0 / pow(10, precision);
+
+  double get min =>
       isMetric
           ? ScaleConstants.weightMetricMin
           : ScaleConstants.weightImperialMin;
+  double get weightMin => min;
 
-  double get weightMax =>
+  double get max =>
       isMetric
           ? ScaleConstants.weightMetricMax
           : ScaleConstants.weightImperialMax;
+  double get weightMax => max;
 
-  /// Returns the weight unit display string ('kg' for metric, 'lbs' for imperial)
-  String get weightUnitDisplay => isMetric ? 'kg' : 'lbs';
-
-  /// Returns the height unit display string ('cm' for metric, 'in' for imperial)
-  String get heightUnitDisplay => isMetric ? 'cm' : 'in';
+  String get display => isMetric ? 'kg' : 'lbs';
+  String get weightUnitDisplay => display;
 }
 
 $fixnum.Int64? int64FromInt(int? value) {
@@ -253,7 +238,7 @@ extension ActivityLevelMultiplier on ActivityLevel {
   }
 }
 
-extension UserProfileExtensions on UserProfile {
+extension HealthDataExtensions on HealthData {
   int? get age {
     final dob = iso8601DateToDateTime(dateOfBirth);
     if (dob == null) return null;
@@ -292,9 +277,14 @@ const List<ActivityLevel> activityLevelValues = [
   ActivityLevel.EXTREMELY_ACTIVE,
 ];
 
-const List<UnitSystem> unitSystemValues = [
-  UnitSystem.METRIC,
-  UnitSystem.IMPERIAL,
+const List<HeightUnit> heightUnitValues = [
+  HeightUnit.CM,
+  HeightUnit.FT,
+];
+
+const List<WeightUnit> weightUnitValues = [
+  WeightUnit.KG,
+  WeightUnit.LB,
 ];
 
 const List<MealType> mealTypeValues = [

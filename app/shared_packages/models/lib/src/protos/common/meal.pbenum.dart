@@ -15,23 +15,20 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class MealType extends $pb.ProtobufEnum {
-  static const MealType MEAL_TYPE_UNKNOWN =
-      MealType._(0, _omitEnumNames ? '' : 'MEAL_TYPE_UNKNOWN');
-  static const MealType MEAL_TYPE_BREAKFAST =
-      MealType._(1, _omitEnumNames ? '' : 'MEAL_TYPE_BREAKFAST');
-  static const MealType MEAL_TYPE_LUNCH =
-      MealType._(2, _omitEnumNames ? '' : 'MEAL_TYPE_LUNCH');
-  static const MealType MEAL_TYPE_DINNER =
-      MealType._(3, _omitEnumNames ? '' : 'MEAL_TYPE_DINNER');
-  static const MealType MEAL_TYPE_SNACK =
-      MealType._(4, _omitEnumNames ? '' : 'MEAL_TYPE_SNACK');
+  static const MealType UNKNOWN =
+      MealType._(0, _omitEnumNames ? '' : 'UNKNOWN');
+  static const MealType BREAKFAST =
+      MealType._(1, _omitEnumNames ? '' : 'BREAKFAST');
+  static const MealType LUNCH = MealType._(2, _omitEnumNames ? '' : 'LUNCH');
+  static const MealType DINNER = MealType._(3, _omitEnumNames ? '' : 'DINNER');
+  static const MealType SNACK = MealType._(4, _omitEnumNames ? '' : 'SNACK');
 
   static const $core.List<MealType> values = <MealType>[
-    MEAL_TYPE_UNKNOWN,
-    MEAL_TYPE_BREAKFAST,
-    MEAL_TYPE_LUNCH,
-    MEAL_TYPE_DINNER,
-    MEAL_TYPE_SNACK,
+    UNKNOWN,
+    BREAKFAST,
+    LUNCH,
+    DINNER,
+    SNACK,
   ];
 
   static final $core.List<MealType?> _byValue =

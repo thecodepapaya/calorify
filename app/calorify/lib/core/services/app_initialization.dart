@@ -6,7 +6,6 @@ import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/health_connect_sync_service.dart';
-import 'package:calorify/core/services/meal_log_sync_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/wear_os_service.dart';
@@ -29,7 +28,6 @@ class AppInitialization {
     required DatabaseInterface database,
     required HealthService healthService,
     required HealthConnectSyncService healthConnectSyncService,
-    required MealLogSyncService mealLogSyncService,
     required ProfileRepository profileRepository,
   }) async {
     if (isTesting) {
@@ -71,14 +69,6 @@ class AppInitialization {
           _initializeAppCheck,
           parentSpan: span,
         );
-    unawaited(() async {
-      await _runInitializationStep(
-        'meal log sync',
-        TraceType.databaseServiceInit,
-        mealLogSyncService.syncPending,
-        parentSpan: span,
-      );
-    }());
     hadInitializationError |=
         !await _runInitializationStep(
           'Health service',
@@ -222,7 +212,7 @@ class AppInitialization {
   static Future<void> _syncPendingProfile(
     ProfileRepository profileRepository,
   ) async {
-    final synced = await profileRepository.syncPendingProfile();
+    final synced = await profileRepository.syncPendingHealthData();
     if (!synced) log('Pending profile sync will retry on the next app start');
   }
 

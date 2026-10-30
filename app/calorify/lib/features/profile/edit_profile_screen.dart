@@ -18,7 +18,7 @@ import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
 class EditProfileScreen extends ConsumerStatefulWidget {
-  final UserProfile userProfile;
+  final HealthData userProfile;
 
   const EditProfileScreen({super.key, required this.userProfile});
 
@@ -40,8 +40,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   late Gender _selectedGender;
   late WeightGoal _selectedWeightGoal;
   late ActivityLevel _selectedActivityLevel;
-  late UnitSystem _heightUnit;
-  late UnitSystem _weightUnit;
+  late HeightUnit _heightUnit;
+  late WeightUnit _weightUnit;
   late int _dailyCalorieGoal;
   late TextEditingController _calorieGoalController;
 
@@ -53,8 +53,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   late Gender _originalGender;
   late WeightGoal _originalWeightGoal;
   late ActivityLevel _originalActivityLevel;
-  late UnitSystem _originalHeightUnit;
-  late UnitSystem _originalWeightUnit;
+  late HeightUnit _originalHeightUnit;
+  late WeightUnit _originalWeightUnit;
   late int _originalDailyCalorieGoal;
 
   // Default values (not in ScaleConstants as they're UI-specific)
@@ -106,27 +106,33 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         widget.userProfile.hasActivityLevel()
             ? widget.userProfile.activityLevel
             : ActivityLevel.SEDENTARY;
-    _heightUnit = widget.userProfile.heightUnit.normalized;
-    _weightUnit = widget.userProfile.weightUnit.normalized;
+    _heightUnit =
+        widget.userProfile.hasHeight()
+            ? widget.userProfile.height.unit
+            : HeightUnit.CM;
+    _weightUnit =
+        widget.userProfile.hasWeight()
+            ? widget.userProfile.weight.unit
+            : WeightUnit.KG;
 
     // Initialize height with default based on unit system
     final defaultHeight =
         _heightUnit.isMetric ? _defaultHeightMetric : _defaultHeightImperial;
     _height = (widget.userProfile.hasHeight()
-            ? widget.userProfile.height
+            ? widget.userProfile.height.value
             : defaultHeight)
-        .clamp(_heightUnit.heightMin, _heightUnit.heightMax);
+        .clamp(_heightUnit.min, _heightUnit.max);
 
     // Initialize weight with default based on unit system
     final defaultWeight =
         _weightUnit.isMetric ? _defaultWeightMetric : _defaultWeightImperial;
     _weight = (widget.userProfile.hasWeight()
-            ? widget.userProfile.weight
+            ? widget.userProfile.weight.value
             : defaultWeight)
-        .clamp(_weightUnit.weightMin, _weightUnit.weightMax);
+        .clamp(_weightUnit.min, _weightUnit.max);
     _targetWeight =
         widget.userProfile.hasTargetWeight()
-            ? widget.userProfile.targetWeight
+            ? widget.userProfile.targetWeight.value
             : null;
 
     // Initialize other fields with safe defaults
@@ -448,7 +454,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   Widget _buildHeightTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final heightUnitString = _heightUnit.heightUnitDisplay;
+    final heightUnitString = _heightUnit.display;
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(
@@ -476,19 +482,20 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             t.editProfile.height,
             style: TextStyle(fontWeight: FontWeight.w600),
           ),
-          _buildUnitSelector(
+          _buildHeightUnitSelector(
             context,
             currentUnit: _heightUnit,
             onChanged: (newUnit) {
+              if (newUnit == _heightUnit) return;
               setState(() {
                 if (newUnit.isMetric) {
                   _height = LocaleUtils.convertHeightToMetric(
                     _height,
-                  ).clamp(newUnit.heightMin, newUnit.heightMax);
+                  ).clamp(newUnit.min, newUnit.max);
                 } else {
                   _height = LocaleUtils.convertHeightToImperial(
                     _height,
-                  ).clamp(newUnit.heightMin, newUnit.heightMax);
+                  ).clamp(newUnit.min, newUnit.max);
                 }
                 _heightUnit = newUnit;
               });
@@ -501,18 +508,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         padding: const EdgeInsets.only(top: _subtitleTopPadding, right: 0),
         child: ValueSlider(
           unit: heightUnitString,
-          min: _heightUnit.heightMin,
-          max: _heightUnit.heightMax,
+          min: _heightUnit.min,
+          max: _heightUnit.max,
           value: _height,
-          precision: _heightUnit.heightPrecision,
-          step: _heightUnit.heightStep,
+          precision: _heightUnit.precision,
+          step: _heightUnit.step,
           valueFormatter:
               (value) => LocaleUtils.formatHeightValue(value, _heightUnit),
           onChanged: (value) {
             setState(() {
               _height = value.clamp(
-                _heightUnit.heightMin,
-                _heightUnit.heightMax,
+                _heightUnit.min,
+                _heightUnit.max,
               );
             });
           },
@@ -525,7 +532,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   Widget _buildWeightTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final weightUnitString = _weightUnit.weightUnitDisplay;
+    final weightUnitString = _weightUnit.display;
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(
@@ -553,7 +560,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             t.editProfile.weight,
             style: TextStyle(fontWeight: FontWeight.w600),
           ),
-          _buildUnitSelector(
+          _buildWeightUnitSelector(
             context,
             currentUnit: _weightUnit,
             onChanged: (newUnit) {
@@ -562,20 +569,20 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 if (newUnit.isMetric) {
                   _weight = LocaleUtils.convertWeightToMetric(
                     _weight,
-                  ).clamp(newUnit.weightMin, newUnit.weightMax);
+                  ).clamp(newUnit.min, newUnit.max);
                   if (_targetWeight != null) {
                     _targetWeight = LocaleUtils.convertWeightToMetric(
                       _targetWeight!,
-                    ).clamp(newUnit.weightMin, newUnit.weightMax);
+                    ).clamp(newUnit.min, newUnit.max);
                   }
                 } else {
                   _weight = LocaleUtils.convertWeightToImperial(
                     _weight,
-                  ).clamp(newUnit.weightMin, newUnit.weightMax);
+                  ).clamp(newUnit.min, newUnit.max);
                   if (_targetWeight != null) {
                     _targetWeight = LocaleUtils.convertWeightToImperial(
                       _targetWeight!,
-                    ).clamp(newUnit.weightMin, newUnit.weightMax);
+                    ).clamp(newUnit.min, newUnit.max);
                   }
                 }
                 _weightUnit = newUnit;
@@ -589,19 +596,19 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         padding: const EdgeInsets.only(top: _subtitleTopPadding, right: 0),
         child: ValueSlider(
           unit: weightUnitString,
-          min: _weightUnit.weightMin,
-          max: _weightUnit.weightMax,
+          min: _weightUnit.min,
+          max: _weightUnit.max,
           value: _weight,
-          precision: _weightUnit.weightPrecision,
-          step: _weightUnit.weightStep,
+          precision: _weightUnit.precision,
+          step: _weightUnit.step,
           onChanged: (value) {
             setState(() {
               // Floor the value for imperial (lbs) to ensure whole number increments
               final adjustedValue =
                   _weightUnit.isMetric ? value : value.floorToDouble();
               _weight = adjustedValue.clamp(
-                _weightUnit.weightMin,
-                _weightUnit.weightMax,
+                _weightUnit.min,
+                _weightUnit.max,
               );
             });
           },
@@ -625,24 +632,52 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     }
   }
 
-  Widget _buildUnitSelector(
+  Widget _buildHeightUnitSelector(
     BuildContext context, {
-    required UnitSystem currentUnit,
-    required ValueChanged<UnitSystem> onChanged,
+    required HeightUnit currentUnit,
+    required ValueChanged<HeightUnit> onChanged,
   }) {
-    return SegmentedButton<UnitSystem>(
+    return SegmentedButton<HeightUnit>(
       segments: [
         ButtonSegment(
-          value: UnitSystem.METRIC,
-          label: Text(t.editProfile.metric),
+          value: HeightUnit.CM,
+          label: Text(t.editProfile.unitCm),
         ),
         ButtonSegment(
-          value: UnitSystem.IMPERIAL,
-          label: Text(t.editProfile.imperial),
+          value: HeightUnit.FT,
+          label: Text(t.editProfile.unitFt),
         ),
       ],
       selected: {currentUnit},
-      onSelectionChanged: (Set<UnitSystem> selection) {
+      onSelectionChanged: (Set<HeightUnit> selection) {
+        onChanged(selection.first);
+      },
+      showSelectedIcon: false,
+      style: const ButtonStyle(
+        visualDensity: VisualDensity.compact,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
+    );
+  }
+
+  Widget _buildWeightUnitSelector(
+    BuildContext context, {
+    required WeightUnit currentUnit,
+    required ValueChanged<WeightUnit> onChanged,
+  }) {
+    return SegmentedButton<WeightUnit>(
+      segments: [
+        ButtonSegment(
+          value: WeightUnit.KG,
+          label: Text(t.editProfile.unitKg),
+        ),
+        ButtonSegment(
+          value: WeightUnit.LB,
+          label: Text(t.editProfile.unitLbs),
+        ),
+      ],
+      selected: {currentUnit},
+      onSelectionChanged: (Set<WeightUnit> selection) {
         onChanged(selection.first);
       },
       showSelectedIcon: false,
@@ -751,25 +786,30 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
     if (_formKey.currentState!.validate()) {
       final updatedData = widget.userProfile.deepCopy();
-      updatedData.height = _height;
-      updatedData.weight = _weight;
+      updatedData.height = Height(value: _height, unit: _heightUnit);
+      updatedData.weight = Weight(value: _weight, unit: _weightUnit);
       if (_targetWeight != null) {
-        updatedData.targetWeight = _targetWeight!;
+        updatedData.targetWeight =
+            Weight(value: _targetWeight!, unit: _weightUnit);
+      } else {
+        updatedData.clearTargetWeight();
       }
       updatedData.gender = _selectedGender;
       updatedData.dateOfBirth = dateTimeToIso8601Date(_dateOfBirth);
       updatedData.weightGoal = _selectedWeightGoal;
       updatedData.activityLevel = _selectedActivityLevel;
-      updatedData.heightUnit = _heightUnit;
-      updatedData.weightUnit = _weightUnit;
+      if (_dailyCalorieGoal > 0) {
+        updatedData.dailyMacroGoal = Macros(
+          calorie: Measurement(value: _dailyCalorieGoal),
+        );
+      } else {
+        updatedData.clearDailyMacroGoal();
+      }
 
       await ref
           .read(profileRepositoryProvider)
-          .saveProfile(
-            profile: updatedData,
-            dailyCalorieGoal: _dailyCalorieGoal,
-          );
-      ref.invalidate(userProfileProvider);
+          .saveHealthData(updatedData);
+      ref.invalidate(healthDataProvider);
       ref.invalidate(dailyCalorieGoalProvider);
 
       if (!mounted) return;

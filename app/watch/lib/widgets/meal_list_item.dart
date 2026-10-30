@@ -131,7 +131,7 @@ class _MealListItemState extends State<MealListItem>
     final colorScheme = theme.colorScheme;
     final strings = Translations.of(context).watch;
     final meal = widget.meal.meal;
-    final calories = meal.macros.calories;
+    final calories = meal.macros.calorie.value;
     final timestamp = _formatTime(
       widget.meal.dateTime,
       Localizations.localeOf(context).toLanguageTag(),
@@ -219,19 +219,19 @@ class _MealListItemState extends State<MealListItem>
                           children: [
                             WatchMacroBadge(
                               icon: AppIcons.dumbbell,
-                              value: meal.macros.protein,
+                              value: meal.macros.protein.value,
                               color: colorScheme.proteinIconColor,
                             ),
                             const SizedBox(width: 6),
                             WatchMacroBadge(
                               icon: AppIcons.wheat,
-                              value: meal.macros.carbs,
+                              value: meal.macros.carb.value,
                               color: colorScheme.carbsIconColor,
                             ),
                             const SizedBox(width: 6),
                             WatchMacroBadge(
                               icon: AppIcons.droplet,
-                              value: meal.macros.fat,
+                              value: meal.macros.fat.value,
                               color: colorScheme.fatIconColor,
                             ),
                           ],

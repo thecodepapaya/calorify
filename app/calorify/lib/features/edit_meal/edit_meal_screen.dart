@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:calorify/core/providers/app_dependencies.dart';
-import 'package:calorify/core/providers/home_providers.dart'
-    show mealLogSyncServiceProvider;
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
@@ -93,11 +91,11 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
       _nameController = TextEditingController(text: loggedMeal.meal.name);
       _selectedDate = loggedMeal.dateTime;
       _selectedTime = TimeOfDay.fromDateTime(loggedMeal.dateTime);
-      _calories = loggedMeal.meal.macros.calories;
-      _carbs = loggedMeal.meal.macros.carbs.round();
-      _protein = loggedMeal.meal.macros.protein.round();
-      _fat = loggedMeal.meal.macros.fat.round();
-      _fiber = loggedMeal.meal.macros.fiber.round();
+      _calories = loggedMeal.meal.macros.calorie.value.round();
+      _carbs = loggedMeal.meal.macros.carb.value.round();
+      _protein = loggedMeal.meal.macros.protein.value.round();
+      _fat = loggedMeal.meal.macros.fat.value.round();
+      _fiber = loggedMeal.meal.macros.fiber.value.round();
       _mealType = loggedMeal.meal.type;
       _mealQuantityController = TextEditingController(
         text: loggedMeal.meal.quantity,
@@ -110,11 +108,11 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
       _nameController = TextEditingController(text: meal.name);
       _selectedDate = initialDateTime;
       _selectedTime = TimeOfDay.fromDateTime(initialDateTime);
-      _calories = meal.macros.calories;
-      _carbs = meal.macros.carbs.round();
-      _protein = meal.macros.protein.round();
-      _fat = meal.macros.fat.round();
-      _fiber = meal.macros.fiber.round();
+      _calories = meal.macros.calorie.value.round();
+      _carbs = meal.macros.carb.value.round();
+      _protein = meal.macros.protein.value.round();
+      _fat = meal.macros.fat.value.round();
+      _fiber = meal.macros.fiber.value.round();
       _mealType = meal.type;
       _mealQuantityController = TextEditingController(text: meal.quantity);
     } else {
@@ -488,12 +486,12 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
         name: _nameController.text.trim(),
         quantity: _mealQuantityController.text,
         type: _mealType,
-        macros: MealMacro(
-          calories: _calories,
-          carbs: _carbs,
-          protein: _protein,
-          fat: _fat,
-          fiber: _fiber,
+        macros: Macros(
+          calorie: Measurement(value: _calories),
+          carb: Measurement(value: _carbs),
+          protein: Measurement(value: _protein),
+          fat: Measurement(value: _fat),
+          fiber: Measurement(value: _fiber),
         ),
       ),
       createdAt: dateTimeToIso8601String(newTimestamp),
@@ -517,15 +515,6 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
       } else {
         await database.upsertMeal(mealInfo);
         unawaited(() async {
-          try {
-            await ref.read(mealLogSyncServiceProvider).syncPending();
-          } catch (error, stackTrace) {
-            log(
-              'Meal log sync after an edit could not start',
-              error: error,
-              stackTrace: stackTrace,
-            );
-          }
           try {
             await ref.read(healthConnectSyncServiceProvider).syncPending();
           } catch (error, stackTrace) {

@@ -30,8 +30,8 @@ void main() {
     expect(absentHealth.hasHealthScore(), isFalse);
     expect(explicitHealthy.hasHealthScore(), isTrue);
     expect(explicitHealthy.healthScore, HealthScore.HEALTHY);
-    expect(UserProfile().hasGender(), isFalse);
-    expect(UserProfile(gender: Gender.MALE).hasGender(), isTrue);
+    expect(HealthData().hasGender(), isFalse);
+    expect(HealthData(gender: Gender.MALE).hasGender(), isTrue);
     final absentPriority = Banner.fromBuffer(Banner().writeToBuffer());
     final explicitLow = Banner.fromBuffer(
       Banner(priority: BannerPriority.LOW).writeToBuffer(),

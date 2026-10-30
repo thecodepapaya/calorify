@@ -1,13 +1,13 @@
-import 'package:utils/utils.dart';
 import 'package:calorify/shared_widgets/scale_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 
 /// A reusable horizontal scale widget for selecting height values.
 /// Supports both metric (cm) and imperial (ft) units.
 class HeightScaleWidget extends StatelessWidget {
   final double value;
-  final UnitSystem unitSystem;
+  final HeightUnit unitSystem;
   final ValueChanged<double> onValueChanged;
   final double? minValue;
   final double? maxValue;
@@ -23,7 +23,7 @@ class HeightScaleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScaleWidget(
+    return ScaleWidget<HeightUnit>(
       value: value,
       unitSystem: unitSystem,
       onValueChanged: onValueChanged,
@@ -31,28 +31,22 @@ class HeightScaleWidget extends StatelessWidget {
       maxValue: maxValue,
       tickWidth: ScaleConstants.heightTickWidth,
       ticksPerMajor:
-          (unitSystem) =>
-              ScaleConstants.heightTicksPerMajor(unitSystem.isMetric),
-      getMinValue: (unitSystem) => unitSystem.heightMin,
-      getMaxValue: (unitSystem) => unitSystem.heightMax,
-      getStep:
-          (unitSystem) =>
-              unitSystem.isMetric
-                  ? ScaleConstants.heightMetricStep
-                  : ScaleConstants.heightImperialStep,
+          (unit) => ScaleConstants.heightTicksPerMajor(unit.isMetric),
+      getMinValue: (unit) => unit.min,
+      getMaxValue: (unit) => unit.max,
+      getStep: (unit) => unit.step,
       formatValue:
-          (value, unitSystem, context) =>
-              LocaleUtils.formatHeightValue(value, unitSystem),
-      shouldShowMajorLabel: (value, index, unitSystem, ticksPerMajor) {
-        if (unitSystem.isMetric) {
+          (value, unit, context) => LocaleUtils.formatHeightValue(value, unit),
+      shouldShowMajorLabel: (value, index, unit, ticksPerMajor) {
+        if (unit.isMetric) {
           return index % ticksPerMajor == 0;
         } else {
           // Show label for whole feet (multiples of 12 inches)
           return (value % 12) < 0.01;
         }
       },
-      shouldShowMediumLabel: (value, index, unitSystem, ticksPerMedium) {
-        if (unitSystem.isMetric) {
+      shouldShowMediumLabel: (value, index, unit, ticksPerMedium) {
+        if (unit.isMetric) {
           return index % ticksPerMedium == 0;
         } else {
           // Show medium label for 6-inch marks (half feet)

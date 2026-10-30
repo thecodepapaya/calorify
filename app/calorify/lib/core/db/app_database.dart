@@ -5,20 +5,18 @@ import 'dart:io';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/db/mappers/favorite_meal_mapper.dart';
 import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
-import 'package:calorify/core/db/mappers/user_profile_mapper.dart';
+import 'package:calorify/core/db/mappers/health_data_mapper.dart';
 import 'package:calorify/core/db/mock_data/favorite_meal_mock.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
-import 'package:calorify/core/db/mock_data/user_settings_mock.dart'
-    hide UserProfile;
+import 'package:calorify/core/db/mock_data/user_settings_mock.dart';
 import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/health_connect_sync_queue.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
-import 'package:calorify/core/db/tables/meal_log_sync_queue.dart';
 import 'package:calorify/core/db/tables/local_nutrition_cache.dart';
 import 'package:calorify/core/db/tables/local_ai_summary.dart';
 import 'package:calorify/core/ai_summary/ai_summary_models.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
-import 'package:calorify/core/db/tables/user_profile.dart';
+import 'package:calorify/core/db/tables/health_data.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart' show visibleForTesting;
@@ -33,12 +31,11 @@ part 'app_database.g.dart';
 @DriftDatabase(
   tables: [
     MealInfoTable,
-    UserProfileTable,
+    HealthDataTable,
     UserPreferencesTable,
     FavoriteMealTable,
     LocalNutritionCacheTable,
     HealthConnectSyncQueueTable,
-    MealLogSyncQueueTable,
     LocalAiSummaryTable,
   ],
 )
@@ -103,7 +100,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     }
   }
 
-  static const int _userProfileId = 1;
+  static const int _healthDataId = 1;
   static const int _userPreferencesId = 1;
 
   Future<void> _seedMockData() async {
@@ -134,9 +131,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         }).toList(),
       );
       batch.insert(
-        userProfileTable,
-        UserProfileTableCompanion(
-          id: const Value(_userProfileId),
+        healthDataTable,
+        HealthDataTableCompanion(
+          id: const Value(_healthDataId),
           dailyCalorieGoal: Value(goal),
         ),
       );
@@ -300,24 +297,24 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   @override
   Future<int?> getDailyCalorieGoal() async {
     final setting =
-        await (select(userProfileTable)
-          ..where((tbl) => tbl.id.equals(_userProfileId))).getSingleOrNull();
+        await (select(healthDataTable)
+          ..where((tbl) => tbl.id.equals(_healthDataId))).getSingleOrNull();
     return setting?.dailyCalorieGoal;
   }
 
   @override
   Stream<int?> watchDailyCalorieGoal() {
-    return (select(userProfileTable)..where(
-      (tbl) => tbl.id.equals(_userProfileId),
+    return (select(healthDataTable)..where(
+      (tbl) => tbl.id.equals(_healthDataId),
     )).watchSingleOrNull().map((row) => row?.dailyCalorieGoal);
   }
 
   @override
   Future<void> setDailyCalorieGoal(int goal) async {
     final revision = const Uuid().v4();
-    await into(userProfileTable).insertOnConflictUpdate(
-      UserProfileTableCompanion.insert(
-        id: const Value(_userProfileId),
+    await into(healthDataTable).insertOnConflictUpdate(
+      HealthDataTableCompanion.insert(
+        id: const Value(_healthDataId),
         dailyCalorieGoal: Value(goal),
         updatedAt: Value(DateTime.now().toUtc()),
         needsRemoteSync: const Value(true),
@@ -421,7 +418,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   Future<void> logMeal(
     Meal mealInfo, {
     String? analysisId,
-    PipelineResultData? analysisSnapshot,
     String? v3ResultJson,
     DateTime? loggedAt,
   }) async {
@@ -431,10 +427,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             ? null
             : normalizedAnalysisId;
     final timestamp = loggedAt ?? DateTime.now();
-    final syncAnalysisLog = _isRemoteMealAnalysis(
-      idempotencyKey,
-      analysisSnapshot,
-    );
 
     try {
       await transaction(() async {
@@ -452,18 +444,11 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         final companion = mealInfo.toCompanion(
           timestamp: timestamp,
           analysisId: Value(idempotencyKey),
-          analysisSnapshotJson: Value(
-            analysisSnapshot == null
-                ? null
-                : jsonEncode(analysisSnapshot.toProto3Json()),
-          ),
           v3ResultJson: Value(v3ResultJson),
           healthConnectRecordId:
               recordId == null ? const Value.absent() : Value(recordId),
           healthConnectRecordVersion:
               recordId == null ? const Value.absent() : const Value(1),
-          mealLogSyncVersion:
-              syncAnalysisLog ? const Value(1) : const Value.absent(),
         );
 
         if (idempotencyKey == null) {
@@ -483,15 +468,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             loggedAt: timestamp,
             clientRecordId: recordId,
             clientRecordVersion: 1,
-          );
-        }
-        if (syncAnalysisLog) {
-          await _enqueueMealLogSync(
-            analysisId: idempotencyKey!,
-            operation: MealLogSyncOperation.upsert,
-            version: 1,
-            meal: mealInfo,
-            loggedAt: timestamp,
           );
         }
       });
@@ -520,28 +496,11 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           mealInfo.hasCreatedAt()
               ? iso8601StringToDateTime(mealInfo.createdAt) ?? DateTime.now()
               : DateTime.now();
-      final syncAnalysisLog = _isRemoteMealAnalysisRow(existing);
-      final mealLogSyncVersion =
-          syncAnalysisLog ? existing!.mealLogSyncVersion + 1 : 0;
 
       if (!syncEnabled) {
         await into(mealInfoTable).insertOnConflictUpdate(
-          mealInfo.toCompanion().copyWith(
-            mealLogSyncVersion:
-                syncAnalysisLog
-                    ? Value(mealLogSyncVersion)
-                    : const Value.absent(),
-          ),
+          mealInfo.toCompanion(),
         );
-        if (syncAnalysisLog) {
-          await _enqueueMealLogSync(
-            analysisId: existing!.analysisId!,
-            operation: MealLogSyncOperation.upsert,
-            version: mealLogSyncVersion,
-            meal: mealInfo.meal,
-            loggedAt: loggedAt,
-          );
-        }
         return;
       }
 
@@ -554,10 +513,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         mealInfo.toCompanion().copyWith(
           healthConnectRecordId: Value(recordId),
           healthConnectRecordVersion: Value(recordVersion),
-          mealLogSyncVersion:
-              syncAnalysisLog
-                  ? Value(mealLogSyncVersion)
-                  : const Value.absent(),
         ),
       );
       await _enqueueHealthConnectUpsert(
@@ -566,15 +521,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         clientRecordId: recordId,
         clientRecordVersion: recordVersion,
       );
-      if (syncAnalysisLog) {
-        await _enqueueMealLogSync(
-          analysisId: existing!.analysisId!,
-          operation: MealLogSyncOperation.upsert,
-          version: mealLogSyncVersion,
-          meal: mealInfo.meal,
-          loggedAt: loggedAt,
-        );
-      }
     });
   }
 
@@ -590,13 +536,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           clientRecordVersion: existing.healthConnectRecordVersion + 1,
         );
       }
-      if (_isRemoteMealAnalysisRow(existing)) {
-        await _enqueueMealLogSync(
-          analysisId: existing!.analysisId!,
-          operation: MealLogSyncOperation.delete,
-          version: existing.mealLogSyncVersion + 1,
-        );
-      }
       await (delete(mealInfoTable)
         ..where((table) => table.id.equals(mealId))).go();
     });
@@ -609,168 +548,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           ..where((tbl) => tbl.id.equals(mealId))).getSingleOrNull();
     if (row == null) return null;
     return MealInfoMapper.fromRow(row);
-  }
-
-  static final RegExp _uuidPattern = RegExp(
-    r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$',
-  );
-
-  bool _isRemoteMealAnalysis(String? analysisId, PipelineResultData? snapshot) {
-    if (analysisId == null || !_uuidPattern.hasMatch(analysisId)) return false;
-    return !(snapshot?.hasReceipt() == true &&
-        snapshot!.receipt.calculationOrigin ==
-            CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC);
-  }
-
-  bool _isRemoteMealAnalysisRow(MealInfoTableData? row) {
-    if (row == null || row.analysisId == null) return false;
-    PipelineResultData? snapshot;
-    if (row.analysisSnapshotJson != null) {
-      try {
-        final json = jsonDecode(row.analysisSnapshotJson!);
-        snapshot =
-            PipelineResultData()
-              ..mergeFromProto3Json(Map<String, dynamic>.from(json as Map));
-      } on Object {
-        // A valid remote analysis ID remains the authoritative ownership key.
-      }
-    }
-    return _isRemoteMealAnalysis(row.analysisId, snapshot);
-  }
-
-  @override
-  Future<void> preparePendingMealLogSyncs() async {
-    await transaction(() async {
-      final rows =
-          await (select(mealInfoTable)
-            ..where((table) => table.analysisId.isNotNull())).get();
-      for (final row in rows) {
-        if (!_isRemoteMealAnalysisRow(row)) continue;
-        final version = row.mealLogSyncVersion > 0 ? row.mealLogSyncVersion : 1;
-        if (row.mealLogSyncVersion == 0) {
-          await (update(mealInfoTable)..where(
-            (table) => table.id.equals(row.id),
-          )).write(MealInfoTableCompanion(mealLogSyncVersion: Value(version)));
-        }
-        if (version <= row.mealLogSyncedVersion) continue;
-        await _enqueueMealLogSync(
-          analysisId: row.analysisId!,
-          operation: MealLogSyncOperation.upsert,
-          version: version,
-          meal: MealInfoMapper.fromRow(row).meal,
-          loggedAt: row.timestamp,
-        );
-      }
-    });
-  }
-
-  @override
-  Future<List<PendingMealLogSync>> getPendingMealLogSyncs({
-    int limit = 50,
-  }) async {
-    final rows =
-        await (select(mealLogSyncQueueTable)
-              ..orderBy([(table) => OrderingTerm.asc(table.updatedAt)])
-              ..limit(limit))
-            .get();
-    return rows
-        .map((row) {
-          Meal? meal;
-          if (row.mealJson != null) {
-            final json = jsonDecode(row.mealJson!);
-            meal =
-                Meal()
-                  ..mergeFromProto3Json(Map<String, dynamic>.from(json as Map));
-          }
-          return PendingMealLogSync(
-            id: row.id,
-            analysisId: row.analysisId,
-            operation: MealLogSyncOperation.values.byName(row.operation),
-            version: row.version,
-            attempts: row.attempts,
-            meal: meal,
-            loggedAt: row.loggedAt,
-          );
-        })
-        .toList(growable: false);
-  }
-
-  @override
-  Future<void> markMealLogSyncCompleted(int id, int version) async {
-    await transaction(() async {
-      final operation =
-          await (select(mealLogSyncQueueTable)..where(
-            (table) => table.id.equals(id) & table.version.equals(version),
-          )).getSingleOrNull();
-      if (operation == null) return;
-      await (delete(mealLogSyncQueueTable)..where(
-        (table) => table.id.equals(id) & table.version.equals(version),
-      )).go();
-      if (operation.operation == MealLogSyncOperation.upsert.name) {
-        await (update(mealInfoTable)..where(
-          (table) =>
-              table.analysisId.equals(operation.analysisId) &
-              table.mealLogSyncVersion.equals(version),
-        )).write(MealInfoTableCompanion(mealLogSyncedVersion: Value(version)));
-      }
-    });
-  }
-
-  @override
-  Future<void> markMealLogSyncFailed(int id, int version, Object error) async {
-    final row =
-        await (select(mealLogSyncQueueTable)..where(
-          (table) => table.id.equals(id) & table.version.equals(version),
-        )).getSingleOrNull();
-    if (row == null) return;
-    final message = error.toString();
-    await (update(mealLogSyncQueueTable)..where(
-      (table) => table.id.equals(id) & table.version.equals(version),
-    )).write(
-      MealLogSyncQueueTableCompanion(
-        attempts: Value(row.attempts + 1),
-        lastError: Value(
-          message.length <= 500 ? message : message.substring(0, 500),
-        ),
-        updatedAt: Value(DateTime.now()),
-      ),
-    );
-  }
-
-  Future<void> _enqueueMealLogSync({
-    required String analysisId,
-    required MealLogSyncOperation operation,
-    required int version,
-    Meal? meal,
-    DateTime? loggedAt,
-  }) async {
-    final values = MealLogSyncQueueTableCompanion.insert(
-      analysisId: analysisId,
-      operation: operation.name,
-      version: version,
-      mealJson: Value(meal == null ? null : jsonEncode(meal.toProto3Json())),
-      loggedAt: Value(loggedAt),
-      attempts: const Value(0),
-      lastError: const Value(null),
-      updatedAt: Value(DateTime.now()),
-    );
-    await into(mealLogSyncQueueTable).insert(
-      values,
-      onConflict: DoUpdate(
-        (_) => MealLogSyncQueueTableCompanion(
-          operation: Value(operation.name),
-          version: Value(version),
-          mealJson: Value(
-            meal == null ? null : jsonEncode(meal.toProto3Json()),
-          ),
-          loggedAt: Value(loggedAt),
-          attempts: const Value(0),
-          lastError: const Value(null),
-          updatedAt: Value(DateTime.now()),
-        ),
-        target: [mealLogSyncQueueTable.analysisId],
-      ),
-    );
   }
 
   @override
@@ -1080,14 +857,13 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   @override
   DataSourceType get dataSourceType => _dataSourceType;
 
-  // User Profile Methods
+  // Health Data Methods
   @override
-  Future<void> saveUserProfile(UserProfile profile) async {
-    // Use upsert (insert or update) - always use id = 1 for single profile
+  Future<void> saveHealthData(HealthData healthData) async {
     final revision = const Uuid().v4();
-    await into(userProfileTable).insertOnConflictUpdate(
-      UserProfileMapper.toDrift(profile).copyWith(
-        id: const Value(_userProfileId),
+    await into(healthDataTable).insertOnConflictUpdate(
+      HealthDataMapper.toDrift(healthData).copyWith(
+        id: const Value(_healthDataId),
         updatedAt: Value(DateTime.now().toUtc()),
         needsRemoteSync: const Value(true),
         remoteSyncRevision: Value(revision),
@@ -1096,46 +872,55 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<UserProfile?> getUserProfile() async {
+  Future<HealthData?> getHealthData() async {
     final result =
-        await (select(userProfileTable)
-          ..where((tbl) => tbl.id.equals(_userProfileId))).getSingleOrNull();
+        await (select(healthDataTable)
+          ..where((tbl) => tbl.id.equals(_healthDataId))).getSingleOrNull();
     if (result == null) return null;
 
-    return UserProfileMapper.fromDrift(result);
+    return HealthDataMapper.fromDrift(result);
   }
 
   @override
-  Future<PendingProfileSync?> getPendingProfileSync() async {
+  Stream<HealthData?> watchHealthData() {
+    return (select(healthDataTable)..where(
+      (tbl) => tbl.id.equals(_healthDataId),
+    )).watchSingleOrNull().map(
+      (row) => row == null ? null : HealthDataMapper.fromDrift(row),
+    );
+  }
+
+  @override
+  Future<PendingHealthDataSync?> getPendingHealthDataSync() async {
     final row =
-        await (select(userProfileTable)..where(
+        await (select(healthDataTable)..where(
           (table) =>
-              table.id.equals(_userProfileId) &
+              table.id.equals(_healthDataId) &
               table.needsRemoteSync.equals(true),
         )).getSingleOrNull();
     if (row == null || row.remoteSyncRevision == null) return null;
-    return PendingProfileSync(
-      profile: UserProfileMapper.fromDrift(row),
+    return PendingHealthDataSync(
+      healthData: HealthDataMapper.fromDrift(row),
       revision: row.remoteSyncRevision!,
     );
   }
 
   @override
-  Future<bool> markProfileSynced(String revision) async {
-    final updated = await (update(userProfileTable)..where(
+  Future<bool> markHealthDataSynced(String revision) async {
+    final updated = await (update(healthDataTable)..where(
       (table) =>
-          table.id.equals(_userProfileId) &
+          table.id.equals(_healthDataId) &
           table.needsRemoteSync.equals(true) &
           table.remoteSyncRevision.equals(revision),
-    )).write(const UserProfileTableCompanion(needsRemoteSync: Value(false)));
+    )).write(const HealthDataTableCompanion(needsRemoteSync: Value(false)));
     return updated == 1;
   }
 
   @override
-  Future<bool> isProfileComplete() async {
+  Future<bool> isHealthDataComplete() async {
     final result =
-        await (select(userProfileTable)
-          ..where((tbl) => tbl.id.equals(_userProfileId))).getSingleOrNull();
+        await (select(healthDataTable)
+          ..where((tbl) => tbl.id.equals(_healthDataId))).getSingleOrNull();
     if (result == null) return false;
 
     return result.height != null &&
@@ -1153,21 +938,20 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<void> clearUserProfile() async {
-    await (delete(userProfileTable)
-      ..where((tbl) => tbl.id.equals(_userProfileId))).go();
+  Future<void> clearHealthData() async {
+    await (delete(healthDataTable)
+      ..where((tbl) => tbl.id.equals(_healthDataId))).go();
   }
 
   @override
   Future<void> clearAllData() async {
     await transaction(() async {
       await delete(mealInfoTable).go();
-      await delete(userProfileTable).go();
+      await delete(healthDataTable).go();
       await delete(userPreferencesTable).go();
       await delete(favoriteMealTable).go();
       await delete(localNutritionCacheTable).go();
       await delete(healthConnectSyncQueueTable).go();
-      await delete(mealLogSyncQueueTable).go();
       await delete(localAiSummaryTable).go();
     });
   }

@@ -23,12 +23,12 @@ LoggedMeal _buildLoggedMeal({
       name: name,
       quantity: '1',
       type: MealType.SNACK,
-      macros: MealMacro(
-        calories: calories,
-        protein: 0,
-        carbs: 25,
-        fat: 0,
-        fiber: 4,
+      macros: Macros(
+        calorie: Measurement(value: calories),
+        protein: Measurement(value: 0),
+        carb: Measurement(value: 25),
+        fat: Measurement(value: 0),
+        fiber: Measurement(value: 4),
       ),
       health: MealHealth(
         healthScore: HealthScore.HEALTHY,

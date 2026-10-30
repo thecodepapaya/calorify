@@ -38,7 +38,8 @@ This document tracks technical debt, implemented functionality, active bug fixes
   - Move meal quantity decision from Pass 2 to Pass 1 (`internal/analysis/service.go`).
 - [x] **Pipeline Error & Failure Tracking**: Write `"FAILED"` status to the `meal_analysis` table entry when the analysis pipeline fails or panics at any step (using `MarkAnalysisFailed` in deferred cleanup with a separate timeout context).
 - [ ] **Analysis Status & Polling Endpoint**:
-  - Register and implement `GET /users/meals/analysis/{analysis_id}` (or `POST /users/meals/analysis/status` via `api.AnalysisStatusRequest`) to check async pipeline progress and retrieve final results.
+  - Build the meal analysis polling API: register and implement `GET /users/meals/analysis/{analysis_id}/status` (and `POST /users/meals/analysis/status` via `api.AnalysisStatusRequest`) to check asynchronous pipeline stages (`INITIATED`, `COMPONENT_DECOMPOSED`, `INGREDIENT_DECOMPOSED`, `USDA_MACRO_HYDRATED`, `PRESENTED`, `FAILED`) and retrieve intermediate progress and final results.
+  - **Web Client Migration**: When the backend polling API is built and exposed, migrate the web demo (`web/try.html` / `web/try.js`) to use this real polling endpoint instead of the simulated/pretend polling client (including CORS configuration and appropriate fallback handling).
 - [ ] **Clarification Questions Workflow**:
   - Implement `generateClarification()`: generate atomic option or numeric questions when ingredients, preparation states, or portions have high uncertainty.
   - Implement `sendClarification()` and answer submission route (`POST /users/meals/analysis/{analysis_id}/answers`).

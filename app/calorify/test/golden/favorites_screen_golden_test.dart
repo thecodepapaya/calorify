@@ -34,12 +34,12 @@ void main() {
               name: 'Favorite Apple',
               quantity: '1',
               type: MealType.SNACK,
-              macros: MealMacro(
-                calories: 95,
-                protein: 0,
-                carbs: 25,
-                fat: 0,
-                fiber: 4,
+              macros: Macros(
+                calorie: Measurement(value: 95),
+                protein: Measurement(value: 0),
+                carb: Measurement(value: 25),
+                fat: Measurement(value: 0),
+                fiber: Measurement(value: 4),
               ),
               health: MealHealth(healthScore: HealthScore.HEALTHY),
             ),

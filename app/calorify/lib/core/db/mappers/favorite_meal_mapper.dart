@@ -8,11 +8,11 @@ extension FavoriteMealMapper on LoggedMeal {
       mealName: Value(meal.name),
       mealQuantity: Value(meal.quantity),
       mealType: Value(meal.type.legacyName),
-      calories: Value(meal.macros.calories),
-      protein: Value(meal.macros.protein),
-      carbs: Value(meal.macros.carbs),
-      fat: Value(meal.macros.fat),
-      fiber: Value(meal.macros.fiber),
+      calories: Value(meal.macros.calorie.value),
+      protein: Value(meal.macros.protein.value),
+      carbs: Value(meal.macros.carb.value),
+      fat: Value(meal.macros.fat.value),
+      fiber: Value(meal.macros.fiber.value),
       healthScore:
           meal.hasHealth() && meal.health.hasHealthScore()
               ? Value(meal.health.healthScore.legacyName)
@@ -51,12 +51,12 @@ extension FavoriteMealMapper on LoggedMeal {
                   healthScoreReason: data.healthScoreReason,
                 )
                 : null,
-        macros: MealMacro(
-          calories: data.calories,
-          protein: data.protein,
-          carbs: data.carbs,
-          fat: data.fat,
-          fiber: data.fiber,
+        macros: Macros(
+          calorie: Measurement(value: data.calories),
+          protein: Measurement(value: data.protein),
+          carb: Measurement(value: data.carbs),
+          fat: Measurement(value: data.fat),
+          fiber: Measurement(value: data.fiber),
         ),
       ),
       createdAt: dateTimeToIso8601String(data.timestamp),

@@ -137,9 +137,9 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
     );
     results.add(
       _TableMeta(
-        id: 'user_profile',
-        displayName: 'user_profile',
-        rowCount: await count(db.userProfileTable),
+        id: 'health_data',
+        displayName: 'health_data',
+        rowCount: await count(db.healthDataTable),
       ),
     );
     results.add(
@@ -245,8 +245,8 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
               ..limit(100);
         final rows = await query.get();
         return rows.map((r) => r.toJson()).toList();
-      case 'user_profile':
-        final rows = await db.select(db.userProfileTable).get();
+      case 'health_data':
+        final rows = await db.select(db.healthDataTable).get();
         return rows.map((r) => r.toJson()).toList();
       case 'user_preferences':
         final rows = await db.select(db.userPreferencesTable).get();

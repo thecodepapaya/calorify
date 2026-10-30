@@ -35,12 +35,12 @@ void main() {
           name: 'Pasta',
           quantity: '1 plate',
           type: MealType.DINNER,
-          macros: MealMacro(
-            calories: 600,
-            protein: 15,
-            carbs: 80,
-            fat: 20,
-            fiber: 5,
+          macros: Macros(
+            calorie: Measurement(value: 600),
+            protein: Measurement(value: 15),
+            carb: Measurement(value: 80),
+            fat: Measurement(value: 20),
+            fiber: Measurement(value: 5),
           ),
           health: MealHealth(healthScore: HealthScore.NEUTRAL),
         ),

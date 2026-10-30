@@ -6,8 +6,8 @@ import 'package:health/health.dart' as health show MealType;
 import 'package:health/health.dart' hide MealType;
 import 'package:models/models.dart';
 
-typedef UserProfileLoader = Future<UserProfile?> Function();
-typedef ProfileCalorieEstimator = double? Function(UserProfile profile);
+typedef HealthDataLoader = Future<HealthData?> Function();
+typedef ProfileCalorieEstimator = double? Function(HealthData profile);
 typedef HealthConnectSettingsOpener = Future<bool> Function();
 
 enum HealthServiceInitializationState {
@@ -43,7 +43,7 @@ class HealthService {
 
   HealthService({
     Health? health,
-    required UserProfileLoader profileLoader,
+    required HealthDataLoader profileLoader,
     ProfileCalorieEstimator? calorieEstimator,
     HealthConnectSettingsOpener? settingsOpener,
   }) : _health = health ?? Health(),
@@ -54,7 +54,7 @@ class HealthService {
 
   factory HealthService.test({
     Health? health,
-    UserProfileLoader? profileLoader,
+    HealthDataLoader? profileLoader,
     ProfileCalorieEstimator? calorieEstimator,
     HealthConnectSettingsOpener? settingsOpener,
   }) => HealthService(
@@ -65,7 +65,7 @@ class HealthService {
   );
 
   final Health _health;
-  final UserProfileLoader _profileLoader;
+  final HealthDataLoader _profileLoader;
   final ProfileCalorieEstimator _calorieEstimator;
   final HealthConnectSettingsOpener _settingsOpener;
   HealthConnectSdkStatus status = HealthConnectSdkStatus.sdkUnavailable;
@@ -441,11 +441,11 @@ class HealthService {
       final healthData = await _health.writeMeal(
         name: meal.name,
         mealType: _mealTypeToHealthMealType(meal.type),
-        caloriesConsumed: meal.macros.calories.toDouble(),
-        protein: meal.macros.protein.toDouble(),
-        carbohydrates: meal.macros.carbs.toDouble(),
-        fatTotal: meal.macros.fat.toDouble(),
-        fiber: meal.macros.fiber.toDouble(),
+        caloriesConsumed: meal.macros.calorie.value.toDouble(),
+        protein: meal.macros.protein.value.toDouble(),
+        carbohydrates: meal.macros.carb.value.toDouble(),
+        fatTotal: meal.macros.fat.value.toDouble(),
+        fiber: meal.macros.fiber.value.toDouble(),
         startTime: loggedAt,
         endTime: loggedAt,
         clientRecordId: normalizedRecordId,

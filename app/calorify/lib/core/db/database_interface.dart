@@ -6,28 +6,6 @@ enum DataSourceType { real, mock }
 
 enum HealthConnectSyncOperation { upsert, delete }
 
-enum MealLogSyncOperation { upsert, delete }
-
-class PendingMealLogSync {
-  const PendingMealLogSync({
-    required this.id,
-    required this.analysisId,
-    required this.operation,
-    required this.version,
-    required this.attempts,
-    this.meal,
-    this.loggedAt,
-  });
-
-  final int id;
-  final String analysisId;
-  final MealLogSyncOperation operation;
-  final int version;
-  final int attempts;
-  final Meal? meal;
-  final DateTime? loggedAt;
-}
-
 class PendingHealthConnectSync {
   const PendingHealthConnectSync({
     required this.id,
@@ -48,10 +26,10 @@ class PendingHealthConnectSync {
   final DateTime? loggedAt;
 }
 
-class PendingProfileSync {
-  const PendingProfileSync({required this.profile, required this.revision});
+class PendingHealthDataSync {
+  const PendingHealthDataSync({required this.healthData, required this.revision});
 
-  final UserProfile profile;
+  final HealthData healthData;
   final String revision;
 }
 
@@ -71,7 +49,6 @@ abstract class DatabaseInterface {
   Future<void> logMeal(
     Meal mealInfo, {
     String? analysisId,
-    PipelineResultData? analysisSnapshot,
     String? v3ResultJson,
     DateTime? loggedAt,
   });
@@ -84,16 +61,6 @@ abstract class DatabaseInterface {
 
   /// Get a meal by id (local database id)
   Future<LoggedMeal?> getMealById(int mealId);
-
-  /// Restores any analyzed meal mutations that were committed before an app
-  /// restart but do not yet have an outbox row.
-  Future<void> preparePendingMealLogSyncs();
-
-  Future<List<PendingMealLogSync>> getPendingMealLogSyncs({int limit = 50});
-
-  Future<void> markMealLogSyncCompleted(int id, int version);
-
-  Future<void> markMealLogSyncFailed(int id, int version, Object error);
 
   /// Durable Health Connect work waiting for permission/connectivity.
   Future<List<PendingHealthConnectSync>> getPendingHealthConnectSyncs({
@@ -178,21 +145,24 @@ abstract class DatabaseInterface {
   /// Get the data source type
   DataSourceType get dataSourceType;
 
-  /// User Profile Operations
-  /// Save or update user profile (upsert)
-  Future<void> saveUserProfile(UserProfile profile);
+  /// Health Data Operations
+  /// Save or update user health data (upsert)
+  Future<void> saveHealthData(HealthData healthData);
 
-  /// Get user profile
-  Future<UserProfile?> getUserProfile();
+  /// Get user health data
+  Future<HealthData?> getHealthData();
 
-  /// Latest local profile revision waiting to be sent to the backend.
-  Future<PendingProfileSync?> getPendingProfileSync();
+  /// Watch user health data
+  Stream<HealthData?> watchHealthData();
+
+  /// Latest local health data revision waiting to be sent to the backend.
+  Future<PendingHealthDataSync?> getPendingHealthDataSync();
 
   /// Acknowledge a sent revision. Returns false if a newer edit won the race.
-  Future<bool> markProfileSynced(String revision);
+  Future<bool> markHealthDataSynced(String revision);
 
-  /// Check if user profile is complete
-  Future<bool> isProfileComplete();
+  /// Check if health data is complete
+  Future<bool> isHealthDataComplete();
 
   /// Get theme mode preference
   Future<ThemeMode> getThemeMode();
@@ -229,11 +199,11 @@ abstract class DatabaseInterface {
     int limit = 5,
   });
 
-  /// Clear user preferences row only (for debug). Meals and profile unchanged.
+  /// Clear user preferences row only (for debug). Meals and health data unchanged.
   Future<void> clearUserPreferences();
 
-  /// Clear user profile row only (for debug). Meals and preferences unchanged.
-  Future<void> clearUserProfile();
+  /// Clear health data row only (for debug). Meals and preferences unchanged.
+  Future<void> clearHealthData();
 
   /// Clear all data from the database
   Future<void> clearAllData();

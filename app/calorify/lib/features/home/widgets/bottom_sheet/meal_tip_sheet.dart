@@ -5,8 +5,6 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:models/models.dart';
-import 'package:calorify/core/providers/home_providers.dart'
-    hide databaseInterfaceProvider;
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
@@ -47,11 +45,10 @@ bool _shouldShowCalorieRange(MealAnalysisV3CompleteResult result) {
 Future<void> showMealTip({
   required BuildContext context,
   required MealDetailsSheetPurpose purpose,
-  MealDetectionResult? mealDetectionResult,
+  Meal? meal,
   LoggedMeal? loggedMeal,
   int? favoriteId,
   Uint8List? imageBytes,
-  MealAnalysisPipelineSessionContext? pipelineContext,
   MealAnalysisV3CompleteResult? v3Result,
   String? v3AnalysisId,
   bool previewOnly = false,
@@ -69,11 +66,10 @@ Future<void> showMealTip({
         (sheetContext) => _MealTip(
           parentContext: parentContext,
           purpose: purpose,
-          mealDetectionResult: mealDetectionResult,
+          meal: meal,
           loggedMeal: loggedMeal,
           favoriteId: favoriteId,
           imageBytes: imageBytes,
-          pipelineContext: pipelineContext,
           v3Result: v3Result,
           v3AnalysisId: v3AnalysisId,
           previewOnly: previewOnly,
@@ -85,23 +81,21 @@ class _MealTip extends StatefulWidget {
   const _MealTip({
     required this.parentContext,
     required this.purpose,
-    this.mealDetectionResult,
+    this.meal,
     this.loggedMeal,
     this.favoriteId,
     this.imageBytes,
-    this.pipelineContext,
     this.v3Result,
     this.v3AnalysisId,
     this.previewOnly = false,
-  }) : assert(mealDetectionResult != null || loggedMeal != null);
+  }) : assert(meal != null || loggedMeal != null);
 
   final BuildContext parentContext;
   final MealDetailsSheetPurpose purpose;
-  final MealDetectionResult? mealDetectionResult;
+  final Meal? meal;
   final LoggedMeal? loggedMeal;
   final int? favoriteId;
   final Uint8List? imageBytes;
-  final MealAnalysisPipelineSessionContext? pipelineContext;
   final MealAnalysisV3CompleteResult? v3Result;
   final String? v3AnalysisId;
   final bool previewOnly;
@@ -111,35 +105,30 @@ class _MealTip extends StatefulWidget {
 }
 
 class _MealTipState extends State<_MealTip> {
-  MealDetectionResult? _mealDetectionResult;
-  MealAnalysisPipelineSessionContext? _pipelineContext;
+  Meal? _meal;
   bool _isSaving = false;
   bool _isFeedbackSubmitting = false;
   bool? _feedbackValue;
 
-  Meal get meal =>
-      _mealDetectionResult?.meal ?? widget.loggedMeal?.meal ?? Meal();
+  Meal get meal => _meal ?? widget.loggedMeal?.meal ?? Meal();
 
   MealMetadata get metadata =>
-      _mealDetectionResult?.metadata ??
-      widget.loggedMeal?.metadata ??
-      MealMetadata();
+      meal.hasMetadata()
+          ? meal.metadata
+          : (widget.loggedMeal?.hasMetadata() ?? false)
+              ? widget.loggedMeal!.metadata
+              : MealMetadata();
+
+  String get tip =>
+      widget.v3Result?.tip.isNotEmpty == true
+          ? widget.v3Result!.tip
+          : metadata.tip;
 
   bool get _canShowFeedback =>
       widget.purpose == MealDetailsSheetPurpose.mealAddition &&
       widget.v3AnalysisId != null &&
-      _mealDetectionResult != null &&
-      widget.loggedMeal == null &&
-      _hasServerAnalysisSession;
-
-  bool get _hasServerAnalysisSession {
-    if (widget.v3AnalysisId != null) return true;
-    final result = _pipelineContext?.result;
-    return result != null &&
-        (!result.hasReceipt() ||
-            result.receipt.calculationOrigin !=
-                CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC);
-  }
+      _meal != null &&
+      widget.loggedMeal == null;
 
   bool get _isLoggedMealFlow => widget.loggedMeal != null;
   bool get _showFavoriteHeaderAction =>
@@ -156,8 +145,7 @@ class _MealTipState extends State<_MealTip> {
   @override
   void initState() {
     super.initState();
-    _mealDetectionResult = widget.mealDetectionResult;
-    _pipelineContext = widget.pipelineContext;
+    _meal = widget.meal;
     if (_canShowFeedback) {
       Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackShown);
     }
@@ -166,8 +154,8 @@ class _MealTipState extends State<_MealTip> {
   @override
   Widget build(BuildContext context) {
     final isMealUnidentified =
-        (_mealDetectionResult == null && widget.loggedMeal == null) ||
-        _mealDetectionResult?.mealIdentified == false;
+        (_meal == null && widget.loggedMeal == null) ||
+        (_meal != null && _meal!.name.isEmpty);
 
     return BaseBottomSheet(
       child: Column(
@@ -203,9 +191,9 @@ class _MealTipState extends State<_MealTip> {
         ],
       ),
       SizedBox(height: 16),
-      if (_mealDetectionResult?.tip.isNotEmpty ?? false) ...[
+      if (tip.isNotEmpty) ...[
         Text(
-          _mealDetectionResult!.tip,
+          tip,
           style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
         ),
         SizedBox(height: 12),
@@ -226,7 +214,7 @@ class _MealTipState extends State<_MealTip> {
     final canShowMealImage =
         (widget.imageBytes?.isNotEmpty ?? false) ||
         metadata.imageUrl.isNotEmpty;
-    final canShowMealTip = _mealDetectionResult?.tip.isNotEmpty ?? false;
+    final canShowMealTip = tip.isNotEmpty;
 
     final timestamp = widget.loggedMeal?.dateTime ?? DateTime.now();
 
@@ -309,7 +297,7 @@ class _MealTipState extends State<_MealTip> {
       if (canShowMealTip) ...[
         SizedBox(height: 16),
         Text(
-          _mealDetectionResult?.tip ?? '',
+          tip,
           style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
         ),
       ],
@@ -333,7 +321,7 @@ class _MealTipState extends State<_MealTip> {
                     children: [
                       TextSpan(
                         text: (widget.v3Result?.macros.calories ??
-                                meal.macros.calories)
+                                meal.macros.calorie.value)
                             .toStringAsFixed(0),
                         style: textTheme.headlineLarge?.copyWith(
                           color: colorScheme.calorieIconColor,
@@ -374,7 +362,7 @@ class _MealTipState extends State<_MealTip> {
                   child: NutrientTile(
                     icon: AppIcons.wheat,
                     label: t.home.dailySummary.carbs,
-                    value: meal.macros.carbs.toDouble(),
+                    value: meal.macros.carb.value.toDouble(),
                     unit: 'g',
                     iconColor: carbsIconColor,
                   ),
@@ -383,7 +371,7 @@ class _MealTipState extends State<_MealTip> {
                   child: NutrientTile(
                     icon: AppIcons.drumstick,
                     label: t.home.dailySummary.protein,
-                    value: meal.macros.protein.toDouble(),
+                    value: meal.macros.protein.value.toDouble(),
                     unit: 'g',
                     iconColor: proteinIconColor,
                   ),
@@ -392,7 +380,7 @@ class _MealTipState extends State<_MealTip> {
                   child: NutrientTile(
                     icon: AppIcons.egg,
                     label: t.home.dailySummary.fat,
-                    value: meal.macros.fat.toDouble(),
+                    value: meal.macros.fat.value.toDouble(),
                     unit: 'g',
                     iconColor: fatIconColor,
                   ),
@@ -401,7 +389,7 @@ class _MealTipState extends State<_MealTip> {
                   child: NutrientTile(
                     icon: AppIcons.leaf,
                     label: t.home.dailySummary.fiber,
-                    value: meal.macros.fiber.toDouble(),
+                    value: meal.macros.fiber.value.toDouble(),
                     unit: 'g',
                     iconColor: fiberIconColor,
                   ),
@@ -412,7 +400,7 @@ class _MealTipState extends State<_MealTip> {
         ),
       ),
       const SizedBox(height: 20),
-      _mealDetectionResult != null
+      _meal != null
           ? (widget.previewOnly
               ? SizedBox(
                 width: double.infinity,
@@ -435,17 +423,16 @@ class _MealTipState extends State<_MealTip> {
   }
 
   Future<void> _saveDetectedMeal() async {
-    final detectedMeal = _mealDetectionResult;
+    final detectedMeal = _meal;
     if (_isSaving || detectedMeal == null) return;
     setState(() => _isSaving = true);
 
     try {
       await logMeal(
         context,
-        detectedMeal.meal,
+        detectedMeal,
         parentContext: widget.parentContext,
-        analysisId: widget.v3AnalysisId ?? _pipelineContext?.result.analysisId,
-        analysisSnapshot: _pipelineContext?.result,
+        analysisId: widget.v3AnalysisId,
         v3ResultJson: widget.v3Result == null
             ? null
             : jsonEncode(widget.v3Result!.rawJson),
@@ -623,13 +610,6 @@ class _MealTipState extends State<_MealTip> {
                 await container
                     .read(databaseInterfaceProvider)
                     .deleteMeal(mealId);
-                try {
-                  await container
-                      .read(mealLogSyncServiceProvider)
-                      .syncPending();
-                } catch (_) {
-                  // The analysis-log tombstone stays queued for startup retry.
-                }
                 try {
                   await container
                       .read(healthConnectSyncServiceProvider)

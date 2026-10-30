@@ -4,15 +4,13 @@ import 'package:models/models.dart';
 
 void main() {
   const metrics = ProfileMetrics();
-  final profile = UserProfile(
-    height: 170,
-    weight: 70,
+  final profile = HealthData(
+    height: Height(value: 170, unit: HeightUnit.CM),
+    weight: Weight(value: 70, unit: WeightUnit.KG),
     gender: Gender.MALE,
     dateOfBirth: '1990-01-01',
     activityLevel: ActivityLevel.MODERATELY_ACTIVE,
     weightGoal: WeightGoal.MAINTAIN_WEIGHT,
-    heightUnit: UnitSystem.METRIC,
-    weightUnit: UnitSystem.METRIC,
   );
 
   test(

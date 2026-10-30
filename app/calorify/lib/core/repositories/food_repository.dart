@@ -303,10 +303,10 @@ class FoodRepository {
     }
 
     final mealTypeStr = switch (meal.type) {
-      pgo.MealType.MEAL_TYPE_BREAKFAST => 'BREAKFAST',
-      pgo.MealType.MEAL_TYPE_LUNCH => 'LUNCH',
-      pgo.MealType.MEAL_TYPE_DINNER => 'DINNER',
-      pgo.MealType.MEAL_TYPE_SNACK => 'SNACK',
+      pgo.MealType.BREAKFAST => 'BREAKFAST',
+      pgo.MealType.LUNCH => 'LUNCH',
+      pgo.MealType.DINNER => 'DINNER',
+      pgo.MealType.SNACK => 'SNACK',
       _ => 'UNKNOWN',
     };
 

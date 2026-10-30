@@ -15,7 +15,7 @@ class WatchFoodRepository {
 
   final WatchPhoneTextDetector? _phoneDetector;
 
-  Future<MealDetectionResponse> detectText({
+  Future<MealAnalysisV3CompleteResult> detectText({
     required String textDescription,
   }) async {
     final description = textDescription.trim();
@@ -26,8 +26,9 @@ class WatchFoodRepository {
     if (phoneResponse.isSuccess) {
       final response = phoneResponse.data!['response'];
       if (response is Map) {
-        return MealDetectionResponse()
-          ..mergeFromProto3Json(Map<String, dynamic>.from(response));
+        return MealAnalysisV3CompleteResult.fromJson(
+          Map<String, dynamic>.from(response),
+        );
       }
     }
 

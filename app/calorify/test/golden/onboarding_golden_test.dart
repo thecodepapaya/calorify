@@ -48,7 +48,7 @@ void main() {
 
     when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
     when(
-      () => mockDatabaseInterface.getUserProfile(),
+      () => mockDatabaseInterface.getHealthData(),
     ).thenAnswer((_) async => null);
     when(
       () => mockHealthService.status,

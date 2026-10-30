@@ -122,7 +122,7 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
                     final caloriesConsumed = loggedMeals.fold(
                       0,
                       (sum, loggedMeal) =>
-                          sum + loggedMeal.meal.macros.calories,
+                          sum + loggedMeal.meal.macros.calorie.value.round(),
                     );
                     final shouldEdit = !isTargetSet || _isEditing;
 
@@ -279,9 +279,8 @@ class _ShowGoal extends ConsumerWidget {
           SizedBox(height: 12),
           Builder(
             builder: (context) {
-              final profile = ref.watch(userProfileProvider).value;
-              final weightUnit =
-                  profile?.weightUnit.normalized ?? UnitSystem.METRIC;
+              final profile = ref.watch(healthDataProvider).value;
+              final weightUnit = profile?.weight.unit ?? WeightUnit.KG;
               final formattedWeightChange = LocaleUtils.formatWeightChange(
                 weightChangeGrams,
                 weightUnit,

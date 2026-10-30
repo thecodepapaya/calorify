@@ -13,6 +13,28 @@ import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
 
+Meal mealFromV3Result(
+  MealAnalysisV3CompleteResult result, {
+  String? textDescription,
+}) {
+  return Meal(
+    name: result.mealName,
+    quantity: result.servingSizeText,
+    type: mealTypeFromLegacyName(result.mealType),
+    macros: Macros(
+      calorie: Measurement(value: result.macros.calories.round()),
+      protein: Measurement(value: result.macros.protein.round()),
+      carb: Measurement(value: result.macros.carbs.round()),
+      fat: Measurement(value: result.macros.fat.round()),
+      fiber: Measurement(value: result.macros.fiber.round()),
+    ),
+    metadata: MealMetadata(
+      tip: result.tip,
+      mealDescription: textDescription,
+    ),
+  );
+}
+
 typedef MealAnalysisV3Start =
     Future<Stream<MealAnalysisV3Event>> Function(
       String analysisId,
@@ -97,7 +119,8 @@ Future<bool> showMealAnalysisV3Flow({
           await showMealTip(
             context: context,
             purpose: MealDetailsSheetPurpose.mealAddition,
-            mealDetectionResult: result.toMealDetectionResult(
+            meal: mealFromV3Result(
+              result,
               textDescription: textDescription,
             ),
             imageBytes: imageBytes,

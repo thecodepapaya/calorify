@@ -286,12 +286,14 @@ class MealMetadata extends $pb.GeneratedMessage {
     $core.String? mealDescription,
     $core.String? timestamp,
     $core.String? tip,
+    $core.String? imageUrl,
   }) {
     final result = create();
     if (imageBase64 != null) result.imageBase64 = imageBase64;
     if (mealDescription != null) result.mealDescription = mealDescription;
     if (timestamp != null) result.timestamp = timestamp;
     if (tip != null) result.tip = tip;
+    if (imageUrl != null) result.imageUrl = imageUrl;
     return result;
   }
 
@@ -312,6 +314,7 @@ class MealMetadata extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'mealDescription')
     ..aOS(3, _omitFieldNames ? '' : 'timestamp')
     ..aOS(4, _omitFieldNames ? '' : 'tip')
+    ..aOS(5, _omitFieldNames ? '' : 'imageUrl')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -368,6 +371,15 @@ class MealMetadata extends $pb.GeneratedMessage {
   $core.bool hasTip() => $_has(3);
   @$pb.TagNumber(4)
   void clearTip() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get imageUrl => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set imageUrl($core.String value) => $_setString(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasImageUrl() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearImageUrl() => $_clearField(5);
 }
 
 class Meal extends $pb.GeneratedMessage {

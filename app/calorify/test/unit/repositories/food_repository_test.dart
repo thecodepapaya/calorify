@@ -110,7 +110,7 @@ void main() {
           'finalResponse': jsonEncode({
             'name': 'Chicken Salad',
             'quantity': '1 bowl (350g)',
-            'type': 'MEAL_TYPE_LUNCH',
+            'type': 'LUNCH',
             'macros': {
               'calorie': {'value': 450, 'minValue': 400, 'maxValue': 500},
               'carb': {'value': 15, 'minValue': 10, 'maxValue': 20},

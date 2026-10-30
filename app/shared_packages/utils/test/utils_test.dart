@@ -6,12 +6,20 @@ import 'package:utils/utils.dart';
 void main() {
   test('locale defaults and conversions stay consistent', () {
     expect(
-      LocaleUtils.getDefaultUnitSystem(const Locale('en', 'US')),
-      UnitSystem.IMPERIAL,
+      LocaleUtils.getDefaultHeightUnit(const Locale('en', 'US')),
+      HeightUnit.FT,
     );
     expect(
-      LocaleUtils.getDefaultUnitSystem(const Locale('en', 'IN')),
-      UnitSystem.METRIC,
+      LocaleUtils.getDefaultWeightUnit(const Locale('en', 'US')),
+      WeightUnit.LB,
+    );
+    expect(
+      LocaleUtils.getDefaultHeightUnit(const Locale('en', 'IN')),
+      HeightUnit.CM,
+    );
+    expect(
+      LocaleUtils.getDefaultWeightUnit(const Locale('en', 'IN')),
+      WeightUnit.KG,
     );
     expect(LocaleUtils.convertWeightToMetric(2.2046226218), closeTo(1, 1e-9));
   });

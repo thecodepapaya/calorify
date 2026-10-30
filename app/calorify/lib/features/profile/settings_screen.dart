@@ -49,7 +49,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final profileAsync = ref.watch(userProfileProvider);
+    final profileAsync = ref.watch(healthDataProvider);
     final userProfile = profileAsync.maybeWhen(
       data: (profile) => profile,
       orElse: () => null,
@@ -98,7 +98,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           await context.router.push(
                             EditProfileRoute(userProfile: userProfile),
                           );
-                          ref.invalidate(userProfileProvider);
+                          ref.invalidate(healthDataProvider);
                           ref.invalidate(dailyCalorieGoalProvider);
                         }
                         : null,
@@ -430,13 +430,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  Widget _buildHeightUnitTile(UserProfile? userProfile) {
+  Widget _buildHeightUnitTile(HealthData? userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final unitSystem =
-        userProfile != null
-            ? userProfile.heightUnit.normalized
-            : UnitSystem.METRIC;
+        userProfile != null && userProfile.hasHeight()
+            ? userProfile.height.unit
+            : HeightUnit.CM;
 
     return ListTile(
       leading: Container(
@@ -452,18 +452,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(
-        unitSystem == UnitSystem.METRIC
+        unitSystem == HeightUnit.CM
             ? t.editProfile.metricCm
             : t.editProfile.imperialFtIn,
       ),
-      trailing: SegmentedButton<UnitSystem>(
+      trailing: SegmentedButton<HeightUnit>(
         segments: [
           ButtonSegment(
-            value: UnitSystem.METRIC,
+            value: HeightUnit.CM,
             label: Text(t.editProfile.unitCm),
           ),
           ButtonSegment(
-            value: UnitSystem.IMPERIAL,
+            value: HeightUnit.FT,
             label: Text(t.editProfile.unitFt),
           ),
         ],
@@ -476,11 +476,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           ),
         ),
-        onSelectionChanged: (Set<UnitSystem> selection) async {
+        onSelectionChanged: (Set<HeightUnit> selection) async {
           final newUnit = selection.first;
-          if (newUnit.isMetric == unitSystem.isMetric) return;
+          if (newUnit == unitSystem) return;
 
-          final currentHeight = userProfile?.height;
+          final currentHeight =
+              (userProfile != null && userProfile.hasHeight())
+                  ? userProfile.height.value
+                  : null;
           double? newHeight;
 
           if (currentHeight != null) {
@@ -492,28 +495,27 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
           final updatedProfile = userProfile?.deepCopy();
           if (updatedProfile != null && newHeight != null) {
-            updatedProfile.height = newHeight;
-            updatedProfile.heightUnit = newUnit;
+            updatedProfile.height = Height(value: newHeight, unit: newUnit);
           }
 
           if (updatedProfile != null) {
             await ref
                 .read(profileRepositoryProvider)
-                .saveUserProfile(updatedProfile);
-            ref.invalidate(userProfileProvider);
+                .saveHealthData(updatedProfile);
+            ref.invalidate(healthDataProvider);
           }
         },
       ),
     );
   }
 
-  Widget _buildWeightUnitTile(UserProfile? userProfile) {
+  Widget _buildWeightUnitTile(HealthData? userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final unitSystem =
-        userProfile != null
-            ? userProfile.weightUnit.normalized
-            : UnitSystem.METRIC;
+        userProfile != null && userProfile.hasWeight()
+            ? userProfile.weight.unit
+            : WeightUnit.KG;
 
     return ListTile(
       leading: Container(
@@ -529,18 +531,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(
-        unitSystem == UnitSystem.METRIC
+        unitSystem == WeightUnit.KG
             ? t.editProfile.metricKg
             : t.editProfile.imperialLbs,
       ),
-      trailing: SegmentedButton<UnitSystem>(
+      trailing: SegmentedButton<WeightUnit>(
         segments: [
           ButtonSegment(
-            value: UnitSystem.METRIC,
+            value: WeightUnit.KG,
             label: Text(t.editProfile.unitKg),
           ),
           ButtonSegment(
-            value: UnitSystem.IMPERIAL,
+            value: WeightUnit.LB,
             label: Text(t.editProfile.unitLbs),
           ),
         ],
@@ -553,12 +555,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           ),
         ),
-        onSelectionChanged: (Set<UnitSystem> selection) async {
+        onSelectionChanged: (Set<WeightUnit> selection) async {
           final newUnit = selection.first;
-          if (newUnit.isMetric == unitSystem.isMetric) return;
+          if (newUnit == unitSystem) return;
 
-          final currentWeight = userProfile?.weight;
-          final currentTargetWeight = userProfile?.targetWeight;
+          final currentWeight =
+              (userProfile != null && userProfile.hasWeight())
+                  ? userProfile.weight.value
+                  : null;
+          final currentTargetWeight =
+              (userProfile != null && userProfile.hasTargetWeight())
+                  ? userProfile.targetWeight.value
+                  : null;
           double? newWeight;
           double? newTargetWeight;
 
@@ -577,19 +585,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           }
 
           final updatedProfile = userProfile?.deepCopy();
-          if (updatedProfile != null && newWeight != null) {
-            updatedProfile.weight = newWeight;
-            if (newTargetWeight != null) {
-              updatedProfile.targetWeight = newTargetWeight;
-            }
-            updatedProfile.weightUnit = newUnit;
-          }
-
           if (updatedProfile != null) {
+            if (newWeight != null) {
+              updatedProfile.weight = Weight(value: newWeight, unit: newUnit);
+            }
+            if (newTargetWeight != null) {
+              updatedProfile.targetWeight = Weight(
+                value: newTargetWeight,
+                unit: newUnit,
+              );
+            }
             await ref
                 .read(profileRepositoryProvider)
-                .saveUserProfile(updatedProfile);
-            ref.invalidate(userProfileProvider);
+                .saveHealthData(updatedProfile);
+            ref.invalidate(healthDataProvider);
           }
         },
       ),

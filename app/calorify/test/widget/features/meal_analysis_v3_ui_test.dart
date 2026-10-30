@@ -288,15 +288,12 @@ void main() {
   testWidgets('V3 result renders serving text once and calorie interval', (
     tester,
   ) async {
-    final pipelineContext = MealAnalysisPipelineSessionContext(
-      result: PipelineResultData(
-        analysisId: 'analysis-1',
-        mealName: 'Dal and rice',
-        quantity: '1 bowl + 1 serving',
-        mealType: MealType.LUNCH,
-        macros: PipelineMacros(calories: 520),
-      ),
-      textDescription: 'dal and rice',
+    final meal = Meal(
+      name: 'Dal and rice',
+      quantity: '1 bowl + 1 serving',
+      type: MealType.LUNCH,
+      macros: Macros(calorie: Measurement(value: 520)),
+      metadata: MealMetadata(mealDescription: 'dal and rice'),
     );
     const v3Result = MealAnalysisV3CompleteResult(
       mealName: 'Dal and rice',
@@ -330,8 +327,7 @@ void main() {
                     () => showMealTip(
                       context: context,
                       purpose: MealDetailsSheetPurpose.mealAddition,
-                      mealDetectionResult:
-                          pipelineContext.toMealDetectionResult(),
+                      meal: meal,
                       v3Result: v3Result,
                       previewOnly: true,
                     ),
@@ -351,15 +347,12 @@ void main() {
   testWidgets('V3 result hides a calorie interval with 10% overall spread', (
     tester,
   ) async {
-    final pipelineContext = MealAnalysisPipelineSessionContext(
-      result: PipelineResultData(
-        analysisId: 'analysis-1',
-        mealName: 'Dal and rice',
-        quantity: '1 bowl + 1 serving',
-        mealType: MealType.LUNCH,
-        macros: PipelineMacros(calories: 520),
-      ),
-      textDescription: 'dal and rice',
+    final meal = Meal(
+      name: 'Dal and rice',
+      quantity: '1 bowl + 1 serving',
+      type: MealType.LUNCH,
+      macros: Macros(calorie: Measurement(value: 520)),
+      metadata: MealMetadata(mealDescription: 'dal and rice'),
     );
     const v3Result = MealAnalysisV3CompleteResult(
       mealName: 'Dal and rice',
@@ -393,8 +386,7 @@ void main() {
                     () => showMealTip(
                       context: context,
                       purpose: MealDetailsSheetPurpose.mealAddition,
-                      mealDetectionResult:
-                          pipelineContext.toMealDetectionResult(),
+                      meal: meal,
                       v3Result: v3Result,
                       previewOnly: true,
                     ),

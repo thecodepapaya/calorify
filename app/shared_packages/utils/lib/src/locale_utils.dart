@@ -14,12 +14,20 @@ class LocaleUtils {
     'MM', // Myanmar
   };
 
-  /// Determine the default unit system based on the given locale (e.g. app-selected locale).
-  static UnitSystem getDefaultUnitSystem(Locale locale) {
+  /// Determine the default height unit based on the given locale.
+  static HeightUnit getDefaultHeightUnit(Locale locale) {
     final countryCode = locale.countryCode?.toUpperCase();
     return imperialCountries.contains(countryCode)
-        ? UnitSystem.IMPERIAL
-        : UnitSystem.METRIC;
+        ? HeightUnit.FT
+        : HeightUnit.CM;
+  }
+
+  /// Determine the default weight unit based on the given locale.
+  static WeightUnit getDefaultWeightUnit(Locale locale) {
+    final countryCode = locale.countryCode?.toUpperCase();
+    return imperialCountries.contains(countryCode)
+        ? WeightUnit.LB
+        : WeightUnit.KG;
   }
 
   /// Get the country code from the given locale.
@@ -27,9 +35,14 @@ class LocaleUtils {
     return locale.countryCode?.toUpperCase();
   }
 
-  /// Get unit system name using locale-specific formatting
-  static String getUnitSystemName(UnitSystem unitSystem) {
-    return unitSystem == UnitSystem.METRIC ? 'Metric' : 'Imperial';
+  /// Get height unit name
+  static String getHeightUnitName(HeightUnit unit) {
+    return unit == HeightUnit.CM ? 'Centimeters' : 'Feet/Inches';
+  }
+
+  /// Get weight unit name
+  static String getWeightUnitName(WeightUnit unit) {
+    return unit == WeightUnit.KG ? 'Kilograms' : 'Pounds';
   }
 
   /// Convert height from imperial to metric (inches to cm)
@@ -54,8 +67,8 @@ class LocaleUtils {
 
   /// Get weight change unit for daily weight changes
   /// Returns 'g' for metric, 'oz' for imperial (since daily changes are small)
-  static String getWeightChangeUnit(UnitSystem unitSystem) {
-    return unitSystem.isMetric ? 'g' : 'oz';
+  static String getWeightChangeUnit(WeightUnit weightUnit) {
+    return weightUnit.isMetric ? 'g' : 'oz';
   }
 
   /// Convert weight change from grams to ounces (for imperial display)
@@ -66,8 +79,8 @@ class LocaleUtils {
 
   /// Format weight change with appropriate unit and precision
   /// Metric: whole grams (0 decimals), Imperial: ounces (1 decimal)
-  static String formatWeightChange(double grams, UnitSystem unitSystem) {
-    if (unitSystem.isMetric) {
+  static String formatWeightChange(double grams, WeightUnit weightUnit) {
+    if (weightUnit.isMetric) {
       return '${grams.abs().toStringAsFixed(0)}g';
     } else {
       final ounces = convertWeightChangeToImperial(grams);
@@ -78,9 +91,9 @@ class LocaleUtils {
   /// Format height value only (without unit)
   /// Metric: displays in cm with appropriate precision
   /// Imperial: displays in ft'in" format (e.g., 5'7" for 67 inches)
-  static String formatHeightValue(double height, UnitSystem unitSystem) {
-    if (unitSystem.isMetric) {
-      return height.toStringAsFixed(unitSystem.heightPrecision);
+  static String formatHeightValue(double height, HeightUnit heightUnit) {
+    if (heightUnit.isMetric) {
+      return height.toStringAsFixed(heightUnit.precision);
     } else {
       // Height is stored in inches, convert to feet and inches for display
       final totalInches = height.round();
@@ -93,9 +106,9 @@ class LocaleUtils {
   /// Format height for display
   /// Metric: displays in cm with appropriate precision
   /// Imperial: displays in ft'in" format (e.g., 5'7" for 67 inches)
-  static String formatHeight(double height, UnitSystem unitSystem) {
-    final value = formatHeightValue(height, unitSystem);
-    if (unitSystem.isMetric) {
+  static String formatHeight(double height, HeightUnit heightUnit) {
+    final value = formatHeightValue(height, heightUnit);
+    if (heightUnit.isMetric) {
       return '$value cm';
     } else {
       // Imperial already includes the format in formatHeightValue (ft'in")

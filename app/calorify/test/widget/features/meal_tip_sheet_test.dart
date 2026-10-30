@@ -26,12 +26,12 @@ void main() {
         name: 'Dal and rice',
         quantity: '1 bowl',
         type: MealType.LUNCH,
-        macros: MealMacro(
-          calories: 520,
-          protein: 18,
-          carbs: 82,
-          fat: 12,
-          fiber: 9,
+        macros: Macros(
+          calorie: Measurement(value: 520),
+          protein: Measurement(value: 18),
+          carb: Measurement(value: 82),
+          fat: Measurement(value: 12),
+          fiber: Measurement(value: 9),
         ),
       ),
       createdAt: dateTimeToIso8601String(DateTime(2026, 9, 2)),

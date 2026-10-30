@@ -68,7 +68,7 @@ class AiSummaryCoordinator {
       context.startOfToday,
     );
     if (meals.length > 100 || !_eligible(meals, context.startOfToday)) return;
-    final profile = await _database.getUserProfile();
+    final profile = await _database.getHealthData();
     final snapshot = _snapshot(context, meals, profile);
     final current = await _contextLoader();
     if (!context.sameAs(current)) {
@@ -103,7 +103,7 @@ class AiSummaryCoordinator {
   static AiSummarySnapshot _snapshot(
     AiSummaryAttemptContext context,
     List<LoggedMeal> meals,
-    UserProfile? profile,
+    HealthData? profile,
   ) {
     final snapshotMeals =
         meals.map((logged) {
@@ -116,11 +116,11 @@ class AiSummaryCoordinator {
           }
           final macros = meal.macros;
           final nutrients = [
-            macros.calories,
-            macros.protein,
-            macros.carbs,
-            macros.fat,
-            macros.fiber,
+            macros.calorie.value,
+            macros.protein.value,
+            macros.carb.value,
+            macros.fat.value,
+            macros.fiber.value,
           ];
           if (nutrients.any((value) => value < 0)) {
             throw const FormatException('Invalid saved meal nutrients');
@@ -129,11 +129,11 @@ class AiSummaryCoordinator {
             loggedAt: DateTime.parse(logged.createdAt),
             name: meal.name.trim(),
             mealType: meal.type.name,
-            calories: macros.calories,
-            protein: macros.protein,
-            carbs: macros.carbs,
-            fat: macros.fat,
-            fiber: macros.fiber,
+            calories: macros.calorie.value,
+            protein: macros.protein.value,
+            carbs: macros.carb.value,
+            fat: macros.fat.value,
+            fiber: macros.fiber.value,
           );
         }).toList();
     final contextValues = <String, Object>{};
@@ -144,8 +144,9 @@ class AiSummaryCoordinator {
       if (profile.hasActivityLevel()) {
         contextValues['activityLevel'] = profile.activityLevel.name;
       }
-      if (profile.hasDailyCalorieGoal()) {
-        contextValues['dailyCalorieGoal'] = profile.dailyCalorieGoal;
+      if (profile.hasDailyMacroGoal() && profile.dailyMacroGoal.hasCalorie()) {
+        contextValues['dailyCalorieGoal'] =
+            profile.dailyMacroGoal.calorie.value;
       }
     }
     return AiSummarySnapshot(

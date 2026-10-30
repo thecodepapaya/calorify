@@ -16,7 +16,12 @@ void main() {
     'upserting a full meal snapshot clears absent optional metadata',
     () async {
       final timestamp = DateTime(2026, 8, 21).toIso8601String();
-      final macros = MealMacro(calories: 100, protein: 2, carbs: 20, fat: 1);
+      final macros = Macros(
+        calorie: Measurement(value: 100),
+        protein: Measurement(value: 2),
+        carb: Measurement(value: 20),
+        fat: Measurement(value: 1),
+      );
       await database.upsertMeal(
         LoggedMeal(
           clientId: 7,

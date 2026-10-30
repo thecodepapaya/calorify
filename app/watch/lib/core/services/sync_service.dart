@@ -343,9 +343,10 @@ class SyncService {
         final favorites =
             rawFavorites
                 .map(
-                  (value) => favoriteMealFromLegacyJson(
-                    Map<String, dynamic>.from(value as Map),
-                  ),
+                  (value) => FavoriteMeal.create()
+                    ..mergeFromProto3Json(
+                      Map<String, dynamic>.from(value as Map),
+                    ),
                 )
                 .toList();
 
@@ -376,8 +377,10 @@ class SyncService {
       }
       return meals
           .map(
-            (value) =>
-                mealInfoFromLegacyJson(Map<String, dynamic>.from(value as Map)),
+            (value) => LoggedMeal.create()
+              ..mergeFromProto3Json(
+                Map<String, dynamic>.from(value as Map),
+              ),
           )
           .toList();
     }
@@ -583,7 +586,7 @@ class SyncService {
 
   Map<String, dynamic> _mealLogRequest(LoggedMeal meal, {int? favoriteMealId}) {
     return {
-      ...mealInfoToLegacyJson(meal),
+      ...(meal.toProto3Json() as Map<String, dynamic>),
       'watch_operation_id': watchMealOperationId(meal),
       if (favoriteMealId != null) 'favorite_meal_id': favoriteMealId,
     };

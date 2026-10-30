@@ -1,9 +1,7 @@
 library;
 
 export 'src/date_codec.dart';
-export 'src/legacy_json.dart';
 export 'src/meal_analysis_v3.dart';
-export 'src/meal_analysis_v3_result_ext.dart';
 export 'src/proto_extensions.dart';
 export 'src/scale_constants.dart';
 
@@ -30,5 +28,7 @@ export 'src/protos/api/util.pb.dart';
 export 'src/protos/api/util.pbenum.dart';
 export 'src/protos/api/app_banner.pb.dart';
 export 'src/protos/api/app_banner.pbenum.dart';
+export 'src/protos/api/summary.pb.dart';
+export 'src/protos/api/summary.pbenum.dart';
 export 'src/google/protobuf/timestamp.pb.dart';
 export 'src/google/protobuf/any.pb.dart';

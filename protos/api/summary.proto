@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package calorify;
+option go_package = "backend/internal/gen_proto/api";
+
+enum AiMealSummaryTrend {
+  UNSPECIFIED = 0;
+  UP          = 1;
+  DOWN        = 2;
+  STEADY      = 3;
+}
+
+message AiMealSummaryResponse {
+  string             summary             = 1;
+  string             generated_at        = 2;
+  int32              meal_count          = 3;
+  repeated string    top_foods           = 4;
+  int32              macro_balance_score = 5;
+  AiMealSummaryTrend trend               = 6;
+}

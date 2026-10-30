@@ -22,7 +22,7 @@ class WeightGoalScreen extends ConsumerStatefulWidget {
 class _WeightGoalScreenState extends ConsumerState<WeightGoalScreen> {
   WeightGoal? _selectedGoal;
   bool _isLoading = true;
-  UserProfile? _userProfile;
+  HealthData? _userProfile;
   bool _isSaving = false;
 
   @override
@@ -32,10 +32,10 @@ class _WeightGoalScreenState extends ConsumerState<WeightGoalScreen> {
   }
 
   Future<void> _loadProfileData() async {
-    final data = await ref.read(onboardingServiceProvider).getProfileData();
+    final data = await ref.read(onboardingServiceProvider).getHealthData();
     if (!mounted) return;
     setState(() {
-      _userProfile = data ?? UserProfile();
+      _userProfile = data ?? HealthData();
       _selectedGoal =
           data != null && data.hasWeightGoal() ? data.weightGoal : null;
       _isLoading = false;
@@ -120,7 +120,7 @@ class _WeightGoalScreenState extends ConsumerState<WeightGoalScreen> {
     );
   }
 
-  Future<void> _continue(UserProfile profile) async {
+  Future<void> _continue(HealthData profile) async {
     if (_selectedGoal != null && !_isSaving) {
       setState(() => _isSaving = true);
       final updatedProfile = profile.deepCopy();
@@ -128,7 +128,7 @@ class _WeightGoalScreenState extends ConsumerState<WeightGoalScreen> {
       try {
         await ref
             .read(onboardingServiceProvider)
-            .saveProfileData(updatedProfile);
+            .saveHealthData(updatedProfile);
         if (!mounted) return;
         widget.onContinue();
       } catch (_) {

@@ -107,12 +107,12 @@ class MealInfoMock {
         name: name,
         quantity: qty,
         type: type,
-        macros: MealMacro(
-          calories: nutrition['calories']!,
-          protein: nutrition['protein']!,
-          carbs: nutrition['carbs']!,
-          fat: nutrition['fat']!,
-          fiber: nutrition['fiber']!,
+        macros: Macros(
+          calorie: Measurement(value: nutrition['calories']!),
+          protein: Measurement(value: nutrition['protein']!),
+          carb: Measurement(value: nutrition['carbs']!),
+          fat: Measurement(value: nutrition['fat']!),
+          fiber: Measurement(value: nutrition['fiber']!),
         ),
         health: MealHealth(
           healthScore: healthData['score'] as HealthScore,
@@ -155,12 +155,12 @@ class MealInfoMock {
       name: name,
       quantity: qty,
       type: type,
-      macros: MealMacro(
-        calories: nutrition['calories']!,
-        protein: nutrition['protein']!,
-        carbs: nutrition['carbs']!,
-        fat: nutrition['fat']!,
-        fiber: nutrition['fiber']!,
+      macros: Macros(
+        calorie: Measurement(value: nutrition['calories']!),
+        protein: Measurement(value: nutrition['protein']!),
+        carb: Measurement(value: nutrition['carbs']!),
+        fat: Measurement(value: nutrition['fat']!),
+        fiber: Measurement(value: nutrition['fiber']!),
       ),
       health: MealHealth(
         healthScore: healthData['score'] as HealthScore,

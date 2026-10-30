@@ -37,10 +37,10 @@ class DailySummaryCard extends ConsumerWidget {
     double protein = 0, carbs = 0, fat = 0, fiber = 0;
 
     for (final loggedMeal in loggedMeals) {
-      protein += loggedMeal.meal.macros.protein;
-      carbs += loggedMeal.meal.macros.carbs;
-      fat += loggedMeal.meal.macros.fat;
-      fiber += loggedMeal.meal.macros.fiber;
+      protein += loggedMeal.meal.macros.protein.value;
+      carbs += loggedMeal.meal.macros.carb.value;
+      fat += loggedMeal.meal.macros.fat.value;
+      fiber += loggedMeal.meal.macros.fiber.value;
     }
 
     return AppCard(

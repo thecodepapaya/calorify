@@ -103,31 +103,31 @@ class MealLogCard extends StatelessWidget {
                 children: [
                   NutrientIconWithValue(
                     icon: AppIcons.flame,
-                    value: loggedMeal.meal.macros.calories.toDouble(),
+                    value: loggedMeal.meal.macros.calorie.value.toDouble(),
                     unit: '',
                     iconColor: colorScheme.calorieIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: AppIcons.wheat,
-                    value: loggedMeal.meal.macros.carbs.toDouble(),
+                    value: loggedMeal.meal.macros.carb.value.toDouble(),
                     unit: 'g',
                     iconColor: carbsIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: AppIcons.drumstick,
-                    value: loggedMeal.meal.macros.protein.toDouble(),
+                    value: loggedMeal.meal.macros.protein.value.toDouble(),
                     unit: 'g',
                     iconColor: proteinIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: AppIcons.egg,
-                    value: loggedMeal.meal.macros.fat.toDouble(),
+                    value: loggedMeal.meal.macros.fat.value.toDouble(),
                     unit: 'g',
                     iconColor: fatIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: AppIcons.leaf,
-                    value: loggedMeal.meal.macros.fiber.toDouble(),
+                    value: loggedMeal.meal.macros.fiber.value.toDouble(),
                     unit: 'g',
                     iconColor: fiberIconColor,
                   ),

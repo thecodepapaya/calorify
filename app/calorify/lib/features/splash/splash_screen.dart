@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
-import 'package:calorify/core/providers/home_providers.dart'
-    show mealLogSyncServiceProvider;
 import 'package:calorify/core/services/app_initialization.dart';
 import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +26,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       database: ref.read(databaseInterfaceProvider),
       healthService: ref.read(healthServiceProvider),
       healthConnectSyncService: ref.read(healthConnectSyncServiceProvider),
-      mealLogSyncService: ref.read(mealLogSyncServiceProvider),
       profileRepository: ref.read(profileRepositoryProvider),
     );
 

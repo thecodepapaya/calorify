@@ -10,7 +10,7 @@ void main() {
   late _FakeSpeechSession speech;
   late _ManualScheduler scheduler;
   late List<LogMealFeedback> feedback;
-  late List<MealDetectionResult> detectedMeals;
+  late List<Meal> detectedMeals;
 
   setUp(() {
     speech = _FakeSpeechSession();
@@ -21,7 +21,7 @@ void main() {
 
   LogMealController createController({
     bool mealIdentified = true,
-    Future<MealDetectionResponse> Function(String)? detect,
+    Future<MealAnalysisV3CompleteResult> Function(String)? detect,
   }) {
     return LogMealController(
       speech: speech,
@@ -30,9 +30,31 @@ void main() {
       detectText: ({required textDescription}) {
         return detect?.call(textDescription) ??
             Future.value(
-              MealDetectionResponse(
-                result: MealDetectionResult(mealIdentified: mealIdentified),
-              ),
+              MealAnalysisV3CompleteResult.fromJson({
+                'mealName': mealIdentified ? 'Dal' : '',
+                'servingSizeText': '1 bowl',
+                'mealType': {'value': 'LUNCH'},
+                'macros': {
+                  'calories': 200,
+                  'protein': 5,
+                  'carbs': 30,
+                  'fat': 5,
+                  'fiber': 2,
+                },
+                'macroRanges': {
+                  'calories': {'min': 180, 'max': 220},
+                  'protein': {'min': 4, 'max': 6},
+                  'carbs': {'min': 25, 'max': 35},
+                  'fat': {'min': 4, 'max': 6},
+                  'fiber': {'min': 1, 'max': 3},
+                },
+                'tip': '',
+                'components': <dynamic>[],
+                'receipt': {
+                  'calculationOrigin': 'CALCULATION_ORIGIN_SERVER_USDA',
+                  'confidence': 'HIGH',
+                },
+              }),
             );
       },
       onMealDetected: (result) async => detectedMeals.add(result),

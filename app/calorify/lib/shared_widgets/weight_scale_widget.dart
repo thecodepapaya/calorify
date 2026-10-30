@@ -8,7 +8,7 @@ import 'package:models/models.dart';
 /// Supports both metric (kg) and imperial (lbs) units.
 class WeightScaleWidget extends StatelessWidget {
   final double value;
-  final UnitSystem unitSystem;
+  final WeightUnit unitSystem;
   final ValueChanged<double> onValueChanged;
   final double? minValue;
   final double? maxValue;
@@ -28,7 +28,7 @@ class WeightScaleWidget extends StatelessWidget {
     final tickWidth =
         unitSystem.isMetric ? 8.0 : ScaleConstants.weightTickWidth;
 
-    return ScaleWidget(
+    return ScaleWidget<WeightUnit>(
       value: value,
       unitSystem: unitSystem,
       onValueChanged: onValueChanged,
@@ -36,16 +36,12 @@ class WeightScaleWidget extends StatelessWidget {
       maxValue: maxValue,
       tickWidth: tickWidth,
       // Major every 1kg (metric) or 5lb (imperial)
-      ticksPerMajor: (unitSystem) => unitSystem.isMetric ? 10 : 5,
-      getMinValue: (unitSystem) => unitSystem.weightMin,
-      getMaxValue: (unitSystem) => unitSystem.weightMax,
-      getStep:
-          (unitSystem) =>
-              unitSystem.isMetric
-                  ? ScaleConstants.weightMetricStep
-                  : ScaleConstants.weightImperialStep,
-      formatValue: (value, unitSystem, context) {
-        if (unitSystem.isMetric) {
+      ticksPerMajor: (unit) => unit.isMetric ? 10 : 5,
+      getMinValue: (unit) => unit.min,
+      getMaxValue: (unit) => unit.max,
+      getStep: (unit) => unit.step,
+      formatValue: (value, unit, context) {
+        if (unit.isMetric) {
           // Metric: one decimal place for kg - use app-selected locale-aware formatting
           final locale =
               TranslationProvider.of(context).locale.flutterLocale.toString();
@@ -55,8 +51,8 @@ class WeightScaleWidget extends StatelessWidget {
           return value.toInt().toString();
         }
       },
-      shouldShowMajorLabel: (value, index, unitSystem, ticksPerMajor) {
-        if (unitSystem.isMetric) {
+      shouldShowMajorLabel: (value, index, unit, ticksPerMajor) {
+        if (unit.isMetric) {
           // Metric: every 1kg (every 10 steps of 0.1kg)
           return index % ticksPerMajor == 0;
         } else {
@@ -64,8 +60,8 @@ class WeightScaleWidget extends StatelessWidget {
           return (value % 5) < 0.01;
         }
       },
-      shouldShowMediumLabel: (value, index, unitSystem, ticksPerMedium) {
-        if (unitSystem.isMetric) {
+      shouldShowMediumLabel: (value, index, unit, ticksPerMedium) {
+        if (unit.isMetric) {
           // Medium ticks: every 0.5kg (metric)
           // This is every ticksPerMedium steps, but not at major ticks
           final ticksPerMajor = ticksPerMedium * 2;

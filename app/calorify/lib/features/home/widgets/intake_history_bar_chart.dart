@@ -69,19 +69,19 @@ class _MacroHistoryChart extends ConsumerWidget {
       if (processedData.containsKey(mealDate)) {
         processedData[mealDate]!['protein'] =
             (processedData[mealDate]!['protein'] ?? 0.0) +
-            loggedMeal.meal.macros.protein;
+            loggedMeal.meal.macros.protein.value;
         processedData[mealDate]!['carbs'] =
             (processedData[mealDate]!['carbs'] ?? 0.0) +
-            loggedMeal.meal.macros.carbs;
+            loggedMeal.meal.macros.carb.value;
         processedData[mealDate]!['fat'] =
             (processedData[mealDate]!['fat'] ?? 0.0) +
-            loggedMeal.meal.macros.fat;
+            loggedMeal.meal.macros.fat.value;
         processedData[mealDate]!['fiber'] =
             (processedData[mealDate]!['fiber'] ?? 0.0) +
-            loggedMeal.meal.macros.fiber;
+            loggedMeal.meal.macros.fiber.value;
         processedData[mealDate]!['calories'] =
             (processedData[mealDate]!['calories'] ?? 0.0) +
-            loggedMeal.meal.macros.calories;
+            loggedMeal.meal.macros.calorie.value;
       }
     }
     return processedData;

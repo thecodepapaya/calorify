@@ -13,9 +13,9 @@ import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class MealResultScreen extends StatefulWidget {
-  const MealResultScreen({super.key, required this.result});
+  const MealResultScreen({super.key, required this.meal});
 
-  final MealDetectionResult result;
+  final Meal meal;
 
   @override
   State<MealResultScreen> createState() => _MealResultScreenState();
@@ -26,7 +26,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
   bool _logged = false;
   bool _queuedOffline = false;
 
-  Meal get _meal => widget.result.meal;
+  Meal get _meal => widget.meal;
 
   Future<void> _logMeal() async {
     if (_logging || _logged) return;
@@ -177,7 +177,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  '${macros.calories}',
+                  '${macros.calorie.value}',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontSize: watchHeadlineFontSize,
                     fontWeight: FontWeight.w800,
@@ -203,29 +203,29 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 WatchMacroMetric(
                   icon: AppIcons.dumbbell,
                   color: colorScheme.proteinIconColor,
-                  value: macros.protein,
+                  value: macros.protein.value,
                   label: strings.nutrition.protein,
                 ),
                 const SizedBox(width: 8),
                 WatchMacroMetric(
                   icon: AppIcons.wheat,
                   color: colorScheme.carbsIconColor,
-                  value: macros.carbs,
+                  value: macros.carb.value,
                   label: strings.nutrition.carbs,
                 ),
                 const SizedBox(width: 8),
                 WatchMacroMetric(
                   icon: AppIcons.droplet,
                   color: colorScheme.fatIconColor,
-                  value: macros.fat,
+                  value: macros.fat.value,
                   label: strings.nutrition.fat,
                 ),
-                if (macros.fiber > 0) ...[
+                if (macros.fiber.value > 0) ...[
                   const SizedBox(width: 8),
                   WatchMacroMetric(
                     icon: AppIcons.leaf,
                     color: colorScheme.fiberIconColor,
-                    value: macros.fiber,
+                    value: macros.fiber.value,
                     label: strings.nutrition.fiber,
                   ),
                 ],

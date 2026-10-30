@@ -162,7 +162,7 @@ class _MealTile extends StatelessWidget {
                     maxLines: 2,
                   ),
                   Text(
-                    '${meal.macros.calories} kcal',
+                    '${meal.macros.calorie.value.toStringAsFixed(0)} kcal',
                     style: textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurface.withValues(alpha: 0.7),
                     ),

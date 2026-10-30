@@ -33,10 +33,10 @@ _targetMacrosFromGoal(int dailyGoal) {
   var fiber = 0.0;
 
   for (final meal in meals) {
-    protein += meal.meal.macros.protein;
-    carbs += meal.meal.macros.carbs;
-    fat += meal.meal.macros.fat;
-    fiber += meal.meal.macros.fiber;
+    protein += meal.meal.macros.protein.value;
+    carbs += meal.meal.macros.carb.value;
+    fat += meal.meal.macros.fat.value;
+    fiber += meal.meal.macros.fiber.value;
   }
 
   return (protein: protein, carbs: carbs, fat: fat, fiber: fiber);

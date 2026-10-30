@@ -36,7 +36,7 @@ class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
   }
 
   Future<void> _loadData() async {
-    final profile = await ref.read(onboardingServiceProvider).getProfileData();
+    final profile = await ref.read(onboardingServiceProvider).getHealthData();
     if (profile != null && profile.hasDateOfBirth() && mounted) {
       setState(() {
         _dateOfBirth = iso8601DateToDateTime(profile.dateOfBirth);
@@ -159,10 +159,10 @@ class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
     setState(() => _isSaving = true);
     try {
       final onboardingService = ref.read(onboardingServiceProvider);
-      final profile = await onboardingService.getProfileData() ?? UserProfile();
+      final profile = await onboardingService.getHealthData() ?? HealthData();
       final updatedProfile = profile.deepCopy();
       updatedProfile.dateOfBirth = dateTimeToIso8601Date(dateOfBirth);
-      await onboardingService.saveProfileData(updatedProfile);
+      await onboardingService.saveHealthData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetAge);
       widget.onContinue();

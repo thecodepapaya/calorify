@@ -1,24 +1,23 @@
-import 'package:models/models.dart';
 import 'package:flutter/material.dart';
 
 /// A reusable horizontal scale widget for selecting numeric values.
 /// Supports both metric and imperial units.
-class ScaleWidget extends StatefulWidget {
+class ScaleWidget<T> extends StatefulWidget {
   final double value;
-  final UnitSystem unitSystem;
+  final T unitSystem;
   final ValueChanged<double> onValueChanged;
   final double? minValue;
   final double? maxValue;
 
   // Configuration
   final double tickWidth;
-  final int Function(UnitSystem) ticksPerMajor;
-  final double Function(UnitSystem) getMinValue;
-  final double Function(UnitSystem) getMaxValue;
-  final double Function(UnitSystem) getStep;
-  final String Function(double, UnitSystem, BuildContext) formatValue;
-  final bool Function(double, int, UnitSystem, int)? shouldShowMajorLabel;
-  final bool Function(double, int, UnitSystem, int)? shouldShowMediumLabel;
+  final int Function(T) ticksPerMajor;
+  final double Function(T) getMinValue;
+  final double Function(T) getMaxValue;
+  final double Function(T) getStep;
+  final String Function(double, T, BuildContext) formatValue;
+  final bool Function(double, int, T, int)? shouldShowMajorLabel;
+  final bool Function(double, int, T, int)? shouldShowMediumLabel;
 
   const ScaleWidget({
     super.key,
@@ -38,10 +37,10 @@ class ScaleWidget extends StatefulWidget {
   });
 
   @override
-  State<ScaleWidget> createState() => _ScaleWidgetState();
+  State<ScaleWidget<T>> createState() => _ScaleWidgetState<T>();
 }
 
-class _ScaleWidgetState extends State<ScaleWidget> {
+class _ScaleWidgetState<T> extends State<ScaleWidget<T>> {
   late PageController _pageController;
   bool _isUserScrolling = false;
   bool _isUpdatingFromUnitChange = false;
@@ -84,7 +83,7 @@ class _ScaleWidgetState extends State<ScaleWidget> {
   }
 
   @override
-  void didUpdateWidget(ScaleWidget oldWidget) {
+  void didUpdateWidget(ScaleWidget<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.unitSystem != widget.unitSystem) {
       // Unit system changed, need to recreate controller

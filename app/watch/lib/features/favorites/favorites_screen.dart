@@ -222,7 +222,7 @@ class _FavoriteItemState extends State<_FavoriteItem> {
     final colorScheme = theme.colorScheme;
     final strings = Translations.of(context).watch;
     final meal = widget.fav.loggedMeal.meal;
-    final calories = meal.macros.calories;
+    final calories = meal.macros.calorie.value;
 
     return Semantics(
       label: strings.favorites.mealSemantics(
@@ -276,19 +276,19 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                         children: [
                           WatchMacroBadge(
                             color: colorScheme.proteinIconColor,
-                            value: meal.macros.protein,
+                            value: meal.macros.protein.value,
                             icon: AppIcons.dumbbell,
                           ),
                           const SizedBox(width: 5),
                           WatchMacroBadge(
                             color: colorScheme.carbsIconColor,
-                            value: meal.macros.carbs,
+                            value: meal.macros.carb.value,
                             icon: AppIcons.wheat,
                           ),
                           const SizedBox(width: 5),
                           WatchMacroBadge(
                             color: colorScheme.fatIconColor,
-                            value: meal.macros.fat,
+                            value: meal.macros.fat.value,
                             icon: AppIcons.droplet,
                           ),
                         ],

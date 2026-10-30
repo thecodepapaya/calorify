@@ -144,13 +144,13 @@ void main() {
       addTearDown(fixture.dispose);
       final remoteMeal = LoggedMeal(
         clientId: 12,
-        meal: Meal(name: 'Dal', macros: MealMacro(calories: 320)),
+        meal: Meal(name: 'Dal', macros: Macros(calorie: Measurement(value: 320))),
         createdAt: now.subtract(const Duration(hours: 1)).toIso8601String(),
       );
       fixture.transport.responders[WatchPaths.todayMeals] = (_, _) async {
         return WatchTransportResult.success({
           'success': true,
-          'meals': [mealInfoToLegacyJson(remoteMeal)],
+          'meals': [remoteMeal.toProto3Json()],
         });
       };
       fixture.transport.responders[WatchPaths.calorieGoal] = (_, _) async {

@@ -13,7 +13,7 @@ class MockProfileRepository extends Mock implements ProfileRepository {}
 
 class MockAnalytics extends Mock implements Analytics {}
 
-class FakeUserProfile extends Fake implements UserProfile {}
+class FakeHealthData extends Fake implements HealthData {}
 
 void main() {
   late OnboardingService onboardingService;
@@ -23,7 +23,7 @@ void main() {
 
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
-    registerFallbackValue(FakeUserProfile());
+    registerFallbackValue(FakeHealthData());
     registerFallbackValue(AnalyticsEvent.onboardingComplete);
   });
 
@@ -38,7 +38,7 @@ void main() {
     );
 
     when(database.hasCompletedOnboarding).thenAnswer((_) async => false);
-    when(profileRepository.syncPendingProfile).thenAnswer((_) async => true);
+    when(profileRepository.syncPendingHealthData).thenAnswer((_) async => true);
   });
 
   test(
@@ -75,23 +75,23 @@ void main() {
     await onboardingService.completeOnboarding();
 
     verify(database.setOnboardingCompleted).called(1);
-    verify(profileRepository.syncPendingProfile).called(1);
+    verify(profileRepository.syncPendingHealthData).called(1);
     verify(
       () => analytics.logEvent(AnalyticsEvent.onboardingComplete),
     ).called(1);
   });
 
-  test('profile reads and writes use the injected repository', () async {
-    final profile = UserProfile(height: 180);
-    when(profileRepository.getUserProfile).thenAnswer((_) async => profile);
+  test('health data reads and writes use the injected repository', () async {
+    final data = HealthData(height: Height(value: 180, unit: HeightUnit.CM));
+    when(profileRepository.getHealthData).thenAnswer((_) async => data);
     when(
-      () => profileRepository.saveLocalProfile(profile),
-    ).thenAnswer((_) async {});
+      () => profileRepository.saveLocalHealthData(data),
+    ).thenAnswer((_) async => true);
 
-    expect(await onboardingService.getProfileData(), same(profile));
-    await onboardingService.saveProfileData(profile);
+    expect(await onboardingService.getHealthData(), same(data));
+    await onboardingService.saveHealthData(data);
 
-    verify(profileRepository.getUserProfile).called(1);
-    verify(() => profileRepository.saveLocalProfile(profile)).called(1);
+    verify(profileRepository.getHealthData).called(1);
+    verify(() => profileRepository.saveLocalHealthData(data)).called(1);
   });
 }

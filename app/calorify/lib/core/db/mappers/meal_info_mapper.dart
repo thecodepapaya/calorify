@@ -21,11 +21,11 @@ extension MealToCompanion on Meal {
       mealName: Value(name),
       mealQuantity: Value(quantity),
       mealType: Value(type.legacyName),
-      calories: Value(macros.calories),
-      protein: Value(macros.protein),
-      carbs: Value(macros.carbs),
-      fat: Value(macros.fat),
-      fiber: Value(macros.fiber),
+      calories: Value(macros.calorie.value),
+      protein: Value(macros.protein.value),
+      carbs: Value(macros.carb.value),
+      fat: Value(macros.fat.value),
+      fiber: Value(macros.fiber.value),
       timestamp: Value(timestamp ?? DateTime.now()),
       // A meal companion is a complete snapshot. Explicit nulls clear stale
       // optional values when an existing row is replaced.
@@ -80,12 +80,12 @@ extension MealInfoMapper on LoggedMeal {
                   healthScoreReason: data.healthScoreReason,
                 )
                 : null,
-        macros: MealMacro(
-          calories: data.calories,
-          protein: data.protein,
-          carbs: data.carbs,
-          fat: data.fat,
-          fiber: data.fiber,
+        macros: Macros(
+          calorie: Measurement(value: data.calories),
+          protein: Measurement(value: data.protein),
+          carb: Measurement(value: data.carbs),
+          fat: Measurement(value: data.fat),
+          fiber: Measurement(value: data.fiber),
         ),
       ),
       createdAt: dateTimeToIso8601String(data.timestamp),

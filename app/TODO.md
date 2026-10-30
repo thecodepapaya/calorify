@@ -50,6 +50,10 @@ This document tracks features and protobuf contracts that have been pruned or di
   - `protos/common/user.proto`: `common.User`, `common.HealthData`, `Height`, `Weight`, `Gender`, `WeightGoal`, `ActivityLevel`.
   - `protos/app/meal.proto`: `app.LoggedMeal`, `app.FavoriteMeal`.
 
+### 1.8 On-Device Local Nutrition Cache (`local_nutrition_cache.dart`)
+- **Table**: `LocalNutritionCacheTable` in Drift SQLite.
+- **Current State**: Preserved table schema in Drift SQLite; currently unqueried since meal decomposition and USDA lookups are executed server-side. Retained for potential future offline nutrition pack resolution.
+
 ---
 
 ## 2. Next Steps to Re-enable Features

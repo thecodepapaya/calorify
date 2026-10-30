@@ -321,14 +321,12 @@ void main() {
     );
 
     test('uses profile fallback when Health Connect is unavailable', () async {
-      final profile = UserProfile(
-        height: 170,
-        weight: 70,
+      final profile = HealthData(
+        height: Height(value: 170, unit: HeightUnit.CM),
+        weight: Weight(value: 70, unit: WeightUnit.KG),
         gender: Gender.MALE,
         dateOfBirth: '1990-01-01',
         activityLevel: ActivityLevel.MODERATELY_ACTIVE,
-        heightUnit: UnitSystem.METRIC,
-        weightUnit: UnitSystem.METRIC,
       );
       healthService = HealthService.test(
         health: mockHealth,
@@ -356,12 +354,12 @@ void main() {
       final meal = Meal(
         name: 'Dal rice',
         type: MealType.LUNCH,
-        macros: MealMacro(
-          calories: 540,
-          carbs: 72,
-          protein: 24,
-          fat: 16,
-          fiber: 9,
+        macros: Macros(
+          calorie: Measurement(value: 540),
+          carb: Measurement(value: 72),
+          protein: Measurement(value: 24),
+          fat: Measurement(value: 16),
+          fiber: Measurement(value: 9),
         ),
       );
       when(

@@ -18,19 +18,18 @@ import 'dart:typed_data' as $typed_data;
 const MealType$json = {
   '1': 'MealType',
   '2': [
-    {'1': 'MEAL_TYPE_UNKNOWN', '2': 0},
-    {'1': 'MEAL_TYPE_BREAKFAST', '2': 1},
-    {'1': 'MEAL_TYPE_LUNCH', '2': 2},
-    {'1': 'MEAL_TYPE_DINNER', '2': 3},
-    {'1': 'MEAL_TYPE_SNACK', '2': 4},
+    {'1': 'UNKNOWN', '2': 0},
+    {'1': 'BREAKFAST', '2': 1},
+    {'1': 'LUNCH', '2': 2},
+    {'1': 'DINNER', '2': 3},
+    {'1': 'SNACK', '2': 4},
   ],
 };
 
 /// Descriptor for `MealType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List mealTypeDescriptor = $convert.base64Decode(
-    'CghNZWFsVHlwZRIVChFNRUFMX1RZUEVfVU5LTk9XThAAEhcKE01FQUxfVFlQRV9CUkVBS0ZBU1'
-    'QQARITCg9NRUFMX1RZUEVfTFVOQ0gQAhIUChBNRUFMX1RZUEVfRElOTkVSEAMSEwoPTUVBTF9U'
-    'WVBFX1NOQUNLEAQ=');
+    'CghNZWFsVHlwZRILCgdVTktOT1dOEAASDQoJQlJFQUtGQVNUEAESCQoFTFVOQ0gQAhIKCgZESU'
+    '5ORVIQAxIJCgVTTkFDSxAE');
 
 @$core.Deprecated('Use healthScoreDescriptor instead')
 const HealthScore$json = {
@@ -201,12 +200,22 @@ const MealMetadata$json = {
       '17': true
     },
     {'1': 'tip', '3': 4, '4': 1, '5': 9, '9': 3, '10': 'tip', '17': true},
+    {
+      '1': 'image_url',
+      '3': 5,
+      '4': 1,
+      '5': 9,
+      '9': 4,
+      '10': 'imageUrl',
+      '17': true
+    },
   ],
   '8': [
     {'1': '_image_base64'},
     {'1': '_meal_description'},
     {'1': '_timestamp'},
     {'1': '_tip'},
+    {'1': '_image_url'},
   ],
 };
 
@@ -214,8 +223,9 @@ const MealMetadata$json = {
 final $typed_data.Uint8List mealMetadataDescriptor = $convert.base64Decode(
     'CgxNZWFsTWV0YWRhdGESJgoMaW1hZ2VfYmFzZTY0GAEgASgJSABSC2ltYWdlQmFzZTY0iAEBEi'
     '4KEG1lYWxfZGVzY3JpcHRpb24YAiABKAlIAVIPbWVhbERlc2NyaXB0aW9uiAEBEiEKCXRpbWVz'
-    'dGFtcBgDIAEoCUgCUgl0aW1lc3RhbXCIAQESFQoDdGlwGAQgASgJSANSA3RpcIgBAUIPCg1faW'
-    '1hZ2VfYmFzZTY0QhMKEV9tZWFsX2Rlc2NyaXB0aW9uQgwKCl90aW1lc3RhbXBCBgoEX3RpcA==');
+    'dGFtcBgDIAEoCUgCUgl0aW1lc3RhbXCIAQESFQoDdGlwGAQgASgJSANSA3RpcIgBARIgCglpbW'
+    'FnZV91cmwYBSABKAlIBFIIaW1hZ2VVcmyIAQFCDwoNX2ltYWdlX2Jhc2U2NEITChFfbWVhbF9k'
+    'ZXNjcmlwdGlvbkIMCgpfdGltZXN0YW1wQgYKBF90aXBCDAoKX2ltYWdlX3VybA==');
 
 @$core.Deprecated('Use mealDescriptor instead')
 const Meal$json = {

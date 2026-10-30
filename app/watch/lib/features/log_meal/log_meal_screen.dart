@@ -34,9 +34,9 @@ class _LogMealScreenState extends State<LogMealScreen>
     _controller = LogMealController(
       speech: widget.speechService ?? WatchSpeechService.instance,
       detectText: const WatchFoodRepository().detectText,
-      onMealDetected: (result) async {
+      onMealDetected: (meal) async {
         if (!mounted) return;
-        await context.router.push(MealResultRoute(result: result));
+        await context.router.push(MealResultRoute(meal: meal));
       },
       onFeedback: (feedback) {
         switch (feedback) {

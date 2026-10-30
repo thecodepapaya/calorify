@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3F8AE0">
+    <title>Interactive Demo — Calorify AI-Powered Meal Analysis</title>
+
+    <link rel="canonical" href="https://calorify.thecodepapaya.dev/try.html" />
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+
+    <meta name="description"
+        content="Try the interactive Calorify demo: enter any meal description and watch our multi-stage AI pipeline decompose dish components, extract atomic ingredients, and ground macros in USDA FoodData.">
+
+    <link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Calorify" />
+    <link rel="manifest" href="assets/site.webmanifest" />
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="demo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <script src="try.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="index.html" aria-label="Calorify home">
+                <img src="assets/web-app-manifest-192x192.png" alt="Calorify Logo" class="logo-img">
+                <span class="logo-text">Calorify</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#how-it-works">How it Works</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="try.html" class="nav-demo-link"><i data-lucide="sparkles"></i> Try Demo</a></li>
+                <li><a href="https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
+                        class="btn-primary" target="_blank" rel="noopener noreferrer">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="demo-main">
+        <div class="demo-container">
+            <!-- Back navigation -->
+            <div class="demo-back-nav">
+                <a href="index.html" class="demo-back-link">
+                    <i data-lucide="arrow-left"></i>
+                    <span>Back to Calorify Home</span>
+                </a>
+            </div>
+
+            <!-- Page Header / Hero -->
+            <div class="demo-header">
+                <div class="eyebrow"><i data-lucide="sparkles"></i> AI-Powered Meal Analysis • Live Interactive Flow</div>
+                <h1>See How Calorify Analyzes Food</h1>
+                <p>
+                    Enter any meal or recipe description below. Watch our multi-stage pipeline decompose dish components,
+                    extract atomic ingredients, query USDA nutritional references, and compute verified macros in real-time.
+                </p>
+            </div>
+
+            <!-- Meal Input Card -->
+            <div class="demo-card">
+                <div class="card-title-row">
+                    <h2>
+                        <i data-lucide="utensils-crossed"></i>
+                        <span>Describe Your Meal</span>
+                    </h2>
+                    <div class="demo-mode-badge">
+                        <span class="pulse-dot"></span>
+                        <span>Pretend Polling API Active</span>
+                    </div>
+                </div>
+
+                <div class="prompt-input-wrapper">
+                    <textarea id="meal-input" class="meal-textarea"
+                        placeholder="e.g. 1 bowl of yellow lentil daal with 2 whole wheat rotis and a teaspoon of ghee..."></textarea>
+                    <div class="textarea-footer">
+                        <span>Natural language meal descriptions supported</span>
+                        <span id="char-count">0 characters</span>
+                    </div>
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="presets-section">
+                    <div class="presets-label">
+                        <i data-lucide="zap" style="width:14px;height:14px;"></i>
+                        <span>Or select a sample meal to test:</span>
+                    </div>
+                    <div class="presets-chips">
+                        <button type="button" class="preset-chip active" data-preset="daal_roti">
+                            🍲 Daal Tadka &amp; 2 Rotis
+                        </button>
+                        <button type="button" class="preset-chip" data-preset="chicken_bowl">
+                            🥗 Grilled Chicken &amp; Quinoa Bowl
+                        </button>
+                        <button type="button" class="preset-chip" data-preset="avocado_toast">
+                            🥑 Avocado Toast &amp; Poached Eggs
+                        </button>
+                        <button type="button" class="preset-chip" data-preset="salmon_quinoa">
+                            🍣 Wild Salmon &amp; Asparagus
+                        </button>
+                        <button type="button" class="preset-chip" data-preset="greek_yogurt">
+                            🥣 Greek Yogurt &amp; Berries
+                        </button>
+                        <button type="button" class="preset-chip" data-preset="cheeseburger_fries">
+                            🍔 Double Cheeseburger &amp; Fries
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="input-actions-bar">
+                    <button type="button" id="btn-analyze" class="btn-analyze">
+                        <i data-lucide="sparkles"></i>
+                        <span>Analyze Meal</span>
+                    </button>
+                    <button type="button" id="btn-clear" class="btn-clear">
+                        <span>Clear Input</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Live Telemetry / Polling API Monitor -->
+            <div id="telemetry-bar" class="telemetry-strip" style="display: none;">
+                <div class="telemetry-status">
+                    <div id="telemetry-dot" class="telemetry-indicator active"></div>
+                    <span id="telemetry-endpoint" class="telemetry-endpoint">GET /api/v1/meals/analysis/:id/status</span>
+                </div>
+                <div class="telemetry-metric">
+                    <span id="telemetry-cycle" class="telemetry-cycle">Poll #1 • 140ms</span>
+                    <span id="telemetry-code" class="telemetry-badge-code">200 OK</span>
+                </div>
+            </div>
+
+            <!-- Pipeline Stepper -->
+            <div id="stepper-container" class="stepper-container" style="display: none;">
+                <div class="stepper-heading">
+                    <h3>
+                        <i data-lucide="workflow" style="width:16px;height:16px;"></i>
+                        <span>Calorify Processing Pipeline</span>
+                    </h3>
+                    <span id="stepper-progress-text" class="stepper-progress-text">0%</span>
+                </div>
+                <div class="stepper-progress-bar">
+                    <div id="stepper-progress-fill" class="stepper-progress-fill"></div>
+                </div>
+                <div class="steps-list">
+                    <div class="step-box pending" data-step="1">
+                        <div class="step-icon-circle">1</div>
+                        <div class="step-title">Session Init</div>
+                        <div class="step-sub">Validate Prompt</div>
+                    </div>
+                    <div class="step-box pending" data-step="2">
+                        <div class="step-icon-circle">2</div>
+                        <div class="step-title">Pass 1: Dishes</div>
+                        <div class="step-sub">Decompose Dishes</div>
+                    </div>
+                    <div class="step-box pending" data-step="3">
+                        <div class="step-icon-circle">3</div>
+                        <div class="step-title">Pass 2: Portions</div>
+                        <div class="step-sub">Extract Ingredients</div>
+                    </div>
+                    <div class="step-box pending" data-step="4">
+                        <div class="step-icon-circle">4</div>
+                        <div class="step-title">USDA Grounding</div>
+                        <div class="step-sub">Vector Semantic Match</div>
+                    </div>
+                    <div class="step-box pending" data-step="5">
+                        <div class="step-icon-circle">5</div>
+                        <div class="step-title">Nutrition Result</div>
+                        <div class="step-sub">Verified Summary</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progressive Results Section -->
+            <div id="results-container" class="results-container" style="display: none;">
+                <!-- Intermediate Stage Cards dynamically injected here -->
+                <div id="intermediate-stages" style="display:flex;flex-direction:column;gap:1.5rem;"></div>
+
+                <!-- Final Complete Meal Response Card dynamically injected here -->
+                <div id="final-response-container"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a class="logo" href="index.html" aria-label="Calorify home">
+                    <img src="assets/web-app-manifest-192x192.png" alt="Calorify Logo" class="logo-img">
+                    <span class="logo-text">Calorify</span>
+                </a>
+                <p>AI-powered nutrition tracking with USDA-grounded accuracy. Private, ad-free, and subscription-free.
+                </p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#how-it-works">How it Works</a></li>
+                        <li><a href="try.html">Interactive Demo</a></li>
+                        <li><a href="https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
+                                target="_blank" rel="noopener noreferrer">Google Play</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal &amp; Privacy</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="https://github.com/thecodepapaya/calorify" target="_blank"
+                                rel="noopener noreferrer">Source Code</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year">2026</span> Calorify. Built with ❤️ and AI.</p>
+            <p>A project by thecodepapaya</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
+            const yearEl = document.getElementById('current-year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+            // Set initial active preset prompt into textarea
+            const textarea = document.getElementById('meal-input');
+            if (textarea && !textarea.value) {
+                textarea.value = "1 bowl of yellow lentil daal with 2 whole wheat rotis and a teaspoon of ghee";
+                textarea.dispatchEvent(new Event('input'));
+            }
+        });
+    </script>
+</body>
+
+</html>

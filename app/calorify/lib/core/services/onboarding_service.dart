@@ -35,15 +35,15 @@ class OnboardingService {
   /// Mark onboarding as explicitly completed.
   Future<void> completeOnboarding() async {
     await _database.setOnboardingCompleted();
-    unawaited(_profileRepository.syncPendingProfile());
+    unawaited(_profileRepository.syncPendingHealthData());
     _analytics.logEvent(AnalyticsEvent.onboardingComplete);
   }
 
-  /// Save or update profile data (upsert)
-  Future<void> saveProfileData(UserProfile data) async {
-    await _profileRepository.saveLocalProfile(data);
+  /// Save or update health data (upsert)
+  Future<void> saveHealthData(HealthData data) async {
+    await _profileRepository.saveLocalHealthData(data);
   }
 
-  /// Get saved profile data
-  Future<UserProfile?> getProfileData() => _profileRepository.getUserProfile();
+  /// Get saved health data
+  Future<HealthData?> getHealthData() => _profileRepository.getHealthData();
 }

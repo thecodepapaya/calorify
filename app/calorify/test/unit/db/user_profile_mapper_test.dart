@@ -1,37 +1,37 @@
 import 'package:calorify/core/db/app_database.dart';
-import 'package:calorify/core/db/mappers/user_profile_mapper.dart';
+import 'package:calorify/core/db/mappers/health_data_mapper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
 
 void main() {
   test('serializes a Drift birthday as a timezone-free calendar date', () {
     final localBirthday = DateTime(2001, 8, 2);
-    final row = UserProfileTableData(
+    final row = HealthDataTableData(
       id: 1,
       dateOfBirth: localBirthday,
-      heightUnit: 'metric',
-      weightUnit: 'metric',
+      heightUnit: 'CM',
+      weightUnit: 'KG',
       createdAt: DateTime(2026, 8, 3),
       updatedAt: DateTime(2026, 8, 3),
       needsRemoteSync: false,
       remoteSyncRevision: null,
     );
 
-    final profile = UserProfileMapper.fromDrift(row);
+    final data = HealthDataMapper.fromDrift(row);
 
-    expect(profile.dateOfBirth, '2001-08-02');
+    expect(data.dateOfBirth, '2001-08-02');
   });
 
   test('stores a calendar birthday at canonical UTC midnight', () {
-    final companion = UserProfileMapper.toDrift(
-      UserProfile(dateOfBirth: '2001-08-02'),
+    final companion = HealthDataMapper.toDrift(
+      HealthData(dateOfBirth: '2001-08-02'),
     );
 
     expect(companion.dateOfBirth.value, DateTime.utc(2001, 8, 2));
   });
 
   test('writes explicit nulls when optional profile values are cleared', () {
-    final companion = UserProfileMapper.toDrift(UserProfile());
+    final companion = HealthDataMapper.toDrift(HealthData());
 
     expect(companion.height.present, isTrue);
     expect(companion.height.value, isNull);
@@ -44,8 +44,8 @@ void main() {
   });
 
   test('does not replace an invalid birthday with today', () {
-    final companion = UserProfileMapper.toDrift(
-      UserProfile(dateOfBirth: 'not-a-calendar-date'),
+    final companion = HealthDataMapper.toDrift(
+      HealthData(dateOfBirth: 'not-a-calendar-date'),
     );
 
     expect(companion.dateOfBirth.present, isTrue);

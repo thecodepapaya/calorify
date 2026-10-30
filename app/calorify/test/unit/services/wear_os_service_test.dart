@@ -70,17 +70,16 @@ void main() {
   test(
     'JSON meal logging preserves mutation idempotency and favorite use',
     () async {
+      final loggedMeal = LoggedMeal(
+        clientId: -1,
+        meal: Meal(
+          name: 'Greek Yogurt Bowl',
+          macros: Macros(calorie: Measurement(value: 280)),
+        ),
+        createdAt: '2026-04-22T08:00:00.000Z',
+      );
       final payload =
-          mealInfoToLegacyJson(
-              LoggedMeal(
-                clientId: -1,
-                meal: Meal(
-                  name: 'Greek Yogurt Bowl',
-                  macros: MealMacro(calories: 280),
-                ),
-                createdAt: '2026-04-22T08:00:00.000Z',
-              ),
-            )
+          Map<String, dynamic>.from(loggedMeal.toProto3Json() as Map)
             ..['favorite_meal_id'] = 7
             ..['watch_operation_id'] = 'watch:-1:2026-04-22T08:00:00.000Z';
       when(
@@ -147,11 +146,12 @@ void main() {
       data: const {},
     );
 
-    expect((meals!['meals'] as List).single, containsPair('meal_name', 'Dosa'));
+    final firstMeal = (meals!['meals'] as List).single as Map;
+    expect((firstMeal['meal'] as Map)['name'], 'Dosa');
     expect(goal, {'success': true, 'goal': 2100});
     final favoriteJson =
         (favorites!['favorites'] as List).single as Map<String, dynamic>;
-    expect((favoriteJson['meal_info'] as Map)['meal_name'], 'Dosa');
+    expect(((favoriteJson['loggedMeal'] as Map)['meal'] as Map)['name'], 'Dosa');
   });
 
   test('text analysis stays phone-proxied over JSON', () async {
@@ -167,14 +167,13 @@ void main() {
       path: '/analysis/detect-text',
       data: {'textDescription': 'two slices of avocado toast'},
     );
-    final parsed =
-        MealDetectionResponse()..mergeFromProto3Json(
-          Map<String, dynamic>.from(response!['response'] as Map),
-        );
+    final parsed = MealAnalysisV3CompleteResult.fromJson(
+      Map<String, dynamic>.from(response!['response'] as Map),
+    );
 
     expect(response['success'], true);
-    expect(parsed.result.meal.name, 'Avocado Toast');
-    expect(parsed.result.meal.macros.calories, 360);
+    expect(parsed.mealName, 'Avocado Toast');
+    expect(parsed.macros.calories, 360);
   });
 
   test('JSON failures and debug history stay redacted', () async {

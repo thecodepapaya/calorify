@@ -112,11 +112,11 @@ class LogMealRouteArgs {
 class MealResultRoute extends PageRouteInfo<MealResultRouteArgs> {
   MealResultRoute({
     Key? key,
-    required MealDetectionResult result,
+    required Meal meal,
     List<PageRouteInfo>? children,
   }) : super(
          MealResultRoute.name,
-         args: MealResultRouteArgs(key: key, result: result),
+         args: MealResultRouteArgs(key: key, meal: meal),
          initialChildren: children,
        );
 
@@ -126,32 +126,32 @@ class MealResultRoute extends PageRouteInfo<MealResultRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<MealResultRouteArgs>();
-      return MealResultScreen(key: args.key, result: args.result);
+      return MealResultScreen(key: args.key, meal: args.meal);
     },
   );
 }
 
 class MealResultRouteArgs {
-  const MealResultRouteArgs({this.key, required this.result});
+  const MealResultRouteArgs({this.key, required this.meal});
 
   final Key? key;
 
-  final MealDetectionResult result;
+  final Meal meal;
 
   @override
   String toString() {
-    return 'MealResultRouteArgs{key: $key, result: $result}';
+    return 'MealResultRouteArgs{key: $key, meal: $meal}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! MealResultRouteArgs) return false;
-    return key == other.key && result == other.result;
+    return key == other.key && meal == other.meal;
   }
 
   @override
-  int get hashCode => key.hashCode ^ result.hashCode;
+  int get hashCode => key.hashCode ^ meal.hashCode;
 }
 
 /// generated route for

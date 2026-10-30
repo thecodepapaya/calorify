@@ -1097,7 +1097,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
               ),
               TextButton(
                 onPressed: () async {
-                  await DatabaseService.databaseInterface.clearUserProfile();
+                  await DatabaseService.databaseInterface.clearHealthData();
                   if (!dialogContext.mounted) return;
                   Navigator.pop(dialogContext);
                   if (!context.mounted) return;
@@ -1199,15 +1199,14 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
 
   void _checkCurrentLocale() {
     final locale = Localizations.localeOf(context);
-    final unitSystem = LocaleUtils.getDefaultUnitSystem(locale);
-    final isMetric = unitSystem == UnitSystem.METRIC;
+    final heightUnit = LocaleUtils.getDefaultHeightUnit(locale);
+    final weightUnit = LocaleUtils.getDefaultWeightUnit(locale);
     final countryCode = locale.countryCode ?? 'N/A';
     final languageCode = locale.languageCode;
-    final unitSystemLabel = isMetric ? 'Metric' : 'Imperial';
 
     _showDataDialog(
       'Current Locale',
-      'Language: $languageCode\nCountry: $countryCode\nUnit System: $unitSystemLabel',
+      'Language: $languageCode\nCountry: $countryCode\nHeight Unit: ${heightUnit.display}\nWeight Unit: ${weightUnit.display}',
     );
   }
 

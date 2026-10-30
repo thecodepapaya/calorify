@@ -39,3 +39,4 @@ Central index for Calorify system architecture, component documentation, technic
 - [GitHub Actions Workflows](github-actions.md) — CI/CD automation, required status checks, and release pipelines.
 - [Play Store Release Metadata](../fastlane/metadata/README.md) — Changelog file formatting and release-note generation scripts.
 - [Website Image Guidelines](../web/IMAGE_GUIDELINES.md) — Specifications and assets for product screenshots.
+- [Interactive Web Demo](../web/try.html) — Web-based interactive meal analysis flow with simulated polling client.

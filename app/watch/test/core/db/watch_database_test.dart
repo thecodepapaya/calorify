@@ -49,7 +49,8 @@ void main() {
           .singleWhere((meal) => meal.clientId == 2)
           .meal
           .macros
-          .calories,
+          .calorie
+          .value,
       310,
     );
     expect(snapshot.calorieGoal, 2100);
@@ -134,7 +135,7 @@ void main() {
       meal: Meal(
         name: 'Unscored meal',
         quantity: '1 serving',
-        macros: MealMacro(calories: 200),
+        macros: Macros(calorie: Measurement(value: 200)),
       ),
       metadata: MealMetadata(mealDescription: 'A detailed description'),
     );
@@ -179,12 +180,12 @@ LoggedMeal _meal({
       name: name,
       quantity: '1 serving',
       type: MealType.BREAKFAST,
-      macros: MealMacro(
-        calories: calories,
-        protein: 10,
-        carbs: 35,
-        fat: 8,
-        fiber: 5,
+      macros: Macros(
+        calorie: Measurement(value: calories),
+        protein: Measurement(value: 10),
+        carb: Measurement(value: 35),
+        fat: Measurement(value: 8),
+        fiber: Measurement(value: 5),
       ),
       health: MealHealth(
         healthScore: HealthScore.HEALTHY,

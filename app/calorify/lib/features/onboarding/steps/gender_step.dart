@@ -29,7 +29,7 @@ class _GenderStepScreenState extends ConsumerState<GenderStepScreen> {
   }
 
   Future<void> _loadData() async {
-    final profile = await ref.read(onboardingServiceProvider).getProfileData();
+    final profile = await ref.read(onboardingServiceProvider).getHealthData();
     if (profile != null && mounted) {
       setState(() {
         _selectedGender = profile.hasGender() ? profile.gender : null;
@@ -156,12 +156,12 @@ class _GenderStepScreenState extends ConsumerState<GenderStepScreen> {
     setState(() => _isSaving = true);
     try {
       final onboardingService = ref.read(onboardingServiceProvider);
-      final profile = await onboardingService.getProfileData() ?? UserProfile();
+      final profile = await onboardingService.getHealthData() ?? HealthData();
       final updatedProfile = profile.deepCopy();
       if (_selectedGender != null) {
         updatedProfile.gender = _selectedGender!;
       }
-      await onboardingService.saveProfileData(updatedProfile);
+      await onboardingService.saveHealthData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetGender);
       widget.onContinue();
