@@ -93,6 +93,9 @@ jobs:
           PLAY_PUBSPEC_PATH: ${{ github.workspace }}/app/calorify/pubspec.yaml
           SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
 
+      - name: Validate Play changelog
+        run: bundle exec fastlane android validate_changelog
+
       - name: Build Android AppBundle with Shorebird
         uses: shorebirdtech/shorebird-release@fb52cad53f4ed5ce39883d51a26916ead502b93d # v1
         env:

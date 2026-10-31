@@ -107,6 +107,11 @@ platform :android do
     sh("./scripts/generate_release_notes.sh")
   end
 
+  desc "Fail before building when the English Play changelog is missing or invalid"
+  lane :validate_changelog do
+    validate_play_release_notes
+  end
+
   private_lane :validate_play_release_notes do
     repository_root = File.expand_path("..", __dir__)
     version_code = pubspec_version_code(path: "app/calorify/pubspec.yaml")
