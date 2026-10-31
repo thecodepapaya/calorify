@@ -7,7 +7,7 @@ import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
 import 'package:calorify/shared_widgets/empty_state_widget.dart';

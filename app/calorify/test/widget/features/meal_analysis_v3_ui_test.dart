@@ -1,4 +1,4 @@
-import 'package:calorify/features/home/utils/meal_analysis_v3_flow.dart';
+import 'package:calorify/features/home/utils/meal_analysis_flow.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_question_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

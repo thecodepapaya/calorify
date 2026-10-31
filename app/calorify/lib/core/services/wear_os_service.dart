@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
-import 'package:calorify/features/home/utils/meal_analysis_v3_flow.dart';
+import 'package:calorify/features/home/utils/meal_analysis_flow.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:models/models.dart';

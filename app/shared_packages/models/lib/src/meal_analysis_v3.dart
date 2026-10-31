@@ -344,7 +344,7 @@ class MealAnalysisV3CompleteResult {
     required this.macros,
     required this.macroRanges,
     required this.components,
-    required this.receipt,
+    this.receipt = const {},
     this.rawJson = const {},
     this.clarifications,
   });
@@ -362,6 +362,7 @@ class MealAnalysisV3CompleteResult {
     _validatePointInRange(macros.fat, ranges.fat, 'fat');
     _validatePointInRange(macros.fiber, ranges.fiber, 'fiber');
     final mealType = _requiredMap(json, 'mealType');
+    final rawReceipt = json['receipt'];
     return MealAnalysisV3CompleteResult(
       mealName: _requiredString(json, 'mealName'),
       servingSizeText: _requiredString(json, 'servingSizeText'),
@@ -372,7 +373,9 @@ class MealAnalysisV3CompleteResult {
       components: UnmodifiableListView(
         _requiredList(json, 'components').map(_asMap),
       ),
-      receipt: UnmodifiableMapView(_requiredMap(json, 'receipt')),
+      receipt: rawReceipt is Map<String, dynamic>
+          ? UnmodifiableMapView(rawReceipt)
+          : const {},
       rawJson: UnmodifiableMapView(json),
     );
   }

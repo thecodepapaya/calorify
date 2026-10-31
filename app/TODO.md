@@ -52,15 +52,49 @@ This document tracks features and protobuf contracts that have been pruned or di
 
 ### 1.8 On-Device Local Nutrition Cache (`local_nutrition_cache.dart`)
 - **Table**: `LocalNutritionCacheTable` in Drift SQLite.
-- **Current State**: Preserved table schema in Drift SQLite; currently unqueried since meal decomposition and USDA lookups are executed server-side. Retained for potential future offline nutrition pack resolution.
+- **Current State**: Pruned from active Drift SQLite schema since meal decomposition and USDA lookups are executed server-side. Tracked here if offline nutrition pack resolution is revisited.
+
+### 1.9 Interactive Meal Feedback Sheet (`meal_feedback_sheet.dart`)
+- **Previous Implementation**: Opened on thumbs-down feedback during meal inspection, presenting selectable issue tags (`FilterChip`s for food identification, portion size, calorie distribution, incorrect macros, missing items, extra items, or other notes) and submitting structured feedback.
+- **Current State**: On hold. Basic thumbs up/down is currently wired directly via `POST /users/meals/analysis/{id}/feedback`.
+- **To Re-enable**:
+  - Re-introduce `MealFeedbackSheet` with structured issue chips.
+  - Wire feedback categories to backend feedback payload (`MealFeedbackRequest`).
+
+### 1.10 Meal Type Clarification Sheet (`meal_type_sheet.dart`)
+- **Previous Implementation**: Clarification sheet prompting the user to select the meal category (`Breakfast`, `Lunch`, `Dinner`, `Snack`) via `ChoiceChip`s when confidence was low or meal type was unconfirmed.
+- **Current State**: On hold. Current pipeline infers meal type during server-side LLM decomposition.
+- **To Re-enable**:
+  - Re-introduce `MealTypeSheet` when the server requests explicit meal type disambiguation.
+
+### 1.11 Remote Dynamic Meal Analysis Tips API (`FoodRepository.getMealAnalysisTips`)
+- **Previous Implementation**: Client stub `getMealAnalysisTips({int? count})` returning `[]`.
+- **Current State**: On hold; scheduled for implementation. `MealAnalysisTipLine` currently falls back to bundled localization tips.
+- **To Re-enable**:
+  - Define tip endpoint on backend (e.g., `GET /users/meals/analysis/tips`).
+  - Implement dynamic tip fetching in `FoodRepository.getMealAnalysisTips`.
+
+### 1.12 Bundled Meal Analysis Tips Randomization (`MealAnalysisTipLine`)
+- **Current State**: On hold. `_fallbackBundledMealAnalysisTip()` currently selects the first bundled tip (`offlineTip0`).
+- **To Re-enable**:
+  - Add pseudo-random selection across the full pool of localized bundled tips (`offlineTip0`–`offlineTip5`).
+
+### 1.13 Home Screen AI Summary Card (`AiSummaryCard`)
+- **Current State**: `AiSummaryCard` component is built, but currently commented out in `HomeScreen.build` pending backend summary generation endpoint availability.
+- **To Re-enable**:
+  - Uncomment `const AiSummaryCard()` in `HomeScreen.build` once backend `POST /users/ai-summary/generate` is deployed.
 
 ---
 
 ## 2. Next Steps to Re-enable Features
 1. **Clarification Workflow**:
-   - Once `backend` implements clarification question generation and submission (`POST /users/meals/analysis/{analysis_id}/answers`), enable interactive question sheets in `meal_analysis_v3_flow.dart`.
+   - Once `backend` implements clarification question generation and submission (`POST /users/meals/analysis/{analysis_id}/answers`), enable interactive question sheets in `meal_analysis_flow.dart`.
 2. **Meal History CSV Export**:
-   - Once `backend` implements `GET /users/meals/export`, enable `exportMealHistoryCsv` in settings.
+   - Once `backend` implements `GET /users/meals/export` (or mobile local SQLite export is approved), re-enable CSV export in settings.
 3. **Daily Nutrition Summary**:
    - Re-enable AI summary cards on the home screen when backend advisory locking and OpenAI summary prompts are merged.
+4. **Meal Feedback & Meal Type Sheets**:
+   - Re-enable `MealFeedbackSheet` and `MealTypeSheet` when detailed post-analysis reporting is scheduled.
+5. **Dynamic Tips & Tip Randomization**:
+   - Implement backend tips endpoint and hook up randomized rotation in `MealAnalysisTipLine`.
 

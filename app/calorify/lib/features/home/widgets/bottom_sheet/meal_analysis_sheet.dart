@@ -6,7 +6,6 @@ import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/home_providers.dart'
     hide databaseInterfaceProvider;
-import 'package:models/models.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
@@ -14,13 +13,15 @@ import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
+import 'package:calorify/features/home/utils/meal_analysis_flow.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
-import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/app_button.dart';
+import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
+import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
 
 enum MealDetailsSheetPurpose {
@@ -32,18 +33,125 @@ enum MealDetailsSheetPurpose {
 
 const _calorieRangeSpreadThresholdFactor = 10;
 
-bool _shouldShowCalorieRange(MealAnalysisV3CompleteResult result) {
-  final calorieRange = result.macroRanges.calories;
+bool _shouldShowCalorieRange(
+  MealAnalysisV3Range? calorieRange,
+  double calorieEstimate,
+) {
+  if (calorieRange == null) return false;
   final spread = calorieRange.max - calorieRange.min;
-  final calorieEstimate = result.macros.calories;
 
-  // A range at or below 10% of the point estimate adds visual noise without
-  // communicating meaningful uncertainty. Multiplication keeps this exact and
-  // avoids floating-point boundary behaviour.
   return calorieEstimate > 0 &&
       spread * _calorieRangeSpreadThresholdFactor > calorieEstimate;
 }
 
+/// Unified view data object consumed by [MealAnalysisSheet].
+class MealAnalysisSheetData {
+  MealAnalysisSheetData({
+    required this.meal,
+    this.loggedMeal,
+    this.purpose = MealDetailsSheetPurpose.mealAddition,
+    this.imageBytes,
+    this.favoriteId,
+    this.analysisId,
+    this.rawJson,
+    this.tip,
+    this.calorieRange,
+    this.previewOnly = false,
+  });
+
+  factory MealAnalysisSheetData.fromMeal({
+    required Meal meal,
+    MealDetailsSheetPurpose purpose = MealDetailsSheetPurpose.mealAddition,
+    Uint8List? imageBytes,
+    int? favoriteId,
+    bool previewOnly = false,
+  }) {
+    return MealAnalysisSheetData(
+      meal: meal,
+      purpose: purpose,
+      imageBytes: imageBytes,
+      favoriteId: favoriteId,
+      previewOnly: previewOnly,
+      tip: meal.hasMetadata() ? meal.metadata.tip : null,
+    );
+  }
+
+  factory MealAnalysisSheetData.fromLoggedMeal({
+    required LoggedMeal loggedMeal,
+    MealDetailsSheetPurpose purpose = MealDetailsSheetPurpose.historyEdit,
+    Uint8List? imageBytes,
+    int? favoriteId,
+    bool previewOnly = false,
+  }) {
+    return MealAnalysisSheetData(
+      meal: loggedMeal.meal,
+      loggedMeal: loggedMeal,
+      purpose: purpose,
+      imageBytes: imageBytes,
+      favoriteId: favoriteId,
+      previewOnly: previewOnly,
+      tip: loggedMeal.hasMetadata() ? loggedMeal.metadata.tip : null,
+    );
+  }
+
+  factory MealAnalysisSheetData.fromV3Result({
+    required MealAnalysisV3CompleteResult result,
+    MealDetailsSheetPurpose purpose = MealDetailsSheetPurpose.mealAddition,
+    String? analysisId,
+    Uint8List? imageBytes,
+    String? textDescription,
+    bool previewOnly = false,
+  }) {
+    final meal = mealFromV3Result(result, textDescription: textDescription);
+    return MealAnalysisSheetData(
+      meal: meal,
+      purpose: purpose,
+      analysisId: analysisId,
+      imageBytes: imageBytes,
+      rawJson: result.rawJson,
+      tip:
+          result.tip.isNotEmpty
+              ? result.tip
+              : (meal.hasMetadata() ? meal.metadata.tip : null),
+      calorieRange: result.macroRanges.calories,
+      previewOnly: previewOnly,
+    );
+  }
+
+  final Meal meal;
+  final LoggedMeal? loggedMeal;
+  final MealDetailsSheetPurpose purpose;
+  final Uint8List? imageBytes;
+  final int? favoriteId;
+  final String? analysisId;
+  final Map<String, dynamic>? rawJson;
+  final String? tip;
+  final MealAnalysisV3Range? calorieRange;
+  final bool previewOnly;
+}
+
+Future<void> showMealAnalysisSheet({
+  required BuildContext context,
+  required MealAnalysisSheetData data,
+}) {
+  final parentContext = context;
+  return showModalBottomSheet(
+    context: context,
+    useRootNavigator: true,
+    isDismissible: true,
+    showDragHandle: true,
+    enableDrag: true,
+    isScrollControlled: true,
+    routeSettings: const RouteSettings(name: RouteNames.mealAnalysisSheet),
+    builder:
+        (sheetContext) => MealAnalysisSheet(
+          parentContext: parentContext,
+          data: data,
+        ),
+  );
+}
+
+/// Backward compatibility helper for legacy call sites.
 Future<void> showMealTip({
   required BuildContext context,
   required MealDetailsSheetPurpose purpose,
@@ -55,99 +163,154 @@ Future<void> showMealTip({
   String? v3AnalysisId,
   bool previewOnly = false,
 }) {
-  final parentContext = context;
-  return showModalBottomSheet(
-    context: context,
-    useRootNavigator: true,
-    isDismissible: true,
-    showDragHandle: true,
-    enableDrag: true,
-    isScrollControlled: true,
-    routeSettings: const RouteSettings(name: RouteNames.mealTipSheet),
-    builder:
-        (sheetContext) => _MealTip(
-          parentContext: parentContext,
-          purpose: purpose,
-          meal: meal,
-          loggedMeal: loggedMeal,
-          favoriteId: favoriteId,
-          imageBytes: imageBytes,
-          v3Result: v3Result,
-          v3AnalysisId: v3AnalysisId,
-          previewOnly: previewOnly,
-        ),
-  );
+  final data =
+      v3Result != null
+          ? MealAnalysisSheetData.fromV3Result(
+            result: v3Result,
+            purpose: purpose,
+            analysisId: v3AnalysisId,
+            imageBytes: imageBytes,
+            previewOnly: previewOnly,
+          )
+          : loggedMeal != null
+          ? MealAnalysisSheetData.fromLoggedMeal(
+            loggedMeal: loggedMeal,
+            purpose: purpose,
+            imageBytes: imageBytes,
+            favoriteId: favoriteId,
+            previewOnly: previewOnly,
+          )
+          : MealAnalysisSheetData.fromMeal(
+            meal: meal ?? Meal(),
+            purpose: purpose,
+            imageBytes: imageBytes,
+            favoriteId: favoriteId,
+            previewOnly: previewOnly,
+          );
+  return showMealAnalysisSheet(context: context, data: data);
 }
 
-class _MealTip extends StatefulWidget {
-  const _MealTip({
+class MealAnalysisSheet extends StatefulWidget {
+  const MealAnalysisSheet({
+    super.key,
     required this.parentContext,
-    required this.purpose,
-    this.meal,
-    this.loggedMeal,
-    this.favoriteId,
-    this.imageBytes,
-    this.v3Result,
-    this.v3AnalysisId,
-    this.previewOnly = false,
-  }) : assert(meal != null || loggedMeal != null);
+    required this.data,
+  });
+
+  factory MealAnalysisSheet.fromMeal({
+    Key? key,
+    required BuildContext parentContext,
+    required Meal meal,
+    MealDetailsSheetPurpose purpose = MealDetailsSheetPurpose.mealAddition,
+    Uint8List? imageBytes,
+    int? favoriteId,
+    bool previewOnly = false,
+  }) {
+    return MealAnalysisSheet(
+      key: key,
+      parentContext: parentContext,
+      data: MealAnalysisSheetData.fromMeal(
+        meal: meal,
+        purpose: purpose,
+        imageBytes: imageBytes,
+        favoriteId: favoriteId,
+        previewOnly: previewOnly,
+      ),
+    );
+  }
+
+  factory MealAnalysisSheet.fromLoggedMeal({
+    Key? key,
+    required BuildContext parentContext,
+    required LoggedMeal loggedMeal,
+    MealDetailsSheetPurpose purpose = MealDetailsSheetPurpose.historyEdit,
+    Uint8List? imageBytes,
+    int? favoriteId,
+    bool previewOnly = false,
+  }) {
+    return MealAnalysisSheet(
+      key: key,
+      parentContext: parentContext,
+      data: MealAnalysisSheetData.fromLoggedMeal(
+        loggedMeal: loggedMeal,
+        purpose: purpose,
+        imageBytes: imageBytes,
+        favoriteId: favoriteId,
+        previewOnly: previewOnly,
+      ),
+    );
+  }
+
+  factory MealAnalysisSheet.fromV3Result({
+    Key? key,
+    required BuildContext parentContext,
+    required MealAnalysisV3CompleteResult result,
+    MealDetailsSheetPurpose purpose = MealDetailsSheetPurpose.mealAddition,
+    String? analysisId,
+    Uint8List? imageBytes,
+    String? textDescription,
+    bool previewOnly = false,
+  }) {
+    return MealAnalysisSheet(
+      key: key,
+      parentContext: parentContext,
+      data: MealAnalysisSheetData.fromV3Result(
+        result: result,
+        purpose: purpose,
+        analysisId: analysisId,
+        imageBytes: imageBytes,
+        textDescription: textDescription,
+        previewOnly: previewOnly,
+      ),
+    );
+  }
 
   final BuildContext parentContext;
-  final MealDetailsSheetPurpose purpose;
-  final Meal? meal;
-  final LoggedMeal? loggedMeal;
-  final int? favoriteId;
-  final Uint8List? imageBytes;
-  final MealAnalysisV3CompleteResult? v3Result;
-  final String? v3AnalysisId;
-  final bool previewOnly;
+  final MealAnalysisSheetData data;
 
   @override
-  State<_MealTip> createState() => _MealTipState();
+  State<MealAnalysisSheet> createState() => _MealAnalysisSheetState();
 }
 
-class _MealTipState extends State<_MealTip> {
+class _MealAnalysisSheetState extends State<MealAnalysisSheet> {
   Meal? _meal;
   bool _isSaving = false;
   bool _isFeedbackSubmitting = false;
   bool? _feedbackValue;
 
-  Meal get meal => _meal ?? widget.loggedMeal?.meal ?? Meal();
+  Meal get meal => _meal ?? widget.data.loggedMeal?.meal ?? widget.data.meal;
 
   MealMetadata get metadata =>
       meal.hasMetadata()
           ? meal.metadata
-          : (widget.loggedMeal?.hasMetadata() ?? false)
-          ? widget.loggedMeal!.metadata
+          : (widget.data.loggedMeal?.hasMetadata() ?? false)
+          ? widget.data.loggedMeal!.metadata
           : MealMetadata();
 
-  String get tip =>
-      widget.v3Result?.tip.isNotEmpty == true
-          ? widget.v3Result!.tip
-          : metadata.tip;
+  String get tip => widget.data.tip ?? metadata.tip;
 
   bool get _canShowFeedback =>
-      widget.purpose == MealDetailsSheetPurpose.mealAddition &&
-      widget.v3AnalysisId != null &&
+      widget.data.purpose == MealDetailsSheetPurpose.mealAddition &&
+      widget.data.analysisId != null &&
       _meal != null &&
-      widget.loggedMeal == null;
+      widget.data.loggedMeal == null;
 
-  bool get _isLoggedMealFlow => widget.loggedMeal != null;
+  bool get _isLoggedMealFlow => widget.data.loggedMeal != null;
   bool get _showFavoriteHeaderAction =>
       _isLoggedMealFlow &&
-      widget.purpose == MealDetailsSheetPurpose.historyEdit;
+      widget.data.purpose == MealDetailsSheetPurpose.historyEdit;
   bool get _showHistoryActions =>
       _isLoggedMealFlow &&
-      widget.purpose == MealDetailsSheetPurpose.historyEdit;
+      widget.data.purpose == MealDetailsSheetPurpose.historyEdit;
   bool get _showFavoritesActions =>
       _isLoggedMealFlow &&
-      widget.favoriteId != null &&
-      widget.purpose == MealDetailsSheetPurpose.favorites;
+      widget.data.favoriteId != null &&
+      widget.data.purpose == MealDetailsSheetPurpose.favorites;
 
   @override
   void initState() {
     super.initState();
-    _meal = widget.meal;
+    _meal = widget.data.meal;
     if (_canShowFeedback) {
       Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackShown);
     }
@@ -156,7 +319,7 @@ class _MealTipState extends State<_MealTip> {
   @override
   Widget build(BuildContext context) {
     final isMealUnidentified =
-        (_meal == null && widget.loggedMeal == null) ||
+        (_meal == null && widget.data.loggedMeal == null) ||
         (_meal != null && _meal!.name.isEmpty);
 
     return BaseBottomSheet(
@@ -183,7 +346,7 @@ class _MealTipState extends State<_MealTip> {
       Row(
         children: [
           Icon(AppIcons.searchX, color: colorScheme.onSurface, size: 28),
-          SizedBox(width: 6),
+          const SizedBox(width: 6),
           Text(
             t.meal.ohNo,
             style: textTheme.headlineSmall?.copyWith(
@@ -192,17 +355,20 @@ class _MealTipState extends State<_MealTip> {
           ),
         ],
       ),
-      SizedBox(height: 16),
+      const SizedBox(height: 16),
       if (tip.isNotEmpty) ...[
         Text(
           tip,
           style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
       ],
-      if ((widget.imageBytes?.isNotEmpty ?? false) ||
+      if ((widget.data.imageBytes?.isNotEmpty ?? false) ||
           metadata.imageUrl.isNotEmpty) ...[
-        MealImage(imageBytes: widget.imageBytes, imageUrl: metadata.imageUrl),
+        MealImage(
+          imageBytes: widget.data.imageBytes,
+          imageUrl: metadata.imageUrl,
+        ),
         const SizedBox(height: 12),
       ],
     ];
@@ -214,11 +380,11 @@ class _MealTipState extends State<_MealTip> {
     final TextTheme textTheme = theme.textTheme;
 
     final canShowMealImage =
-        (widget.imageBytes?.isNotEmpty ?? false) ||
+        (widget.data.imageBytes?.isNotEmpty ?? false) ||
         metadata.imageUrl.isNotEmpty;
     final canShowMealTip = tip.isNotEmpty;
 
-    final timestamp = widget.loggedMeal?.dateTime ?? DateTime.now();
+    final timestamp = widget.data.loggedMeal?.dateTime ?? DateTime.now();
 
     return [
       Row(
@@ -251,13 +417,13 @@ class _MealTipState extends State<_MealTip> {
               ],
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           if (_showFavoriteHeaderAction || _canShowFeedback)
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (_showFavoriteHeaderAction)
-                  _FavoriteMealStar(loggedMeal: widget.loggedMeal!),
+                  _FavoriteMealStar(loggedMeal: widget.data.loggedMeal!),
                 if (_canShowFeedback) ...[
                   IconButton(
                     onPressed:
@@ -293,11 +459,14 @@ class _MealTipState extends State<_MealTip> {
         ],
       ),
       if (canShowMealImage) ...[
-        SizedBox(height: 16),
-        MealImage(imageBytes: widget.imageBytes, imageUrl: metadata.imageUrl),
+        const SizedBox(height: 16),
+        MealImage(
+          imageBytes: widget.data.imageBytes,
+          imageUrl: metadata.imageUrl,
+        ),
       ],
       if (canShowMealTip) ...[
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Text(
           tip,
           style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
@@ -322,9 +491,7 @@ class _MealTipState extends State<_MealTip> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: (widget.v3Result?.macros.calories ??
-                                meal.macros.calorie.value)
-                            .toStringAsFixed(0),
+                        text: meal.macros.calorie.value.toStringAsFixed(0),
                         style: textTheme.headlineLarge?.copyWith(
                           color: colorScheme.calorieIconColor,
                           fontWeight: FontWeight.bold,
@@ -342,13 +509,16 @@ class _MealTipState extends State<_MealTip> {
                 ),
               ],
             ),
-            if (widget.v3Result case final result?
-                when _shouldShowCalorieRange(result)) ...[
+            if (widget.data.calorieRange case final range?
+                when _shouldShowCalorieRange(
+                  range,
+                  meal.macros.calorie.value.toDouble(),
+                )) ...[
               const SizedBox(height: 4),
               Text(
                 t.meal.analysis.calorieRange(
-                  min: result.macroRanges.calories.min.toStringAsFixed(0),
-                  max: result.macroRanges.calories.max.toStringAsFixed(0),
+                  min: range.min.toStringAsFixed(0),
+                  max: range.max.toStringAsFixed(0),
                 ),
                 key: const ValueKey('v3-calorie-range'),
                 style: textTheme.bodySmall?.copyWith(
@@ -403,7 +573,7 @@ class _MealTipState extends State<_MealTip> {
       ),
       const SizedBox(height: 20),
       _meal != null
-          ? (widget.previewOnly
+          ? (widget.data.previewOnly
               ? SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
@@ -413,12 +583,12 @@ class _MealTipState extends State<_MealTip> {
                 ),
               )
               : AppButton(
+                key: const ValueKey('save-meal-button'),
                 variant: AppButtonVariant.primary,
                 analyticsEvent: AnalyticsEvent.mealSave,
                 onPressed: _isSaving ? null : _saveDetectedMeal,
                 isLoading: _isSaving,
                 text: t.meal.saveMeal,
-                leadingIcon: AppIcons.save,
               ))
           : _buildLoggedMealActions(context),
     ];
@@ -434,11 +604,11 @@ class _MealTipState extends State<_MealTip> {
         context,
         detectedMeal,
         parentContext: widget.parentContext,
-        analysisId: widget.v3AnalysisId,
+        analysisId: widget.data.analysisId,
         v3ResultJson:
-            widget.v3Result == null
+            widget.data.rawJson == null
                 ? null
-                : jsonEncode(widget.v3Result!.rawJson),
+                : jsonEncode(widget.data.rawJson),
       );
       if (!mounted) return;
       Navigator.of(context).pop();
@@ -483,7 +653,10 @@ class _MealTipState extends State<_MealTip> {
             child: AppButton(
               variant: AppButtonVariant.secondary,
               onPressed: () {
-                _showDeleteConfirmation(context, widget.loggedMeal!.clientId);
+                _showDeleteConfirmation(
+                  context,
+                  widget.data.loggedMeal!.clientId,
+                );
               },
               text: t.meal.delete,
               leadingIcon: AppIcons.trash2,
@@ -521,14 +694,14 @@ class _MealTipState extends State<_MealTip> {
     showEditMealSheet(
       parentContext,
       meal: meal,
-      loggedMeal: widget.loggedMeal,
-      favoriteId: widget.favoriteId,
+      loggedMeal: widget.data.loggedMeal,
+      favoriteId: widget.data.favoriteId,
       saveAsFavorite: _showFavoritesActions,
     );
   }
 
   Future<void> _removeFromFavorites() async {
-    final favoriteId = widget.favoriteId;
+    final favoriteId = widget.data.favoriteId;
     if (favoriteId == null) return;
 
     try {
@@ -559,7 +732,7 @@ class _MealTipState extends State<_MealTip> {
   }
 
   Future<void> _submitV3Feedback({required bool positive}) async {
-    final analysisId = widget.v3AnalysisId;
+    final analysisId = widget.data.analysisId;
     if (analysisId == null || analysisId.isEmpty) return;
     setState(() => _isFeedbackSubmitting = true);
     try {

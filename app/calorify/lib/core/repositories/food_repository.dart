@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/network/network_request_cancellation.dart';
-import 'package:dio/dio.dart';
 import 'package:models/models.dart';
 import 'package:models/protos_go.dart' as pgo;
 
@@ -118,9 +117,10 @@ class FoodRepository {
       }
 
       if (currentStatus == pgo.MealAnalysisStatus_AnalysisStatus.FAILED) {
-        final reason = status.hasFailureReason() && status.failureReason.isNotEmpty
-            ? status.failureReason
-            : null;
+        final reason =
+            status.hasFailureReason() && status.failureReason.isNotEmpty
+                ? status.failureReason
+                : null;
         yield MealAnalysisV3Event(
           analysisId: analysisId,
           kind: MealAnalysisV3EventKind.error,
@@ -199,11 +199,12 @@ class FoodRepository {
         if (json is Map) {
           mealName = json['name'] as String?;
           if (json['components'] is List) {
-            componentNames = (json['components'] as List)
-                .whereType<Map<String, dynamic>>()
-                .map((c) => c['name']?.toString() ?? '')
-                .where((n) => n.isNotEmpty)
-                .toList();
+            componentNames =
+                (json['components'] as List)
+                    .whereType<Map<String, dynamic>>()
+                    .map((c) => c['name']?.toString() ?? '')
+                    .where((n) => n.isNotEmpty)
+                    .toList();
           }
         }
       } catch (_) {}
@@ -227,22 +228,24 @@ class FoodRepository {
       try {
         final json = jsonDecode(status.decomposedIngredient);
         if (json is Map && json['ingredients'] is List) {
-          ingredientNames = (json['ingredients'] as List)
-              .whereType<Map<String, dynamic>>()
-              .map((i) => i['name']?.toString() ?? '')
-              .where((n) => n.isNotEmpty)
-              .toList();
+          ingredientNames =
+              (json['ingredients'] as List)
+                  .whereType<Map<String, dynamic>>()
+                  .map((i) => i['name']?.toString() ?? '')
+                  .where((n) => n.isNotEmpty)
+                  .toList();
         }
       } catch (_) {}
     } else if (status.hasUsdaEnriched()) {
       try {
         final json = jsonDecode(status.usdaEnriched);
         if (json is Map && json['ingredients'] is List) {
-          ingredientNames = (json['ingredients'] as List)
-              .whereType<Map<String, dynamic>>()
-              .map((i) => i['name']?.toString() ?? '')
-              .where((n) => n.isNotEmpty)
-              .toList();
+          ingredientNames =
+              (json['ingredients'] as List)
+                  .whereType<Map<String, dynamic>>()
+                  .map((i) => i['name']?.toString() ?? '')
+                  .where((n) => n.isNotEmpty)
+                  .toList();
         }
       } catch (_) {}
     }
@@ -251,15 +254,19 @@ class FoodRepository {
 
     if (componentNames.isNotEmpty) {
       if (ingredientNames.isEmpty) {
-        components = componentNames
-            .map(
-              (name) => MealAnalysisV3ProgressComponent(
-                componentId: name.toLowerCase().replaceAll(RegExp(r'\s+'), '_'),
-                name: name,
-                ingredientNames: const [],
-              ),
-            )
-            .toList();
+        components =
+            componentNames
+                .map(
+                  (name) => MealAnalysisV3ProgressComponent(
+                    componentId: name.toLowerCase().replaceAll(
+                      RegExp(r'\s+'),
+                      '_',
+                    ),
+                    name: name,
+                    ingredientNames: const [],
+                  ),
+                )
+                .toList();
       } else {
         final assigned = <String, List<String>>{
           for (final c in componentNames) c: <String>[],
@@ -285,26 +292,34 @@ class FoodRepository {
           assigned[componentNames.first]!.addAll(unassigned);
         }
 
-        components = componentNames
-            .map(
-              (name) => MealAnalysisV3ProgressComponent(
-                componentId: name.toLowerCase().replaceAll(RegExp(r'\s+'), '_'),
-                name: name,
-                ingredientNames: assigned[name] ?? const [],
-              ),
-            )
-            .toList();
+        components =
+            componentNames
+                .map(
+                  (name) => MealAnalysisV3ProgressComponent(
+                    componentId: name.toLowerCase().replaceAll(
+                      RegExp(r'\s+'),
+                      '_',
+                    ),
+                    name: name,
+                    ingredientNames: assigned[name] ?? const [],
+                  ),
+                )
+                .toList();
       }
     } else if (ingredientNames.isNotEmpty) {
-      components = ingredientNames
-          .map(
-            (name) => MealAnalysisV3ProgressComponent(
-              componentId: name.toLowerCase().replaceAll(RegExp(r'\s+'), '_'),
-              name: name,
-              ingredientNames: const [],
-            ),
-          )
-          .toList();
+      components =
+          ingredientNames
+              .map(
+                (name) => MealAnalysisV3ProgressComponent(
+                  componentId: name.toLowerCase().replaceAll(
+                    RegExp(r'\s+'),
+                    '_',
+                  ),
+                  name: name,
+                  ingredientNames: const [],
+                ),
+              )
+              .toList();
     }
 
     return (mealName, components);
@@ -313,8 +328,12 @@ class FoodRepository {
   bool _matchesComponent(String ingredient, String component) {
     final ingLower = ingredient.toLowerCase();
     final compLower = component.toLowerCase();
-    if (ingLower.contains(compLower) || compLower.contains(ingLower)) return true;
-    final compWords = compLower.split(RegExp(r'\s+')).where((w) => w.length > 2);
+    if (ingLower.contains(compLower) || compLower.contains(ingLower)) {
+      return true;
+    }
+    final compWords = compLower
+        .split(RegExp(r'\s+'))
+        .where((w) => w.length > 2);
     for (final word in compWords) {
       if (ingLower.contains(word)) return true;
     }
@@ -394,10 +413,10 @@ class FoodRepository {
           }
 
           if (decoded['clarifications'] is Map<String, dynamic>) {
-            clarifications = pgo.Clarifications()
-              ..mergeFromProto3Json(
-                decoded['clarifications'] as Map<String, dynamic>,
-              );
+            clarifications =
+                pgo.Clarifications()..mergeFromProto3Json(
+                  decoded['clarifications'] as Map<String, dynamic>,
+                );
           }
         }
       } catch (_) {}
@@ -489,7 +508,6 @@ class FoodRepository {
         ),
       ),
       components: components,
-      receipt: const {},
       rawJson: rawJson,
       clarifications: clarifications,
     );

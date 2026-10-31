@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/app_constants.dart';
@@ -20,9 +18,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 import 'package:models/models.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:services/services.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:utils/utils.dart';
 
 @RoutePage()

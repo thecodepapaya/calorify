@@ -165,3 +165,4 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [ ] check failed analsyis case "4 roti, rice, daal". hunch - water was not matched in usda db
 - [ ] follows up from previous, add error column to analysis table
 - [ ] add i18n display name to components and ingredients and use them for display
+- [ ] word limits on food quantity and selection of meal type (breakfast,lunch,dinner etc)

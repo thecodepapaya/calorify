@@ -9,7 +9,7 @@ import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getSnapDisclaimer;
-import 'package:calorify/features/home/utils/meal_analysis_v3_flow.dart';
+import 'package:calorify/features/home/utils/meal_analysis_flow.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

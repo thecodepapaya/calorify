@@ -5,7 +5,7 @@ import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/health_score_sheet.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:calorify/shared_widgets/health_score_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
