@@ -156,9 +156,27 @@ func (s *Service) searchUsda(ctx context.Context, vectorStr string, ingredientTy
 	return rowsData[0], nil
 }
 
-func (s *Service) SaveFinalResponse(ctx context.Context, id string, meal *common.Meal) error {
+func (s *Service) SaveGeneratedClarification(ctx context.Context, id string, clarification *common.Clarifications) error {
 	now := time.Now()
-	json, err := protojson.Marshal(meal)
+	json, err := protojson.Marshal(clarification)
+	if err != nil {
+		return err
+	}
+	const query = `
+	UPDATE meal_analysis 
+	SET generated_clarification = $2, generated_clarification_at = $3, updated_at = $4, status = 'CLARIFICATION_GENERATED'
+	WHERE id = $1
+	`
+	_, err = s.DB.Exec(ctx, query, id, json, now, now)
+	if err != nil {
+		return fmt.Errorf("failed to save generated clarification: %w", err)
+	}
+	return nil
+}
+
+func (s *Service) SaveFinalResponse(ctx context.Context, id string, mealPackage *common.MealPackage) error {
+	now := time.Now()
+	json, err := protojson.Marshal(mealPackage)
 	if err != nil {
 		return err
 	}

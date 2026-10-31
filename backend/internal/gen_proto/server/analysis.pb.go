@@ -99,14 +99,12 @@ type MealAnalysisStatus struct {
 	DecomposedIngredientAt   *timestamppb.Timestamp            `protobuf:"bytes,9,opt,name=decomposed_ingredient_at,json=decomposedIngredientAt,proto3,oneof" json:"decomposed_ingredient_at,omitempty"`
 	UsdaEnriched             *string                           `protobuf:"bytes,10,opt,name=usda_enriched,json=usdaEnriched,proto3,oneof" json:"usda_enriched,omitempty"`
 	UsdaEnrichedAt           *timestamppb.Timestamp            `protobuf:"bytes,11,opt,name=usda_enriched_at,json=usdaEnrichedAt,proto3,oneof" json:"usda_enriched_at,omitempty"`
-	ClarificationQuestions   *string                           `protobuf:"bytes,12,opt,name=clarification_questions,json=clarificationQuestions,proto3,oneof" json:"clarification_questions,omitempty"`
-	ClarificationQuestionsAt *timestamppb.Timestamp            `protobuf:"bytes,13,opt,name=clarification_questions_at,json=clarificationQuestionsAt,proto3,oneof" json:"clarification_questions_at,omitempty"`
-	ClarificationResponse    *string                           `protobuf:"bytes,14,opt,name=clarification_response,json=clarificationResponse,proto3,oneof" json:"clarification_response,omitempty"`
-	ClarificationResponseAt  *timestamppb.Timestamp            `protobuf:"bytes,15,opt,name=clarification_response_at,json=clarificationResponseAt,proto3,oneof" json:"clarification_response_at,omitempty"`
-	FinalResponse            *string                           `protobuf:"bytes,16,opt,name=final_response,json=finalResponse,proto3,oneof" json:"final_response,omitempty"`
-	FinalResponseAt          *timestamppb.Timestamp            `protobuf:"bytes,17,opt,name=final_response_at,json=finalResponseAt,proto3,oneof" json:"final_response_at,omitempty"`
-	Status                   MealAnalysisStatus_AnalysisStatus `protobuf:"varint,18,opt,name=status,proto3,enum=server.MealAnalysisStatus_AnalysisStatus" json:"status,omitempty"`
-	UpdatedAt                *timestamppb.Timestamp            `protobuf:"bytes,19,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	GeneratedClarification   *string                           `protobuf:"bytes,12,opt,name=generated_clarification,json=generatedClarification,proto3,oneof" json:"generated_clarification,omitempty"`
+	GeneratedClarificationAt *timestamppb.Timestamp            `protobuf:"bytes,13,opt,name=generated_clarification_at,json=generatedClarificationAt,proto3,oneof" json:"generated_clarification_at,omitempty"`
+	FinalResponse            *string                           `protobuf:"bytes,14,opt,name=final_response,json=finalResponse,proto3,oneof" json:"final_response,omitempty"`
+	FinalResponseAt          *timestamppb.Timestamp            `protobuf:"bytes,15,opt,name=final_response_at,json=finalResponseAt,proto3,oneof" json:"final_response_at,omitempty"`
+	Status                   MealAnalysisStatus_AnalysisStatus `protobuf:"varint,16,opt,name=status,proto3,enum=server.MealAnalysisStatus_AnalysisStatus" json:"status,omitempty"`
+	UpdatedAt                *timestamppb.Timestamp            `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	unknownFields            protoimpl.UnknownFields
 	sizeCache                protoimpl.SizeCache
 }
@@ -218,30 +216,16 @@ func (x *MealAnalysisStatus) GetUsdaEnrichedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-func (x *MealAnalysisStatus) GetClarificationQuestions() string {
-	if x != nil && x.ClarificationQuestions != nil {
-		return *x.ClarificationQuestions
+func (x *MealAnalysisStatus) GetGeneratedClarification() string {
+	if x != nil && x.GeneratedClarification != nil {
+		return *x.GeneratedClarification
 	}
 	return ""
 }
 
-func (x *MealAnalysisStatus) GetClarificationQuestionsAt() *timestamppb.Timestamp {
+func (x *MealAnalysisStatus) GetGeneratedClarificationAt() *timestamppb.Timestamp {
 	if x != nil {
-		return x.ClarificationQuestionsAt
-	}
-	return nil
-}
-
-func (x *MealAnalysisStatus) GetClarificationResponse() string {
-	if x != nil && x.ClarificationResponse != nil {
-		return *x.ClarificationResponse
-	}
-	return ""
-}
-
-func (x *MealAnalysisStatus) GetClarificationResponseAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.ClarificationResponseAt
+		return x.GeneratedClarificationAt
 	}
 	return nil
 }
@@ -278,7 +262,7 @@ var File_protos_server_analysis_proto protoreflect.FileDescriptor
 
 const file_protos_server_analysis_proto_rawDesc = "" +
 	"\n" +
-	"\x1cprotos/server/analysis.proto\x12\x06server\x1a\x1fgoogle/protobuf/timestamp.proto\"\x88\r\n" +
+	"\x1cprotos/server/analysis.proto\x12\x06server\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb6\v\n" +
 	"\x12MealAnalysisStatus\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\buser_uid\x18\x02 \x01(\tR\auserUid\x12\x17\n" +
@@ -293,16 +277,14 @@ const file_protos_server_analysis_proto_rawDesc = "" +
 	"\rusda_enriched\x18\n" +
 	" \x01(\tH\x06R\fusdaEnriched\x88\x01\x01\x12I\n" +
 	"\x10usda_enriched_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampH\aR\x0eusdaEnrichedAt\x88\x01\x01\x12<\n" +
-	"\x17clarification_questions\x18\f \x01(\tH\bR\x16clarificationQuestions\x88\x01\x01\x12]\n" +
-	"\x1aclarification_questions_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampH\tR\x18clarificationQuestionsAt\x88\x01\x01\x12:\n" +
-	"\x16clarification_response\x18\x0e \x01(\tH\n" +
-	"R\x15clarificationResponse\x88\x01\x01\x12[\n" +
-	"\x19clarification_response_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampH\vR\x17clarificationResponseAt\x88\x01\x01\x12*\n" +
-	"\x0efinal_response\x18\x10 \x01(\tH\fR\rfinalResponse\x88\x01\x01\x12K\n" +
-	"\x11final_response_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampH\rR\x0ffinalResponseAt\x88\x01\x01\x12A\n" +
-	"\x06status\x18\x12 \x01(\x0e2).server.MealAnalysisStatus.AnalysisStatusR\x06status\x129\n" +
+	"\x17generated_clarification\x18\f \x01(\tH\bR\x16generatedClarification\x88\x01\x01\x12]\n" +
+	"\x1agenerated_clarification_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampH\tR\x18generatedClarificationAt\x88\x01\x01\x12*\n" +
+	"\x0efinal_response\x18\x0e \x01(\tH\n" +
+	"R\rfinalResponse\x88\x01\x01\x12K\n" +
+	"\x11final_response_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampH\vR\x0ffinalResponseAt\x88\x01\x01\x12A\n" +
+	"\x06status\x18\x10 \x01(\x0e2).server.MealAnalysisStatus.AnalysisStatusR\x06status\x129\n" +
 	"\n" +
-	"updated_at\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xc1\x01\n" +
+	"updated_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xc1\x01\n" +
 	"\x0eAnalysisStatus\x12\r\n" +
 	"\tINITIATED\x10\x00\x12\x18\n" +
 	"\x14COMPONENT_DECOMPOSED\x10\x01\x12\x19\n" +
@@ -322,10 +304,8 @@ const file_protos_server_analysis_proto_rawDesc = "" +
 	"\x19_decomposed_ingredient_atB\x10\n" +
 	"\x0e_usda_enrichedB\x13\n" +
 	"\x11_usda_enriched_atB\x1a\n" +
-	"\x18_clarification_questionsB\x1d\n" +
-	"\x1b_clarification_questions_atB\x19\n" +
-	"\x17_clarification_responseB\x1c\n" +
-	"\x1a_clarification_response_atB\x11\n" +
+	"\x18_generated_clarificationB\x1d\n" +
+	"\x1b_generated_clarification_atB\x11\n" +
 	"\x0f_final_responseB\x14\n" +
 	"\x12_final_response_atB#Z!backend/internal/gen_proto/serverb\x06proto3"
 
@@ -353,16 +333,15 @@ var file_protos_server_analysis_proto_depIdxs = []int32{
 	2, // 1: server.MealAnalysisStatus.decomposed_component_at:type_name -> google.protobuf.Timestamp
 	2, // 2: server.MealAnalysisStatus.decomposed_ingredient_at:type_name -> google.protobuf.Timestamp
 	2, // 3: server.MealAnalysisStatus.usda_enriched_at:type_name -> google.protobuf.Timestamp
-	2, // 4: server.MealAnalysisStatus.clarification_questions_at:type_name -> google.protobuf.Timestamp
-	2, // 5: server.MealAnalysisStatus.clarification_response_at:type_name -> google.protobuf.Timestamp
-	2, // 6: server.MealAnalysisStatus.final_response_at:type_name -> google.protobuf.Timestamp
-	0, // 7: server.MealAnalysisStatus.status:type_name -> server.MealAnalysisStatus.AnalysisStatus
-	2, // 8: server.MealAnalysisStatus.updated_at:type_name -> google.protobuf.Timestamp
-	9, // [9:9] is the sub-list for method output_type
-	9, // [9:9] is the sub-list for method input_type
-	9, // [9:9] is the sub-list for extension type_name
-	9, // [9:9] is the sub-list for extension extendee
-	0, // [0:9] is the sub-list for field type_name
+	2, // 4: server.MealAnalysisStatus.generated_clarification_at:type_name -> google.protobuf.Timestamp
+	2, // 5: server.MealAnalysisStatus.final_response_at:type_name -> google.protobuf.Timestamp
+	0, // 6: server.MealAnalysisStatus.status:type_name -> server.MealAnalysisStatus.AnalysisStatus
+	2, // 7: server.MealAnalysisStatus.updated_at:type_name -> google.protobuf.Timestamp
+	8, // [8:8] is the sub-list for method output_type
+	8, // [8:8] is the sub-list for method input_type
+	8, // [8:8] is the sub-list for extension type_name
+	8, // [8:8] is the sub-list for extension extendee
+	0, // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_protos_server_analysis_proto_init() }

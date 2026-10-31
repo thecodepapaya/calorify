@@ -120,3 +120,7 @@ CREATE TABLE IF NOT EXISTS meal_analysis (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE meal_analysis
+ADD COLUMN IF NOT EXISTS generated_clarification JSONB,
+ADD COLUMN IF NOT EXISTS generated_clarification_at TIMESTAMPTZ;

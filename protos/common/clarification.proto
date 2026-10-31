@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package common;
+option go_package = "backend/internal/gen_proto/common";
+
+message Clarification{
+  enum Type{
+    QUANTITY               = 0;
+    INGREDIENT_PRESENCE    = 1;
+    INGREDIENT_ALTERNATIVE = 2;
+    PREPARATION_METHOD     = 3;
+  }
+
+  int32           id       = 1;
+  string          question = 2;
+  repeated Option options  = 3;
+  Type            type     = 4;
+}
+
+message Clarifications{
+  repeated Clarification clarification = 1;
+}
+
+message Option{
+  string     text        = 1;
+  MacroDelta macro_delta = 2;
+}
+
+message MacroDelta{
+  int32 calorie = 1;
+  int32 carb    = 2;
+  int32 protein = 3;
+  int32 fat     = 4;
+  int32 fiber   = 5;
+}

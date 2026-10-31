@@ -6,6 +6,7 @@ import (
 	"backend/internal/gen_proto/server"
 	"bytes"
 	"context"
+	_ "embed"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -219,4 +220,85 @@ func buildContextPrefix(req *api.MealAnalysisRequest) string {
 		return ""
 	}
 	return "CONTEXT METADATA:\n" + sb.String()
+}
+
+//go:embed clarifications_i18n.json
+var clarificationI18nRaw []byte
+
+type clarificationLocale struct {
+	QuantityQuestion string `json:"quantity_question"`
+	OptionSmall      string `json:"option_small"`
+	OptionMedium     string `json:"option_medium"`
+	OptionLarge      string `json:"option_large"`
+}
+type clarificationI18nFile struct {
+	Version int                            `json:"version"`
+	Locales map[string]clarificationLocale `json:"locales"`
+}
+
+var clarificationTranslations map[string]clarificationLocale
+
+func init() {
+	var file clarificationI18nFile
+	if err := json.Unmarshal(clarificationI18nRaw, &file); err != nil {
+		clarificationTranslations = make(map[string]clarificationLocale)
+		return
+	}
+	clarificationTranslations = file.Locales
+}
+
+func getClarificationLocale(locale string) clarificationLocale {
+	norm := strings.ToLower(strings.TrimSpace(locale))
+	norm = strings.ReplaceAll(norm, "_", "-")
+	lang, _, _ := strings.Cut(norm, "-")
+
+	if entry, ok := clarificationTranslations[norm]; ok {
+		return entry
+	}
+	if entry, ok := clarificationTranslations[lang]; ok {
+		return entry
+	}
+	return clarificationTranslations["en"]
+}
+
+func buildQuantityClarification(id int32, ingredient *server.EnrichedIngredient, locale string) *common.Clarification {
+	loc := getClarificationLocale(locale)
+	clarification := &common.Clarification{
+		Id:       id,
+		Type:     common.Clarification_QUANTITY,
+		Question: fmt.Sprintf(loc.QuantityQuestion, ingredient.Name),
+		Options: []*common.Option{
+			{
+				Text: loc.OptionSmall,
+				MacroDelta: &common.MacroDelta{
+					Calorie: ingredient.GetMacros().GetCalorie().GetMinValue() - ingredient.GetMacros().GetCalorie().GetValue(),
+					Carb:    ingredient.GetMacros().GetCarb().GetMinValue() - ingredient.GetMacros().GetCarb().GetValue(),
+					Protein: ingredient.GetMacros().GetProtein().GetMinValue() - ingredient.GetMacros().GetProtein().GetValue(),
+					Fat:     ingredient.GetMacros().GetFat().GetMinValue() - ingredient.GetMacros().GetFat().GetValue(),
+					Fiber:   ingredient.GetMacros().GetFiber().GetMinValue() - ingredient.GetMacros().GetFiber().GetValue(),
+				},
+			},
+			{
+				Text: loc.OptionMedium,
+				MacroDelta: &common.MacroDelta{
+					Calorie: 0,
+					Carb:    0,
+					Protein: 0,
+					Fat:     0,
+					Fiber:   0,
+				},
+			},
+			{
+				Text: loc.OptionLarge,
+				MacroDelta: &common.MacroDelta{
+					Calorie: ingredient.GetMacros().GetCalorie().GetMaxValue() - ingredient.GetMacros().GetCalorie().GetValue(),
+					Carb:    ingredient.GetMacros().GetCarb().GetMaxValue() - ingredient.GetMacros().GetCarb().GetValue(),
+					Protein: ingredient.GetMacros().GetProtein().GetMaxValue() - ingredient.GetMacros().GetProtein().GetValue(),
+					Fat:     ingredient.GetMacros().GetFat().GetMaxValue() - ingredient.GetMacros().GetFat().GetValue(),
+					Fiber:   ingredient.GetMacros().GetFiber().GetMaxValue() - ingredient.GetMacros().GetFiber().GetValue(),
+				},
+			},
+		},
+	}
+	return clarification
 }

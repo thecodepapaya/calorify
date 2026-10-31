@@ -8,6 +8,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log/slog"
+	"slices"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -61,7 +62,7 @@ func (s *Service) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest)
 func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRequest) {
 	// TODO: make this pipeline idempotent
 	bgCtx := context.Background()
-	ctx, cancel := context.WithTimeout(bgCtx, 30*time.Second)
+	ctx, cancel := context.WithTimeout(bgCtx, 20*time.Second)
 	defer cancel()
 
 	tr := otel.Tracer("meal_analysis")
@@ -108,9 +109,14 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 		slog.ErrorContext(ctx, "failed to hydrate macros from USDA DB", "analysis_id", id, "error", err)
 		return
 	}
-	generateClarification()
-	sendClarification()
-	_, err = s.prepareFinalResponse(ctx, id, req, pass1, enriched)
+	clarifications, err := s.generateClarification(ctx, id, enriched, req.GetMetaInfo().GetLocale())
+	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "clarification generation failed")
+		slog.ErrorContext(ctx, "failed to generate clarifications", "analysis_id", id, "error", err)
+		return
+	}
+	_, err = s.prepareFinalResponse(ctx, id, req, pass1, enriched, clarifications)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "prepareFinalResponse failed")
@@ -323,21 +329,36 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 	return &enriched, nil
 }
 
-func generateClarification() {
-	// generate clarification questions
-	// store questions in analysis
-	slog.Debug("clarifications generation skipped")
+func (s *Service) generateClarification(ctx context.Context, id string, enriched *server.UsdaEnriched, locale string) (*common.Clarifications, error) {
+	var clarifications []*common.Clarification
+	// Sort by largest calorie variance
+	slices.SortFunc(enriched.Ingredients, func(a *server.EnrichedIngredient, b *server.EnrichedIngredient) int {
+		varA := int(a.Macros.Calorie.MaxValue) - int(a.Macros.Calorie.MinValue)
+		varB := int(b.Macros.Calorie.MaxValue) - int(b.Macros.Calorie.MinValue)
+		return varB - varA
+	})
+	var filteredIng []*server.EnrichedIngredient
+	for i := range enriched.Ingredients {
+		cal := enriched.Ingredients[i].GetMacros().GetCalorie()
+		if cal.GetMaxValue()-cal.GetMinValue() > 80 {
+			filteredIng = append(filteredIng, enriched.Ingredients[i])
+		}
+	}
 
+	limit := min(2, len(filteredIng))
+	topK := filteredIng[:limit]
+	for i := range topK {
+		c := buildQuantityClarification(int32(i), topK[i], locale)
+		clarifications = append(clarifications, c)
+	}
+	mealClarification := &common.Clarifications{
+		Clarification: clarifications,
+	}
+	s.SaveGeneratedClarification(ctx, id, mealClarification)
+	return mealClarification, nil
 }
 
-func sendClarification() {
-	// skipped for now
-	// send question to user
-	// get answers and store in analysis
-	slog.Debug("clarifications sending skipped")
-}
-
-func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1, enriched *server.UsdaEnriched) (*common.Meal, error) {
+func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1, enriched *server.UsdaEnriched, clarifications *common.Clarifications) (*common.MealPackage, error) {
 	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "prepare_final_response")
 	defer span.End()
 
@@ -349,7 +370,7 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 
 	mealType := selectMealTypeByTimezone(captureTime, req.GetMetaInfo().GetTimezone(), pass1.GetMealType())
 
-	meal := common.Meal{
+	meal := &common.Meal{
 		Name:     pass1.Name,
 		Quantity: pass1.Quantity,
 		Type:     mealType,
@@ -362,20 +383,24 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 			Timestamp:       &mealTime,
 		},
 	}
+	mealPackage := &common.MealPackage{
+		Meal:           meal,
+		Clarifications: clarifications,
+	}
 
 	span.SetAttributes(
 		attribute.String("final.meal_name", meal.Name),
 		attribute.String("final.meal_type", meal.Type.String()),
 	)
 
-	err := s.SaveFinalResponse(ctx, id, &meal)
+	err := s.SaveFinalResponse(ctx, id, mealPackage)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		slog.ErrorContext(ctx, "failed to save final response to DB", "analysis_id", id, "error", err)
 		return nil, err
 	}
-	return &meal, nil
+	return mealPackage, nil
 }
 
 func selectMealTypeByTimezone(t time.Time, timezone string, fallback common.MealType) common.MealType {

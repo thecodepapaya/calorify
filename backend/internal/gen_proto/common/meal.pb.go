@@ -525,11 +525,63 @@ func (x *Meal) GetMetadata() *MealMetadata {
 	return nil
 }
 
+type MealPackage struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meal           *Meal                  `protobuf:"bytes,1,opt,name=meal,proto3" json:"meal,omitempty"`
+	Clarifications *Clarifications        `protobuf:"bytes,2,opt,name=clarifications,proto3" json:"clarifications,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *MealPackage) Reset() {
+	*x = MealPackage{}
+	mi := &file_protos_common_meal_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MealPackage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MealPackage) ProtoMessage() {}
+
+func (x *MealPackage) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_common_meal_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MealPackage.ProtoReflect.Descriptor instead.
+func (*MealPackage) Descriptor() ([]byte, []int) {
+	return file_protos_common_meal_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *MealPackage) GetMeal() *Meal {
+	if x != nil {
+		return x.Meal
+	}
+	return nil
+}
+
+func (x *MealPackage) GetClarifications() *Clarifications {
+	if x != nil {
+		return x.Clarifications
+	}
+	return nil
+}
+
 var File_protos_common_meal_proto protoreflect.FileDescriptor
 
 const file_protos_common_meal_proto_rawDesc = "" +
 	"\n" +
-	"\x18protos/common/meal.proto\x12\x06common\"]\n" +
+	"\x18protos/common/meal.proto\x12\x06common\x1a!protos/common/clarification.proto\"]\n" +
 	"\vMeasurement\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x05R\x05value\x12\x1b\n" +
 	"\tmin_value\x18\x02 \x01(\x05R\bminValue\x12\x1b\n" +
@@ -567,7 +619,10 @@ const file_protos_common_meal_proto_rawDesc = "" +
 	"\x06health\x18\x06 \x01(\v2\x12.common.MealHealthH\x00R\x06health\x88\x01\x01\x125\n" +
 	"\bmetadata\x18\a \x01(\v2\x14.common.MealMetadataH\x01R\bmetadata\x88\x01\x01B\t\n" +
 	"\a_healthB\v\n" +
-	"\t_metadata*H\n" +
+	"\t_metadata\"o\n" +
+	"\vMealPackage\x12 \n" +
+	"\x04meal\x18\x01 \x01(\v2\f.common.MealR\x04meal\x12>\n" +
+	"\x0eclarifications\x18\x02 \x01(\v2\x16.common.ClarificationsR\x0eclarifications*H\n" +
 	"\bMealType\x12\v\n" +
 	"\aUNKNOWN\x10\x00\x12\r\n" +
 	"\tBREAKFAST\x10\x01\x12\t\n" +
@@ -599,7 +654,7 @@ func file_protos_common_meal_proto_rawDescGZIP() []byte {
 }
 
 var file_protos_common_meal_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_protos_common_meal_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_protos_common_meal_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_protos_common_meal_proto_goTypes = []any{
 	(MealType)(0),          // 0: common.MealType
 	(HealthScore)(0),       // 1: common.HealthScore
@@ -609,6 +664,8 @@ var file_protos_common_meal_proto_goTypes = []any{
 	(*MealHealth)(nil),     // 5: common.MealHealth
 	(*MealMetadata)(nil),   // 6: common.MealMetadata
 	(*Meal)(nil),           // 7: common.Meal
+	(*MealPackage)(nil),    // 8: common.MealPackage
+	(*Clarifications)(nil), // 9: common.Clarifications
 }
 var file_protos_common_meal_proto_depIdxs = []int32{
 	3,  // 0: common.Macros.calorie:type_name -> common.Measurement
@@ -621,11 +678,13 @@ var file_protos_common_meal_proto_depIdxs = []int32{
 	4,  // 7: common.Meal.macros:type_name -> common.Macros
 	5,  // 8: common.Meal.health:type_name -> common.MealHealth
 	6,  // 9: common.Meal.metadata:type_name -> common.MealMetadata
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	7,  // 10: common.MealPackage.meal:type_name -> common.Meal
+	9,  // 11: common.MealPackage.clarifications:type_name -> common.Clarifications
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_protos_common_meal_proto_init() }
@@ -633,6 +692,7 @@ func file_protos_common_meal_proto_init() {
 	if File_protos_common_meal_proto != nil {
 		return
 	}
+	file_protos_common_clarification_proto_init()
 	file_protos_common_meal_proto_msgTypes[2].OneofWrappers = []any{}
 	file_protos_common_meal_proto_msgTypes[3].OneofWrappers = []any{}
 	file_protos_common_meal_proto_msgTypes[4].OneofWrappers = []any{}
@@ -642,7 +702,7 @@ func file_protos_common_meal_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_common_meal_proto_rawDesc), len(file_protos_common_meal_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

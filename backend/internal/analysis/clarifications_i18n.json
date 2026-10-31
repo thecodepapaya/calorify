@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "locales": {
+    "en": {
+      "quantity_question": "Quantity of %s?",
+      "option_small": "Small",
+      "option_medium": "Medium",
+      "option_large": "Large"
+    },
+    "es": {
+      "quantity_question": "¿Cantidad de %s?",
+      "option_small": "Pequeño",
+      "option_medium": "Mediano",
+      "option_large": "Grande"
+    },
+    "hi": {
+      "quantity_question": "%s की मात्रा?",
+      "option_small": "छोटा",
+      "option_medium": "मध्यम",
+      "option_large": "बड़ा"
+    },
+    "ar": {
+      "quantity_question": "كمية %s؟",
+      "option_small": "صغير",
+      "option_medium": "متوسط",
+      "option_large": "كبير"
+    },
+    "bn": {
+      "quantity_question": "%s-এর পরিমাণ?",
+      "option_small": "ছোট",
+      "option_medium": "মাঝারি",
+      "option_large": "বড়"
+    },
+    "cs": {
+      "quantity_question": "Množství %s?",
+      "option_small": "Malé",
+      "option_medium": "Střední",
+      "option_large": "Velké"
+    },
+    "da": {
+      "quantity_question": "Mængde af %s?",
+      "option_small": "Lille",
+      "option_medium": "Mellem",
+      "option_large": "Stor"
+    },
+    "de": {
+      "quantity_question": "Menge von %s?",
+      "option_small": "Klein",
+      "option_medium": "Mittel",
+      "option_large": "Groß"
+    },
+    "el": {
+      "quantity_question": "Ποσότητα %s;",
+      "option_small": "Μικρό",
+      "option_medium": "Μεσαίο",
+      "option_large": "Μεγάλο"
+    },
+    "fi": {
+      "quantity_question": "Määrä (%s)?",
+      "option_small": "Pieni",
+      "option_medium": "Keskikokoinen",
+      "option_large": "Suuri"
+    },
+    "fr": {
+      "quantity_question": "Quantité de %s ?",
+      "option_small": "Petit",
+      "option_medium": "Moyen",
+      "option_large": "Grand"
+    },
+    "gu": {
+      "quantity_question": "%sનું પ્રમાણ?",
+      "option_small": "નાનું",
+      "option_medium": "મધ્યમ",
+      "option_large": "મોટું"
+    },
+    "he": {
+      "quantity_question": "כמות של %s?",
+      "option_small": "קטן",
+      "option_medium": "בינוני",
+      "option_large": "גדול"
+    },
+    "hu": {
+      "quantity_question": "%s mennyisége?",
+      "option_small": "Kicsi",
+      "option_medium": "Közepes",
+      "option_large": "Nagy"
+    },
+    "id": {
+      "quantity_question": "Porsi %s?",
+      "option_small": "Kecil",
+      "option_medium": "Sedang",
+      "option_large": "Besar"
+    },
+    "it": {
+      "quantity_question": "Quantità di %s?",
+      "option_small": "Piccolo",
+      "option_medium": "Medio",
+      "option_large": "Grande"
+    },
+    "ja": {
+      "quantity_question": "%sの量は？",
+      "option_small": "小",
+      "option_medium": "中",
+      "option_large": "大"
+    },
+    "ko": {
+      "quantity_question": "%s의 양은?",
+      "option_small": "소",
+      "option_medium": "중",
+      "option_large": "대"
+    },
+    "ms": {
+      "quantity_question": "Kuantiti %s?",
+      "option_small": "Kecil",
+      "option_medium": "Sederhana",
+      "option_large": "Besar"
+    },
+    "nl": {
+      "quantity_question": "Hoeveelheid %s?",
+      "option_small": "Klein",
+      "option_medium": "Gemiddeld",
+      "option_large": "Groot"
+    },
+    "no": {
+      "quantity_question": "Mengde av %s?",
+      "option_small": "Liten",
+      "option_medium": "Middels",
+      "option_large": "Stor"
+    },
+    "pl": {
+      "quantity_question": "Ilość %s?",
+      "option_small": "Mała",
+      "option_medium": "Średnia",
+      "option_large": "Duża"
+    },
+    "pt": {
+      "quantity_question": "Quantidade de %s?",
+      "option_small": "Pequeno",
+      "option_medium": "Médio",
+      "option_large": "Grande"
+    },
+    "ro": {
+      "quantity_question": "Cantitatea de %s?",
+      "option_small": "Mic",
+      "option_medium": "Mediu",
+      "option_large": "Mare"
+    },
+    "ru": {
+      "quantity_question": "Количество %s?",
+      "option_small": "Маленький",
+      "option_medium": "Средний",
+      "option_large": "Большой"
+    },
+    "sv": {
+      "quantity_question": "Mängd av %s?",
+      "option_small": "Liten",
+      "option_medium": "Mellan",
+      "option_large": "Stor"
+    },
+    "te": {
+      "quantity_question": "%s పరిమాణం?",
+      "option_small": "చిన్నది",
+      "option_medium": "మధ్యస్థం",
+      "option_large": "పెద్దది"
+    },
+    "th": {
+      "quantity_question": "ปริมาณของ %s?",
+      "option_small": "เล็ก",
+      "option_medium": "กลาง",
+      "option_large": "ใหญ่"
+    },
+    "tl": {
+      "quantity_question": "Dami ng %s?",
+      "option_small": "Maliit",
+      "option_medium": "Katamtaman",
+      "option_large": "Malaki"
+    },
+    "tr": {
+      "quantity_question": "%s miktarı?",
+      "option_small": "Küçük",
+      "option_medium": "Orta",
+      "option_large": "Büyük"
+    },
+    "uk": {
+      "quantity_question": "Кількість %s?",
+      "option_small": "Маленька",
+      "option_medium": "Середня",
+      "option_large": "Велика"
+    },
+    "ur": {
+      "quantity_question": "%s کی مقدار؟",
+      "option_small": "چھوٹا",
+      "option_medium": "درمیانہ",
+      "option_large": "بڑا"
+    },
+    "vi": {
+      "quantity_question": "Lượng %s?",
+      "option_small": "Nhỏ",
+      "option_medium": "Vừa",
+      "option_large": "Lớn"
+    },
+    "zh-cn": {
+      "quantity_question": "%s的分量？",
+      "option_small": "小份",
+      "option_medium": "中份",
+      "option_large": "大份"
+    },
+    "zh-tw": {
+      "quantity_question": "%s的份量？",
+      "option_small": "小份",
+      "option_medium": "中份",
+      "option_large": "大份"
+    }
+  }
+}

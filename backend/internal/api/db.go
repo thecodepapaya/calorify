@@ -252,6 +252,7 @@ func (a *App) GetAnalysisStatusById(ctx context.Context, analysisId string, user
 		decomposed_component::text, decomposed_component_at,
 		decomposed_ingredient::text, decomposed_ingredient_at,
 		usda_enriched::text, usda_enriched_at,
+		generated_clarification::text, generated_clarification_at,
 		final_response::text, final_response_at,
 		created_at, updated_at
 	FROM meal_analysis
@@ -259,8 +260,8 @@ func (a *App) GetAnalysisStatusById(ctx context.Context, analysisId string, user
 	`
 	var id, uid string
 	var text, statusStr *string
-	var decomposedComponent, decomposedIngredient, usdaEnriched, finalResponse *string
-	var decomposedComponentAt, decomposedIngredientAt, usdaEnrichedAt, finalResponseAt *time.Time
+	var decomposedComponent, decomposedIngredient, usdaEnriched, generatedClarification, finalResponse *string
+	var decomposedComponentAt, decomposedIngredientAt, usdaEnrichedAt, generatedClarificationAt, finalResponseAt *time.Time
 	var createdAt, updatedAt time.Time
 
 	err := a.DB.QueryRow(ctx, query, analysisId, userUid).Scan(
@@ -268,6 +269,7 @@ func (a *App) GetAnalysisStatusById(ctx context.Context, analysisId string, user
 		&decomposedComponent, &decomposedComponentAt,
 		&decomposedIngredient, &decomposedIngredientAt,
 		&usdaEnriched, &usdaEnrichedAt,
+		&generatedClarification, &generatedClarificationAt,
 		&finalResponse, &finalResponseAt,
 		&createdAt, &updatedAt,
 	)
@@ -283,16 +285,17 @@ func (a *App) GetAnalysisStatusById(ctx context.Context, analysisId string, user
 	}
 
 	result := &server.MealAnalysisStatus{
-		Id:                    id,
-		UserUid:               uid,
-		Text:                  text,
-		Status:                status,
-		DecomposedComponent:   decomposedComponent,
-		DecomposedIngredient:  decomposedIngredient,
-		UsdaEnriched:          usdaEnriched,
-		FinalResponse:         finalResponse,
-		CreatedAt:             timestamppb.New(createdAt),
-		UpdatedAt:             timestamppb.New(updatedAt),
+		Id:                     id,
+		UserUid:                uid,
+		Text:                   text,
+		Status:                 status,
+		DecomposedComponent:    decomposedComponent,
+		DecomposedIngredient:   decomposedIngredient,
+		UsdaEnriched:           usdaEnriched,
+		GeneratedClarification: generatedClarification,
+		FinalResponse:          finalResponse,
+		CreatedAt:              timestamppb.New(createdAt),
+		UpdatedAt:              timestamppb.New(updatedAt),
 	}
 	if decomposedComponentAt != nil {
 		result.DecomposedComponentAt = timestamppb.New(*decomposedComponentAt)
@@ -302,6 +305,9 @@ func (a *App) GetAnalysisStatusById(ctx context.Context, analysisId string, user
 	}
 	if usdaEnrichedAt != nil {
 		result.UsdaEnrichedAt = timestamppb.New(*usdaEnrichedAt)
+	}
+	if generatedClarificationAt != nil {
+		result.GeneratedClarificationAt = timestamppb.New(*generatedClarificationAt)
 	}
 	if finalResponseAt != nil {
 		result.FinalResponseAt = timestamppb.New(*finalResponseAt)
