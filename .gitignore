@@ -4,7 +4,6 @@ scripts/.openai_api_key
 # Backend runtime secrets (use backend/env.example as the template)
 backend/.env
 backend/production.env
-backend/staging.env
 backend/firebase-adminsdk.json
 
 # Secrets and signing material (examples remain tracked)

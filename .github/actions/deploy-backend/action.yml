@@ -1,11 +1,7 @@
 name: Deploy backend
-description: Deploy an immutable backend image to production on the Calorify VM.
+description: Deploy the backend container to production on the Calorify VM using Docker Compose.
 
 inputs:
-  target:
-    description: Runtime target on the Calorify VM (production).
-    required: false
-    default: production
   image-tag:
     description: Immutable GHCR tag in sha-<full-commit-sha> form.
     required: true
@@ -39,17 +35,12 @@ runs:
       id: deployment
       shell: bash
       env:
-        DEPLOY_TARGET: ${{ inputs.target }}
         IMAGE_REPOSITORY: ghcr.io/${{ github.repository_owner }}/calorify-backend
         IMAGE_TAG: ${{ inputs.image-tag }}
       run: |
         set -euo pipefail
-        if [[ "$DEPLOY_TARGET" != production ]]; then
-          printf 'target must be production\n' >&2
-          exit 1
-        fi
         if [[ ! "$IMAGE_TAG" =~ ^sha-[0-9a-f]{40}$ ]]; then
-          printf 'image_tag must be sha- followed by the full 40-character lowercase commit SHA\n' >&2
+          printf 'image_tag must be sha- followed by the 40-character lowercase commit SHA\n' >&2
           exit 1
         fi
         printf 'image=%s:%s\n' "${IMAGE_REPOSITORY,,}" "$IMAGE_TAG" >> "$GITHUB_OUTPUT"
@@ -76,7 +67,6 @@ runs:
         SSH_PRIVATE_KEY: ${{ inputs.ssh-private-key }}
         SSH_KNOWN_HOSTS: ${{ inputs.ssh-known-hosts }}
         DEPLOY_PATH: ${{ inputs.deploy-path }}
-        DEPLOY_TARGET: ${{ inputs.target }}
         IMAGE: ${{ steps.deployment.outputs.image }}
         GHCR_TOKEN: ${{ inputs.github-token }}
         GHCR_USERNAME: ${{ github.actor }}
@@ -88,25 +78,31 @@ runs:
         : "${SSH_KNOWN_HOSTS:?Missing CALORIFY_SSH_KNOWN_HOSTS}"
         : "${DEPLOY_PATH:?Missing CALORIFY_DEPLOY_PATH}"
         SSH_PORT="${SSH_PORT:-22}"
+
         install -m 700 -d ~/.ssh
         printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/calorify_deploy_key
         printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
         chmod 600 ~/.ssh/calorify_deploy_key ~/.ssh/known_hosts
-        printf -v backend_path_q '%q' "$DEPLOY_PATH/backend"
-        printf -v target_q '%q' "$DEPLOY_TARGET"
+
+        backend_path="$DEPLOY_PATH/backend"
+        printf -v backend_path_q '%q' "$backend_path"
         printf -v image_q '%q' "$IMAGE"
         printf -v ghcr_username_q '%q' "$GHCR_USERNAME"
-        tar -C backend -cf - \
-          docker-compose.yml \
-          loki \
-          postgres/usda-init.sh \
-          scripts/deploy-container.sh | \
+
+        # 1. Sync backend compose definition to the VM
+        tar -C backend -cf - compose.yaml | \
           ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
             -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
             "$SSH_USER@$SSH_HOST" \
-            "install -d -m 0755 $backend_path_q/scripts $backend_path_q/postgres && tar -xf - -C $backend_path_q"
+            "install -d -m 0755 $backend_path_q && tar -xf - -C $backend_path_q"
+
+        # 2. Authenticate to GHCR on the host, pull the immutable image, and recreate the server with health check wait
         printf '%s\n' "$GHCR_TOKEN" | \
           ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
             -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
             "$SSH_USER@$SSH_HOST" \
-            "cd $backend_path_q && GHCR_USERNAME=$ghcr_username_q ./scripts/deploy-container.sh $target_q $image_q"
+            "cd $backend_path_q && \
+             printf '%s\n' \"$GHCR_TOKEN\" | docker login ghcr.io --username $ghcr_username_q --password-stdin >/dev/null && \
+             BACKEND_IMAGE=$image_q docker compose pull server && \
+             BACKEND_IMAGE=$image_q docker compose up -d --no-build --wait server && \
+             docker image prune --force >/dev/null"

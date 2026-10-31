@@ -7,7 +7,7 @@ cd "$repo_root"
 failed=false
 
 tracked_secret_files="$(
-  git ls-files | grep -E '(^|/)(\.env($|\.)|production\.env$|staging\.env$|firebase-adminsdk.*\.json$|.*service-account.*\.json$|key\.properties$|.*\.(jks|p12|pem|key)$)' || true
+  git ls-files | grep -E '(^|/)(\.env($|\.)|production\.env$|firebase-adminsdk.*\.json$|.*service-account.*\.json$|key\.properties$|.*\.(jks|p12|pem|key)$)' || true
 )"
 if [[ -n "$tracked_secret_files" ]]; then
   echo "Tracked files look like credentials:" >&2

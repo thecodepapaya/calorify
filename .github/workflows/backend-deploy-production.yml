@@ -145,7 +145,6 @@ jobs:
       - name: Deploy production
         uses: ./.github/actions/deploy-backend
         with:
-          target: production
           image-tag: ${{ needs.resolve-image-tag.outputs.image_tag }}
           ssh-host: ${{ secrets.CALORIFY_SSH_HOST }}
           ssh-port: ${{ secrets.CALORIFY_SSH_PORT }}

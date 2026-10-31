@@ -4,7 +4,7 @@ Index of backend design notes, deployment runbooks, API contracts, evaluation da
 
 ## Documentation Index
 
-- [Deployment & Topology](DEPLOYMENT.md) — Production/staging VM configuration, Docker Compose topology, release flow, and rollback procedures.
+- [Deployment & Topology](DEPLOYMENT.md) — Production VM configuration, Docker Compose topology, release flow, and rollback procedures.
 - [Meal-Analysis Pipeline](meal-analysis-pipeline.md) — Two-pass LLM decomposition, vector embedding retrieval, clarification handling, and asynchronous job lifecycle.
 - [Meal-Analysis Enum Reference](meal-analysis-enums.md) — Canonical compact model enums, preparation methods, and deterministic codes.
 - [Observability & Telemetry](observability.md) — OpenTelemetry distributed tracing, Prometheus performance metrics, and analysis session inspection.

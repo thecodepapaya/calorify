@@ -1,9 +1,10 @@
 services:
 
   server:
+    image: ${BACKEND_IMAGE:-calorify-backend:latest}
     build:
       context: .
-      target: final
+      target: production
     container_name: ${APP_NAME}
     env_file: .env
     ports: [ "${EXTERNAL_PORT}:8000" ]

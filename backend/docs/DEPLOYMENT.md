@@ -1,16 +1,13 @@
 # Backend Go Deployment & Operations
 
-This document defines the production and staging infrastructure topology, container management, environment configurations, and deployment procedures for `backend`.
+This document defines the production infrastructure topology, container management, environment configurations, and deployment procedures for `backend`.
 
 ## Topology
 
-Staging and production run on an isolated Docker network with dedicated application databases and a shared read-only USDA reference database:
+Production runs on an isolated Docker network with a dedicated application database and a USDA reference database:
 
 ```text
 GitHub Actions / CI ──build──> Container Image (backend)
-       │
-       ├──deploy staging──────> backend-staging ──> db-staging (calorify)
-       │                                └─────────> db-usda (pgvector)
        │
        └──deploy prod─────────> backend-prod ────> db-prod (calorify)
                                         └─────────> db-usda (pgvector)
@@ -21,10 +18,8 @@ USDA Maintenance / Ingestion ─────────────────
 | Service | Purpose | Host Port | Database / Storage |
 | --- | --- | --- | --- |
 | `backend-prod` | Production Go API | `8000` | Connects to `db-prod` & `db-usda` |
-| `backend-staging` | Staging Go API | `8001` | Connects to `db-staging` & `db-usda` |
 | `db-prod` | Production application & user data | Internal | PostgreSQL volume `postgres_data_prod` |
-| `db-staging` | Staging application & user data | `5433` | PostgreSQL volume `postgres_data_staging` |
-| `db-usda` | Shared USDA reference database | `5434` | PostgreSQL volume with pgvector |
+| `db-usda` | USDA reference database | `5434` | PostgreSQL volume with pgvector |
 | `ollama` | Embedding inference engine | `11434` | Runs `embeddinggemma-2` |
 
 ## Environment Configuration
