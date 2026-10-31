@@ -96,13 +96,15 @@ runs:
             "$SSH_USER@$SSH_HOST" \
             "install -d -m 0755 $backend_path_q && tar -xf - -C $backend_path_q"
 
-        # 2. Authenticate to GHCR on the host, pull the immutable image, and recreate the server with health check wait
+        # 2. Authenticate to GHCR on the host, pull the immutable image, and recreate the server with health check wait.
+        # Use passwordless sudo when the deploy user cannot reach the Docker socket directly.
         printf '%s\n' "$GHCR_TOKEN" | \
           ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
             -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
             "$SSH_USER@$SSH_HOST" \
-            "cd $backend_path_q && \
-             printf '%s\n' \"$GHCR_TOKEN\" | docker login ghcr.io --username $ghcr_username_q --password-stdin >/dev/null && \
-             BACKEND_IMAGE=$image_q docker compose pull server && \
-             BACKEND_IMAGE=$image_q docker compose up -d --no-build --wait server && \
-             docker image prune --force >/dev/null"
+            "set -euo pipefail; cd $backend_path_q; \
+             if docker info >/dev/null 2>&1; then SUDO=; else SUDO='sudo -n'; fi; \
+             \$SUDO docker login ghcr.io --username $ghcr_username_q --password-stdin >/dev/null; \
+             \$SUDO env BACKEND_IMAGE=$image_q docker compose -f compose.yaml pull server; \
+             \$SUDO env BACKEND_IMAGE=$image_q docker compose -f compose.yaml up -d --no-build --wait server; \
+             \$SUDO docker image prune --force >/dev/null"

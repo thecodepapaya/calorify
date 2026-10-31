@@ -29,7 +29,7 @@ func Load() Config {
 		port = "8000"
 	}
 	if databaseUrl == "" {
-		databaseUrl = "postgres://user:password@localhost:5432/calorify_db_dev?sslmode=disable"
+		databaseUrl = "postgres://user:password@localhost:5434/calorify_db_dev?sslmode=disable"
 	}
 	if usdaDatabaseUrl == "" {
 		usdaDatabaseUrl = "postgres://user:password@localhost:5433/usda_db?sslmode=disable"
@@ -38,7 +38,7 @@ func Load() Config {
 		firebaseSdk = "firebase-adminsdk.json"
 	}
 	if ollamaURL == "" {
-		ollamaURL = "http://localhost:11434"
+		ollamaURL = "http://localhost:11435"
 	}
 	if otelEndpoint == "" {
 		otelEndpoint = "http://localhost:6006"

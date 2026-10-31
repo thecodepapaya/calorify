@@ -6,6 +6,9 @@ backend/.env
 backend/production.env
 backend/firebase-adminsdk.json
 
+# Backend build output
+backend/server
+
 # Secrets and signing material (examples remain tracked)
 **/.env
 **/.env.*

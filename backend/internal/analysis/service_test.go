@@ -70,7 +70,7 @@ func TestUsdaVectorSearch(t *testing.T) {
 
 	ollamaURL := os.Getenv("OLLAMA_URL")
 	if ollamaURL == "" {
-		ollamaURL = "http://localhost:11434"
+		ollamaURL = "http://localhost:11435"
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)

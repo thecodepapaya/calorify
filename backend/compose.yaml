@@ -13,6 +13,10 @@ services:
         condition: service_healthy
       usda_db:
         condition: service_healthy
+      ollama:
+        condition: service_healthy
+      phoenix:
+        condition: service_started
     secrets: [ "firebase-adminsdk.json" ]
     healthcheck:
       test: [ "CMD-SHELL", "wget -q -O - http://localhost:8000/ready > /dev/null || exit 1" ]
@@ -25,7 +29,7 @@ services:
     image: postgres:15-alpine
     container_name: ${POSTGRES_DB}
     env_file: .env
-    ports: [ "5432:5432" ]
+    ports: [ "5434:5432" ]
     volumes: [ calorify_pgdata:/var/lib/postgresql/data ]
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "user", "-d", "${POSTGRES_DB}" ]
@@ -53,8 +57,7 @@ services:
     image: ollama/ollama:latest
     container_name: ollama
     restart: unless-stopped
-    ports:
-      - "11434:11434"
+    ports: [ "11435:11434" ]
     environment:
       - OLLAMA_KEEP_ALIVE=-1
       - OLLAMA_NUM_PARALLEL=1

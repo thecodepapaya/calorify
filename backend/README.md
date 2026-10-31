@@ -28,14 +28,16 @@ High-performance, idiomatic Go API service for user health tracking, USDA-ground
 docker compose up -d
 ```
 
+Host ports: calorify DB `5434`, USDA DB `5433`, Ollama `11435`.
+
 ### 2. Run Database Migrations
 Apply schemas to application database:
 ```bash
 # Apply calorify schema
-psql -h localhost -p 5433 -U postgres -d calorify -f migrations/calorify/000001_create_user_profile.sql
+psql -h localhost -p 5434 -U user -d calorify_db_dev -f migrations/calorify/000001_create_user_profile.sql
 
 # Apply USDA schema with pgvector
-psql -h localhost -p 5434 -U postgres -d usda -f migrations/usda/000001_create_usda_tables.sql
+psql -h localhost -p 5433 -U user -d usda_db -f migrations/usda/000001_create_usda_tables.sql
 ```
 
 ### 3. USDA Ingestion & Embeddings
@@ -44,7 +46,7 @@ psql -h localhost -p 5434 -U postgres -d usda -f migrations/usda/000001_create_u
 go run cmd/usda/main.go -ingest -data_dir=./usda_data_raw
 
 # Generate dense vector embeddings using Ollama
-go run cmd/usda/main.go -embed-all -ollama_url=http://localhost:11434
+go run cmd/usda/main.go -embed-all -ollama_url=http://localhost:11435
 ```
 
 ### 4. Run the API Server
@@ -61,4 +63,3 @@ go run cmd/server/main.go
 - [`docs/observability.md`](docs/observability.md) — Prometheus metrics, OpenTelemetry tracing, and operator inspection.
 - [`evals/README.md`](evals/README.md) — LLM pass evaluation and USDA retrieval benchmark harness.
 - [`TODO.md`](TODO.md) — Active roadmap, technical debt, and feature backlog.
-
