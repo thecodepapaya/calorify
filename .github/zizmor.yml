@@ -1,0 +1,7 @@
+# Zizmor configuration
+# ref-version-mismatch is downgraded to low/informational so Dependabot's
+# major version comments (e.g. # v4 vs v4.7.0) do not cause exit code 13.
+rules:
+  ref-version-mismatch:
+    disable: true
+
