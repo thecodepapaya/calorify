@@ -27,6 +27,18 @@ type Service struct {
 	UsdaDB    *pgxpool.Pool
 	LlmClient *openai.Client
 	OllamaURL string
+	// Model overrides the LLM used by the two decomposition passes. An empty
+	// value falls back to the production default, so evaluation harnesses can
+	// compare models without changing production behavior.
+	Model string
+}
+
+// modelName reports the model the decomposition passes call.
+func (s *Service) modelName() string {
+	if s.Model != "" {
+		return s.Model
+	}
+	return llm_model
 }
 
 func New(db *pgxpool.Pool, usdaDB *pgxpool.Pool, apiKey string, ollamaURL string) *Service {
@@ -36,6 +48,7 @@ func New(db *pgxpool.Pool, usdaDB *pgxpool.Pool, apiKey string, ollamaURL string
 		UsdaDB:    usdaDB,
 		LlmClient: &client,
 		OllamaURL: ollamaURL,
+		Model:     llm_model,
 	}
 
 	return &service
@@ -152,10 +165,10 @@ func (s *Service) initiateAnalysis(ctx context.Context, req *api.MealAnalysisReq
 	return id, nil
 }
 
-func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.MealAnalysisRequest) (*server.Pass1, error) {
-	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_components")
-	defer span.End()
-
+// Pass1Raw issues the pass-1 structured-output request and returns the raw
+// model JSON. It performs no persistence, so evaluation harnesses can exercise
+// the exact production prompt, schema, and model without writing analysis rows.
+func (s *Service) Pass1Raw(ctx context.Context, req *api.MealAnalysisRequest) (string, error) {
 	var parts []openai.ChatCompletionContentPartUnionParam
 	contextHeader := buildContextPrefix(req)
 	if contextHeader != "" {
@@ -172,7 +185,7 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	}
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 		ReasoningEffort: shared.ReasoningEffortLow,
-		Model:           openai.ChatModel(llm_model),
+		Model:           openai.ChatModel(s.modelName()),
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(pass1Prompt),
 			openai.UserMessage(parts),
@@ -188,13 +201,26 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 		},
 	})
 	if err != nil {
+		return "", err
+	}
+	if len(res.Choices) == 0 {
+		return "", fmt.Errorf("pass 1 returned no choices")
+	}
+	return res.Choices[0].Message.Content, nil
+}
+
+func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.MealAnalysisRequest) (*server.Pass1, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_components")
+	defer span.End()
+
+	rawJson, err := s.Pass1Raw(ctx, req)
+	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		slog.ErrorContext(ctx, "failed to call LLM for decomposed components", "analysis_id", id, "error", err)
 		return nil, err
 	}
 
-	rawJson := res.Choices[0].Message.Content
 	pass1, err := parsePass1Response(rawJson)
 	if err != nil {
 		span.RecordError(err)
@@ -219,16 +245,14 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	return pass1, nil
 }
 
-func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1) (*server.Pass2, error) {
-	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_ingredients")
-	defer span.End()
-
+// Pass2Raw issues the pass-2 structured-output request for an already-parsed
+// pass-1 result and returns the raw model JSON. It performs no persistence, so
+// evaluation harnesses can exercise the exact production prompt, schema, and
+// model without writing analysis rows.
+func (s *Service) Pass2Raw(ctx context.Context, req *api.MealAnalysisRequest, pass1 *server.Pass1) (string, error) {
 	str, err := protojson.Marshal(pass1)
 	if err != nil {
-		span.RecordError(err)
-		span.SetStatus(codes.Error, err.Error())
-		slog.ErrorContext(ctx, "failed to marshal pass1 for decomposition", "analysis_id", id, "error", err)
-		return nil, err
+		return "", err
 	}
 
 	userContent := string(str)
@@ -238,7 +262,7 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 		ReasoningEffort: shared.ReasoningEffortLow,
-		Model:           openai.ChatModel(llm_model),
+		Model:           openai.ChatModel(s.modelName()),
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(pass2Prompt),
 			openai.UserMessage(userContent),
@@ -254,13 +278,26 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 		},
 	})
 	if err != nil {
+		return "", err
+	}
+	if len(res.Choices) == 0 {
+		return "", fmt.Errorf("pass 2 returned no choices")
+	}
+	return res.Choices[0].Message.Content, nil
+}
+
+func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1) (*server.Pass2, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_ingredients")
+	defer span.End()
+
+	rawJson, err := s.Pass2Raw(ctx, req, pass1)
+	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		slog.ErrorContext(ctx, "failed to call LLM for decomposed ingredients", "analysis_id", id, "error", err)
 		return nil, err
 	}
 
-	rawJson := res.Choices[0].Message.Content
 	pass2, err := parsePass2Response(rawJson)
 	if err != nil {
 		span.RecordError(err)
@@ -288,7 +325,7 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 
 	var ingredients []string
 	for _, ing := range pass2.Ingredients {
-		ingredients = append(ingredients, "task: search result | query: "+ing.Name)
+		ingredients = append(ingredients, embeddingQueryPrefix+ing.Name)
 	}
 	embeddings, err := s.getEmbeddings(ctx, ingredients)
 	if err != nil {

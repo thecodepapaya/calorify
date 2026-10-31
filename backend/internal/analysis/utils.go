@@ -24,6 +24,28 @@ var ErrorLargeImage = errors.New("Max supported image size 500KiB")
 const llm_model = "gpt-6-luna"
 const EmbeddingModel = "embeddinggemma-2"
 
+// embeddingQueryPrefix is prepended to every USDA retrieval query before
+// embedding. Both the pipeline and the evaluation harness use it so measured
+// retrieval matches production.
+const embeddingQueryPrefix = "task: search result | query: "
+
+// ModelName reports the LLM model the analysis passes call. Evaluation
+// harnesses report it alongside their results.
+func ModelName() string { return llm_model }
+
+// SearchUsdaByText embeds text with the production embedding model and query
+// prefix, then returns the k nearest USDA rows using the production ordering.
+func (s *Service) SearchUsdaByText(ctx context.Context, text string, ingredientType server.IngredientType, k int) ([]*UsdaCandidate, error) {
+	vectors, err := s.getEmbeddings(ctx, []string{embeddingQueryPrefix + text})
+	if err != nil {
+		return nil, err
+	}
+	if len(vectors) != 1 {
+		return nil, fmt.Errorf("expected 1 embedding for %q, got %d", text, len(vectors))
+	}
+	return s.SearchUsdaTopK(ctx, formatVector(vectors[0]), ingredientType, k)
+}
+
 func (s *Service) getEmbeddings(ctx context.Context, texts []string) ([][]float32, error) {
 	payload := map[string]any{
 		"model": EmbeddingModel,

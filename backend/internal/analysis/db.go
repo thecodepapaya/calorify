@@ -81,6 +81,25 @@ func (s *Service) SaveUsdaEnriched(ctx context.Context, id string, enriched *ser
 }
 
 func (s *Service) searchUsda(ctx context.Context, vectorStr string, ingredientType server.IngredientType) (*UsdaCandidate, error) {
+	rowsData, err := s.SearchUsdaTopK(ctx, vectorStr, ingredientType, 1)
+	if err != nil {
+		return nil, err
+	}
+	if len(rowsData) == 0 {
+		return nil, nil
+	}
+	return rowsData[0], nil
+}
+
+// SearchUsdaTopK returns the k nearest USDA rows for an embedded query using
+// the production ordering: base ingredients prefer non-branded rows and
+// branded ingredients prefer branded rows, with cosine distance breaking ties.
+// The evaluation harness uses k > 1 to measure top-k retrieval; the pipeline
+// uses k = 1.
+func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredientType server.IngredientType, k int) ([]*UsdaCandidate, error) {
+	if k < 1 {
+		return nil, fmt.Errorf("top-k must be at least 1, got %d", k)
+	}
 	var query string
 	if ingredientType == server.IngredientType_BASE {
 		// Prefer foundation, SR legacy, and survey foods over branded products
@@ -99,7 +118,7 @@ func (s *Service) searchUsda(ctx context.Context, vectorStr string, ingredientTy
 		ORDER BY
 			CASE WHEN data_type = 'branded_food' THEN 1 ELSE 0 END ASC,
 			embedding <=> $1::vector ASC
-		LIMIT 1;
+		LIMIT $2;
 		`
 	} else {
 		// Prefer branded foods if tagged as BRANDED
@@ -118,10 +137,10 @@ func (s *Service) searchUsda(ctx context.Context, vectorStr string, ingredientTy
 		ORDER BY
 			CASE WHEN data_type = 'branded_food' THEN 0 ELSE 1 END ASC,
 			embedding <=> $1::vector ASC
-		LIMIT 1;
+		LIMIT $2;
 		`
 	}
-	rows, err := s.UsdaDB.Query(ctx, query, vectorStr)
+	rows, err := s.UsdaDB.Query(ctx, query, vectorStr, k)
 	if err != nil {
 		return nil, err
 	}
@@ -149,11 +168,7 @@ func (s *Service) searchUsda(ctx context.Context, vectorStr string, ingredientTy
 		return nil, fmt.Errorf("failed to iterate usda rows: %w", err)
 	}
 
-	if len(rowsData) == 0 {
-		return nil, nil
-	}
-
-	return rowsData[0], nil
+	return rowsData, nil
 }
 
 func (s *Service) SaveGeneratedClarification(ctx context.Context, id string, clarification *common.Clarifications) error {
