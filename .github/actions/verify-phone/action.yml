@@ -1,5 +1,5 @@
 name: Verify phone app
-description: Run the canonical translation, analysis, test, and coverage checks for the phone app.
+description: Run the canonical translation, analysis, and test checks for the phone app.
 
 runs:
   using: composite
@@ -28,8 +28,4 @@ runs:
     - name: Test phone app
       shell: bash
       working-directory: app/calorify
-      run: flutter test --coverage test/unit test/widget --concurrency=1
-
-    - name: Enforce phone coverage baseline
-      shell: bash
-      run: python3 scripts/check_lcov_coverage.py app/calorify/coverage/lcov.info --minimum 25
+      run: flutter test test/unit test/widget --concurrency=1

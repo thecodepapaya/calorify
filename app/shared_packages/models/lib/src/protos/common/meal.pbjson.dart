@@ -283,3 +283,24 @@ final $typed_data.Uint8List mealDescriptor = $convert.base64Decode(
     'Y29tbW9uLk1hY3Jvc1IGbWFjcm9zEi8KBmhlYWx0aBgGIAEoCzISLmNvbW1vbi5NZWFsSGVhbH'
     'RoSABSBmhlYWx0aIgBARI1CghtZXRhZGF0YRgHIAEoCzIULmNvbW1vbi5NZWFsTWV0YWRhdGFI'
     'AVIIbWV0YWRhdGGIAQFCCQoHX2hlYWx0aEILCglfbWV0YWRhdGE=');
+
+@$core.Deprecated('Use mealPackageDescriptor instead')
+const MealPackage$json = {
+  '1': 'MealPackage',
+  '2': [
+    {'1': 'meal', '3': 1, '4': 1, '5': 11, '6': '.common.Meal', '10': 'meal'},
+    {
+      '1': 'clarifications',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.common.Clarifications',
+      '10': 'clarifications'
+    },
+  ],
+};
+
+/// Descriptor for `MealPackage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List mealPackageDescriptor = $convert.base64Decode(
+    'CgtNZWFsUGFja2FnZRIgCgRtZWFsGAEgASgLMgwuY29tbW9uLk1lYWxSBG1lYWwSPgoOY2xhcm'
+    'lmaWNhdGlvbnMYAiABKAsyFi5jb21tb24uQ2xhcmlmaWNhdGlvbnNSDmNsYXJpZmljYXRpb25z');

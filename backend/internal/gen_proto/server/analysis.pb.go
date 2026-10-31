@@ -105,6 +105,7 @@ type MealAnalysisStatus struct {
 	FinalResponseAt          *timestamppb.Timestamp            `protobuf:"bytes,15,opt,name=final_response_at,json=finalResponseAt,proto3,oneof" json:"final_response_at,omitempty"`
 	Status                   MealAnalysisStatus_AnalysisStatus `protobuf:"varint,16,opt,name=status,proto3,enum=server.MealAnalysisStatus_AnalysisStatus" json:"status,omitempty"`
 	UpdatedAt                *timestamppb.Timestamp            `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	FailureReason            *string                           `protobuf:"bytes,18,opt,name=failure_reason,json=failureReason,proto3,oneof" json:"failure_reason,omitempty"`
 	unknownFields            protoimpl.UnknownFields
 	sizeCache                protoimpl.SizeCache
 }
@@ -258,11 +259,18 @@ func (x *MealAnalysisStatus) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *MealAnalysisStatus) GetFailureReason() string {
+	if x != nil && x.FailureReason != nil {
+		return *x.FailureReason
+	}
+	return ""
+}
+
 var File_protos_server_analysis_proto protoreflect.FileDescriptor
 
 const file_protos_server_analysis_proto_rawDesc = "" +
 	"\n" +
-	"\x1cprotos/server/analysis.proto\x12\x06server\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb6\v\n" +
+	"\x1cprotos/server/analysis.proto\x12\x06server\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf5\v\n" +
 	"\x12MealAnalysisStatus\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\buser_uid\x18\x02 \x01(\tR\auserUid\x12\x17\n" +
@@ -284,7 +292,8 @@ const file_protos_server_analysis_proto_rawDesc = "" +
 	"\x11final_response_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampH\vR\x0ffinalResponseAt\x88\x01\x01\x12A\n" +
 	"\x06status\x18\x10 \x01(\x0e2).server.MealAnalysisStatus.AnalysisStatusR\x06status\x129\n" +
 	"\n" +
-	"updated_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xc1\x01\n" +
+	"updated_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12*\n" +
+	"\x0efailure_reason\x18\x12 \x01(\tH\fR\rfailureReason\x88\x01\x01\"\xc1\x01\n" +
 	"\x0eAnalysisStatus\x12\r\n" +
 	"\tINITIATED\x10\x00\x12\x18\n" +
 	"\x14COMPONENT_DECOMPOSED\x10\x01\x12\x19\n" +
@@ -307,7 +316,8 @@ const file_protos_server_analysis_proto_rawDesc = "" +
 	"\x18_generated_clarificationB\x1d\n" +
 	"\x1b_generated_clarification_atB\x11\n" +
 	"\x0f_final_responseB\x14\n" +
-	"\x12_final_response_atB#Z!backend/internal/gen_proto/serverb\x06proto3"
+	"\x12_final_response_atB\x11\n" +
+	"\x0f_failure_reasonB#Z!backend/internal/gen_proto/serverb\x06proto3"
 
 var (
 	file_protos_server_analysis_proto_rawDescOnce sync.Once

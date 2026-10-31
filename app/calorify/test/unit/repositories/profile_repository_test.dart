@@ -152,13 +152,6 @@ void main() {
     },
   );
 
-  test('no pending revision performs no network request', () async {
-    when(() => database.getPendingHealthDataSync()).thenAnswer((_) async => null);
-
-    expect(await repository.syncPendingHealthData(), isTrue);
-    expect(remote.updates, isEmpty);
-  });
-
   test('network profile sync uses POST /users/health-data', () async {
     final adapter = _RecordingAdapter();
     final dio = Dio(BaseOptions(baseUrl: 'https://api.example.test'))

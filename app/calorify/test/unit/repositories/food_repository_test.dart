@@ -108,19 +108,34 @@ void main() {
           'id': 'test-uuid-123',
           'status': 'PRESENTED',
           'finalResponse': jsonEncode({
-            'name': 'Chicken Salad',
-            'quantity': '1 bowl (350g)',
-            'type': 'LUNCH',
-            'macros': {
-              'calorie': {'value': 450, 'minValue': 400, 'maxValue': 500},
-              'carb': {'value': 15, 'minValue': 10, 'maxValue': 20},
-              'protein': {'value': 42, 'minValue': 38, 'maxValue': 46},
-              'fat': {'value': 18, 'minValue': 15, 'maxValue': 22},
-              'fiber': {'value': 6, 'minValue': 4, 'maxValue': 8},
+            'meal': {
+              'name': 'Chicken Salad',
+              'quantity': '1 bowl (350g)',
+              'type': 'LUNCH',
+              'macros': {
+                'calorie': {'value': 450, 'minValue': 400, 'maxValue': 500},
+                'carb': {'value': 15, 'minValue': 10, 'maxValue': 20},
+                'protein': {'value': 42, 'minValue': 38, 'maxValue': 46},
+                'fat': {'value': 18, 'minValue': 15, 'maxValue': 22},
+                'fiber': {'value': 6, 'minValue': 4, 'maxValue': 8},
+              },
+              'metadata': {
+                'tip': 'High protein salad',
+              },
             },
-            'metadata': {
-              'tip': 'High protein salad',
-            },
+            'clarifications': {
+              'clarification': [
+                {
+                  'id': 1,
+                  'question': 'How much chicken?',
+                  'options': [
+                    {'text': 'Small', 'macroDelta': {'calorie': -50}},
+                    {'text': 'Medium', 'macroDelta': {'calorie': 0}},
+                    {'text': 'Large', 'macroDelta': {'calorie': 50}},
+                  ],
+                }
+              ]
+            }
           }),
         }),
         200,
@@ -147,6 +162,11 @@ void main() {
     expect(complete.result?.macros.calories, 450);
     expect(complete.result?.macros.protein, 42);
     expect(complete.result?.mealType, 'LUNCH');
+    expect(complete.result?.clarifications?.clarification.isNotEmpty, isTrue);
+    expect(
+      complete.result?.clarifications?.clarification.first.question,
+      'How much chicken?',
+    );
   });
 
   test('pollMealAnalysis emits error event when status is FAILED', () async {
@@ -155,6 +175,7 @@ void main() {
         jsonEncode({
           'id': 'test-uuid-123',
           'status': 'FAILED',
+          'failureReason': 'Analysis timeout',
         }),
         200,
         headers: {Headers.contentTypeHeader: ['application/json']},
@@ -172,5 +193,6 @@ void main() {
 
     expect(events.last.kind, MealAnalysisV3EventKind.error);
     expect(events.last.issue?.code, 'ANALYSIS_FAILED');
+    expect(events.last.issue?.message, 'Analysis timeout');
   });
 }

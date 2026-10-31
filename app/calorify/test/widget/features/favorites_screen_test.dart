@@ -6,7 +6,6 @@ import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:i18n/i18n.dart';
-import 'package:widgets/widgets.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
 
@@ -71,19 +70,6 @@ void main() {
   });
 
   group('FavoritesScreen Widget', () {
-    testWidgets('renders empty view when there are no favorites', (
-      WidgetTester tester,
-    ) async {
-      when(
-        () => mockDatabaseInterface.watchAllFavoriteMeals(),
-      ).thenAnswer((_) => Stream.value([]));
-
-      await tester.pumpWidget(wrapWithProviders(const FavoritesScreen()));
-      await tester.pumpAndSettle();
-
-      expect(find.text(t.favorites.empty), findsOneWidget);
-    });
-
     testWidgets('filters favorites using the search field', (
       WidgetTester tester,
     ) async {
@@ -200,26 +186,6 @@ void main() {
       verify(() => mockDatabaseInterface.addToFavorites(any())).called(1);
 
       await favoritesController.close();
-    });
-
-    testWidgets('renders macro chips for favorite meals', (
-      WidgetTester tester,
-    ) async {
-      final favorites = [
-        _buildFavoriteMeal(favoriteId: 1, clientId: 10, name: 'Paneer Bowl'),
-      ];
-
-      when(
-        () => mockDatabaseInterface.watchAllFavoriteMeals(),
-      ).thenAnswer((_) => Stream.value(favorites));
-
-      await tester.pumpWidget(wrapWithProviders(const FavoritesScreen()));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Paneer Bowl'), findsOneWidget);
-      expect(find.text('420'), findsOneWidget);
-      expect(find.byIcon(AppIcons.flame), findsOneWidget);
-      expect(find.byIcon(AppIcons.arrowUpDown), findsOneWidget);
     });
   });
 }

@@ -708,7 +708,9 @@
                 });
 
                 if (statusName === 'FAILED') {
-                    const errReason = statusData.errorMessage || statusData.error_message || 'Meal analysis marked as failed in backend';
+                    const errReason = statusData.failureReason || statusData.failure_reason ||
+                        statusData.errorMessage || statusData.error_message ||
+                        'Meal analysis marked as failed in backend';
                     this.cancel();
                     this.callbacks.onError(new Error(errReason));
                     return;
@@ -841,7 +843,7 @@
                 this.callbacks.onStageUpdate({
                     stage: 4,
                     status: 'USDA_MACRO_HYDRATED',
-                    progress: 90,
+                    progress: 75,
                     data: {
                         usdaMatches: usdaMatches,
                         timestamp: new Date().toLocaleTimeString()
@@ -849,13 +851,29 @@
                 });
             }
 
-            // Stage 5: PRESENTED
-            const meal = parseMaybeJson(statusData.finalResponse || statusData.final_response);
-            if (meal && this.lastStageEmitted < 5) {
+            // Stage 5: CLARIFICATION_GENERATED
+            const clarData = parseMaybeJson(statusData.generatedClarification || statusData.generated_clarification);
+            if (clarData && this.lastStageEmitted < 5) {
                 this.lastStageEmitted = 5;
-                const formatted = this.formatFinalMealFromBackend(statusData);
+                const clarifications = clarData.clarification || clarData.clarifications || [];
                 this.callbacks.onStageUpdate({
                     stage: 5,
+                    status: 'CLARIFICATION_GENERATED',
+                    progress: 90,
+                    data: {
+                        clarifications: clarifications,
+                        timestamp: new Date().toLocaleTimeString()
+                    }
+                });
+            }
+
+            // Stage 6: PRESENTED
+            const rawFinal = parseMaybeJson(statusData.finalResponse || statusData.final_response);
+            if (rawFinal && this.lastStageEmitted < 6) {
+                this.lastStageEmitted = 6;
+                const formatted = this.formatFinalMealFromBackend(statusData);
+                this.callbacks.onStageUpdate({
+                    stage: 6,
                     status: 'PRESENTED',
                     progress: 100,
                     data: {
@@ -863,6 +881,7 @@
                         mealType: formatted.mealType,
                         final: formatted.final,
                         ingredients: formatted.ingredients,
+                        clarifications: formatted.clarifications,
                         timestamp: new Date().toLocaleTimeString()
                     }
                 });
@@ -870,7 +889,10 @@
         }
 
         formatFinalMealFromBackend(statusData) {
-            const meal = parseMaybeJson(statusData.finalResponse || statusData.final_response) || {};
+            const rawFinal = parseMaybeJson(statusData.finalResponse || statusData.final_response) || {};
+            const meal = rawFinal.meal || rawFinal;
+            const clarifications = rawFinal.clarifications ||
+                parseMaybeJson(statusData.generatedClarification || statusData.generated_clarification) || {};
             const pass1 = parseMaybeJson(statusData.decomposedComponent || statusData.decomposed_component) || {};
             const pass2 = parseMaybeJson(statusData.decomposedIngredient || statusData.decomposed_ingredient) || {};
 
@@ -914,6 +936,7 @@
                 mealType: mealType,
                 components: pass1.components || [],
                 ingredients: ingredients,
+                clarifications: clarifications.clarification || clarifications.clarifications || [],
                 final: {
                     calories: cals,
                     caloriesMin: calsMin,
@@ -1038,7 +1061,7 @@
                 this.scheduleNextSimPoll(1100);
             } else if (this.pollCycle === 4) {
                 stageStatus = "USDA_MACRO_HYDRATED";
-                progress = 90;
+                progress = 75;
                 this.callbacks.onStageUpdate({
                     stage: 4,
                     status: "USDA_MACRO_HYDRATED",
@@ -1048,12 +1071,36 @@
                         timestamp: new Date().toLocaleTimeString()
                     }
                 });
+                this.scheduleNextSimPoll(1100);
+            } else if (this.pollCycle === 5) {
+                stageStatus = "CLARIFICATION_GENERATED";
+                progress = 90;
+                const sampleClarifications = [
+                    {
+                        id: 1,
+                        question: "How large was the main serving portion?",
+                        options: [
+                            { text: "Small portion (-15%)", macro_delta: { calorie: -60, carb: -8, protein: -4, fat: -2, fiber: -1 } },
+                            { text: "Medium portion (Standard)", macro_delta: { calorie: 0, carb: 0, protein: 0, fat: 0, fiber: 0 } },
+                            { text: "Large portion (+25%)", macro_delta: { calorie: 95, carb: 12, protein: 6, fat: 3, fiber: 2 } }
+                        ]
+                    }
+                ];
+                this.callbacks.onStageUpdate({
+                    stage: 5,
+                    status: "CLARIFICATION_GENERATED",
+                    progress: progress,
+                    data: {
+                        clarifications: sampleClarifications,
+                        timestamp: new Date().toLocaleTimeString()
+                    }
+                });
                 this.scheduleNextSimPoll(1200);
-            } else if (this.pollCycle >= 5) {
+            } else if (this.pollCycle >= 6) {
                 stageStatus = "PRESENTED";
                 progress = 100;
                 this.callbacks.onStageUpdate({
-                    stage: 5,
+                    stage: 6,
                     status: "PRESENTED",
                     progress: progress,
                     data: {
@@ -1543,7 +1590,48 @@
                     </div>
                 `;
                 appendOrUpdateStage('stage-card-3', html);
-            } else if (stageInfo.stage === 5 && stageInfo.data.final) {
+            } else if (stageInfo.stage === 5 && stageInfo.data.clarifications) {
+                // Stage 4: Clarification Generation
+                const clars = stageInfo.data.clarifications;
+                const html = `
+                    <div class="stage-card">
+                        <div class="stage-card-header">
+                            <div class="stage-badge-title">
+                                <span class="stage-number-pill">Stage 4</span>
+                                <h4>Variance Detection &amp; Smart Clarifications</h4>
+                            </div>
+                            <span class="stage-timestamp">${stageInfo.data.timestamp}</span>
+                        </div>
+                        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:1rem;">
+                            High ingredient portion variance detected (&gt;80 kcal impact). Calorify generated smart clarification options with precalculated macro deltas.
+                        </p>
+                        <div class="clarifications-container" style="display:flex;flex-direction:column;gap:1rem;">
+                            ${clars.map((c, cIdx) => `
+                                <div class="clarification-box" style="padding:1rem;background:var(--surface-color, #ffffff);border:1px solid var(--border-color, #e5e7eb);border-radius:12px;">
+                                    <div style="font-weight:600;margin-bottom:0.75rem;color:var(--text-color, #1f2937);">
+                                        ${c.question || c.Question || 'Portion size clarification'}
+                                    </div>
+                                    <div class="clarification-chips" style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                                        ${(c.options || c.Options || []).map((opt, oIdx) => {
+                                            const delta = opt.macroDelta || opt.macro_delta || {};
+                                            const calDelta = delta.calorie || 0;
+                                            const deltaText = calDelta !== 0 ? ` (${calDelta > 0 ? '+' : ''}${calDelta} kcal)` : '';
+                                            return `
+                                                <button type="button" class="clarification-chip ${oIdx === 1 ? 'selected' : ''}"
+                                                        data-clar-idx="${cIdx}" data-opt-idx="${oIdx}"
+                                                        style="padding:0.4rem 0.8rem;border-radius:20px;border:1px solid var(--border-color, #d1d5db);background:${oIdx === 1 ? 'var(--primary-subtle, #ecfdf5)' : 'transparent'};color:${oIdx === 1 ? 'var(--primary, #059669)' : 'inherit'};font-size:0.85rem;cursor:pointer;">
+                                                    ${opt.text || opt.Text}${deltaText}
+                                                </button>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                appendOrUpdateStage('stage-card-4', html);
+            } else if ((stageInfo.stage === 5 || stageInfo.stage === 6) && stageInfo.data.final) {
                 // Final Verified Nutrition Response
                 const d = stageInfo.data;
                 const f = d.final;

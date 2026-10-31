@@ -254,12 +254,12 @@ func (a *App) GetAnalysisStatusById(ctx context.Context, analysisId string, user
 		usda_enriched::text, usda_enriched_at,
 		generated_clarification::text, generated_clarification_at,
 		final_response::text, final_response_at,
-		created_at, updated_at
+		created_at, updated_at, failure_reason
 	FROM meal_analysis
 	WHERE id = $1 AND user_uid = $2
 	`
 	var id, uid string
-	var text, statusStr *string
+	var text, statusStr, failureReason *string
 	var decomposedComponent, decomposedIngredient, usdaEnriched, generatedClarification, finalResponse *string
 	var decomposedComponentAt, decomposedIngredientAt, usdaEnrichedAt, generatedClarificationAt, finalResponseAt *time.Time
 	var createdAt, updatedAt time.Time
@@ -271,7 +271,7 @@ func (a *App) GetAnalysisStatusById(ctx context.Context, analysisId string, user
 		&usdaEnriched, &usdaEnrichedAt,
 		&generatedClarification, &generatedClarificationAt,
 		&finalResponse, &finalResponseAt,
-		&createdAt, &updatedAt,
+		&createdAt, &updatedAt, &failureReason,
 	)
 	if err != nil {
 		return nil, err
@@ -294,6 +294,7 @@ func (a *App) GetAnalysisStatusById(ctx context.Context, analysisId string, user
 		UsdaEnriched:           usdaEnriched,
 		GeneratedClarification: generatedClarification,
 		FinalResponse:          finalResponse,
+		FailureReason:          failureReason,
 		CreatedAt:              timestamppb.New(createdAt),
 		UpdatedAt:              timestamppb.New(updatedAt),
 	}

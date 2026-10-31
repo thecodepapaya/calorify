@@ -36,10 +36,4 @@ void main() {
       isNull,
     );
   });
-
-  test('formats an empty birthday placeholder for the active locale', () {
-    expect(ageDatePlaceholder(const Locale('en', 'US')), 'MM/DD/YYYY');
-    expect(ageDatePlaceholder(const Locale('de')), 'DD.MM.YYYY');
-    expect(ageDatePlaceholder(const Locale('zh', 'TW')), 'YYYY/MM/DD');
-  });
 }

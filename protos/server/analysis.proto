@@ -33,4 +33,5 @@ message MealAnalysisStatus{
   optional google.protobuf.Timestamp final_response_at          = 15;
   AnalysisStatus                     status                     = 16;
   google.protobuf.Timestamp          updated_at                 = 17;
+  optional string                    failure_reason             = 18;
 }

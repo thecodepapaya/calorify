@@ -12,7 +12,6 @@ import 'package:calorify/core/db/mock_data/user_settings_mock.dart';
 import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/health_connect_sync_queue.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
-import 'package:calorify/core/db/tables/local_nutrition_cache.dart';
 import 'package:calorify/core/db/tables/local_ai_summary.dart';
 import 'package:calorify/core/ai_summary/ai_summary_models.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
@@ -34,7 +33,6 @@ part 'app_database.g.dart';
     HealthDataTable,
     UserPreferencesTable,
     FavoriteMealTable,
-    LocalNutritionCacheTable,
     HealthConnectSyncQueueTable,
     LocalAiSummaryTable,
   ],
@@ -950,7 +948,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       await delete(healthDataTable).go();
       await delete(userPreferencesTable).go();
       await delete(favoriteMealTable).go();
-      await delete(localNutritionCacheTable).go();
       await delete(healthConnectSyncQueueTable).go();
       await delete(localAiSummaryTable).go();
     });

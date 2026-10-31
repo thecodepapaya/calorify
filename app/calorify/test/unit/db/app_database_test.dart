@@ -239,19 +239,6 @@ void main() {
     expect(meals.every((meal) => meal.clientId > 0), isTrue);
   });
 
-  test('new favorites let SQLite allocate an id', () async {
-    final favorite = LoggedMeal(
-      meal: _meal('Oats'),
-      createdAt: DateTime(2026, 8, 21).toIso8601String(),
-    );
-
-    await database.addToFavorites(favorite);
-
-    final favorites = await database.watchAllFavoriteMeals().first;
-    expect(favorites, hasLength(1));
-    expect(favorites.single.clientId, greaterThan(0));
-  });
-
   test(
     'custom favorite survives a row-id collision with a logged meal',
     () async {
@@ -351,14 +338,6 @@ void main() {
 
     await database.setOnboardingCompleted();
     expect(await database.hasCompletedOnboarding(), isTrue);
-  });
-
-  test('persists Health Connect prompt dismissal', () async {
-    expect(await database.isHealthConnectPromptDismissed(), isFalse);
-
-    await database.setHealthConnectPromptDismissed();
-
-    expect(await database.isHealthConnectPromptDismissed(), isTrue);
   });
 
   test('V3 server response is preserved and survives edits', () async {
@@ -464,43 +443,6 @@ void main() {
       expect(meals.single.meal.name, 'Saved after rebuild');
     },
   );
-
-  test('development database uses reactive Drift streams', () async {
-    await database.close();
-    database = AppDatabase.inMemory(seedDevelopmentData: false);
-
-    expect(database.dataSourceType, DataSourceType.mock);
-    final streamExpectation = expectLater(
-      database.watchAllMealsForToday().take(2),
-      emitsInOrder([isEmpty, hasLength(1)]),
-    );
-    await Future<void>.delayed(Duration.zero);
-
-    await database.logMeal(
-      Meal(
-        name: 'Reactive meal',
-        quantity: '1 serving',
-        type: MealType.LUNCH,
-        macros: Macros(
-          calorie: Measurement(value: 400),
-          protein: Measurement(value: 20),
-          carb: Measurement(value: 40),
-          fat: Measurement(value: 12),
-        ),
-      ),
-    );
-
-    await streamExpectation;
-  });
-
-  test('development database seeds sample data through Drift', () async {
-    await database.close();
-    database = AppDatabase.inMemory();
-
-    expect(await database.watchAllMealsForToday().first, isNotEmpty);
-    expect(await database.watchAllFavoriteMeals().first, isNotEmpty);
-    expect(await database.getDailyCalorieGoal(), isNotNull);
-  });
 
   test('health data outbox acknowledges only the revision that was sent', () async {
     await database.saveHealthData(

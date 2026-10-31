@@ -5,6 +5,7 @@ import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_question_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_v3_loading_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_clarification_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -116,15 +117,32 @@ Future<bool> showMealAnalysisV3Flow({
           if (result == null) {
             throw const FormatException('Missing V3 result');
           }
+          var finalResult = result;
+          final clarifications = result.clarifications;
+          if (clarifications != null &&
+              clarifications.clarification.isNotEmpty) {
+            final answers = await showMealClarificationSheet(
+              context: context,
+              clarifications: clarifications,
+            );
+            if (!context.mounted) return false;
+            if (answers != null) {
+              finalResult = _applyClarificationAnswers(
+                result,
+                clarifications,
+                answers,
+              );
+            }
+          }
           await showMealTip(
             context: context,
             purpose: MealDetailsSheetPurpose.mealAddition,
             meal: mealFromV3Result(
-              result,
+              finalResult,
               textDescription: textDescription,
             ),
             imageBytes: imageBytes,
-            v3Result: result,
+            v3Result: finalResult,
             v3AnalysisId:
                 terminal.analysisId.isNotEmpty
                     ? terminal.analysisId
@@ -237,6 +255,45 @@ class MealAnalysisV3Exception implements Exception {
     'NUTRITION_DATA_UNAVAILABLE' => t.meal.analysis.nutritionDataUnavailable,
     'UNRESOLVED_NUTRITION' => t.meal.analysis.unresolvedNutrition,
     'NO_FOOD' => t.meal.analysis.noFoodTip,
+    'ANALYSIS_FAILED' when issue?.message != null => issue!.message!,
     _ => t.meal.analysis.analysisUnavailable,
   };
+}
+
+MealAnalysisV3CompleteResult _applyClarificationAnswers(
+  MealAnalysisV3CompleteResult result,
+  Clarifications clarifications,
+  Map<int, int> selectedOptions,
+) {
+  double deltaCal = 0;
+  double deltaCarb = 0;
+  double deltaProtein = 0;
+  double deltaFat = 0;
+  double deltaFiber = 0;
+
+  for (final entry in selectedOptions.entries) {
+    final qIdx = entry.key;
+    final optIdx = entry.value;
+    if (qIdx < clarifications.clarification.length) {
+      final clarification = clarifications.clarification[qIdx];
+      if (optIdx < clarification.options.length) {
+        final opt = clarification.options[optIdx];
+        if (opt.hasMacroDelta()) {
+          deltaCal += opt.macroDelta.calorie;
+          deltaCarb += opt.macroDelta.carb;
+          deltaProtein += opt.macroDelta.protein;
+          deltaFat += opt.macroDelta.fat;
+          deltaFiber += opt.macroDelta.fiber;
+        }
+      }
+    }
+  }
+
+  return result.withMacroDeltas(
+    deltaCalories: deltaCal,
+    deltaCarbs: deltaCarb,
+    deltaProtein: deltaProtein,
+    deltaFat: deltaFat,
+    deltaFiber: deltaFiber,
+  );
 }

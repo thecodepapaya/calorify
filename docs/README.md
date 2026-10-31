@@ -10,7 +10,6 @@ Central index for Calorify system architecture, component documentation, technic
 - [Shared Packages](../app/shared_packages/README.md) — Shared domain models, tokens, and utilities.
 - [Backend Development](../backend/README.md) — Fastify API services, USDA database, and local runners.
 - [Backend Deployment Runbook](../backend/DEPLOYMENT.md) — Production/staging VM deployment, migrations, and rollback.
-- [Security Policy](../SECURITY.md) — Secret handling and vulnerability disclosure.
 
 ## Architecture & Plans
 

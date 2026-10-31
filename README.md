@@ -68,8 +68,7 @@ Configure `backend/.env` with local settings and follow the [Backend Setup Guide
 - [Wear OS Guide](app/watch/README.md) — Watch development and Data Layer synchronization.
 - [Backend Guide](backend/README.md) — API services, USDA bootstrap, and local test runners.
 - [Deployment Runbook](backend/DEPLOYMENT.md) — Staging, production, and cloud operations.
-- [Security Policy](SECURITY.md) — Secret handling and vulnerability disclosure.
 
 ## Contributing
 
-Contributions and bug fixes are welcome. Please ensure credentials are never committed, adhere to existing architectural invariants, and add test coverage for behavioral changes.
+Contributions and bug fixes are welcome. Never commit credentials — use ignored env files or GitHub environment secrets, and run `./scripts/check-secrets.sh` before pushing. If a credential reaches Git, revoke and rotate it at the provider first, then clean the history. Adhere to existing architectural invariants, and add test coverage for behavioral changes.

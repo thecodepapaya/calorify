@@ -282,7 +282,6 @@ class _MealSnapState extends State<MealSnap> {
                 repository.analyzeImageV3(
                   analysisId: analysisId,
                   imageBase64: base64Image,
-                  imageOrigin: imageOrigin,
                   context: requestContext,
                   cancellation: cancellation,
                 ),

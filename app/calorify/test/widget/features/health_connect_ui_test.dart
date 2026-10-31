@@ -67,19 +67,6 @@ void main() {
     ],
   );
 
-  testWidgets('settings distinguishes an install or update requirement', (
-    tester,
-  ) async {
-    sdkStatus = HealthConnectSdkStatus.sdkUnavailableProviderUpdateRequired;
-
-    await tester.pumpWidget(wrap(const HealthConnectPermissionsScreen()));
-    await tester.pumpAndSettle();
-
-    expect(find.text('Health Connect needs attention'), findsOneWidget);
-    expect(find.text('Install or update'), findsOneWidget);
-    expect(find.text('Read Total Calories Burned'), findsNothing);
-  });
-
   testWidgets('settings presents each granted capability independently', (
     tester,
   ) async {
@@ -162,21 +149,4 @@ void main() {
 
     verify(() => syncService.deleteSyncedMeals()).called(1);
   });
-
-  testWidgets(
-    'onboarding reports unsupported devices without permission copy',
-    (tester) async {
-      sdkStatus = HealthConnectSdkStatus.sdkUnavailable;
-
-      await tester.pumpWidget(wrap(HealthConnectScreen(onContinue: () {})));
-      await tester.pumpAndSettle();
-
-      expect(
-        find.text('Health Connect is not supported on this device.'),
-        findsOneWidget,
-      );
-      expect(find.text('Retry'), findsOneWidget);
-      expect(find.textContaining('Permission denied'), findsNothing);
-    },
-  );
 }

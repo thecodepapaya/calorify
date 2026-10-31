@@ -35,7 +35,6 @@ class SettingsScreen extends ConsumerStatefulWidget {
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   int _debugTapCount = 0;
-  bool _isExporting = false;
   bool _showDebugOptions = false;
   late final Future<AppVersionInfo> _appVersionFuture;
 
@@ -187,34 +186,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 onTap: _sendFeedbackEmail,
-              ),
-              ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    AppIcons.download,
-                    color: colorScheme.primary,
-                    size: 20,
-                  ),
-                ),
-                title: Text(
-                  t.settings.exportMealHistory.title,
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-                subtitle: Text(t.settings.exportMealHistory.subtitle),
-                trailing:
-                    _isExporting
-                        ? const SizedBox(
-                          height: 18,
-                          width: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                        : const Icon(AppIcons.chevronRight, size: 18),
-                onTap: _isExporting ? null : _exportMealHistory,
               ),
             ]),
             const SizedBox(height: 16),
@@ -650,41 +621,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       emailAddress: AppConstants.supportEmail,
       version: versionInfo.uiVersionWithBuild,
     );
-  }
-
-  Future<void> _exportMealHistory() async {
-    setState(() {
-      _isExporting = true;
-    });
-
-    try {
-      final csv = await ref.read(foodRepositoryProvider).exportMealHistoryCsv();
-      final directory = await getTemporaryDirectory();
-      final file = File('${directory.path}/calorify-meal-history.csv');
-      await file.writeAsString(csv);
-
-      if (!mounted) return;
-
-      await SharePlus.instance.share(
-        ShareParams(
-          files: [XFile(file.path)],
-          text: t.settings.exportMealHistory.shareText,
-          subject: t.settings.exportMealHistory.title,
-        ),
-      );
-    } catch (error) {
-      if (!mounted) return;
-      showFlushbar(
-        t.settings.exportMealHistory.failed(error: '$error'),
-        context: context,
-      );
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isExporting = false;
-        });
-      }
-    }
   }
 
   Widget _buildAppInfo() {

@@ -10,6 +10,8 @@ export 'src/protos/app/meal.pb.dart';
 export 'src/protos/app/meal.pbenum.dart';
 export 'src/protos/common/meal.pb.dart';
 export 'src/protos/common/meal.pbenum.dart';
+export 'src/protos/common/clarification.pb.dart';
+export 'src/protos/common/clarification.pbenum.dart';
 export 'src/protos/common/user.pb.dart';
 export 'src/protos/common/user.pbenum.dart';
 export 'src/protos/server/analysis.pb.dart';

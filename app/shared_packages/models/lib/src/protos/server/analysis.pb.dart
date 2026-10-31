@@ -34,14 +34,13 @@ class MealAnalysisStatus extends $pb.GeneratedMessage {
     $0.Timestamp? decomposedIngredientAt,
     $core.String? usdaEnriched,
     $0.Timestamp? usdaEnrichedAt,
-    $core.String? clarificationQuestions,
-    $0.Timestamp? clarificationQuestionsAt,
-    $core.String? clarificationResponse,
-    $0.Timestamp? clarificationResponseAt,
+    $core.String? generatedClarification,
+    $0.Timestamp? generatedClarificationAt,
     $core.String? finalResponse,
     $0.Timestamp? finalResponseAt,
     MealAnalysisStatus_AnalysisStatus? status,
     $0.Timestamp? updatedAt,
+    $core.String? failureReason,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -59,18 +58,15 @@ class MealAnalysisStatus extends $pb.GeneratedMessage {
       result.decomposedIngredientAt = decomposedIngredientAt;
     if (usdaEnriched != null) result.usdaEnriched = usdaEnriched;
     if (usdaEnrichedAt != null) result.usdaEnrichedAt = usdaEnrichedAt;
-    if (clarificationQuestions != null)
-      result.clarificationQuestions = clarificationQuestions;
-    if (clarificationQuestionsAt != null)
-      result.clarificationQuestionsAt = clarificationQuestionsAt;
-    if (clarificationResponse != null)
-      result.clarificationResponse = clarificationResponse;
-    if (clarificationResponseAt != null)
-      result.clarificationResponseAt = clarificationResponseAt;
+    if (generatedClarification != null)
+      result.generatedClarification = generatedClarification;
+    if (generatedClarificationAt != null)
+      result.generatedClarificationAt = generatedClarificationAt;
     if (finalResponse != null) result.finalResponse = finalResponse;
     if (finalResponseAt != null) result.finalResponseAt = finalResponseAt;
     if (status != null) result.status = status;
     if (updatedAt != null) result.updatedAt = updatedAt;
+    if (failureReason != null) result.failureReason = failureReason;
     return result;
   }
 
@@ -102,19 +98,17 @@ class MealAnalysisStatus extends $pb.GeneratedMessage {
     ..aOS(10, _omitFieldNames ? '' : 'usdaEnriched')
     ..aOM<$0.Timestamp>(11, _omitFieldNames ? '' : 'usdaEnrichedAt',
         subBuilder: $0.Timestamp.create)
-    ..aOS(12, _omitFieldNames ? '' : 'clarificationQuestions')
-    ..aOM<$0.Timestamp>(13, _omitFieldNames ? '' : 'clarificationQuestionsAt',
+    ..aOS(12, _omitFieldNames ? '' : 'generatedClarification')
+    ..aOM<$0.Timestamp>(13, _omitFieldNames ? '' : 'generatedClarificationAt',
         subBuilder: $0.Timestamp.create)
-    ..aOS(14, _omitFieldNames ? '' : 'clarificationResponse')
-    ..aOM<$0.Timestamp>(15, _omitFieldNames ? '' : 'clarificationResponseAt',
+    ..aOS(14, _omitFieldNames ? '' : 'finalResponse')
+    ..aOM<$0.Timestamp>(15, _omitFieldNames ? '' : 'finalResponseAt',
         subBuilder: $0.Timestamp.create)
-    ..aOS(16, _omitFieldNames ? '' : 'finalResponse')
-    ..aOM<$0.Timestamp>(17, _omitFieldNames ? '' : 'finalResponseAt',
-        subBuilder: $0.Timestamp.create)
-    ..aE<MealAnalysisStatus_AnalysisStatus>(18, _omitFieldNames ? '' : 'status',
+    ..aE<MealAnalysisStatus_AnalysisStatus>(16, _omitFieldNames ? '' : 'status',
         enumValues: MealAnalysisStatus_AnalysisStatus.values)
-    ..aOM<$0.Timestamp>(19, _omitFieldNames ? '' : 'updatedAt',
+    ..aOM<$0.Timestamp>(17, _omitFieldNames ? '' : 'updatedAt',
         subBuilder: $0.Timestamp.create)
+    ..aOS(18, _omitFieldNames ? '' : 'failureReason')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -244,84 +238,73 @@ class MealAnalysisStatus extends $pb.GeneratedMessage {
   $0.Timestamp ensureUsdaEnrichedAt() => $_ensure(10);
 
   @$pb.TagNumber(12)
-  $core.String get clarificationQuestions => $_getSZ(11);
+  $core.String get generatedClarification => $_getSZ(11);
   @$pb.TagNumber(12)
-  set clarificationQuestions($core.String value) => $_setString(11, value);
+  set generatedClarification($core.String value) => $_setString(11, value);
   @$pb.TagNumber(12)
-  $core.bool hasClarificationQuestions() => $_has(11);
+  $core.bool hasGeneratedClarification() => $_has(11);
   @$pb.TagNumber(12)
-  void clearClarificationQuestions() => $_clearField(12);
+  void clearGeneratedClarification() => $_clearField(12);
 
   @$pb.TagNumber(13)
-  $0.Timestamp get clarificationQuestionsAt => $_getN(12);
+  $0.Timestamp get generatedClarificationAt => $_getN(12);
   @$pb.TagNumber(13)
-  set clarificationQuestionsAt($0.Timestamp value) => $_setField(13, value);
+  set generatedClarificationAt($0.Timestamp value) => $_setField(13, value);
   @$pb.TagNumber(13)
-  $core.bool hasClarificationQuestionsAt() => $_has(12);
+  $core.bool hasGeneratedClarificationAt() => $_has(12);
   @$pb.TagNumber(13)
-  void clearClarificationQuestionsAt() => $_clearField(13);
+  void clearGeneratedClarificationAt() => $_clearField(13);
   @$pb.TagNumber(13)
-  $0.Timestamp ensureClarificationQuestionsAt() => $_ensure(12);
+  $0.Timestamp ensureGeneratedClarificationAt() => $_ensure(12);
 
   @$pb.TagNumber(14)
-  $core.String get clarificationResponse => $_getSZ(13);
+  $core.String get finalResponse => $_getSZ(13);
   @$pb.TagNumber(14)
-  set clarificationResponse($core.String value) => $_setString(13, value);
+  set finalResponse($core.String value) => $_setString(13, value);
   @$pb.TagNumber(14)
-  $core.bool hasClarificationResponse() => $_has(13);
+  $core.bool hasFinalResponse() => $_has(13);
   @$pb.TagNumber(14)
-  void clearClarificationResponse() => $_clearField(14);
+  void clearFinalResponse() => $_clearField(14);
 
   @$pb.TagNumber(15)
-  $0.Timestamp get clarificationResponseAt => $_getN(14);
+  $0.Timestamp get finalResponseAt => $_getN(14);
   @$pb.TagNumber(15)
-  set clarificationResponseAt($0.Timestamp value) => $_setField(15, value);
+  set finalResponseAt($0.Timestamp value) => $_setField(15, value);
   @$pb.TagNumber(15)
-  $core.bool hasClarificationResponseAt() => $_has(14);
+  $core.bool hasFinalResponseAt() => $_has(14);
   @$pb.TagNumber(15)
-  void clearClarificationResponseAt() => $_clearField(15);
+  void clearFinalResponseAt() => $_clearField(15);
   @$pb.TagNumber(15)
-  $0.Timestamp ensureClarificationResponseAt() => $_ensure(14);
+  $0.Timestamp ensureFinalResponseAt() => $_ensure(14);
 
   @$pb.TagNumber(16)
-  $core.String get finalResponse => $_getSZ(15);
+  MealAnalysisStatus_AnalysisStatus get status => $_getN(15);
   @$pb.TagNumber(16)
-  set finalResponse($core.String value) => $_setString(15, value);
+  set status(MealAnalysisStatus_AnalysisStatus value) => $_setField(16, value);
   @$pb.TagNumber(16)
-  $core.bool hasFinalResponse() => $_has(15);
+  $core.bool hasStatus() => $_has(15);
   @$pb.TagNumber(16)
-  void clearFinalResponse() => $_clearField(16);
+  void clearStatus() => $_clearField(16);
 
   @$pb.TagNumber(17)
-  $0.Timestamp get finalResponseAt => $_getN(16);
+  $0.Timestamp get updatedAt => $_getN(16);
   @$pb.TagNumber(17)
-  set finalResponseAt($0.Timestamp value) => $_setField(17, value);
+  set updatedAt($0.Timestamp value) => $_setField(17, value);
   @$pb.TagNumber(17)
-  $core.bool hasFinalResponseAt() => $_has(16);
+  $core.bool hasUpdatedAt() => $_has(16);
   @$pb.TagNumber(17)
-  void clearFinalResponseAt() => $_clearField(17);
+  void clearUpdatedAt() => $_clearField(17);
   @$pb.TagNumber(17)
-  $0.Timestamp ensureFinalResponseAt() => $_ensure(16);
+  $0.Timestamp ensureUpdatedAt() => $_ensure(16);
 
   @$pb.TagNumber(18)
-  MealAnalysisStatus_AnalysisStatus get status => $_getN(17);
+  $core.String get failureReason => $_getSZ(17);
   @$pb.TagNumber(18)
-  set status(MealAnalysisStatus_AnalysisStatus value) => $_setField(18, value);
+  set failureReason($core.String value) => $_setString(17, value);
   @$pb.TagNumber(18)
-  $core.bool hasStatus() => $_has(17);
+  $core.bool hasFailureReason() => $_has(17);
   @$pb.TagNumber(18)
-  void clearStatus() => $_clearField(18);
-
-  @$pb.TagNumber(19)
-  $0.Timestamp get updatedAt => $_getN(18);
-  @$pb.TagNumber(19)
-  set updatedAt($0.Timestamp value) => $_setField(19, value);
-  @$pb.TagNumber(19)
-  $core.bool hasUpdatedAt() => $_has(18);
-  @$pb.TagNumber(19)
-  void clearUpdatedAt() => $_clearField(19);
-  @$pb.TagNumber(19)
-  $0.Timestamp ensureUpdatedAt() => $_ensure(18);
+  void clearFailureReason() => $_clearField(18);
 }
 
 const $core.bool _omitFieldNames =

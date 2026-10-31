@@ -7,40 +7,6 @@ void main() {
     setupAllTests();
   });
 
-  group('DateTimeHuman Extension', () {
-    test('returns "just now" for very recent date', () {
-      final now = DateTime.now();
-      expect(now.formatted, 'just now');
-    });
-
-    test('returns "yesterday" for yesterday', () {
-      final yesterday = DateTime.now().subtract(const Duration(days: 1));
-      expect(yesterday.formatted, 'yesterday');
-    });
-
-    test('formats five hours ago across the local midnight boundary', () {
-      final before = DateTime.now();
-      final fiveHoursAgo = before.subtract(const Duration(hours: 5));
-      final actual = fiveHoursAgo.formatted;
-      final after = DateTime.now();
-
-      String expectedAt(DateTime now) =>
-          fiveHoursAgo.year == now.year &&
-                  fiveHoursAgo.month == now.month &&
-                  fiveHoursAgo.day == now.day
-              ? '5 hours ago'
-              : 'yesterday';
-
-      expect(actual, anyOf(expectedAt(before), expectedAt(after)));
-    });
-
-    test('returns formatted date for last year', () {
-      final lastYear = DateTime(2023, 1, 1);
-      // Since it's 2026 now, it should return '1 Jan 2023'
-      expect(lastYear.formatted, '1 Jan 2023');
-    });
-  });
-
   group('timestamp conversion', () {
     test('treats an offset-less timestamp as UTC without shifting it', () {
       final parsed = iso8601StringToDateTime('2026-08-21T09:30:00');

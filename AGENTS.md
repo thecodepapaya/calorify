@@ -5,7 +5,7 @@
 - Keep docs beside the code or workflow they describe.
 - Use `docs/plans/` for cross-component plans and `backend/docs/` for backend
   design, release, metrics, and operational notes.
-- Keep component READMEs, `backend/DEPLOYMENT.md`, `SECURITY.md`, and other
+- Keep component READMEs, `backend/DEPLOYMENT.md`, and other
   local guidance in their current locations.
 - Use one canonical doc per topic; condense superseded or duplicated plans.
 - Use lowercase kebab-case names for new docs and update the relevant index.

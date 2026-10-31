@@ -91,11 +91,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  integration_test:
-    sdk: flutter
-
   mocktail: any
-  golden_toolkit: any
   firebase_auth_mocks: any
   google_sign_in_mocks: any
 

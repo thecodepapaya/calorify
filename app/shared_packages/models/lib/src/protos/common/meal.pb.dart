@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'clarification.pb.dart' as $0;
 import 'meal.pbenum.dart';
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
@@ -502,6 +503,77 @@ class Meal extends $pb.GeneratedMessage {
   void clearMetadata() => $_clearField(7);
   @$pb.TagNumber(7)
   MealMetadata ensureMetadata() => $_ensure(5);
+}
+
+class MealPackage extends $pb.GeneratedMessage {
+  factory MealPackage({
+    Meal? meal,
+    $0.Clarifications? clarifications,
+  }) {
+    final result = create();
+    if (meal != null) result.meal = meal;
+    if (clarifications != null) result.clarifications = clarifications;
+    return result;
+  }
+
+  MealPackage._();
+
+  factory MealPackage.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MealPackage.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MealPackage',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'common'),
+      createEmptyInstance: create)
+    ..aOM<Meal>(1, _omitFieldNames ? '' : 'meal', subBuilder: Meal.create)
+    ..aOM<$0.Clarifications>(2, _omitFieldNames ? '' : 'clarifications',
+        subBuilder: $0.Clarifications.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealPackage clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealPackage copyWith(void Function(MealPackage) updates) =>
+      super.copyWith((message) => updates(message as MealPackage))
+          as MealPackage;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MealPackage create() => MealPackage._();
+  @$core.override
+  MealPackage createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MealPackage getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MealPackage>(create);
+  static MealPackage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Meal get meal => $_getN(0);
+  @$pb.TagNumber(1)
+  set meal(Meal value) => $_setField(1, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMeal() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMeal() => $_clearField(1);
+  @$pb.TagNumber(1)
+  Meal ensureMeal() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $0.Clarifications get clarifications => $_getN(1);
+  @$pb.TagNumber(2)
+  set clarifications($0.Clarifications value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasClarifications() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearClarifications() => $_clearField(2);
+  @$pb.TagNumber(2)
+  $0.Clarifications ensureClarifications() => $_ensure(1);
 }
 
 const $core.bool _omitFieldNames =

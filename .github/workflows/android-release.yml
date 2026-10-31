@@ -40,8 +40,6 @@ jobs:
           persist-credentials: false
       - name: Verify phone app
         uses: ./.github/actions/verify-phone
-      # Golden images are generated on macOS and differ at the font rasterizer
-      # level on Linux. They remain part of the local pre-release suite.
 
   release-phone:
     name: Release phone app

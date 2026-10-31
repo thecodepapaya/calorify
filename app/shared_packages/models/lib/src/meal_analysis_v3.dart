@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'protos/common/clarification.pb.dart';
+
 enum MealAnalysisV3EventKind {
   started,
   progress,
@@ -344,6 +346,7 @@ class MealAnalysisV3CompleteResult {
     required this.components,
     required this.receipt,
     this.rawJson = const {},
+    this.clarifications,
   });
 
   factory MealAnalysisV3CompleteResult.fromJson(Map<String, dynamic> json) {
@@ -386,6 +389,35 @@ class MealAnalysisV3CompleteResult {
   /// The exact COMPLETE event payload as received from the server, preserved
   /// verbatim for durable storage and later reprocessing.
   final Map<String, dynamic> rawJson;
+  final Clarifications? clarifications;
+
+  MealAnalysisV3CompleteResult withMacroDeltas({
+    double deltaCalories = 0,
+    double deltaProtein = 0,
+    double deltaCarbs = 0,
+    double deltaFat = 0,
+    double deltaFiber = 0,
+  }) {
+    final updatedMacros = MealAnalysisV3MacroPoints(
+      calories: (macros.calories + deltaCalories).clamp(0, 99999),
+      protein: (macros.protein + deltaProtein).clamp(0, 99999),
+      carbs: (macros.carbs + deltaCarbs).clamp(0, 99999),
+      fat: (macros.fat + deltaFat).clamp(0, 99999),
+      fiber: (macros.fiber + deltaFiber).clamp(0, 99999),
+    );
+    return MealAnalysisV3CompleteResult(
+      mealName: mealName,
+      servingSizeText: servingSizeText,
+      tip: tip,
+      mealType: mealType,
+      macros: updatedMacros,
+      macroRanges: macroRanges,
+      components: components,
+      receipt: receipt,
+      rawJson: rawJson,
+      clarifications: clarifications,
+    );
+  }
 }
 
 class MealAnalysisV3TerminalIssue {
@@ -393,6 +425,7 @@ class MealAnalysisV3TerminalIssue {
     required this.code,
     required this.retryable,
     required this.recoveryAction,
+    this.message,
   });
 
   factory MealAnalysisV3TerminalIssue.fromJson(Map<String, dynamic> json) {
@@ -409,12 +442,14 @@ class MealAnalysisV3TerminalIssue {
       code: _requiredString(json, 'code'),
       retryable: json['retryable'] as bool,
       recoveryAction: action,
+      message: json['message'] as String?,
     );
   }
 
   final String code;
   final bool retryable;
   final MealAnalysisV3RecoveryAction recoveryAction;
+  final String? message;
 }
 
 class MealAnalysisV3ProgressComponent {

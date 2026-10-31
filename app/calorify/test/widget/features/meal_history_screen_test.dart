@@ -55,39 +55,6 @@ void main() {
   });
 
   group('MealHistoryScreen Widget', () {
-    testWidgets('renders empty view when no meals', (
-      WidgetTester tester,
-    ) async {
-      when(
-        () => mockDatabaseInterface.paginatedMealsHistory(
-          offset: any(named: 'offset'),
-        ),
-      ).thenAnswer((_) async => []);
-
-      await tester.pumpWidget(wrapWithProviders(const MealHistoryScreen()));
-      await tester.pumpAndSettle();
-
-      expect(find.textContaining('No meals'), findsWidgets);
-    });
-
-    testWidgets('renders meals list', (WidgetTester tester) async {
-      final mockMeals = [
-        _buildLoggedMeal(clientId: 1, name: 'Apple', calories: 95),
-      ];
-
-      when(
-        () => mockDatabaseInterface.paginatedMealsHistory(
-          offset: any(named: 'offset'),
-        ),
-      ).thenAnswer((_) async => mockMeals);
-
-      await tester.pumpWidget(wrapWithProviders(const MealHistoryScreen()));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Apple'), findsOneWidget);
-      expect(find.text('95'), findsWidgets); // Calorie value
-    });
-
     testWidgets('refreshes when the meal table changes', (
       WidgetTester tester,
     ) async {

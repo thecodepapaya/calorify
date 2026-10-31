@@ -118,13 +118,17 @@ class FoodRepository {
       }
 
       if (currentStatus == pgo.MealAnalysisStatus_AnalysisStatus.FAILED) {
+        final reason = status.hasFailureReason() && status.failureReason.isNotEmpty
+            ? status.failureReason
+            : null;
         yield MealAnalysisV3Event(
           analysisId: analysisId,
           kind: MealAnalysisV3EventKind.error,
-          issue: const MealAnalysisV3TerminalIssue(
+          issue: MealAnalysisV3TerminalIssue(
             code: 'ANALYSIS_FAILED',
             retryable: true,
             recoveryAction: MealAnalysisV3RecoveryAction.retry,
+            message: reason,
           ),
         );
         return;
@@ -164,8 +168,6 @@ class FoodRepository {
   Future<Stream<MealAnalysisV3Event>> analyzeImageV3({
     required String analysisId,
     String? imageBase64,
-    String? imageId,
-    String? imageOrigin,
     required MealAnalysisV3RequestContext context,
     String? textDescription,
     NetworkRequestCancellation? cancellation,
@@ -185,24 +187,147 @@ class FoodRepository {
     );
   }
 
-  Future<Stream<MealAnalysisV3Event>> answerV3({
-    required String analysisId,
-    required MealAnalysisV3AnswerBundle bundle,
-    MealAnalysisV3RequestContext? context,
-    NetworkRequestCancellation? cancellation,
-  }) async {
-    try {
-      await _networkClient.client.post<Map<String, dynamic>>(
-        '/users/meals/analysis/$analysisId/answers',
-        data: bundle.toJson(analysisId),
-      );
-    } on Object {
-      // Backend answers endpoint is planned
+  (String?, List<MealAnalysisV3ProgressComponent>) _extractProgressComponents(
+    pgo.MealAnalysisStatus status,
+  ) {
+    String? mealName;
+    List<String> componentNames = [];
+
+    if (status.hasDecomposedComponent()) {
+      try {
+        final json = jsonDecode(status.decomposedComponent);
+        if (json is Map) {
+          mealName = json['name'] as String?;
+          if (json['components'] is List) {
+            componentNames = (json['components'] as List)
+                .whereType<Map<String, dynamic>>()
+                .map((c) => c['name']?.toString() ?? '')
+                .where((n) => n.isNotEmpty)
+                .toList();
+          }
+        }
+      } catch (_) {}
     }
-    return pollMealAnalysis(analysisId: analysisId, cancellation: cancellation);
+
+    if (mealName == null && status.hasFinalResponse()) {
+      try {
+        final decoded = jsonDecode(status.finalResponse);
+        if (decoded is Map<String, dynamic>) {
+          if (decoded['meal'] is Map<String, dynamic>) {
+            mealName = decoded['meal']['name'] as String?;
+          } else {
+            mealName = decoded['name'] as String?;
+          }
+        }
+      } catch (_) {}
+    }
+
+    List<String> ingredientNames = [];
+    if (status.hasDecomposedIngredient()) {
+      try {
+        final json = jsonDecode(status.decomposedIngredient);
+        if (json is Map && json['ingredients'] is List) {
+          ingredientNames = (json['ingredients'] as List)
+              .whereType<Map<String, dynamic>>()
+              .map((i) => i['name']?.toString() ?? '')
+              .where((n) => n.isNotEmpty)
+              .toList();
+        }
+      } catch (_) {}
+    } else if (status.hasUsdaEnriched()) {
+      try {
+        final json = jsonDecode(status.usdaEnriched);
+        if (json is Map && json['ingredients'] is List) {
+          ingredientNames = (json['ingredients'] as List)
+              .whereType<Map<String, dynamic>>()
+              .map((i) => i['name']?.toString() ?? '')
+              .where((n) => n.isNotEmpty)
+              .toList();
+        }
+      } catch (_) {}
+    }
+
+    List<MealAnalysisV3ProgressComponent> components = const [];
+
+    if (componentNames.isNotEmpty) {
+      if (ingredientNames.isEmpty) {
+        components = componentNames
+            .map(
+              (name) => MealAnalysisV3ProgressComponent(
+                componentId: name.toLowerCase().replaceAll(RegExp(r'\s+'), '_'),
+                name: name,
+                ingredientNames: const [],
+              ),
+            )
+            .toList();
+      } else {
+        final assigned = <String, List<String>>{
+          for (final c in componentNames) c: <String>[],
+        };
+        final unassigned = <String>[];
+
+        for (final ing in ingredientNames) {
+          String? matchedComp;
+          for (final c in componentNames) {
+            if (_matchesComponent(ing, c)) {
+              matchedComp = c;
+              break;
+            }
+          }
+          if (matchedComp != null) {
+            assigned[matchedComp]!.add(ing);
+          } else {
+            unassigned.add(ing);
+          }
+        }
+
+        if (unassigned.isNotEmpty && componentNames.isNotEmpty) {
+          assigned[componentNames.first]!.addAll(unassigned);
+        }
+
+        components = componentNames
+            .map(
+              (name) => MealAnalysisV3ProgressComponent(
+                componentId: name.toLowerCase().replaceAll(RegExp(r'\s+'), '_'),
+                name: name,
+                ingredientNames: assigned[name] ?? const [],
+              ),
+            )
+            .toList();
+      }
+    } else if (ingredientNames.isNotEmpty) {
+      components = ingredientNames
+          .map(
+            (name) => MealAnalysisV3ProgressComponent(
+              componentId: name.toLowerCase().replaceAll(RegExp(r'\s+'), '_'),
+              name: name,
+              ingredientNames: const [],
+            ),
+          )
+          .toList();
+    }
+
+    return (mealName, components);
+  }
+
+  bool _matchesComponent(String ingredient, String component) {
+    final ingLower = ingredient.toLowerCase();
+    final compLower = component.toLowerCase();
+    if (ingLower.contains(compLower) || compLower.contains(ingLower)) return true;
+    final compWords = compLower.split(RegExp(r'\s+')).where((w) => w.length > 2);
+    for (final word in compWords) {
+      if (ingLower.contains(word)) return true;
+    }
+    final ingWords = ingLower.split(RegExp(r'\s+')).where((w) => w.length > 2);
+    for (final word in ingWords) {
+      if (compLower.contains(word)) return true;
+    }
+    return false;
   }
 
   MealAnalysisV3Progress? _mapStatusToProgress(pgo.MealAnalysisStatus status) {
+    final (mealName, components) = _extractProgressComponents(status);
+
     switch (status.status) {
       case pgo.MealAnalysisStatus_AnalysisStatus.INITIATED:
         return const MealAnalysisV3Progress(
@@ -210,28 +335,6 @@ class FoodRepository {
           progress: 0.2,
         );
       case pgo.MealAnalysisStatus_AnalysisStatus.COMPONENT_DECOMPOSED:
-        List<MealAnalysisV3ProgressComponent> components = const [];
-        String? mealName;
-        if (status.hasDecomposedComponent()) {
-          try {
-            final json = jsonDecode(status.decomposedComponent);
-            if (json is Map) {
-              mealName = json['name'] as String?;
-              if (json['components'] is List) {
-                components =
-                    (json['components'] as List)
-                        .whereType<Map<String, dynamic>>()
-                        .map(
-                          (c) => MealAnalysisV3ProgressComponent(
-                            componentId: c['name']?.toString() ?? '',
-                            name: c['name']?.toString() ?? '',
-                          ),
-                        )
-                        .toList();
-              }
-            }
-          } catch (_) {}
-        }
         return MealAnalysisV3Progress(
           phase: MealAnalysisV3ProgressPhase.understand,
           progress: 0.45,
@@ -239,43 +342,32 @@ class FoodRepository {
           components: components,
         );
       case pgo.MealAnalysisStatus_AnalysisStatus.INGREDIENT_DECOMPOSED:
-        List<MealAnalysisV3ProgressComponent> components = const [];
-        if (status.hasDecomposedIngredient()) {
-          try {
-            final json = jsonDecode(status.decomposedIngredient);
-            if (json is Map && json['ingredients'] is List) {
-              final ingNames =
-                  (json['ingredients'] as List)
-                      .whereType<Map<String, dynamic>>()
-                      .map((i) => i['name']?.toString() ?? '')
-                      .where((n) => n.isNotEmpty)
-                      .toList();
-              if (ingNames.isNotEmpty) {
-                components = [
-                  MealAnalysisV3ProgressComponent(
-                    componentId: 'ingredients',
-                    name: ingNames.first,
-                    ingredientNames: ingNames,
-                  ),
-                ];
-              }
-            }
-          } catch (_) {}
-        }
         return MealAnalysisV3Progress(
           phase: MealAnalysisV3ProgressPhase.match,
           progress: 0.7,
+          mealName: mealName,
           components: components,
         );
       case pgo.MealAnalysisStatus_AnalysisStatus.USDA_MACRO_HYDRATED:
-        return const MealAnalysisV3Progress(
+        return MealAnalysisV3Progress(
           phase: MealAnalysisV3ProgressPhase.check,
-          progress: 0.9,
+          progress: 0.85,
+          mealName: mealName,
+          components: components,
+        );
+      case pgo.MealAnalysisStatus_AnalysisStatus.CLARIFICATION_GENERATED:
+        return MealAnalysisV3Progress(
+          phase: MealAnalysisV3ProgressPhase.check,
+          progress: 0.95,
+          mealName: mealName,
+          components: components,
         );
       case pgo.MealAnalysisStatus_AnalysisStatus.PRESENTED:
-        return const MealAnalysisV3Progress(
+        return MealAnalysisV3Progress(
           phase: MealAnalysisV3ProgressPhase.finish,
           progress: 1.0,
+          mealName: mealName,
+          components: components,
         );
       default:
         return null;
@@ -288,12 +380,36 @@ class FoodRepository {
   ) {
     Map<String, dynamic> rawJson = const {};
     final meal = pgo.Meal();
+    pgo.Clarifications? clarifications;
+
     if (status.hasFinalResponse() && status.finalResponse.isNotEmpty) {
       try {
         final decoded = jsonDecode(status.finalResponse);
         if (decoded is Map<String, dynamic>) {
           rawJson = decoded;
-          meal.mergeFromProto3Json(decoded);
+          if (decoded['meal'] is Map<String, dynamic>) {
+            meal.mergeFromProto3Json(decoded['meal'] as Map<String, dynamic>);
+          } else {
+            meal.mergeFromProto3Json(decoded);
+          }
+
+          if (decoded['clarifications'] is Map<String, dynamic>) {
+            clarifications = pgo.Clarifications()
+              ..mergeFromProto3Json(
+                decoded['clarifications'] as Map<String, dynamic>,
+              );
+          }
+        }
+      } catch (_) {}
+    }
+
+    if (clarifications == null &&
+        status.hasGeneratedClarification() &&
+        status.generatedClarification.isNotEmpty) {
+      try {
+        final clarJson = jsonDecode(status.generatedClarification);
+        if (clarJson is Map<String, dynamic>) {
+          clarifications = pgo.Clarifications()..mergeFromProto3Json(clarJson);
         }
       } catch (_) {}
     }
@@ -375,48 +491,8 @@ class FoodRepository {
       components: components,
       receipt: const {},
       rawJson: rawJson,
+      clarifications: clarifications,
     );
-  }
-
-  Future<void> logMeal({
-    required Meal meal,
-    required DateTime loggedAt,
-    String? analysisId,
-  }) async {
-    try {
-      await _networkClient.apiCall<pgo.LogMealRequest, pgo.LogMealResponse>(
-        '/users/meals',
-        pgo.LogMealResponse.new,
-        method: ProtoHttpMethod.post,
-      );
-    } on Object {
-      // Endpoint will activate once backend meal implementation is complete.
-    }
-  }
-
-  Future<void> deleteMeal({required String mealId}) async {
-    final parsedId = int.tryParse(mealId) ?? 0;
-    try {
-      await _networkClient.apiCall<pgo.GetMealRequest, pgo.Empty>(
-        '/users/meals/$parsedId',
-        pgo.Empty.new,
-        method: ProtoHttpMethod.delete,
-      );
-    } on Object {
-      // Endpoint will activate once backend meal implementation is complete.
-    }
-  }
-
-  Future<String> exportMealHistoryCsv() async {
-    try {
-      final response = await _networkClient.client.get<String>(
-        '/users/meals/export',
-        options: Options(responseType: ResponseType.plain),
-      );
-      return response.data ?? '';
-    } on Object {
-      return '';
-    }
   }
 
   Future<List<String>> getMealAnalysisTips({int? count}) async => const [];

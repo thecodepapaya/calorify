@@ -58,6 +58,7 @@ enum AnalyticsEvent {
   mealFeedbackThumbsDownSubmitted,
   mealReanalysisSucceeded,
   mealReanalysisFailed,
+  mealClarificationSubmitted,
 
   // Favorites
   favoriteAdd,

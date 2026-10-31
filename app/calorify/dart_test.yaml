@@ -1,9 +1,0 @@
-tags:
-  golden:
-    description: "Visual regression tests using golden images"
-  unit:
-    description: "Unit tests"
-  widget:
-    description: "Widget tests"
-  integration:
-    description: "Integration tests"

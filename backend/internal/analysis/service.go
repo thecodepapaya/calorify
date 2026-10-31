@@ -62,7 +62,7 @@ func (s *Service) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest)
 func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRequest) (pipelineErr error) {
 	// TODO: make this pipeline idempotent
 	bgCtx := context.Background()
-	ctx, cancel := context.WithTimeout(bgCtx, 20*time.Second)
+	ctx, cancel := context.WithTimeout(bgCtx, 30*time.Second)
 	defer cancel()
 
 	tr := otel.Tracer("meal_analysis")

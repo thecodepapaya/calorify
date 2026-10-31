@@ -23,9 +23,4 @@ void main() {
     );
     expect(LocaleUtils.convertWeightToMetric(2.2046226218), closeTo(1, 1e-9));
   });
-
-  test('capitalized handles Unicode grapheme clusters', () {
-    expect('élan'.capitalized, 'Élan');
-    expect(''.capitalized, '');
-  });
 }

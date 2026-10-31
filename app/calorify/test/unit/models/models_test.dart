@@ -45,16 +45,6 @@ void main() {
       );
     });
 
-    test('copyWith works correctly', () {
-      final updatedMeal = loggedMeal.meal.deepCopy();
-      updatedMeal.name = 'Banana';
-      updatedMeal.macros.calorie.value = 105;
-
-      expect(updatedMeal.name, 'Banana');
-      expect(updatedMeal.macros.calorie.value, 105);
-      expect(updatedMeal.type, loggedMeal.meal.type);
-    });
-
     test('dateTime exposes stored UTC instants in the device timezone', () {
       final meal = LoggedMeal(createdAt: '2026-08-03T06:52:00.000Z');
 

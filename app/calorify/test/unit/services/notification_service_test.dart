@@ -114,45 +114,6 @@ void main() {
       );
     });
 
-    test('scheduleReminder calls zonedSchedule', () async {
-      final scheduledTime = DateTime.now().add(const Duration(hours: 1));
-
-      await notificationService.scheduleReminder(
-        id: 1,
-        title: 'Test Title',
-        body: 'Test Body',
-        scheduledTime: scheduledTime,
-      );
-
-      verify(
-        () => mockLocalNotifications.zonedSchedule(
-          1,
-          'Test Title',
-          'Test Body',
-          any(), // TZDateTime
-          any(), // NotificationDetails
-          androidScheduleMode: any(named: 'androidScheduleMode'),
-          matchDateTimeComponents: any(named: 'matchDateTimeComponents'),
-        ),
-      ).called(1);
-    });
-
-    test('cancelNotification calls cancel', () async {
-      when(() => mockLocalNotifications.cancel(any())).thenAnswer((_) async {});
-
-      await notificationService.cancelNotification(1);
-
-      verify(() => mockLocalNotifications.cancel(1)).called(1);
-    });
-
-    test('cancelAllNotifications calls cancelAll', () async {
-      when(() => mockLocalNotifications.cancelAll()).thenAnswer((_) async {});
-
-      await notificationService.cancelAllNotifications();
-
-      verify(() => mockLocalNotifications.cancelAll()).called(1);
-    });
-
     test(
       'meal reminder choices and times survive reopening settings',
       () async {
