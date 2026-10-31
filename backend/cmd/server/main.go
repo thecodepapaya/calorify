@@ -38,6 +38,11 @@ func main() {
 	}
 	defer dbPool.Close()
 
+	if err := database.MigrateCalorify(ctx, dbPool); err != nil {
+		slog.Error("failed to apply database migrations", "error", err)
+		os.Exit(1)
+	}
+
 	usdaDbPool, dbErr := database.Connect(ctx, cfg.UsdaDatabaseURL)
 	if dbErr != nil {
 		slog.Error("failed to connect to USDA DB", "error", dbErr)

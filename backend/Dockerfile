@@ -66,13 +66,16 @@ RUN adduser \
     --no-create-home \
     --uid "${UID}" \
     appuser
-USER appuser
+WORKDIR /app
 
-# Copy the executable from the "build" stage.
-COPY --from=build /bin/server /bin/
+# Copy migrations and the server executable.
+COPY migrations /app/migrations
+COPY --from=build /bin/server /app/server
+
+USER appuser
 
 # Expose the port that the application listens on.
 EXPOSE 8000
 
 # What the container should run when it is started.
-ENTRYPOINT [ "/bin/server" ]
+ENTRYPOINT [ "/app/server" ]

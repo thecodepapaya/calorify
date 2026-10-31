@@ -22,7 +22,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 concurrency:
   group: calorify-backend-deploy
