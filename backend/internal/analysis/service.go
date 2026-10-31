@@ -59,7 +59,7 @@ func (s *Service) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest)
 	}, nil
 }
 
-func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRequest) {
+func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRequest) (pipelineErr error) {
 	// TODO: make this pipeline idempotent
 	bgCtx := context.Background()
 	ctx, cancel := context.WithTimeout(bgCtx, 20*time.Second)
@@ -74,16 +74,20 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 	))
 	defer span.End()
 	defer func() {
+		var reason string
 		if r := recover(); r != nil {
-			err := fmt.Errorf("pipeline panic: %v", r)
-			span.RecordError(err)
-			span.SetStatus(codes.Error, err.Error())
+			panicErr := fmt.Errorf("pipeline panic: %v", r)
+			span.RecordError(panicErr)
+			span.SetStatus(codes.Error, panicErr.Error())
 			slog.ErrorContext(ctx, "analysis pipeline panicked", "analysis_id", id, "panic", r)
+			reason = panicErr.Error()
+		} else if pipelineErr != nil {
+			reason = pipelineErr.Error()
 		}
 
 		failCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := s.MarkAnalysisFailed(failCtx, id); err != nil {
+		if err := s.MarkAnalysisFailed(failCtx, id, reason); err != nil {
 			slog.ErrorContext(ctx, "failed to mark analysis as failed in db", "analysis_id", id, "error", err)
 		}
 	}()
@@ -93,38 +97,39 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "decomposeComponents failed")
 		slog.ErrorContext(ctx, "failed to decompose meal components", "analysis_id", id, "error", err)
-		return
+		return err
 	}
 	pass2, err := s.decomposeIngredients(ctx, id, req, pass1)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "decomposeIngredients failed")
 		slog.ErrorContext(ctx, "failed to decompose meal ingredients", "analysis_id", id, "error", err)
-		return
+		return err
 	}
 	enriched, err := s.enrichUsdaMacro(ctx, id, pass2)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "enrichUsdaMacro failed")
 		slog.ErrorContext(ctx, "failed to hydrate macros from USDA DB", "analysis_id", id, "error", err)
-		return
+		return err
 	}
 	clarifications, err := s.generateClarification(ctx, id, enriched, req.GetMetaInfo().GetLocale())
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "clarification generation failed")
 		slog.ErrorContext(ctx, "failed to generate clarifications", "analysis_id", id, "error", err)
-		return
+		return err
 	}
 	_, err = s.prepareFinalResponse(ctx, id, req, pass1, enriched, clarifications)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "prepareFinalResponse failed")
 		slog.ErrorContext(ctx, "failed to prepare final response", "analysis_id", id, "error", err)
-		return
+		return err
 	}
 	span.SetStatus(codes.Ok, "completed")
 	slog.InfoContext(ctx, "analysis pipeline completed successfully", "analysis_id", id)
+	return nil
 }
 
 func validateInput(req *api.MealAnalysisRequest) error {

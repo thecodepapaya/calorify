@@ -123,4 +123,5 @@ CREATE TABLE IF NOT EXISTS meal_analysis (
 
 ALTER TABLE meal_analysis
 ADD COLUMN IF NOT EXISTS generated_clarification JSONB,
-ADD COLUMN IF NOT EXISTS generated_clarification_at TIMESTAMPTZ;
+ADD COLUMN IF NOT EXISTS generated_clarification_at TIMESTAMPTZ,
+ADD COLUMN IF NOT EXISTS failure_reason TEXT;

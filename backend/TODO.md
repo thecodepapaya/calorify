@@ -159,3 +159,8 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [x] **User Details & Health Data Endpoints**: Implemented `GET /users`, `PUT /users`, `GET /users/health-data`, and `POST /users/health-data` in `internal/api/user.go` and `internal/api/db.go`.
 - [x] **Meal Analysis Intake Endpoint**: Implemented `POST /users/meals/analysis` in `internal/api/analysis.go`.
 - [x] ~~**Legacy Fastify Route Patterns (`/api/v1/...`, `/api/v3/...`)**~~: *(Not Applicable)* The Go backend replaces legacy REST routes with a cleaner protobuf-based API surface defined in `protos/`.
+
+
+---
+- [ ] check failed analsyis case "4 roti, rice, daal". hunch - water was not matched in usda db
+- [ ] follows up from previous, add error column to analysis table
