@@ -105,7 +105,7 @@ jobs:
             --flavor=prod
             --dart-define=MEASURE_API_KEY=${{ secrets.MEASURE_API_KEY }}
           working-directory: app/calorify
-          flutter-version: "3.47.9"
+          flutter-version: "3.41.0"
 
       - name: Upload to Play Store
         run: bundle exec fastlane android release
