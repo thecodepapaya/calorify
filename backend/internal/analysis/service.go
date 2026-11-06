@@ -147,7 +147,7 @@ func validateInput(req *api.MealAnalysisRequest) error {
 
 func (s *Service) initiateAnalysis(ctx context.Context, req *api.MealAnalysisRequest) (string, error) {
 	userUid, _ := ctx.Value("user_uid").(string)
-	id, err := s.CreateNewAnalysis(ctx, userUid, req.GetText(), req.GetImageBase64())
+	id, err := s.CreateNewAnalysis(ctx, userUid, req.GetText(), req.GetImageBase64(), req.GetMetaInfo())
 	if err != nil {
 		return "", err
 	}

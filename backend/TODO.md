@@ -180,4 +180,4 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [x] follows up from previous, add error column to analysis table (`failure_reason`, written by `MarkAnalysisFailed`, surfaced in the dashboard)
 - [x] add i18n display name to components and ingredients and use them for display ([lc] name fields with English `canonical_name` for USDA matching)
 - [x] word limits on food quantity and selection of meal type (breakfast,lunch,dinner etc) (schema max-char rules + `selectMealTypeByTimezone`)
-- [ ] save request meta info (locale, country code, timezone, captured timestamp) in meal_analysis table too
+- [x] save request meta info (locale, country code, timezone, captured timestamp as local_captured_at) in meal_analysis table, populated in analysis pipeline, and propagated to analysis-history (SELECT, proto, template)

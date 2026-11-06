@@ -179,6 +179,10 @@ type AnalysisHistoryItem struct {
 	TotalDurationSec *float64               `protobuf:"fixed64,9,opt,name=total_duration_sec,json=totalDurationSec,proto3,oneof" json:"total_duration_sec,omitempty"`
 	Metadata         *MealMetadata          `protobuf:"bytes,10,opt,name=metadata,proto3" json:"metadata,omitempty"`
 	Steps            []*StepTiming          `protobuf:"bytes,11,rep,name=steps,proto3" json:"steps,omitempty"`
+	Locale           *string                `protobuf:"bytes,12,opt,name=locale,proto3,oneof" json:"locale,omitempty"`
+	CountryCode      *string                `protobuf:"bytes,13,opt,name=country_code,json=countryCode,proto3,oneof" json:"country_code,omitempty"`
+	Timezone         *string                `protobuf:"bytes,14,opt,name=timezone,proto3,oneof" json:"timezone,omitempty"`
+	LocalCapturedAt  *timestamppb.Timestamp `protobuf:"bytes,15,opt,name=local_captured_at,json=localCapturedAt,proto3,oneof" json:"local_captured_at,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -286,6 +290,34 @@ func (x *AnalysisHistoryItem) GetMetadata() *MealMetadata {
 func (x *AnalysisHistoryItem) GetSteps() []*StepTiming {
 	if x != nil {
 		return x.Steps
+	}
+	return nil
+}
+
+func (x *AnalysisHistoryItem) GetLocale() string {
+	if x != nil && x.Locale != nil {
+		return *x.Locale
+	}
+	return ""
+}
+
+func (x *AnalysisHistoryItem) GetCountryCode() string {
+	if x != nil && x.CountryCode != nil {
+		return *x.CountryCode
+	}
+	return ""
+}
+
+func (x *AnalysisHistoryItem) GetTimezone() string {
+	if x != nil && x.Timezone != nil {
+		return *x.Timezone
+	}
+	return ""
+}
+
+func (x *AnalysisHistoryItem) GetLocalCapturedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.LocalCapturedAt
 	}
 	return nil
 }
@@ -576,7 +608,7 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\bquantity\x18\x02 \x01(\tR\bquantity\x12\x1b\n" +
 	"\tmeal_type\x18\x03 \x01(\tR\bmealType\x12!\n" +
 	"\fhealth_score\x18\x04 \x01(\tR\vhealthScore\x12'\n" +
-	"\x0fcomponent_count\x18\x05 \x01(\x05R\x0ecomponentCount\"\xe1\x03\n" +
+	"\x0fcomponent_count\x18\x05 \x01(\x05R\x0ecomponentCount\"\xd3\x05\n" +
 	"\x13AnalysisHistoryItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\buser_uid\x18\x02 \x01(\tR\auserUid\x129\n" +
@@ -590,10 +622,18 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\x12total_duration_sec\x18\t \x01(\x01H\x02R\x10totalDurationSec\x88\x01\x01\x12-\n" +
 	"\bmetadata\x18\n" +
 	" \x01(\v2\x11.api.MealMetadataR\bmetadata\x12%\n" +
-	"\x05steps\x18\v \x03(\v2\x0f.api.StepTimingR\x05stepsB\x11\n" +
+	"\x05steps\x18\v \x03(\v2\x0f.api.StepTimingR\x05steps\x12\x1b\n" +
+	"\x06locale\x18\f \x01(\tH\x03R\x06locale\x88\x01\x01\x12&\n" +
+	"\fcountry_code\x18\r \x01(\tH\x04R\vcountryCode\x88\x01\x01\x12\x1f\n" +
+	"\btimezone\x18\x0e \x01(\tH\x05R\btimezone\x88\x01\x01\x12K\n" +
+	"\x11local_captured_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampH\x06R\x0flocalCapturedAt\x88\x01\x01B\x11\n" +
 	"\x0f_failure_reasonB\x11\n" +
 	"\x0f_failed_at_stepB\x15\n" +
-	"\x13_total_duration_sec\"\xd6\x04\n" +
+	"\x13_total_duration_secB\t\n" +
+	"\a_localeB\x0f\n" +
+	"\r_country_codeB\v\n" +
+	"\t_timezoneB\x14\n" +
+	"\x12_local_captured_at\"\xd6\x04\n" +
 	"\x16AnalysisHistorySummary\x12\x1d\n" +
 	"\n" +
 	"time_range\x18\x01 \x01(\tR\ttimeRange\x12%\n" +
@@ -661,15 +701,16 @@ var file_protos_api_analysis_history_proto_depIdxs = []int32{
 	8, // 0: api.AnalysisHistoryItem.created_at:type_name -> google.protobuf.Timestamp
 	1, // 1: api.AnalysisHistoryItem.metadata:type_name -> api.MealMetadata
 	0, // 2: api.AnalysisHistoryItem.steps:type_name -> api.StepTiming
-	6, // 3: api.AnalysisHistorySummary.avg_step_durations_sec:type_name -> api.AnalysisHistorySummary.AvgStepDurationsSecEntry
-	7, // 4: api.AnalysisHistorySummary.failures_by_step:type_name -> api.AnalysisHistorySummary.FailuresByStepEntry
-	3, // 5: api.AnalysisHistoryResponse.summary:type_name -> api.AnalysisHistorySummary
-	2, // 6: api.AnalysisHistoryResponse.items:type_name -> api.AnalysisHistoryItem
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+	8, // 3: api.AnalysisHistoryItem.local_captured_at:type_name -> google.protobuf.Timestamp
+	6, // 4: api.AnalysisHistorySummary.avg_step_durations_sec:type_name -> api.AnalysisHistorySummary.AvgStepDurationsSecEntry
+	7, // 5: api.AnalysisHistorySummary.failures_by_step:type_name -> api.AnalysisHistorySummary.FailuresByStepEntry
+	3, // 6: api.AnalysisHistoryResponse.summary:type_name -> api.AnalysisHistorySummary
+	2, // 7: api.AnalysisHistoryResponse.items:type_name -> api.AnalysisHistoryItem
+	8, // [8:8] is the sub-list for method output_type
+	8, // [8:8] is the sub-list for method input_type
+	8, // [8:8] is the sub-list for extension type_name
+	8, // [8:8] is the sub-list for extension extendee
+	0, // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_protos_api_analysis_history_proto_init() }

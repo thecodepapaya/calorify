@@ -7,21 +7,41 @@ import (
 	"log/slog"
 	"time"
 
+	"backend/internal/gen_proto/api"
 	"backend/internal/gen_proto/common"
 	"backend/internal/gen_proto/server"
 
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-func (s *Service) CreateNewAnalysis(ctx context.Context, userUid string, text string, image_base64 string) (string, error) {
+func (s *Service) CreateNewAnalysis(ctx context.Context, userUid string, text string, image_base64 string, meta *api.MetaInfo) (string, error) {
 	var id string
+	var locale, countryCode, timezone *string
+	var localCapturedAt *time.Time
+
+	if meta != nil {
+		if l := meta.GetLocale(); l != "" {
+			locale = &l
+		}
+		if c := meta.GetCountryCode(); c != "" {
+			countryCode = &c
+		}
+		if tz := meta.GetTimezone(); tz != "" {
+			timezone = &tz
+		}
+		if ts := meta.GetTimestamp(); ts != nil && ts.IsValid() {
+			t := ts.AsTime()
+			localCapturedAt = &t
+		}
+	}
+
 	const query = `
 	INSERT INTO meal_analysis (
-		user_uid, text, image_base64
+		user_uid, text, image_base64, locale, country_code, timezone, local_captured_at
 	) VALUES (
-		$1, $2, $3
+		$1, $2, $3, $4, $5, $6, $7
 	) RETURNING id`
-	err := s.DB.QueryRow(ctx, query, userUid, text, image_base64).Scan(&id)
+	err := s.DB.QueryRow(ctx, query, userUid, text, image_base64, locale, countryCode, timezone, localCapturedAt).Scan(&id)
 	if err != nil {
 		return "", err
 	}

@@ -131,11 +131,52 @@ const AnalysisHistoryItem$json = {
       '6': '.api.StepTiming',
       '10': 'steps'
     },
+    {
+      '1': 'locale',
+      '3': 12,
+      '4': 1,
+      '5': 9,
+      '9': 3,
+      '10': 'locale',
+      '17': true
+    },
+    {
+      '1': 'country_code',
+      '3': 13,
+      '4': 1,
+      '5': 9,
+      '9': 4,
+      '10': 'countryCode',
+      '17': true
+    },
+    {
+      '1': 'timezone',
+      '3': 14,
+      '4': 1,
+      '5': 9,
+      '9': 5,
+      '10': 'timezone',
+      '17': true
+    },
+    {
+      '1': 'local_captured_at',
+      '3': 15,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '9': 6,
+      '10': 'localCapturedAt',
+      '17': true
+    },
   ],
   '8': [
     {'1': '_failure_reason'},
     {'1': '_failed_at_step'},
     {'1': '_total_duration_sec'},
+    {'1': '_locale'},
+    {'1': '_country_code'},
+    {'1': '_timezone'},
+    {'1': '_local_captured_at'},
   ],
 };
 
@@ -148,8 +189,13 @@ final $typed_data.Uint8List analysisHistoryItemDescriptor = $convert.base64Decod
     'Ug1mYWlsdXJlUmVhc29uiAEBEikKDmZhaWxlZF9hdF9zdGVwGAggASgJSAFSDGZhaWxlZEF0U3'
     'RlcIgBARIxChJ0b3RhbF9kdXJhdGlvbl9zZWMYCSABKAFIAlIQdG90YWxEdXJhdGlvblNlY4gB'
     'ARItCghtZXRhZGF0YRgKIAEoCzIRLmFwaS5NZWFsTWV0YWRhdGFSCG1ldGFkYXRhEiUKBXN0ZX'
-    'BzGAsgAygLMg8uYXBpLlN0ZXBUaW1pbmdSBXN0ZXBzQhEKD19mYWlsdXJlX3JlYXNvbkIRCg9f'
-    'ZmFpbGVkX2F0X3N0ZXBCFQoTX3RvdGFsX2R1cmF0aW9uX3NlYw==');
+    'BzGAsgAygLMg8uYXBpLlN0ZXBUaW1pbmdSBXN0ZXBzEhsKBmxvY2FsZRgMIAEoCUgDUgZsb2Nh'
+    'bGWIAQESJgoMY291bnRyeV9jb2RlGA0gASgJSARSC2NvdW50cnlDb2RliAEBEh8KCHRpbWV6b2'
+    '5lGA4gASgJSAVSCHRpbWV6b25liAEBEksKEWxvY2FsX2NhcHR1cmVkX2F0GA8gASgLMhouZ29v'
+    'Z2xlLnByb3RvYnVmLlRpbWVzdGFtcEgGUg9sb2NhbENhcHR1cmVkQXSIAQFCEQoPX2ZhaWx1cm'
+    'VfcmVhc29uQhEKD19mYWlsZWRfYXRfc3RlcEIVChNfdG90YWxfZHVyYXRpb25fc2VjQgkKB19s'
+    'b2NhbGVCDwoNX2NvdW50cnlfY29kZUILCglfdGltZXpvbmVCFAoSX2xvY2FsX2NhcHR1cmVkX2'
+    'F0');
 
 @$core.Deprecated('Use analysisHistorySummaryDescriptor instead')
 const AnalysisHistorySummary$json = {

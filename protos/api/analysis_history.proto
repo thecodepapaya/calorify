@@ -22,17 +22,21 @@ message MealMetadata {
 }
 
 message AnalysisHistoryItem {
-  string                    id                 = 1;
-  string                    user_uid           = 2;
-  google.protobuf.Timestamp created_at         = 3;
-  string                    status             = 4;
-  string                    text               = 5;
-  bool                      has_image          = 6;
-  optional string           failure_reason     = 7;
-  optional string           failed_at_step     = 8;
-  optional double           total_duration_sec = 9;
-  MealMetadata              metadata           = 10;
-  repeated StepTiming       steps              = 11;
+  string                             id                 = 1;
+  string                             user_uid           = 2;
+  google.protobuf.Timestamp          created_at         = 3;
+  string                             status             = 4;
+  string                             text               = 5;
+  bool                               has_image          = 6;
+  optional string                    failure_reason     = 7;
+  optional string                    failed_at_step     = 8;
+  optional double                    total_duration_sec = 9;
+  MealMetadata                       metadata           = 10;
+  repeated StepTiming                steps              = 11;
+  optional string                    locale             = 12;
+  optional string                    country_code       = 13;
+  optional string                    timezone           = 14;
+  optional google.protobuf.Timestamp local_captured_at  = 15;
 }
 
 message AnalysisHistorySummary {

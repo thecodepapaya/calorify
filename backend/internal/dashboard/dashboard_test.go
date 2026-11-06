@@ -33,6 +33,11 @@ func TestDashboardHandler(t *testing.T) {
 	usdaTime := "15:04:08"
 	finalTime := "15:04:08"
 
+	sampleLocale := "en-US"
+	sampleCountry := "US"
+	sampleTz := "America/New_York"
+	sampleCaptured := timestamppb.New(time.Date(2026, 11, 6, 9, 58, 0, 0, time.UTC))
+
 	sampleItem := &api.AnalysisHistoryItem{
 		Id:               "f47ac10b-58cc-4372-a567-0e02b2c3d479",
 		UserUid:          "user_12345678",
@@ -41,6 +46,10 @@ func TestDashboardHandler(t *testing.T) {
 		Text:             "2 rotis with dal and salad",
 		HasImage:         true,
 		TotalDurationSec: &totalDur,
+		Locale:           &sampleLocale,
+		CountryCode:      &sampleCountry,
+		Timezone:         &sampleTz,
+		LocalCapturedAt:  sampleCaptured,
 		Metadata: &api.MealMetadata{
 			Name:           "Roti and Dal",
 			Quantity:       "2 pieces",
@@ -124,6 +133,10 @@ func TestDashboardHandler(t *testing.T) {
 		"Roti and Dal",
 		"LLM connection timeout",
 		"at Pass 1 (Components)",
+		"en-US",
+		"US",
+		"America/New_York",
+		"Captured: Nov 06, 09:58:00",
 	}
 
 	for _, s := range expectedStrings {

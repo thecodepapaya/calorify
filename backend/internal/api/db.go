@@ -549,7 +549,11 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 		usda_enriched_at,
 		generated_clarification_at,
 		final_response_at,
-		updated_at
+		updated_at,
+		locale,
+		country_code,
+		timezone,
+		local_captured_at
 	FROM meal_analysis
 	%s
 	ORDER BY created_at DESC
@@ -567,8 +571,8 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 		item := &api.AnalysisHistoryItem{
 			Metadata: &api.MealMetadata{},
 		}
-		var failReason sql.NullString
-		var p1At, p2At, usdaAt, clarifAt, finalAt, updated sql.NullTime
+		var failReason, locale, countryCode, timezone sql.NullString
+		var p1At, p2At, usdaAt, clarifAt, finalAt, updated, localCapturedAt sql.NullTime
 		var createdAt time.Time
 
 		err := rows.Scan(
@@ -590,6 +594,10 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 			&clarifAt,
 			&finalAt,
 			&updated,
+			&locale,
+			&countryCode,
+			&timezone,
+			&localCapturedAt,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan meal analysis row: %w", err)
@@ -598,6 +606,18 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 
 		if failReason.Valid && failReason.String != "" {
 			item.FailureReason = &failReason.String
+		}
+		if locale.Valid && locale.String != "" {
+			item.Locale = &locale.String
+		}
+		if countryCode.Valid && countryCode.String != "" {
+			item.CountryCode = &countryCode.String
+		}
+		if timezone.Valid && timezone.String != "" {
+			item.Timezone = &timezone.String
+		}
+		if localCapturedAt.Valid {
+			item.LocalCapturedAt = timestamppb.New(localCapturedAt.Time)
 		}
 
 		steps := make([]*api.StepTiming, 0, 5)

@@ -222,6 +222,10 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
     $core.double? totalDurationSec,
     MealMetadata? metadata,
     $core.Iterable<StepTiming>? steps,
+    $core.String? locale,
+    $core.String? countryCode,
+    $core.String? timezone,
+    $0.Timestamp? localCapturedAt,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -235,6 +239,10 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
     if (totalDurationSec != null) result.totalDurationSec = totalDurationSec;
     if (metadata != null) result.metadata = metadata;
     if (steps != null) result.steps.addAll(steps);
+    if (locale != null) result.locale = locale;
+    if (countryCode != null) result.countryCode = countryCode;
+    if (timezone != null) result.timezone = timezone;
+    if (localCapturedAt != null) result.localCapturedAt = localCapturedAt;
     return result;
   }
 
@@ -265,6 +273,11 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
         subBuilder: MealMetadata.create)
     ..pPM<StepTiming>(11, _omitFieldNames ? '' : 'steps',
         subBuilder: StepTiming.create)
+    ..aOS(12, _omitFieldNames ? '' : 'locale')
+    ..aOS(13, _omitFieldNames ? '' : 'countryCode')
+    ..aOS(14, _omitFieldNames ? '' : 'timezone')
+    ..aOM<$0.Timestamp>(15, _omitFieldNames ? '' : 'localCapturedAt',
+        subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -382,6 +395,44 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(11)
   $pb.PbList<StepTiming> get steps => $_getList(10);
+
+  @$pb.TagNumber(12)
+  $core.String get locale => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set locale($core.String value) => $_setString(11, value);
+  @$pb.TagNumber(12)
+  $core.bool hasLocale() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearLocale() => $_clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.String get countryCode => $_getSZ(12);
+  @$pb.TagNumber(13)
+  set countryCode($core.String value) => $_setString(12, value);
+  @$pb.TagNumber(13)
+  $core.bool hasCountryCode() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearCountryCode() => $_clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get timezone => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set timezone($core.String value) => $_setString(13, value);
+  @$pb.TagNumber(14)
+  $core.bool hasTimezone() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearTimezone() => $_clearField(14);
+
+  @$pb.TagNumber(15)
+  $0.Timestamp get localCapturedAt => $_getN(14);
+  @$pb.TagNumber(15)
+  set localCapturedAt($0.Timestamp value) => $_setField(15, value);
+  @$pb.TagNumber(15)
+  $core.bool hasLocalCapturedAt() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearLocalCapturedAt() => $_clearField(15);
+  @$pb.TagNumber(15)
+  $0.Timestamp ensureLocalCapturedAt() => $_ensure(14);
 }
 
 class AnalysisHistorySummary extends $pb.GeneratedMessage {

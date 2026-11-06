@@ -576,13 +576,27 @@
           {{range .Items}}
           <tr>
             <!-- Time / Request -->
-            <td style="white-space: nowrap; max-width: 260px;">
+            <td style="white-space: nowrap; max-width: 280px;">
               <div style="font-weight: 600; color: var(--text);">{{fmtTimestamp .CreatedAt}}</div>
-              <div style="display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+              {{if .LocalCapturedAt}}
+                <div style="font-size: 0.72rem; color: var(--text-dim); margin-top: 1px;" title="User Local Capture Time">
+                  Captured: {{fmtTimestamp .LocalCapturedAt}}
+                </div>
+              {{end}}
+              <div style="display: flex; align-items: center; gap: 5px; margin-top: 4px; flex-wrap: wrap;">
                 {{if .HasImage}}
                   <span class="badge badge-tag">📷 Image</span>
                 {{else}}
                   <span class="badge badge-tag">📝 Text</span>
+                {{end}}
+                {{if .CountryCode}}
+                  <span class="badge badge-tag" title="Country: {{.CountryCode}}">📍 {{.CountryCode}}</span>
+                {{end}}
+                {{if .Locale}}
+                  <span class="badge badge-tag" title="Locale: {{.Locale}}">🌐 {{.Locale}}</span>
+                {{end}}
+                {{if .Timezone}}
+                  <span class="badge badge-tag" title="Timezone: {{.Timezone}}">🕒 {{.Timezone}}</span>
                 {{end}}
                 <span style="font-size: 0.7rem; color: var(--text-dim); font-family: var(--mono);">
                   {{if .UserUid}}{{printf "%.8s" .UserUid}}{{else}}anon{{end}}
