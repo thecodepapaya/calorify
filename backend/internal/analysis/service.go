@@ -1,15 +1,17 @@
 package analysis
 
 import (
-	"backend/internal/gen_proto/api"
-	"backend/internal/gen_proto/common"
-	"backend/internal/gen_proto/server"
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"log/slog"
 	"slices"
 	"time"
+
+	"backend/internal/gen_proto/api"
+	"backend/internal/gen_proto/common"
+	"backend/internal/gen_proto/server"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/openai/openai-go"
@@ -20,7 +22,6 @@ import (
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
-	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type Service struct {
@@ -28,18 +29,6 @@ type Service struct {
 	UsdaDB    *pgxpool.Pool
 	LlmClient *openai.Client
 	OllamaURL string
-	// Model overrides the LLM used by the two decomposition passes. An empty
-	// value falls back to the production default, so evaluation harnesses can
-	// compare models without changing production behavior.
-	Model string
-}
-
-// modelName reports the model the decomposition passes call.
-func (s *Service) modelName() string {
-	if s.Model != "" {
-		return s.Model
-	}
-	return llm_model
 }
 
 func New(db *pgxpool.Pool, usdaDB *pgxpool.Pool, apiKey string, ollamaURL string) *Service {
@@ -49,7 +38,6 @@ func New(db *pgxpool.Pool, usdaDB *pgxpool.Pool, apiKey string, ollamaURL string
 		UsdaDB:    usdaDB,
 		LlmClient: &client,
 		OllamaURL: ollamaURL,
-		Model:     llm_model,
 	}
 
 	return &service
@@ -166,10 +154,10 @@ func (s *Service) initiateAnalysis(ctx context.Context, req *api.MealAnalysisReq
 	return id, nil
 }
 
-// Pass1Raw issues the pass-1 structured-output request and returns the raw
-// model JSON. It performs no persistence, so evaluation harnesses can exercise
-// the exact production prompt, schema, and model without writing analysis rows.
-func (s *Service) Pass1Raw(ctx context.Context, req *api.MealAnalysisRequest) (string, error) {
+func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.MealAnalysisRequest) (*Pass1DTO, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_components")
+	defer span.End()
+
 	var parts []openai.ChatCompletionContentPartUnionParam
 	contextHeader := buildContextPrefix(req)
 	if contextHeader != "" {
@@ -186,7 +174,7 @@ func (s *Service) Pass1Raw(ctx context.Context, req *api.MealAnalysisRequest) (s
 	}
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 		ReasoningEffort: shared.ReasoningEffortLow,
-		Model:           openai.ChatModel(s.modelName()),
+		Model:           openai.ChatModel(llm_model),
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(pass1Prompt),
 			openai.UserMessage(parts),
@@ -202,27 +190,20 @@ func (s *Service) Pass1Raw(ctx context.Context, req *api.MealAnalysisRequest) (s
 		},
 	})
 	if err != nil {
-		return "", err
-	}
-	if len(res.Choices) == 0 {
-		return "", fmt.Errorf("pass 1 returned no choices")
-	}
-	return res.Choices[0].Message.Content, nil
-}
-
-func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.MealAnalysisRequest) (*server.Pass1, error) {
-	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_components")
-	defer span.End()
-
-	rawJson, err := s.Pass1Raw(ctx, req)
-	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		slog.ErrorContext(ctx, "failed to call LLM for decomposed components", "analysis_id", id, "error", err)
 		return nil, err
 	}
+	if len(res.Choices) == 0 {
+		err := fmt.Errorf("pass 1 returned no choices")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		return nil, err
+	}
 
-	pass1, err := parsePass1Response(rawJson)
+	rawJson := res.Choices[0].Message.Content
+	pass1, err := ParsePass1(rawJson)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
@@ -231,7 +212,7 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	}
 	span.SetAttributes(
 		attribute.String("meal.name", pass1.Name),
-		attribute.String("meal.type", pass1.GetMealType().String()),
+		attribute.String("meal.type", pass1.MealType),
 		attribute.Int("components.count", len(pass1.Components)),
 	)
 
@@ -246,24 +227,26 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	return pass1, nil
 }
 
-// Pass2Raw issues the pass-2 structured-output request for an already-parsed
-// pass-1 result and returns the raw model JSON. It performs no persistence, so
-// evaluation harnesses can exercise the exact production prompt, schema, and
-// model without writing analysis rows.
-func (s *Service) Pass2Raw(ctx context.Context, req *api.MealAnalysisRequest, pass1 *server.Pass1) (string, error) {
-	str, err := protojson.Marshal(pass1)
+func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *Pass1DTO) (*Pass2DTO, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_ingredients")
+	defer span.End()
+
+	data, err := json.Marshal(pass1)
 	if err != nil {
-		return "", err
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		slog.ErrorContext(ctx, "failed to marshal pass1 for decomposition", "analysis_id", id, "error", err)
+		return nil, err
 	}
 
-	userContent := string(str)
+	userContent := string(data)
 	if prefix := buildContextPrefix(req); prefix != "" {
 		userContent = prefix + "\n\n" + userContent
 	}
 
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 		ReasoningEffort: shared.ReasoningEffortLow,
-		Model:           openai.ChatModel(s.modelName()),
+		Model:           openai.ChatModel(llm_model),
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(pass2Prompt),
 			openai.UserMessage(userContent),
@@ -279,27 +262,20 @@ func (s *Service) Pass2Raw(ctx context.Context, req *api.MealAnalysisRequest, pa
 		},
 	})
 	if err != nil {
-		return "", err
-	}
-	if len(res.Choices) == 0 {
-		return "", fmt.Errorf("pass 2 returned no choices")
-	}
-	return res.Choices[0].Message.Content, nil
-}
-
-func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1) (*server.Pass2, error) {
-	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_ingredients")
-	defer span.End()
-
-	rawJson, err := s.Pass2Raw(ctx, req, pass1)
-	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		slog.ErrorContext(ctx, "failed to call LLM for decomposed ingredients", "analysis_id", id, "error", err)
 		return nil, err
 	}
+	if len(res.Choices) == 0 {
+		err := fmt.Errorf("pass 2 returned no choices")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		return nil, err
+	}
 
-	pass2, err := parsePass2Response(rawJson)
+	rawJson := res.Choices[0].Message.Content
+	pass2, err := ParsePass2(rawJson)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
@@ -320,13 +296,13 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 	return pass2, nil
 }
 
-func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.Pass2) (*server.UsdaEnriched, error) {
+func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *Pass2DTO) (*server.UsdaEnriched, error) {
 	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "enrich_usda_macro")
 	defer span.End()
 
 	var ingredients []string
 	for _, ing := range pass2.Ingredients {
-		ingredients = append(ingredients, embeddingQueryPrefix+ing.Name)
+		ingredients = append(ingredients, "task: search result | query: "+ing.Name)
 	}
 	embeddings, err := s.getEmbeddings(ctx, ingredients)
 	if err != nil {
@@ -344,7 +320,7 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 	for i := range embeddings {
 		i := i
 		g.Go(func() error {
-			candidate, err := s.searchUsda(gCtx, formatVector(embeddings[i]), pass2.Ingredients[i].IngredientType)
+			candidate, err := s.searchUsda(gCtx, formatVector(embeddings[i]), pass2.Ingredients[i].ServerIngredientType())
 			if err != nil {
 				span.RecordError(err)
 				span.SetStatus(codes.Error, err.Error())
@@ -357,7 +333,7 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 				slog.WarnContext(gCtx, "no usda candidate found for ingredient", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name)
 				return err
 			}
-			enrichedIngredient[i] = ingredientCandidateToEnriched(pass2.Ingredients[i], candidate)
+			enrichedIngredient[i] = ingredientCandidateToEnriched(&pass2.Ingredients[i], candidate)
 			return nil
 		})
 	}
@@ -413,7 +389,7 @@ func (s *Service) generateClarification(ctx context.Context, id string, enriched
 	return mealClarification, nil
 }
 
-func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *server.Pass1, enriched *server.UsdaEnriched, clarifications *common.Clarifications) (*common.MealPackage, error) {
+func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *Pass1DTO, enriched *server.UsdaEnriched, clarifications *common.Clarifications) (*common.MealPackage, error) {
 	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "prepare_final_response")
 	defer span.End()
 
@@ -423,14 +399,14 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 	}
 	mealTime := captureTime.Format(time.RFC3339)
 
-	mealType := selectMealTypeByTimezone(captureTime, req.GetMetaInfo().GetTimezone(), pass1.GetMealType())
+	mealType := selectMealTypeByTimezone(captureTime, req.GetMetaInfo().GetTimezone(), pass1.MealTypeEnum())
 
 	meal := &common.Meal{
 		Name:     pass1.Name,
 		Quantity: pass1.Quantity,
 		Type:     mealType,
 		Macros:   enriched.TotalMacros,
-		Health:   pass1.MealHealth,
+		Health:   pass1.MealHealth.ToCommon(),
 		Metadata: &common.MealMetadata{
 			ImageBase64:     req.ImageBase64,
 			MealDescription: req.Text,

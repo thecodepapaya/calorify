@@ -1,12 +1,14 @@
 package analysis
 
 import (
-	"backend/internal/gen_proto/common"
-	"backend/internal/gen_proto/server"
 	"context"
+	"encoding/json"
 	"fmt"
 	"log/slog"
 	"time"
+
+	"backend/internal/gen_proto/common"
+	"backend/internal/gen_proto/server"
 
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -26,9 +28,9 @@ func (s *Service) CreateNewAnalysis(ctx context.Context, userUid string, text st
 	return id, nil
 }
 
-func (s *Service) SaveMealComponent(ctx context.Context, id string, pass1 *server.Pass1) error {
+func (s *Service) SaveMealComponent(ctx context.Context, id string, pass1 *Pass1DTO) error {
 	now := time.Now()
-	json, err := protojson.Marshal(pass1)
+	data, err := json.Marshal(pass1)
 	if err != nil {
 		return err
 	}
@@ -37,16 +39,16 @@ func (s *Service) SaveMealComponent(ctx context.Context, id string, pass1 *serve
 	SET decomposed_component = $2, decomposed_component_at = $3, updated_at = $4, status = 'COMPONENT_DECOMPOSED'
 	WHERE id = $1
 	`
-	_, err = s.DB.Exec(ctx, query, id, json, now, now)
+	_, err = s.DB.Exec(ctx, query, id, data, now, now)
 	if err != nil {
 		return fmt.Errorf("failed to update meal component: %w", err)
 	}
 	return nil
 }
 
-func (s *Service) SaveMealIngredient(ctx context.Context, id string, pass2 *server.Pass2) error {
+func (s *Service) SaveMealIngredient(ctx context.Context, id string, pass2 *Pass2DTO) error {
 	now := time.Now()
-	json, err := protojson.Marshal(pass2)
+	data, err := json.Marshal(pass2)
 	if err != nil {
 		return err
 	}
@@ -55,7 +57,7 @@ func (s *Service) SaveMealIngredient(ctx context.Context, id string, pass2 *serv
 	SET decomposed_ingredient = $2, decomposed_ingredient_at = $3, updated_at = $4, status = 'INGREDIENT_DECOMPOSED'
 	WHERE id = $1
 	`
-	_, err = s.DB.Exec(ctx, query, id, json, now, now)
+	_, err = s.DB.Exec(ctx, query, id, data, now, now)
 	if err != nil {
 		return fmt.Errorf("failed to update meal ingredient: %w", err)
 	}
@@ -81,25 +83,6 @@ func (s *Service) SaveUsdaEnriched(ctx context.Context, id string, enriched *ser
 }
 
 func (s *Service) searchUsda(ctx context.Context, vectorStr string, ingredientType server.IngredientType) (*UsdaCandidate, error) {
-	rowsData, err := s.SearchUsdaTopK(ctx, vectorStr, ingredientType, 1)
-	if err != nil {
-		return nil, err
-	}
-	if len(rowsData) == 0 {
-		return nil, nil
-	}
-	return rowsData[0], nil
-}
-
-// SearchUsdaTopK returns the k nearest USDA rows for an embedded query using
-// the production ordering: base ingredients prefer non-branded rows and
-// branded ingredients prefer branded rows, with cosine distance breaking ties.
-// The evaluation harness uses k > 1 to measure top-k retrieval; the pipeline
-// uses k = 1.
-func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredientType server.IngredientType, k int) ([]*UsdaCandidate, error) {
-	if k < 1 {
-		return nil, fmt.Errorf("top-k must be at least 1, got %d", k)
-	}
 	var query string
 	if ingredientType == server.IngredientType_BASE {
 		// Prefer foundation, SR legacy, and survey foods over branded products
@@ -118,7 +101,7 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 			FROM usda_foods
 			WHERE (data_type IS NULL OR data_type != 'branded_food') AND embedding IS NOT NULL
 			ORDER BY embedding <=> $1::vector ASC
-			LIMIT $2
+			LIMIT 1
 		),
 		branded_matches AS (
 			SELECT
@@ -134,7 +117,7 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 			FROM usda_foods
 			WHERE data_type = 'branded_food' AND embedding IS NOT NULL
 			ORDER BY embedding <=> $1::vector ASC
-			LIMIT $2
+			LIMIT 1
 		)
 		SELECT
 			fdc_id,
@@ -151,7 +134,7 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 			SELECT * FROM branded_matches
 		) combined
 		ORDER BY priority ASC, similarity DESC
-		LIMIT $2;
+		LIMIT 1;
 		`
 	} else {
 		// Prefer branded foods if tagged as BRANDED
@@ -170,7 +153,7 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 			FROM usda_foods
 			WHERE data_type = 'branded_food' AND embedding IS NOT NULL
 			ORDER BY embedding <=> $1::vector ASC
-			LIMIT $2
+			LIMIT 1
 		),
 		base_matches AS (
 			SELECT
@@ -186,7 +169,7 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 			FROM usda_foods
 			WHERE (data_type IS NULL OR data_type != 'branded_food') AND embedding IS NOT NULL
 			ORDER BY embedding <=> $1::vector ASC
-			LIMIT $2
+			LIMIT 1
 		)
 		SELECT
 			fdc_id,
@@ -203,10 +186,10 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 			SELECT * FROM base_matches
 		) combined
 		ORDER BY priority ASC, similarity DESC
-		LIMIT $2;
+		LIMIT 1;
 		`
 	}
-	rows, err := s.UsdaDB.Query(ctx, query, vectorStr, k)
+	rows, err := s.UsdaDB.Query(ctx, query, vectorStr)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +217,11 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 		return nil, fmt.Errorf("failed to iterate usda rows: %w", err)
 	}
 
-	return rowsData, nil
+	if len(rowsData) == 0 {
+		return nil, nil
+	}
+
+	return rowsData[0], nil
 }
 
 func (s *Service) SaveGeneratedClarification(ctx context.Context, id string, clarification *common.Clarifications) error {

@@ -24,28 +24,6 @@ var ErrorLargeImage = errors.New("Max supported image size 500KiB")
 const llm_model = "gpt-6-luna"
 const EmbeddingModel = "embeddinggemma-2"
 
-// embeddingQueryPrefix is prepended to every USDA retrieval query before
-// embedding. Both the pipeline and the evaluation harness use it so measured
-// retrieval matches production.
-const embeddingQueryPrefix = "task: search result | query: "
-
-// ModelName reports the LLM model the analysis passes call. Evaluation
-// harnesses report it alongside their results.
-func ModelName() string { return llm_model }
-
-// SearchUsdaByText embeds text with the production embedding model and query
-// prefix, then returns the k nearest USDA rows using the production ordering.
-func (s *Service) SearchUsdaByText(ctx context.Context, text string, ingredientType server.IngredientType, k int) ([]*UsdaCandidate, error) {
-	vectors, err := s.getEmbeddings(ctx, []string{embeddingQueryPrefix + text})
-	if err != nil {
-		return nil, err
-	}
-	if len(vectors) != 1 {
-		return nil, fmt.Errorf("expected 1 embedding for %q, got %d", text, len(vectors))
-	}
-	return s.SearchUsdaTopK(ctx, formatVector(vectors[0]), ingredientType, k)
-}
-
 func (s *Service) getEmbeddings(ctx context.Context, texts []string) ([][]float32, error) {
 	payload := map[string]any{
 		"model": EmbeddingModel,
@@ -94,22 +72,8 @@ func formatVector(vec []float32) string {
 	return "[" + strings.Join(parts, ",") + "]"
 }
 
-func ingredientCandidateToEnriched(ingredient *server.MealIngredient, candidate *UsdaCandidate) *server.EnrichedIngredient {
-	var minGram, maxGram, gram int32
-	switch portion := ingredient.GetPortion().(type) {
-	case *server.MealIngredient_Bulk:
-		minGram = portion.Bulk.Value.MinValue
-		gram = portion.Bulk.Value.Value
-		maxGram = portion.Bulk.Value.MaxValue
-	case *server.MealIngredient_Exact:
-		minGram = portion.Exact.PerUnitGram.MinValue * portion.Exact.Value
-		gram = portion.Exact.PerUnitGram.Value * portion.Exact.Value
-		maxGram = portion.Exact.PerUnitGram.MaxValue * portion.Exact.Value
-	case *server.MealIngredient_Pinch:
-		minGram = 0
-		gram = 0
-		maxGram = 0
-	}
+func ingredientCandidateToEnriched(ingredient *IngredientDTO, candidate *UsdaCandidate) *server.EnrichedIngredient {
+	minGram, gram, maxGram := ingredient.Portion.Grams()
 
 	minCalories := scaleNutrient(candidate.KcalPer100g, minGram)
 	calories := scaleNutrient(candidate.KcalPer100g, gram)
