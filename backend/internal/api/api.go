@@ -3,13 +3,16 @@ package api
 import (
 	"backend/internal/analysis"
 	"backend/internal/config"
+	"backend/internal/dashboard"
 	firebase_app "backend/internal/firebase"
 	"backend/internal/middleware"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	firebase "firebase.google.com/go/v4"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -53,6 +56,8 @@ func (a *App) routes() {
 	Register(a, "POST /users/meals/analysis", a.AnalyzeMeal)
 	Register(a, "GET /users/meals/analysis/{analysis_id}", a.GetMealAnalysisStatus)
 	Register(a, "POST /users/meals/analysis/{analysis_id}/feedback", a.SubmitAnalysisFeedback)
+	Register(a, "GET /internal/analysis-history", a.GetAnalysisHistory)
+	a.Router.HandleFunc("GET /analysis-history", dashboard.Handler(a))
 }
 
 func (a *App) Start() error {
@@ -96,6 +101,30 @@ func decodeProto(msg proto.Message, r *http.Request) (proto.Message, error) {
 	return msg, nil
 }
 
+func decodeQueryParams(msg proto.Message, r *http.Request) error {
+	q := r.URL.Query()
+	if len(q) == 0 {
+		return nil
+	}
+	data := make(map[string]any, len(q))
+	for k, v := range q {
+		if len(v) > 0 {
+			val := v[0]
+			if intVal, err := strconv.Atoi(val); err == nil {
+				data[k] = intVal
+			} else {
+				data[k] = val
+			}
+		}
+	}
+	b, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+	opts := protojson.UnmarshalOptions{DiscardUnknown: true}
+	return opts.Unmarshal(b, msg)
+}
+
 func Register[Req any, Ptr interface {
 	*Req
 	proto.Message
@@ -114,9 +143,14 @@ func Register[Req any, Ptr interface {
 		}
 		var req Req
 		ptr := Ptr(&req)
-		_, err := decodeProto(ptr, r)
+		var err error
+		if r.Method == http.MethodGet {
+			err = decodeQueryParams(ptr, r)
+		} else {
+			_, err = decodeProto(ptr, r)
+		}
 		if err != nil {
-			slog.WarnContext(ctx, "failed to parse request body", "endpoint", pattern, "error", err)
+			slog.WarnContext(ctx, "failed to parse request", "endpoint", pattern, "error", err)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}

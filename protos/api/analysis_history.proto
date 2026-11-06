@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package api;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "backend/internal/gen_proto/api";
+
+message StepTiming {
+  string                    name         = 1;
+  optional double           duration_sec = 2;
+  string                    status       = 3; // "COMPLETED", "FAILED", "IN_PROGRESS", "PENDING"
+  optional string           completed_at = 4;
+}
+
+message MealMetadata {
+  string name            = 1;
+  string quantity        = 2;
+  string meal_type       = 3;
+  string health_score    = 4;
+  int32  component_count = 5;
+}
+
+message AnalysisHistoryItem {
+  string                    id                 = 1;
+  string                    user_uid           = 2;
+  google.protobuf.Timestamp created_at         = 3;
+  string                    status             = 4;
+  string                    text               = 5;
+  bool                      has_image          = 6;
+  optional string           failure_reason     = 7;
+  optional string           failed_at_step     = 8;
+  optional double           total_duration_sec = 9;
+  MealMetadata              metadata           = 10;
+  repeated StepTiming       steps              = 11;
+}
+
+message AnalysisHistorySummary {
+  string                 time_range             = 1;
+  int32                  total_requests         = 2;
+  int32                  success_count          = 3;
+  int32                  failed_count           = 4;
+  double                 failure_rate_pct       = 5;
+  double                 avg_total_duration_sec = 6;
+  map<string, double>    avg_step_durations_sec = 7;
+  map<string, int32>     failures_by_step       = 8;
+}
+
+message AnalysisHistoryRequest {
+  optional string time_range = 1; // "1D", "7D", "30D"
+  optional string status     = 2; // "ALL", "FAILED", "SUCCESS"
+  optional int32  page       = 3;
+  optional int32  page_size  = 4;
+}
+
+message AnalysisHistoryResponse {
+  AnalysisHistorySummary       summary       = 1;
+  repeated AnalysisHistoryItem items         = 2;
+  int32                        page          = 3;
+  int32                        page_size     = 4;
+  int32                        total_items   = 5;
+  int32                        total_pages   = 6;
+  string                       filter_range  = 7;
+  string                       filter_status = 8;
+}

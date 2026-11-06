@@ -59,3 +59,11 @@ func (a *App) SubmitAnalysisFeedback(ctx context.Context, req *api.MealFeedbackR
 	}
 	return http.StatusOK, &api.Empty{}, nil
 }
+
+func (a *App) GetAnalysisHistory(ctx context.Context, req *api.AnalysisHistoryRequest) (int, *api.AnalysisHistoryResponse, error) {
+	res, err := a.GetAnalysisHistoryData(ctx, req)
+	if err != nil {
+		return http.StatusInternalServerError, &api.AnalysisHistoryResponse{}, err
+	}
+	return http.StatusOK, res, nil
+}

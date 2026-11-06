@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal Analysis Pipeline Observability</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-subtle: #1f2937;
+      --border: #2d3748;
+      --border-light: #374151;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --primary-bg: rgba(56, 189, 248, 0.12);
+      
+      --p1-color: #38bdf8;
+      --p2-color: #818cf8;
+      --usda-color: #fbbf24;
+      --final-color: #34d399;
+
+      --green: #10b981;
+      --green-bg: rgba(16, 185, 129, 0.12);
+      --red: #f43f5e;
+      --red-bg: rgba(244, 63, 94, 0.12);
+      --yellow: #f59e0b;
+      --yellow-bg: rgba(245, 158, 11, 0.12);
+      
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      padding: 24px 32px 48px;
+      line-height: 1.5;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #090d16;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      margin-top: 2px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-group {
+      display: inline-flex;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .filter-btn {
+      color: var(--text-muted);
+      padding: 5px 12px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .filter-btn:hover {
+      color: var(--text);
+      background: var(--card-subtle);
+    }
+    .filter-btn.active {
+      background: var(--primary);
+      color: #090d16;
+    }
+
+    .btn-action {
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .btn-action:hover {
+      background: var(--card-subtle);
+      border-color: var(--border-light);
+    }
+
+    /* Metric Cards Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 240px 240px 1.5fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 1200px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .metric-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+    }
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .metric-unit {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .metric-sub {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Step Progress Profile Card */
+    .step-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .step-bar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .step-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .step-bar-labels span:last-child {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .bar-bg {
+      height: 6px;
+      background: #1f2937;
+      border-radius: 999px;
+      overflow: hidden;
+      width: 100%;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    /* Failures Card */
+    .fail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .fail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8125rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--card-subtle);
+    }
+    .fail-item-name {
+      color: #fca5a5;
+      font-weight: 500;
+    }
+    .fail-count-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      line-height: 1.2;
+    }
+    .badge-success { background: var(--green-bg); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-failed  { background: var(--red-bg); color: var(--red); border: 1px solid rgba(244, 63, 94, 0.3); }
+    .badge-warning { background: var(--yellow-bg); color: var(--yellow); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-tag     { background: var(--card-subtle); color: var(--text-muted); border: 1px solid var(--border); font-size: 0.7rem; }
+
+    /* Main Table Container */
+    .table-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%;
+      min-width: 950px;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.8125rem;
+    }
+    th {
+      background: #111827;
+      padding: 12px 16px;
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.015); }
+
+    .req-text {
+      max-width: 260px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #e2e8f0;
+      font-size: 0.8125rem;
+      margin-top: 4px;
+    }
+    .req-text.empty {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    .meta-name {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.875rem;
+    }
+    .meta-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    /* Redesigned Step Progression Stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .step-node {
+      display: flex;
+      flex-direction: column;
+      padding: 6px 10px;
+      background: #162032;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      min-width: 100px;
+      transition: all 0.15s ease;
+    }
+    .step-node.completed {
+      border-color: rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.04);
+    }
+    .step-node.failed {
+      border-color: rgba(244, 63, 94, 0.4);
+      background: var(--red-bg);
+    }
+    .step-node.pending {
+      opacity: 0.45;
+      background: #111827;
+    }
+    .step-node.in-progress {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: var(--yellow-bg);
+    }
+    .step-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+    .step-node.completed .step-name { color: var(--text-muted); }
+    .step-node.failed .step-name { color: #fca5a5; }
+
+    .step-val {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 2px;
+      font-family: var(--mono);
+    }
+    .step-node.failed .step-val { color: var(--red); }
+    .step-node.pending .step-val { color: var(--text-dim); font-weight: 400; font-size: 0.75rem; }
+
+    .step-arrow {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      user-select: none;
+    }
+
+    .error-alert {
+      margin-top: 8px;
+      padding: 8px 12px;
+      background: var(--red-bg);
+      border-left: 3px solid var(--red);
+      border-radius: 4px;
+      color: #fca5a5;
+      font-size: 0.75rem;
+      font-family: var(--mono);
+      word-break: break-all;
+    }
+
+    /* Pagination */
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .pagination-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    .empty-state {
+      padding: 48px;
+      text-align: center;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <h1>Meal Analysis Pipeline</h1>
+        <div class="subtitle">Step latency breakdown, request volume, and failure telemetry</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <!-- Time Range Filter -->
+      <div class="filter-group">
+        <a href="?range=1D&status={{.FilterStatus}}" class="filter-btn {{if eq .FilterRange "1D"}}active{{end}}">1D</a>
+        <a href="?range=7D&status={{.FilterStatus}}" class="filter-btn {{if eq .FilterRange "7D"}}active{{end}}">7D</a>
+        <a href="?range=30D&status={{.FilterStatus}}" class="filter-btn {{if eq .FilterRange "30D"}}active{{end}}">30D</a>
+      </div>
+
+      <!-- Status Filter -->
+      <div class="filter-group">
+        <a href="?range={{.FilterRange}}&status=ALL" class="filter-btn {{if eq .FilterStatus "ALL"}}active{{end}}">All</a>
+        <a href="?range={{.FilterRange}}&status=SUCCESS" class="filter-btn {{if eq .FilterStatus "SUCCESS"}}active{{end}}">Success</a>
+        <a href="?range={{.FilterRange}}&status=FAILED" class="filter-btn {{if eq .FilterStatus "FAILED"}}active{{end}}">Failed</a>
+      </div>
+
+      <a href="" class="btn-action" title="Refresh data">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        Refresh
+      </a>
+    </div>
+  </header>
+
+  <!-- Summary Cards -->
+  <div class="metrics-grid">
+    <!-- Volume -->
+    <div class="metric-card">
+      <div class="metric-header">
+        <span class="metric-title">Volume ({{.Summary.TimeRange}})</span>
+        <span class="badge {{if gt .Summary.FailedCount 0}}badge-failed{{else}}badge-success{{end}}">
+          {{printf "%.1f" .Summary.FailureRatePct}}% fail
+        </span>
+      </div>
+      <div>
+        <div class="metric-value">{{.Summary.TotalRequests}}</div>
+        <div class="metric-sub">
+          <span style="color: var(--green); font-weight: 600;">{{.Summary.SuccessCount}} OK</span>
+          &bull; 
+          <span style="color: var(--red); font-weight: 600;">{{.Summary.FailedCount}} Failed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avg Latency -->
+    <div class="metric-card">
+      <div class="metric-header">
+        <span class="metric-title">Avg Total Latency</span>
+        <span class="badge badge-tag">Completed</span>
+      </div>
+      <div>
+        <div class="metric-value">
+          {{printf "%.2f" .Summary.AvgTotalDurationSec}}<span class="metric-unit">s</span>
+        </div>
+        <div class="metric-sub">Across successful requests in {{.Summary.TimeRange}}</div>
+      </div>
+    </div>
+
+    <!-- Step Profile (Progress Bars) -->
+    <div class="metric-card">
+      <div class="metric-header">
+        <span class="metric-title">Average Step Profile</span>
+        <span class="badge badge-tag">Latency Split</span>
+      </div>
+      <div class="step-bars">
+        <div class="step-bar-item">
+          <div class="step-bar-labels">
+            <span>Pass 1 (Components)</span>
+            <span>{{printf "%.2f" (index .Summary.AvgStepDurationsSec "Pass 1 (Components)")}}s</span>
+          </div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: {{calcPercent (index .Summary.AvgStepDurationsSec "Pass 1 (Components)") .Summary.AvgTotalDurationSec}}%; background: var(--p1-color);"></div>
+          </div>
+        </div>
+
+        <div class="step-bar-item">
+          <div class="step-bar-labels">
+            <span>Pass 2 (Ingredients)</span>
+            <span>{{printf "%.2f" (index .Summary.AvgStepDurationsSec "Pass 2 (Ingredients)")}}s</span>
+          </div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: {{calcPercent (index .Summary.AvgStepDurationsSec "Pass 2 (Ingredients)") .Summary.AvgTotalDurationSec}}%; background: var(--p2-color);"></div>
+          </div>
+        </div>
+
+        <div class="step-bar-item">
+          <div class="step-bar-labels">
+            <span>USDA Hydration</span>
+            <span>{{printf "%.2f" (index .Summary.AvgStepDurationsSec "USDA Hydration")}}s</span>
+          </div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: {{calcPercent (index .Summary.AvgStepDurationsSec "USDA Hydration") .Summary.AvgTotalDurationSec}}%; background: var(--usda-color);"></div>
+          </div>
+        </div>
+
+        <div class="step-bar-item">
+          <div class="step-bar-labels">
+            <span>Clarification &amp; Final</span>
+            <span>{{printf "%.2f" (addFloat (index .Summary.AvgStepDurationsSec "Clarification") (index .Summary.AvgStepDurationsSec "Finalization"))}}s</span>
+          </div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width: {{calcPercent (addFloat (index .Summary.AvgStepDurationsSec "Clarification") (index .Summary.AvgStepDurationsSec "Finalization")) .Summary.AvgTotalDurationSec}}%; background: var(--final-color);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Failures by Step -->
+    <div class="metric-card">
+      <div class="metric-header">
+        <span class="metric-title">Failures by Step</span>
+        <span class="badge badge-tag">{{.Summary.FailedCount}} Total</span>
+      </div>
+      {{if .Summary.FailuresByStep}}
+      <div class="fail-list">
+        {{range $step, $count := .Summary.FailuresByStep}}
+        <div class="fail-item">
+          <span class="fail-item-name">{{$step}}</span>
+          <span class="fail-count-badge">{{$count}}</span>
+        </div>
+        {{end}}
+      </div>
+      {{else}}
+      <div style="color: var(--green); font-size: 0.8125rem; margin-top: 18px; font-weight: 500;">
+        ✓ Zero failed requests in selected time range
+      </div>
+      {{end}}
+    </div>
+  </div>
+
+  <!-- History Table -->
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Time / Request</th>
+          <th>Status</th>
+          <th>Pass 1 Metadata</th>
+          <th>Total Time</th>
+          <th>Step Progression</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{if .Items}}
+          {{range .Items}}
+          <tr>
+            <!-- Time / Request -->
+            <td style="white-space: nowrap; max-width: 260px;">
+              <div style="font-weight: 600; color: var(--text);">{{fmtTimestamp .CreatedAt}}</div>
+              <div style="display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+                {{if .HasImage}}
+                  <span class="badge badge-tag">📷 Image</span>
+                {{else}}
+                  <span class="badge badge-tag">📝 Text</span>
+                {{end}}
+                <span style="font-size: 0.7rem; color: var(--text-dim); font-family: var(--mono);">
+                  {{if .UserUid}}{{printf "%.8s" .UserUid}}{{else}}anon{{end}}
+                </span>
+              </div>
+              <div class="req-text {{if not .Text}}empty{{end}}" title="{{.Text}}">
+                {{if .Text}}&ldquo;{{.Text}}&rdquo;{{else}}(no input text){{end}}
+              </div>
+            </td>
+
+            <!-- Status -->
+            <td style="white-space: nowrap;">
+              {{if eq .Status "PRESENTED"}}
+                <span class="badge badge-success">Completed</span>
+              {{else if eq .Status "FAILED"}}
+                <span class="badge badge-failed">Failed</span>
+                {{if .FailedAtStep}}
+                  <div style="font-size: 0.7rem; color: #fca5a5; margin-top: 4px; font-weight: 500;">
+                    at {{.FailedAtStep}}
+                  </div>
+                {{end}}
+              {{else}}
+                <span class="badge badge-warning">{{.Status}}</span>
+              {{end}}
+            </td>
+
+            <!-- Pass 1 Metadata -->
+            <td>
+              {{if and .Metadata .Metadata.Name}}
+                <div class="meta-name">{{.Metadata.Name}}</div>
+                <div class="meta-details">
+                  {{if .Metadata.Quantity}}
+                    <span class="badge badge-tag">{{.Metadata.Quantity}}</span>
+                  {{end}}
+                  {{if .Metadata.MealType}}
+                    <span class="badge badge-tag">{{.Metadata.MealType}}</span>
+                  {{end}}
+                  {{if .Metadata.ComponentCount}}
+                    <span class="badge badge-tag">{{.Metadata.ComponentCount}} parts</span>
+                  {{end}}
+                  {{if .Metadata.HealthScore}}
+                    <span class="badge badge-tag">{{.Metadata.HealthScore}}</span>
+                  {{end}}
+                </div>
+              {{else}}
+                <span style="color: var(--text-dim); font-size: 0.75rem;">(metadata unavailable)</span>
+              {{end}}
+            </td>
+
+            <!-- Total Latency -->
+            <td style="white-space: nowrap;">
+              {{if .TotalDurationSec}}
+                <div style="font-size: 1rem; font-weight: 700; font-family: var(--mono);">
+                  {{fmtDuration .TotalDurationSec}}s
+                </div>
+              {{else}}
+                <span style="color: var(--text-dim);">-</span>
+              {{end}}
+            </td>
+
+            <!-- Stepper Timeline -->
+            <td>
+              <div class="stepper">
+                {{range $i, $step := .Steps}}
+                  {{if gt $i 0}}<span class="step-arrow">&rarr;</span>{{end}}
+                  <div class="step-node {{if eq $step.Status "COMPLETED"}}completed{{else if eq $step.Status "FAILED"}}failed{{else if eq $step.Status "IN_PROGRESS"}}in-progress{{else}}pending{{end}}">
+                    <span class="step-name">{{$step.Name}}</span>
+                    <span class="step-val">
+                      {{if $step.DurationSec}}
+                        {{fmtDuration $step.DurationSec}}s
+                      {{else if eq $step.Status "FAILED"}}
+                        FAIL
+                      {{else if eq $step.Status "IN_PROGRESS"}}
+                        RUNNING
+                      {{else}}
+                        &mdash;
+                      {{end}}
+                    </span>
+                  </div>
+                {{end}}
+              </div>
+
+              {{if .FailureReason}}
+                <div class="error-alert">
+                  <strong>Reason:</strong> {{.FailureReason}}
+                </div>
+              {{end}}
+            </td>
+          </tr>
+          {{end}}
+        {{else}}
+          <tr>
+            <td colspan="5" class="empty-state">
+              No meal analysis requests found for the selected filter.
+            </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+
+    <div class="pagination-bar">
+      <div>
+        Showing page <strong>{{.Page}}</strong> of <strong>{{.TotalPages}}</strong> ({{.TotalItems}} total analyses, 10 per page)
+      </div>
+
+      <div class="pagination-buttons">
+        {{if gt .Page 1}}
+          <a href="?range={{.FilterRange}}&status={{.FilterStatus}}&page={{sub .Page 1}}" class="btn-action">&laquo; Previous</a>
+        {{end}}
+
+        {{if lt .Page .TotalPages}}
+          <a href="?range={{.FilterRange}}&status={{.FilterStatus}}&page={{add .Page 1}}" class="btn-action">Next &raquo;</a>
+        {{end}}
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

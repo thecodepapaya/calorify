@@ -10,7 +10,9 @@ import (
 )
 
 var publicRoutes = map[string]bool{
-	"/ready": true,
+	"/ready":                      true,
+	"/analysis-history":           true,
+	"/internal/analysis-history":  true,
 }
 
 func Auth(next http.Handler, authClient *auth.Client) http.Handler {
