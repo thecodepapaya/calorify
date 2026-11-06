@@ -610,6 +610,7 @@ func runEmbedding(ctx context.Context, pool *pgxpool.Pool, ollamaURL string, mod
 
 func main() {
 	var (
+		migrateFlag     = flag.Bool("migrate", false, "Run database migrations for usda_db without ingesting data")
 		ingestFlag      = flag.Bool("ingest", false, "Ingest raw USDA data from zip files into usda_foods")
 		skipBrandedFlag = flag.Bool("skip-branded", false, "Skip ingesting branded foods during ingestion")
 		embedFlag          = flag.Bool("embed", false, "Generate embeddings for foods missing embedding via Ollama")
@@ -634,6 +635,14 @@ func main() {
 
 	if err := pool.Ping(ctx); err != nil {
 		log.Fatalf("USDA database ping failed (is docker running?): %v", err)
+	}
+
+	if *migrateFlag {
+		if err := runMigrations(ctx, pool); err != nil {
+			log.Fatalf("Failed to run USDA migrations: %v", err)
+		}
+		log.Println("SUCCESS: USDA database migrations applied.")
+		return
 	}
 
 	if *ingestFlag {

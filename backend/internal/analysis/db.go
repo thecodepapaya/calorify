@@ -104,6 +104,38 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 	if ingredientType == server.IngredientType_BASE {
 		// Prefer foundation, SR legacy, and survey foods over branded products
 		query = `
+		WITH base_matches AS (
+			SELECT
+				fdc_id,
+				description,
+				kcal_per_100g,
+				protein_per_100g,
+				carbs_per_100g,
+				fat_per_100g,
+				fiber_per_100g,
+				1 - (embedding <=> $1::vector) AS similarity,
+				0 AS priority
+			FROM usda_foods
+			WHERE (data_type IS NULL OR data_type != 'branded_food') AND embedding IS NOT NULL
+			ORDER BY embedding <=> $1::vector ASC
+			LIMIT $2
+		),
+		branded_matches AS (
+			SELECT
+				fdc_id,
+				description,
+				kcal_per_100g,
+				protein_per_100g,
+				carbs_per_100g,
+				fat_per_100g,
+				fiber_per_100g,
+				1 - (embedding <=> $1::vector) AS similarity,
+				1 AS priority
+			FROM usda_foods
+			WHERE data_type = 'branded_food' AND embedding IS NOT NULL
+			ORDER BY embedding <=> $1::vector ASC
+			LIMIT $2
+		)
 		SELECT
 			fdc_id,
 			description,
@@ -112,17 +144,50 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 			carbs_per_100g,
 			fat_per_100g,
 			fiber_per_100g,
-			1 - (embedding <=> $1::vector) AS similarity
-		FROM usda_foods
-		WHERE embedding IS NOT NULL
-		ORDER BY
-			CASE WHEN data_type = 'branded_food' THEN 1 ELSE 0 END ASC,
-			embedding <=> $1::vector ASC
+			similarity
+		FROM (
+			SELECT * FROM base_matches
+			UNION ALL
+			SELECT * FROM branded_matches
+		) combined
+		ORDER BY priority ASC, similarity DESC
 		LIMIT $2;
 		`
 	} else {
 		// Prefer branded foods if tagged as BRANDED
 		query = `
+		WITH branded_matches AS (
+			SELECT
+				fdc_id,
+				description,
+				kcal_per_100g,
+				protein_per_100g,
+				carbs_per_100g,
+				fat_per_100g,
+				fiber_per_100g,
+				1 - (embedding <=> $1::vector) AS similarity,
+				0 AS priority
+			FROM usda_foods
+			WHERE data_type = 'branded_food' AND embedding IS NOT NULL
+			ORDER BY embedding <=> $1::vector ASC
+			LIMIT $2
+		),
+		base_matches AS (
+			SELECT
+				fdc_id,
+				description,
+				kcal_per_100g,
+				protein_per_100g,
+				carbs_per_100g,
+				fat_per_100g,
+				fiber_per_100g,
+				1 - (embedding <=> $1::vector) AS similarity,
+				1 AS priority
+			FROM usda_foods
+			WHERE (data_type IS NULL OR data_type != 'branded_food') AND embedding IS NOT NULL
+			ORDER BY embedding <=> $1::vector ASC
+			LIMIT $2
+		)
 		SELECT
 			fdc_id,
 			description,
@@ -131,12 +196,13 @@ func (s *Service) SearchUsdaTopK(ctx context.Context, vectorStr string, ingredie
 			carbs_per_100g,
 			fat_per_100g,
 			fiber_per_100g,
-			1 - (embedding <=> $1::vector) AS similarity
-		FROM usda_foods
-		WHERE embedding IS NOT NULL
-		ORDER BY
-			CASE WHEN data_type = 'branded_food' THEN 0 ELSE 1 END ASC,
-			embedding <=> $1::vector ASC
+			similarity
+		FROM (
+			SELECT * FROM branded_matches
+			UNION ALL
+			SELECT * FROM base_matches
+		) combined
+		ORDER BY priority ASC, similarity DESC
 		LIMIT $2;
 		`
 	}

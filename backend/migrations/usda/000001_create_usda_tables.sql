@@ -40,6 +40,12 @@ CREATE INDEX IF NOT EXISTS usda_foods_english_fts_idx ON usda_foods USING gin (
 
 CREATE INDEX IF NOT EXISTS usda_foods_embedding_hnsw_idx ON usda_foods USING hnsw (embedding vector_cosine_ops);
 
+CREATE INDEX IF NOT EXISTS usda_foods_base_embedding_hnsw_idx ON usda_foods USING hnsw (embedding vector_cosine_ops)
+WHERE (data_type IS NULL OR data_type != 'branded_food');
+
+CREATE INDEX IF NOT EXISTS usda_foods_branded_embedding_hnsw_idx ON usda_foods USING hnsw (embedding vector_cosine_ops)
+WHERE data_type = 'branded_food';
+
 CREATE TABLE IF NOT EXISTS usda_dataset_version (
     dataset_version TEXT PRIMARY KEY,
     source_release_date DATE,

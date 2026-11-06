@@ -19,6 +19,7 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
+	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -336,21 +337,33 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *server.
 	}
 
 	enrichedIngredient := make([]*server.EnrichedIngredient, len(embeddings))
+	g, gCtx := errgroup.WithContext(ctx)
+	// Bound concurrency to avoid exhausting the database connection pool
+	g.SetLimit(10)
+
 	for i := range embeddings {
-		candidate, err := s.searchUsda(ctx, formatVector(embeddings[i]), pass2.Ingredients[i].IngredientType)
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, err.Error())
-			slog.ErrorContext(ctx, "failed to search usda database", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name, "error", err)
-			return nil, err
-		} else if candidate == nil {
-			err = fmt.Errorf("failed to find match for ingredient")
-			span.RecordError(err)
-			span.SetStatus(codes.Error, err.Error())
-			slog.WarnContext(ctx, "no usda candidate found for ingredient", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name)
-			return nil, err
-		}
-		enrichedIngredient[i] = ingredientCandidateToEnriched(pass2.Ingredients[i], candidate)
+		i := i
+		g.Go(func() error {
+			candidate, err := s.searchUsda(gCtx, formatVector(embeddings[i]), pass2.Ingredients[i].IngredientType)
+			if err != nil {
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
+				slog.ErrorContext(gCtx, "failed to search usda database", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name, "error", err)
+				return err
+			} else if candidate == nil {
+				err = fmt.Errorf("failed to find match for ingredient: %s", pass2.Ingredients[i].Name)
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
+				slog.WarnContext(gCtx, "no usda candidate found for ingredient", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name)
+				return err
+			}
+			enrichedIngredient[i] = ingredientCandidateToEnriched(pass2.Ingredients[i], candidate)
+			return nil
+		})
+	}
+
+	if err := g.Wait(); err != nil {
+		return nil, err
 	}
 	enriched := server.UsdaEnriched{Ingredients: enrichedIngredient, TotalMacros: aggregateMacro(enrichedIngredient)}
 
