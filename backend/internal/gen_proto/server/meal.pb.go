@@ -76,6 +76,8 @@ type EnrichedIngredient struct {
 	Similarity    float32                `protobuf:"fixed32,4,opt,name=similarity,proto3" json:"similarity,omitempty"`
 	Grams         *common.Measurement    `protobuf:"bytes,5,opt,name=grams,proto3" json:"grams,omitempty"`
 	Macros        *common.Macros         `protobuf:"bytes,6,opt,name=macros,proto3" json:"macros,omitempty"`
+	CanonicalName string                 `protobuf:"bytes,7,opt,name=canonical_name,json=canonicalName,proto3" json:"canonical_name,omitempty"`
+	ComponentName string                 `protobuf:"bytes,8,opt,name=component_name,json=componentName,proto3" json:"component_name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -152,6 +154,20 @@ func (x *EnrichedIngredient) GetMacros() *common.Macros {
 	return nil
 }
 
+func (x *EnrichedIngredient) GetCanonicalName() string {
+	if x != nil {
+		return x.CanonicalName
+	}
+	return ""
+}
+
+func (x *EnrichedIngredient) GetComponentName() string {
+	if x != nil {
+		return x.ComponentName
+	}
+	return ""
+}
+
 type UsdaEnriched struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Ingredients   []*EnrichedIngredient  `protobuf:"bytes,1,rep,name=ingredients,proto3" json:"ingredients,omitempty"`
@@ -208,7 +224,7 @@ var File_protos_server_meal_proto protoreflect.FileDescriptor
 
 const file_protos_server_meal_proto_rawDesc = "" +
 	"\n" +
-	"\x18protos/server/meal.proto\x12\x06server\x1a\x18protos/common/meal.proto\"\xd4\x01\n" +
+	"\x18protos/server/meal.proto\x12\x06server\x1a\x18protos/common/meal.proto\"\xa2\x02\n" +
 	"\x12EnrichedIngredient\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x15\n" +
 	"\x06fdc_id\x18\x02 \x01(\x03R\x05fdcId\x12 \n" +
@@ -217,7 +233,9 @@ const file_protos_server_meal_proto_rawDesc = "" +
 	"similarity\x18\x04 \x01(\x02R\n" +
 	"similarity\x12)\n" +
 	"\x05grams\x18\x05 \x01(\v2\x13.common.MeasurementR\x05grams\x12&\n" +
-	"\x06macros\x18\x06 \x01(\v2\x0e.common.MacrosR\x06macros\"\x7f\n" +
+	"\x06macros\x18\x06 \x01(\v2\x0e.common.MacrosR\x06macros\x12%\n" +
+	"\x0ecanonical_name\x18\a \x01(\tR\rcanonicalName\x12%\n" +
+	"\x0ecomponent_name\x18\b \x01(\tR\rcomponentName\"\x7f\n" +
 	"\fUsdaEnriched\x12<\n" +
 	"\vingredients\x18\x01 \x03(\v2\x1a.server.EnrichedIngredientR\vingredients\x121\n" +
 	"\ftotal_macros\x18\x02 \x01(\v2\x0e.common.MacrosR\vtotalMacros*'\n" +

@@ -1,131 +1,100 @@
 {
-  "mealItems": [
+  "ingredients": [
     {
-      "mealItemName": "daal",
-      "ingredients": [
-        {
-          "ingredientName": "lentils",
-          "canonicalIdentity": "lentils dry",
-          "lookupAliases": [
-            "dal",
-            "daal"
-          ],
-          "retrievalIntent": "GENERIC_INGREDIENT",
-          "amountGrams": {
-            "estimate": 45,
-            "min": 40,
-            "max": 50,
-            "origin": "model_inferred"
-          }
-        },
-        {
-          "ingredientName": "water",
-          "canonicalIdentity": "water",
-          "lookupAliases": [],
-          "retrievalIntent": "GENERIC_INGREDIENT",
-          "amountGrams": {
-            "estimate": 95,
-            "min": 80,
-            "max": 110,
-            "origin": "model_inferred"
-          }
-        },
-        {
-          "ingredientName": "cooking fat",
-          "canonicalIdentity": "vegetable oil",
-          "lookupAliases": [
-            "cooking oil"
-          ],
-          "retrievalIntent": "GENERIC_INGREDIENT",
-          "amountGrams": {
-            "estimate": 8,
-            "min": 4,
-            "max": 14,
-            "origin": "model_inferred"
-          }
-        },
-        {
-          "ingredientName": "spices",
-          "canonicalIdentity": "mixed spices",
-          "lookupAliases": [
-            "spice blend"
-          ],
-          "retrievalIntent": "GENERIC_INGREDIENT",
-          "amountGrams": {
-            "estimate": 2,
-            "min": 1,
-            "max": 3,
-            "origin": "model_inferred"
-          }
-        }
-      ],
-      "variations": [
-        {
-          "variationType": "INGREDIENT_AMOUNT",
-          "ingredientName": "cooking fat",
-          "alternatives": []
-        },
-        {
-          "variationType": "INGREDIENT_VARIANT",
-          "ingredientName": "cooking fat",
-          "alternatives": [
-            "ghee"
-          ]
-        }
-      ]
+      "component_name": "Lentils, mature seeds, cooked, boiled",
+      "name": "lentils",
+      "canonical_name": "Lentils, mature seeds, dry",
+      "ingredient_type": "BASE",
+      "portion": {
+        "kind": "BULK",
+        "value": 45,
+        "min_value": 40,
+        "max_value": 50,
+        "per_unit_grams": null,
+        "per_unit_min_grams": null,
+        "per_unit_max_grams": null,
+        "origin": "MODEL_INFERRED"
+      }
     },
     {
-      "mealItemName": "roti",
-      "ingredients": [
-        {
-          "ingredientName": "whole wheat flour",
-          "canonicalIdentity": "whole wheat flour",
-          "lookupAliases": [
-            "wholemeal flour",
-            "atta"
-          ],
-          "retrievalIntent": "GENERIC_INGREDIENT",
-          "amountGrams": {
-            "estimate": 37.5,
-            "min": 30,
-            "max": 45,
-            "origin": "model_inferred"
-          }
-        },
-        {
-          "ingredientName": "water",
-          "canonicalIdentity": "water",
-          "lookupAliases": [],
-          "retrievalIntent": "GENERIC_INGREDIENT",
-          "amountGrams": {
-            "estimate": 12.5,
-            "min": 10,
-            "max": 15,
-            "origin": "model_inferred"
-          }
-        },
-        {
-          "ingredientName": "added fat",
-          "canonicalIdentity": "ghee",
-          "lookupAliases": [
-            "clarified butter"
-          ],
-          "retrievalIntent": "GENERIC_INGREDIENT",
-          "amountGrams": {
-            "estimate": 0,
-            "min": 0,
-            "max": 3,
-            "origin": "model_inferred"
-          }
-        }
-      ],
-      "variations": [
-        {
-          "variationType": "INGREDIENT_PRESENCE",
-          "ingredientName": "added fat",
-          "alternatives": []
-        }
-      ]
+      "component_name": "Lentils, mature seeds, cooked, boiled",
+      "name": "water",
+      "canonical_name": "Water, tap",
+      "ingredient_type": "BASE",
+      "portion": {
+        "kind": "BULK",
+        "value": 95,
+        "min_value": 80,
+        "max_value": 110,
+        "per_unit_grams": null,
+        "per_unit_min_grams": null,
+        "per_unit_max_grams": null,
+        "origin": "MODEL_INFERRED"
+      }
+    },
+    {
+      "component_name": "Lentils, mature seeds, cooked, boiled",
+      "name": "vegetable oil",
+      "canonical_name": "Oil, vegetable",
+      "ingredient_type": "BASE",
+      "portion": {
+        "kind": "BULK",
+        "value": 8,
+        "min_value": 4,
+        "max_value": 14,
+        "per_unit_grams": null,
+        "per_unit_min_grams": null,
+        "per_unit_max_grams": null,
+        "origin": "MODEL_INFERRED"
+      }
+    },
+    {
+      "component_name": "Lentils, mature seeds, cooked, boiled",
+      "name": "mixed spices",
+      "canonical_name": "Spices, mixture",
+      "ingredient_type": "BASE",
+      "portion": {
+        "kind": "PINCH",
+        "value": 2,
+        "min_value": 1,
+        "max_value": 3,
+        "per_unit_grams": null,
+        "per_unit_min_grams": null,
+        "per_unit_max_grams": null,
+        "origin": "MODEL_INFERRED"
+      }
+    },
+    {
+      "component_name": "Wheat flour, whole-grain, cooked",
+      "name": "whole wheat flour",
+      "canonical_name": "Wheat flour, whole-grain",
+      "ingredient_type": "BASE",
+      "portion": {
+        "kind": "BULK",
+        "value": 150,
+        "min_value": 120,
+        "max_value": 180,
+        "per_unit_grams": null,
+        "per_unit_min_grams": null,
+        "per_unit_max_grams": null,
+        "origin": "MODEL_INFERRED"
+      }
+    },
+    {
+      "component_name": "Wheat flour, whole-grain, cooked",
+      "name": "water",
+      "canonical_name": "Water, tap",
+      "ingredient_type": "BASE",
+      "portion": {
+        "kind": "BULK",
+        "value": 50,
+        "min_value": 40,
+        "max_value": 60,
+        "per_unit_grams": null,
+        "per_unit_min_grams": null,
+        "per_unit_max_grams": null,
+        "origin": "MODEL_INFERRED"
+      }
     }
   ]
 }

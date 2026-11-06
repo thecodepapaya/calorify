@@ -192,6 +192,7 @@ class FoodRepository {
   ) {
     String? mealName;
     List<String> componentNames = [];
+    final canonicalToComponent = <String, String>{};
 
     if (status.hasDecomposedComponent()) {
       try {
@@ -199,12 +200,15 @@ class FoodRepository {
         if (json is Map) {
           mealName = json['name'] as String?;
           if (json['components'] is List) {
-            componentNames =
-                (json['components'] as List)
-                    .whereType<Map<String, dynamic>>()
-                    .map((c) => c['name']?.toString() ?? '')
-                    .where((n) => n.isNotEmpty)
-                    .toList();
+            for (final c
+                in (json['components'] as List)
+                    .whereType<Map<String, dynamic>>()) {
+              final name = c['name']?.toString() ?? '';
+              if (name.isEmpty) continue;
+              componentNames.add(name);
+              final canonical = c['canonical_name']?.toString() ?? '';
+              if (canonical.isNotEmpty) canonicalToComponent[canonical] = name;
+            }
           }
         }
       } catch (_) {}
@@ -223,37 +227,46 @@ class FoodRepository {
       } catch (_) {}
     }
 
-    List<String> ingredientNames = [];
+    final ingredients = <({String name, String component})>[];
     if (status.hasDecomposedIngredient()) {
       try {
         final json = jsonDecode(status.decomposedIngredient);
         if (json is Map && json['ingredients'] is List) {
-          ingredientNames =
-              (json['ingredients'] as List)
-                  .whereType<Map<String, dynamic>>()
-                  .map((i) => i['name']?.toString() ?? '')
-                  .where((n) => n.isNotEmpty)
-                  .toList();
+          for (final i
+              in (json['ingredients'] as List)
+                  .whereType<Map<String, dynamic>>()) {
+            final name = i['name']?.toString() ?? '';
+            if (name.isEmpty) continue;
+            ingredients.add((
+              name: name,
+              component: i['component_name']?.toString() ?? '',
+            ));
+          }
         }
       } catch (_) {}
     } else if (status.hasUsdaEnriched()) {
       try {
         final json = jsonDecode(status.usdaEnriched);
         if (json is Map && json['ingredients'] is List) {
-          ingredientNames =
-              (json['ingredients'] as List)
-                  .whereType<Map<String, dynamic>>()
-                  .map((i) => i['name']?.toString() ?? '')
-                  .where((n) => n.isNotEmpty)
-                  .toList();
+          for (final i
+              in (json['ingredients'] as List)
+                  .whereType<Map<String, dynamic>>()) {
+            final name = i['name']?.toString() ?? '';
+            if (name.isEmpty) continue;
+            ingredients.add((
+              name: name,
+              component: i['componentName']?.toString() ?? '',
+            ));
+          }
         }
       } catch (_) {}
     }
 
+    final ingredientNames = ingredients.map((i) => i.name).toList();
     List<MealAnalysisV3ProgressComponent> components = const [];
 
     if (componentNames.isNotEmpty) {
-      if (ingredientNames.isEmpty) {
+      if (ingredients.isEmpty) {
         components =
             componentNames
                 .map(
@@ -271,25 +284,12 @@ class FoodRepository {
         final assigned = <String, List<String>>{
           for (final c in componentNames) c: <String>[],
         };
-        final unassigned = <String>[];
 
-        for (final ing in ingredientNames) {
-          String? matchedComp;
-          for (final c in componentNames) {
-            if (_matchesComponent(ing, c)) {
-              matchedComp = c;
-              break;
-            }
-          }
+        for (final ing in ingredients) {
+          final matchedComp = canonicalToComponent[ing.component];
           if (matchedComp != null) {
-            assigned[matchedComp]!.add(ing);
-          } else {
-            unassigned.add(ing);
+            assigned[matchedComp]!.add(ing.name);
           }
-        }
-
-        if (unassigned.isNotEmpty && componentNames.isNotEmpty) {
-          assigned[componentNames.first]!.addAll(unassigned);
         }
 
         components =
@@ -323,25 +323,6 @@ class FoodRepository {
     }
 
     return (mealName, components);
-  }
-
-  bool _matchesComponent(String ingredient, String component) {
-    final ingLower = ingredient.toLowerCase();
-    final compLower = component.toLowerCase();
-    if (ingLower.contains(compLower) || compLower.contains(ingLower)) {
-      return true;
-    }
-    final compWords = compLower
-        .split(RegExp(r'\s+'))
-        .where((w) => w.length > 2);
-    for (final word in compWords) {
-      if (ingLower.contains(word)) return true;
-    }
-    final ingWords = ingLower.split(RegExp(r'\s+')).where((w) => w.length > 2);
-    for (final word in ingWords) {
-      if (compLower.contains(word)) return true;
-    }
-    return false;
   }
 
   MealAnalysisV3Progress? _mapStatusToProgress(pgo.MealAnalysisStatus status) {

@@ -29,6 +29,8 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
     $core.double? similarity,
     $0.Measurement? grams,
     $0.Macros? macros,
+    $core.String? canonicalName,
+    $core.String? componentName,
   }) {
     final result = create();
     if (name != null) result.name = name;
@@ -37,6 +39,8 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
     if (similarity != null) result.similarity = similarity;
     if (grams != null) result.grams = grams;
     if (macros != null) result.macros = macros;
+    if (canonicalName != null) result.canonicalName = canonicalName;
+    if (componentName != null) result.componentName = componentName;
     return result;
   }
 
@@ -61,6 +65,8 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
         subBuilder: $0.Measurement.create)
     ..aOM<$0.Macros>(6, _omitFieldNames ? '' : 'macros',
         subBuilder: $0.Macros.create)
+    ..aOS(7, _omitFieldNames ? '' : 'canonicalName')
+    ..aOS(8, _omitFieldNames ? '' : 'componentName')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -139,6 +145,24 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
   void clearMacros() => $_clearField(6);
   @$pb.TagNumber(6)
   $0.Macros ensureMacros() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $core.String get canonicalName => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set canonicalName($core.String value) => $_setString(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasCanonicalName() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearCanonicalName() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get componentName => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set componentName($core.String value) => $_setString(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasComponentName() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearComponentName() => $_clearField(8);
 }
 
 class UsdaEnriched extends $pb.GeneratedMessage {

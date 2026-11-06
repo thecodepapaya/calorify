@@ -7,11 +7,13 @@ This document tracks technical debt, implemented functionality, active bug fixes
 ## 1. Immediate Bug Fixes & Refactoring (Active Scope)
 
 - [ ] **Database DTO Layer**: Refactor database layer to use DTOs (Data Transfer Objects) for database interactions to prevent nil access errors in `internal/api/db.go:142` (e.g. `healthData.Height.Value`).
+  - *Status: nil access is now guarded via nullable pointer scans in `internal/api/db.go`; a DTO layer itself has not been introduced.*
 - [ ] **Non-empty Responses**: Fix PUT/POST requests returning empty right now instead of created/updated object (e.g. `UpsertUser`, `UpdateUserHealthData`).
 - [x] **Remove Auth Bypasses in `internal/middleware/auth.go`**:
   - Remove `/users`, `/users/health-data`, and `/users/meals` from `publicRoutes` (lines 14–16).
   - Remove hardcoded test `userUid` injection and re-enable token validation for protected routes (line 24).
 - [ ] **Structured Context Logging**: Implement proper logging across all packages using `slog` with contextual fields, error objects, user UIDs, and analysis IDs instead of raw strings.
+  - *Status: server packages (api, analysis, middleware) use `slog` with contextual fields; `cmd/usda` CLI still logs raw strings.*
 - [ ] **Postman Collection Generator**: Add a lightweight Go script generator for Postman configuration in `cmd/gen_postman/main.go`. Defines the Postman v2.1 JSON schema, uses `protojson.Marshal` on empty instances of request messages (`api.UpdateUserRequest{}`, `api.HealthDataRequest{}`) to produce sample bodies, and outputs `calorify.postman_collection.json`.
 
 ---
@@ -24,6 +26,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
   - `POST /users/meals`: Implement `LogMeal` to persist user-confirmed or manually created meals with full macros, health scores, and metadata.
   - `PUT /users/meals/{meal_id}`: Implement `UpdateMeal` to edit an existing meal entry.
   - `DELETE /users/meals/{meal_id}`: Implement `DeleteMeal` to soft-delete or remove a logged meal.
+  - *Status: all five routes are registered in `internal/api/api.go:51-55`, but the handlers in `internal/api/meal.go` still return 501 stubs.*
 - [ ] **Meal History CSV Export**:
   - Implement meal history export (`GET /users/meals/export` or `/api/v1/food/export`) returning `text/csv` with `Content-Disposition: attachment; filename="calorify-meals-${userUid}.csv"`, containing timestamps, meal types, meal names, and macro values (calories, protein, carbs, fat, fiber).
 
@@ -34,7 +37,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [x] **Two-Pass LLM Decomposition**: Implemented Pass 1 component decomposition (`decomposeComponents`) and Pass 2 ingredient decomposition (`decomposeIngredients`) using OpenAI Structured Outputs in `internal/analysis/service.go`.
 - [x] **USDA Vector Embedding & Cosine Similarity Search**: Implemented batch embedding via Ollama (`embeddinggemma-2`), pgvector cosine similarity search (`1 - (embedding <=> $1::vector)`), and macro hydration in `internal/analysis/service.go` and `internal/analysis/db.go`.
 - [x] **Analysis Pipeline Execution & DB Storage**: Asynchronous background pipeline (`go s.runPipeline`) saving Pass 1 components, Pass 2 ingredients, USDA enriched macros, and final meal response in `meal_analysis` table (`internal/analysis/service.go`).
-- [ ] **Pass 1 & Pass 2 Decomposition Refinements**:
+- [x] **Pass 1 & Pass 2 Decomposition Refinements**:
   - Move meal quantity decision from Pass 2 to Pass 1 (`internal/analysis/service.go`).
 - [x] **Pipeline Error & Failure Tracking**: Write `"FAILED"` status to the `meal_analysis` table entry when the analysis pipeline fails or panics at any step (using `MarkAnalysisFailed` in deferred cleanup with a separate timeout context).
 - [x] **Analysis Status & Polling Endpoint**:
@@ -44,14 +47,20 @@ This document tracks technical debt, implemented functionality, active bug fixes
   - Implement `generateClarification()`: generate atomic option or numeric questions when ingredients, preparation states, or portions have high uncertainty.
   - Implement `sendClarification()` and answer submission route (`POST /users/meals/analysis/{analysis_id}/answers`).
   - Persist questions and answers (`clarification_questions`, `clarification_response`) in `meal_analysis` and resume the pipeline from an interpretation snapshot without re-running LLM decomposition.
+  - *Status: `generateClarification()` is implemented (variance-based quantity questions) and persisted to `generated_clarification`; the answers route and snapshot resume are pending.*
 - [ ] **LLM Nutrition Fallback (`MODEL_INFERRED`)**:
   - When USDA vector cosine similarity falls below threshold or an ingredient is not present in the USDA reference database, trigger a bounded LLM macro fallback rather than failing the entire pipeline.
 - [ ] **Preparation State Filtering & Portion Scaling**:
   - Implement preparation state filtering (raw vs. cooked) in USDA search to avoid caloric errors (e.g. raw rice vs. cooked rice).
   - Port portion scaling algorithms (bulk, exact unit grams, pinch) to calculate ingredient-level and meal-level macros.
+  - *Status: portion scaling (bulk, exact unit grams, pinch) is implemented in `PortionDTO.Grams()` with ingredient- and meal-level macros; preparation state filtering in USDA search is pending.*
+- [ ] **Ingredient Match & Portion Accuracy (case: "4 roti with dal" -> 664-841 kcal vs realistic ~550-660)**:
+  - Diagnosis from analysis `e468e798`: (1) canonical "Wheat flour, whole grain" matched "Flour, oat, whole grain" (fdc 2261421, 386 kcal/100g, similarity 0.878) over "Wheat flour, whole-grain" (fdc 168893, 340 kcal/100g) because top-1 cosine search has no threshold or alias guard for commodity confusion (oat vs wheat); (2) pass-2 flour portion of 130-160g for 4 rotis (~36g/roti) vs typical 25-30g atta per roti; (3) meal min/max macros stack per-ingredient worst cases, widening the presented range.
+  - Levers: similarity threshold or alias mapping for near-name commodity confusion, and pass-2 portion guidance for flour-based flatbreads (atta grams per roti).
 - [ ] **Analysis Feedback & Confirmation**:
   - Add analysis feedback endpoint (`POST /users/meals/analysis/{analysis_id}/feedback`) to record user rating signal (`UP`/`DOWN`).
   - Add meal confirmation endpoint (`POST /users/meals/analysis/{analysis_id}/confirm-log`) linking the analysis result to the logged meal.
+  - *Status: feedback endpoint is live with `UpdateAnalysisFeedback` persistence; the confirm-log endpoint is pending.*
 - [ ] **Progress Streaming (NDJSON / SSE)**:
   - Add real-time event streaming (`STARTED`, `PROGRESS`, `NEEDS_INPUT`, `COMPLETE`, `ERROR`) to provide progressive UI feedback during meal analysis.
 - [x] ~~**LangGraph StateGraph Engine**~~: *(Not Applicable)* Native Go sequential stages (`decomposeComponents` -> `decomposeIngredients` -> `enrichUsdaMacro` -> `prepareFinalResponse`) with goroutines, context cancellation, and OpenTelemetry spans replace JavaScript LangGraph.
@@ -113,6 +122,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
   - Implement circuit breaker for external AI provider APIs (OpenAI, Ollama) with half-open trial probes and cooldowns to prevent cascading timeouts.
 - [ ] **USDA Query Concurrency Limiter**:
   - Add bounded semaphore/limiter to prevent vector search queries from exhausting USDA database connections under burst loads.
+  - *Status: a per-analysis bound exists (`errgroup.SetLimit(10)` in `enrichUsdaMacro`); a global limiter for burst loads is pending.*
 
 ---
 
@@ -124,8 +134,10 @@ This document tracks technical debt, implemented functionality, active bug fixes
   - Expose `GET /metrics` with Prometheus metrics for HTTP request counts/durations, upstream AI latency/errors, USDA search timings, and database connection pool statistics.
 - [ ] **Durable Analysis Session Inspector**:
   - Port `/analysis-history` operator web UI (protected by basic auth) to inspect stored sessions, pipeline stage details, image previews, and user feedback.
+  - *Status: web UI (`GET /analysis-history`) and JSON endpoint (`GET /internal/analysis-history`) are live with stage timings and failure reasons; both routes are public (no basic auth), and image previews / feedback display are pending.*
 - [ ] **Dashboards**:
   - Pretty and comprehensive dashboards for checking analytics for meal analysis, traffic volume, analytics and telemetry.
+  - *Status: the analysis-history dashboard (session analytics, status mix, step durations) is live; traffic-volume and telemetry dashboards are pending.*
 
 ---
 
@@ -136,6 +148,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [x] ~~**USDA Batch LLM Normalization (`-normalize -populate_missing`)**~~: *(Not Applicable)* Superseded by dense vector search via EmbeddingGemma-2 & pgvector in Stage 3 architecture (`plans/stage-3-usda-nutrient-resolution.md`), avoiding cost-prohibitive offline batch LLM normalization.
 - [ ] **USDA Retrieval Benchmark / Eval Harness**:
   - Implement eval CLI tool (`cmd/usda_eval`) to benchmark vector search and top-k retrieval accuracy against the validation meal ingredient corpus.
+  - *Status: datasets and README exist under `backend/evals/`; the `cmd/usda_eval` CLI is absent from the tree.*
 - [ ] **Local Meal Analysis CLI**:
   - Implement an interactive offline CLI (similar to `meal-analysis-cli.ts`) for developer testing of image and text analysis without running the HTTP server.
 
@@ -151,6 +164,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
   - Migration for `ai_summaries` table.
   - Migration for `user_fcm_tokens` table.
   - Migration for clarification response/snapshot columns in `meal_analysis` (if needed for replay).
+  - *Status: `generated_clarification`, `generated_clarification_at`, and `failure_reason` columns already exist in `000001_create_user_profile.sql`; the three items above remain open.*
 
 ---
 
@@ -162,7 +176,8 @@ This document tracks technical debt, implemented functionality, active bug fixes
 
 
 ---
-- [ ] check failed analsyis case "4 roti, rice, daal". hunch - water was not matched in usda db
-- [ ] follows up from previous, add error column to analysis table
-- [ ] add i18n display name to components and ingredients and use them for display
-- [ ] word limits on food quantity and selection of meal type (breakfast,lunch,dinner etc)
+- [x] check failed analsyis case "4 roti, rice, daal". hunch - water was not matched in usda db. Checked: the failure was `failed to iterate usda rows: timeout` (USDA query timeout, not a water miss; water matches at similarity 0.93), addressed by the HNSW index + concurrent query work.
+- [x] follows up from previous, add error column to analysis table (`failure_reason`, written by `MarkAnalysisFailed`, surfaced in the dashboard)
+- [x] add i18n display name to components and ingredients and use them for display ([lc] name fields with English `canonical_name` for USDA matching)
+- [x] word limits on food quantity and selection of meal type (breakfast,lunch,dinner etc) (schema max-char rules + `selectMealTypeByTimezone`)
+- [ ] save request meta info (locale, country code, timezone, captured timestamp) in meal_analysis table too

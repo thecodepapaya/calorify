@@ -10,12 +10,14 @@ enum IngredientType {
 }
 
 message EnrichedIngredient {
-  string             name        = 1;
-  int64              fdc_id      = 2;
-  string             description = 3;
-  float              similarity  = 4;
-  common.Measurement grams       = 5;
-  common.Macros      macros      = 6;
+  string             name           = 1;
+  int64              fdc_id         = 2;
+  string             description    = 3;
+  float              similarity     = 4;
+  common.Measurement grams          = 5;
+  common.Macros      macros         = 6;
+  string             canonical_name = 7;
+  string             component_name = 8;
 }
 
 message UsdaEnriched {

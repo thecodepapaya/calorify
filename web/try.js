@@ -478,6 +478,23 @@
         }
     }
 
+    function readMetaInput(id) {
+        const el = document.getElementById(id);
+        return el ? el.value.trim() : '';
+    }
+
+    function buildMetaInfo() {
+        const metaInfo = {};
+        const timezone = readMetaInput('meta-timezone') ||
+            Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+        metaInfo.timezone = timezone;
+        const locale = readMetaInput('meta-locale') || navigator.language || '';
+        if (locale) metaInfo.locale = locale;
+        const country = readMetaInput('meta-country').toUpperCase();
+        if (country) metaInfo.countryCode = country;
+        return metaInfo;
+    }
+
     function normalizeStatus(st) {
         if (typeof st === 'number') {
             const map = {
@@ -619,9 +636,7 @@
                     },
                     body: JSON.stringify({
                         text: trimmedText,
-                        metaInfo: {
-                            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
-                        }
+                        metaInfo: buildMetaInfo()
                     }),
                     signal: controller.signal
                 });
@@ -760,12 +775,16 @@
             if (pass1 && this.lastStageEmitted < 2) {
                 this.lastStageEmitted = 2;
                 const components = (pass1.components || []).map(c => {
+                    const portion = c.portion || {};
                     let portionHint = 'Standard portion';
-                    if (c.bulk?.value?.value) portionHint = `~${c.bulk.value.value}g`;
-                    else if (c.exact?.value) portionHint = `${c.exact.value} serving`;
+                    if (portion.kind === 'EXACT' && portion.value) {
+                        portionHint = `${portion.value} serving${portion.value > 1 ? 's' : ''}`;
+                    } else if (portion.kind === 'BULK' && portion.value) {
+                        portionHint = `~${portion.value}g`;
+                    }
                     return {
                         name: c.name || 'Dish Component',
-                        canonical: (c.alias && c.alias.length) ? c.alias.join(', ') : (c.name || 'Component'),
+                        canonical: c.canonical_name || 'Component',
                         prep: (c.preparationMethod || c.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
                         portionHint: portionHint
                     };
@@ -788,22 +807,25 @@
             if (pass2 && this.lastStageEmitted < 3) {
                 this.lastStageEmitted = 3;
                 const ingredients = (pass2.ingredients || []).map(ing => {
+                    const portion = ing.portion || {};
                     let grams = 50, min = 40, max = 60;
-                    if (ing.bulk?.value) {
-                        grams = ing.bulk.value.value || 50;
-                        min = ing.bulk.value.minValue || ing.bulk.value.min_value || Math.floor(grams * 0.85);
-                        max = ing.bulk.value.maxValue || ing.bulk.value.max_value || Math.floor(grams * 1.15);
-                    } else if (ing.exact?.perUnitGram) {
-                        const count = ing.exact.value || 1;
-                        const perG = ing.exact.perUnitGram.value || 50;
+                    if (portion.kind === 'EXACT' && portion.value) {
+                        const count = portion.value;
+                        const perG = portion.per_unit_grams || 50;
+                        const perMin = portion.per_unit_min_grams || perG;
+                        const perMax = portion.per_unit_max_grams || perG;
                         grams = count * perG;
-                        min = ing.exact.perUnitGram.minValue || ing.exact.perUnitGram.min_value || Math.floor(grams * 0.85);
-                        max = ing.exact.perUnitGram.maxValue || ing.exact.perUnitGram.max_value || Math.floor(grams * 1.15);
+                        min = count * perMin;
+                        max = count * perMax;
+                    } else if (portion.value) {
+                        grams = portion.value;
+                        min = portion.min_value || Math.floor(grams * 0.85);
+                        max = portion.max_value || Math.ceil(grams * 1.15);
                     }
                     return {
                         name: ing.name || 'Ingredient',
-                        canonical: (ing.alias && ing.alias.length) ? ing.alias.join(', ') : (ing.name || ''),
-                        prep: (ing.preparationMethod || ing.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
+                        canonical: ing.canonical_name || '',
+                        component: ing.component_name || '',
                         grams: Math.round(grams),
                         min: Math.round(min),
                         max: Math.round(max)
@@ -925,9 +947,11 @@
 
             const ingredients = (pass2.ingredients || []).map(ing => ({
                 name: ing.name,
-                canonical: (ing.alias && ing.alias.length) ? ing.alias.join(', ') : ing.name,
-                prep: (ing.preparationMethod || ing.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
-                grams: ing.bulk?.value?.value || (ing.exact?.value ? ing.exact.value * (ing.exact.perUnitGram?.value || 50) : 50)
+                canonical: ing.canonical_name || '',
+                prep: (ing.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
+                grams: ing.portion?.kind === 'EXACT'
+                    ? (ing.portion.value || 0) * (ing.portion.per_unit_grams || 0)
+                    : ing.portion?.value || 0
             }));
 
             return {
@@ -1222,6 +1246,10 @@
             btnClear.addEventListener('click', () => {
                 textarea.value = '';
                 chips.forEach(c => c.classList.remove('active'));
+                ['meta-locale', 'meta-country', 'meta-timezone'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = '';
+                });
                 textarea.dispatchEvent(new Event('input'));
                 resetUI();
             });

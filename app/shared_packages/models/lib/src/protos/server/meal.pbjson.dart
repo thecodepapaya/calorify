@@ -51,6 +51,8 @@ const EnrichedIngredient$json = {
       '6': '.common.Macros',
       '10': 'macros'
     },
+    {'1': 'canonical_name', '3': 7, '4': 1, '5': 9, '10': 'canonicalName'},
+    {'1': 'component_name', '3': 8, '4': 1, '5': 9, '10': 'componentName'},
   ],
 };
 
@@ -59,7 +61,9 @@ final $typed_data.Uint8List enrichedIngredientDescriptor = $convert.base64Decode
     'ChJFbnJpY2hlZEluZ3JlZGllbnQSEgoEbmFtZRgBIAEoCVIEbmFtZRIVCgZmZGNfaWQYAiABKA'
     'NSBWZkY0lkEiAKC2Rlc2NyaXB0aW9uGAMgASgJUgtkZXNjcmlwdGlvbhIeCgpzaW1pbGFyaXR5'
     'GAQgASgCUgpzaW1pbGFyaXR5EikKBWdyYW1zGAUgASgLMhMuY29tbW9uLk1lYXN1cmVtZW50Ug'
-    'VncmFtcxImCgZtYWNyb3MYBiABKAsyDi5jb21tb24uTWFjcm9zUgZtYWNyb3M=');
+    'VncmFtcxImCgZtYWNyb3MYBiABKAsyDi5jb21tb24uTWFjcm9zUgZtYWNyb3MSJQoOY2Fub25p'
+    'Y2FsX25hbWUYByABKAlSDWNhbm9uaWNhbE5hbWUSJQoOY29tcG9uZW50X25hbWUYCCABKAlSDW'
+    'NvbXBvbmVudE5hbWU=');
 
 @$core.Deprecated('Use usdaEnrichedDescriptor instead')
 const UsdaEnriched$json = {

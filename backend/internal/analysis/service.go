@@ -302,7 +302,7 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *Pass2DT
 
 	var ingredients []string
 	for _, ing := range pass2.Ingredients {
-		ingredients = append(ingredients, "task: search result | query: "+ing.Name)
+		ingredients = append(ingredients, "task: search result | query: "+ing.CanonicalName)
 	}
 	embeddings, err := s.getEmbeddings(ctx, ingredients)
 	if err != nil {
