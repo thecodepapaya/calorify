@@ -103,4 +103,24 @@ void main() {
       );
     },
   );
+
+  test('AnalysisHistoryItem deserializes regional metadata and timestamp', () {
+    final captured = DateTime.utc(2026, 11, 7, 10, 30);
+    final item = AnalysisHistoryItem(
+      id: 'analysis-123',
+      userUid: 'user-abc',
+      status: 'PRESENTED',
+      text: 'Ramen bowl',
+      locale: 'ja-JP',
+      countryCode: 'JP',
+      timezone: 'Asia/Tokyo',
+      localCapturedAt: Timestamp.fromDateTime(captured),
+    );
+
+    expect(item.id, 'analysis-123');
+    expect(item.locale, 'ja-JP');
+    expect(item.countryCode, 'JP');
+    expect(item.timezone, 'Asia/Tokyo');
+    expect(item.localCapturedAt.toDateTime(), captured);
+  });
 }

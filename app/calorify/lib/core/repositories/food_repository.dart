@@ -206,6 +206,7 @@ class FoodRepository {
               final name = c['name']?.toString() ?? '';
               if (name.isEmpty) continue;
               componentNames.add(name);
+              canonicalToComponent[name] = name;
               final canonical = c['canonical_name']?.toString() ?? '';
               if (canonical.isNotEmpty) canonicalToComponent[canonical] = name;
             }
@@ -239,7 +240,9 @@ class FoodRepository {
             if (name.isEmpty) continue;
             ingredients.add((
               name: name,
-              component: i['component_name']?.toString() ?? '',
+              component:
+                  (i['component_name'] ?? i['componentName'])?.toString() ??
+                  '',
             ));
           }
         }
@@ -255,7 +258,9 @@ class FoodRepository {
             if (name.isEmpty) continue;
             ingredients.add((
               name: name,
-              component: i['componentName']?.toString() ?? '',
+              component:
+                  (i['componentName'] ?? i['component_name'])?.toString() ??
+                  '',
             ));
           }
         }
@@ -284,12 +289,19 @@ class FoodRepository {
         final assigned = <String, List<String>>{
           for (final c in componentNames) c: <String>[],
         };
+        final unassigned = <String>[];
 
         for (final ing in ingredients) {
           final matchedComp = canonicalToComponent[ing.component];
-          if (matchedComp != null) {
+          if (matchedComp != null && assigned.containsKey(matchedComp)) {
             assigned[matchedComp]!.add(ing.name);
+          } else {
+            unassigned.add(ing.name);
           }
+        }
+
+        if (unassigned.isNotEmpty && componentNames.isNotEmpty) {
+          assigned[componentNames.first]!.addAll(unassigned);
         }
 
         components =

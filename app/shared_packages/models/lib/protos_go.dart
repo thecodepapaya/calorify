@@ -6,6 +6,8 @@ export 'src/protos/api/util.pb.dart';
 export 'src/protos/api/util.pbenum.dart';
 export 'src/protos/api/app_banner.pb.dart';
 export 'src/protos/api/app_banner.pbenum.dart';
+export 'src/protos/api/analysis_history.pb.dart' hide MealMetadata;
+export 'src/protos/api/analysis_history.pbenum.dart';
 export 'src/protos/common/meal.pb.dart';
 export 'src/protos/common/meal.pbenum.dart';
 export 'src/protos/common/clarification.pb.dart';

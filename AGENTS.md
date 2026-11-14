@@ -11,6 +11,7 @@
 - Use lowercase kebab-case names for new docs and update the relevant index.
 - Use accurate relative links. Never include secrets, environment contents, or
   temporary investigation notes.
+- Keep responses concise and to the point. No walls of text, sycophancy or flattery.
 
 ## Before finishing
 

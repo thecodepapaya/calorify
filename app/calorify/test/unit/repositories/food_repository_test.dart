@@ -195,4 +195,114 @@ void main() {
     expect(events.last.issue?.code, 'ANALYSIS_FAILED');
     expect(events.last.issue?.message, 'Analysis timeout');
   });
+
+  test('pollMealAnalysis maps ingredients with canonical_name and component_name', () async {
+    var pollCount = 0;
+    final adapter = _MockApiAdapter((options) async {
+      pollCount++;
+      if (pollCount == 1) {
+        return ResponseBody.fromString(
+          jsonEncode({
+            'id': 'test-uuid-456',
+            'status': 'COMPONENT_DECOMPOSED',
+            'decomposedComponent': jsonEncode({
+              'name': 'Daal with roti',
+              'components': [
+                {
+                  'name': 'daal',
+                  'canonical_name': 'Lentils, mature seeds, cooked, boiled',
+                },
+                {
+                  'name': 'roti',
+                  'canonical_name': 'Wheat flour, whole-grain, cooked',
+                },
+              ],
+            }),
+          }),
+          200,
+          headers: {Headers.contentTypeHeader: ['application/json']},
+        );
+      }
+      if (pollCount == 2) {
+        return ResponseBody.fromString(
+          jsonEncode({
+            'id': 'test-uuid-456',
+            'status': 'INGREDIENT_DECOMPOSED',
+            'decomposedComponent': jsonEncode({
+              'name': 'Daal with roti',
+              'components': [
+                {
+                  'name': 'daal',
+                  'canonical_name': 'Lentils, mature seeds, cooked, boiled',
+                },
+                {
+                  'name': 'roti',
+                  'canonical_name': 'Wheat flour, whole-grain, cooked',
+                },
+              ],
+            }),
+            'decomposedIngredient': jsonEncode({
+              'ingredients': [
+                {
+                  'name': 'lentils',
+                  'component_name': 'Lentils, mature seeds, cooked, boiled',
+                },
+                {
+                  'name': 'whole wheat flour',
+                  'component_name': 'Wheat flour, whole-grain, cooked',
+                },
+              ],
+            }),
+          }),
+          200,
+          headers: {Headers.contentTypeHeader: ['application/json']},
+        );
+      }
+      return ResponseBody.fromString(
+        jsonEncode({
+          'id': 'test-uuid-456',
+          'status': 'PRESENTED',
+          'finalResponse': jsonEncode({
+            'meal': {
+              'name': 'Daal with roti',
+              'quantity': '1 bowl, 2 roti',
+              'type': 'DINNER',
+              'macros': {
+                'calorie': {'value': 380},
+                'carb': {'value': 64},
+                'protein': {'value': 15},
+                'fat': {'value': 8},
+                'fiber': {'value': 15},
+              },
+              'health': {
+                'healthScore': 'HEALTHY',
+                'healthScoreReason': 'Rich in plant-based legume protein',
+              },
+            },
+          }),
+        }),
+        200,
+        headers: {Headers.contentTypeHeader: ['application/json']},
+      );
+    });
+
+    final dio = Dio(BaseOptions(baseUrl: 'https://api.example.test'))
+      ..httpClientAdapter = adapter;
+    final repo = FoodRepository(networkClient: NetworkClient.forTesting(dio));
+
+    final events = await repo.pollMealAnalysis(
+      analysisId: 'test-uuid-456',
+      pollInterval: const Duration(milliseconds: 10),
+    ).toList();
+
+    final progressEvents = events.where((e) => e.kind == MealAnalysisV3EventKind.progress).toList();
+    expect(progressEvents.isNotEmpty, isTrue);
+
+    final lastProgress = progressEvents.last.progress;
+    expect(lastProgress?.components.length, 2);
+    final daalComp = lastProgress?.components.firstWhere((c) => c.name == 'daal');
+    expect(daalComp?.ingredientNames, contains('lentils'));
+    final rotiComp = lastProgress?.components.firstWhere((c) => c.name == 'roti');
+    expect(rotiComp?.ingredientNames, contains('whole wheat flour'));
+  });
 }

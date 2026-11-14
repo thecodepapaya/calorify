@@ -15,6 +15,22 @@ Meal mealFromV3Result(
   MealAnalysisV3CompleteResult result, {
   String? textDescription,
 }) {
+  MealHealth? health;
+  if (result.rawJson['meal'] is Map<String, dynamic>) {
+    final mealMap = result.rawJson['meal'] as Map<String, dynamic>;
+    if (mealMap['health'] is Map<String, dynamic>) {
+      health =
+          MealHealth()..mergeFromProto3Json(
+            mealMap['health'] as Map<String, dynamic>,
+          );
+    }
+  } else if (result.rawJson['health'] is Map<String, dynamic>) {
+    health =
+        MealHealth()..mergeFromProto3Json(
+          result.rawJson['health'] as Map<String, dynamic>,
+        );
+  }
+
   return Meal(
     name: result.mealName,
     quantity: result.servingSizeText,
@@ -26,6 +42,7 @@ Meal mealFromV3Result(
       fat: Measurement(value: result.macros.fat.round()),
       fiber: Measurement(value: result.macros.fiber.round()),
     ),
+    health: health,
     metadata: MealMetadata(
       tip: result.tip,
       mealDescription: textDescription,

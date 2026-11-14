@@ -32,5 +32,7 @@ export 'src/protos/api/app_banner.pb.dart';
 export 'src/protos/api/app_banner.pbenum.dart';
 export 'src/protos/api/summary.pb.dart';
 export 'src/protos/api/summary.pbenum.dart';
+export 'src/protos/api/analysis_history.pb.dart' hide MealMetadata;
+export 'src/protos/api/analysis_history.pbenum.dart';
 export 'src/google/protobuf/timestamp.pb.dart';
 export 'src/google/protobuf/any.pb.dart';

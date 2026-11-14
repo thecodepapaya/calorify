@@ -492,6 +492,7 @@
         if (locale) metaInfo.locale = locale;
         const country = readMetaInput('meta-country').toUpperCase();
         if (country) metaInfo.countryCode = country;
+        metaInfo.timestamp = new Date().toISOString();
         return metaInfo;
     }
 
@@ -806,6 +807,14 @@
             const pass2 = parseMaybeJson(statusData.decomposedIngredient || statusData.decomposed_ingredient);
             if (pass2 && this.lastStageEmitted < 3) {
                 this.lastStageEmitted = 3;
+                const compPrepMap = {};
+                if (pass1 && pass1.components) {
+                    pass1.components.forEach(c => {
+                        const prep = (c.preparationMethod || c.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, '');
+                        if (c.canonical_name) compPrepMap[c.canonical_name] = prep;
+                        if (c.name) compPrepMap[c.name] = prep;
+                    });
+                }
                 const ingredients = (pass2.ingredients || []).map(ing => {
                     const portion = ing.portion || {};
                     let grams = 50, min = 40, max = 60;
@@ -826,6 +835,7 @@
                         name: ing.name || 'Ingredient',
                         canonical: ing.canonical_name || '',
                         component: ing.component_name || '',
+                        prep: (ing.preparationMethod || ing.preparation_method || compPrepMap[ing.component_name] || compPrepMap[ing.name] || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
                         grams: Math.round(grams),
                         min: Math.round(min),
                         max: Math.round(max)
@@ -854,6 +864,8 @@
                         fdcId: String(m.fdcId || m.fdc_id || ''),
                         food: m.description || m.name || 'USDA Grounded Reference Food',
                         similarity: sim,
+                        canonical: m.canonicalName || m.canonical_name || '',
+                        component: m.componentName || m.component_name || '',
                         cals: macros.calorie?.value || 0,
                         p: macros.protein?.value || 0,
                         c: macros.carb?.value || 0,
@@ -945,10 +957,18 @@
             else if (mealType === 3 || mealType === '3') mealType = 'DINNER';
             else if (mealType === 4 || mealType === '4') mealType = 'SNACK';
 
+            const compPrepMap = {};
+            (pass1.components || []).forEach(c => {
+                const prep = (c.preparationMethod || c.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, '');
+                if (c.canonical_name) compPrepMap[c.canonical_name] = prep;
+                if (c.name) compPrepMap[c.name] = prep;
+            });
+
             const ingredients = (pass2.ingredients || []).map(ing => ({
                 name: ing.name,
                 canonical: ing.canonical_name || '',
-                prep: (ing.preparation_method || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
+                component: ing.component_name || '',
+                prep: (ing.preparation_method || compPrepMap[ing.component_name] || compPrepMap[ing.name] || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
                 grams: ing.portion?.kind === 'EXACT'
                     ? (ing.portion.value || 0) * (ing.portion.per_unit_grams || 0)
                     : ing.portion?.value || 0

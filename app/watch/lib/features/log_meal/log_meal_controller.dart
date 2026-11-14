@@ -349,6 +349,22 @@ class LogMealController extends ChangeNotifier {
       return;
     }
 
+    MealHealth? health;
+    if (response.rawJson['meal'] is Map<String, dynamic>) {
+      final mealMap = response.rawJson['meal'] as Map<String, dynamic>;
+      if (mealMap['health'] is Map<String, dynamic>) {
+        health =
+            MealHealth()..mergeFromProto3Json(
+              mealMap['health'] as Map<String, dynamic>,
+            );
+      }
+    } else if (response.rawJson['health'] is Map<String, dynamic>) {
+      health =
+          MealHealth()..mergeFromProto3Json(
+            response.rawJson['health'] as Map<String, dynamic>,
+          );
+    }
+
     final meal = Meal(
       name: response.mealName,
       quantity: response.servingSizeText,
@@ -360,6 +376,7 @@ class LogMealController extends ChangeNotifier {
         fat: Measurement(value: response.macros.fat.round()),
         fiber: Measurement(value: response.macros.fiber.round()),
       ),
+      health: health,
       metadata: MealMetadata(
         tip: response.tip,
         mealDescription: description,
