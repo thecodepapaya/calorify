@@ -1,5 +1,12 @@
 # GPT-5.6 Luna one-call meal-analysis evaluation
 
+> Historical record (completed 2026-09-02, preserved here for future reference).
+> The runner and service paths referenced below belong to the TypeScript backend
+> that the Go rewrite (`backend/`) replaced in 2026-11; those `src/` links are
+> kept as era markers and do not resolve. The result still stands: it is the
+> recorded evidence behind the "no pass-1/pass-2 merge" constraint in
+> [the latency optimization plan](../../docs/plans/meal-analysis-latency-optimization.md).
+
 ## Status
 
 The initial one-off evaluation and its matched three-repeat follow-up completed
@@ -15,13 +22,12 @@ of the current two-call flow?
 ## Methodology
 
 The experiment used the 12 fixed text fixtures in
-[the meal-analysis eval set](../../backend/evals/meal-analysis.cases.json).
+[the meal-analysis eval set](meal-analysis.cases.json).
 Each fixture supplied its normal locale, country, time zone, timestamp, and
 meal text. The evaluator and its assertions were unchanged and ran only after
 each response was generated.
 
-The baseline used the existing
-[two-pass runner](../../backend/src/scripts/meal-analysis-eval.ts) with
+The baseline used the existing two-pass runner (`backend/src/scripts/meal-analysis-eval.ts`) with
 `openai/gpt-5.6-luna` and `reasoning_effort: none`. Each run makes a
 component call followed by an ingredient call.
 
@@ -35,13 +41,13 @@ one request per fixture. Its strict response schema was:
 }
 ```
 
-Its system prompt combined the existing
-[first-pass](../../backend/src/services/meal-analysis-v3/twoPassInterpretation.ts)
-and second-pass instructions, explicitly requiring direct completion of both
+Its system prompt combined the existing first-pass and second-pass instructions
+(from `backend/src/services/meal-analysis-v3/twoPassInterpretation.ts`),
+explicitly requiring direct completion of both
 objects in the single response. The temporary runner parsed both objects with
 the existing Zod schemas, replayed them through `buildInterpretationProposal`,
-and scored them with
-[`evaluateMealAnalysisRun`](../../backend/src/evals/mealAnalysisEval.ts).
+and scored them with `evaluateMealAnalysisRun`
+(`backend/src/evals/mealAnalysisEval.ts`).
 
 The following is the core combined-call logic. It is intentionally documented
 here rather than retained as a production script: the experiment did not add

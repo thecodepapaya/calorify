@@ -34,7 +34,7 @@ flowchart LR
 - **Scenarios Before Questions**: Explores plausible recipe scenarios and ranges first; asks only when answers materially narrow uncertainty.
 - **Offline Reliability**: Saves immediately to the local device database, queuing sync operations for when connectivity is restored.
 
-For deep architectural design and roadmap, see the [V3 Architecture Plan](docs/plans/meal-analysis-reliability.md).
+For the current backend pipeline architecture, see the [Meal-Analysis Pipeline doc](backend/docs/meal-analysis-pipeline.md); for active backend work, see the [backend roadmap](backend/TODO.md).
 
 ## Repository Layout
 

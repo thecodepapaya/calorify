@@ -20,9 +20,12 @@ User Input (Text / Image)
          │  (Dense cosine similarity search over usda_foods)
          ▼
 [ Stage 4: Nutrient Aggregation & Scaling ]   ── Deterministic Arithmetic
-         │  (Hydrates calories, macros, micro-nutrients per portion)
+         │  (Hydrates calories, macros per portion)
          ▼
-[ Stage 5: Final Response Persistence ]      ── PostgreSQL (meal_analysis)
+[ Stage 5: Clarification Generation ]         ── Variance-based quantity questions
+         │  (No LLM call; filters ingredients with >80 kcal range)
+         ▼
+[ Stage 6: Final Response Persistence ]        ── PostgreSQL (meal_analysis)
 ```
 
 ## Stages & Detailed Flow
@@ -38,13 +41,25 @@ User Input (Text / Image)
 - Emits canonical identities and lookup queries for USDA matching.
 
 ### 3. USDA Nutrient Grounding (pgvector)
-- Embeds queries via Ollama using `embeddinggemma-2` (768 dimensions).
-- Performs nearest neighbor search on PostgreSQL `usda_foods` using pgvector cosine distance (`1 - (embedding <=> query_vec)`).
-- When a similarity match exceeds the confidence threshold, extracts exact macros per 100g (energy, protein, fat, carbohydrates, fiber).
-- For ungrounded or low-confidence matches, flags for LLM model-inferred fallback.
+- Ingredient queries are embedded in one batch call to Ollama (`embeddinggemma-2`, 768 dimensions). Query text uses the asymmetric task prefix `"task: search result | query: " + canonical_name`; the index-time prefix `"title: none | content: " + description` is applied by `cmd/usda -embed*` (`cmd/usda/main.go`).
+- `searchUsda` (`internal/analysis/db.go`) runs two index-servable per-type top-1 CTEs per ingredient (base foods and branded foods, HNSW cosine order) merged by priority — base foods preferred for `BASE` ingredients, branded preferred for `BRANDED`.
+- There is no similarity threshold and no fallback: the single best candidate is taken unconditionally, and an ingredient with no candidate row aborts the whole analysis (`service.go` `enrichUsdaMacro`).
+- Per-ingredient searches run in parallel, bounded per analysis (`errgroup.SetLimit(10)`).
+- Exact macros per 100g (energy, protein, fat, carbs, fiber) are scaled to each ingredient's gram range.
 
-### 4. Async Execution & Event Lifecycle
-- Analysis jobs run in background goroutines initiated by `POST /users/meals/analysis`.
-- State updates are written atomically to the `meal_analysis` table (`PENDING` -> `PROCESSING` -> `COMPLETED` or `FAILED`).
+### 4. Clarification Generation
+- Pure Go, no LLM call: sorts enriched ingredients by calorie range (max - min), keeps those with a range wider than 80 kcal, and emits at most 2 locale-aware quantity questions with small/medium/large macro deltas (`utils.go` `buildQuantityClarification`).
+
+### 5. Async Execution & Event Lifecycle
+- Analysis jobs run in background goroutines initiated by `POST /users/meals/analysis`; the whole pipeline runs under a 45 s timeout.
+- Status progression in `meal_analysis.status`: `INITIATED` -> `COMPONENT_DECOMPOSED` -> `INGREDIENT_DECOMPOSED` -> `USDA_MACRO_HYDRATED` -> `CLARIFICATION_GENERATED` -> `PRESENTED`, or `FAILED` (with `failure_reason`) on any stage error or panic.
+- Clients poll `GET /users/meals/analysis/{analysis_id}` for stage progress and the final result.
 - Tracing is instrumented across all stages using OpenTelemetry spans (`internal/telemetry/`).
 
+## Open Questions (carried from the Stage 3 USDA resolution plan, 2026-11)
+
+1. **Preparation-state trap**: dense embeddings score `"raw white rice"` and `"cooked white rice"` above 0.9 cosine similarity, but their per-100g calories differ ~2.8x. The current search does not filter candidates by preparation state even though pass 2 emits one. Options: filter candidates against pass-2 `PreparationMethod`, or append the preparation to the query text.
+2. **No similarity floor**: the top-1 candidate is accepted regardless of similarity. A low-confidence match yields silently wrong macros instead of a flagged miss.
+3. **No unresolvable-ingredient fallback**: a nil candidate aborts the entire analysis. A `MODEL_INFERRED`-style fallback (or per-ingredient degradation flag) is undecided.
+
+These are tracked as open work items in `TODO.md` section 3 ("LLM Nutrition Fallback", "Preparation State Filtering", "Ingredient Match & Portion Accuracy").

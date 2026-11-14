@@ -9,7 +9,7 @@ Index of backend design notes, deployment runbooks, API contracts, evaluation da
 - [Meal-Analysis Enum Reference](meal-analysis-enums.md) — Canonical compact model enums, preparation methods, and deterministic codes.
 - [Observability & Telemetry](observability.md) — OpenTelemetry distributed tracing, Prometheus performance metrics, and analysis session inspection.
 - [Evals & Benchmarks](../evals/README.md) — LLM decomposition test cases, USDA resolver accuracy benchmarks, and evaluation harnesses.
+- [Latency Optimization Plan](../plans/meal-analysis-latency-optimization.md) — Active plan to cut meal-analysis e2e latency below 10s (target ~5s): per-call LLM measurement, decision tree, and levers.
 - [Roadmap & Feature Status](../TODO.md) — Active tracking of ported features, technical debt, and implementation backlog.
 
 For cross-component system design, refer to [`docs/plans/`](../../docs/plans/).
-

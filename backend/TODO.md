@@ -34,6 +34,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
 
 ## 3. Meal Analysis Pipeline & Clarifications
 
+- [ ] **Latency Optimization (active plan)**: Reduce e2e analysis latency from 10.96 s avg to <10 s (target ~5 s). Measurement-first plan: per-call LLM token/duration table (`llm_call`), decision tree, then levers (recipe cache, pass-2 model split, prompt/output trims). See [`docs/plans/meal-analysis-latency-optimization.md`](../docs/plans/meal-analysis-latency-optimization.md).
 - [x] **Two-Pass LLM Decomposition**: Implemented Pass 1 component decomposition (`decomposeComponents`) and Pass 2 ingredient decomposition (`decomposeIngredients`) using OpenAI Structured Outputs in `internal/analysis/service.go`.
 - [x] **USDA Vector Embedding & Cosine Similarity Search**: Implemented batch embedding via Ollama (`embeddinggemma-2`), pgvector cosine similarity search (`1 - (embedding <=> $1::vector)`), and macro hydration in `internal/analysis/service.go` and `internal/analysis/db.go`.
 - [x] **Analysis Pipeline Execution & DB Storage**: Asynchronous background pipeline (`go s.runPipeline`) saving Pass 1 components, Pass 2 ingredients, USDA enriched macros, and final meal response in `meal_analysis` table (`internal/analysis/service.go`).
@@ -145,7 +146,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
 
 - [x] **USDA Raw Dataset Streaming Ingestion**: Implemented in `cmd/usda/main.go -ingest` to stream Foundation, SR Legacy, Survey (FNDDS), and Branded foods from zip archives into `usda_foods`.
 - [x] **USDA Embedding Generation CLI**: Implemented in `cmd/usda/main.go -embed` and `-embed-all` to generate 768-dim embeddings using Ollama (`embeddinggemma-2`).
-- [x] ~~**USDA Batch LLM Normalization (`-normalize -populate_missing`)**~~: *(Not Applicable)* Superseded by dense vector search via EmbeddingGemma-2 & pgvector in Stage 3 architecture (`plans/stage-3-usda-nutrient-resolution.md`), avoiding cost-prohibitive offline batch LLM normalization.
+- [x] ~~**USDA Batch LLM Normalization (`-normalize -populate_missing`)**~~: *(Not Applicable)* Superseded by dense vector search via EmbeddingGemma-2 & pgvector (Stage 3 architecture), avoiding cost-prohibitive offline batch LLM normalization.
 - [ ] **USDA Retrieval Benchmark / Eval Harness**:
   - Implement eval CLI tool (`cmd/usda_eval`) to benchmark vector search and top-k retrieval accuracy against the validation meal ingredient corpus.
   - *Status: datasets and README exist under `backend/evals/`; the `cmd/usda_eval` CLI is absent from the tree.*

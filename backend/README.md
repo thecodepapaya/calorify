@@ -4,12 +4,12 @@ High-performance, idiomatic Go API service for user health tracking, USDA-ground
 
 ## Architecture
 
-- **Go 1.23+**: High-throughput REST API server structured around Google Protocol Buffers definitions.
+- **Go 1.27+**: High-throughput REST API server structured around Google Protocol Buffers definitions.
 - **PostgreSQL (`calorify`)**: Primary operational database storing users, health data, meal records, and meal analysis state.
 - **PostgreSQL (`usda` with pgvector)**: Materialized USDA FoodData Central reference database with 768-dimensional vector embeddings (`embeddinggemma-2`) and HNSW index for sub-millisecond semantic search.
 - **Ollama (`embeddinggemma-2`)**: Local/remote high-throughput dense text embeddings for USDA food items and ingredient queries.
 - **OpenAI Structured Outputs**: Powers multi-pass meal component & ingredient decomposition (`internal/analysis/`).
-- **OpenTelemetry & Prometheus**: Native distributed tracing via OTLP and operational latency/throughput metrics.
+- **OpenTelemetry**: Native distributed tracing via OTLP (Prometheus metrics are planned, see `TODO.md`).
 
 ## Key Subsystems
 
@@ -60,6 +60,6 @@ go run cmd/server/main.go
 - [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — Production VM architecture, Docker Compose topology, and deployment runbook.
 - [`docs/meal-analysis-pipeline.md`](docs/meal-analysis-pipeline.md) — Two-pass LLM decomposition, USDA pgvector matching, and analysis event lifecycle.
 - [`docs/meal-analysis-enums.md`](docs/meal-analysis-enums.md) — Canonical enum schemas, preparation methods, and variation types.
-- [`docs/observability.md`](docs/observability.md) — Prometheus metrics, OpenTelemetry tracing, and operator inspection.
+- [`docs/observability.md`](docs/observability.md) — OpenTelemetry tracing, planned Prometheus metrics, and operator inspection.
 - [`evals/README.md`](evals/README.md) — LLM pass evaluation and USDA retrieval benchmark harness.
 - [`TODO.md`](TODO.md) — Active roadmap, technical debt, and feature backlog.
