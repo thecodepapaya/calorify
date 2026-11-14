@@ -16,6 +16,7 @@ import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../common/meal.pb.dart' as $0;
+import 'meal.pbenum.dart';
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
@@ -31,6 +32,8 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
     $0.Macros? macros,
     $core.String? canonicalName,
     $core.String? componentName,
+    $0.Portion? portion,
+    IngredientType? ingredientType,
   }) {
     final result = create();
     if (name != null) result.name = name;
@@ -41,6 +44,8 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
     if (macros != null) result.macros = macros;
     if (canonicalName != null) result.canonicalName = canonicalName;
     if (componentName != null) result.componentName = componentName;
+    if (portion != null) result.portion = portion;
+    if (ingredientType != null) result.ingredientType = ingredientType;
     return result;
   }
 
@@ -67,6 +72,10 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
         subBuilder: $0.Macros.create)
     ..aOS(7, _omitFieldNames ? '' : 'canonicalName')
     ..aOS(8, _omitFieldNames ? '' : 'componentName')
+    ..aOM<$0.Portion>(9, _omitFieldNames ? '' : 'portion',
+        subBuilder: $0.Portion.create)
+    ..aE<IngredientType>(10, _omitFieldNames ? '' : 'ingredientType',
+        enumValues: IngredientType.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -163,6 +172,26 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
   $core.bool hasComponentName() => $_has(7);
   @$pb.TagNumber(8)
   void clearComponentName() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  $0.Portion get portion => $_getN(8);
+  @$pb.TagNumber(9)
+  set portion($0.Portion value) => $_setField(9, value);
+  @$pb.TagNumber(9)
+  $core.bool hasPortion() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearPortion() => $_clearField(9);
+  @$pb.TagNumber(9)
+  $0.Portion ensurePortion() => $_ensure(8);
+
+  @$pb.TagNumber(10)
+  IngredientType get ingredientType => $_getN(9);
+  @$pb.TagNumber(10)
+  set ingredientType(IngredientType value) => $_setField(10, value);
+  @$pb.TagNumber(10)
+  $core.bool hasIngredientType() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearIngredientType() => $_clearField(10);
 }
 
 class UsdaEnriched extends $pb.GeneratedMessage {

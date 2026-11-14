@@ -76,6 +76,24 @@ final $typed_data.Uint8List measurementDescriptor = $convert.base64Decode(
     'CgtNZWFzdXJlbWVudBIUCgV2YWx1ZRgBIAEoBVIFdmFsdWUSGwoJbWluX3ZhbHVlGAIgASgFUg'
     'htaW5WYWx1ZRIbCgltYXhfdmFsdWUYAyABKAVSCG1heFZhbHVl');
 
+@$core.Deprecated('Use portionDescriptor instead')
+const Portion$json = {
+  '1': 'Portion',
+  '2': [
+    {'1': 'kind', '3': 1, '4': 1, '5': 9, '10': 'kind'},
+    {'1': 'value', '3': 2, '4': 1, '5': 1, '10': 'value'},
+    {'1': 'min_value', '3': 3, '4': 1, '5': 1, '10': 'minValue'},
+    {'1': 'max_value', '3': 4, '4': 1, '5': 1, '10': 'maxValue'},
+    {'1': 'origin', '3': 5, '4': 1, '5': 9, '10': 'origin'},
+  ],
+};
+
+/// Descriptor for `Portion`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List portionDescriptor = $convert.base64Decode(
+    'CgdQb3J0aW9uEhIKBGtpbmQYASABKAlSBGtpbmQSFAoFdmFsdWUYAiABKAFSBXZhbHVlEhsKCW'
+    '1pbl92YWx1ZRgDIAEoAVIIbWluVmFsdWUSGwoJbWF4X3ZhbHVlGAQgASgBUghtYXhWYWx1ZRIW'
+    'CgZvcmlnaW4YBSABKAlSBm9yaWdpbg==');
+
 @$core.Deprecated('Use macrosDescriptor instead')
 const Macros$json = {
   '1': 'Macros',

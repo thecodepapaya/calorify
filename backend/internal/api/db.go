@@ -553,7 +553,13 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 		locale,
 		country_code,
 		timezone,
-		local_captured_at
+		local_captured_at,
+		decomposed_component,
+		decomposed_ingredient,
+		usda_enriched,
+		generated_clarification,
+		final_response,
+		is_liked
 	FROM meal_analysis
 	%s
 	ORDER BY created_at DESC
@@ -569,9 +575,11 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 	var items []*api.AnalysisHistoryItem
 	for rows.Next() {
 		item := &api.AnalysisHistoryItem{
-			Metadata: &api.MealMetadata{},
+			Metadata: &api.HistoryMetadata{},
 		}
 		var failReason, locale, countryCode, timezone sql.NullString
+		var pass1Raw, pass2Raw, enrichedRaw, clarifRaw, finalRaw sql.NullString
+		var isLiked sql.NullBool
 		var p1At, p2At, usdaAt, clarifAt, finalAt, updated, localCapturedAt sql.NullTime
 		var createdAt time.Time
 
@@ -598,6 +606,12 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 			&countryCode,
 			&timezone,
 			&localCapturedAt,
+			&pass1Raw,
+			&pass2Raw,
+			&enrichedRaw,
+			&clarifRaw,
+			&finalRaw,
+			&isLiked,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan meal analysis row: %w", err)
@@ -729,6 +743,15 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 			tot := max(0, updated.Time.Sub(createdAt).Seconds())
 			item.TotalDurationSec = &tot
 		}
+
+		if updated.Valid {
+			item.UpdatedAt = timestamppb.New(updated.Time)
+		}
+		if isLiked.Valid {
+			liked := isLiked.Bool
+			item.IsLiked = &liked
+		}
+		attachStageArtifacts(item, pass1Raw.String, pass2Raw.String, enrichedRaw.String, clarifRaw.String, finalRaw.String)
 
 		items = append(items, item)
 	}

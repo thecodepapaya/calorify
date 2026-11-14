@@ -96,12 +96,14 @@ func ingredientCandidateToEnriched(ingredient *IngredientDTO, candidate *UsdaCan
 	maxFiber := scaleNutrient(candidate.FiberPer100g, maxGram)
 
 	enrichedIngredient := &server.EnrichedIngredient{
-		Name:          ingredient.Name,
-		Description:   candidate.Description,
-		FdcId:         candidate.FdcID,
-		Similarity:    candidate.Similarity,
-		CanonicalName: ingredient.CanonicalName,
-		ComponentName: ingredient.ComponentName,
+		Name:           ingredient.Name,
+		Description:    candidate.Description,
+		FdcId:          candidate.FdcID,
+		Similarity:     candidate.Similarity,
+		CanonicalName:  ingredient.CanonicalName,
+		ComponentName:  ingredient.ComponentName,
+		Portion:        ingredient.Portion.ToCommon(),
+		IngredientType: ingredient.ServerIngredientType(),
 		Grams: &common.Measurement{
 			MinValue: minGram,
 			Value:    gram,

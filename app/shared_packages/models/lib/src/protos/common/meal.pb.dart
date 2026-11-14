@@ -99,6 +99,107 @@ class Measurement extends $pb.GeneratedMessage {
   void clearMaxValue() => $_clearField(3);
 }
 
+class Portion extends $pb.GeneratedMessage {
+  factory Portion({
+    $core.String? kind,
+    $core.double? value,
+    $core.double? minValue,
+    $core.double? maxValue,
+    $core.String? origin,
+  }) {
+    final result = create();
+    if (kind != null) result.kind = kind;
+    if (value != null) result.value = value;
+    if (minValue != null) result.minValue = minValue;
+    if (maxValue != null) result.maxValue = maxValue;
+    if (origin != null) result.origin = origin;
+    return result;
+  }
+
+  Portion._();
+
+  factory Portion.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory Portion.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'Portion',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'common'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'kind')
+    ..aD(2, _omitFieldNames ? '' : 'value')
+    ..aD(3, _omitFieldNames ? '' : 'minValue')
+    ..aD(4, _omitFieldNames ? '' : 'maxValue')
+    ..aOS(5, _omitFieldNames ? '' : 'origin')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Portion clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Portion copyWith(void Function(Portion) updates) =>
+      super.copyWith((message) => updates(message as Portion)) as Portion;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Portion create() => Portion._();
+  @$core.override
+  Portion createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static Portion getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Portion>(create);
+  static Portion? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get kind => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set kind($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasKind() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearKind() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get value => $_getN(1);
+  @$pb.TagNumber(2)
+  set value($core.double value) => $_setDouble(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasValue() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearValue() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.double get minValue => $_getN(2);
+  @$pb.TagNumber(3)
+  set minValue($core.double value) => $_setDouble(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasMinValue() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearMinValue() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.double get maxValue => $_getN(3);
+  @$pb.TagNumber(4)
+  set maxValue($core.double value) => $_setDouble(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasMaxValue() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearMaxValue() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get origin => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set origin($core.String value) => $_setString(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasOrigin() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearOrigin() => $_clearField(5);
+}
+
 class Macros extends $pb.GeneratedMessage {
   factory Macros({
     Measurement? calorie,

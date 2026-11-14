@@ -7,6 +7,8 @@
 package api
 
 import (
+	common "backend/internal/gen_proto/common"
+	server "backend/internal/gen_proto/server"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -90,7 +92,7 @@ func (x *StepTiming) GetCompletedAt() string {
 	return ""
 }
 
-type MealMetadata struct {
+type HistoryMetadata struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Name           string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Quantity       string                 `protobuf:"bytes,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
@@ -101,20 +103,20 @@ type MealMetadata struct {
 	sizeCache      protoimpl.SizeCache
 }
 
-func (x *MealMetadata) Reset() {
-	*x = MealMetadata{}
+func (x *HistoryMetadata) Reset() {
+	*x = HistoryMetadata{}
 	mi := &file_protos_api_analysis_history_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *MealMetadata) String() string {
+func (x *HistoryMetadata) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MealMetadata) ProtoMessage() {}
+func (*HistoryMetadata) ProtoMessage() {}
 
-func (x *MealMetadata) ProtoReflect() protoreflect.Message {
+func (x *HistoryMetadata) ProtoReflect() protoreflect.Message {
 	mi := &file_protos_api_analysis_history_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -126,70 +128,144 @@ func (x *MealMetadata) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MealMetadata.ProtoReflect.Descriptor instead.
-func (*MealMetadata) Descriptor() ([]byte, []int) {
+// Deprecated: Use HistoryMetadata.ProtoReflect.Descriptor instead.
+func (*HistoryMetadata) Descriptor() ([]byte, []int) {
 	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *MealMetadata) GetName() string {
+func (x *HistoryMetadata) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *MealMetadata) GetQuantity() string {
+func (x *HistoryMetadata) GetQuantity() string {
 	if x != nil {
 		return x.Quantity
 	}
 	return ""
 }
 
-func (x *MealMetadata) GetMealType() string {
+func (x *HistoryMetadata) GetMealType() string {
 	if x != nil {
 		return x.MealType
 	}
 	return ""
 }
 
-func (x *MealMetadata) GetHealthScore() string {
+func (x *HistoryMetadata) GetHealthScore() string {
 	if x != nil {
 		return x.HealthScore
 	}
 	return ""
 }
 
-func (x *MealMetadata) GetComponentCount() int32 {
+func (x *HistoryMetadata) GetComponentCount() int32 {
 	if x != nil {
 		return x.ComponentCount
 	}
 	return 0
 }
 
+type HistoryComponent struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Name              string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	CanonicalName     string                 `protobuf:"bytes,2,opt,name=canonical_name,json=canonicalName,proto3" json:"canonical_name,omitempty"`
+	PreparationMethod string                 `protobuf:"bytes,3,opt,name=preparation_method,json=preparationMethod,proto3" json:"preparation_method,omitempty"`
+	Portion           *common.Portion        `protobuf:"bytes,4,opt,name=portion,proto3" json:"portion,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *HistoryComponent) Reset() {
+	*x = HistoryComponent{}
+	mi := &file_protos_api_analysis_history_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HistoryComponent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HistoryComponent) ProtoMessage() {}
+
+func (x *HistoryComponent) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_api_analysis_history_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HistoryComponent.ProtoReflect.Descriptor instead.
+func (*HistoryComponent) Descriptor() ([]byte, []int) {
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *HistoryComponent) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *HistoryComponent) GetCanonicalName() string {
+	if x != nil {
+		return x.CanonicalName
+	}
+	return ""
+}
+
+func (x *HistoryComponent) GetPreparationMethod() string {
+	if x != nil {
+		return x.PreparationMethod
+	}
+	return ""
+}
+
+func (x *HistoryComponent) GetPortion() *common.Portion {
+	if x != nil {
+		return x.Portion
+	}
+	return nil
+}
+
 type AnalysisHistoryItem struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Id               string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	UserUid          string                 `protobuf:"bytes,2,opt,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
-	CreatedAt        *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	Status           string                 `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
-	Text             string                 `protobuf:"bytes,5,opt,name=text,proto3" json:"text,omitempty"`
-	HasImage         bool                   `protobuf:"varint,6,opt,name=has_image,json=hasImage,proto3" json:"has_image,omitempty"`
-	FailureReason    *string                `protobuf:"bytes,7,opt,name=failure_reason,json=failureReason,proto3,oneof" json:"failure_reason,omitempty"`
-	FailedAtStep     *string                `protobuf:"bytes,8,opt,name=failed_at_step,json=failedAtStep,proto3,oneof" json:"failed_at_step,omitempty"`
-	TotalDurationSec *float64               `protobuf:"fixed64,9,opt,name=total_duration_sec,json=totalDurationSec,proto3,oneof" json:"total_duration_sec,omitempty"`
-	Metadata         *MealMetadata          `protobuf:"bytes,10,opt,name=metadata,proto3" json:"metadata,omitempty"`
-	Steps            []*StepTiming          `protobuf:"bytes,11,rep,name=steps,proto3" json:"steps,omitempty"`
-	Locale           *string                `protobuf:"bytes,12,opt,name=locale,proto3,oneof" json:"locale,omitempty"`
-	CountryCode      *string                `protobuf:"bytes,13,opt,name=country_code,json=countryCode,proto3,oneof" json:"country_code,omitempty"`
-	Timezone         *string                `protobuf:"bytes,14,opt,name=timezone,proto3,oneof" json:"timezone,omitempty"`
-	LocalCapturedAt  *timestamppb.Timestamp `protobuf:"bytes,15,opt,name=local_captured_at,json=localCapturedAt,proto3,oneof" json:"local_captured_at,omitempty"`
+	state            protoimpl.MessageState       `protogen:"open.v1"`
+	Id               string                       `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	UserUid          string                       `protobuf:"bytes,2,opt,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
+	CreatedAt        *timestamppb.Timestamp       `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Status           string                       `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	Text             string                       `protobuf:"bytes,5,opt,name=text,proto3" json:"text,omitempty"`
+	HasImage         bool                         `protobuf:"varint,6,opt,name=has_image,json=hasImage,proto3" json:"has_image,omitempty"`
+	FailureReason    *string                      `protobuf:"bytes,7,opt,name=failure_reason,json=failureReason,proto3,oneof" json:"failure_reason,omitempty"`
+	FailedAtStep     *string                      `protobuf:"bytes,8,opt,name=failed_at_step,json=failedAtStep,proto3,oneof" json:"failed_at_step,omitempty"`
+	TotalDurationSec *float64                     `protobuf:"fixed64,9,opt,name=total_duration_sec,json=totalDurationSec,proto3,oneof" json:"total_duration_sec,omitempty"`
+	Metadata         *HistoryMetadata             `protobuf:"bytes,10,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	Steps            []*StepTiming                `protobuf:"bytes,11,rep,name=steps,proto3" json:"steps,omitempty"`
+	Locale           *string                      `protobuf:"bytes,12,opt,name=locale,proto3,oneof" json:"locale,omitempty"`
+	CountryCode      *string                      `protobuf:"bytes,13,opt,name=country_code,json=countryCode,proto3,oneof" json:"country_code,omitempty"`
+	Timezone         *string                      `protobuf:"bytes,14,opt,name=timezone,proto3,oneof" json:"timezone,omitempty"`
+	LocalCapturedAt  *timestamppb.Timestamp       `protobuf:"bytes,15,opt,name=local_captured_at,json=localCapturedAt,proto3,oneof" json:"local_captured_at,omitempty"`
+	IsLiked          *bool                        `protobuf:"varint,16,opt,name=is_liked,json=isLiked,proto3,oneof" json:"is_liked,omitempty"`
+	UpdatedAt        *timestamppb.Timestamp       `protobuf:"bytes,17,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Components       []*HistoryComponent          `protobuf:"bytes,18,rep,name=components,proto3" json:"components,omitempty"`
+	Ingredients      []*server.EnrichedIngredient `protobuf:"bytes,19,rep,name=ingredients,proto3" json:"ingredients,omitempty"`
+	Clarifications   []*common.Clarification      `protobuf:"bytes,20,rep,name=clarifications,proto3" json:"clarifications,omitempty"`
+	Final            *common.Meal                 `protobuf:"bytes,21,opt,name=final,proto3,oneof" json:"final,omitempty"` // image_base64 stripped before returning
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
 
 func (x *AnalysisHistoryItem) Reset() {
 	*x = AnalysisHistoryItem{}
-	mi := &file_protos_api_analysis_history_proto_msgTypes[2]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -201,7 +277,7 @@ func (x *AnalysisHistoryItem) String() string {
 func (*AnalysisHistoryItem) ProtoMessage() {}
 
 func (x *AnalysisHistoryItem) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_api_analysis_history_proto_msgTypes[2]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -214,7 +290,7 @@ func (x *AnalysisHistoryItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisHistoryItem.ProtoReflect.Descriptor instead.
 func (*AnalysisHistoryItem) Descriptor() ([]byte, []int) {
-	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{2}
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *AnalysisHistoryItem) GetId() string {
@@ -280,7 +356,7 @@ func (x *AnalysisHistoryItem) GetTotalDurationSec() float64 {
 	return 0
 }
 
-func (x *AnalysisHistoryItem) GetMetadata() *MealMetadata {
+func (x *AnalysisHistoryItem) GetMetadata() *HistoryMetadata {
 	if x != nil {
 		return x.Metadata
 	}
@@ -322,6 +398,48 @@ func (x *AnalysisHistoryItem) GetLocalCapturedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *AnalysisHistoryItem) GetIsLiked() bool {
+	if x != nil && x.IsLiked != nil {
+		return *x.IsLiked
+	}
+	return false
+}
+
+func (x *AnalysisHistoryItem) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
+func (x *AnalysisHistoryItem) GetComponents() []*HistoryComponent {
+	if x != nil {
+		return x.Components
+	}
+	return nil
+}
+
+func (x *AnalysisHistoryItem) GetIngredients() []*server.EnrichedIngredient {
+	if x != nil {
+		return x.Ingredients
+	}
+	return nil
+}
+
+func (x *AnalysisHistoryItem) GetClarifications() []*common.Clarification {
+	if x != nil {
+		return x.Clarifications
+	}
+	return nil
+}
+
+func (x *AnalysisHistoryItem) GetFinal() *common.Meal {
+	if x != nil {
+		return x.Final
+	}
+	return nil
+}
+
 type AnalysisHistorySummary struct {
 	state               protoimpl.MessageState `protogen:"open.v1"`
 	TimeRange           string                 `protobuf:"bytes,1,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
@@ -338,7 +456,7 @@ type AnalysisHistorySummary struct {
 
 func (x *AnalysisHistorySummary) Reset() {
 	*x = AnalysisHistorySummary{}
-	mi := &file_protos_api_analysis_history_proto_msgTypes[3]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -350,7 +468,7 @@ func (x *AnalysisHistorySummary) String() string {
 func (*AnalysisHistorySummary) ProtoMessage() {}
 
 func (x *AnalysisHistorySummary) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_api_analysis_history_proto_msgTypes[3]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -363,7 +481,7 @@ func (x *AnalysisHistorySummary) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisHistorySummary.ProtoReflect.Descriptor instead.
 func (*AnalysisHistorySummary) Descriptor() ([]byte, []int) {
-	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{3}
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *AnalysisHistorySummary) GetTimeRange() string {
@@ -434,7 +552,7 @@ type AnalysisHistoryRequest struct {
 
 func (x *AnalysisHistoryRequest) Reset() {
 	*x = AnalysisHistoryRequest{}
-	mi := &file_protos_api_analysis_history_proto_msgTypes[4]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -446,7 +564,7 @@ func (x *AnalysisHistoryRequest) String() string {
 func (*AnalysisHistoryRequest) ProtoMessage() {}
 
 func (x *AnalysisHistoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_api_analysis_history_proto_msgTypes[4]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -459,7 +577,7 @@ func (x *AnalysisHistoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisHistoryRequest.ProtoReflect.Descriptor instead.
 func (*AnalysisHistoryRequest) Descriptor() ([]byte, []int) {
-	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{4}
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *AnalysisHistoryRequest) GetTimeRange() string {
@@ -506,7 +624,7 @@ type AnalysisHistoryResponse struct {
 
 func (x *AnalysisHistoryResponse) Reset() {
 	*x = AnalysisHistoryResponse{}
-	mi := &file_protos_api_analysis_history_proto_msgTypes[5]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -518,7 +636,7 @@ func (x *AnalysisHistoryResponse) String() string {
 func (*AnalysisHistoryResponse) ProtoMessage() {}
 
 func (x *AnalysisHistoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_api_analysis_history_proto_msgTypes[5]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -531,7 +649,7 @@ func (x *AnalysisHistoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisHistoryResponse.ProtoReflect.Descriptor instead.
 func (*AnalysisHistoryResponse) Descriptor() ([]byte, []int) {
-	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{5}
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *AnalysisHistoryResponse) GetSummary() *AnalysisHistorySummary {
@@ -594,7 +712,7 @@ var File_protos_api_analysis_history_proto protoreflect.FileDescriptor
 
 const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\n" +
-	"!protos/api/analysis_history.proto\x12\x03api\x1a\x1fgoogle/protobuf/timestamp.proto\"\xaa\x01\n" +
+	"!protos/api/analysis_history.proto\x12\x03api\x1a\x1fgoogle/protobuf/timestamp.proto\x1a!protos/common/clarification.proto\x1a\x18protos/common/meal.proto\x1a\x18protos/server/meal.proto\"\xaa\x01\n" +
 	"\n" +
 	"StepTiming\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12&\n" +
@@ -602,13 +720,18 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\x06status\x18\x03 \x01(\tR\x06status\x12&\n" +
 	"\fcompleted_at\x18\x04 \x01(\tH\x01R\vcompletedAt\x88\x01\x01B\x0f\n" +
 	"\r_duration_secB\x0f\n" +
-	"\r_completed_at\"\xa7\x01\n" +
-	"\fMealMetadata\x12\x12\n" +
+	"\r_completed_at\"\xaa\x01\n" +
+	"\x0fHistoryMetadata\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\tR\bquantity\x12\x1b\n" +
 	"\tmeal_type\x18\x03 \x01(\tR\bmealType\x12!\n" +
 	"\fhealth_score\x18\x04 \x01(\tR\vhealthScore\x12'\n" +
-	"\x0fcomponent_count\x18\x05 \x01(\x05R\x0ecomponentCount\"\xd3\x05\n" +
+	"\x0fcomponent_count\x18\x05 \x01(\x05R\x0ecomponentCount\"\xa7\x01\n" +
+	"\x10HistoryComponent\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12%\n" +
+	"\x0ecanonical_name\x18\x02 \x01(\tR\rcanonicalName\x12-\n" +
+	"\x12preparation_method\x18\x03 \x01(\tR\x11preparationMethod\x12)\n" +
+	"\aportion\x18\x04 \x01(\v2\x0f.common.PortionR\aportion\"\xa5\b\n" +
 	"\x13AnalysisHistoryItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\buser_uid\x18\x02 \x01(\tR\auserUid\x129\n" +
@@ -619,21 +742,32 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\thas_image\x18\x06 \x01(\bR\bhasImage\x12*\n" +
 	"\x0efailure_reason\x18\a \x01(\tH\x00R\rfailureReason\x88\x01\x01\x12)\n" +
 	"\x0efailed_at_step\x18\b \x01(\tH\x01R\ffailedAtStep\x88\x01\x01\x121\n" +
-	"\x12total_duration_sec\x18\t \x01(\x01H\x02R\x10totalDurationSec\x88\x01\x01\x12-\n" +
+	"\x12total_duration_sec\x18\t \x01(\x01H\x02R\x10totalDurationSec\x88\x01\x01\x120\n" +
 	"\bmetadata\x18\n" +
-	" \x01(\v2\x11.api.MealMetadataR\bmetadata\x12%\n" +
+	" \x01(\v2\x14.api.HistoryMetadataR\bmetadata\x12%\n" +
 	"\x05steps\x18\v \x03(\v2\x0f.api.StepTimingR\x05steps\x12\x1b\n" +
 	"\x06locale\x18\f \x01(\tH\x03R\x06locale\x88\x01\x01\x12&\n" +
 	"\fcountry_code\x18\r \x01(\tH\x04R\vcountryCode\x88\x01\x01\x12\x1f\n" +
 	"\btimezone\x18\x0e \x01(\tH\x05R\btimezone\x88\x01\x01\x12K\n" +
-	"\x11local_captured_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampH\x06R\x0flocalCapturedAt\x88\x01\x01B\x11\n" +
+	"\x11local_captured_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampH\x06R\x0flocalCapturedAt\x88\x01\x01\x12\x1e\n" +
+	"\bis_liked\x18\x10 \x01(\bH\aR\aisLiked\x88\x01\x01\x129\n" +
+	"\n" +
+	"updated_at\x18\x11 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x125\n" +
+	"\n" +
+	"components\x18\x12 \x03(\v2\x15.api.HistoryComponentR\n" +
+	"components\x12<\n" +
+	"\vingredients\x18\x13 \x03(\v2\x1a.server.EnrichedIngredientR\vingredients\x12=\n" +
+	"\x0eclarifications\x18\x14 \x03(\v2\x15.common.ClarificationR\x0eclarifications\x12'\n" +
+	"\x05final\x18\x15 \x01(\v2\f.common.MealH\bR\x05final\x88\x01\x01B\x11\n" +
 	"\x0f_failure_reasonB\x11\n" +
 	"\x0f_failed_at_stepB\x15\n" +
 	"\x13_total_duration_secB\t\n" +
 	"\a_localeB\x0f\n" +
 	"\r_country_codeB\v\n" +
 	"\t_timezoneB\x14\n" +
-	"\x12_local_captured_at\"\xd6\x04\n" +
+	"\x12_local_captured_atB\v\n" +
+	"\t_is_likedB\b\n" +
+	"\x06_final\"\xd6\x04\n" +
 	"\x16AnalysisHistorySummary\x12\x1d\n" +
 	"\n" +
 	"time_range\x18\x01 \x01(\tR\ttimeRange\x12%\n" +
@@ -685,32 +819,43 @@ func file_protos_api_analysis_history_proto_rawDescGZIP() []byte {
 	return file_protos_api_analysis_history_proto_rawDescData
 }
 
-var file_protos_api_analysis_history_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_protos_api_analysis_history_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_protos_api_analysis_history_proto_goTypes = []any{
-	(*StepTiming)(nil),              // 0: api.StepTiming
-	(*MealMetadata)(nil),            // 1: api.MealMetadata
-	(*AnalysisHistoryItem)(nil),     // 2: api.AnalysisHistoryItem
-	(*AnalysisHistorySummary)(nil),  // 3: api.AnalysisHistorySummary
-	(*AnalysisHistoryRequest)(nil),  // 4: api.AnalysisHistoryRequest
-	(*AnalysisHistoryResponse)(nil), // 5: api.AnalysisHistoryResponse
-	nil,                             // 6: api.AnalysisHistorySummary.AvgStepDurationsSecEntry
-	nil,                             // 7: api.AnalysisHistorySummary.FailuresByStepEntry
-	(*timestamppb.Timestamp)(nil),   // 8: google.protobuf.Timestamp
+	(*StepTiming)(nil),                // 0: api.StepTiming
+	(*HistoryMetadata)(nil),           // 1: api.HistoryMetadata
+	(*HistoryComponent)(nil),          // 2: api.HistoryComponent
+	(*AnalysisHistoryItem)(nil),       // 3: api.AnalysisHistoryItem
+	(*AnalysisHistorySummary)(nil),    // 4: api.AnalysisHistorySummary
+	(*AnalysisHistoryRequest)(nil),    // 5: api.AnalysisHistoryRequest
+	(*AnalysisHistoryResponse)(nil),   // 6: api.AnalysisHistoryResponse
+	nil,                               // 7: api.AnalysisHistorySummary.AvgStepDurationsSecEntry
+	nil,                               // 8: api.AnalysisHistorySummary.FailuresByStepEntry
+	(*common.Portion)(nil),            // 9: common.Portion
+	(*timestamppb.Timestamp)(nil),     // 10: google.protobuf.Timestamp
+	(*server.EnrichedIngredient)(nil), // 11: server.EnrichedIngredient
+	(*common.Clarification)(nil),      // 12: common.Clarification
+	(*common.Meal)(nil),               // 13: common.Meal
 }
 var file_protos_api_analysis_history_proto_depIdxs = []int32{
-	8, // 0: api.AnalysisHistoryItem.created_at:type_name -> google.protobuf.Timestamp
-	1, // 1: api.AnalysisHistoryItem.metadata:type_name -> api.MealMetadata
-	0, // 2: api.AnalysisHistoryItem.steps:type_name -> api.StepTiming
-	8, // 3: api.AnalysisHistoryItem.local_captured_at:type_name -> google.protobuf.Timestamp
-	6, // 4: api.AnalysisHistorySummary.avg_step_durations_sec:type_name -> api.AnalysisHistorySummary.AvgStepDurationsSecEntry
-	7, // 5: api.AnalysisHistorySummary.failures_by_step:type_name -> api.AnalysisHistorySummary.FailuresByStepEntry
-	3, // 6: api.AnalysisHistoryResponse.summary:type_name -> api.AnalysisHistorySummary
-	2, // 7: api.AnalysisHistoryResponse.items:type_name -> api.AnalysisHistoryItem
-	8, // [8:8] is the sub-list for method output_type
-	8, // [8:8] is the sub-list for method input_type
-	8, // [8:8] is the sub-list for extension type_name
-	8, // [8:8] is the sub-list for extension extendee
-	0, // [0:8] is the sub-list for field type_name
+	9,  // 0: api.HistoryComponent.portion:type_name -> common.Portion
+	10, // 1: api.AnalysisHistoryItem.created_at:type_name -> google.protobuf.Timestamp
+	1,  // 2: api.AnalysisHistoryItem.metadata:type_name -> api.HistoryMetadata
+	0,  // 3: api.AnalysisHistoryItem.steps:type_name -> api.StepTiming
+	10, // 4: api.AnalysisHistoryItem.local_captured_at:type_name -> google.protobuf.Timestamp
+	10, // 5: api.AnalysisHistoryItem.updated_at:type_name -> google.protobuf.Timestamp
+	2,  // 6: api.AnalysisHistoryItem.components:type_name -> api.HistoryComponent
+	11, // 7: api.AnalysisHistoryItem.ingredients:type_name -> server.EnrichedIngredient
+	12, // 8: api.AnalysisHistoryItem.clarifications:type_name -> common.Clarification
+	13, // 9: api.AnalysisHistoryItem.final:type_name -> common.Meal
+	7,  // 10: api.AnalysisHistorySummary.avg_step_durations_sec:type_name -> api.AnalysisHistorySummary.AvgStepDurationsSecEntry
+	8,  // 11: api.AnalysisHistorySummary.failures_by_step:type_name -> api.AnalysisHistorySummary.FailuresByStepEntry
+	4,  // 12: api.AnalysisHistoryResponse.summary:type_name -> api.AnalysisHistorySummary
+	3,  // 13: api.AnalysisHistoryResponse.items:type_name -> api.AnalysisHistoryItem
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_protos_api_analysis_history_proto_init() }
@@ -719,15 +864,15 @@ func file_protos_api_analysis_history_proto_init() {
 		return
 	}
 	file_protos_api_analysis_history_proto_msgTypes[0].OneofWrappers = []any{}
-	file_protos_api_analysis_history_proto_msgTypes[2].OneofWrappers = []any{}
-	file_protos_api_analysis_history_proto_msgTypes[4].OneofWrappers = []any{}
+	file_protos_api_analysis_history_proto_msgTypes[3].OneofWrappers = []any{}
+	file_protos_api_analysis_history_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_api_analysis_history_proto_rawDesc), len(file_protos_api_analysis_history_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

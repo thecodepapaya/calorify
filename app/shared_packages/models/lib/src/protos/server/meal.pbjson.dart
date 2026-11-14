@@ -53,6 +53,22 @@ const EnrichedIngredient$json = {
     },
     {'1': 'canonical_name', '3': 7, '4': 1, '5': 9, '10': 'canonicalName'},
     {'1': 'component_name', '3': 8, '4': 1, '5': 9, '10': 'componentName'},
+    {
+      '1': 'portion',
+      '3': 9,
+      '4': 1,
+      '5': 11,
+      '6': '.common.Portion',
+      '10': 'portion'
+    },
+    {
+      '1': 'ingredient_type',
+      '3': 10,
+      '4': 1,
+      '5': 14,
+      '6': '.server.IngredientType',
+      '10': 'ingredientType'
+    },
   ],
 };
 
@@ -63,7 +79,9 @@ final $typed_data.Uint8List enrichedIngredientDescriptor = $convert.base64Decode
     'GAQgASgCUgpzaW1pbGFyaXR5EikKBWdyYW1zGAUgASgLMhMuY29tbW9uLk1lYXN1cmVtZW50Ug'
     'VncmFtcxImCgZtYWNyb3MYBiABKAsyDi5jb21tb24uTWFjcm9zUgZtYWNyb3MSJQoOY2Fub25p'
     'Y2FsX25hbWUYByABKAlSDWNhbm9uaWNhbE5hbWUSJQoOY29tcG9uZW50X25hbWUYCCABKAlSDW'
-    'NvbXBvbmVudE5hbWU=');
+    'NvbXBvbmVudE5hbWUSKQoHcG9ydGlvbhgJIAEoCzIPLmNvbW1vbi5Qb3J0aW9uUgdwb3J0aW9u'
+    'Ej8KD2luZ3JlZGllbnRfdHlwZRgKIAEoDjIWLnNlcnZlci5JbmdyZWRpZW50VHlwZVIOaW5ncm'
+    'VkaWVudFR5cGU=');
 
 @$core.Deprecated('Use usdaEnrichedDescriptor instead')
 const UsdaEnriched$json = {

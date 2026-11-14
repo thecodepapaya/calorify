@@ -18,6 +18,8 @@ message EnrichedIngredient {
   common.Macros      macros         = 6;
   string             canonical_name = 7;
   string             component_name = 8;
+  common.Portion     portion         = 9;
+  IngredientType     ingredient_type = 10;
 }
 
 message UsdaEnriched {

@@ -10,14 +10,22 @@ import (
 )
 
 var publicRoutes = map[string]bool{
-	"/ready":                      true,
-	"/analysis-history":           true,
-	"/internal/analysis-history":  true,
+	"/ready":                     true,
+	"/analysis-history":          true,
+	"/internal/analysis-history": true,
+}
+
+func isPublic(path string) bool {
+	if publicRoutes[path] {
+		return true
+	}
+	// Parameterized dashboard sub-routes (e.g. /analysis-history/image/{id}).
+	return strings.HasPrefix(path, "/analysis-history/")
 }
 
 func Auth(next http.Handler, authClient *auth.Client) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodOptions || publicRoutes[r.URL.Path] {
+		if r.Method == http.MethodOptions || isPublic(r.URL.Path) {
 			next.ServeHTTP(w, r)
 			return
 		}

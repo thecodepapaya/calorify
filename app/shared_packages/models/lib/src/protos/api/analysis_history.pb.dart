@@ -14,7 +14,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../google/protobuf/timestamp.pb.dart' as $0;
+import '../../google/protobuf/timestamp.pb.dart' as $1;
+import '../common/clarification.pb.dart' as $3;
+import '../common/meal.pb.dart' as $0;
+import '../server/meal.pb.dart' as $2;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
@@ -107,8 +110,8 @@ class StepTiming extends $pb.GeneratedMessage {
   void clearCompletedAt() => $_clearField(4);
 }
 
-class MealMetadata extends $pb.GeneratedMessage {
-  factory MealMetadata({
+class HistoryMetadata extends $pb.GeneratedMessage {
+  factory HistoryMetadata({
     $core.String? name,
     $core.String? quantity,
     $core.String? mealType,
@@ -124,17 +127,17 @@ class MealMetadata extends $pb.GeneratedMessage {
     return result;
   }
 
-  MealMetadata._();
+  HistoryMetadata._();
 
-  factory MealMetadata.fromBuffer($core.List<$core.int> data,
+  factory HistoryMetadata.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory MealMetadata.fromJson($core.String json,
+  factory HistoryMetadata.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'MealMetadata',
+      _omitMessageNames ? '' : 'HistoryMetadata',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'api'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'name')
@@ -145,23 +148,23 @@ class MealMetadata extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  MealMetadata clone() => deepCopy();
+  HistoryMetadata clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  MealMetadata copyWith(void Function(MealMetadata) updates) =>
-      super.copyWith((message) => updates(message as MealMetadata))
-          as MealMetadata;
+  HistoryMetadata copyWith(void Function(HistoryMetadata) updates) =>
+      super.copyWith((message) => updates(message as HistoryMetadata))
+          as HistoryMetadata;
 
   @$core.override
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static MealMetadata create() => MealMetadata._();
+  static HistoryMetadata create() => HistoryMetadata._();
   @$core.override
-  MealMetadata createEmptyInstance() => create();
+  HistoryMetadata createEmptyInstance() => create();
   @$core.pragma('dart2js:noInline')
-  static MealMetadata getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<MealMetadata>(create);
-  static MealMetadata? _defaultInstance;
+  static HistoryMetadata getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<HistoryMetadata>(create);
+  static HistoryMetadata? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get name => $_getSZ(0);
@@ -209,23 +212,122 @@ class MealMetadata extends $pb.GeneratedMessage {
   void clearComponentCount() => $_clearField(5);
 }
 
+class HistoryComponent extends $pb.GeneratedMessage {
+  factory HistoryComponent({
+    $core.String? name,
+    $core.String? canonicalName,
+    $core.String? preparationMethod,
+    $0.Portion? portion,
+  }) {
+    final result = create();
+    if (name != null) result.name = name;
+    if (canonicalName != null) result.canonicalName = canonicalName;
+    if (preparationMethod != null) result.preparationMethod = preparationMethod;
+    if (portion != null) result.portion = portion;
+    return result;
+  }
+
+  HistoryComponent._();
+
+  factory HistoryComponent.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory HistoryComponent.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'HistoryComponent',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'api'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..aOS(2, _omitFieldNames ? '' : 'canonicalName')
+    ..aOS(3, _omitFieldNames ? '' : 'preparationMethod')
+    ..aOM<$0.Portion>(4, _omitFieldNames ? '' : 'portion',
+        subBuilder: $0.Portion.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  HistoryComponent clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  HistoryComponent copyWith(void Function(HistoryComponent) updates) =>
+      super.copyWith((message) => updates(message as HistoryComponent))
+          as HistoryComponent;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static HistoryComponent create() => HistoryComponent._();
+  @$core.override
+  HistoryComponent createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static HistoryComponent getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<HistoryComponent>(create);
+  static HistoryComponent? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get name => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set name($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearName() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get canonicalName => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set canonicalName($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasCanonicalName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCanonicalName() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get preparationMethod => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set preparationMethod($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasPreparationMethod() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPreparationMethod() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.Portion get portion => $_getN(3);
+  @$pb.TagNumber(4)
+  set portion($0.Portion value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasPortion() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPortion() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $0.Portion ensurePortion() => $_ensure(3);
+}
+
 class AnalysisHistoryItem extends $pb.GeneratedMessage {
   factory AnalysisHistoryItem({
     $core.String? id,
     $core.String? userUid,
-    $0.Timestamp? createdAt,
+    $1.Timestamp? createdAt,
     $core.String? status,
     $core.String? text,
     $core.bool? hasImage,
     $core.String? failureReason,
     $core.String? failedAtStep,
     $core.double? totalDurationSec,
-    MealMetadata? metadata,
+    HistoryMetadata? metadata,
     $core.Iterable<StepTiming>? steps,
     $core.String? locale,
     $core.String? countryCode,
     $core.String? timezone,
-    $0.Timestamp? localCapturedAt,
+    $1.Timestamp? localCapturedAt,
+    $core.bool? isLiked,
+    $1.Timestamp? updatedAt,
+    $core.Iterable<HistoryComponent>? components,
+    $core.Iterable<$2.EnrichedIngredient>? ingredients,
+    $core.Iterable<$3.Clarification>? clarifications,
+    $0.Meal? final_21,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -243,6 +345,12 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
     if (countryCode != null) result.countryCode = countryCode;
     if (timezone != null) result.timezone = timezone;
     if (localCapturedAt != null) result.localCapturedAt = localCapturedAt;
+    if (isLiked != null) result.isLiked = isLiked;
+    if (updatedAt != null) result.updatedAt = updatedAt;
+    if (components != null) result.components.addAll(components);
+    if (ingredients != null) result.ingredients.addAll(ingredients);
+    if (clarifications != null) result.clarifications.addAll(clarifications);
+    if (final_21 != null) result.final_21 = final_21;
     return result;
   }
 
@@ -261,23 +369,34 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'userUid')
-    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'createdAt',
-        subBuilder: $0.Timestamp.create)
+    ..aOM<$1.Timestamp>(3, _omitFieldNames ? '' : 'createdAt',
+        subBuilder: $1.Timestamp.create)
     ..aOS(4, _omitFieldNames ? '' : 'status')
     ..aOS(5, _omitFieldNames ? '' : 'text')
     ..aOB(6, _omitFieldNames ? '' : 'hasImage')
     ..aOS(7, _omitFieldNames ? '' : 'failureReason')
     ..aOS(8, _omitFieldNames ? '' : 'failedAtStep')
     ..aD(9, _omitFieldNames ? '' : 'totalDurationSec')
-    ..aOM<MealMetadata>(10, _omitFieldNames ? '' : 'metadata',
-        subBuilder: MealMetadata.create)
+    ..aOM<HistoryMetadata>(10, _omitFieldNames ? '' : 'metadata',
+        subBuilder: HistoryMetadata.create)
     ..pPM<StepTiming>(11, _omitFieldNames ? '' : 'steps',
         subBuilder: StepTiming.create)
     ..aOS(12, _omitFieldNames ? '' : 'locale')
     ..aOS(13, _omitFieldNames ? '' : 'countryCode')
     ..aOS(14, _omitFieldNames ? '' : 'timezone')
-    ..aOM<$0.Timestamp>(15, _omitFieldNames ? '' : 'localCapturedAt',
-        subBuilder: $0.Timestamp.create)
+    ..aOM<$1.Timestamp>(15, _omitFieldNames ? '' : 'localCapturedAt',
+        subBuilder: $1.Timestamp.create)
+    ..aOB(16, _omitFieldNames ? '' : 'isLiked')
+    ..aOM<$1.Timestamp>(17, _omitFieldNames ? '' : 'updatedAt',
+        subBuilder: $1.Timestamp.create)
+    ..pPM<HistoryComponent>(18, _omitFieldNames ? '' : 'components',
+        subBuilder: HistoryComponent.create)
+    ..pPM<$2.EnrichedIngredient>(19, _omitFieldNames ? '' : 'ingredients',
+        subBuilder: $2.EnrichedIngredient.create)
+    ..pPM<$3.Clarification>(20, _omitFieldNames ? '' : 'clarifications',
+        subBuilder: $3.Clarification.create)
+    ..aOM<$0.Meal>(21, _omitFieldNames ? '' : 'final',
+        subBuilder: $0.Meal.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -318,15 +437,15 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
   void clearUserUid() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $0.Timestamp get createdAt => $_getN(2);
+  $1.Timestamp get createdAt => $_getN(2);
   @$pb.TagNumber(3)
-  set createdAt($0.Timestamp value) => $_setField(3, value);
+  set createdAt($1.Timestamp value) => $_setField(3, value);
   @$pb.TagNumber(3)
   $core.bool hasCreatedAt() => $_has(2);
   @$pb.TagNumber(3)
   void clearCreatedAt() => $_clearField(3);
   @$pb.TagNumber(3)
-  $0.Timestamp ensureCreatedAt() => $_ensure(2);
+  $1.Timestamp ensureCreatedAt() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.String get status => $_getSZ(3);
@@ -383,15 +502,15 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
   void clearTotalDurationSec() => $_clearField(9);
 
   @$pb.TagNumber(10)
-  MealMetadata get metadata => $_getN(9);
+  HistoryMetadata get metadata => $_getN(9);
   @$pb.TagNumber(10)
-  set metadata(MealMetadata value) => $_setField(10, value);
+  set metadata(HistoryMetadata value) => $_setField(10, value);
   @$pb.TagNumber(10)
   $core.bool hasMetadata() => $_has(9);
   @$pb.TagNumber(10)
   void clearMetadata() => $_clearField(10);
   @$pb.TagNumber(10)
-  MealMetadata ensureMetadata() => $_ensure(9);
+  HistoryMetadata ensureMetadata() => $_ensure(9);
 
   @$pb.TagNumber(11)
   $pb.PbList<StepTiming> get steps => $_getList(10);
@@ -424,15 +543,55 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
   void clearTimezone() => $_clearField(14);
 
   @$pb.TagNumber(15)
-  $0.Timestamp get localCapturedAt => $_getN(14);
+  $1.Timestamp get localCapturedAt => $_getN(14);
   @$pb.TagNumber(15)
-  set localCapturedAt($0.Timestamp value) => $_setField(15, value);
+  set localCapturedAt($1.Timestamp value) => $_setField(15, value);
   @$pb.TagNumber(15)
   $core.bool hasLocalCapturedAt() => $_has(14);
   @$pb.TagNumber(15)
   void clearLocalCapturedAt() => $_clearField(15);
   @$pb.TagNumber(15)
-  $0.Timestamp ensureLocalCapturedAt() => $_ensure(14);
+  $1.Timestamp ensureLocalCapturedAt() => $_ensure(14);
+
+  @$pb.TagNumber(16)
+  $core.bool get isLiked => $_getBF(15);
+  @$pb.TagNumber(16)
+  set isLiked($core.bool value) => $_setBool(15, value);
+  @$pb.TagNumber(16)
+  $core.bool hasIsLiked() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearIsLiked() => $_clearField(16);
+
+  @$pb.TagNumber(17)
+  $1.Timestamp get updatedAt => $_getN(16);
+  @$pb.TagNumber(17)
+  set updatedAt($1.Timestamp value) => $_setField(17, value);
+  @$pb.TagNumber(17)
+  $core.bool hasUpdatedAt() => $_has(16);
+  @$pb.TagNumber(17)
+  void clearUpdatedAt() => $_clearField(17);
+  @$pb.TagNumber(17)
+  $1.Timestamp ensureUpdatedAt() => $_ensure(16);
+
+  @$pb.TagNumber(18)
+  $pb.PbList<HistoryComponent> get components => $_getList(17);
+
+  @$pb.TagNumber(19)
+  $pb.PbList<$2.EnrichedIngredient> get ingredients => $_getList(18);
+
+  @$pb.TagNumber(20)
+  $pb.PbList<$3.Clarification> get clarifications => $_getList(19);
+
+  @$pb.TagNumber(21)
+  $0.Meal get final_21 => $_getN(20);
+  @$pb.TagNumber(21)
+  set final_21($0.Meal value) => $_setField(21, value);
+  @$pb.TagNumber(21)
+  $core.bool hasFinal_21() => $_has(20);
+  @$pb.TagNumber(21)
+  void clearFinal_21() => $_clearField(21);
+  @$pb.TagNumber(21)
+  $0.Meal ensureFinal_21() => $_ensure(20);
 }
 
 class AnalysisHistorySummary extends $pb.GeneratedMessage {

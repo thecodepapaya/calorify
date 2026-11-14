@@ -58,6 +58,7 @@ func (a *App) routes() {
 	Register(a, "POST /users/meals/analysis/{analysis_id}/feedback", a.SubmitAnalysisFeedback)
 	Register(a, "GET /internal/analysis-history", a.GetAnalysisHistory)
 	a.Router.HandleFunc("GET /analysis-history", dashboard.Handler(a))
+	a.Router.HandleFunc("GET /analysis-history/image/{analysis_id}", dashboard.ImageHandler(a))
 }
 
 func (a *App) Start() error {

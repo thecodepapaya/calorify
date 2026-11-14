@@ -3,6 +3,9 @@ syntax = "proto3";
 package api;
 
 import "google/protobuf/timestamp.proto";
+import "protos/common/clarification.proto";
+import "protos/common/meal.proto";
+import "protos/server/meal.proto";
 
 option go_package = "backend/internal/gen_proto/api";
 
@@ -13,12 +16,19 @@ message StepTiming {
   optional string           completed_at = 4;
 }
 
-message MealMetadata {
+message HistoryMetadata {
   string name            = 1;
   string quantity        = 2;
   string meal_type       = 3;
   string health_score    = 4;
   int32  component_count = 5;
+}
+
+message HistoryComponent {
+  string          name               = 1;
+  string          canonical_name     = 2;
+  string          preparation_method = 3;
+  common.Portion  portion            = 4;
 }
 
 message AnalysisHistoryItem {
@@ -31,12 +41,18 @@ message AnalysisHistoryItem {
   optional string                    failure_reason     = 7;
   optional string                    failed_at_step     = 8;
   optional double                    total_duration_sec = 9;
-  MealMetadata                       metadata           = 10;
+  HistoryMetadata                    metadata           = 10;
   repeated StepTiming                steps              = 11;
   optional string                    locale             = 12;
   optional string                    country_code       = 13;
   optional string                    timezone           = 14;
   optional google.protobuf.Timestamp local_captured_at  = 15;
+  optional bool                      is_liked           = 16;
+  google.protobuf.Timestamp          updated_at         = 17;
+  repeated HistoryComponent          components         = 18;
+  repeated server.EnrichedIngredient ingredients        = 19;
+  repeated common.Clarification      clarifications     = 20;
+  optional common.Meal               final              = 21; // image_base64 stripped before returning
 }
 
 message AnalysisHistorySummary {

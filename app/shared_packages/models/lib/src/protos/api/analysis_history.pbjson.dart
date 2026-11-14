@@ -52,9 +52,9 @@ final $typed_data.Uint8List stepTimingDescriptor = $convert.base64Decode(
     'dBgEIAEoCUgBUgtjb21wbGV0ZWRBdIgBAUIPCg1fZHVyYXRpb25fc2VjQg8KDV9jb21wbGV0ZW'
     'RfYXQ=');
 
-@$core.Deprecated('Use mealMetadataDescriptor instead')
-const MealMetadata$json = {
-  '1': 'MealMetadata',
+@$core.Deprecated('Use historyMetadataDescriptor instead')
+const HistoryMetadata$json = {
+  '1': 'HistoryMetadata',
   '2': [
     {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
     {'1': 'quantity', '3': 2, '4': 1, '5': 9, '10': 'quantity'},
@@ -64,12 +64,43 @@ const MealMetadata$json = {
   ],
 };
 
-/// Descriptor for `MealMetadata`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List mealMetadataDescriptor = $convert.base64Decode(
-    'CgxNZWFsTWV0YWRhdGESEgoEbmFtZRgBIAEoCVIEbmFtZRIaCghxdWFudGl0eRgCIAEoCVIIcX'
-    'VhbnRpdHkSGwoJbWVhbF90eXBlGAMgASgJUghtZWFsVHlwZRIhCgxoZWFsdGhfc2NvcmUYBCAB'
-    'KAlSC2hlYWx0aFNjb3JlEicKD2NvbXBvbmVudF9jb3VudBgFIAEoBVIOY29tcG9uZW50Q291bn'
-    'Q=');
+/// Descriptor for `HistoryMetadata`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List historyMetadataDescriptor = $convert.base64Decode(
+    'Cg9IaXN0b3J5TWV0YWRhdGESEgoEbmFtZRgBIAEoCVIEbmFtZRIaCghxdWFudGl0eRgCIAEoCV'
+    'IIcXVhbnRpdHkSGwoJbWVhbF90eXBlGAMgASgJUghtZWFsVHlwZRIhCgxoZWFsdGhfc2NvcmUY'
+    'BCABKAlSC2hlYWx0aFNjb3JlEicKD2NvbXBvbmVudF9jb3VudBgFIAEoBVIOY29tcG9uZW50Q2'
+    '91bnQ=');
+
+@$core.Deprecated('Use historyComponentDescriptor instead')
+const HistoryComponent$json = {
+  '1': 'HistoryComponent',
+  '2': [
+    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'canonical_name', '3': 2, '4': 1, '5': 9, '10': 'canonicalName'},
+    {
+      '1': 'preparation_method',
+      '3': 3,
+      '4': 1,
+      '5': 9,
+      '10': 'preparationMethod'
+    },
+    {
+      '1': 'portion',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.common.Portion',
+      '10': 'portion'
+    },
+  ],
+};
+
+/// Descriptor for `HistoryComponent`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List historyComponentDescriptor = $convert.base64Decode(
+    'ChBIaXN0b3J5Q29tcG9uZW50EhIKBG5hbWUYASABKAlSBG5hbWUSJQoOY2Fub25pY2FsX25hbW'
+    'UYAiABKAlSDWNhbm9uaWNhbE5hbWUSLQoScHJlcGFyYXRpb25fbWV0aG9kGAMgASgJUhFwcmVw'
+    'YXJhdGlvbk1ldGhvZBIpCgdwb3J0aW9uGAQgASgLMg8uY29tbW9uLlBvcnRpb25SB3BvcnRpb2'
+    '4=');
 
 @$core.Deprecated('Use analysisHistoryItemDescriptor instead')
 const AnalysisHistoryItem$json = {
@@ -120,7 +151,7 @@ const AnalysisHistoryItem$json = {
       '3': 10,
       '4': 1,
       '5': 11,
-      '6': '.api.MealMetadata',
+      '6': '.api.HistoryMetadata',
       '10': 'metadata'
     },
     {
@@ -168,6 +199,57 @@ const AnalysisHistoryItem$json = {
       '10': 'localCapturedAt',
       '17': true
     },
+    {
+      '1': 'is_liked',
+      '3': 16,
+      '4': 1,
+      '5': 8,
+      '9': 7,
+      '10': 'isLiked',
+      '17': true
+    },
+    {
+      '1': 'updated_at',
+      '3': 17,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'updatedAt'
+    },
+    {
+      '1': 'components',
+      '3': 18,
+      '4': 3,
+      '5': 11,
+      '6': '.api.HistoryComponent',
+      '10': 'components'
+    },
+    {
+      '1': 'ingredients',
+      '3': 19,
+      '4': 3,
+      '5': 11,
+      '6': '.server.EnrichedIngredient',
+      '10': 'ingredients'
+    },
+    {
+      '1': 'clarifications',
+      '3': 20,
+      '4': 3,
+      '5': 11,
+      '6': '.common.Clarification',
+      '10': 'clarifications'
+    },
+    {
+      '1': 'final',
+      '3': 21,
+      '4': 1,
+      '5': 11,
+      '6': '.common.Meal',
+      '9': 8,
+      '10': 'final',
+      '17': true
+    },
   ],
   '8': [
     {'1': '_failure_reason'},
@@ -177,6 +259,8 @@ const AnalysisHistoryItem$json = {
     {'1': '_country_code'},
     {'1': '_timezone'},
     {'1': '_local_captured_at'},
+    {'1': '_is_liked'},
+    {'1': '_final'},
   ],
 };
 
@@ -188,14 +272,20 @@ final $typed_data.Uint8List analysisHistoryItemDescriptor = $convert.base64Decod
     'QSGwoJaGFzX2ltYWdlGAYgASgIUghoYXNJbWFnZRIqCg5mYWlsdXJlX3JlYXNvbhgHIAEoCUgA'
     'Ug1mYWlsdXJlUmVhc29uiAEBEikKDmZhaWxlZF9hdF9zdGVwGAggASgJSAFSDGZhaWxlZEF0U3'
     'RlcIgBARIxChJ0b3RhbF9kdXJhdGlvbl9zZWMYCSABKAFIAlIQdG90YWxEdXJhdGlvblNlY4gB'
-    'ARItCghtZXRhZGF0YRgKIAEoCzIRLmFwaS5NZWFsTWV0YWRhdGFSCG1ldGFkYXRhEiUKBXN0ZX'
-    'BzGAsgAygLMg8uYXBpLlN0ZXBUaW1pbmdSBXN0ZXBzEhsKBmxvY2FsZRgMIAEoCUgDUgZsb2Nh'
-    'bGWIAQESJgoMY291bnRyeV9jb2RlGA0gASgJSARSC2NvdW50cnlDb2RliAEBEh8KCHRpbWV6b2'
-    '5lGA4gASgJSAVSCHRpbWV6b25liAEBEksKEWxvY2FsX2NhcHR1cmVkX2F0GA8gASgLMhouZ29v'
-    'Z2xlLnByb3RvYnVmLlRpbWVzdGFtcEgGUg9sb2NhbENhcHR1cmVkQXSIAQFCEQoPX2ZhaWx1cm'
-    'VfcmVhc29uQhEKD19mYWlsZWRfYXRfc3RlcEIVChNfdG90YWxfZHVyYXRpb25fc2VjQgkKB19s'
-    'b2NhbGVCDwoNX2NvdW50cnlfY29kZUILCglfdGltZXpvbmVCFAoSX2xvY2FsX2NhcHR1cmVkX2'
-    'F0');
+    'ARIwCghtZXRhZGF0YRgKIAEoCzIULmFwaS5IaXN0b3J5TWV0YWRhdGFSCG1ldGFkYXRhEiUKBX'
+    'N0ZXBzGAsgAygLMg8uYXBpLlN0ZXBUaW1pbmdSBXN0ZXBzEhsKBmxvY2FsZRgMIAEoCUgDUgZs'
+    'b2NhbGWIAQESJgoMY291bnRyeV9jb2RlGA0gASgJSARSC2NvdW50cnlDb2RliAEBEh8KCHRpbW'
+    'V6b25lGA4gASgJSAVSCHRpbWV6b25liAEBEksKEWxvY2FsX2NhcHR1cmVkX2F0GA8gASgLMhou'
+    'Z29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgGUg9sb2NhbENhcHR1cmVkQXSIAQESHgoIaXNfbG'
+    'lrZWQYECABKAhIB1IHaXNMaWtlZIgBARI5Cgp1cGRhdGVkX2F0GBEgASgLMhouZ29vZ2xlLnBy'
+    'b3RvYnVmLlRpbWVzdGFtcFIJdXBkYXRlZEF0EjUKCmNvbXBvbmVudHMYEiADKAsyFS5hcGkuSG'
+    'lzdG9yeUNvbXBvbmVudFIKY29tcG9uZW50cxI8CgtpbmdyZWRpZW50cxgTIAMoCzIaLnNlcnZl'
+    'ci5FbnJpY2hlZEluZ3JlZGllbnRSC2luZ3JlZGllbnRzEj0KDmNsYXJpZmljYXRpb25zGBQgAy'
+    'gLMhUuY29tbW9uLkNsYXJpZmljYXRpb25SDmNsYXJpZmljYXRpb25zEicKBWZpbmFsGBUgASgL'
+    'MgwuY29tbW9uLk1lYWxICFIFZmluYWyIAQFCEQoPX2ZhaWx1cmVfcmVhc29uQhEKD19mYWlsZW'
+    'RfYXRfc3RlcEIVChNfdG90YWxfZHVyYXRpb25fc2VjQgkKB19sb2NhbGVCDwoNX2NvdW50cnlf'
+    'Y29kZUILCglfdGltZXpvbmVCFAoSX2xvY2FsX2NhcHR1cmVkX2F0QgsKCV9pc19saWtlZEIICg'
+    'ZfZmluYWw=');
 
 @$core.Deprecated('Use analysisHistorySummaryDescriptor instead')
 const AnalysisHistorySummary$json = {

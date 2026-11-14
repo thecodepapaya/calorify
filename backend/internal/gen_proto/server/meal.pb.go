@@ -69,17 +69,19 @@ func (IngredientType) EnumDescriptor() ([]byte, []int) {
 }
 
 type EnrichedIngredient struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	FdcId         int64                  `protobuf:"varint,2,opt,name=fdc_id,json=fdcId,proto3" json:"fdc_id,omitempty"`
-	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Similarity    float32                `protobuf:"fixed32,4,opt,name=similarity,proto3" json:"similarity,omitempty"`
-	Grams         *common.Measurement    `protobuf:"bytes,5,opt,name=grams,proto3" json:"grams,omitempty"`
-	Macros        *common.Macros         `protobuf:"bytes,6,opt,name=macros,proto3" json:"macros,omitempty"`
-	CanonicalName string                 `protobuf:"bytes,7,opt,name=canonical_name,json=canonicalName,proto3" json:"canonical_name,omitempty"`
-	ComponentName string                 `protobuf:"bytes,8,opt,name=component_name,json=componentName,proto3" json:"component_name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Name           string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	FdcId          int64                  `protobuf:"varint,2,opt,name=fdc_id,json=fdcId,proto3" json:"fdc_id,omitempty"`
+	Description    string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Similarity     float32                `protobuf:"fixed32,4,opt,name=similarity,proto3" json:"similarity,omitempty"`
+	Grams          *common.Measurement    `protobuf:"bytes,5,opt,name=grams,proto3" json:"grams,omitempty"`
+	Macros         *common.Macros         `protobuf:"bytes,6,opt,name=macros,proto3" json:"macros,omitempty"`
+	CanonicalName  string                 `protobuf:"bytes,7,opt,name=canonical_name,json=canonicalName,proto3" json:"canonical_name,omitempty"`
+	ComponentName  string                 `protobuf:"bytes,8,opt,name=component_name,json=componentName,proto3" json:"component_name,omitempty"`
+	Portion        *common.Portion        `protobuf:"bytes,9,opt,name=portion,proto3" json:"portion,omitempty"`
+	IngredientType IngredientType         `protobuf:"varint,10,opt,name=ingredient_type,json=ingredientType,proto3,enum=server.IngredientType" json:"ingredient_type,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *EnrichedIngredient) Reset() {
@@ -168,6 +170,20 @@ func (x *EnrichedIngredient) GetComponentName() string {
 	return ""
 }
 
+func (x *EnrichedIngredient) GetPortion() *common.Portion {
+	if x != nil {
+		return x.Portion
+	}
+	return nil
+}
+
+func (x *EnrichedIngredient) GetIngredientType() IngredientType {
+	if x != nil {
+		return x.IngredientType
+	}
+	return IngredientType_BASE
+}
+
 type UsdaEnriched struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Ingredients   []*EnrichedIngredient  `protobuf:"bytes,1,rep,name=ingredients,proto3" json:"ingredients,omitempty"`
@@ -224,7 +240,7 @@ var File_protos_server_meal_proto protoreflect.FileDescriptor
 
 const file_protos_server_meal_proto_rawDesc = "" +
 	"\n" +
-	"\x18protos/server/meal.proto\x12\x06server\x1a\x18protos/common/meal.proto\"\xa2\x02\n" +
+	"\x18protos/server/meal.proto\x12\x06server\x1a\x18protos/common/meal.proto\"\x8e\x03\n" +
 	"\x12EnrichedIngredient\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x15\n" +
 	"\x06fdc_id\x18\x02 \x01(\x03R\x05fdcId\x12 \n" +
@@ -235,7 +251,10 @@ const file_protos_server_meal_proto_rawDesc = "" +
 	"\x05grams\x18\x05 \x01(\v2\x13.common.MeasurementR\x05grams\x12&\n" +
 	"\x06macros\x18\x06 \x01(\v2\x0e.common.MacrosR\x06macros\x12%\n" +
 	"\x0ecanonical_name\x18\a \x01(\tR\rcanonicalName\x12%\n" +
-	"\x0ecomponent_name\x18\b \x01(\tR\rcomponentName\"\x7f\n" +
+	"\x0ecomponent_name\x18\b \x01(\tR\rcomponentName\x12)\n" +
+	"\aportion\x18\t \x01(\v2\x0f.common.PortionR\aportion\x12?\n" +
+	"\x0fingredient_type\x18\n" +
+	" \x01(\x0e2\x16.server.IngredientTypeR\x0eingredientType\"\x7f\n" +
 	"\fUsdaEnriched\x12<\n" +
 	"\vingredients\x18\x01 \x03(\v2\x1a.server.EnrichedIngredientR\vingredients\x121\n" +
 	"\ftotal_macros\x18\x02 \x01(\v2\x0e.common.MacrosR\vtotalMacros*'\n" +
@@ -263,17 +282,20 @@ var file_protos_server_meal_proto_goTypes = []any{
 	(*UsdaEnriched)(nil),       // 2: server.UsdaEnriched
 	(*common.Measurement)(nil), // 3: common.Measurement
 	(*common.Macros)(nil),      // 4: common.Macros
+	(*common.Portion)(nil),     // 5: common.Portion
 }
 var file_protos_server_meal_proto_depIdxs = []int32{
 	3, // 0: server.EnrichedIngredient.grams:type_name -> common.Measurement
 	4, // 1: server.EnrichedIngredient.macros:type_name -> common.Macros
-	1, // 2: server.UsdaEnriched.ingredients:type_name -> server.EnrichedIngredient
-	4, // 3: server.UsdaEnriched.total_macros:type_name -> common.Macros
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	5, // 2: server.EnrichedIngredient.portion:type_name -> common.Portion
+	0, // 3: server.EnrichedIngredient.ingredient_type:type_name -> server.IngredientType
+	1, // 4: server.UsdaEnriched.ingredients:type_name -> server.EnrichedIngredient
+	4, // 5: server.UsdaEnriched.total_macros:type_name -> common.Macros
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_protos_server_meal_proto_init() }

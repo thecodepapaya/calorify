@@ -237,6 +237,82 @@ func (x *Measurement) GetMaxValue() int32 {
 	return 0
 }
 
+type Portion struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Kind          string                 `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"` // "EXACT", "BULK", "PINCH"
+	Value         float64                `protobuf:"fixed64,2,opt,name=value,proto3" json:"value,omitempty"`
+	MinValue      float64                `protobuf:"fixed64,3,opt,name=min_value,json=minValue,proto3" json:"min_value,omitempty"`
+	MaxValue      float64                `protobuf:"fixed64,4,opt,name=max_value,json=maxValue,proto3" json:"max_value,omitempty"`
+	Origin        string                 `protobuf:"bytes,5,opt,name=origin,proto3" json:"origin,omitempty"` // "USER_STATED", "MODEL_INFERRED"
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Portion) Reset() {
+	*x = Portion{}
+	mi := &file_protos_common_meal_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Portion) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Portion) ProtoMessage() {}
+
+func (x *Portion) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_common_meal_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Portion.ProtoReflect.Descriptor instead.
+func (*Portion) Descriptor() ([]byte, []int) {
+	return file_protos_common_meal_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Portion) GetKind() string {
+	if x != nil {
+		return x.Kind
+	}
+	return ""
+}
+
+func (x *Portion) GetValue() float64 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
+}
+
+func (x *Portion) GetMinValue() float64 {
+	if x != nil {
+		return x.MinValue
+	}
+	return 0
+}
+
+func (x *Portion) GetMaxValue() float64 {
+	if x != nil {
+		return x.MaxValue
+	}
+	return 0
+}
+
+func (x *Portion) GetOrigin() string {
+	if x != nil {
+		return x.Origin
+	}
+	return ""
+}
+
 type Macros struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Calorie       *Measurement           `protobuf:"bytes,1,opt,name=calorie,proto3" json:"calorie,omitempty"`
@@ -250,7 +326,7 @@ type Macros struct {
 
 func (x *Macros) Reset() {
 	*x = Macros{}
-	mi := &file_protos_common_meal_proto_msgTypes[1]
+	mi := &file_protos_common_meal_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -262,7 +338,7 @@ func (x *Macros) String() string {
 func (*Macros) ProtoMessage() {}
 
 func (x *Macros) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_common_meal_proto_msgTypes[1]
+	mi := &file_protos_common_meal_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -275,7 +351,7 @@ func (x *Macros) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Macros.ProtoReflect.Descriptor instead.
 func (*Macros) Descriptor() ([]byte, []int) {
-	return file_protos_common_meal_proto_rawDescGZIP(), []int{1}
+	return file_protos_common_meal_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Macros) GetCalorie() *Measurement {
@@ -323,7 +399,7 @@ type MealHealth struct {
 
 func (x *MealHealth) Reset() {
 	*x = MealHealth{}
-	mi := &file_protos_common_meal_proto_msgTypes[2]
+	mi := &file_protos_common_meal_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -335,7 +411,7 @@ func (x *MealHealth) String() string {
 func (*MealHealth) ProtoMessage() {}
 
 func (x *MealHealth) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_common_meal_proto_msgTypes[2]
+	mi := &file_protos_common_meal_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -348,7 +424,7 @@ func (x *MealHealth) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MealHealth.ProtoReflect.Descriptor instead.
 func (*MealHealth) Descriptor() ([]byte, []int) {
-	return file_protos_common_meal_proto_rawDescGZIP(), []int{2}
+	return file_protos_common_meal_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *MealHealth) GetHealthScore() HealthScore {
@@ -378,7 +454,7 @@ type MealMetadata struct {
 
 func (x *MealMetadata) Reset() {
 	*x = MealMetadata{}
-	mi := &file_protos_common_meal_proto_msgTypes[3]
+	mi := &file_protos_common_meal_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -390,7 +466,7 @@ func (x *MealMetadata) String() string {
 func (*MealMetadata) ProtoMessage() {}
 
 func (x *MealMetadata) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_common_meal_proto_msgTypes[3]
+	mi := &file_protos_common_meal_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -403,7 +479,7 @@ func (x *MealMetadata) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MealMetadata.ProtoReflect.Descriptor instead.
 func (*MealMetadata) Descriptor() ([]byte, []int) {
-	return file_protos_common_meal_proto_rawDescGZIP(), []int{3}
+	return file_protos_common_meal_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *MealMetadata) GetImageBase64() string {
@@ -455,7 +531,7 @@ type Meal struct {
 
 func (x *Meal) Reset() {
 	*x = Meal{}
-	mi := &file_protos_common_meal_proto_msgTypes[4]
+	mi := &file_protos_common_meal_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -467,7 +543,7 @@ func (x *Meal) String() string {
 func (*Meal) ProtoMessage() {}
 
 func (x *Meal) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_common_meal_proto_msgTypes[4]
+	mi := &file_protos_common_meal_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -480,7 +556,7 @@ func (x *Meal) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Meal.ProtoReflect.Descriptor instead.
 func (*Meal) Descriptor() ([]byte, []int) {
-	return file_protos_common_meal_proto_rawDescGZIP(), []int{4}
+	return file_protos_common_meal_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Meal) GetName() string {
@@ -535,7 +611,7 @@ type MealPackage struct {
 
 func (x *MealPackage) Reset() {
 	*x = MealPackage{}
-	mi := &file_protos_common_meal_proto_msgTypes[5]
+	mi := &file_protos_common_meal_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -547,7 +623,7 @@ func (x *MealPackage) String() string {
 func (*MealPackage) ProtoMessage() {}
 
 func (x *MealPackage) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_common_meal_proto_msgTypes[5]
+	mi := &file_protos_common_meal_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -560,7 +636,7 @@ func (x *MealPackage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MealPackage.ProtoReflect.Descriptor instead.
 func (*MealPackage) Descriptor() ([]byte, []int) {
-	return file_protos_common_meal_proto_rawDescGZIP(), []int{5}
+	return file_protos_common_meal_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *MealPackage) GetMeal() *Meal {
@@ -585,7 +661,13 @@ const file_protos_common_meal_proto_rawDesc = "" +
 	"\vMeasurement\x12\x14\n" +
 	"\x05value\x18\x01 \x01(\x05R\x05value\x12\x1b\n" +
 	"\tmin_value\x18\x02 \x01(\x05R\bminValue\x12\x1b\n" +
-	"\tmax_value\x18\x03 \x01(\x05R\bmaxValue\"\xe1\x01\n" +
+	"\tmax_value\x18\x03 \x01(\x05R\bmaxValue\"\x85\x01\n" +
+	"\aPortion\x12\x12\n" +
+	"\x04kind\x18\x01 \x01(\tR\x04kind\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\x01R\x05value\x12\x1b\n" +
+	"\tmin_value\x18\x03 \x01(\x01R\bminValue\x12\x1b\n" +
+	"\tmax_value\x18\x04 \x01(\x01R\bmaxValue\x12\x16\n" +
+	"\x06origin\x18\x05 \x01(\tR\x06origin\"\xe1\x01\n" +
 	"\x06Macros\x12-\n" +
 	"\acalorie\x18\x01 \x01(\v2\x13.common.MeasurementR\acalorie\x12'\n" +
 	"\x04carb\x18\x02 \x01(\v2\x13.common.MeasurementR\x04carb\x12-\n" +
@@ -654,18 +736,19 @@ func file_protos_common_meal_proto_rawDescGZIP() []byte {
 }
 
 var file_protos_common_meal_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_protos_common_meal_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_protos_common_meal_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_protos_common_meal_proto_goTypes = []any{
 	(MealType)(0),          // 0: common.MealType
 	(HealthScore)(0),       // 1: common.HealthScore
 	(CalorieConfidence)(0), // 2: common.CalorieConfidence
 	(*Measurement)(nil),    // 3: common.Measurement
-	(*Macros)(nil),         // 4: common.Macros
-	(*MealHealth)(nil),     // 5: common.MealHealth
-	(*MealMetadata)(nil),   // 6: common.MealMetadata
-	(*Meal)(nil),           // 7: common.Meal
-	(*MealPackage)(nil),    // 8: common.MealPackage
-	(*Clarifications)(nil), // 9: common.Clarifications
+	(*Portion)(nil),        // 4: common.Portion
+	(*Macros)(nil),         // 5: common.Macros
+	(*MealHealth)(nil),     // 6: common.MealHealth
+	(*MealMetadata)(nil),   // 7: common.MealMetadata
+	(*Meal)(nil),           // 8: common.Meal
+	(*MealPackage)(nil),    // 9: common.MealPackage
+	(*Clarifications)(nil), // 10: common.Clarifications
 }
 var file_protos_common_meal_proto_depIdxs = []int32{
 	3,  // 0: common.Macros.calorie:type_name -> common.Measurement
@@ -675,11 +758,11 @@ var file_protos_common_meal_proto_depIdxs = []int32{
 	3,  // 4: common.Macros.fiber:type_name -> common.Measurement
 	1,  // 5: common.MealHealth.health_score:type_name -> common.HealthScore
 	0,  // 6: common.Meal.type:type_name -> common.MealType
-	4,  // 7: common.Meal.macros:type_name -> common.Macros
-	5,  // 8: common.Meal.health:type_name -> common.MealHealth
-	6,  // 9: common.Meal.metadata:type_name -> common.MealMetadata
-	7,  // 10: common.MealPackage.meal:type_name -> common.Meal
-	9,  // 11: common.MealPackage.clarifications:type_name -> common.Clarifications
+	5,  // 7: common.Meal.macros:type_name -> common.Macros
+	6,  // 8: common.Meal.health:type_name -> common.MealHealth
+	7,  // 9: common.Meal.metadata:type_name -> common.MealMetadata
+	8,  // 10: common.MealPackage.meal:type_name -> common.Meal
+	10, // 11: common.MealPackage.clarifications:type_name -> common.Clarifications
 	12, // [12:12] is the sub-list for method output_type
 	12, // [12:12] is the sub-list for method input_type
 	12, // [12:12] is the sub-list for extension type_name
@@ -693,16 +776,16 @@ func file_protos_common_meal_proto_init() {
 		return
 	}
 	file_protos_common_clarification_proto_init()
-	file_protos_common_meal_proto_msgTypes[2].OneofWrappers = []any{}
 	file_protos_common_meal_proto_msgTypes[3].OneofWrappers = []any{}
 	file_protos_common_meal_proto_msgTypes[4].OneofWrappers = []any{}
+	file_protos_common_meal_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_common_meal_proto_rawDesc), len(file_protos_common_meal_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

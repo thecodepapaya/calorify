@@ -31,6 +31,14 @@ message Measurement{
   int32 max_value = 3;
 }
 
+message Portion {
+  string kind      = 1; // "EXACT", "BULK", "PINCH"
+  double value     = 2;
+  double min_value = 3;
+  double max_value = 4;
+  string origin    = 5; // "USER_STATED", "MODEL_INFERRED"
+}
+
 message Macros {
   Measurement calorie = 1;
   Measurement carb    = 2;

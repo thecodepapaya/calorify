@@ -85,6 +85,17 @@ func (p *PortionDTO) Grams() (minGram, gram, maxGram int32) {
 	}
 }
 
+// ToCommon converts the portion model into the shared proto representation.
+func (p *PortionDTO) ToCommon() *common.Portion {
+	return &common.Portion{
+		Kind:     p.Kind,
+		Value:    p.Value,
+		MinValue: p.MinValue,
+		MaxValue: p.MaxValue,
+		Origin:   p.Origin,
+	}
+}
+
 type ComponentDTO struct {
 	Name              string     `json:"name" description:"[lc] Short display name of the component dish or item"`
 	CanonicalName     string     `json:"canonical_name" description:"Canonical name for USDA Food Central database matching; ALWAYS plain English even when the [lc] name is localized (e.g. for \"おにぎり\", canonical_name=\"Rice, white, steamed\")"`
