@@ -498,6 +498,45 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 	summary.AvgStepDurationsSec["Clarification"] = avgClarif
 	summary.AvgStepDurationsSec["Finalization"] = avgFinal
 
+	llmSummaryQuery := fmt.Sprintf(`
+	SELECT
+		lc.stage,
+		COUNT(*)::int,
+		COALESCE(AVG(lc.duration_ms), 0),
+		COALESCE(AVG(lc.prompt_tokens), 0),
+		COALESCE(AVG(lc.cached_tokens), 0),
+		COALESCE(AVG(lc.completion_tokens), 0)
+	FROM llm_call lc
+	JOIN meal_analysis ma ON ma.id = lc.analysis_id
+	WHERE ma.created_at >= NOW() - INTERVAL '%s'
+	GROUP BY lc.stage
+	ORDER BY lc.stage;
+	`, intervalStr)
+
+	llmSummaryRows, err := a.DB.Query(ctx, llmSummaryQuery)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query llm call summary: %w", err)
+	}
+	defer llmSummaryRows.Close()
+
+	for llmSummaryRows.Next() {
+		stat := &api.LlmCallSummary{}
+		if err := llmSummaryRows.Scan(
+			&stat.Stage,
+			&stat.CallCount,
+			&stat.AvgDurationMs,
+			&stat.AvgPromptTokens,
+			&stat.AvgCachedTokens,
+			&stat.AvgCompletionTokens,
+		); err != nil {
+			return nil, fmt.Errorf("failed to scan llm call summary: %w", err)
+		}
+		summary.LlmCalls = append(summary.LlmCalls, stat)
+	}
+	if err := llmSummaryRows.Err(); err != nil {
+		return nil, fmt.Errorf("failed to read llm call summary: %w", err)
+	}
+
 	if failP1 > 0 {
 		summary.FailuresByStep["Pass 1 (Components)"] = failP1
 	}
@@ -754,6 +793,81 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 		attachStageArtifacts(item, pass1Raw.String, pass2Raw.String, enrichedRaw.String, clarifRaw.String, finalRaw.String)
 
 		items = append(items, item)
+	}
+
+	if len(items) > 0 {
+		ids := make([]string, 0, len(items))
+		for _, item := range items {
+			ids = append(ids, item.Id)
+		}
+
+		llmQuery := `
+		SELECT
+			id,
+			analysis_id,
+			created_at,
+			stage,
+			model,
+			prompt_tokens,
+			cached_tokens,
+			completion_tokens,
+			duration_ms,
+			error
+		FROM llm_call
+		WHERE analysis_id = ANY($1::uuid[])
+		ORDER BY analysis_id, id`
+
+		llmRows, err := a.DB.Query(ctx, llmQuery, ids)
+		if err != nil {
+			return nil, fmt.Errorf("failed to query llm calls for analyses: %w", err)
+		}
+		defer llmRows.Close()
+
+		byAnalysis := make(map[string][]*api.LlmCallRecord, len(items))
+		for llmRows.Next() {
+			var analysisID, stage string
+			var createdAt time.Time
+			var promptTokens, cachedTokens, completionTokens sql.NullInt64
+			var errText sql.NullString
+			rec := &api.LlmCallRecord{}
+			if err := llmRows.Scan(
+				&rec.Id,
+				&analysisID,
+				&createdAt,
+				&stage,
+				&rec.Model,
+				&promptTokens,
+				&cachedTokens,
+				&completionTokens,
+				&rec.DurationMs,
+				&errText,
+			); err != nil {
+				return nil, fmt.Errorf("failed to scan llm call row: %w", err)
+			}
+			rec.AnalysisId = &analysisID
+			rec.CreatedAt = timestamppb.New(createdAt)
+			rec.Stage = api.LlmCallRecord_Stage(api.LlmCallRecord_Stage_value[stage])
+			if promptTokens.Valid {
+				rec.PromptTokens = &promptTokens.Int64
+			}
+			if cachedTokens.Valid {
+				rec.CachedTokens = &cachedTokens.Int64
+			}
+			if completionTokens.Valid {
+				rec.CompletionTokens = &completionTokens.Int64
+			}
+			if errText.Valid && errText.String != "" {
+				rec.Error = &errText.String
+			}
+			byAnalysis[analysisID] = append(byAnalysis[analysisID], rec)
+		}
+		if err := llmRows.Err(); err != nil {
+			return nil, fmt.Errorf("failed to read llm calls: %w", err)
+		}
+
+		for _, item := range items {
+			item.LlmCalls = byAnalysis[item.Id]
+		}
 	}
 
 	totalPages := (filteredTotal + pageSize - 1) / pageSize

@@ -971,11 +971,17 @@
       {{end}}
     </article>
 
-    <!-- Phase 0 per-call LLM metrics (placeholder until llm_call is wired) -->
+    <!-- Per-call LLM metrics from llm_call -->
+    {{$llmP1 := llmStat .Summary.LlmCalls "PASS_1"}}
+    {{$llmP2 := llmStat .Summary.LlmCalls "PASS_2"}}
     <article class="card metric">
       <div class="metric-head">
-        <span class="metric-label">LLM calls · phase 0</span>
+        <span class="metric-label">LLM calls · per stage</span>
+        {{if .Summary.LlmCalls}}
+        <span class="chip">{{len .Summary.LlmCalls}} stages</span>
+        {{else}}
         <span class="chip">awaiting data</span>
+        {{end}}
       </div>
       <div class="phase-grid">
         <div class="phase-row phase-head">
@@ -985,26 +991,26 @@
         </div>
         <div class="phase-row">
           <span>Duration</span>
-          <span>—</span>
-          <span>—</span>
+          <span>{{if $llmP1}}{{printf "%.0f" $llmP1.AvgDurationMs}} ms{{else}}—{{end}}</span>
+          <span>{{if $llmP2}}{{printf "%.0f" $llmP2.AvgDurationMs}} ms{{else}}—{{end}}</span>
         </div>
         <div class="phase-row">
           <span>Prompt tokens</span>
-          <span>—</span>
-          <span>—</span>
+          <span>{{if $llmP1}}{{printf "%.0f" $llmP1.AvgPromptTokens}}{{else}}—{{end}}</span>
+          <span>{{if $llmP2}}{{printf "%.0f" $llmP2.AvgPromptTokens}}{{else}}—{{end}}</span>
         </div>
         <div class="phase-row">
           <span>Cached tokens</span>
-          <span>—</span>
-          <span>—</span>
+          <span>{{if $llmP1}}{{printf "%.0f" $llmP1.AvgCachedTokens}}{{else}}—{{end}}</span>
+          <span>{{if $llmP2}}{{printf "%.0f" $llmP2.AvgCachedTokens}}{{else}}—{{end}}</span>
         </div>
         <div class="phase-row">
           <span>Completion tokens</span>
-          <span>—</span>
-          <span>—</span>
+          <span>{{if $llmP1}}{{printf "%.0f" $llmP1.AvgCompletionTokens}}{{else}}—{{end}}</span>
+          <span>{{if $llmP2}}{{printf "%.0f" $llmP2.AvgCompletionTokens}}{{else}}—{{end}}</span>
         </div>
       </div>
-      <div class="metric-foot">Per-call usage from llm_call</div>
+      <div class="metric-foot">Per-call averages from llm_call</div>
     </article>
 
   </section>
@@ -1198,6 +1204,25 @@
                         {{if not $item.Locale}}{{if not $item.CountryCode}}{{if not $item.Timezone}}<span class="d-empty">No request metadata</span>{{end}}{{end}}{{end}}
                       </div>
                     </section>
+
+                    <!-- LLM calls -->
+                    {{if $item.LlmCalls}}
+                    <section class="dsec">
+                      <div class="dsec-head">
+                        <span class="dsec-title">LLM calls</span>
+                        <span class="chip">{{len $item.LlmCalls}} calls</span>
+                      </div>
+                      {{range $c := $item.LlmCalls}}
+                      <div class="comp-item">
+                        <div class="comp-name">{{$c.Stage}} <span class="mono">{{$c.Model}}</span></div>
+                        <div class="comp-sub mono">
+                          {{$c.DurationMs}} ms &middot; prompt {{$c.GetPromptTokens}} &middot; cached {{$c.GetCachedTokens}} &middot; completion {{$c.GetCompletionTokens}}
+                        </div>
+                        {{if $c.Error}}<div class="fail-reason">{{$c.Error}}</div>{{end}}
+                      </div>
+                      {{end}}
+                    </section>
+                    {{end}}
 
                     <!-- Failure -->
                     {{if $item.FailureReason}}

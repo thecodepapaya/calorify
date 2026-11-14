@@ -191,9 +191,9 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 			},
 		},
 	})
-	llmCallData := server.LLMCallMetaData{
+	llmCallData := api.LlmCallRecord{
 		AnalysisId: &id,
-		Stage:      server.LLMCallMetaData_PASS_1,
+		Stage:      api.LlmCallRecord_PASS_1,
 		Model:      llm_model,
 		DurationMs: time.Since(llmStart).Milliseconds(),
 	}
@@ -278,9 +278,9 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 			},
 		},
 	})
-	llmCallData := server.LLMCallMetaData{
+	llmCallData := api.LlmCallRecord{
 		AnalysisId: &id,
-		Stage:      server.LLMCallMetaData_PASS_2,
+		Stage:      api.LlmCallRecord_PASS_2,
 		Model:      llm_model,
 		DurationMs: time.Since(llmStart).Milliseconds(),
 	}

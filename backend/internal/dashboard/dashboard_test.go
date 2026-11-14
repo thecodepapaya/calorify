@@ -103,6 +103,7 @@ func TestDashboardHandler(t *testing.T) {
 	mk := func(v, min, max int32) *common.Measurement {
 		return &common.Measurement{Value: v, MinValue: min, MaxValue: max}
 	}
+	i64 := func(v int64) *int64 { return &v }
 
 	sampleItem := &api.AnalysisHistoryItem{
 		Id:               "f47ac10b-58cc-4372-a567-0e02b2c3d479",
@@ -210,6 +211,10 @@ func TestDashboardHandler(t *testing.T) {
 			{Name: "USDA Hydration", DurationSec: &durUsda, Status: "COMPLETED", CompletedAt: &usdaTime},
 			{Name: "Finalization", DurationSec: &durFinal, Status: "COMPLETED", CompletedAt: &finalTime},
 		},
+		LlmCalls: []*api.LlmCallRecord{
+			{Stage: api.LlmCallRecord_PASS_1, Model: "gpt-6-luna", PromptTokens: i64(987), CachedTokens: i64(0), CompletionTokens: i64(365), DurationMs: 5799},
+			{Stage: api.LlmCallRecord_PASS_2, Model: "gpt-6-luna", PromptTokens: i64(893), CachedTokens: i64(0), CompletionTokens: i64(502), DurationMs: 5487},
+		},
 	}
 
 	failReason := "LLM connection timeout"
@@ -247,6 +252,10 @@ func TestDashboardHandler(t *testing.T) {
 			},
 			FailuresByStep: map[string]int32{
 				"Pass 1 (Components)": 1,
+			},
+			LlmCalls: []*api.LlmCallSummary{
+				{Stage: "PASS_1", CallCount: 1, AvgDurationMs: 5799, AvgPromptTokens: 987, AvgCachedTokens: 0, AvgCompletionTokens: 365},
+				{Stage: "PASS_2", CallCount: 1, AvgDurationMs: 5487, AvgPromptTokens: 893, AvgCachedTokens: 0, AvgCompletionTokens: 502},
 			},
 		},
 		Items:        []*api.AnalysisHistoryItem{sampleItem, failedItem},
@@ -318,6 +327,17 @@ func TestDashboardHandler(t *testing.T) {
 		"470 (412–527)",
 		"24 (21–27)",
 		"Pair rotis with dal for complete protein",
+		// LLM call summary panel + drawer section
+		"2 stages",
+		"PASS_1",
+		"PASS_2",
+		"5799 ms",
+		"5487 ms",
+		"987",
+		"893",
+		"365",
+		"502",
+		"2 calls",
 		// Image endpoint wiring
 		"/analysis-history/image/f47ac10b-58cc-4372-a567-0e02b2c3d479",
 	}

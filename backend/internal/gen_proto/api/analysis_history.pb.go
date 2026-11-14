@@ -24,6 +24,58 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type LlmCallRecord_Stage int32
+
+const (
+	LlmCallRecord_UNKNOWN LlmCallRecord_Stage = 0
+	LlmCallRecord_PASS_1  LlmCallRecord_Stage = 1
+	LlmCallRecord_PASS_2  LlmCallRecord_Stage = 2
+	LlmCallRecord_SUMMARY LlmCallRecord_Stage = 3
+)
+
+// Enum value maps for LlmCallRecord_Stage.
+var (
+	LlmCallRecord_Stage_name = map[int32]string{
+		0: "UNKNOWN",
+		1: "PASS_1",
+		2: "PASS_2",
+		3: "SUMMARY",
+	}
+	LlmCallRecord_Stage_value = map[string]int32{
+		"UNKNOWN": 0,
+		"PASS_1":  1,
+		"PASS_2":  2,
+		"SUMMARY": 3,
+	}
+)
+
+func (x LlmCallRecord_Stage) Enum() *LlmCallRecord_Stage {
+	p := new(LlmCallRecord_Stage)
+	*p = x
+	return p
+}
+
+func (x LlmCallRecord_Stage) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (LlmCallRecord_Stage) Descriptor() protoreflect.EnumDescriptor {
+	return file_protos_api_analysis_history_proto_enumTypes[0].Descriptor()
+}
+
+func (LlmCallRecord_Stage) Type() protoreflect.EnumType {
+	return &file_protos_api_analysis_history_proto_enumTypes[0]
+}
+
+func (x LlmCallRecord_Stage) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use LlmCallRecord_Stage.Descriptor instead.
+func (LlmCallRecord_Stage) EnumDescriptor() ([]byte, []int) {
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{4, 0}
+}
+
 type StepTiming struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -236,6 +288,208 @@ func (x *HistoryComponent) GetPortion() *common.Portion {
 	return nil
 }
 
+// LlmCallSummary aggregates per-stage llm_call rows for the selected window.
+type LlmCallSummary struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	Stage               string                 `protobuf:"bytes,1,opt,name=stage,proto3" json:"stage,omitempty"`
+	CallCount           int32                  `protobuf:"varint,2,opt,name=call_count,json=callCount,proto3" json:"call_count,omitempty"`
+	AvgDurationMs       float64                `protobuf:"fixed64,3,opt,name=avg_duration_ms,json=avgDurationMs,proto3" json:"avg_duration_ms,omitempty"`
+	AvgPromptTokens     float64                `protobuf:"fixed64,4,opt,name=avg_prompt_tokens,json=avgPromptTokens,proto3" json:"avg_prompt_tokens,omitempty"`
+	AvgCachedTokens     float64                `protobuf:"fixed64,5,opt,name=avg_cached_tokens,json=avgCachedTokens,proto3" json:"avg_cached_tokens,omitempty"`
+	AvgCompletionTokens float64                `protobuf:"fixed64,6,opt,name=avg_completion_tokens,json=avgCompletionTokens,proto3" json:"avg_completion_tokens,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *LlmCallSummary) Reset() {
+	*x = LlmCallSummary{}
+	mi := &file_protos_api_analysis_history_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LlmCallSummary) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LlmCallSummary) ProtoMessage() {}
+
+func (x *LlmCallSummary) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_api_analysis_history_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LlmCallSummary.ProtoReflect.Descriptor instead.
+func (*LlmCallSummary) Descriptor() ([]byte, []int) {
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *LlmCallSummary) GetStage() string {
+	if x != nil {
+		return x.Stage
+	}
+	return ""
+}
+
+func (x *LlmCallSummary) GetCallCount() int32 {
+	if x != nil {
+		return x.CallCount
+	}
+	return 0
+}
+
+func (x *LlmCallSummary) GetAvgDurationMs() float64 {
+	if x != nil {
+		return x.AvgDurationMs
+	}
+	return 0
+}
+
+func (x *LlmCallSummary) GetAvgPromptTokens() float64 {
+	if x != nil {
+		return x.AvgPromptTokens
+	}
+	return 0
+}
+
+func (x *LlmCallSummary) GetAvgCachedTokens() float64 {
+	if x != nil {
+		return x.AvgCachedTokens
+	}
+	return 0
+}
+
+func (x *LlmCallSummary) GetAvgCompletionTokens() float64 {
+	if x != nil {
+		return x.AvgCompletionTokens
+	}
+	return 0
+}
+
+// LlmCallRecord is one persisted LLM call for a single analysis.
+type LlmCallRecord struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Id               int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	AnalysisId       *string                `protobuf:"bytes,2,opt,name=analysis_id,json=analysisId,proto3,oneof" json:"analysis_id,omitempty"`
+	CreatedAt        *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Stage            LlmCallRecord_Stage    `protobuf:"varint,4,opt,name=stage,proto3,enum=api.LlmCallRecord_Stage" json:"stage,omitempty"`
+	Model            string                 `protobuf:"bytes,5,opt,name=model,proto3" json:"model,omitempty"`
+	PromptTokens     *int64                 `protobuf:"varint,6,opt,name=prompt_tokens,json=promptTokens,proto3,oneof" json:"prompt_tokens,omitempty"`
+	CachedTokens     *int64                 `protobuf:"varint,7,opt,name=cached_tokens,json=cachedTokens,proto3,oneof" json:"cached_tokens,omitempty"`
+	CompletionTokens *int64                 `protobuf:"varint,8,opt,name=completion_tokens,json=completionTokens,proto3,oneof" json:"completion_tokens,omitempty"`
+	DurationMs       int64                  `protobuf:"varint,9,opt,name=duration_ms,json=durationMs,proto3" json:"duration_ms,omitempty"`
+	Error            *string                `protobuf:"bytes,10,opt,name=error,proto3,oneof" json:"error,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *LlmCallRecord) Reset() {
+	*x = LlmCallRecord{}
+	mi := &file_protos_api_analysis_history_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LlmCallRecord) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LlmCallRecord) ProtoMessage() {}
+
+func (x *LlmCallRecord) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_api_analysis_history_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LlmCallRecord.ProtoReflect.Descriptor instead.
+func (*LlmCallRecord) Descriptor() ([]byte, []int) {
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *LlmCallRecord) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *LlmCallRecord) GetAnalysisId() string {
+	if x != nil && x.AnalysisId != nil {
+		return *x.AnalysisId
+	}
+	return ""
+}
+
+func (x *LlmCallRecord) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *LlmCallRecord) GetStage() LlmCallRecord_Stage {
+	if x != nil {
+		return x.Stage
+	}
+	return LlmCallRecord_UNKNOWN
+}
+
+func (x *LlmCallRecord) GetModel() string {
+	if x != nil {
+		return x.Model
+	}
+	return ""
+}
+
+func (x *LlmCallRecord) GetPromptTokens() int64 {
+	if x != nil && x.PromptTokens != nil {
+		return *x.PromptTokens
+	}
+	return 0
+}
+
+func (x *LlmCallRecord) GetCachedTokens() int64 {
+	if x != nil && x.CachedTokens != nil {
+		return *x.CachedTokens
+	}
+	return 0
+}
+
+func (x *LlmCallRecord) GetCompletionTokens() int64 {
+	if x != nil && x.CompletionTokens != nil {
+		return *x.CompletionTokens
+	}
+	return 0
+}
+
+func (x *LlmCallRecord) GetDurationMs() int64 {
+	if x != nil {
+		return x.DurationMs
+	}
+	return 0
+}
+
+func (x *LlmCallRecord) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
 type AnalysisHistoryItem struct {
 	state            protoimpl.MessageState       `protogen:"open.v1"`
 	Id               string                       `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -259,13 +513,14 @@ type AnalysisHistoryItem struct {
 	Ingredients      []*server.EnrichedIngredient `protobuf:"bytes,19,rep,name=ingredients,proto3" json:"ingredients,omitempty"`
 	Clarifications   []*common.Clarification      `protobuf:"bytes,20,rep,name=clarifications,proto3" json:"clarifications,omitempty"`
 	Final            *common.Meal                 `protobuf:"bytes,21,opt,name=final,proto3,oneof" json:"final,omitempty"` // image_base64 stripped before returning
+	LlmCalls         []*LlmCallRecord             `protobuf:"bytes,22,rep,name=llm_calls,json=llmCalls,proto3" json:"llm_calls,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
 
 func (x *AnalysisHistoryItem) Reset() {
 	*x = AnalysisHistoryItem{}
-	mi := &file_protos_api_analysis_history_proto_msgTypes[3]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -277,7 +532,7 @@ func (x *AnalysisHistoryItem) String() string {
 func (*AnalysisHistoryItem) ProtoMessage() {}
 
 func (x *AnalysisHistoryItem) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_api_analysis_history_proto_msgTypes[3]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -290,7 +545,7 @@ func (x *AnalysisHistoryItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisHistoryItem.ProtoReflect.Descriptor instead.
 func (*AnalysisHistoryItem) Descriptor() ([]byte, []int) {
-	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{3}
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *AnalysisHistoryItem) GetId() string {
@@ -440,6 +695,13 @@ func (x *AnalysisHistoryItem) GetFinal() *common.Meal {
 	return nil
 }
 
+func (x *AnalysisHistoryItem) GetLlmCalls() []*LlmCallRecord {
+	if x != nil {
+		return x.LlmCalls
+	}
+	return nil
+}
+
 type AnalysisHistorySummary struct {
 	state               protoimpl.MessageState `protogen:"open.v1"`
 	TimeRange           string                 `protobuf:"bytes,1,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
@@ -450,13 +712,14 @@ type AnalysisHistorySummary struct {
 	AvgTotalDurationSec float64                `protobuf:"fixed64,6,opt,name=avg_total_duration_sec,json=avgTotalDurationSec,proto3" json:"avg_total_duration_sec,omitempty"`
 	AvgStepDurationsSec map[string]float64     `protobuf:"bytes,7,rep,name=avg_step_durations_sec,json=avgStepDurationsSec,proto3" json:"avg_step_durations_sec,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"fixed64,2,opt,name=value"`
 	FailuresByStep      map[string]int32       `protobuf:"bytes,8,rep,name=failures_by_step,json=failuresByStep,proto3" json:"failures_by_step,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
+	LlmCalls            []*LlmCallSummary      `protobuf:"bytes,9,rep,name=llm_calls,json=llmCalls,proto3" json:"llm_calls,omitempty"`
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
 
 func (x *AnalysisHistorySummary) Reset() {
 	*x = AnalysisHistorySummary{}
-	mi := &file_protos_api_analysis_history_proto_msgTypes[4]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -468,7 +731,7 @@ func (x *AnalysisHistorySummary) String() string {
 func (*AnalysisHistorySummary) ProtoMessage() {}
 
 func (x *AnalysisHistorySummary) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_api_analysis_history_proto_msgTypes[4]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -481,7 +744,7 @@ func (x *AnalysisHistorySummary) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisHistorySummary.ProtoReflect.Descriptor instead.
 func (*AnalysisHistorySummary) Descriptor() ([]byte, []int) {
-	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{4}
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *AnalysisHistorySummary) GetTimeRange() string {
@@ -540,6 +803,13 @@ func (x *AnalysisHistorySummary) GetFailuresByStep() map[string]int32 {
 	return nil
 }
 
+func (x *AnalysisHistorySummary) GetLlmCalls() []*LlmCallSummary {
+	if x != nil {
+		return x.LlmCalls
+	}
+	return nil
+}
+
 type AnalysisHistoryRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TimeRange     *string                `protobuf:"bytes,1,opt,name=time_range,json=timeRange,proto3,oneof" json:"time_range,omitempty"` // "1D", "7D", "30D"
@@ -552,7 +822,7 @@ type AnalysisHistoryRequest struct {
 
 func (x *AnalysisHistoryRequest) Reset() {
 	*x = AnalysisHistoryRequest{}
-	mi := &file_protos_api_analysis_history_proto_msgTypes[5]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -564,7 +834,7 @@ func (x *AnalysisHistoryRequest) String() string {
 func (*AnalysisHistoryRequest) ProtoMessage() {}
 
 func (x *AnalysisHistoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_api_analysis_history_proto_msgTypes[5]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -577,7 +847,7 @@ func (x *AnalysisHistoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisHistoryRequest.ProtoReflect.Descriptor instead.
 func (*AnalysisHistoryRequest) Descriptor() ([]byte, []int) {
-	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{5}
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AnalysisHistoryRequest) GetTimeRange() string {
@@ -624,7 +894,7 @@ type AnalysisHistoryResponse struct {
 
 func (x *AnalysisHistoryResponse) Reset() {
 	*x = AnalysisHistoryResponse{}
-	mi := &file_protos_api_analysis_history_proto_msgTypes[6]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -636,7 +906,7 @@ func (x *AnalysisHistoryResponse) String() string {
 func (*AnalysisHistoryResponse) ProtoMessage() {}
 
 func (x *AnalysisHistoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_api_analysis_history_proto_msgTypes[6]
+	mi := &file_protos_api_analysis_history_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -649,7 +919,7 @@ func (x *AnalysisHistoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisHistoryResponse.ProtoReflect.Descriptor instead.
 func (*AnalysisHistoryResponse) Descriptor() ([]byte, []int) {
-	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{6}
+	return file_protos_api_analysis_history_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *AnalysisHistoryResponse) GetSummary() *AnalysisHistorySummary {
@@ -731,7 +1001,42 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12%\n" +
 	"\x0ecanonical_name\x18\x02 \x01(\tR\rcanonicalName\x12-\n" +
 	"\x12preparation_method\x18\x03 \x01(\tR\x11preparationMethod\x12)\n" +
-	"\aportion\x18\x04 \x01(\v2\x0f.common.PortionR\aportion\"\xa5\b\n" +
+	"\aportion\x18\x04 \x01(\v2\x0f.common.PortionR\aportion\"\xf9\x01\n" +
+	"\x0eLlmCallSummary\x12\x14\n" +
+	"\x05stage\x18\x01 \x01(\tR\x05stage\x12\x1d\n" +
+	"\n" +
+	"call_count\x18\x02 \x01(\x05R\tcallCount\x12&\n" +
+	"\x0favg_duration_ms\x18\x03 \x01(\x01R\ravgDurationMs\x12*\n" +
+	"\x11avg_prompt_tokens\x18\x04 \x01(\x01R\x0favgPromptTokens\x12*\n" +
+	"\x11avg_cached_tokens\x18\x05 \x01(\x01R\x0favgCachedTokens\x122\n" +
+	"\x15avg_completion_tokens\x18\x06 \x01(\x01R\x13avgCompletionTokens\"\x97\x04\n" +
+	"\rLlmCallRecord\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12$\n" +
+	"\vanalysis_id\x18\x02 \x01(\tH\x00R\n" +
+	"analysisId\x88\x01\x01\x129\n" +
+	"\n" +
+	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12.\n" +
+	"\x05stage\x18\x04 \x01(\x0e2\x18.api.LlmCallRecord.StageR\x05stage\x12\x14\n" +
+	"\x05model\x18\x05 \x01(\tR\x05model\x12(\n" +
+	"\rprompt_tokens\x18\x06 \x01(\x03H\x01R\fpromptTokens\x88\x01\x01\x12(\n" +
+	"\rcached_tokens\x18\a \x01(\x03H\x02R\fcachedTokens\x88\x01\x01\x120\n" +
+	"\x11completion_tokens\x18\b \x01(\x03H\x03R\x10completionTokens\x88\x01\x01\x12\x1f\n" +
+	"\vduration_ms\x18\t \x01(\x03R\n" +
+	"durationMs\x12\x19\n" +
+	"\x05error\x18\n" +
+	" \x01(\tH\x04R\x05error\x88\x01\x01\"9\n" +
+	"\x05Stage\x12\v\n" +
+	"\aUNKNOWN\x10\x00\x12\n" +
+	"\n" +
+	"\x06PASS_1\x10\x01\x12\n" +
+	"\n" +
+	"\x06PASS_2\x10\x02\x12\v\n" +
+	"\aSUMMARY\x10\x03B\x0e\n" +
+	"\f_analysis_idB\x10\n" +
+	"\x0e_prompt_tokensB\x10\n" +
+	"\x0e_cached_tokensB\x14\n" +
+	"\x12_completion_tokensB\b\n" +
+	"\x06_error\"\xd6\b\n" +
 	"\x13AnalysisHistoryItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\buser_uid\x18\x02 \x01(\tR\auserUid\x129\n" +
@@ -758,7 +1063,8 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"components\x12<\n" +
 	"\vingredients\x18\x13 \x03(\v2\x1a.server.EnrichedIngredientR\vingredients\x12=\n" +
 	"\x0eclarifications\x18\x14 \x03(\v2\x15.common.ClarificationR\x0eclarifications\x12'\n" +
-	"\x05final\x18\x15 \x01(\v2\f.common.MealH\bR\x05final\x88\x01\x01B\x11\n" +
+	"\x05final\x18\x15 \x01(\v2\f.common.MealH\bR\x05final\x88\x01\x01\x12/\n" +
+	"\tllm_calls\x18\x16 \x03(\v2\x12.api.LlmCallRecordR\bllmCallsB\x11\n" +
 	"\x0f_failure_reasonB\x11\n" +
 	"\x0f_failed_at_stepB\x15\n" +
 	"\x13_total_duration_secB\t\n" +
@@ -767,7 +1073,7 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\t_timezoneB\x14\n" +
 	"\x12_local_captured_atB\v\n" +
 	"\t_is_likedB\b\n" +
-	"\x06_final\"\xd6\x04\n" +
+	"\x06_final\"\x88\x05\n" +
 	"\x16AnalysisHistorySummary\x12\x1d\n" +
 	"\n" +
 	"time_range\x18\x01 \x01(\tR\ttimeRange\x12%\n" +
@@ -777,7 +1083,8 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\x10failure_rate_pct\x18\x05 \x01(\x01R\x0efailureRatePct\x123\n" +
 	"\x16avg_total_duration_sec\x18\x06 \x01(\x01R\x13avgTotalDurationSec\x12i\n" +
 	"\x16avg_step_durations_sec\x18\a \x03(\v24.api.AnalysisHistorySummary.AvgStepDurationsSecEntryR\x13avgStepDurationsSec\x12Y\n" +
-	"\x10failures_by_step\x18\b \x03(\v2/.api.AnalysisHistorySummary.FailuresByStepEntryR\x0efailuresByStep\x1aF\n" +
+	"\x10failures_by_step\x18\b \x03(\v2/.api.AnalysisHistorySummary.FailuresByStepEntryR\x0efailuresByStep\x120\n" +
+	"\tllm_calls\x18\t \x03(\v2\x13.api.LlmCallSummaryR\bllmCalls\x1aF\n" +
 	"\x18AvgStepDurationsSecEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\x01R\x05value:\x028\x01\x1aA\n" +
@@ -819,43 +1126,51 @@ func file_protos_api_analysis_history_proto_rawDescGZIP() []byte {
 	return file_protos_api_analysis_history_proto_rawDescData
 }
 
-var file_protos_api_analysis_history_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_protos_api_analysis_history_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_protos_api_analysis_history_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_protos_api_analysis_history_proto_goTypes = []any{
-	(*StepTiming)(nil),                // 0: api.StepTiming
-	(*HistoryMetadata)(nil),           // 1: api.HistoryMetadata
-	(*HistoryComponent)(nil),          // 2: api.HistoryComponent
-	(*AnalysisHistoryItem)(nil),       // 3: api.AnalysisHistoryItem
-	(*AnalysisHistorySummary)(nil),    // 4: api.AnalysisHistorySummary
-	(*AnalysisHistoryRequest)(nil),    // 5: api.AnalysisHistoryRequest
-	(*AnalysisHistoryResponse)(nil),   // 6: api.AnalysisHistoryResponse
-	nil,                               // 7: api.AnalysisHistorySummary.AvgStepDurationsSecEntry
-	nil,                               // 8: api.AnalysisHistorySummary.FailuresByStepEntry
-	(*common.Portion)(nil),            // 9: common.Portion
-	(*timestamppb.Timestamp)(nil),     // 10: google.protobuf.Timestamp
-	(*server.EnrichedIngredient)(nil), // 11: server.EnrichedIngredient
-	(*common.Clarification)(nil),      // 12: common.Clarification
-	(*common.Meal)(nil),               // 13: common.Meal
+	(LlmCallRecord_Stage)(0),          // 0: api.LlmCallRecord.Stage
+	(*StepTiming)(nil),                // 1: api.StepTiming
+	(*HistoryMetadata)(nil),           // 2: api.HistoryMetadata
+	(*HistoryComponent)(nil),          // 3: api.HistoryComponent
+	(*LlmCallSummary)(nil),            // 4: api.LlmCallSummary
+	(*LlmCallRecord)(nil),             // 5: api.LlmCallRecord
+	(*AnalysisHistoryItem)(nil),       // 6: api.AnalysisHistoryItem
+	(*AnalysisHistorySummary)(nil),    // 7: api.AnalysisHistorySummary
+	(*AnalysisHistoryRequest)(nil),    // 8: api.AnalysisHistoryRequest
+	(*AnalysisHistoryResponse)(nil),   // 9: api.AnalysisHistoryResponse
+	nil,                               // 10: api.AnalysisHistorySummary.AvgStepDurationsSecEntry
+	nil,                               // 11: api.AnalysisHistorySummary.FailuresByStepEntry
+	(*common.Portion)(nil),            // 12: common.Portion
+	(*timestamppb.Timestamp)(nil),     // 13: google.protobuf.Timestamp
+	(*server.EnrichedIngredient)(nil), // 14: server.EnrichedIngredient
+	(*common.Clarification)(nil),      // 15: common.Clarification
+	(*common.Meal)(nil),               // 16: common.Meal
 }
 var file_protos_api_analysis_history_proto_depIdxs = []int32{
-	9,  // 0: api.HistoryComponent.portion:type_name -> common.Portion
-	10, // 1: api.AnalysisHistoryItem.created_at:type_name -> google.protobuf.Timestamp
-	1,  // 2: api.AnalysisHistoryItem.metadata:type_name -> api.HistoryMetadata
-	0,  // 3: api.AnalysisHistoryItem.steps:type_name -> api.StepTiming
-	10, // 4: api.AnalysisHistoryItem.local_captured_at:type_name -> google.protobuf.Timestamp
-	10, // 5: api.AnalysisHistoryItem.updated_at:type_name -> google.protobuf.Timestamp
-	2,  // 6: api.AnalysisHistoryItem.components:type_name -> api.HistoryComponent
-	11, // 7: api.AnalysisHistoryItem.ingredients:type_name -> server.EnrichedIngredient
-	12, // 8: api.AnalysisHistoryItem.clarifications:type_name -> common.Clarification
-	13, // 9: api.AnalysisHistoryItem.final:type_name -> common.Meal
-	7,  // 10: api.AnalysisHistorySummary.avg_step_durations_sec:type_name -> api.AnalysisHistorySummary.AvgStepDurationsSecEntry
-	8,  // 11: api.AnalysisHistorySummary.failures_by_step:type_name -> api.AnalysisHistorySummary.FailuresByStepEntry
-	4,  // 12: api.AnalysisHistoryResponse.summary:type_name -> api.AnalysisHistorySummary
-	3,  // 13: api.AnalysisHistoryResponse.items:type_name -> api.AnalysisHistoryItem
-	14, // [14:14] is the sub-list for method output_type
-	14, // [14:14] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	12, // 0: api.HistoryComponent.portion:type_name -> common.Portion
+	13, // 1: api.LlmCallRecord.created_at:type_name -> google.protobuf.Timestamp
+	0,  // 2: api.LlmCallRecord.stage:type_name -> api.LlmCallRecord.Stage
+	13, // 3: api.AnalysisHistoryItem.created_at:type_name -> google.protobuf.Timestamp
+	2,  // 4: api.AnalysisHistoryItem.metadata:type_name -> api.HistoryMetadata
+	1,  // 5: api.AnalysisHistoryItem.steps:type_name -> api.StepTiming
+	13, // 6: api.AnalysisHistoryItem.local_captured_at:type_name -> google.protobuf.Timestamp
+	13, // 7: api.AnalysisHistoryItem.updated_at:type_name -> google.protobuf.Timestamp
+	3,  // 8: api.AnalysisHistoryItem.components:type_name -> api.HistoryComponent
+	14, // 9: api.AnalysisHistoryItem.ingredients:type_name -> server.EnrichedIngredient
+	15, // 10: api.AnalysisHistoryItem.clarifications:type_name -> common.Clarification
+	16, // 11: api.AnalysisHistoryItem.final:type_name -> common.Meal
+	5,  // 12: api.AnalysisHistoryItem.llm_calls:type_name -> api.LlmCallRecord
+	10, // 13: api.AnalysisHistorySummary.avg_step_durations_sec:type_name -> api.AnalysisHistorySummary.AvgStepDurationsSecEntry
+	11, // 14: api.AnalysisHistorySummary.failures_by_step:type_name -> api.AnalysisHistorySummary.FailuresByStepEntry
+	4,  // 15: api.AnalysisHistorySummary.llm_calls:type_name -> api.LlmCallSummary
+	7,  // 16: api.AnalysisHistoryResponse.summary:type_name -> api.AnalysisHistorySummary
+	6,  // 17: api.AnalysisHistoryResponse.items:type_name -> api.AnalysisHistoryItem
+	18, // [18:18] is the sub-list for method output_type
+	18, // [18:18] is the sub-list for method input_type
+	18, // [18:18] is the sub-list for extension type_name
+	18, // [18:18] is the sub-list for extension extendee
+	0,  // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_protos_api_analysis_history_proto_init() }
@@ -864,20 +1179,22 @@ func file_protos_api_analysis_history_proto_init() {
 		return
 	}
 	file_protos_api_analysis_history_proto_msgTypes[0].OneofWrappers = []any{}
-	file_protos_api_analysis_history_proto_msgTypes[3].OneofWrappers = []any{}
+	file_protos_api_analysis_history_proto_msgTypes[4].OneofWrappers = []any{}
 	file_protos_api_analysis_history_proto_msgTypes[5].OneofWrappers = []any{}
+	file_protos_api_analysis_history_proto_msgTypes[7].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_api_analysis_history_proto_rawDesc), len(file_protos_api_analysis_history_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   9,
+			NumEnums:      1,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_protos_api_analysis_history_proto_goTypes,
 		DependencyIndexes: file_protos_api_analysis_history_proto_depIdxs,
+		EnumInfos:         file_protos_api_analysis_history_proto_enumTypes,
 		MessageInfos:      file_protos_api_analysis_history_proto_msgTypes,
 	}.Build()
 	File_protos_api_analysis_history_proto = out.File

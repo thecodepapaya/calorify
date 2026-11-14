@@ -296,7 +296,7 @@ func (s *Service) MarkAnalysisFailed(ctx context.Context, id string, reason stri
 
 // saveLlmCallRecord persists per-call LLM usage. Measurement is best-effort:
 // a failed insert is logged and never fails the analysis pipeline.
-func (s *Service) saveLlmCallRecord(ctx context.Context, call *server.LLMCallMetaData) {
+func (s *Service) saveLlmCallRecord(ctx context.Context, call *api.LlmCallRecord) {
 	const query = `
 	INSERT INTO llm_call (
 		analysis_id, stage, model, prompt_tokens, cached_tokens, completion_tokens, duration_ms, error

@@ -102,6 +102,128 @@ final $typed_data.Uint8List historyComponentDescriptor = $convert.base64Decode(
     'YXJhdGlvbk1ldGhvZBIpCgdwb3J0aW9uGAQgASgLMg8uY29tbW9uLlBvcnRpb25SB3BvcnRpb2'
     '4=');
 
+@$core.Deprecated('Use llmCallSummaryDescriptor instead')
+const LlmCallSummary$json = {
+  '1': 'LlmCallSummary',
+  '2': [
+    {'1': 'stage', '3': 1, '4': 1, '5': 9, '10': 'stage'},
+    {'1': 'call_count', '3': 2, '4': 1, '5': 5, '10': 'callCount'},
+    {'1': 'avg_duration_ms', '3': 3, '4': 1, '5': 1, '10': 'avgDurationMs'},
+    {'1': 'avg_prompt_tokens', '3': 4, '4': 1, '5': 1, '10': 'avgPromptTokens'},
+    {'1': 'avg_cached_tokens', '3': 5, '4': 1, '5': 1, '10': 'avgCachedTokens'},
+    {
+      '1': 'avg_completion_tokens',
+      '3': 6,
+      '4': 1,
+      '5': 1,
+      '10': 'avgCompletionTokens'
+    },
+  ],
+};
+
+/// Descriptor for `LlmCallSummary`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List llmCallSummaryDescriptor = $convert.base64Decode(
+    'Cg5MbG1DYWxsU3VtbWFyeRIUCgVzdGFnZRgBIAEoCVIFc3RhZ2USHQoKY2FsbF9jb3VudBgCIA'
+    'EoBVIJY2FsbENvdW50EiYKD2F2Z19kdXJhdGlvbl9tcxgDIAEoAVINYXZnRHVyYXRpb25NcxIq'
+    'ChFhdmdfcHJvbXB0X3Rva2VucxgEIAEoAVIPYXZnUHJvbXB0VG9rZW5zEioKEWF2Z19jYWNoZW'
+    'RfdG9rZW5zGAUgASgBUg9hdmdDYWNoZWRUb2tlbnMSMgoVYXZnX2NvbXBsZXRpb25fdG9rZW5z'
+    'GAYgASgBUhNhdmdDb21wbGV0aW9uVG9rZW5z');
+
+@$core.Deprecated('Use llmCallRecordDescriptor instead')
+const LlmCallRecord$json = {
+  '1': 'LlmCallRecord',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
+    {
+      '1': 'analysis_id',
+      '3': 2,
+      '4': 1,
+      '5': 9,
+      '9': 0,
+      '10': 'analysisId',
+      '17': true
+    },
+    {
+      '1': 'created_at',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'createdAt'
+    },
+    {
+      '1': 'stage',
+      '3': 4,
+      '4': 1,
+      '5': 14,
+      '6': '.api.LlmCallRecord.Stage',
+      '10': 'stage'
+    },
+    {'1': 'model', '3': 5, '4': 1, '5': 9, '10': 'model'},
+    {
+      '1': 'prompt_tokens',
+      '3': 6,
+      '4': 1,
+      '5': 3,
+      '9': 1,
+      '10': 'promptTokens',
+      '17': true
+    },
+    {
+      '1': 'cached_tokens',
+      '3': 7,
+      '4': 1,
+      '5': 3,
+      '9': 2,
+      '10': 'cachedTokens',
+      '17': true
+    },
+    {
+      '1': 'completion_tokens',
+      '3': 8,
+      '4': 1,
+      '5': 3,
+      '9': 3,
+      '10': 'completionTokens',
+      '17': true
+    },
+    {'1': 'duration_ms', '3': 9, '4': 1, '5': 3, '10': 'durationMs'},
+    {'1': 'error', '3': 10, '4': 1, '5': 9, '9': 4, '10': 'error', '17': true},
+  ],
+  '4': [LlmCallRecord_Stage$json],
+  '8': [
+    {'1': '_analysis_id'},
+    {'1': '_prompt_tokens'},
+    {'1': '_cached_tokens'},
+    {'1': '_completion_tokens'},
+    {'1': '_error'},
+  ],
+};
+
+@$core.Deprecated('Use llmCallRecordDescriptor instead')
+const LlmCallRecord_Stage$json = {
+  '1': 'Stage',
+  '2': [
+    {'1': 'UNKNOWN', '2': 0},
+    {'1': 'PASS_1', '2': 1},
+    {'1': 'PASS_2', '2': 2},
+    {'1': 'SUMMARY', '2': 3},
+  ],
+};
+
+/// Descriptor for `LlmCallRecord`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List llmCallRecordDescriptor = $convert.base64Decode(
+    'Cg1MbG1DYWxsUmVjb3JkEg4KAmlkGAEgASgDUgJpZBIkCgthbmFseXNpc19pZBgCIAEoCUgAUg'
+    'phbmFseXNpc0lkiAEBEjkKCmNyZWF0ZWRfYXQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGlt'
+    'ZXN0YW1wUgljcmVhdGVkQXQSLgoFc3RhZ2UYBCABKA4yGC5hcGkuTGxtQ2FsbFJlY29yZC5TdG'
+    'FnZVIFc3RhZ2USFAoFbW9kZWwYBSABKAlSBW1vZGVsEigKDXByb21wdF90b2tlbnMYBiABKANI'
+    'AVIMcHJvbXB0VG9rZW5ziAEBEigKDWNhY2hlZF90b2tlbnMYByABKANIAlIMY2FjaGVkVG9rZW'
+    '5ziAEBEjAKEWNvbXBsZXRpb25fdG9rZW5zGAggASgDSANSEGNvbXBsZXRpb25Ub2tlbnOIAQES'
+    'HwoLZHVyYXRpb25fbXMYCSABKANSCmR1cmF0aW9uTXMSGQoFZXJyb3IYCiABKAlIBFIFZXJyb3'
+    'KIAQEiOQoFU3RhZ2USCwoHVU5LTk9XThAAEgoKBlBBU1NfMRABEgoKBlBBU1NfMhACEgsKB1NV'
+    'TU1BUlkQA0IOCgxfYW5hbHlzaXNfaWRCEAoOX3Byb21wdF90b2tlbnNCEAoOX2NhY2hlZF90b2'
+    'tlbnNCFAoSX2NvbXBsZXRpb25fdG9rZW5zQggKBl9lcnJvcg==');
+
 @$core.Deprecated('Use analysisHistoryItemDescriptor instead')
 const AnalysisHistoryItem$json = {
   '1': 'AnalysisHistoryItem',
@@ -250,6 +372,14 @@ const AnalysisHistoryItem$json = {
       '10': 'final',
       '17': true
     },
+    {
+      '1': 'llm_calls',
+      '3': 22,
+      '4': 3,
+      '5': 11,
+      '6': '.api.LlmCallRecord',
+      '10': 'llmCalls'
+    },
   ],
   '8': [
     {'1': '_failure_reason'},
@@ -282,10 +412,10 @@ final $typed_data.Uint8List analysisHistoryItemDescriptor = $convert.base64Decod
     'lzdG9yeUNvbXBvbmVudFIKY29tcG9uZW50cxI8CgtpbmdyZWRpZW50cxgTIAMoCzIaLnNlcnZl'
     'ci5FbnJpY2hlZEluZ3JlZGllbnRSC2luZ3JlZGllbnRzEj0KDmNsYXJpZmljYXRpb25zGBQgAy'
     'gLMhUuY29tbW9uLkNsYXJpZmljYXRpb25SDmNsYXJpZmljYXRpb25zEicKBWZpbmFsGBUgASgL'
-    'MgwuY29tbW9uLk1lYWxICFIFZmluYWyIAQFCEQoPX2ZhaWx1cmVfcmVhc29uQhEKD19mYWlsZW'
-    'RfYXRfc3RlcEIVChNfdG90YWxfZHVyYXRpb25fc2VjQgkKB19sb2NhbGVCDwoNX2NvdW50cnlf'
-    'Y29kZUILCglfdGltZXpvbmVCFAoSX2xvY2FsX2NhcHR1cmVkX2F0QgsKCV9pc19saWtlZEIICg'
-    'ZfZmluYWw=');
+    'MgwuY29tbW9uLk1lYWxICFIFZmluYWyIAQESLwoJbGxtX2NhbGxzGBYgAygLMhIuYXBpLkxsbU'
+    'NhbGxSZWNvcmRSCGxsbUNhbGxzQhEKD19mYWlsdXJlX3JlYXNvbkIRCg9fZmFpbGVkX2F0X3N0'
+    'ZXBCFQoTX3RvdGFsX2R1cmF0aW9uX3NlY0IJCgdfbG9jYWxlQg8KDV9jb3VudHJ5X2NvZGVCCw'
+    'oJX3RpbWV6b25lQhQKEl9sb2NhbF9jYXB0dXJlZF9hdEILCglfaXNfbGlrZWRCCAoGX2ZpbmFs');
 
 @$core.Deprecated('Use analysisHistorySummaryDescriptor instead')
 const AnalysisHistorySummary$json = {
@@ -318,6 +448,14 @@ const AnalysisHistorySummary$json = {
       '5': 11,
       '6': '.api.AnalysisHistorySummary.FailuresByStepEntry',
       '10': 'failuresByStep'
+    },
+    {
+      '1': 'llm_calls',
+      '3': 9,
+      '4': 3,
+      '5': 11,
+      '6': '.api.LlmCallSummary',
+      '10': 'llmCalls'
     },
   ],
   '3': [
@@ -356,9 +494,10 @@ final $typed_data.Uint8List analysisHistorySummaryDescriptor = $convert.base64De
     'F0aW9uc19zZWMYByADKAsyNC5hcGkuQW5hbHlzaXNIaXN0b3J5U3VtbWFyeS5BdmdTdGVwRHVy'
     'YXRpb25zU2VjRW50cnlSE2F2Z1N0ZXBEdXJhdGlvbnNTZWMSWQoQZmFpbHVyZXNfYnlfc3RlcB'
     'gIIAMoCzIvLmFwaS5BbmFseXNpc0hpc3RvcnlTdW1tYXJ5LkZhaWx1cmVzQnlTdGVwRW50cnlS'
-    'DmZhaWx1cmVzQnlTdGVwGkYKGEF2Z1N0ZXBEdXJhdGlvbnNTZWNFbnRyeRIQCgNrZXkYASABKA'
-    'lSA2tleRIUCgV2YWx1ZRgCIAEoAVIFdmFsdWU6AjgBGkEKE0ZhaWx1cmVzQnlTdGVwRW50cnkS'
-    'EAoDa2V5GAEgASgJUgNrZXkSFAoFdmFsdWUYAiABKAVSBXZhbHVlOgI4AQ==');
+    'DmZhaWx1cmVzQnlTdGVwEjAKCWxsbV9jYWxscxgJIAMoCzITLmFwaS5MbG1DYWxsU3VtbWFyeV'
+    'IIbGxtQ2FsbHMaRgoYQXZnU3RlcER1cmF0aW9uc1NlY0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5'
+    'EhQKBXZhbHVlGAIgASgBUgV2YWx1ZToCOAEaQQoTRmFpbHVyZXNCeVN0ZXBFbnRyeRIQCgNrZX'
+    'kYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoBVIFdmFsdWU6AjgB');
 
 @$core.Deprecated('Use analysisHistoryRequestDescriptor instead')
 const AnalysisHistoryRequest$json = {

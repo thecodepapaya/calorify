@@ -80,6 +80,14 @@ var historyTemplate = template.Must(template.New("analysis_history.html").Funcs(
 		}
 		return strconv.FormatFloat(pct, 'f', 1, 64)
 	},
+	"llmStat": func(stats []*api.LlmCallSummary, stage string) *api.LlmCallSummary {
+		for _, s := range stats {
+			if s.GetStage() == stage {
+				return s
+			}
+		}
+		return nil
+	},
 }).Parse(analysisHistoryHTML))
 
 type HistoryDataProvider interface {

@@ -47,6 +47,15 @@ func TestGetAnalysisHistoryDataMetadata(t *testing.T) {
 		_, _ = pool.Exec(context.Background(), "DELETE FROM meal_analysis WHERE id = $1", id)
 	}()
 
+	_, err = pool.Exec(ctx, `
+	INSERT INTO llm_call (analysis_id, stage, model, prompt_tokens, cached_tokens, completion_tokens, duration_ms)
+	VALUES
+		($1, 'PASS_1', 'test-model', 100, 0, 50, 1234),
+		($1, 'PASS_2', 'test-model', 80, 0, 60, 2345)`, id)
+	if err != nil {
+		t.Fatalf("failed to insert test llm_call rows: %v", err)
+	}
+
 	timeRange := "1D"
 	status := "ALL"
 	page := int32(1)
@@ -86,5 +95,25 @@ func TestGetAnalysisHistoryDataMetadata(t *testing.T) {
 	}
 	if found.GetLocalCapturedAt() == nil || !found.GetLocalCapturedAt().AsTime().Equal(capturedAt) {
 		t.Errorf("expected local_captured_at %v, got %v", capturedAt, found.GetLocalCapturedAt())
+	}
+
+	if len(found.LlmCalls) != 2 {
+		t.Fatalf("expected 2 llm calls for analysis, got %d", len(found.LlmCalls))
+	}
+	if got := found.LlmCalls[0]; got.GetStage() != api.LlmCallRecord_PASS_1 || got.GetDurationMs() != 1234 || got.GetPromptTokens() != 100 || got.GetCompletionTokens() != 50 {
+		t.Errorf("unexpected PASS_1 llm call: %v", got)
+	}
+	if got := found.LlmCalls[1]; got.GetStage() != api.LlmCallRecord_PASS_2 || got.GetDurationMs() != 2345 || got.GetPromptTokens() != 80 || got.GetCompletionTokens() != 60 {
+		t.Errorf("unexpected PASS_2 llm call: %v", got)
+	}
+
+	var pass1Summary *api.LlmCallSummary
+	for _, s := range res.Summary.LlmCalls {
+		if s.GetStage() == "PASS_1" {
+			pass1Summary = s
+		}
+	}
+	if pass1Summary == nil || pass1Summary.GetCallCount() < 1 {
+		t.Fatalf("expected PASS_1 llm call summary, got %v", res.Summary.LlmCalls)
 	}
 }
