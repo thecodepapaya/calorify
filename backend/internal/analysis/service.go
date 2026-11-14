@@ -172,6 +172,8 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 			URL: dataUrl,
 		}))
 	}
+
+	llmStart := time.Now()
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 		ReasoningEffort: shared.ReasoningEffortLow,
 		Model:           openai.ChatModel(llm_model),
@@ -189,7 +191,17 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 			},
 		},
 	})
+	llmCallData := server.LLMCallMetaData{
+		AnalysisId: &id,
+		Stage:      server.LLMCallMetaData_PASS_1,
+		Model:      llm_model,
+		DurationMs: time.Since(llmStart).Milliseconds(),
+	}
 	if err != nil {
+		errAdd := err.Error()
+		llmCallData.Error = &errAdd
+		s.saveLlmCallRecord(ctx, &llmCallData)
+
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		slog.ErrorContext(ctx, "failed to call LLM for decomposed components", "analysis_id", id, "error", err)
@@ -201,6 +213,10 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 		span.SetStatus(codes.Error, err.Error())
 		return nil, err
 	}
+	llmCallData.PromptTokens = &res.Usage.PromptTokens
+	llmCallData.CachedTokens = &res.Usage.PromptTokensDetails.CachedTokens
+	llmCallData.CompletionTokens = &res.Usage.CompletionTokens
+	s.saveLlmCallRecord(ctx, &llmCallData)
 
 	rawJson := res.Choices[0].Message.Content
 	pass1, err := ParsePass1(rawJson)
@@ -244,6 +260,7 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 		userContent = prefix + "\n\n" + userContent
 	}
 
+	llmStart := time.Now()
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 		ReasoningEffort: shared.ReasoningEffortLow,
 		Model:           openai.ChatModel(llm_model),
@@ -261,7 +278,18 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 			},
 		},
 	})
+	llmCallData := server.LLMCallMetaData{
+		AnalysisId: &id,
+		Stage:      server.LLMCallMetaData_PASS_2,
+		Model:      llm_model,
+		DurationMs: time.Since(llmStart).Milliseconds(),
+	}
+
 	if err != nil {
+		errAdd := err.Error()
+		llmCallData.Error = &errAdd
+		s.saveLlmCallRecord(ctx, &llmCallData)
+
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		slog.ErrorContext(ctx, "failed to call LLM for decomposed ingredients", "analysis_id", id, "error", err)
@@ -273,6 +301,10 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 		span.SetStatus(codes.Error, err.Error())
 		return nil, err
 	}
+	llmCallData.PromptTokens = &res.Usage.PromptTokens
+	llmCallData.CachedTokens = &res.Usage.PromptTokensDetails.CachedTokens
+	llmCallData.CompletionTokens = &res.Usage.CompletionTokens
+	s.saveLlmCallRecord(ctx, &llmCallData)
 
 	rawJson := res.Choices[0].Message.Content
 	pass2, err := ParsePass2(rawJson)

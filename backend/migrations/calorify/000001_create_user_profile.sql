@@ -129,3 +129,80 @@ ADD COLUMN IF NOT EXISTS locale VARCHAR(50),
 ADD COLUMN IF NOT EXISTS country_code VARCHAR(10),
 ADD COLUMN IF NOT EXISTS timezone VARCHAR(100),
 ADD COLUMN IF NOT EXISTS local_captured_at TIMESTAMPTZ;
+
+CREATE TABLE IF NOT EXISTS llm_call (
+    id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    analysis_id UUID REFERENCES meal_analysis (id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    stage VARCHAR(30) NOT NULL,
+    model VARCHAR(100) NOT NULL,
+    prompt_tokens int,
+    cached_tokens int,
+    completion_tokens int,
+    duration_ms int NOT NULL,
+    error TEXT
+);
+
+CREATE INDEX IF NOT EXISTS llm_call_stage_timestamp_idx ON llm_call (stage, created_at);
+
+CREATE INDEX IF NOT EXISTS llm_call_analysis_id_idx ON llm_call (analysis_id);
+
+DO $$
+BEGIN
+IF EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE
+        table_schema = 'public'
+        AND table_name = 'users'
+        AND column_name = 'created_at'
+        AND data_type = 'timestamp without time zone'
+) THEN
+        ALTER TABLE users
+        ALTER COLUMN created_at TYPE TIMESTAMPTZ USING created_at AT TIME ZONE 'UTC';
+
+END IF;
+
+IF EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE
+        table_schema = 'public'
+        AND table_name = 'users'
+        AND column_name = 'last_active_at'
+        AND data_type = 'timestamp without time zone'
+) THEN
+ALTER TABLE users
+ALTER COLUMN last_active_at TYPE TIMESTAMPTZ USING last_active_at AT TIME ZONE 'UTC';
+
+END IF;
+
+IF EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE
+        table_schema = 'public'
+        AND table_name = 'health_data'
+        AND column_name = 'created_at'
+        AND data_type = 'timestamp without time zone'
+) THEN
+ALTER TABLE health_data
+ALTER COLUMN created_at TYPE TIMESTAMPTZ USING created_at AT TIME ZONE 'UTC';
+
+END IF;
+
+IF EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE
+        table_schema = 'public'
+        AND table_name = 'meals'
+        AND column_name = 'created_at'
+        AND data_type = 'timestamp without time zone'
+) THEN
+ALTER TABLE meals
+ALTER COLUMN created_at TYPE TIMESTAMPTZ USING created_at AT TIME ZONE 'UTC';
+
+END IF;
+
+END $$;

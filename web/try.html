@@ -74,18 +74,18 @@
                     </h2>
                     <div class="demo-mode-badge" id="demo-mode-badge">
                         <span class="pulse-dot"></span>
-                        <span id="demo-mode-text">Connecting to API...</span>
+                        <span id="demo-mode-text">Checking backend...</span>
                     </div>
                 </div>
 
                 <div class="api-config-strip" id="api-config-strip">
                     <div class="api-config-left">
-                        <span class="api-config-label"><i data-lucide="server" style="width:14px;height:14px;"></i> Backend API:</span>
+                        <span class="api-config-label"><i data-lucide="server"></i> Backend</span>
                         <code id="api-endpoint-display" class="api-endpoint-code">http://localhost:8000</code>
                         <button type="button" class="btn-api-edit" id="btn-edit-api">Change</button>
                     </div>
                     <div class="api-config-right">
-                        <button type="button" class="btn-toggle-mode" id="btn-toggle-demo-mode">Switch to Preset Demo Mode</button>
+                        <button type="button" class="btn-toggle-mode" id="btn-toggle-demo-mode">Use demo data</button>
                     </div>
                 </div>
 
@@ -113,45 +113,52 @@
                 </div>
 
                 <!-- Request Metadata -->
-                <div class="meta-config-strip">
-                    <div class="meta-field">
-                        <label for="meta-locale">Locale</label>
-                        <input type="text" id="meta-locale" placeholder="auto (browser)" maxlength="10" autocomplete="off" spellcheck="false" />
+                <details class="meta-details">
+                    <summary>
+                        <i data-lucide="sliders-horizontal"></i>
+                        <span>Request metadata</span>
+                        <span class="meta-hint">locale, country, timezone</span>
+                    </summary>
+                    <div class="meta-config-strip">
+                        <div class="meta-field">
+                            <label for="meta-locale">Locale</label>
+                            <input type="text" id="meta-locale" placeholder="auto (browser)" maxlength="10" autocomplete="off" spellcheck="false" />
+                        </div>
+                        <div class="meta-field">
+                            <label for="meta-country">Country code</label>
+                            <input type="text" id="meta-country" placeholder="none (ISO 3166, e.g. IN)" maxlength="2" autocomplete="off" spellcheck="false" />
+                        </div>
+                        <div class="meta-field meta-field-wide">
+                            <label for="meta-timezone">Timezone</label>
+                            <input type="text" id="meta-timezone" placeholder="auto (browser)" autocomplete="off" spellcheck="false" />
+                        </div>
                     </div>
-                    <div class="meta-field">
-                        <label for="meta-country">Country code</label>
-                        <input type="text" id="meta-country" placeholder="none (ISO 3166, e.g. IN)" maxlength="2" autocomplete="off" spellcheck="false" />
-                    </div>
-                    <div class="meta-field meta-field-wide">
-                        <label for="meta-timezone">Timezone</label>
-                        <input type="text" id="meta-timezone" placeholder="auto (browser)" autocomplete="off" spellcheck="false" />
-                    </div>
-                </div>
+                </details>
 
                 <!-- Quick Presets -->
                 <div class="presets-section">
                     <div class="presets-label">
-                        <i data-lucide="zap" style="width:14px;height:14px;"></i>
-                        <span>Or select a sample meal to test:</span>
+                        <i data-lucide="zap"></i>
+                        <span>Or pick a sample meal</span>
                     </div>
                     <div class="presets-chips">
                         <button type="button" class="preset-chip active" data-preset="daal_roti">
-                            🍲 Daal Tadka &amp; 2 Rotis
+                            <i data-lucide="soup"></i> Daal Tadka &amp; 2 Rotis
                         </button>
                         <button type="button" class="preset-chip" data-preset="chicken_bowl">
-                            🥗 Grilled Chicken &amp; Quinoa Bowl
+                            <i data-lucide="salad"></i> Grilled Chicken &amp; Quinoa Bowl
                         </button>
                         <button type="button" class="preset-chip" data-preset="avocado_toast">
-                            🥑 Avocado Toast &amp; Poached Eggs
+                            <i data-lucide="egg-fried"></i> Avocado Toast &amp; Poached Eggs
                         </button>
                         <button type="button" class="preset-chip" data-preset="salmon_quinoa">
-                            🍣 Wild Salmon &amp; Asparagus
+                            <i data-lucide="fish"></i> Wild Salmon &amp; Asparagus
                         </button>
                         <button type="button" class="preset-chip" data-preset="greek_yogurt">
-                            🥣 Greek Yogurt &amp; Berries
+                            <i data-lucide="cherry"></i> Greek Yogurt &amp; Berries
                         </button>
                         <button type="button" class="preset-chip" data-preset="cheeseburger_fries">
-                            🍔 Double Cheeseburger &amp; Fries
+                            <i data-lucide="beef"></i> Double Cheeseburger &amp; Fries
                         </button>
                     </div>
                 </div>
@@ -195,33 +202,33 @@
                 <div class="steps-list">
                     <div class="step-box pending" data-step="1">
                         <div class="step-icon-circle">1</div>
-                        <div class="step-title">Session Init</div>
-                        <div class="step-sub">Validate Prompt</div>
+                        <div class="step-title">Request</div>
+                        <div class="step-sub">Accepted by API</div>
                     </div>
                     <div class="step-box pending" data-step="2">
                         <div class="step-icon-circle">2</div>
-                        <div class="step-title">Pass 1: Dishes</div>
-                        <div class="step-sub">Decompose Dishes</div>
+                        <div class="step-title">Pass 1</div>
+                        <div class="step-sub">Dish decomposition</div>
                     </div>
                     <div class="step-box pending" data-step="3">
                         <div class="step-icon-circle">3</div>
-                        <div class="step-title">Pass 2: Portions</div>
-                        <div class="step-sub">Extract Ingredients</div>
+                        <div class="step-title">Pass 2</div>
+                        <div class="step-sub">Ingredient extraction</div>
                     </div>
                     <div class="step-box pending" data-step="4">
                         <div class="step-icon-circle">4</div>
-                        <div class="step-title">USDA Grounding</div>
-                        <div class="step-sub">Vector Semantic Match</div>
+                        <div class="step-title">USDA</div>
+                        <div class="step-sub">Vector grounding</div>
                     </div>
                     <div class="step-box pending" data-step="5">
                         <div class="step-icon-circle">5</div>
-                        <div class="step-title">Clarifications</div>
-                        <div class="step-sub">Variance &amp; Options</div>
+                        <div class="step-title">Clarify</div>
+                        <div class="step-sub">Portion variance</div>
                     </div>
                     <div class="step-box pending" data-step="6">
                         <div class="step-icon-circle">6</div>
-                        <div class="step-title">Nutrition Result</div>
-                        <div class="step-sub">Verified Summary</div>
+                        <div class="step-title">Result</div>
+                        <div class="step-sub">Verified macros</div>
                     </div>
                 </div>
             </div>
@@ -281,13 +288,6 @@
             }
             const yearEl = document.getElementById('current-year');
             if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-            // Set initial active preset prompt into textarea
-            const textarea = document.getElementById('meal-input');
-            if (textarea && !textarea.value) {
-                textarea.value = "1 bowl of yellow lentil daal with 2 whole wheat rotis and a teaspoon of ghee";
-                textarea.dispatchEvent(new Event('input'));
-            }
         });
     </script>
 </body>

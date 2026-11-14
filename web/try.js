@@ -536,6 +536,7 @@
             this.lastStageEmitted = 0;
             this.cachedToken = null;
             this.tokenExpiry = 0;
+            this.provisionedToken = null;
         }
 
         async testBackendConnection() {
@@ -554,11 +555,13 @@
             // Check manual dev override first
             const manualToken = window.CALORIFY_AUTH_TOKEN || sessionStorage.getItem('calorify_auth_token');
             if (manualToken) {
+                await this.ensureUser(manualToken);
                 return manualToken;
             }
 
             const now = Date.now();
             if (this.cachedToken && this.tokenExpiry > now + 60000) {
+                await this.ensureUser(this.cachedToken);
                 return this.cachedToken;
             }
 
@@ -568,6 +571,7 @@
                 if (storedToken && storedExp > now + 60000) {
                     this.cachedToken = storedToken;
                     this.tokenExpiry = storedExp;
+                    await this.ensureUser(storedToken);
                     return storedToken;
                 }
             } catch (_) {}
@@ -595,17 +599,32 @@
                 sessionStorage.setItem('calorify_token_exp', String(this.tokenExpiry));
             } catch (_) {}
 
-            // Upsert user in backend
-            fetch(`${this.apiBaseUrl}/users`, {
+            await this.ensureUser(token);
+
+            return token;
+        }
+
+        // meal_analysis.user_uid is a foreign key on users.uid, so the user row
+        // must exist before the first analysis insert. Provision it once per
+        // token and wait for the write to land; a fire-and-forget upsert races
+        // the analysis POST and makes the first attempt fail.
+        async ensureUser(token) {
+            if (this.provisionedToken === token) return;
+
+            const res = await fetch(`${this.apiBaseUrl}/users`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({ user: { id: data.localId } })
-            }).catch(() => {});
+                body: JSON.stringify({ user: {} })
+            });
 
-            return token;
+            if (!res.ok) {
+                throw new Error(`Could not provision demo user (HTTP ${res.status}). Check that the backend is reachable at ${this.apiBaseUrl}.`);
+            }
+
+            this.provisionedToken = token;
         }
 
         async initiateAnalysis(text) {
@@ -1242,7 +1261,7 @@
                 const len = textarea.value.length;
                 charCountEl.textContent = `${len} characters`;
                 if (btnAnalyze) {
-                    btnAnalyze.disabled = len.trim().length === 0;
+                    btnAnalyze.disabled = textarea.value.trim().length === 0;
                 }
             });
         }
@@ -1260,6 +1279,13 @@
                 }
             });
         });
+
+        // Seed the default prompt once listeners are attached so the character
+        // count and preset highlight stay in sync with the textarea.
+        if (textarea && !textarea.value.trim()) {
+            textarea.value = PRESETS.daal_roti.prompt;
+            textarea.dispatchEvent(new Event('input'));
+        }
 
         // Clear button
         if (btnClear) {
@@ -1283,6 +1309,8 @@
             if (resultsContainer) resultsContainer.style.display = 'none';
             if (intermediateContainer) intermediateContainer.innerHTML = '';
             if (finalCardContainer) finalCardContainer.innerHTML = '';
+            if (progressBarFill) progressBarFill.style.width = '0%';
+            if (progressPctText) progressPctText.textContent = '0%';
 
             stepBoxes.forEach((box, i) => {
                 box.className = 'step-box pending';
@@ -1301,16 +1329,17 @@
         const client = new CalorifyAnalysisClient({
             onModeChange: (info) => {
                 if (info.isLive) {
-                    if (modeText) modeText.textContent = 'Live Backend Connected';
+                    if (modeText) modeText.textContent = 'Live backend';
                     if (modeBadge) {
                         modeBadge.classList.add('live');
+                        modeBadge.classList.remove('offline');
                         modeBadge.title = `Connected to Go Backend at ${info.endpoint}`;
                     }
                     if (apiErrorBanner) apiErrorBanner.style.display = 'none';
                 } else {
-                    if (modeText) modeText.textContent = 'Preset Simulation Mode';
+                    if (modeText) modeText.textContent = 'Demo data';
                     if (modeBadge) {
-                        modeBadge.classList.remove('live');
+                        modeBadge.classList.remove('live', 'offline');
                         modeBadge.title = 'Running in browser simulation';
                     }
                 }
@@ -1389,7 +1418,8 @@
                     apiErrorBanner.style.display = 'flex';
                     if (apiErrorTitle) apiErrorTitle.textContent = 'Backend API Error';
                     if (apiErrorMessage) {
-                        apiErrorMessage.innerHTML = `${err.message || 'Request failed'}.<br><small style="color:#7F1D1D;">Target URL: <code>${client.apiBaseUrl}</code></small>`;
+                        const msg = (err.message || 'Request failed').replace(/\.$/, '');
+                        apiErrorMessage.innerHTML = `${msg}.<br><small style="color:#7F1D1D;">Target URL: <code>${client.apiBaseUrl}</code></small>`;
                     }
                 }
                 refreshIcons();
@@ -1399,15 +1429,15 @@
         function updateModeUI() {
             if (apiEndpointDisplay) apiEndpointDisplay.textContent = client.apiBaseUrl;
             if (client.mode === 'demo') {
-                if (modeText) modeText.textContent = 'Preset Demo Mode';
+                if (modeText) modeText.textContent = 'Demo data';
                 if (modeBadge) {
-                    modeBadge.classList.remove('live');
+                    modeBadge.classList.remove('live', 'offline');
                     modeBadge.title = 'Running in browser simulation';
                 }
-                if (btnToggleDemoMode) btnToggleDemoMode.textContent = 'Switch to Live Backend API';
+                if (btnToggleDemoMode) btnToggleDemoMode.textContent = 'Use live backend';
                 if (apiErrorBanner) apiErrorBanner.style.display = 'none';
             } else {
-                if (btnToggleDemoMode) btnToggleDemoMode.textContent = 'Switch to Preset Demo Mode';
+                if (btnToggleDemoMode) btnToggleDemoMode.textContent = 'Use demo data';
             }
         }
 
@@ -1415,27 +1445,22 @@
             updateModeUI();
             if (client.mode === 'demo') return;
 
-            if (modeText) modeText.textContent = 'Probing API (:8000)...';
+            if (modeText) modeText.textContent = 'Checking backend...';
             const online = await client.testBackendConnection();
             if (online) {
-                if (modeText) modeText.textContent = 'Live Backend Connected';
+                if (modeText) modeText.textContent = 'Live backend';
                 if (modeBadge) {
                     modeBadge.classList.add('live');
+                    modeBadge.classList.remove('offline');
                     modeBadge.title = `Connected to Go backend at ${client.apiBaseUrl}`;
                 }
                 if (apiErrorBanner) apiErrorBanner.style.display = 'none';
             } else {
-                if (modeText) modeText.textContent = 'Backend Offline';
+                if (modeText) modeText.textContent = 'Backend offline';
                 if (modeBadge) {
                     modeBadge.classList.remove('live');
+                    modeBadge.classList.add('offline');
                     modeBadge.title = `Could not reach ${client.apiBaseUrl}/ready`;
-                }
-                if (apiErrorBanner) {
-                    apiErrorBanner.style.display = 'flex';
-                    if (apiErrorTitle) apiErrorTitle.textContent = 'Backend API Offline';
-                    if (apiErrorMessage) {
-                        apiErrorMessage.innerHTML = `Cannot reach Calorify Go backend at <code>${client.apiBaseUrl}</code>. Start it with: <code>cd backend &amp;&amp; go run ./cmd/server</code>`;
-                    }
                 }
             }
             refreshIcons();
@@ -1448,6 +1473,7 @@
                 const next = prompt('Enter Calorify Backend API Base URL:', current);
                 if (next && next.trim()) {
                     client.apiBaseUrl = next.trim().replace(/\/+$/, '');
+                    client.provisionedToken = null;
                     sessionStorage.setItem('calorify_api_url', client.apiBaseUrl);
                     checkConnection();
                 }
@@ -1505,10 +1531,20 @@
                 btnAnalyze.innerHTML = '<i data-lucide="loader-2" class="spin"></i><span>Analyzing...</span>';
                 refreshIcons();
 
-                // Clear previous results
+                // Clear previous results and show the pipeline immediately so
+                // the first poll does not look like a dead click.
                 if (intermediateContainer) intermediateContainer.innerHTML = '';
                 if (finalCardContainer) finalCardContainer.innerHTML = '';
                 if (resultsContainer) resultsContainer.style.display = 'flex';
+                if (stepperContainer) stepperContainer.style.display = 'block';
+                if (progressBarFill) progressBarFill.style.width = '5%';
+                if (progressPctText) progressPctText.textContent = '5%';
+                stepBoxes.forEach((box, idx) => {
+                    box.className = idx === 0 ? 'step-box active' : 'step-box pending';
+                    const circle = box.querySelector('.step-icon-circle');
+                    if (circle) circle.innerHTML = idx === 0 ? '<i data-lucide="loader-2"></i>' : String(idx + 1);
+                });
+                refreshIcons();
 
                 client.initiateAnalysis(text);
             });
@@ -1523,7 +1559,7 @@
                     <div class="stage-card">
                         <div class="stage-card-header">
                             <div class="stage-badge-title">
-                                <span class="stage-number-pill">Stage 1</span>
+                                <span class="stage-number-pill">Pass 1</span>
                                 <h4>Pass 1: Dish Component Decomposition</h4>
                             </div>
                             <span class="stage-timestamp">${stageInfo.data.timestamp}</span>
@@ -1558,7 +1594,7 @@
                     <div class="stage-card">
                         <div class="stage-card-header">
                             <div class="stage-badge-title">
-                                <span class="stage-number-pill">Stage 2</span>
+                                <span class="stage-number-pill">Pass 2</span>
                                 <h4>Pass 2: Atomic Ingredient Extraction & Portions</h4>
                             </div>
                             <span class="stage-timestamp">${stageInfo.data.timestamp}</span>
@@ -1607,7 +1643,7 @@
                     <div class="stage-card">
                         <div class="stage-card-header">
                             <div class="stage-badge-title">
-                                <span class="stage-number-pill">Stage 3</span>
+                                <span class="stage-number-pill">USDA</span>
                                 <h4>USDA FoodData Central Vector Grounding</h4>
                             </div>
                             <span class="stage-timestamp">${stageInfo.data.timestamp}</span>
@@ -1645,7 +1681,7 @@
                     <div class="stage-card">
                         <div class="stage-card-header">
                             <div class="stage-badge-title">
-                                <span class="stage-number-pill">Stage 4</span>
+                                <span class="stage-number-pill">Clarify</span>
                                 <h4>Variance Detection &amp; Smart Clarifications</h4>
                             </div>
                             <span class="stage-timestamp">${stageInfo.data.timestamp}</span>
@@ -1655,19 +1691,18 @@
                         </p>
                         <div class="clarifications-container" style="display:flex;flex-direction:column;gap:1rem;">
                             ${clars.map((c, cIdx) => `
-                                <div class="clarification-box" style="padding:1rem;background:var(--surface-color, #ffffff);border:1px solid var(--border-color, #e5e7eb);border-radius:12px;">
-                                    <div style="font-weight:600;margin-bottom:0.75rem;color:var(--text-color, #1f2937);">
+                                <div class="clarification-box">
+                                    <div class="clarification-question">
                                         ${c.question || c.Question || 'Portion size clarification'}
                                     </div>
-                                    <div class="clarification-chips" style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                                    <div class="clarification-chips">
                                         ${(c.options || c.Options || []).map((opt, oIdx) => {
                                             const delta = opt.macroDelta || opt.macro_delta || {};
                                             const calDelta = delta.calorie || 0;
                                             const deltaText = calDelta !== 0 ? ` (${calDelta > 0 ? '+' : ''}${calDelta} kcal)` : '';
                                             return `
                                                 <button type="button" class="clarification-chip ${oIdx === 1 ? 'selected' : ''}"
-                                                        data-clar-idx="${cIdx}" data-opt-idx="${oIdx}"
-                                                        style="padding:0.4rem 0.8rem;border-radius:20px;border:1px solid var(--border-color, #d1d5db);background:${oIdx === 1 ? 'var(--primary-subtle, #ecfdf5)' : 'transparent'};color:${oIdx === 1 ? 'var(--primary, #059669)' : 'inherit'};font-size:0.85rem;cursor:pointer;">
+                                                        data-clar-idx="${cIdx}" data-opt-idx="${oIdx}">
                                                     ${opt.text || opt.Text}${deltaText}
                                                 </button>
                                             `;

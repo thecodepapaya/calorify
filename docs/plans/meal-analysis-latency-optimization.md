@@ -31,7 +31,7 @@ The two LLM calls are 96% of wall clock. USDA hydration is already sub-second af
 - **Mentorship split (backend/AGENTS.md).** The user writes core logic: DDL, DTOs, pipeline code, cache design decisions. The agent handles mechanical work when asked: instrumentation plumbing, dashboards, eval-harness tooling, docs.
 - **No backward compatibility.** Single pre-production deployment state; direct single-path code, no fallback shims.
 - **Single VM, no Redis deployed.** Any "cache" defaults to process-local unless a concrete reason forces otherwise.
-- **Migrations stay one-file.** `MigrateCalorify` executes the single hardcoded startup SQL file, idempotent via `CREATE TABLE IF NOT EXISTS`. New DDL is appended to `migrations/calorify/000001_create_user_profile.sql`. Revisit only at the first genuine schema evolution (rename/type change/backfill) that idempotent DDL cannot express; a versioned runner (golang-migrate) is a deliberate non-goal for now.
+- **Migrations run on every boot, unversioned.** `MigrateCalorify` globs `migrations/calorify/*.sql`, sorts the paths lexicographically, and executes each file in order (`internal/database/database.go:42-79`). There is no version table, so every file re-runs on every startup and each must stay idempotent (`CREATE TABLE IF NOT EXISTS`, guarded `ALTER`s). New DDL can be appended to `000001_create_user_profile.sql` or added as a new numbered file; file count is not the constraint, re-execution is. A versioned runner (golang-migrate) is a deliberate non-goal for now.
 - **Pipeline timeout**: the whole background pipeline runs under a 45 s context (`service.go` runPipeline). Cuts here reduce timeout pressure for free.
 
 ## 3. Phase 0 - Per-call measurement (agreed design)
