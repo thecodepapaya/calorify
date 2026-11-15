@@ -10,10 +10,10 @@ import "protos/server/meal.proto";
 option go_package = "backend/internal/gen_proto/api";
 
 message StepTiming {
-  string                    name         = 1;
-  optional double           duration_sec = 2;
-  string                    status       = 3; // "COMPLETED", "FAILED", "IN_PROGRESS", "PENDING"
-  optional string           completed_at = 4;
+  string          name         = 1;
+  optional double duration_sec = 2;
+  string          status       = 3; // "COMPLETED", "FAILED", "IN_PROGRESS", "PENDING"
+  optional string completed_at = 4;
 }
 
 message HistoryMetadata {
@@ -25,16 +25,16 @@ message HistoryMetadata {
 }
 
 message HistoryComponent {
-  string          name               = 1;
-  string          canonical_name     = 2;
-  string          preparation_method = 3;
-  common.Portion  portion            = 4;
+  string         name               = 1;
+  string         canonical_name     = 2;
+  string         preparation_method = 3;
+  common.Portion portion            = 4;
 }
 
 // LlmCallSummary aggregates per-stage llm_call rows for the selected window.
 message LlmCallSummary {
   string stage                 = 1;
-  int32  call_count            = 2;
+  int32  analysis_count        = 2;
   double avg_duration_ms       = 3;
   double avg_prompt_tokens     = 4;
   double avg_cached_tokens     = 5;
@@ -60,43 +60,50 @@ message LlmCallRecord {
   optional int64            completion_tokens = 8;
   int64                     duration_ms       = 9;
   optional string           error             = 10;
+  optional int32            component_id      = 11;
+}
+
+message LlmCallPoint {
+  google.protobuf.Timestamp at           = 1;
+  double                    duration_sec = 2;
 }
 
 message AnalysisHistoryItem {
-  string                             id                 = 1;
-  string                             user_uid           = 2;
-  google.protobuf.Timestamp          created_at         = 3;
-  string                             status             = 4;
-  string                             text               = 5;
-  bool                               has_image          = 6;
-  optional string                    failure_reason     = 7;
-  optional string                    failed_at_step     = 8;
-  optional double                    total_duration_sec = 9;
-  HistoryMetadata                    metadata           = 10;
-  repeated StepTiming                steps              = 11;
-  optional string                    locale             = 12;
-  optional string                    country_code       = 13;
-  optional string                    timezone           = 14;
-  optional google.protobuf.Timestamp local_captured_at  = 15;
-  optional bool                      is_liked           = 16;
-  google.protobuf.Timestamp          updated_at         = 17;
-  repeated HistoryComponent          components         = 18;
-  repeated server.EnrichedIngredient ingredients        = 19;
-  repeated common.Clarification      clarifications     = 20;
-  optional common.Meal               final              = 21; // image_base64 stripped before returning
-  repeated LlmCallRecord             llm_calls          = 22;
+  string                             id                  = 1;
+  string                             user_uid            = 2;
+  google.protobuf.Timestamp          created_at          = 3;
+  string                             status              = 4;
+  string                             text                = 5;
+  bool                               has_image           = 6;
+  optional string                    failure_reason      = 7;
+  optional string                    failed_at_step      = 8;
+  optional double                    total_duration_sec  = 9;
+  HistoryMetadata                    metadata            = 10;
+  repeated StepTiming                steps               = 11;
+  optional string                    locale              = 12;
+  optional string                    country_code        = 13;
+  optional string                    timezone            = 14;
+  optional google.protobuf.Timestamp local_captured_at   = 15;
+  optional bool                      is_liked            = 16;
+  google.protobuf.Timestamp          updated_at          = 17;
+  repeated HistoryComponent          components          = 18;
+  repeated server.EnrichedComponent  enriched_components = 19;
+  repeated common.Clarification      clarifications      = 20;
+  optional common.Meal               final               = 21; // image_base64 stripped before returning
+  repeated LlmCallRecord             llm_calls           = 22;
 }
 
 message AnalysisHistorySummary {
-  string                 time_range             = 1;
-  int32                  total_requests         = 2;
-  int32                  success_count          = 3;
-  int32                  failed_count           = 4;
-  double                 failure_rate_pct       = 5;
-  double                 avg_total_duration_sec = 6;
-  map<string, double>    avg_step_durations_sec = 7;
-  map<string, int32>     failures_by_step       = 8;
-  repeated LlmCallSummary llm_calls             = 9;
+  string                  time_range             = 1;
+  int32                   total_requests         = 2;
+  int32                   success_count          = 3;
+  int32                   failed_count           = 4;
+  double                  failure_rate_pct       = 5;
+  double                  avg_total_duration_sec = 6;
+  map<string, double>     avg_step_durations_sec = 7;
+  map<string, int32>      failures_by_step       = 8;
+  repeated LlmCallSummary llm_calls              = 9;
+  repeated LlmCallPoint   p2_wall_time_series    = 10;
 }
 
 message AnalysisHistoryRequest {

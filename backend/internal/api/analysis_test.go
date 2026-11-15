@@ -48,10 +48,10 @@ func TestGetAnalysisHistoryDataMetadata(t *testing.T) {
 	}()
 
 	_, err = pool.Exec(ctx, `
-	INSERT INTO llm_call (analysis_id, stage, model, prompt_tokens, cached_tokens, completion_tokens, duration_ms)
+	INSERT INTO llm_call (analysis_id, stage, model, prompt_tokens, cached_tokens, completion_tokens, duration_ms, component_id)
 	VALUES
-		($1, 'PASS_1', 'test-model', 100, 0, 50, 1234),
-		($1, 'PASS_2', 'test-model', 80, 0, 60, 2345)`, id)
+		($1, 'PASS_1', 'test-model', 100, 0, 50, 1234, NULL),
+		($1, 'PASS_2', 'test-model', 80, 0, 60, 2345, 2)`, id)
 	if err != nil {
 		t.Fatalf("failed to insert test llm_call rows: %v", err)
 	}
@@ -103,7 +103,7 @@ func TestGetAnalysisHistoryDataMetadata(t *testing.T) {
 	if got := found.LlmCalls[0]; got.GetStage() != api.LlmCallRecord_PASS_1 || got.GetDurationMs() != 1234 || got.GetPromptTokens() != 100 || got.GetCompletionTokens() != 50 {
 		t.Errorf("unexpected PASS_1 llm call: %v", got)
 	}
-	if got := found.LlmCalls[1]; got.GetStage() != api.LlmCallRecord_PASS_2 || got.GetDurationMs() != 2345 || got.GetPromptTokens() != 80 || got.GetCompletionTokens() != 60 {
+	if got := found.LlmCalls[1]; got.GetStage() != api.LlmCallRecord_PASS_2 || got.GetDurationMs() != 2345 || got.GetPromptTokens() != 80 || got.GetCompletionTokens() != 60 || got.GetComponentId() != 2 {
 		t.Errorf("unexpected PASS_2 llm call: %v", got)
 	}
 
@@ -113,7 +113,7 @@ func TestGetAnalysisHistoryDataMetadata(t *testing.T) {
 			pass1Summary = s
 		}
 	}
-	if pass1Summary == nil || pass1Summary.GetCallCount() < 1 {
+	if pass1Summary == nil || pass1Summary.GetAnalysisCount() < 1 {
 		t.Fatalf("expected PASS_1 llm call summary, got %v", res.Summary.LlmCalls)
 	}
 }

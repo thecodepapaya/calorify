@@ -31,9 +31,10 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
     $0.Measurement? grams,
     $0.Macros? macros,
     $core.String? canonicalName,
-    $core.String? componentName,
     $0.Portion? portion,
     IngredientType? ingredientType,
+    $core.int? componentId,
+    $core.int? ingredientId,
   }) {
     final result = create();
     if (name != null) result.name = name;
@@ -43,9 +44,10 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
     if (grams != null) result.grams = grams;
     if (macros != null) result.macros = macros;
     if (canonicalName != null) result.canonicalName = canonicalName;
-    if (componentName != null) result.componentName = componentName;
     if (portion != null) result.portion = portion;
     if (ingredientType != null) result.ingredientType = ingredientType;
+    if (componentId != null) result.componentId = componentId;
+    if (ingredientId != null) result.ingredientId = ingredientId;
     return result;
   }
 
@@ -71,11 +73,12 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
     ..aOM<$0.Macros>(6, _omitFieldNames ? '' : 'macros',
         subBuilder: $0.Macros.create)
     ..aOS(7, _omitFieldNames ? '' : 'canonicalName')
-    ..aOS(8, _omitFieldNames ? '' : 'componentName')
-    ..aOM<$0.Portion>(9, _omitFieldNames ? '' : 'portion',
+    ..aOM<$0.Portion>(8, _omitFieldNames ? '' : 'portion',
         subBuilder: $0.Portion.create)
-    ..aE<IngredientType>(10, _omitFieldNames ? '' : 'ingredientType',
+    ..aE<IngredientType>(9, _omitFieldNames ? '' : 'ingredientType',
         enumValues: IngredientType.values)
+    ..aI(10, _omitFieldNames ? '' : 'componentId')
+    ..aI(11, _omitFieldNames ? '' : 'ingredientId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -165,43 +168,152 @@ class EnrichedIngredient extends $pb.GeneratedMessage {
   void clearCanonicalName() => $_clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get componentName => $_getSZ(7);
+  $0.Portion get portion => $_getN(7);
   @$pb.TagNumber(8)
-  set componentName($core.String value) => $_setString(7, value);
+  set portion($0.Portion value) => $_setField(8, value);
   @$pb.TagNumber(8)
-  $core.bool hasComponentName() => $_has(7);
+  $core.bool hasPortion() => $_has(7);
   @$pb.TagNumber(8)
-  void clearComponentName() => $_clearField(8);
+  void clearPortion() => $_clearField(8);
+  @$pb.TagNumber(8)
+  $0.Portion ensurePortion() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $0.Portion get portion => $_getN(8);
+  IngredientType get ingredientType => $_getN(8);
   @$pb.TagNumber(9)
-  set portion($0.Portion value) => $_setField(9, value);
+  set ingredientType(IngredientType value) => $_setField(9, value);
   @$pb.TagNumber(9)
-  $core.bool hasPortion() => $_has(8);
+  $core.bool hasIngredientType() => $_has(8);
   @$pb.TagNumber(9)
-  void clearPortion() => $_clearField(9);
-  @$pb.TagNumber(9)
-  $0.Portion ensurePortion() => $_ensure(8);
+  void clearIngredientType() => $_clearField(9);
 
   @$pb.TagNumber(10)
-  IngredientType get ingredientType => $_getN(9);
+  $core.int get componentId => $_getIZ(9);
   @$pb.TagNumber(10)
-  set ingredientType(IngredientType value) => $_setField(10, value);
+  set componentId($core.int value) => $_setSignedInt32(9, value);
   @$pb.TagNumber(10)
-  $core.bool hasIngredientType() => $_has(9);
+  $core.bool hasComponentId() => $_has(9);
   @$pb.TagNumber(10)
-  void clearIngredientType() => $_clearField(10);
+  void clearComponentId() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.int get ingredientId => $_getIZ(10);
+  @$pb.TagNumber(11)
+  set ingredientId($core.int value) => $_setSignedInt32(10, value);
+  @$pb.TagNumber(11)
+  $core.bool hasIngredientId() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearIngredientId() => $_clearField(11);
+}
+
+class EnrichedComponent extends $pb.GeneratedMessage {
+  factory EnrichedComponent({
+    $core.int? componentId,
+    $core.String? name,
+    $core.String? canonicalName,
+    $core.Iterable<EnrichedIngredient>? ingredients,
+    $0.Macros? macros,
+  }) {
+    final result = create();
+    if (componentId != null) result.componentId = componentId;
+    if (name != null) result.name = name;
+    if (canonicalName != null) result.canonicalName = canonicalName;
+    if (ingredients != null) result.ingredients.addAll(ingredients);
+    if (macros != null) result.macros = macros;
+    return result;
+  }
+
+  EnrichedComponent._();
+
+  factory EnrichedComponent.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory EnrichedComponent.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'EnrichedComponent',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'server'),
+      createEmptyInstance: create)
+    ..aI(1, _omitFieldNames ? '' : 'componentId')
+    ..aOS(2, _omitFieldNames ? '' : 'name')
+    ..aOS(3, _omitFieldNames ? '' : 'canonicalName')
+    ..pPM<EnrichedIngredient>(4, _omitFieldNames ? '' : 'ingredients',
+        subBuilder: EnrichedIngredient.create)
+    ..aOM<$0.Macros>(5, _omitFieldNames ? '' : 'macros',
+        subBuilder: $0.Macros.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  EnrichedComponent clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  EnrichedComponent copyWith(void Function(EnrichedComponent) updates) =>
+      super.copyWith((message) => updates(message as EnrichedComponent))
+          as EnrichedComponent;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static EnrichedComponent create() => EnrichedComponent._();
+  @$core.override
+  EnrichedComponent createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static EnrichedComponent getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<EnrichedComponent>(create);
+  static EnrichedComponent? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get componentId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set componentId($core.int value) => $_setSignedInt32(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasComponentId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearComponentId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get name => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set name($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearName() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get canonicalName => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set canonicalName($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasCanonicalName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearCanonicalName() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $pb.PbList<EnrichedIngredient> get ingredients => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $0.Macros get macros => $_getN(4);
+  @$pb.TagNumber(5)
+  set macros($0.Macros value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasMacros() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearMacros() => $_clearField(5);
+  @$pb.TagNumber(5)
+  $0.Macros ensureMacros() => $_ensure(4);
 }
 
 class UsdaEnriched extends $pb.GeneratedMessage {
   factory UsdaEnriched({
-    $core.Iterable<EnrichedIngredient>? ingredients,
-    $0.Macros? totalMacros,
+    $core.Iterable<EnrichedComponent>? components,
+    $0.Macros? macros,
   }) {
     final result = create();
-    if (ingredients != null) result.ingredients.addAll(ingredients);
-    if (totalMacros != null) result.totalMacros = totalMacros;
+    if (components != null) result.components.addAll(components);
+    if (macros != null) result.macros = macros;
     return result;
   }
 
@@ -218,9 +330,9 @@ class UsdaEnriched extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'UsdaEnriched',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'server'),
       createEmptyInstance: create)
-    ..pPM<EnrichedIngredient>(1, _omitFieldNames ? '' : 'ingredients',
-        subBuilder: EnrichedIngredient.create)
-    ..aOM<$0.Macros>(2, _omitFieldNames ? '' : 'totalMacros',
+    ..pPM<EnrichedComponent>(1, _omitFieldNames ? '' : 'components',
+        subBuilder: EnrichedComponent.create)
+    ..aOM<$0.Macros>(2, _omitFieldNames ? '' : 'macros',
         subBuilder: $0.Macros.create)
     ..hasRequiredFields = false;
 
@@ -244,18 +356,18 @@ class UsdaEnriched extends $pb.GeneratedMessage {
   static UsdaEnriched? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $pb.PbList<EnrichedIngredient> get ingredients => $_getList(0);
+  $pb.PbList<EnrichedComponent> get components => $_getList(0);
 
   @$pb.TagNumber(2)
-  $0.Macros get totalMacros => $_getN(1);
+  $0.Macros get macros => $_getN(1);
   @$pb.TagNumber(2)
-  set totalMacros($0.Macros value) => $_setField(2, value);
+  set macros($0.Macros value) => $_setField(2, value);
   @$pb.TagNumber(2)
-  $core.bool hasTotalMacros() => $_has(1);
+  $core.bool hasMacros() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTotalMacros() => $_clearField(2);
+  void clearMacros() => $_clearField(2);
   @$pb.TagNumber(2)
-  $0.Macros ensureTotalMacros() => $_ensure(1);
+  $0.Macros ensureMacros() => $_ensure(1);
 }
 
 const $core.bool _omitFieldNames =

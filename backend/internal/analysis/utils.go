@@ -16,6 +16,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/openai/openai-go"
+	"github.com/openai/openai-go/shared"
 )
 
 var ErrorInvalidInput = errors.New("Either text or imageUrl must be provided")
@@ -72,8 +75,8 @@ func formatVector(vec []float32) string {
 	return "[" + strings.Join(parts, ",") + "]"
 }
 
-func ingredientCandidateToEnriched(ingredient *IngredientDTO, candidate *UsdaCandidate) *server.EnrichedIngredient {
-	minGram, gram, maxGram := ingredient.Portion.Grams()
+func ingredientCandidateToEnriched(ingredientRef *IngredientRef, candidate *UsdaCandidate) *server.EnrichedIngredient {
+	minGram, gram, maxGram := ingredientRef.ingredient.Portion.Grams()
 
 	minCalories := scaleNutrient(candidate.KcalPer100g, minGram)
 	calories := scaleNutrient(candidate.KcalPer100g, gram)
@@ -96,14 +99,15 @@ func ingredientCandidateToEnriched(ingredient *IngredientDTO, candidate *UsdaCan
 	maxFiber := scaleNutrient(candidate.FiberPer100g, maxGram)
 
 	enrichedIngredient := &server.EnrichedIngredient{
-		Name:           ingredient.Name,
+		IngredientId:   ingredientRef.ingredientIdx,
+		ComponentId:    ingredientRef.componentIdx,
+		Name:           ingredientRef.ingredient.Name,
+		CanonicalName:  ingredientRef.ingredient.CanonicalName,
 		Description:    candidate.Description,
 		FdcId:          candidate.FdcID,
 		Similarity:     candidate.Similarity,
-		CanonicalName:  ingredient.CanonicalName,
-		ComponentName:  ingredient.ComponentName,
-		Portion:        ingredient.Portion.ToCommon(),
-		IngredientType: ingredient.ServerIngredientType(),
+		Portion:        ingredientRef.ingredient.Portion.ToCommon(),
+		IngredientType: ingredientRef.ingredient.ServerIngredientType(),
 		Grams: &common.Measurement{
 			MinValue: minGram,
 			Value:    gram,
@@ -144,19 +148,19 @@ func scaleNutrient(per100g float32, grams int32) int32 {
 	return int32(math.Round(float64(per100g) * float64(grams) / 100.0))
 }
 
-func aggregateMacro(enrichedIngredients []*server.EnrichedIngredient) *common.Macros {
+func aggregateMacro(macros []*common.Macros) *common.Macros {
 	calories := common.Measurement{}
 	carbs := common.Measurement{}
 	protein := common.Measurement{}
 	fat := common.Measurement{}
 	fiber := common.Measurement{}
 
-	for i := range enrichedIngredients {
-		addMeasurement(enrichedIngredients[i].Macros.Calorie, &calories)
-		addMeasurement(enrichedIngredients[i].Macros.Carb, &carbs)
-		addMeasurement(enrichedIngredients[i].Macros.Protein, &protein)
-		addMeasurement(enrichedIngredients[i].Macros.Fat, &fat)
-		addMeasurement(enrichedIngredients[i].Macros.Fiber, &fiber)
+	for i := range macros {
+		addMeasurement(macros[i].Calorie, &calories)
+		addMeasurement(macros[i].Carb, &carbs)
+		addMeasurement(macros[i].Protein, &protein)
+		addMeasurement(macros[i].Fat, &fat)
+		addMeasurement(macros[i].Fiber, &fiber)
 	}
 
 	return &common.Macros{
@@ -253,42 +257,42 @@ func getClarificationLocale(locale string) clarificationLocale {
 
 func buildQuantityClarification(id int32, ingredient *server.EnrichedIngredient, locale string) *common.Clarification {
 	loc := getClarificationLocale(locale)
-	clarification := &common.Clarification{
+	return &common.Clarification{
 		Id:       id,
 		Type:     common.Clarification_QUANTITY,
-		Question: fmt.Sprintf(loc.QuantityQuestion, ingredient.Name),
+		Question: fmt.Sprintf(loc.QuantityQuestion, ingredient.GetName()),
 		Options: []*common.Option{
-			{
-				Text: loc.OptionSmall,
-				MacroDelta: &common.MacroDelta{
-					Calorie: ingredient.GetMacros().GetCalorie().GetMinValue() - ingredient.GetMacros().GetCalorie().GetValue(),
-					Carb:    ingredient.GetMacros().GetCarb().GetMinValue() - ingredient.GetMacros().GetCarb().GetValue(),
-					Protein: ingredient.GetMacros().GetProtein().GetMinValue() - ingredient.GetMacros().GetProtein().GetValue(),
-					Fat:     ingredient.GetMacros().GetFat().GetMinValue() - ingredient.GetMacros().GetFat().GetValue(),
-					Fiber:   ingredient.GetMacros().GetFiber().GetMinValue() - ingredient.GetMacros().GetFiber().GetValue(),
-				},
-			},
-			{
-				Text: loc.OptionMedium,
-				MacroDelta: &common.MacroDelta{
-					Calorie: 0,
-					Carb:    0,
-					Protein: 0,
-					Fat:     0,
-					Fiber:   0,
-				},
-			},
-			{
-				Text: loc.OptionLarge,
-				MacroDelta: &common.MacroDelta{
-					Calorie: ingredient.GetMacros().GetCalorie().GetMaxValue() - ingredient.GetMacros().GetCalorie().GetValue(),
-					Carb:    ingredient.GetMacros().GetCarb().GetMaxValue() - ingredient.GetMacros().GetCarb().GetValue(),
-					Protein: ingredient.GetMacros().GetProtein().GetMaxValue() - ingredient.GetMacros().GetProtein().GetValue(),
-					Fat:     ingredient.GetMacros().GetFat().GetMaxValue() - ingredient.GetMacros().GetFat().GetValue(),
-					Fiber:   ingredient.GetMacros().GetFiber().GetMaxValue() - ingredient.GetMacros().GetFiber().GetValue(),
+			{Text: loc.OptionSmall, MacroDelta: macroDelta(ingredient.GetMacros(), false)},
+			{Text: loc.OptionMedium, MacroDelta: &common.MacroDelta{}},
+			{Text: loc.OptionLarge, MacroDelta: macroDelta(ingredient.GetMacros(), true)},
+		},
+	}
+}
+
+func (s *Service) fanOutPass2CallReq(ctx context.Context, userContent string) (*openai.ChatCompletion, error, int64) {
+	llmStart := time.Now()
+	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
+		ReasoningEffort: shared.ReasoningEffortLow,
+		Model:           openai.ChatModel(llm_model),
+		Messages: []openai.ChatCompletionMessageParamUnion{
+			openai.SystemMessage(pass2Prompt),
+			openai.UserMessage(userContent),
+		},
+		ResponseFormat: openai.ChatCompletionNewParamsResponseFormatUnion{
+			OfJSONSchema: &openai.ResponseFormatJSONSchemaParam{
+				JSONSchema: openai.ResponseFormatJSONSchemaJSONSchemaParam{
+					Name:   "pass2_decomposition",
+					Strict: openai.Bool(true),
+					Schema: pass2CallSchema,
 				},
 			},
 		},
-	}
-	return clarification
+	})
+	return res, err, time.Since(llmStart).Milliseconds()
+}
+
+type IngredientRef struct {
+	componentIdx  int32
+	ingredientIdx int32
+	ingredient    *IngredientDTO
 }

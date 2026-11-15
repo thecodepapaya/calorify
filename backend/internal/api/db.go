@@ -499,18 +499,28 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 	summary.AvgStepDurationsSec["Finalization"] = avgFinal
 
 	llmSummaryQuery := fmt.Sprintf(`
+	WITH per_analysis AS (
+		SELECT
+			lc.analysis_id,
+			lc.stage,
+			SUM(lc.prompt_tokens) AS prompt_tokens,
+			SUM(lc.cached_tokens) AS cached_tokens,
+			SUM(lc.completion_tokens) AS completion_tokens
+		FROM llm_call lc
+		JOIN meal_analysis ma ON ma.id = lc.analysis_id
+		WHERE ma.created_at >= NOW() - INTERVAL '%s'
+		  AND ma.status = 'PRESENTED'
+		GROUP BY lc.analysis_id, lc.stage
+	)
 	SELECT
-		lc.stage,
+		stage,
 		COUNT(*)::int,
-		COALESCE(AVG(lc.duration_ms), 0),
-		COALESCE(AVG(lc.prompt_tokens), 0),
-		COALESCE(AVG(lc.cached_tokens), 0),
-		COALESCE(AVG(lc.completion_tokens), 0)
-	FROM llm_call lc
-	JOIN meal_analysis ma ON ma.id = lc.analysis_id
-	WHERE ma.created_at >= NOW() - INTERVAL '%s'
-	GROUP BY lc.stage
-	ORDER BY lc.stage;
+		COALESCE(AVG(prompt_tokens), 0),
+		COALESCE(AVG(cached_tokens), 0),
+		COALESCE(AVG(completion_tokens), 0)
+	FROM per_analysis
+	GROUP BY stage
+	ORDER BY stage;
 	`, intervalStr)
 
 	llmSummaryRows, err := a.DB.Query(ctx, llmSummaryQuery)
@@ -523,8 +533,7 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 		stat := &api.LlmCallSummary{}
 		if err := llmSummaryRows.Scan(
 			&stat.Stage,
-			&stat.CallCount,
-			&stat.AvgDurationMs,
+			&stat.AnalysisCount,
 			&stat.AvgPromptTokens,
 			&stat.AvgCachedTokens,
 			&stat.AvgCompletionTokens,
@@ -535,6 +544,70 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 	}
 	if err := llmSummaryRows.Err(); err != nil {
 		return nil, fmt.Errorf("failed to read llm call summary: %w", err)
+	}
+
+	// Duration is the stage wall time, not the sum of the parallel P2 calls.
+	wallQuery := fmt.Sprintf(`
+	SELECT
+		COALESCE(AVG(GREATEST(0, EXTRACT(EPOCH FROM (decomposed_component_at - created_at)))), 0),
+		COALESCE(AVG(GREATEST(0, EXTRACT(EPOCH FROM (decomposed_ingredient_at - decomposed_component_at)))), 0)
+	FROM meal_analysis
+	WHERE status = 'PRESENTED'
+	  AND created_at >= NOW() - INTERVAL '%s'
+	  AND decomposed_component_at IS NOT NULL
+	  AND decomposed_ingredient_at IS NOT NULL;
+	`, intervalStr)
+
+	var p1WallSec, p2WallSec float64
+	if err := a.DB.QueryRow(ctx, wallQuery).Scan(&p1WallSec, &p2WallSec); err != nil {
+		return nil, fmt.Errorf("failed to query stage wall time: %w", err)
+	}
+	for _, stat := range summary.LlmCalls {
+		switch stat.Stage {
+		case "PASS_1":
+			stat.AvgDurationMs = p1WallSec * 1000
+		case "PASS_2":
+			stat.AvgDurationMs = p2WallSec * 1000
+		}
+	}
+
+	// P2 wall-time series: one point per analysis on 1D, daily average otherwise.
+	seriesBucket := "date_trunc('day', created_at)"
+	if timeRange == "1D" {
+		seriesBucket = "created_at"
+	}
+	seriesQuery := fmt.Sprintf(`
+	SELECT
+		%s AS bucket,
+		AVG(GREATEST(0, EXTRACT(EPOCH FROM (decomposed_ingredient_at - decomposed_component_at)))) AS duration_sec
+	FROM meal_analysis
+	WHERE status = 'PRESENTED'
+	  AND created_at >= NOW() - INTERVAL '%s'
+	  AND decomposed_component_at IS NOT NULL
+	  AND decomposed_ingredient_at IS NOT NULL
+	GROUP BY 1
+	ORDER BY 1;
+	`, seriesBucket, intervalStr)
+
+	seriesRows, err := a.DB.Query(ctx, seriesQuery)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query p2 wall time series: %w", err)
+	}
+	defer seriesRows.Close()
+
+	for seriesRows.Next() {
+		var bucket time.Time
+		var durationSec float64
+		if err := seriesRows.Scan(&bucket, &durationSec); err != nil {
+			return nil, fmt.Errorf("failed to scan p2 wall time point: %w", err)
+		}
+		summary.P2WallTimeSeries = append(summary.P2WallTimeSeries, &api.LlmCallPoint{
+			At:          timestamppb.New(bucket),
+			DurationSec: durationSec,
+		})
+	}
+	if err := seriesRows.Err(); err != nil {
+		return nil, fmt.Errorf("failed to read p2 wall time series: %w", err)
 	}
 
 	if failP1 > 0 {
@@ -812,7 +885,8 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 			cached_tokens,
 			completion_tokens,
 			duration_ms,
-			error
+			error,
+			component_id
 		FROM llm_call
 		WHERE analysis_id = ANY($1::uuid[])
 		ORDER BY analysis_id, id`
@@ -828,6 +902,7 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 			var analysisID, stage string
 			var createdAt time.Time
 			var promptTokens, cachedTokens, completionTokens sql.NullInt64
+			var componentID sql.NullInt32
 			var errText sql.NullString
 			rec := &api.LlmCallRecord{}
 			if err := llmRows.Scan(
@@ -841,12 +916,16 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 				&completionTokens,
 				&rec.DurationMs,
 				&errText,
+				&componentID,
 			); err != nil {
 				return nil, fmt.Errorf("failed to scan llm call row: %w", err)
 			}
 			rec.AnalysisId = &analysisID
 			rec.CreatedAt = timestamppb.New(createdAt)
 			rec.Stage = api.LlmCallRecord_Stage(api.LlmCallRecord_Stage_value[stage])
+			if componentID.Valid {
+				rec.ComponentId = &componentID.Int32
+			}
 			if promptTokens.Valid {
 				rec.PromptTokens = &promptTokens.Int64
 			}

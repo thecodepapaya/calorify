@@ -313,7 +313,7 @@ class HistoryComponent extends $pb.GeneratedMessage {
 class LlmCallSummary extends $pb.GeneratedMessage {
   factory LlmCallSummary({
     $core.String? stage,
-    $core.int? callCount,
+    $core.int? analysisCount,
     $core.double? avgDurationMs,
     $core.double? avgPromptTokens,
     $core.double? avgCachedTokens,
@@ -321,7 +321,7 @@ class LlmCallSummary extends $pb.GeneratedMessage {
   }) {
     final result = create();
     if (stage != null) result.stage = stage;
-    if (callCount != null) result.callCount = callCount;
+    if (analysisCount != null) result.analysisCount = analysisCount;
     if (avgDurationMs != null) result.avgDurationMs = avgDurationMs;
     if (avgPromptTokens != null) result.avgPromptTokens = avgPromptTokens;
     if (avgCachedTokens != null) result.avgCachedTokens = avgCachedTokens;
@@ -344,7 +344,7 @@ class LlmCallSummary extends $pb.GeneratedMessage {
       package: const $pb.PackageName(_omitMessageNames ? '' : 'api'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'stage')
-    ..aI(2, _omitFieldNames ? '' : 'callCount')
+    ..aI(2, _omitFieldNames ? '' : 'analysisCount')
     ..aD(3, _omitFieldNames ? '' : 'avgDurationMs')
     ..aD(4, _omitFieldNames ? '' : 'avgPromptTokens')
     ..aD(5, _omitFieldNames ? '' : 'avgCachedTokens')
@@ -380,13 +380,13 @@ class LlmCallSummary extends $pb.GeneratedMessage {
   void clearStage() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get callCount => $_getIZ(1);
+  $core.int get analysisCount => $_getIZ(1);
   @$pb.TagNumber(2)
-  set callCount($core.int value) => $_setSignedInt32(1, value);
+  set analysisCount($core.int value) => $_setSignedInt32(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasCallCount() => $_has(1);
+  $core.bool hasAnalysisCount() => $_has(1);
   @$pb.TagNumber(2)
-  void clearCallCount() => $_clearField(2);
+  void clearAnalysisCount() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.double get avgDurationMs => $_getN(2);
@@ -438,6 +438,7 @@ class LlmCallRecord extends $pb.GeneratedMessage {
     $fixnum.Int64? completionTokens,
     $fixnum.Int64? durationMs,
     $core.String? error,
+    $core.int? componentId,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -450,6 +451,7 @@ class LlmCallRecord extends $pb.GeneratedMessage {
     if (completionTokens != null) result.completionTokens = completionTokens;
     if (durationMs != null) result.durationMs = durationMs;
     if (error != null) result.error = error;
+    if (componentId != null) result.componentId = componentId;
     return result;
   }
 
@@ -478,6 +480,7 @@ class LlmCallRecord extends $pb.GeneratedMessage {
     ..aInt64(8, _omitFieldNames ? '' : 'completionTokens')
     ..aInt64(9, _omitFieldNames ? '' : 'durationMs')
     ..aOS(10, _omitFieldNames ? '' : 'error')
+    ..aI(11, _omitFieldNames ? '' : 'componentId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -590,6 +593,84 @@ class LlmCallRecord extends $pb.GeneratedMessage {
   $core.bool hasError() => $_has(9);
   @$pb.TagNumber(10)
   void clearError() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.int get componentId => $_getIZ(10);
+  @$pb.TagNumber(11)
+  set componentId($core.int value) => $_setSignedInt32(10, value);
+  @$pb.TagNumber(11)
+  $core.bool hasComponentId() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearComponentId() => $_clearField(11);
+}
+
+class LlmCallPoint extends $pb.GeneratedMessage {
+  factory LlmCallPoint({
+    $1.Timestamp? at,
+    $core.double? durationSec,
+  }) {
+    final result = create();
+    if (at != null) result.at = at;
+    if (durationSec != null) result.durationSec = durationSec;
+    return result;
+  }
+
+  LlmCallPoint._();
+
+  factory LlmCallPoint.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory LlmCallPoint.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LlmCallPoint',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'api'),
+      createEmptyInstance: create)
+    ..aOM<$1.Timestamp>(1, _omitFieldNames ? '' : 'at',
+        subBuilder: $1.Timestamp.create)
+    ..aD(2, _omitFieldNames ? '' : 'durationSec')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LlmCallPoint clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LlmCallPoint copyWith(void Function(LlmCallPoint) updates) =>
+      super.copyWith((message) => updates(message as LlmCallPoint))
+          as LlmCallPoint;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LlmCallPoint create() => LlmCallPoint._();
+  @$core.override
+  LlmCallPoint createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static LlmCallPoint getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LlmCallPoint>(create);
+  static LlmCallPoint? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $1.Timestamp get at => $_getN(0);
+  @$pb.TagNumber(1)
+  set at($1.Timestamp value) => $_setField(1, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAt() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAt() => $_clearField(1);
+  @$pb.TagNumber(1)
+  $1.Timestamp ensureAt() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.double get durationSec => $_getN(1);
+  @$pb.TagNumber(2)
+  set durationSec($core.double value) => $_setDouble(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasDurationSec() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDurationSec() => $_clearField(2);
 }
 
 class AnalysisHistoryItem extends $pb.GeneratedMessage {
@@ -612,7 +693,7 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
     $core.bool? isLiked,
     $1.Timestamp? updatedAt,
     $core.Iterable<HistoryComponent>? components,
-    $core.Iterable<$2.EnrichedIngredient>? ingredients,
+    $core.Iterable<$2.EnrichedComponent>? enrichedComponents,
     $core.Iterable<$3.Clarification>? clarifications,
     $0.Meal? final_21,
     $core.Iterable<LlmCallRecord>? llmCalls,
@@ -636,7 +717,8 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
     if (isLiked != null) result.isLiked = isLiked;
     if (updatedAt != null) result.updatedAt = updatedAt;
     if (components != null) result.components.addAll(components);
-    if (ingredients != null) result.ingredients.addAll(ingredients);
+    if (enrichedComponents != null)
+      result.enrichedComponents.addAll(enrichedComponents);
     if (clarifications != null) result.clarifications.addAll(clarifications);
     if (final_21 != null) result.final_21 = final_21;
     if (llmCalls != null) result.llmCalls.addAll(llmCalls);
@@ -680,8 +762,8 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
         subBuilder: $1.Timestamp.create)
     ..pPM<HistoryComponent>(18, _omitFieldNames ? '' : 'components',
         subBuilder: HistoryComponent.create)
-    ..pPM<$2.EnrichedIngredient>(19, _omitFieldNames ? '' : 'ingredients',
-        subBuilder: $2.EnrichedIngredient.create)
+    ..pPM<$2.EnrichedComponent>(19, _omitFieldNames ? '' : 'enrichedComponents',
+        subBuilder: $2.EnrichedComponent.create)
     ..pPM<$3.Clarification>(20, _omitFieldNames ? '' : 'clarifications',
         subBuilder: $3.Clarification.create)
     ..aOM<$0.Meal>(21, _omitFieldNames ? '' : 'final',
@@ -868,7 +950,7 @@ class AnalysisHistoryItem extends $pb.GeneratedMessage {
   $pb.PbList<HistoryComponent> get components => $_getList(17);
 
   @$pb.TagNumber(19)
-  $pb.PbList<$2.EnrichedIngredient> get ingredients => $_getList(18);
+  $pb.PbList<$2.EnrichedComponent> get enrichedComponents => $_getList(18);
 
   @$pb.TagNumber(20)
   $pb.PbList<$3.Clarification> get clarifications => $_getList(19);
@@ -900,6 +982,7 @@ class AnalysisHistorySummary extends $pb.GeneratedMessage {
         avgStepDurationsSec,
     $core.Iterable<$core.MapEntry<$core.String, $core.int>>? failuresByStep,
     $core.Iterable<LlmCallSummary>? llmCalls,
+    $core.Iterable<LlmCallPoint>? p2WallTimeSeries,
   }) {
     final result = create();
     if (timeRange != null) result.timeRange = timeRange;
@@ -914,6 +997,8 @@ class AnalysisHistorySummary extends $pb.GeneratedMessage {
     if (failuresByStep != null)
       result.failuresByStep.addEntries(failuresByStep);
     if (llmCalls != null) result.llmCalls.addAll(llmCalls);
+    if (p2WallTimeSeries != null)
+      result.p2WallTimeSeries.addAll(p2WallTimeSeries);
     return result;
   }
 
@@ -949,6 +1034,8 @@ class AnalysisHistorySummary extends $pb.GeneratedMessage {
         packageName: const $pb.PackageName('api'))
     ..pPM<LlmCallSummary>(9, _omitFieldNames ? '' : 'llmCalls',
         subBuilder: LlmCallSummary.create)
+    ..pPM<LlmCallPoint>(10, _omitFieldNames ? '' : 'p2WallTimeSeries',
+        subBuilder: LlmCallPoint.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1033,6 +1120,9 @@ class AnalysisHistorySummary extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(9)
   $pb.PbList<LlmCallSummary> get llmCalls => $_getList(8);
+
+  @$pb.TagNumber(10)
+  $pb.PbList<LlmCallPoint> get p2WallTimeSeries => $_getList(9);
 }
 
 class AnalysisHistoryRequest extends $pb.GeneratedMessage {

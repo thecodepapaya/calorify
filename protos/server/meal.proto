@@ -10,19 +10,29 @@ enum IngredientType {
 }
 
 message EnrichedIngredient {
-  string             name           = 1;
-  int64              fdc_id         = 2;
-  string             description    = 3;
-  float              similarity     = 4;
-  common.Measurement grams          = 5;
-  common.Macros      macros         = 6;
-  string             canonical_name = 7;
-  string             component_name = 8;
-  common.Portion     portion         = 9;
-  IngredientType     ingredient_type = 10;
+  string             name            = 1;
+  int64              fdc_id          = 2;
+  string             description     = 3;
+  float              similarity      = 4;
+  common.Measurement grams           = 5;
+  common.Macros      macros          = 6;
+  string             canonical_name  = 7;
+  common.Portion     portion         = 8;
+  IngredientType     ingredient_type = 9;
+  int32              component_id    = 10;
+  int32              ingredient_id   = 11;
+}
+
+message EnrichedComponent {
+  int32                       component_id   = 1;
+  string                      name           = 2;
+  string                      canonical_name = 3;
+  repeated EnrichedIngredient ingredients    = 4;
+  common.Macros               macros         = 5;
+
 }
 
 message UsdaEnriched {
-  repeated EnrichedIngredient ingredients  = 1;
-  common.Macros               total_macros = 2;
+  repeated EnrichedComponent components = 1;
+  common.Macros              macros     = 2;
 }

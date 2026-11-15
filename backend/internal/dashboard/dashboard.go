@@ -3,8 +3,10 @@ package dashboard
 import (
 	"backend/internal/gen_proto/api"
 	"backend/internal/gen_proto/common"
+	"backend/internal/gen_proto/server"
 	"context"
 	_ "embed"
+	"fmt"
 	"html/template"
 	"log/slog"
 	"net/http"
@@ -87,6 +89,64 @@ var historyTemplate = template.Must(template.New("analysis_history.html").Funcs(
 			}
 		}
 		return nil
+	},
+	"sparkline": func(points []*api.LlmCallPoint, width, height float64) string {
+		if len(points) == 0 {
+			return ""
+		}
+		minV, maxV := points[0].GetDurationSec(), points[0].GetDurationSec()
+		for _, p := range points {
+			v := p.GetDurationSec()
+			if v < minV {
+				minV = v
+			}
+			if v > maxV {
+				maxV = v
+			}
+		}
+		span := maxV - minV
+		if span == 0 {
+			span = 1
+		}
+		var b strings.Builder
+		for i, p := range points {
+			x := 0.0
+			if len(points) > 1 {
+				x = float64(i) * width / float64(len(points)-1)
+			}
+			y := height - (p.GetDurationSec()-minV)/span*height
+			if i > 0 {
+				b.WriteString(" ")
+			}
+			b.WriteString(strconv.FormatFloat(x, 'f', 1, 64))
+			b.WriteString(",")
+			b.WriteString(strconv.FormatFloat(y, 'f', 1, 64))
+		}
+		return b.String()
+	},
+	"sparklineRange": func(points []*api.LlmCallPoint) string {
+		if len(points) == 0 {
+			return ""
+		}
+		minV, maxV := points[0].GetDurationSec(), points[0].GetDurationSec()
+		for _, p := range points {
+			v := p.GetDurationSec()
+			if v < minV {
+				minV = v
+			}
+			if v > maxV {
+				maxV = v
+			}
+		}
+		return fmt.Sprintf("%.1fs - %.1fs", minV, maxV)
+	},
+	"componentName": func(comps []*server.EnrichedComponent, id int32) string {
+		for _, c := range comps {
+			if c.GetComponentId() == id {
+				return c.GetName()
+			}
+		}
+		return ""
 	},
 }).Parse(analysisHistoryHTML))
 

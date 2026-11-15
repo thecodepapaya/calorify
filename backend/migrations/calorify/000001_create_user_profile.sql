@@ -206,3 +206,5 @@ ALTER COLUMN created_at TYPE TIMESTAMPTZ USING created_at AT TIME ZONE 'UTC';
 END IF;
 
 END $$;
+
+ALTER TABLE llm_call ADD COLUMN IF NOT EXISTS component_id int;

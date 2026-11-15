@@ -14,7 +14,7 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-func (s *Service) CreateNewAnalysis(ctx context.Context, userUid string, text string, image_base64 string, meta *api.MetaInfo) (string, error) {
+func (s *Service) CreateNewAnalysis(ctx context.Context, userUid string, text string, imageBase64 string, meta *api.MetaInfo) (string, error) {
 	var id string
 	var locale, countryCode, timezone *string
 	var localCapturedAt *time.Time
@@ -41,7 +41,7 @@ func (s *Service) CreateNewAnalysis(ctx context.Context, userUid string, text st
 	) VALUES (
 		$1, $2, $3, $4, $5, $6, $7
 	) RETURNING id`
-	err := s.DB.QueryRow(ctx, query, userUid, text, image_base64, locale, countryCode, timezone, localCapturedAt).Scan(&id)
+	err := s.DB.QueryRow(ctx, query, userUid, text, imageBase64, locale, countryCode, timezone, localCapturedAt).Scan(&id)
 	if err != nil {
 		return "", err
 	}
@@ -299,15 +299,16 @@ func (s *Service) MarkAnalysisFailed(ctx context.Context, id string, reason stri
 func (s *Service) saveLlmCallRecord(ctx context.Context, call *api.LlmCallRecord) {
 	const query = `
 	INSERT INTO llm_call (
-		analysis_id, stage, model, prompt_tokens, cached_tokens, completion_tokens, duration_ms, error
+		analysis_id, stage, model, component_id, prompt_tokens, cached_tokens, completion_tokens, duration_ms, error
 	) VALUES (
-		$1, $2, $3, $4, $5, $6, $7, $8
+		$1, $2, $3, $4, $5, $6, $7, $8, $9
 	)`
-	_, err := s.DB.Exec(ctx, query, call.AnalysisId, call.Stage.String(), call.Model, call.PromptTokens, call.CachedTokens, call.CompletionTokens, call.DurationMs, call.Error)
+	_, err := s.DB.Exec(ctx, query, call.AnalysisId, call.Stage.String(), call.Model, call.ComponentId, call.PromptTokens, call.CachedTokens, call.CompletionTokens, call.DurationMs, call.Error)
 	if err != nil {
 		slog.ErrorContext(ctx, "failed to insert llm_call record",
 			"analysis_id", call.GetAnalysisId(),
 			"stage", call.GetStage().String(),
+			"component_id", call.GetComponentId(),
 			"error", err,
 		)
 	}

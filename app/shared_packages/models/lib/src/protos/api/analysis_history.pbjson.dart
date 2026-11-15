@@ -107,7 +107,7 @@ const LlmCallSummary$json = {
   '1': 'LlmCallSummary',
   '2': [
     {'1': 'stage', '3': 1, '4': 1, '5': 9, '10': 'stage'},
-    {'1': 'call_count', '3': 2, '4': 1, '5': 5, '10': 'callCount'},
+    {'1': 'analysis_count', '3': 2, '4': 1, '5': 5, '10': 'analysisCount'},
     {'1': 'avg_duration_ms', '3': 3, '4': 1, '5': 1, '10': 'avgDurationMs'},
     {'1': 'avg_prompt_tokens', '3': 4, '4': 1, '5': 1, '10': 'avgPromptTokens'},
     {'1': 'avg_cached_tokens', '3': 5, '4': 1, '5': 1, '10': 'avgCachedTokens'},
@@ -123,11 +123,11 @@ const LlmCallSummary$json = {
 
 /// Descriptor for `LlmCallSummary`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List llmCallSummaryDescriptor = $convert.base64Decode(
-    'Cg5MbG1DYWxsU3VtbWFyeRIUCgVzdGFnZRgBIAEoCVIFc3RhZ2USHQoKY2FsbF9jb3VudBgCIA'
-    'EoBVIJY2FsbENvdW50EiYKD2F2Z19kdXJhdGlvbl9tcxgDIAEoAVINYXZnRHVyYXRpb25NcxIq'
-    'ChFhdmdfcHJvbXB0X3Rva2VucxgEIAEoAVIPYXZnUHJvbXB0VG9rZW5zEioKEWF2Z19jYWNoZW'
-    'RfdG9rZW5zGAUgASgBUg9hdmdDYWNoZWRUb2tlbnMSMgoVYXZnX2NvbXBsZXRpb25fdG9rZW5z'
-    'GAYgASgBUhNhdmdDb21wbGV0aW9uVG9rZW5z');
+    'Cg5MbG1DYWxsU3VtbWFyeRIUCgVzdGFnZRgBIAEoCVIFc3RhZ2USJQoOYW5hbHlzaXNfY291bn'
+    'QYAiABKAVSDWFuYWx5c2lzQ291bnQSJgoPYXZnX2R1cmF0aW9uX21zGAMgASgBUg1hdmdEdXJh'
+    'dGlvbk1zEioKEWF2Z19wcm9tcHRfdG9rZW5zGAQgASgBUg9hdmdQcm9tcHRUb2tlbnMSKgoRYX'
+    'ZnX2NhY2hlZF90b2tlbnMYBSABKAFSD2F2Z0NhY2hlZFRva2VucxIyChVhdmdfY29tcGxldGlv'
+    'bl90b2tlbnMYBiABKAFSE2F2Z0NvbXBsZXRpb25Ub2tlbnM=');
 
 @$core.Deprecated('Use llmCallRecordDescriptor instead')
 const LlmCallRecord$json = {
@@ -189,6 +189,15 @@ const LlmCallRecord$json = {
     },
     {'1': 'duration_ms', '3': 9, '4': 1, '5': 3, '10': 'durationMs'},
     {'1': 'error', '3': 10, '4': 1, '5': 9, '9': 4, '10': 'error', '17': true},
+    {
+      '1': 'component_id',
+      '3': 11,
+      '4': 1,
+      '5': 5,
+      '9': 5,
+      '10': 'componentId',
+      '17': true
+    },
   ],
   '4': [LlmCallRecord_Stage$json],
   '8': [
@@ -197,6 +206,7 @@ const LlmCallRecord$json = {
     {'1': '_cached_tokens'},
     {'1': '_completion_tokens'},
     {'1': '_error'},
+    {'1': '_component_id'},
   ],
 };
 
@@ -220,9 +230,31 @@ final $typed_data.Uint8List llmCallRecordDescriptor = $convert.base64Decode(
     'AVIMcHJvbXB0VG9rZW5ziAEBEigKDWNhY2hlZF90b2tlbnMYByABKANIAlIMY2FjaGVkVG9rZW'
     '5ziAEBEjAKEWNvbXBsZXRpb25fdG9rZW5zGAggASgDSANSEGNvbXBsZXRpb25Ub2tlbnOIAQES'
     'HwoLZHVyYXRpb25fbXMYCSABKANSCmR1cmF0aW9uTXMSGQoFZXJyb3IYCiABKAlIBFIFZXJyb3'
-    'KIAQEiOQoFU3RhZ2USCwoHVU5LTk9XThAAEgoKBlBBU1NfMRABEgoKBlBBU1NfMhACEgsKB1NV'
-    'TU1BUlkQA0IOCgxfYW5hbHlzaXNfaWRCEAoOX3Byb21wdF90b2tlbnNCEAoOX2NhY2hlZF90b2'
-    'tlbnNCFAoSX2NvbXBsZXRpb25fdG9rZW5zQggKBl9lcnJvcg==');
+    'KIAQESJgoMY29tcG9uZW50X2lkGAsgASgFSAVSC2NvbXBvbmVudElkiAEBIjkKBVN0YWdlEgsK'
+    'B1VOS05PV04QABIKCgZQQVNTXzEQARIKCgZQQVNTXzIQAhILCgdTVU1NQVJZEANCDgoMX2FuYW'
+    'x5c2lzX2lkQhAKDl9wcm9tcHRfdG9rZW5zQhAKDl9jYWNoZWRfdG9rZW5zQhQKEl9jb21wbGV0'
+    'aW9uX3Rva2Vuc0IICgZfZXJyb3JCDwoNX2NvbXBvbmVudF9pZA==');
+
+@$core.Deprecated('Use llmCallPointDescriptor instead')
+const LlmCallPoint$json = {
+  '1': 'LlmCallPoint',
+  '2': [
+    {
+      '1': 'at',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'at'
+    },
+    {'1': 'duration_sec', '3': 2, '4': 1, '5': 1, '10': 'durationSec'},
+  ],
+};
+
+/// Descriptor for `LlmCallPoint`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List llmCallPointDescriptor = $convert.base64Decode(
+    'CgxMbG1DYWxsUG9pbnQSKgoCYXQYASABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUg'
+    'JhdBIhCgxkdXJhdGlvbl9zZWMYAiABKAFSC2R1cmF0aW9uU2Vj');
 
 @$core.Deprecated('Use analysisHistoryItemDescriptor instead')
 const AnalysisHistoryItem$json = {
@@ -347,12 +379,12 @@ const AnalysisHistoryItem$json = {
       '10': 'components'
     },
     {
-      '1': 'ingredients',
+      '1': 'enriched_components',
       '3': 19,
       '4': 3,
       '5': 11,
-      '6': '.server.EnrichedIngredient',
-      '10': 'ingredients'
+      '6': '.server.EnrichedComponent',
+      '10': 'enrichedComponents'
     },
     {
       '1': 'clarifications',
@@ -409,13 +441,14 @@ final $typed_data.Uint8List analysisHistoryItemDescriptor = $convert.base64Decod
     'Z29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgGUg9sb2NhbENhcHR1cmVkQXSIAQESHgoIaXNfbG'
     'lrZWQYECABKAhIB1IHaXNMaWtlZIgBARI5Cgp1cGRhdGVkX2F0GBEgASgLMhouZ29vZ2xlLnBy'
     'b3RvYnVmLlRpbWVzdGFtcFIJdXBkYXRlZEF0EjUKCmNvbXBvbmVudHMYEiADKAsyFS5hcGkuSG'
-    'lzdG9yeUNvbXBvbmVudFIKY29tcG9uZW50cxI8CgtpbmdyZWRpZW50cxgTIAMoCzIaLnNlcnZl'
-    'ci5FbnJpY2hlZEluZ3JlZGllbnRSC2luZ3JlZGllbnRzEj0KDmNsYXJpZmljYXRpb25zGBQgAy'
-    'gLMhUuY29tbW9uLkNsYXJpZmljYXRpb25SDmNsYXJpZmljYXRpb25zEicKBWZpbmFsGBUgASgL'
-    'MgwuY29tbW9uLk1lYWxICFIFZmluYWyIAQESLwoJbGxtX2NhbGxzGBYgAygLMhIuYXBpLkxsbU'
-    'NhbGxSZWNvcmRSCGxsbUNhbGxzQhEKD19mYWlsdXJlX3JlYXNvbkIRCg9fZmFpbGVkX2F0X3N0'
-    'ZXBCFQoTX3RvdGFsX2R1cmF0aW9uX3NlY0IJCgdfbG9jYWxlQg8KDV9jb3VudHJ5X2NvZGVCCw'
-    'oJX3RpbWV6b25lQhQKEl9sb2NhbF9jYXB0dXJlZF9hdEILCglfaXNfbGlrZWRCCAoGX2ZpbmFs');
+    'lzdG9yeUNvbXBvbmVudFIKY29tcG9uZW50cxJKChNlbnJpY2hlZF9jb21wb25lbnRzGBMgAygL'
+    'Mhkuc2VydmVyLkVucmljaGVkQ29tcG9uZW50UhJlbnJpY2hlZENvbXBvbmVudHMSPQoOY2xhcm'
+    'lmaWNhdGlvbnMYFCADKAsyFS5jb21tb24uQ2xhcmlmaWNhdGlvblIOY2xhcmlmaWNhdGlvbnMS'
+    'JwoFZmluYWwYFSABKAsyDC5jb21tb24uTWVhbEgIUgVmaW5hbIgBARIvCglsbG1fY2FsbHMYFi'
+    'ADKAsyEi5hcGkuTGxtQ2FsbFJlY29yZFIIbGxtQ2FsbHNCEQoPX2ZhaWx1cmVfcmVhc29uQhEK'
+    'D19mYWlsZWRfYXRfc3RlcEIVChNfdG90YWxfZHVyYXRpb25fc2VjQgkKB19sb2NhbGVCDwoNX2'
+    'NvdW50cnlfY29kZUILCglfdGltZXpvbmVCFAoSX2xvY2FsX2NhcHR1cmVkX2F0QgsKCV9pc19s'
+    'aWtlZEIICgZfZmluYWw=');
 
 @$core.Deprecated('Use analysisHistorySummaryDescriptor instead')
 const AnalysisHistorySummary$json = {
@@ -457,6 +490,14 @@ const AnalysisHistorySummary$json = {
       '6': '.api.LlmCallSummary',
       '10': 'llmCalls'
     },
+    {
+      '1': 'p2_wall_time_series',
+      '3': 10,
+      '4': 3,
+      '5': 11,
+      '6': '.api.LlmCallPoint',
+      '10': 'p2WallTimeSeries'
+    },
   ],
   '3': [
     AnalysisHistorySummary_AvgStepDurationsSecEntry$json,
@@ -495,9 +536,10 @@ final $typed_data.Uint8List analysisHistorySummaryDescriptor = $convert.base64De
     'YXRpb25zU2VjRW50cnlSE2F2Z1N0ZXBEdXJhdGlvbnNTZWMSWQoQZmFpbHVyZXNfYnlfc3RlcB'
     'gIIAMoCzIvLmFwaS5BbmFseXNpc0hpc3RvcnlTdW1tYXJ5LkZhaWx1cmVzQnlTdGVwRW50cnlS'
     'DmZhaWx1cmVzQnlTdGVwEjAKCWxsbV9jYWxscxgJIAMoCzITLmFwaS5MbG1DYWxsU3VtbWFyeV'
-    'IIbGxtQ2FsbHMaRgoYQXZnU3RlcER1cmF0aW9uc1NlY0VudHJ5EhAKA2tleRgBIAEoCVIDa2V5'
-    'EhQKBXZhbHVlGAIgASgBUgV2YWx1ZToCOAEaQQoTRmFpbHVyZXNCeVN0ZXBFbnRyeRIQCgNrZX'
-    'kYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoBVIFdmFsdWU6AjgB');
+    'IIbGxtQ2FsbHMSQAoTcDJfd2FsbF90aW1lX3NlcmllcxgKIAMoCzIRLmFwaS5MbG1DYWxsUG9p'
+    'bnRSEHAyV2FsbFRpbWVTZXJpZXMaRgoYQXZnU3RlcER1cmF0aW9uc1NlY0VudHJ5EhAKA2tleR'
+    'gBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgBUgV2YWx1ZToCOAEaQQoTRmFpbHVyZXNCeVN0ZXBF'
+    'bnRyeRIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoBVIFdmFsdWU6AjgB');
 
 @$core.Deprecated('Use analysisHistoryRequestDescriptor instead')
 const AnalysisHistoryRequest$json = {

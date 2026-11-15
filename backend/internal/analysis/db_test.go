@@ -80,3 +80,100 @@ func TestCreateNewAnalysisMetadata(t *testing.T) {
 		t.Errorf("expected local_captured_at %v, got %v", now, dbCapturedAt)
 	}
 }
+
+func TestSaveLlmCallRecord(t *testing.T) {
+	dbURL := os.Getenv("DATABASE_URL")
+	if dbURL == "" {
+		dbURL = "postgres://user:password@localhost:5434/calorify_db_dev?sslmode=disable"
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	pool, err := database.Connect(ctx, dbURL)
+	if err != nil {
+		t.Skipf("Skipping test: Calorify DB not reachable at %s: %v", dbURL, err)
+	}
+	defer pool.Close()
+
+	svc := &Service{DB: pool}
+
+	testUID := "test_user_llm_call"
+	_, err = pool.Exec(ctx, "INSERT INTO users (uid, name) VALUES ($1, 'Test User') ON CONFLICT (uid) DO NOTHING", testUID)
+	if err != nil {
+		t.Fatalf("failed to insert test user: %v", err)
+	}
+	defer func() {
+		_, _ = pool.Exec(context.Background(), "DELETE FROM users WHERE uid = $1", testUID)
+	}()
+
+	id, err := svc.CreateNewAnalysis(ctx, testUID, "test meal", "", nil)
+	if err != nil {
+		t.Fatalf("failed to create analysis: %v", err)
+	}
+	defer func() {
+		_, _ = pool.Exec(context.Background(), "DELETE FROM meal_analysis WHERE id = $1", id)
+	}()
+
+	componentID := int32(3)
+	promptTokens := int64(120)
+	cachedTokens := int64(0)
+	completionTokens := int64(80)
+	errText := "boom"
+
+	svc.saveLlmCallRecord(ctx, &api.LlmCallRecord{
+		AnalysisId:       &id,
+		Stage:            api.LlmCallRecord_PASS_2,
+		Model:            "test-model",
+		ComponentId:      &componentID,
+		PromptTokens:     &promptTokens,
+		CachedTokens:     &cachedTokens,
+		CompletionTokens: &completionTokens,
+		DurationMs:       1234,
+		Error:            &errText,
+	})
+	svc.saveLlmCallRecord(ctx, &api.LlmCallRecord{
+		AnalysisId: &id,
+		Stage:      api.LlmCallRecord_PASS_1,
+		Model:      "test-model",
+		DurationMs: 500,
+	})
+
+	var stage, model string
+	var dbComponentID *int32
+	var dbPrompt, dbCached, dbCompletion *int64
+	var durationMs int64
+	var dbErr *string
+	err = pool.QueryRow(ctx, `
+		SELECT stage, model, component_id, prompt_tokens, cached_tokens, completion_tokens, duration_ms, error
+		FROM llm_call WHERE analysis_id = $1 AND stage = 'PASS_2'`, id).
+		Scan(&stage, &model, &dbComponentID, &dbPrompt, &dbCached, &dbCompletion, &durationMs, &dbErr)
+	if err != nil {
+		t.Fatalf("failed to query PASS_2 llm_call row: %v", err)
+	}
+
+	if stage != "PASS_2" || model != "test-model" {
+		t.Errorf("unexpected stage/model: %q/%q", stage, model)
+	}
+	if dbComponentID == nil || *dbComponentID != componentID {
+		t.Errorf("expected component_id %d, got %v", componentID, dbComponentID)
+	}
+	if dbPrompt == nil || *dbPrompt != promptTokens || dbCompletion == nil || *dbCompletion != completionTokens {
+		t.Errorf("unexpected tokens: prompt=%v completion=%v", dbPrompt, dbCompletion)
+	}
+	if durationMs != 1234 {
+		t.Errorf("expected duration 1234, got %d", durationMs)
+	}
+	if dbErr == nil || *dbErr != errText {
+		t.Errorf("expected error %q, got %v", errText, dbErr)
+	}
+
+	var pass1ComponentID *int32
+	err = pool.QueryRow(ctx, `SELECT component_id FROM llm_call WHERE analysis_id = $1 AND stage = 'PASS_1'`, id).Scan(&pass1ComponentID)
+	if err != nil {
+		t.Fatalf("failed to query PASS_1 llm_call row: %v", err)
+	}
+	if pass1ComponentID != nil {
+		t.Errorf("expected PASS_1 component_id NULL, got %v", *pass1ComponentID)
+	}
+}

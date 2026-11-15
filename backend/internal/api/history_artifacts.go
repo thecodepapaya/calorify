@@ -71,27 +71,34 @@ func attachStageArtifacts(item *api.AnalysisHistoryItem, pass1Raw, pass2Raw, enr
 				}
 			}
 
-			item.Ingredients = make([]*server.EnrichedIngredient, 0, len(pass2.Ingredients))
-			for i := range pass2.Ingredients {
-				ing := &pass2.Ingredients[i]
-				hi := &server.EnrichedIngredient{
-					Name:           ing.Name,
-					CanonicalName:  ing.CanonicalName,
-					ComponentName:  ing.ComponentName,
-					IngredientType: ing.ServerIngredientType(),
-					Portion:        ing.Portion.ToCommon(),
+			if hasEnriched {
+				item.EnrichedComponents = enriched.Components
+			} else {
+				// Hydration not persisted: build the component tree from pass 2
+				// so the drawer still shows the decomposition.
+				comps := make([]*server.EnrichedComponent, 0, len(pass2.Components))
+				for cIdx := range pass2.Components {
+					comp := &pass2.Components[cIdx]
+					ec := &server.EnrichedComponent{
+						ComponentId:   int32(cIdx),
+						Name:          comp.Name,
+						CanonicalName: comp.CanonicalName,
+						Ingredients:   make([]*server.EnrichedIngredient, 0, len(comp.Ingredients)),
+					}
+					for iIdx := range comp.Ingredients {
+						ing := &comp.Ingredients[iIdx]
+						ec.Ingredients = append(ec.Ingredients, &server.EnrichedIngredient{
+							ComponentId:    int32(cIdx),
+							IngredientId:   int32(iIdx),
+							Name:           ing.Name,
+							CanonicalName:  ing.CanonicalName,
+							IngredientType: ing.ServerIngredientType(),
+							Portion:        ing.Portion.ToCommon(),
+						})
+					}
+					comps = append(comps, ec)
 				}
-				// Hydration output is index-parallel to pass-2 ingredients
-				// (built in enrichUsdaMacro); join defensively by index.
-				if hasEnriched && i < len(enriched.Ingredients) {
-					e := enriched.Ingredients[i]
-					hi.Grams = e.GetGrams()
-					hi.Macros = e.GetMacros()
-					hi.Description = e.GetDescription()
-					hi.FdcId = e.GetFdcId()
-					hi.Similarity = e.GetSimilarity()
-				}
-				item.Ingredients = append(item.Ingredients, hi)
+				item.EnrichedComponents = comps
 			}
 		}
 	}

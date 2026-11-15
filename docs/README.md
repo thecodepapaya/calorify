@@ -14,6 +14,7 @@ Central index for Calorify system architecture, component documentation, technic
 ## Architecture & Plans
 
 - [Meal-Analysis Latency Optimization](plans/meal-analysis-latency-optimization.md) — Active plan to cut analysis e2e latency below 10s: per-call LLM measurement, decision tree, and levers.
+- [Pass-2 Per-Component Split](plans/pass2-per-component-split.md) — Design record for splitting pass 2 into one parallel call per component: payload, storage shape, indices, failure semantics, and work split.
 - [Suggested Nutrition Targets](plans/suggested-nutrition-targets.md) — Backend-owned target calculations and client contract (not yet implemented).
 - [Considered Features](plans/considered-features.md) — Accuracy, reliability, and presentation directions considered for meal analysis, with preconditions; not commitments.
 - [Meal-Analysis Pipeline](../backend/docs/meal-analysis-pipeline.md) — Current Go pipeline architecture: two-pass LLM decomposition, USDA vector retrieval, hydration.

@@ -45,9 +45,8 @@ const Clarification_Type$json = {
   '1': 'Type',
   '2': [
     {'1': 'QUANTITY', '2': 0},
-    {'1': 'INGREDIENT_PRESENCE', '2': 1},
-    {'1': 'INGREDIENT_ALTERNATIVE', '2': 2},
-    {'1': 'PREPARATION_METHOD', '2': 3},
+    {'1': 'INGREDIENT_ALTERNATIVE', '2': 1},
+    {'1': 'PREPARATION_METHOD', '2': 2},
   ],
 };
 
@@ -55,9 +54,9 @@ const Clarification_Type$json = {
 final $typed_data.Uint8List clarificationDescriptor = $convert.base64Decode(
     'Cg1DbGFyaWZpY2F0aW9uEg4KAmlkGAEgASgFUgJpZBIaCghxdWVzdGlvbhgCIAEoCVIIcXVlc3'
     'Rpb24SKAoHb3B0aW9ucxgDIAMoCzIOLmNvbW1vbi5PcHRpb25SB29wdGlvbnMSLgoEdHlwZRgE'
-    'IAEoDjIaLmNvbW1vbi5DbGFyaWZpY2F0aW9uLlR5cGVSBHR5cGUiYQoEVHlwZRIMCghRVUFOVE'
-    'lUWRAAEhcKE0lOR1JFRElFTlRfUFJFU0VOQ0UQARIaChZJTkdSRURJRU5UX0FMVEVSTkFUSVZF'
-    'EAISFgoSUFJFUEFSQVRJT05fTUVUSE9EEAM=');
+    'IAEoDjIaLmNvbW1vbi5DbGFyaWZpY2F0aW9uLlR5cGVSBHR5cGUiSAoEVHlwZRIMCghRVUFOVE'
+    'lUWRAAEhoKFklOR1JFRElFTlRfQUxURVJOQVRJVkUQARIWChJQUkVQQVJBVElPTl9NRVRIT0QQ'
+    'Ag==');
 
 @$core.Deprecated('Use clarificationsDescriptor instead')
 const Clarifications$json = {

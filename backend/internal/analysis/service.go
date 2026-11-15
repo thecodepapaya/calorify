@@ -115,7 +115,7 @@ func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRe
 		slog.ErrorContext(ctx, "failed to hydrate macros from USDA DB", "analysis_id", id, "error", err)
 		return err
 	}
-	clarifications, err := s.generateClarification(ctx, id, enriched, req.GetMetaInfo().GetLocale())
+	clarifications, err := s.generateClarification(ctx, id, pass1, enriched, req.GetMetaInfo().GetLocale())
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "clarification generation failed")
@@ -209,6 +209,9 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 	}
 	if len(res.Choices) == 0 {
 		err := fmt.Errorf("pass 1 returned no choices")
+		errAdd := err.Error()
+		llmCallData.Error = &errAdd
+		s.saveLlmCallRecord(ctx, &llmCallData)
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		return nil, err
@@ -224,6 +227,13 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 		slog.ErrorContext(ctx, "failed to parse pass1 response schema", "analysis_id", id, "error", err)
+		return nil, err
+	}
+	if len(pass1.Components) == 0 {
+		err := fmt.Errorf("pass 1 returned no components")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		slog.ErrorContext(ctx, "pass 1 returned no components", "analysis_id", id)
 		return nil, err
 	}
 	span.SetAttributes(
@@ -246,79 +256,105 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *Pass1DTO) (*Pass2DTO, error) {
 	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "decompose_ingredients")
 	defer span.End()
+	ingredientCount := 0
 
-	data, err := json.Marshal(pass1)
-	if err != nil {
-		span.RecordError(err)
-		span.SetStatus(codes.Error, err.Error())
-		slog.ErrorContext(ctx, "failed to marshal pass1 for decomposition", "analysis_id", id, "error", err)
+	results := make([]Pass2ComponentDTO, len(pass1.Components))
+	g, gCtx := errgroup.WithContext(ctx)
+	g.SetLimit(10)
+
+	for i := range pass1.Components {
+		i := i
+		comp := pass1.Components[i]
+		compId := int32(i)
+		g.Go(func() error {
+			data, err := json.Marshal(comp)
+			if err != nil {
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
+				slog.ErrorContext(ctx, "failed to marshal pass1 for decomposition", "analysis_id", id, "error", err)
+				return err
+			}
+
+			userContent := string(data)
+			if prefix := buildContextPrefix(req); prefix != "" {
+				userContent = prefix + "\n\n" + userContent
+			}
+
+			res, err, dur := s.fanOutPass2CallReq(gCtx, userContent)
+			llmCallData := api.LlmCallRecord{
+				AnalysisId:  &id,
+				Stage:       api.LlmCallRecord_PASS_2,
+				Model:       llm_model,
+				DurationMs:  dur,
+				ComponentId: &compId,
+			}
+			if err != nil {
+				errAdd := err.Error()
+				llmCallData.Error = &errAdd
+				s.saveLlmCallRecord(ctx, &llmCallData)
+
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
+				slog.ErrorContext(ctx, "failed to call LLM for decomposed ingredients", "analysis_id", id, "error", err)
+				return err
+			}
+			if len(res.Choices) == 0 {
+				err := fmt.Errorf("pass 2 returned no choices")
+				errAdd := err.Error()
+				llmCallData.Error = &errAdd
+				s.saveLlmCallRecord(ctx, &llmCallData)
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
+				return err
+			}
+			llmCallData.PromptTokens = &res.Usage.PromptTokens
+			llmCallData.CachedTokens = &res.Usage.PromptTokensDetails.CachedTokens
+			llmCallData.CompletionTokens = &res.Usage.CompletionTokens
+			s.saveLlmCallRecord(ctx, &llmCallData)
+
+			rawJson := res.Choices[0].Message.Content
+			pass2Call, err := ParsePass2Call(rawJson)
+			if err != nil {
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
+				slog.ErrorContext(ctx, "failed to parse pass2 response schema", "analysis_id", id, "error", err)
+				return err
+			}
+			for iIdx := range pass2Call.Ingredients {
+				if err := pass2Call.Ingredients[iIdx].Portion.Validate(); err != nil {
+					err = fmt.Errorf("component %q ingredient %q: %w", comp.Name, pass2Call.Ingredients[iIdx].Name, err)
+					span.RecordError(err)
+					span.SetStatus(codes.Error, err.Error())
+					slog.ErrorContext(ctx, "invalid pass2 portion", "analysis_id", id, "component", comp.Name, "ingredient", pass2Call.Ingredients[iIdx].Name, "error", err)
+					return err
+				}
+			}
+			results[i] = Pass2ComponentDTO{
+				Name:          comp.Name,
+				CanonicalName: comp.CanonicalName,
+				Ingredients:   pass2Call.Ingredients,
+			}
+			return nil
+		})
+	}
+
+	if err := g.Wait(); err != nil {
 		return nil, err
 	}
 
-	userContent := string(data)
-	if prefix := buildContextPrefix(req); prefix != "" {
-		userContent = prefix + "\n\n" + userContent
+	pass2 := &Pass2DTO{
+		Components: results,
 	}
 
-	llmStart := time.Now()
-	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
-		ReasoningEffort: shared.ReasoningEffortLow,
-		Model:           openai.ChatModel(llm_model),
-		Messages: []openai.ChatCompletionMessageParamUnion{
-			openai.SystemMessage(pass2Prompt),
-			openai.UserMessage(userContent),
-		},
-		ResponseFormat: openai.ChatCompletionNewParamsResponseFormatUnion{
-			OfJSONSchema: &openai.ResponseFormatJSONSchemaParam{
-				JSONSchema: openai.ResponseFormatJSONSchemaJSONSchemaParam{
-					Name:   "pass2_decomposition",
-					Strict: openai.Bool(true),
-					Schema: pass2Schema,
-				},
-			},
-		},
-	})
-	llmCallData := api.LlmCallRecord{
-		AnalysisId: &id,
-		Stage:      api.LlmCallRecord_PASS_2,
-		Model:      llm_model,
-		DurationMs: time.Since(llmStart).Milliseconds(),
-	}
-
-	if err != nil {
-		errAdd := err.Error()
-		llmCallData.Error = &errAdd
-		s.saveLlmCallRecord(ctx, &llmCallData)
-
-		span.RecordError(err)
-		span.SetStatus(codes.Error, err.Error())
-		slog.ErrorContext(ctx, "failed to call LLM for decomposed ingredients", "analysis_id", id, "error", err)
-		return nil, err
-	}
-	if len(res.Choices) == 0 {
-		err := fmt.Errorf("pass 2 returned no choices")
-		span.RecordError(err)
-		span.SetStatus(codes.Error, err.Error())
-		return nil, err
-	}
-	llmCallData.PromptTokens = &res.Usage.PromptTokens
-	llmCallData.CachedTokens = &res.Usage.PromptTokensDetails.CachedTokens
-	llmCallData.CompletionTokens = &res.Usage.CompletionTokens
-	s.saveLlmCallRecord(ctx, &llmCallData)
-
-	rawJson := res.Choices[0].Message.Content
-	pass2, err := ParsePass2(rawJson)
-	if err != nil {
-		span.RecordError(err)
-		span.SetStatus(codes.Error, err.Error())
-		slog.ErrorContext(ctx, "failed to parse pass2 response schema", "analysis_id", id, "error", err)
-		return nil, err
+	for _, comp := range results {
+		ingredientCount += len(comp.Ingredients)
 	}
 	span.SetAttributes(
-		attribute.Int("ingredients.count", len(pass2.Ingredients)),
+		attribute.Int("components.count", len(pass2.Components)),
+		attribute.Int("ingredients.count", ingredientCount),
 	)
 
-	err = s.SaveMealIngredient(ctx, id, pass2)
+	err := s.SaveMealIngredient(ctx, id, pass2)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
@@ -332,10 +368,22 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *Pass2DT
 	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "enrich_usda_macro")
 	defer span.End()
 
+	enrichedComponents := make([]*server.EnrichedComponent, len(pass2.Components))
+	ingRef := []IngredientRef{}
 	var ingredients []string
-	for _, ing := range pass2.Ingredients {
-		ingredients = append(ingredients, "task: search result | query: "+ing.CanonicalName)
+	for cIdx, comp := range pass2.Components {
+		enrichedComponents[cIdx] = &server.EnrichedComponent{
+			ComponentId:   int32(cIdx),
+			Name:          comp.Name,
+			CanonicalName: comp.CanonicalName,
+			Ingredients:   make([]*server.EnrichedIngredient, len(comp.Ingredients)),
+		}
+		for iIdx, ing := range comp.Ingredients {
+			ingRef = append(ingRef, IngredientRef{int32(cIdx), int32(iIdx), &comp.Ingredients[iIdx]})
+			ingredients = append(ingredients, "task: search result | query: "+ing.CanonicalName)
+		}
 	}
+
 	embeddings, err := s.getEmbeddings(ctx, ingredients)
 	if err != nil {
 		span.RecordError(err)
@@ -344,7 +392,6 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *Pass2DT
 		return nil, err
 	}
 
-	enrichedIngredient := make([]*server.EnrichedIngredient, len(embeddings))
 	g, gCtx := errgroup.WithContext(ctx)
 	// Bound concurrency to avoid exhausting the database connection pool
 	g.SetLimit(10)
@@ -352,20 +399,20 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *Pass2DT
 	for i := range embeddings {
 		i := i
 		g.Go(func() error {
-			candidate, err := s.searchUsda(gCtx, formatVector(embeddings[i]), pass2.Ingredients[i].ServerIngredientType())
+			candidate, err := s.searchUsda(gCtx, formatVector(embeddings[i]), ingRef[i].ingredient.ServerIngredientType())
 			if err != nil {
 				span.RecordError(err)
 				span.SetStatus(codes.Error, err.Error())
-				slog.ErrorContext(gCtx, "failed to search usda database", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name, "error", err)
+				slog.ErrorContext(gCtx, "failed to search usda database", "analysis_id", id, "ingredient", ingRef[i].ingredient.CanonicalName, "error", err)
 				return err
 			} else if candidate == nil {
-				err = fmt.Errorf("failed to find match for ingredient: %s", pass2.Ingredients[i].Name)
+				err = fmt.Errorf("failed to find match for ingredient: %s", ingRef[i].ingredient.CanonicalName)
 				span.RecordError(err)
 				span.SetStatus(codes.Error, err.Error())
-				slog.WarnContext(gCtx, "no usda candidate found for ingredient", "analysis_id", id, "ingredient", pass2.Ingredients[i].Name)
+				slog.WarnContext(gCtx, "no usda candidate found for ingredient", "analysis_id", id, "ingredient", ingRef[i].ingredient.CanonicalName)
 				return err
 			}
-			enrichedIngredient[i] = ingredientCandidateToEnriched(&pass2.Ingredients[i], candidate)
+			enrichedComponents[ingRef[i].componentIdx].Ingredients[ingRef[i].ingredientIdx] = ingredientCandidateToEnriched(&ingRef[i], candidate)
 			return nil
 		})
 	}
@@ -373,14 +420,27 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *Pass2DT
 	if err := g.Wait(); err != nil {
 		return nil, err
 	}
-	enriched := server.UsdaEnriched{Ingredients: enrichedIngredient, TotalMacros: aggregateMacro(enrichedIngredient)}
 
-	if enriched.TotalMacros != nil && enriched.TotalMacros.Calorie != nil {
+	aggMacro := []*common.Macros{}
+	for i, comp := range enrichedComponents {
+		macros := []*common.Macros{}
+		for _, ing := range comp.Ingredients {
+			macros = append(macros, ing.Macros)
+		}
+		enrichedComponents[i].Macros = aggregateMacro(macros)
+		aggMacro = append(aggMacro, enrichedComponents[i].Macros)
+	}
+	enriched := server.UsdaEnriched{Components: enrichedComponents, Macros: aggregateMacro(aggMacro)}
+
+	if enriched.Macros != nil && enriched.Macros.Calorie != nil {
 		span.SetAttributes(
-			attribute.Int64("macro.energy_kcal", int64(enriched.TotalMacros.Calorie.Value)),
+			attribute.Int64("macro.energy_kcal", int64(enriched.Macros.Calorie.Value)),
 		)
 	}
-	span.SetAttributes(attribute.Int("enriched.ingredients_count", len(enriched.Ingredients)))
+	span.SetAttributes(
+		attribute.Int("enriched.components_count", len(enriched.Components)),
+		attribute.Int("enriched.ingredients_count", len(ingredients)),
+	)
 
 	err = s.SaveUsdaEnriched(ctx, id, &enriched)
 	if err != nil {
@@ -392,33 +452,141 @@ func (s *Service) enrichUsdaMacro(ctx context.Context, id string, pass2 *Pass2DT
 	return &enriched, nil
 }
 
-func (s *Service) generateClarification(ctx context.Context, id string, enriched *server.UsdaEnriched, locale string) (*common.Clarifications, error) {
+func (s *Service) generateClarification(ctx context.Context, id string, pass1 *Pass1DTO, enriched *server.UsdaEnriched, locale string) (*common.Clarifications, error) {
+	ctx, span := otel.Tracer("meal_analysis").Start(ctx, "generate_clarification")
+	defer span.End()
+
+	const (
+		maxQuestions        = 2
+		componentThreshold  = 80 // kcal
+		ingredientThreshold = 80 // kcal
+	)
+
 	var clarifications []*common.Clarification
-	// Sort by largest calorie variance
-	slices.SortFunc(enriched.Ingredients, func(a *server.EnrichedIngredient, b *server.EnrichedIngredient) int {
-		varA := int(a.Macros.Calorie.MaxValue) - int(a.Macros.Calorie.MinValue)
-		varB := int(b.Macros.Calorie.MaxValue) - int(b.Macros.Calorie.MinValue)
-		return varB - varA
-	})
-	var filteredIng []*server.EnrichedIngredient
-	for i := range enriched.Ingredients {
-		cal := enriched.Ingredients[i].GetMacros().GetCalorie()
-		if cal.GetMaxValue()-cal.GetMinValue() > 80 {
-			filteredIng = append(filteredIng, enriched.Ingredients[i])
+	clarifiedComponents := make(map[int32]bool)
+
+	// Tier 1: components whose portion is model-inferred and whose calorie
+	// variance is over the threshold.
+	type componentCandidate struct {
+		component *server.EnrichedComponent
+		variance  int32
+	}
+	var componentCandidates []componentCandidate
+	for _, comp := range enriched.Components {
+		portion := componentPortion(pass1, comp.GetComponentId())
+		if portion == nil || portion.GetOrigin() != "MODEL_INFERRED" || portion.GetKind() == "PINCH" {
+			continue
 		}
+		variance := calorieVariance(comp.GetMacros())
+		if variance <= componentThreshold {
+			continue
+		}
+		componentCandidates = append(componentCandidates, componentCandidate{comp, variance})
+	}
+	slices.SortFunc(componentCandidates, func(a, b componentCandidate) int {
+		return int(b.variance - a.variance)
+	})
+	for i := 0; i < len(componentCandidates) && len(clarifications) < maxQuestions; i++ {
+		comp := componentCandidates[i].component
+		clarifications = append(clarifications, buildComponentQuantityClarification(int32(len(clarifications)), comp, locale))
+		clarifiedComponents[comp.GetComponentId()] = true
 	}
 
-	limit := min(2, len(filteredIng))
-	topK := filteredIng[:limit]
-	for i := range topK {
-		c := buildQuantityClarification(int32(i), topK[i], locale)
-		clarifications = append(clarifications, c)
+	// Tier 2: ingredients in components not clarified above.
+	type ingredientCandidate struct {
+		ingredient *server.EnrichedIngredient
+		variance   int32
 	}
+	var ingredientCandidates []ingredientCandidate
+	for _, comp := range enriched.Components {
+		if clarifiedComponents[comp.GetComponentId()] {
+			continue
+		}
+		for _, ing := range comp.Ingredients {
+			variance := calorieVariance(ing.GetMacros())
+			if variance <= ingredientThreshold {
+				continue
+			}
+			ingredientCandidates = append(ingredientCandidates, ingredientCandidate{ing, variance})
+		}
+	}
+	slices.SortFunc(ingredientCandidates, func(a, b ingredientCandidate) int {
+		return int(b.variance - a.variance)
+	})
+	for i := 0; i < len(ingredientCandidates) && len(clarifications) < maxQuestions; i++ {
+		clarifications = append(clarifications, buildQuantityClarification(int32(len(clarifications)), ingredientCandidates[i].ingredient, locale))
+	}
+
+	span.SetAttributes(
+		attribute.Int("clarifications.count", len(clarifications)),
+		attribute.Int("components.count", len(enriched.Components)),
+	)
+
 	mealClarification := &common.Clarifications{
 		Clarification: clarifications,
 	}
-	s.SaveGeneratedClarification(ctx, id, mealClarification)
+	if err := s.SaveGeneratedClarification(ctx, id, mealClarification); err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		slog.ErrorContext(ctx, "failed to save generated clarification", "analysis_id", id, "error", err)
+		return nil, err
+	}
 	return mealClarification, nil
+}
+
+// calorieVariance returns the calorie range width for a macro set.
+func calorieVariance(m *common.Macros) int32 {
+	cal := m.GetCalorie()
+	return cal.GetMaxValue() - cal.GetMinValue()
+}
+
+// componentPortion returns the pass-1 portion for a component id, or nil when
+// the id is out of range.
+func componentPortion(pass1 *Pass1DTO, componentID int32) *common.Portion {
+	if pass1 == nil || componentID < 0 || int(componentID) >= len(pass1.Components) {
+		return nil
+	}
+	return pass1.Components[componentID].Portion.ToCommon()
+}
+
+// buildComponentQuantityClarification builds a quantity question for a component.
+func buildComponentQuantityClarification(id int32, component *server.EnrichedComponent, locale string) *common.Clarification {
+	loc := getClarificationLocale(locale)
+	return &common.Clarification{
+		Id:       id,
+		Type:     common.Clarification_QUANTITY,
+		Question: fmt.Sprintf(loc.QuantityQuestion, component.GetName()),
+		Options: []*common.Option{
+			{Text: loc.OptionSmall, MacroDelta: macroDelta(component.GetMacros(), false)},
+			{Text: loc.OptionMedium, MacroDelta: &common.MacroDelta{}},
+			{Text: loc.OptionLarge, MacroDelta: macroDelta(component.GetMacros(), true)},
+		},
+	}
+}
+
+// macroDelta returns the macro change from the nominal value to the min or max.
+func macroDelta(m *common.Macros, max bool) *common.MacroDelta {
+	cal := m.GetCalorie()
+	carb := m.GetCarb()
+	protein := m.GetProtein()
+	fat := m.GetFat()
+	fiber := m.GetFiber()
+	if max {
+		return &common.MacroDelta{
+			Calorie: cal.GetMaxValue() - cal.GetValue(),
+			Carb:    carb.GetMaxValue() - carb.GetValue(),
+			Protein: protein.GetMaxValue() - protein.GetValue(),
+			Fat:     fat.GetMaxValue() - fat.GetValue(),
+			Fiber:   fiber.GetMaxValue() - fiber.GetValue(),
+		}
+	}
+	return &common.MacroDelta{
+		Calorie: cal.GetMinValue() - cal.GetValue(),
+		Carb:    carb.GetMinValue() - carb.GetValue(),
+		Protein: protein.GetMinValue() - protein.GetValue(),
+		Fat:     fat.GetMinValue() - fat.GetValue(),
+		Fiber:   fiber.GetMinValue() - fiber.GetValue(),
+	}
 }
 
 func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.MealAnalysisRequest, pass1 *Pass1DTO, enriched *server.UsdaEnriched, clarifications *common.Clarifications) (*common.MealPackage, error) {
@@ -437,7 +605,7 @@ func (s *Service) prepareFinalResponse(ctx context.Context, id string, req *api.
 		Name:     pass1.Name,
 		Quantity: pass1.Quantity,
 		Type:     mealType,
-		Macros:   enriched.TotalMacros,
+		Macros:   enriched.Macros,
 		Health:   pass1.MealHealth.ToCommon(),
 		Metadata: &common.MealMetadata{
 			ImageBase64:     req.ImageBase64,

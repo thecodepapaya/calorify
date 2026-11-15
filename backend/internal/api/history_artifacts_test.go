@@ -22,32 +22,59 @@ const pass1Raw = `{
 }`
 
 const pass2Raw = `{
-  "ingredients": [
-    {"component_name": "Roti", "name": "Whole wheat roti", "canonical_name": "Wheat flour, whole-grain",
-     "ingredient_type": "BASE",
-     "portion": {"kind": "BULK", "value": 70, "min_value": 60, "max_value": 80, "origin": "MODEL_INFERRED"}},
-    {"component_name": "Dal", "name": "Cooked dal", "canonical_name": "Lentils, mature seeds, cooked, boiled, without salt",
-     "ingredient_type": "BASE",
-     "portion": {"kind": "BULK", "value": 200, "min_value": 180, "max_value": 220, "origin": "MODEL_INFERRED"}}
+  "components": [
+    {
+      "name": "Roti",
+      "canonical_name": "Wheat flour, whole-grain",
+      "ingredients": [
+        {"name": "Whole wheat roti", "canonical_name": "Wheat flour, whole-grain", "ingredient_type": "BASE",
+         "portion": {"kind": "BULK", "value": 70, "min_value": 60, "max_value": 80, "origin": "MODEL_INFERRED"}}
+      ]
+    },
+    {
+      "name": "Dal",
+      "canonical_name": "Lentils, mature seeds, cooked, boiled",
+      "ingredients": [
+        {"name": "Cooked dal", "canonical_name": "Lentils, mature seeds, cooked, boiled, without salt", "ingredient_type": "BASE",
+         "portion": {"kind": "BULK", "value": 200, "min_value": 180, "max_value": 220, "origin": "MODEL_INFERRED"}}
+      ]
+    }
   ]
 }`
 
 const enrichedRaw = `{
-  "ingredients": [
-    {"name": "Whole wheat roti", "description": "Wheat flour, whole-grain", "fdcId": 168893, "similarity": 0.91,
-     "canonicalName": "Wheat flour, whole-grain", "componentName": "Roti",
-     "grams": {"minValue": 60, "value": 70, "maxValue": 80},
-     "macros": {
-       "calorie": {"minValue": 204, "value": 238, "maxValue": 272},
-       "carb": {"minValue": 39, "value": 46, "maxValue": 53},
-       "protein": {"minValue": 7, "value": 8, "maxValue": 9},
-       "fat": {"minValue": 2, "value": 2, "maxValue": 2},
-       "fiber": {"minValue": 6, "value": 7, "maxValue": 8}
-     }}
+  "components": [
+    {
+      "componentId": 0,
+      "name": "Roti",
+      "canonicalName": "Wheat flour, whole-grain",
+      "ingredients": [
+        {"componentId": 0, "ingredientId": 0, "name": "Whole wheat roti", "description": "Wheat flour, whole-grain",
+         "fdcId": 168893, "similarity": 0.91, "canonicalName": "Wheat flour, whole-grain",
+         "grams": {"minValue": 60, "value": 70, "maxValue": 80},
+         "macros": {
+           "calorie": {"minValue": 204, "value": 238, "maxValue": 272},
+           "carb": {"minValue": 39, "value": 46, "maxValue": 53},
+           "protein": {"minValue": 7, "value": 8, "maxValue": 9},
+           "fat": {"minValue": 2, "value": 2, "maxValue": 2},
+           "fiber": {"minValue": 6, "value": 7, "maxValue": 8}
+         }}
+      ],
+      "macros": {"calorie": {"minValue": 204, "value": 238, "maxValue": 272}}
+    },
+    {
+      "componentId": 1,
+      "name": "Dal",
+      "canonicalName": "Lentils, mature seeds, cooked, boiled",
+      "ingredients": [
+        {"componentId": 1, "ingredientId": 0, "name": "Cooked dal", "canonicalName": "Lentils, mature seeds, cooked, boiled, without salt",
+         "grams": {"minValue": 180, "value": 200, "maxValue": 220},
+         "macros": {"calorie": {"minValue": 208, "value": 232, "maxValue": 255}}}
+      ],
+      "macros": {"calorie": {"minValue": 208, "value": 232, "maxValue": 255}}
+    }
   ],
-  "totalMacros": {
-    "calorie": {"minValue": 204, "value": 238, "maxValue": 272}
-  }
+  "macros": {"calorie": {"minValue": 412, "value": 470, "maxValue": 527}}
 }`
 
 const clarificationRaw = `{
@@ -80,11 +107,14 @@ func TestAttachStageArtifacts(t *testing.T) {
 		t.Errorf("component 0 portion mapped wrong: %+v", c0.Portion)
 	}
 
-	if len(item.Ingredients) != 2 {
-		t.Fatalf("expected 2 ingredients, got %d", len(item.Ingredients))
+	if len(item.EnrichedComponents) != 2 {
+		t.Fatalf("expected 2 enriched components, got %d", len(item.EnrichedComponents))
 	}
-	// Ingredient 0 has an index-parallel USDA match; fields must be joined.
-	i0 := item.Ingredients[0]
+	ec0 := item.EnrichedComponents[0]
+	if ec0.Name != "Roti" || ec0.ComponentId != 0 || len(ec0.Ingredients) != 1 {
+		t.Fatalf("enriched component 0 mapped wrong: %+v", ec0)
+	}
+	i0 := ec0.Ingredients[0]
 	if i0.Description != "Wheat flour, whole-grain" || i0.FdcId != 168893 || i0.Similarity != 0.91 {
 		t.Errorf("ingredient 0 USDA match not joined: %+v", i0)
 	}
@@ -94,8 +124,12 @@ func TestAttachStageArtifacts(t *testing.T) {
 	if i0.Macros == nil || i0.Macros.Calorie == nil || i0.Macros.Calorie.Value != 238 {
 		t.Errorf("ingredient 0 macros not joined: %+v", i0.Macros)
 	}
-	// Ingredient 1 has no matching enriched row beyond index 0; must render without match.
-	i1 := item.Ingredients[1]
+
+	ec1 := item.EnrichedComponents[1]
+	if ec1.Name != "Dal" || ec1.ComponentId != 1 || len(ec1.Ingredients) != 1 {
+		t.Fatalf("enriched component 1 mapped wrong: %+v", ec1)
+	}
+	i1 := ec1.Ingredients[0]
 	if i1.Description != "" || i1.FdcId != 0 {
 		t.Errorf("ingredient 1 should have no USDA match, got: %+v", i1)
 	}
@@ -123,7 +157,7 @@ func TestAttachStageArtifactsToleratesPartialAndMalformedData(t *testing.T) {
 	t.Run("empty payloads leave item clean", func(t *testing.T) {
 		item := &api.AnalysisHistoryItem{Id: "a2"}
 		attachStageArtifacts(item, "", "", "", "", "")
-		if item.Components != nil || item.Ingredients != nil || item.Clarifications != nil || item.Final != nil {
+		if item.Components != nil || item.EnrichedComponents != nil || item.Clarifications != nil || item.Final != nil {
 			t.Errorf("expected no artifacts from empty payloads, got %+v", item)
 		}
 	})
@@ -131,7 +165,7 @@ func TestAttachStageArtifactsToleratesPartialAndMalformedData(t *testing.T) {
 	t.Run("malformed payloads do not panic and skip sections", func(t *testing.T) {
 		item := &api.AnalysisHistoryItem{Id: "a3"}
 		attachStageArtifacts(item, "{not json", "{not json", "{not json", "{not json", "{not json")
-		if item.Components != nil || item.Ingredients != nil || item.Clarifications != nil || item.Final != nil {
+		if item.Components != nil || item.EnrichedComponents != nil || item.Clarifications != nil || item.Final != nil {
 			t.Errorf("expected no artifacts from malformed payloads, got %+v", item)
 		}
 	})
@@ -139,11 +173,15 @@ func TestAttachStageArtifactsToleratesPartialAndMalformedData(t *testing.T) {
 	t.Run("pass2 without enrichment still lists ingredients", func(t *testing.T) {
 		item := &api.AnalysisHistoryItem{Id: "a4"}
 		attachStageArtifacts(item, "", pass2Raw, "", "", "")
-		if len(item.Ingredients) != 2 {
-			t.Fatalf("expected 2 ingredients without enrichment, got %d", len(item.Ingredients))
+		if len(item.EnrichedComponents) != 2 {
+			t.Fatalf("expected 2 enriched components without enrichment, got %d", len(item.EnrichedComponents))
 		}
-		if item.Ingredients[0].Macros != nil || item.Ingredients[0].Description != "" {
-			t.Errorf("ingredient should have no joined USDA data, got %+v", item.Ingredients[0])
+		if len(item.EnrichedComponents[0].Ingredients) != 1 {
+			t.Fatalf("expected 1 ingredient in component 0, got %d", len(item.EnrichedComponents[0].Ingredients))
+		}
+		ing := item.EnrichedComponents[0].Ingredients[0]
+		if ing.Macros != nil || ing.Description != "" {
+			t.Errorf("ingredient should have no joined USDA data, got %+v", ing)
 		}
 	})
 }

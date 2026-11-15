@@ -328,6 +328,8 @@
       letter-spacing: .06em;
       color: var(--text-dim);
     }
+    .spark-wrap { margin-top: 10px; color: var(--c-p2); }
+    .spark { display: block; width: 100%; height: 32px; }
 
     /* Step profile bars */
     .bars { display: flex; flex-direction: column; gap: 8px; }
@@ -971,12 +973,12 @@
       {{end}}
     </article>
 
-    <!-- Per-call LLM metrics from llm_call -->
+    <!-- Per-analysis LLM metrics from llm_call -->
     {{$llmP1 := llmStat .Summary.LlmCalls "PASS_1"}}
     {{$llmP2 := llmStat .Summary.LlmCalls "PASS_2"}}
     <article class="card metric">
       <div class="metric-head">
-        <span class="metric-label">LLM calls · per stage</span>
+        <span class="metric-label">LLM calls · per analysis</span>
         {{if .Summary.LlmCalls}}
         <span class="chip">{{len .Summary.LlmCalls}} stages</span>
         {{else}}
@@ -990,7 +992,7 @@
           <span>Pass 2</span>
         </div>
         <div class="phase-row">
-          <span>Duration</span>
+          <span>Wall time</span>
           <span>{{if $llmP1}}{{printf "%.0f" $llmP1.AvgDurationMs}} ms{{else}}—{{end}}</span>
           <span>{{if $llmP2}}{{printf "%.0f" $llmP2.AvgDurationMs}} ms{{else}}—{{end}}</span>
         </div>
@@ -1010,7 +1012,16 @@
           <span>{{if $llmP2}}{{printf "%.0f" $llmP2.AvgCompletionTokens}}{{else}}—{{end}}</span>
         </div>
       </div>
-      <div class="metric-foot">Per-call averages from llm_call</div>
+      {{if .Summary.P2WallTimeSeries}}
+      <div class="spark-wrap">
+        <svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none" role="img" aria-label="P2 wall time per analysis">
+          <polyline points="{{sparkline .Summary.P2WallTimeSeries 120 32}}" fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </div>
+      <div class="metric-foot">P2 wall time · {{sparklineRange .Summary.P2WallTimeSeries}}</div>
+      {{else}}
+      <div class="metric-foot">Per-analysis averages from llm_call</div>
+      {{end}}
     </article>
 
   </section>
@@ -1214,7 +1225,11 @@
                       </div>
                       {{range $c := $item.LlmCalls}}
                       <div class="comp-item">
-                        <div class="comp-name">{{$c.Stage}} <span class="mono">{{$c.Model}}</span></div>
+                        <div class="comp-name">
+                          {{$c.Stage}}
+                          {{if $c.ComponentId}}{{with componentName $item.EnrichedComponents $c.GetComponentId}} &middot; {{.}}{{end}}{{end}}
+                          <span class="mono">{{$c.Model}}</span>
+                        </div>
                         <div class="comp-sub mono">
                           {{$c.DurationMs}} ms &middot; prompt {{$c.GetPromptTokens}} &middot; cached {{$c.GetCachedTokens}} &middot; completion {{$c.GetCompletionTokens}}
                         </div>
@@ -1343,7 +1358,7 @@
                     <span class="dsec-title">Ingredients &amp; USDA matches</span>
                     <span class="chip">pass 2 + hydration</span>
                   </div>
-                  {{if $item.Ingredients}}
+                  {{if $item.EnrichedComponents}}
                   <div class="ing-wrap">
                     <table class="ing-table">
                       <colgroup>
@@ -1373,14 +1388,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {{range $ing := $item.Ingredients}}
+                        {{range $comp := $item.EnrichedComponents}}
+                        {{range $ing := $comp.Ingredients}}
                         <tr>
                           <td>
                             <div class="ing-name">{{$ing.Name}}</div>
                             {{if $ing.CanonicalName}}<div class="ing-sub">{{$ing.CanonicalName}}</div>{{end}}
                             {{if $ing.IngredientType}}<div class="ing-sub">{{$ing.IngredientType}}</div>{{end}}
                           </td>
-                          <td class="ing-sub">{{$ing.ComponentName}}</td>
+                          <td class="ing-sub">{{$comp.Name}}</td>
                           <td class="num">
                             {{if $ing.Portion}}
                               {{if eq $ing.Portion.Kind "EXACT"}}&times;{{printf "%.0f" $ing.Portion.Value}}
@@ -1406,6 +1422,7 @@
                             {{end}}
                           </td>
                         </tr>
+                        {{end}}
                         {{end}}
                       </tbody>
                     </table>

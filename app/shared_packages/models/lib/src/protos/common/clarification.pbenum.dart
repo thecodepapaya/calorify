@@ -17,22 +17,19 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class Clarification_Type extends $pb.ProtobufEnum {
   static const Clarification_Type QUANTITY =
       Clarification_Type._(0, _omitEnumNames ? '' : 'QUANTITY');
-  static const Clarification_Type INGREDIENT_PRESENCE =
-      Clarification_Type._(1, _omitEnumNames ? '' : 'INGREDIENT_PRESENCE');
   static const Clarification_Type INGREDIENT_ALTERNATIVE =
-      Clarification_Type._(2, _omitEnumNames ? '' : 'INGREDIENT_ALTERNATIVE');
+      Clarification_Type._(1, _omitEnumNames ? '' : 'INGREDIENT_ALTERNATIVE');
   static const Clarification_Type PREPARATION_METHOD =
-      Clarification_Type._(3, _omitEnumNames ? '' : 'PREPARATION_METHOD');
+      Clarification_Type._(2, _omitEnumNames ? '' : 'PREPARATION_METHOD');
 
   static const $core.List<Clarification_Type> values = <Clarification_Type>[
     QUANTITY,
-    INGREDIENT_PRESENCE,
     INGREDIENT_ALTERNATIVE,
     PREPARATION_METHOD,
   ];
 
   static final $core.List<Clarification_Type?> _byValue =
-      $pb.ProtobufEnum.$_initByValueList(values, 3);
+      $pb.ProtobufEnum.$_initByValueList(values, 2);
   static Clarification_Type? valueOf($core.int value) =>
       value < 0 || value >= _byValue.length ? null : _byValue[value];
 

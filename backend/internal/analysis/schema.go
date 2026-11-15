@@ -2,6 +2,7 @@ package analysis
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"backend/internal/gen_proto/common"
 	"backend/internal/gen_proto/server"
@@ -14,7 +15,7 @@ const (
 	// ruleLc defines the [lc] localization convention used across passes.
 	ruleLc = `Fields marked [lc] are localized. When the User Locale is non-English, write them in that locale's language (e.g. 'es-ES' -> Spanish, 'zh-CN' -> Simplified Chinese, 'ja-JP' -> Japanese).`
 	// ruleCanonicalFormat defines the uniform 'canonical_name' format shared by both passes.
-	ruleCanonicalFormat = `Canonical Names: Format 'canonical_name' as a single USDA Food Central inverted-taxonomy search term: [Food], [Cut/Form], [Cooking State] (e.g. "Chicken, breast, meat only, cooked, roasted"; "Rice, white, cooked")`
+	ruleCanonicalFormat = `Canonical Names: Format 'canonical_name' as a single USDA Food Central inverted-taxonomy search term: [Food], [Cut/Form], [Cooking State], [Optional modifier(s)] (e.g. "Chicken, breast, meat only, roasted, salted"; "Rice, white, cooked")`
 )
 
 // Pass 1: Meal Component Decomposition Prompt
@@ -26,20 +27,129 @@ RULES:
 3. Components: Treat each named dish as ONE component (e.g. "Spaghetti Carbonara", "Mango Sticky Rice"); separate only distinct dishes, sides, or beverages (e.g. "Burger with fries and soda" -> Burger, French fries, Soda). Do NOT split dishes into base ingredients (e.g. pasta, rice, cheese).`
 
 // Pass 2: Base Ingredient Decomposition Prompt
-const pass2Prompt = `Decompose meal components into elemental base foods or branded items for USDA database matching.
+const pass2Prompt = `Decompose the provided meal component into elemental base foods or branded items for USDA database matching.
 
 RULES:
 1. Context: ` + ruleContext + ` to infer cooking mediums and ingredient proportions (e.g. olive oil vs butter vs ghee).
-2. Component Linking: Every ingredient MUST derive from exactly one of the provided components.
-3. ` + ruleCanonicalFormat + `. ` + ruleLc + `
-4. Cooking Fats: Allocate cooking fats/oils only when preparation_method implies them (e.g. 5-15g oil for SAUTEED/STIR_FRIED; none for BOILED, STEAMED, or RAW).
-5. Portions: Split total component portions across ingredients with realistic min/max bounds in grams.`
+2. ` + ruleCanonicalFormat + `. ` + ruleLc + `
+3. Cooking Fats: Allocate cooking fats/oils only when preparation_method implies them (e.g. 5-15g oil for SAUTEED/STIR_FRIED; none for BOILED, STEAMED, or RAW).
+4. Portions: Split the component portion across ingredients with realistic min/max bounds in grams.`
 
 // Pass 1 & Pass 2 JSON Schemas for OpenAI Structured Outputs generated from Go DTOs
 var pass1Schema = GenerateSchema[Pass1DTO]()
-var pass2Schema = GenerateSchema[Pass2DTO]()
+var pass2CallSchema = GenerateSchema[Pass2CallDTO]()
 
 // Intermediate Go DTO structs for JSON unmarshaling and OpenAI Schema generation.
+// Arranged top-down: Top-level Pass DTOs -> Mid-level components/ingredients -> Shared leaves.
+
+// ==========================================
+// Pass 1 Schemas
+// ==========================================
+
+type Pass1DTO struct {
+	Name       string         `json:"name" description:"[lc] Short, natural display name for the meal, max 30 chars"`
+	Quantity   string         `json:"quantity" description:"[lc] Natural language summary of portion size or count (e.g. '1 bowl', '1 serving', '1 plate' etc), max 30 chars"`
+	MealType   string         `json:"meal_type" enum:"UNKNOWN,BREAKFAST,LUNCH,DINNER,SNACK" description:"Derived from Timezone/Capture Time in the context metadata"`
+	Tip        string         `json:"tip" description:"[lc] Concise, interesting tip specific to this meal, max 100 chars"`
+	MealHealth MealHealthDTO  `json:"meal_health"`
+	Components []ComponentDTO `json:"components"`
+}
+
+func (d *Pass1DTO) MealTypeEnum() common.MealType {
+	if val, ok := common.MealType_value[d.MealType]; ok {
+		return common.MealType(val)
+	}
+	return common.MealType_UNKNOWN
+}
+
+// ParsePass1 parses a raw pass-1 structured-output response into Pass1DTO.
+func ParsePass1(rawJson string) (*Pass1DTO, error) {
+	var dto Pass1DTO
+	if err := json.Unmarshal([]byte(rawJson), &dto); err != nil {
+		return nil, err
+	}
+	return &dto, nil
+}
+
+type ComponentDTO struct {
+	Name              string     `json:"name" description:"[lc] Short display name of the component dish or item"`
+	CanonicalName     string     `json:"canonical_name" description:"Canonical name for USDA Food Central database matching; ALWAYS plain English"`
+	PreparationMethod string     `json:"preparation_method" enum:"UNKNOWN,RAW,BOILED,SIMMERED,STEAMED,PRESSURE_COOKED,POACHED,BAKED,ROASTED,GRILLED,TOASTED,SAUTEED,STIR_FRIED,SHALLOW_FRIED,DEEP_FRIED,BLENDED"`
+	Portion           PortionDTO `json:"portion"`
+}
+
+type MealHealthDTO struct {
+	HealthScore       string `json:"health_score" enum:"NEUTRAL,HEALTHY,UNHEALTHY" description:"Clinical health assessment rating for this meal"`
+	HealthScoreReason string `json:"health_score_reason" description:"[lc] Short justification for the assigned health rating based on macronutrient balance, processing, and ingredients, max 50 chars"`
+}
+
+func (m *MealHealthDTO) ToCommon() *common.MealHealth {
+	var healthScore common.HealthScore
+	if val, ok := common.HealthScore_value[m.HealthScore]; ok {
+		healthScore = common.HealthScore(val)
+	}
+	return &common.MealHealth{
+		HealthScore:       &healthScore,
+		HealthScoreReason: &m.HealthScoreReason,
+	}
+}
+
+// ==========================================
+// Pass 2 Schemas
+// ==========================================
+
+// Pass2DTO is the aggregated, nested structure stored in meal_analysis.decomposed_ingredient.
+type Pass2DTO struct {
+	Components []Pass2ComponentDTO `json:"components"`
+}
+
+// ParsePass2 parses a raw pass-2 nested JSON into Pass2DTO.
+func ParsePass2(rawJson string) (*Pass2DTO, error) {
+	var dto Pass2DTO
+	if err := json.Unmarshal([]byte(rawJson), &dto); err != nil {
+		return nil, err
+	}
+	return &dto, nil
+}
+
+// Pass2ComponentDTO represents one component and its decomposed ingredients.
+type Pass2ComponentDTO struct {
+	Name          string          `json:"name"`
+	CanonicalName string          `json:"canonical_name"`
+	Ingredients   []IngredientDTO `json:"ingredients"`
+}
+
+// Pass2CallDTO is the output schema for a single Pass 2 LLM call (per component).
+type Pass2CallDTO struct {
+	Ingredients []IngredientDTO `json:"ingredients" description:"List of elemental ingredients and cooking mediums for this component"`
+}
+
+// ParsePass2Call parses a raw per-component pass-2 response into Pass2CallDTO.
+func ParsePass2Call(rawJson string) (*Pass2CallDTO, error) {
+	var dto Pass2CallDTO
+	if err := json.Unmarshal([]byte(rawJson), &dto); err != nil {
+		return nil, err
+	}
+	return &dto, nil
+}
+
+type IngredientDTO struct {
+	Name           string     `json:"name" description:"[lc] Display name for this ingredient"`
+	CanonicalName  string     `json:"canonical_name" description:"Canonical name for USDA Food Central database matching; ALWAYS plain English even when the [lc] name is localized"`
+	IngredientType string     `json:"ingredient_type" enum:"BASE,BRANDED" description:"BASE for raw/cooked commodities (e.g. rice, egg), BRANDED for commercial packaged products (e.g. Nutella)"`
+	Portion        PortionDTO `json:"portion"`
+}
+
+func (i *IngredientDTO) ServerIngredientType() server.IngredientType {
+	if i.IngredientType == "BRANDED" {
+		return server.IngredientType_BRANDED
+	}
+	return server.IngredientType_BASE
+}
+
+// ==========================================
+// Shared & Leaf Primitives
+// ==========================================
 
 type PortionDTO struct {
 	Kind            string   `json:"kind" enum:"EXACT,BULK,PINCH" description:"EXACT for countable foods (e.g. 2 idli), BULK for continuous foods (e.g. dal, soup), PINCH for seasonings (1-5g)"`
@@ -85,6 +195,14 @@ func (p *PortionDTO) Grams() (minGram, gram, maxGram int32) {
 	}
 }
 
+// Validate checks that the portion has enough data to resolve grams.
+func (p *PortionDTO) Validate() error {
+	if p.Kind == "EXACT" && p.PerUnitGrams == nil {
+		return fmt.Errorf("EXACT portion requires per_unit_grams")
+	}
+	return nil
+}
+
 // ToCommon converts the portion model into the shared proto representation.
 func (p *PortionDTO) ToCommon() *common.Portion {
 	return &common.Portion{
@@ -96,81 +214,9 @@ func (p *PortionDTO) ToCommon() *common.Portion {
 	}
 }
 
-type ComponentDTO struct {
-	Name              string     `json:"name" description:"[lc] Short display name of the component dish or item"`
-	CanonicalName     string     `json:"canonical_name" description:"Canonical name for USDA Food Central database matching; ALWAYS plain English even when the [lc] name is localized (e.g. for \"おにぎり\", canonical_name=\"Rice, white, steamed\")"`
-	PreparationMethod string     `json:"preparation_method" enum:"UNKNOWN,RAW,BOILED,SIMMERED,STEAMED,PRESSURE_COOKED,POACHED,BAKED,ROASTED,GRILLED,TOASTED,SAUTEED,STIR_FRIED,SHALLOW_FRIED,DEEP_FRIED,BLENDED"`
-	Portion           PortionDTO `json:"portion"`
-}
-
-type MealHealthDTO struct {
-	HealthScore       string `json:"health_score" enum:"NEUTRAL,HEALTHY,UNHEALTHY" description:"Clinical health assessment rating for this meal"`
-	HealthScoreReason string `json:"health_score_reason" description:"[lc] Short justification for the assigned health rating based on macronutrient balance, processing, and ingredients, max 50 chars"`
-}
-
-func (m *MealHealthDTO) ToCommon() *common.MealHealth {
-	var healthScore common.HealthScore
-	if val, ok := common.HealthScore_value[m.HealthScore]; ok {
-		healthScore = common.HealthScore(val)
-	}
-	return &common.MealHealth{
-		HealthScore:       &healthScore,
-		HealthScoreReason: &m.HealthScoreReason,
-	}
-}
-
-type Pass1DTO struct {
-	Name       string         `json:"name" description:"[lc] Short, natural display name for the meal, max 30 chars"`
-	Quantity   string         `json:"quantity" description:"[lc] Natural language summary of portion size or count (e.g. '1 bowl', '1 serving', '1 plate' etc), max 30 chars"`
-	MealType   string         `json:"meal_type" enum:"UNKNOWN,BREAKFAST,LUNCH,DINNER,SNACK" description:"Derived from Timezone/Capture Time in the context metadata"`
-	Tip        string         `json:"tip" description:"[lc] Concise, interesting tip specific to this meal, max 100 chars"`
-	MealHealth MealHealthDTO  `json:"meal_health"`
-	Components []ComponentDTO `json:"components"`
-}
-
-func (d *Pass1DTO) MealTypeEnum() common.MealType {
-	if val, ok := common.MealType_value[d.MealType]; ok {
-		return common.MealType(val)
-	}
-	return common.MealType_UNKNOWN
-}
-
-type IngredientDTO struct {
-	ComponentName  string     `json:"component_name" description:"Canonical name of the component this ingredient belongs to"`
-	Name           string     `json:"name" description:"[lc] Display name for this ingredient"`
-	CanonicalName  string     `json:"canonical_name" description:"Canonical name for USDA Food Central database matching; ALWAYS plain English even when the [lc] name is localized"`
-	IngredientType string     `json:"ingredient_type" enum:"BASE,BRANDED" description:"BASE for raw/cooked commodities (e.g. rice, egg), BRANDED for commercial packaged products (e.g. Nutella)"`
-	Portion        PortionDTO `json:"portion"`
-}
-
-func (i *IngredientDTO) ServerIngredientType() server.IngredientType {
-	if i.IngredientType == "BRANDED" {
-		return server.IngredientType_BRANDED
-	}
-	return server.IngredientType_BASE
-}
-
-type Pass2DTO struct {
-	Ingredients []IngredientDTO `json:"ingredients"`
-}
-
-// ParsePass1 parses a raw pass-1 structured-output response into Pass1DTO.
-func ParsePass1(rawJson string) (*Pass1DTO, error) {
-	var dto Pass1DTO
-	if err := json.Unmarshal([]byte(rawJson), &dto); err != nil {
-		return nil, err
-	}
-	return &dto, nil
-}
-
-// ParsePass2 parses a raw pass-2 structured-output response into Pass2DTO.
-func ParsePass2(rawJson string) (*Pass2DTO, error) {
-	var dto Pass2DTO
-	if err := json.Unmarshal([]byte(rawJson), &dto); err != nil {
-		return nil, err
-	}
-	return &dto, nil
-}
+// ==========================================
+// USDA Query Candidates
+// ==========================================
 
 type UsdaCandidate struct {
 	FdcID          int64   `json:"fdc_id"`

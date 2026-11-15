@@ -6,9 +6,8 @@ option go_package = "backend/internal/gen_proto/common";
 message Clarification{
   enum Type{
     QUANTITY               = 0;
-    INGREDIENT_PRESENCE    = 1;
-    INGREDIENT_ALTERNATIVE = 2;
-    PREPARATION_METHOD     = 3;
+    INGREDIENT_ALTERNATIVE = 1;
+    PREPARATION_METHOD     = 2;
   }
 
   int32           id       = 1;

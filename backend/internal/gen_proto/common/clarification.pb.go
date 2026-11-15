@@ -25,24 +25,21 @@ type Clarification_Type int32
 
 const (
 	Clarification_QUANTITY               Clarification_Type = 0
-	Clarification_INGREDIENT_PRESENCE    Clarification_Type = 1
-	Clarification_INGREDIENT_ALTERNATIVE Clarification_Type = 2
-	Clarification_PREPARATION_METHOD     Clarification_Type = 3
+	Clarification_INGREDIENT_ALTERNATIVE Clarification_Type = 1
+	Clarification_PREPARATION_METHOD     Clarification_Type = 2
 )
 
 // Enum value maps for Clarification_Type.
 var (
 	Clarification_Type_name = map[int32]string{
 		0: "QUANTITY",
-		1: "INGREDIENT_PRESENCE",
-		2: "INGREDIENT_ALTERNATIVE",
-		3: "PREPARATION_METHOD",
+		1: "INGREDIENT_ALTERNATIVE",
+		2: "PREPARATION_METHOD",
 	}
 	Clarification_Type_value = map[string]int32{
 		"QUANTITY":               0,
-		"INGREDIENT_PRESENCE":    1,
-		"INGREDIENT_ALTERNATIVE": 2,
-		"PREPARATION_METHOD":     3,
+		"INGREDIENT_ALTERNATIVE": 1,
+		"PREPARATION_METHOD":     2,
 	}
 )
 
@@ -317,17 +314,16 @@ var File_protos_common_clarification_proto protoreflect.FileDescriptor
 
 const file_protos_common_clarification_proto_rawDesc = "" +
 	"\n" +
-	"!protos/common/clarification.proto\x12\x06common\"\xf8\x01\n" +
+	"!protos/common/clarification.proto\x12\x06common\"\xdf\x01\n" +
 	"\rClarification\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1a\n" +
 	"\bquestion\x18\x02 \x01(\tR\bquestion\x12(\n" +
 	"\aoptions\x18\x03 \x03(\v2\x0e.common.OptionR\aoptions\x12.\n" +
-	"\x04type\x18\x04 \x01(\x0e2\x1a.common.Clarification.TypeR\x04type\"a\n" +
+	"\x04type\x18\x04 \x01(\x0e2\x1a.common.Clarification.TypeR\x04type\"H\n" +
 	"\x04Type\x12\f\n" +
-	"\bQUANTITY\x10\x00\x12\x17\n" +
-	"\x13INGREDIENT_PRESENCE\x10\x01\x12\x1a\n" +
-	"\x16INGREDIENT_ALTERNATIVE\x10\x02\x12\x16\n" +
-	"\x12PREPARATION_METHOD\x10\x03\"M\n" +
+	"\bQUANTITY\x10\x00\x12\x1a\n" +
+	"\x16INGREDIENT_ALTERNATIVE\x10\x01\x12\x16\n" +
+	"\x12PREPARATION_METHOD\x10\x02\"M\n" +
 	"\x0eClarifications\x12;\n" +
 	"\rclarification\x18\x01 \x03(\v2\x15.common.ClarificationR\rclarification\"Q\n" +
 	"\x06Option\x12\x12\n" +
