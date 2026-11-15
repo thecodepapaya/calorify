@@ -220,10 +220,11 @@ func buildContextPrefix(req *api.MealAnalysisRequest) string {
 var clarificationI18nRaw []byte
 
 type clarificationLocale struct {
-	QuantityQuestion string `json:"quantity_question"`
-	OptionSmall      string `json:"option_small"`
-	OptionMedium     string `json:"option_medium"`
-	OptionLarge      string `json:"option_large"`
+	QuantityQuestion           string `json:"quantity_question"`
+	IngredientQuantityQuestion string `json:"ingredient_quantity_question"`
+	OptionSmall                string `json:"option_small"`
+	OptionMedium               string `json:"option_medium"`
+	OptionLarge                string `json:"option_large"`
 }
 type clarificationI18nFile struct {
 	Version int                            `json:"version"`
@@ -255,12 +256,12 @@ func getClarificationLocale(locale string) clarificationLocale {
 	return clarificationTranslations["en"]
 }
 
-func buildQuantityClarification(id int32, ingredient *server.EnrichedIngredient, locale string) *common.Clarification {
+func buildQuantityClarification(id int32, ingredient *server.EnrichedIngredient, componentName, locale string) *common.Clarification {
 	loc := getClarificationLocale(locale)
 	return &common.Clarification{
 		Id:       id,
 		Type:     common.Clarification_QUANTITY,
-		Question: fmt.Sprintf(loc.QuantityQuestion, ingredient.GetName()),
+		Question: fmt.Sprintf(loc.IngredientQuantityQuestion, ingredient.GetName(), componentName),
 		Options: []*common.Option{
 			{Text: loc.OptionSmall, MacroDelta: macroDelta(ingredient.GetMacros(), false)},
 			{Text: loc.OptionMedium, MacroDelta: &common.MacroDelta{}},

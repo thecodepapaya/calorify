@@ -494,8 +494,9 @@ func (s *Service) generateClarification(ctx context.Context, id string, pass1 *P
 
 	// Tier 2: ingredients in components not clarified above.
 	type ingredientCandidate struct {
-		ingredient *server.EnrichedIngredient
-		variance   int32
+		ingredient    *server.EnrichedIngredient
+		componentName string
+		variance      int32
 	}
 	var ingredientCandidates []ingredientCandidate
 	for _, comp := range enriched.Components {
@@ -507,14 +508,15 @@ func (s *Service) generateClarification(ctx context.Context, id string, pass1 *P
 			if variance <= ingredientThreshold {
 				continue
 			}
-			ingredientCandidates = append(ingredientCandidates, ingredientCandidate{ing, variance})
+			ingredientCandidates = append(ingredientCandidates, ingredientCandidate{ing, comp.GetName(), variance})
 		}
 	}
 	slices.SortFunc(ingredientCandidates, func(a, b ingredientCandidate) int {
 		return int(b.variance - a.variance)
 	})
 	for i := 0; i < len(ingredientCandidates) && len(clarifications) < maxQuestions; i++ {
-		clarifications = append(clarifications, buildQuantityClarification(int32(len(clarifications)), ingredientCandidates[i].ingredient, locale))
+		candidate := ingredientCandidates[i]
+		clarifications = append(clarifications, buildQuantityClarification(int32(len(clarifications)), candidate.ingredient, candidate.componentName, locale))
 	}
 
 	span.SetAttributes(

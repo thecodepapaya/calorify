@@ -468,7 +468,7 @@ The nested component structure makes component-level quantity questions possible
 
 ### 4.1 Current flow
 
-`generateClarification` (`backend/internal/analysis/service.go:429-456`) sorts the enriched ingredients by calorie variance (`max - min`), keeps those above 80 kcal, and builds up to two ingredient quantity questions. Each question is "Quantity of {name}?" with Small/Medium/Large options carrying macro deltas (`backend/internal/analysis/utils.go:258-298`).
+`generateClarification` (`backend/internal/analysis/service.go:429-456`) sorts the enriched ingredients by calorie variance (`max - min`), keeps those above 80 kcal, and builds up to two ingredient quantity questions. Each question is "Quantity of {ingredient} in {component}?" with Small/Medium/Large options carrying macro deltas (`backend/internal/analysis/utils.go:258-298`). Both names are the localized display names, never the canonical ones.
 
 ### 4.2 Proposed types
 
