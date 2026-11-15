@@ -191,26 +191,11 @@ class FoodRepository {
     pgo.MealAnalysisStatus status,
   ) {
     String? mealName;
-    List<String> componentNames = [];
-    final canonicalToComponent = <String, String>{};
-
     if (status.hasDecomposedComponent()) {
       try {
         final json = jsonDecode(status.decomposedComponent);
         if (json is Map) {
           mealName = json['name'] as String?;
-          if (json['components'] is List) {
-            for (final c
-                in (json['components'] as List)
-                    .whereType<Map<String, dynamic>>()) {
-              final name = c['name']?.toString() ?? '';
-              if (name.isEmpty) continue;
-              componentNames.add(name);
-              canonicalToComponent[name] = name;
-              final canonical = c['canonical_name']?.toString() ?? '';
-              if (canonical.isNotEmpty) canonicalToComponent[canonical] = name;
-            }
-          }
         }
       } catch (_) {}
     }
@@ -228,113 +213,84 @@ class FoodRepository {
       } catch (_) {}
     }
 
-    final ingredients = <({String name, String component})>[];
+    // The enriched tree is the most complete; fall back to the pass-2 tree,
+    // then to the pass-1 components before pass 2 has run.
+    if (status.hasUsdaEnriched()) {
+      final components = _parseNestedComponents(
+        status.usdaEnriched,
+        enriched: true,
+      );
+      if (components.isNotEmpty) return (mealName, components);
+    }
     if (status.hasDecomposedIngredient()) {
+      final components = _parseNestedComponents(
+        status.decomposedIngredient,
+        enriched: false,
+      );
+      if (components.isNotEmpty) return (mealName, components);
+    }
+    if (status.hasDecomposedComponent()) {
       try {
-        final json = jsonDecode(status.decomposedIngredient);
-        if (json is Map && json['ingredients'] is List) {
-          for (final i
-              in (json['ingredients'] as List)
-                  .whereType<Map<String, dynamic>>()) {
-            final name = i['name']?.toString() ?? '';
+        final json = jsonDecode(status.decomposedComponent);
+        if (json is Map && json['components'] is List) {
+          final components = <MealAnalysisV3ProgressComponent>[];
+          for (final (index, raw) in (json['components'] as List).indexed) {
+            if (raw is! Map) continue;
+            final name = raw['name']?.toString() ?? '';
             if (name.isEmpty) continue;
-            ingredients.add((
-              name: name,
-              component:
-                  (i['component_name'] ?? i['componentName'])?.toString() ??
-                  '',
-            ));
+            components.add(
+              MealAnalysisV3ProgressComponent(
+                componentId: index.toString(),
+                name: name,
+              ),
+            );
           }
-        }
-      } catch (_) {}
-    } else if (status.hasUsdaEnriched()) {
-      try {
-        final json = jsonDecode(status.usdaEnriched);
-        if (json is Map && json['ingredients'] is List) {
-          for (final i
-              in (json['ingredients'] as List)
-                  .whereType<Map<String, dynamic>>()) {
-            final name = i['name']?.toString() ?? '';
-            if (name.isEmpty) continue;
-            ingredients.add((
-              name: name,
-              component:
-                  (i['componentName'] ?? i['component_name'])?.toString() ??
-                  '',
-            ));
-          }
+          return (mealName, components);
         }
       } catch (_) {}
     }
 
-    final ingredientNames = ingredients.map((i) => i.name).toList();
-    List<MealAnalysisV3ProgressComponent> components = const [];
+    return (mealName, const []);
+  }
 
-    if (componentNames.isNotEmpty) {
-      if (ingredients.isEmpty) {
-        components =
-            componentNames
-                .map(
-                  (name) => MealAnalysisV3ProgressComponent(
-                    componentId: name.toLowerCase().replaceAll(
-                      RegExp(r'\s+'),
-                      '_',
-                    ),
-                    name: name,
-                    ingredientNames: const [],
-                  ),
-                )
-                .toList();
-      } else {
-        final assigned = <String, List<String>>{
-          for (final c in componentNames) c: <String>[],
-        };
-        final unassigned = <String>[];
-
-        for (final ing in ingredients) {
-          final matchedComp = canonicalToComponent[ing.component];
-          if (matchedComp != null && assigned.containsKey(matchedComp)) {
-            assigned[matchedComp]!.add(ing.name);
-          } else {
-            unassigned.add(ing.name);
-          }
-        }
-
-        if (unassigned.isNotEmpty && componentNames.isNotEmpty) {
-          assigned[componentNames.first]!.addAll(unassigned);
-        }
-
-        components =
-            componentNames
-                .map(
-                  (name) => MealAnalysisV3ProgressComponent(
-                    componentId: name.toLowerCase().replaceAll(
-                      RegExp(r'\s+'),
-                      '_',
-                    ),
-                    name: name,
-                    ingredientNames: assigned[name] ?? const [],
-                  ),
-                )
-                .toList();
+  List<MealAnalysisV3ProgressComponent> _parseNestedComponents(
+    String raw, {
+    required bool enriched,
+  }) {
+    try {
+      final json = jsonDecode(raw);
+      if (json is! Map || json['components'] is! List) return const [];
+      final components = <MealAnalysisV3ProgressComponent>[];
+      for (final (index, rawComponent)
+          in (json['components'] as List).indexed) {
+        if (rawComponent is! Map) continue;
+        final name = rawComponent['name']?.toString() ?? '';
+        if (name.isEmpty) continue;
+        final rawIngredients = rawComponent['ingredients'];
+        final ingredientNames =
+            rawIngredients is List
+                ? rawIngredients
+                    .whereType<Map>()
+                    .map((ingredient) => ingredient['name']?.toString() ?? '')
+                    .where((ingredient) => ingredient.isNotEmpty)
+                    .toList(growable: false)
+                : const <String>[];
+        final componentId =
+            enriched
+                ? (rawComponent['componentId']?.toString() ?? index.toString())
+                : index.toString();
+        components.add(
+          MealAnalysisV3ProgressComponent(
+            componentId: componentId,
+            name: name,
+            ingredientNames: ingredientNames,
+          ),
+        );
       }
-    } else if (ingredientNames.isNotEmpty) {
-      components =
-          ingredientNames
-              .map(
-                (name) => MealAnalysisV3ProgressComponent(
-                  componentId: name.toLowerCase().replaceAll(
-                    RegExp(r'\s+'),
-                    '_',
-                  ),
-                  name: name,
-                  ingredientNames: const [],
-                ),
-              )
-              .toList();
+      return components;
+    } catch (_) {
+      return const [];
     }
-
-    return (mealName, components);
   }
 
   MealAnalysisV3Progress? _mapStatusToProgress(pgo.MealAnalysisStatus status) {

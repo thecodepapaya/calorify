@@ -834,31 +834,36 @@
                         if (c.name) compPrepMap[c.name] = prep;
                     });
                 }
-                const ingredients = (pass2.ingredients || []).map(ing => {
-                    const portion = ing.portion || {};
-                    let grams = 50, min = 40, max = 60;
-                    if (portion.kind === 'EXACT' && portion.value) {
-                        const count = portion.value;
-                        const perG = portion.per_unit_grams || 50;
-                        const perMin = portion.per_unit_min_grams || perG;
-                        const perMax = portion.per_unit_max_grams || perG;
-                        grams = count * perG;
-                        min = count * perMin;
-                        max = count * perMax;
-                    } else if (portion.value) {
-                        grams = portion.value;
-                        min = portion.min_value || Math.floor(grams * 0.85);
-                        max = portion.max_value || Math.ceil(grams * 1.15);
-                    }
-                    return {
-                        name: ing.name || 'Ingredient',
-                        canonical: ing.canonical_name || '',
-                        component: ing.component_name || '',
-                        prep: (ing.preparationMethod || ing.preparation_method || compPrepMap[ing.component_name] || compPrepMap[ing.name] || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
-                        grams: Math.round(grams),
-                        min: Math.round(min),
-                        max: Math.round(max)
-                    };
+                const ingredients = [];
+                (pass2.components || []).forEach(comp => {
+                    const componentName = comp.name || 'Dish Component';
+                    const prep = (compPrepMap[comp.canonical_name] || compPrepMap[componentName] || 'PREPARED').replace(/^PREPARATION_METHOD_/, '');
+                    (comp.ingredients || []).forEach(ing => {
+                        const portion = ing.portion || {};
+                        let grams = 50, min = 40, max = 60;
+                        if (portion.kind === 'EXACT' && portion.value) {
+                            const count = portion.value;
+                            const perG = portion.per_unit_grams || 50;
+                            const perMin = portion.per_unit_min_grams || perG;
+                            const perMax = portion.per_unit_max_grams || perG;
+                            grams = count * perG;
+                            min = count * perMin;
+                            max = count * perMax;
+                        } else if (portion.value) {
+                            grams = portion.value;
+                            min = portion.min_value || Math.floor(grams * 0.85);
+                            max = portion.max_value || Math.ceil(grams * 1.15);
+                        }
+                        ingredients.push({
+                            name: ing.name || 'Ingredient',
+                            canonical: ing.canonical_name || '',
+                            component: componentName,
+                            prep: prep,
+                            grams: Math.round(grams),
+                            min: Math.round(min),
+                            max: Math.round(max)
+                        });
+                    });
                 });
 
                 this.callbacks.onStageUpdate({
@@ -876,21 +881,25 @@
             const enriched = parseMaybeJson(statusData.usdaEnriched || statusData.usda_enriched);
             if (enriched && this.lastStageEmitted < 4) {
                 this.lastStageEmitted = 4;
-                const usdaMatches = (enriched.ingredients || []).map(m => {
-                    const sim = typeof m.similarity === 'number' ? (m.similarity * 100).toFixed(1) + '%' : (m.similarity || '95.0%');
-                    const macros = m.macros || {};
-                    return {
-                        fdcId: String(m.fdcId || m.fdc_id || ''),
-                        food: m.description || m.name || 'USDA Grounded Reference Food',
-                        similarity: sim,
-                        canonical: m.canonicalName || m.canonical_name || '',
-                        component: m.componentName || m.component_name || '',
-                        cals: macros.calorie?.value || 0,
-                        p: macros.protein?.value || 0,
-                        c: macros.carb?.value || 0,
-                        f: macros.fat?.value || 0,
-                        fb: macros.fiber?.value || 0
-                    };
+                const usdaMatches = [];
+                (enriched.components || []).forEach(comp => {
+                    const componentName = comp.name || 'Dish Component';
+                    (comp.ingredients || []).forEach(m => {
+                        const sim = typeof m.similarity === 'number' ? (m.similarity * 100).toFixed(1) + '%' : (m.similarity || '95.0%');
+                        const macros = m.macros || {};
+                        usdaMatches.push({
+                            fdcId: String(m.fdcId || m.fdc_id || ''),
+                            food: m.description || m.name || 'USDA Grounded Reference Food',
+                            similarity: sim,
+                            canonical: m.canonicalName || m.canonical_name || '',
+                            component: componentName,
+                            cals: macros.calorie?.value || 0,
+                            p: macros.protein?.value || 0,
+                            c: macros.carb?.value || 0,
+                            f: macros.fat?.value || 0,
+                            fb: macros.fiber?.value || 0
+                        });
+                    });
                 });
 
                 this.callbacks.onStageUpdate({
@@ -983,15 +992,22 @@
                 if (c.name) compPrepMap[c.name] = prep;
             });
 
-            const ingredients = (pass2.ingredients || []).map(ing => ({
-                name: ing.name,
-                canonical: ing.canonical_name || '',
-                component: ing.component_name || '',
-                prep: (ing.preparation_method || compPrepMap[ing.component_name] || compPrepMap[ing.name] || 'PREPARED').replace(/^PREPARATION_METHOD_/, ''),
-                grams: ing.portion?.kind === 'EXACT'
-                    ? (ing.portion.value || 0) * (ing.portion.per_unit_grams || 0)
-                    : ing.portion?.value || 0
-            }));
+            const ingredients = [];
+            (pass2.components || []).forEach(comp => {
+                const componentName = comp.name || 'Dish Component';
+                const prep = (compPrepMap[comp.canonical_name] || compPrepMap[componentName] || 'PREPARED').replace(/^PREPARATION_METHOD_/, '');
+                (comp.ingredients || []).forEach(ing => {
+                    ingredients.push({
+                        name: ing.name,
+                        canonical: ing.canonical_name || '',
+                        component: componentName,
+                        prep: prep,
+                        grams: ing.portion?.kind === 'EXACT'
+                            ? (ing.portion.value || 0) * (ing.portion.per_unit_grams || 0)
+                            : ing.portion?.value || 0
+                    });
+                });
+            });
 
             return {
                 title: meal.name || pass1.name || 'Analyzed Meal',

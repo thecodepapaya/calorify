@@ -196,7 +196,7 @@ void main() {
     expect(events.last.issue?.message, 'Analysis timeout');
   });
 
-  test('pollMealAnalysis maps ingredients with canonical_name and component_name', () async {
+  test('pollMealAnalysis maps nested components and ingredients', () async {
     var pollCount = 0;
     final adapter = _MockApiAdapter((options) async {
       pollCount++;
@@ -242,14 +242,26 @@ void main() {
               ],
             }),
             'decomposedIngredient': jsonEncode({
-              'ingredients': [
+              'components': [
                 {
-                  'name': 'lentils',
-                  'component_name': 'Lentils, mature seeds, cooked, boiled',
+                  'name': 'daal',
+                  'canonical_name': 'Lentils, mature seeds, cooked, boiled',
+                  'ingredients': [
+                    {
+                      'name': 'lentils',
+                      'canonical_name': 'Lentils, mature seeds, cooked, boiled',
+                    },
+                  ],
                 },
                 {
-                  'name': 'whole wheat flour',
-                  'component_name': 'Wheat flour, whole-grain, cooked',
+                  'name': 'roti',
+                  'canonical_name': 'Wheat flour, whole-grain, cooked',
+                  'ingredients': [
+                    {
+                      'name': 'whole wheat flour',
+                      'canonical_name': 'Wheat flour, whole-grain',
+                    },
+                  ],
                 },
               ],
             }),
@@ -298,11 +310,15 @@ void main() {
     final progressEvents = events.where((e) => e.kind == MealAnalysisV3EventKind.progress).toList();
     expect(progressEvents.isNotEmpty, isTrue);
 
-    final lastProgress = progressEvents.last.progress;
-    expect(lastProgress?.components.length, 2);
-    final daalComp = lastProgress?.components.firstWhere((c) => c.name == 'daal');
+    final matchProgress = progressEvents
+        .map((event) => event.progress)
+        .firstWhere(
+          (progress) => progress?.phase == MealAnalysisV3ProgressPhase.match,
+        );
+    expect(matchProgress?.components.length, 2);
+    final daalComp = matchProgress?.components.firstWhere((c) => c.name == 'daal');
     expect(daalComp?.ingredientNames, contains('lentils'));
-    final rotiComp = lastProgress?.components.firstWhere((c) => c.name == 'roti');
+    final rotiComp = matchProgress?.components.firstWhere((c) => c.name == 'roti');
     expect(rotiComp?.ingredientNames, contains('whole wheat flour'));
   });
 }
