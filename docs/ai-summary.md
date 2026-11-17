@@ -1,7 +1,12 @@
 # Daily AI summaries
 
-This document describes the implemented daily nutrition-summary workflow. The
-phone supplies a bounded snapshot of final locally saved meals, the backend
+Status: the phone side is implemented. The backend side described here was
+built in the retired TypeScript backend and is **not yet ported to Go**; the
+port is tracked in [`backend/TODO.md`](../backend/TODO.md) section 4. Until
+then this document is the contract the Go port must meet. Route paths and
+provider settings below are the TypeScript-era ones.
+
+The phone supplies a bounded snapshot of final locally saved meals, the backend
 computes deterministic statistics, and OpenRouter generates only the prose.
 The feature does not synchronize the general meal database.
 
@@ -68,9 +73,7 @@ data. Meal timestamps must be inside `[summary date - 7 days, summary date)` in
 the supplied timezone. The server repeats all date, size, nutrient, locale, and
 sparse-data checks.
 
-The authoritative backend schema is in
-[`service.ts`](../backend/src/services/summaries/service.ts). The app
-request types are in
+The app request types are in
 [`ai_summary_models.dart`](../app/calorify/lib/core/ai_summary/ai_summary_models.dart).
 
 ## API and concurrency
@@ -134,8 +137,6 @@ The app's `local_ai_summaries` Drift table is keyed by summary local date and
 stores the typed response plus resolved locale. It is removed by the normal
 local clear-all transaction. The request snapshot is not persisted locally.
 
-Use the user-scoped diagnostic command documented in
-[`backend/README.md`](../backend/README.md) to inspect retained summary state.
 General logs and metrics contain no meal snapshot, meal names, profile values,
 or user ID. HTTP body capture is disabled because the request contains health
 data.
@@ -147,7 +148,4 @@ analysis-session input, and legacy GET path were removed. Before deploying the
 migration that drops the old batch table, operators must stop legacy
 submissions and confirm every previously submitted batch is terminal.
 
-Model configuration and the coordinated cleanup procedure are maintained in
-the [backend deployment runbook](../backend/DEPLOYMENT.md). The backend route
-and operational overview are also summarized in
-[`backend/README.md`](../backend/README.md).
+The Go backend has no summary route, table or configuration yet.

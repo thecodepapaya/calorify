@@ -49,7 +49,8 @@ decimal values in the snapshot and round only for display.
 
 ## Contract and persistence
 
-Add an authenticated endpoint:
+Add an authenticated endpoint. The path below is from the TypeScript-era plan;
+the Go API uses `/users/...` routes, so the final path is still to be chosen:
 
 ```text
 POST /api/v1/user/profile/nutrition-targets/suggest

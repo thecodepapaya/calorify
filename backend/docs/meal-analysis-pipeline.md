@@ -50,7 +50,7 @@ User Input (Text / Image)
 
 ### 3. USDA Retrieval and Scaling
 
-- All ingredient names are embedded in one batch call to Ollama (`embeddinggemma-2`, 768 dimensions). Query text is `"task: search result | query: " + canonical_name`; the index-time prefix `"title: none | content: " + description` is applied by `cmd/usda -embed*`.
+- All ingredient names are embedded in one batch call to Ollama (`embeddinggemma-2`, 768 dimensions). Query text is `"task: search result | query: " + canonical_name`; the index-time prefix `"title: none | content: " + description` is applied by `cmd/usda embed` (see [USDA Database Tool](usda-database.md)).
 - `searchUsda` (`db.go`) takes the top row from base foods and the top row from branded foods, and prefers base for `BASE` ingredients and branded for `BRANDED`.
 - There is no similarity threshold and no fallback. The best candidate is taken unconditionally, and an ingredient with no candidate fails the analysis.
 - Searches run in parallel, at most 10 at once per analysis.
@@ -93,4 +93,7 @@ Rows stored before the per-component split have a flat ingredient list and do no
 2. **No similarity floor:** the top candidate is accepted whatever its score, so a poor match gives silently wrong macros.
 3. **No fallback for unresolvable ingredients:** a missing candidate fails the whole analysis.
 
-These are tracked in `TODO.md` section 3 ("LLM Nutrition Fallback", "Preparation State Filtering", "Ingredient Match & Portion Accuracy").
+4. **Rows without an energy value:** the search does not filter them, so a match on one adds 0 kcal. 18 such non-branded rows remain (see [USDA Database Tool](usda-database.md)).
+5. **Run-to-run variance:** the same input gives different totals, mostly from pass-1 unit weights and unstated counts. Measuring this is the purpose of the [evals plan](../../docs/plans/meal-analysis-evals.md).
+
+These are tracked in `TODO.md` section 3 ("LLM Nutrition Fallback", "Preparation State Filtering", "Ingredient Match & Portion Accuracy", "Evals").

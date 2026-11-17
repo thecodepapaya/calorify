@@ -26,10 +26,11 @@ USDA Maintenance / Ingestion ─────────────────
 
 Configuration is injected via environment variables:
 
+- `APP_NAME`, `PORT`: Service name and listen port (default `calorify_server`, `8000`).
 - `DATABASE_URL`: Application PostgreSQL connection string (`calorify` database).
-- `USDA_DATABASE_URL`: Read-only connection string for USDA reference database (`usda` database).
+- `USDA_DATABASE_URL`: Connection string for the USDA reference database (`usda` database). The server only reads from it.
 - `OLLAMA_URL`: Endpoint for Ollama embedding engine (defaults to `http://localhost:11435`).
-- `OPENAI_API_KEY`: API key for OpenAI structured outputs decomposition.
+- `OPENAI_API_KEY`: API key for the pass-1 and pass-2 model calls. It has no default.
 - `FIREBASE_ADMIN_SDK`: Path to the Firebase Admin SDK JSON (defaults to `firebase-adminsdk.json`; compose mounts it at `/run/secrets/firebase-adminsdk.json`).
 - `OTEL_EXPORTER_OTLP_ENDPOINT`: OpenTelemetry OTLP collector target for traces and metrics.
 

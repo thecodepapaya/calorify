@@ -1,6 +1,8 @@
 # Backend Go Roadmap & Feature Status
 
-This document tracks technical debt, implemented functionality, active bug fixes, and missing features identified by comparing the legacy TypeScript backend against the Go rewrite (`backend/`).
+This document tracks technical debt, implemented functionality, active bug fixes, and missing features in the Go backend (`backend/`). Many open items were identified by comparing it against the retired TypeScript backend.
+
+**Current focus (2026-11-17):** meal-analysis evals (section 3). Variance and accuracy come before latency.
 
 ---
 
@@ -34,7 +36,13 @@ This document tracks technical debt, implemented functionality, active bug fixes
 
 ## 3. Meal Analysis Pipeline & Clarifications
 
-- [ ] **Latency Optimization (active plan)**: Reduce e2e analysis latency from 10.96 s avg to <10 s (target ~5 s). Measurement-first plan: per-call LLM token/duration table (`llm_call`), decision tree, then levers (recipe cache, pass-2 model split, prompt/output trims). See [`docs/plans/meal-analysis-latency-optimization.md`](../docs/plans/meal-analysis-latency-optimization.md).
+- [ ] **Evals (active plan)**: Four evals that run independently (`pass1`, `pass2`, `usda`, `e2e`) with direct provider calls, through `cmd/meal_eval`. See [`docs/plans/meal-analysis-evals.md`](../docs/plans/meal-analysis-evals.md). Nothing is built. In order:
+  - Fake-client tests for `decomposeIngredients` (listed under the per-component split below).
+  - Split each stage in `service.go` into a core without storage and a wrapper that stores, so evals can call the cores; make model and reasoning effort settable.
+  - Case files v4, scorer, then the `usda`, `pass1`, `pass2` and `e2e` evals.
+  - Open decisions are listed in section 12 of the plan.
+- [ ] **Latency Optimization (secondary)**: Production average was 10.96 s (7 days to 2026-11-14). Done: `llm_call` measurement, per-component pass 2, reasoning effort `none` (local five-component meal 24.82 s to 11.03 s). Not yet re-measured in production. Remaining levers: pass-2 recipe table, output-token trim, pass-2 model split. See [`docs/plans/meal-analysis-latency-optimization.md`](../docs/plans/meal-analysis-latency-optimization.md).
+  - Open: at reasoning effort `none`, one run of "4 roti, raita, kaddu sabzi and raita" counted raita twice. Whether to keep `none` is to be decided with the evals.
 - [x] **Two-Pass LLM Decomposition**: Implemented Pass 1 component decomposition (`decomposeComponents`) and Pass 2 ingredient decomposition (`decomposeIngredients`) using OpenAI Structured Outputs in `internal/analysis/service.go`.
 - [x] **USDA Vector Embedding & Cosine Similarity Search**: Implemented batch embedding via Ollama (`embeddinggemma-2`), pgvector cosine similarity search (`1 - (embedding <=> $1::vector)`), and macro hydration in `internal/analysis/service.go` and `internal/analysis/db.go`.
 - [x] **Analysis Pipeline Execution & DB Storage**: Asynchronous background pipeline (`go s.runPipeline`) saving Pass 1 components, Pass 2 ingredients, USDA enriched macros, and final meal response in `meal_analysis` table (`internal/analysis/service.go`).
@@ -145,7 +153,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
   - Expose `GET /metrics` with Prometheus metrics for HTTP request counts/durations, upstream AI latency/errors, USDA search timings, and database connection pool statistics.
 - [ ] **Durable Analysis Session Inspector**:
   - Port `/analysis-history` operator web UI (protected by basic auth) to inspect stored sessions, pipeline stage details, image previews, and user feedback.
-  - *Status: web UI (`GET /analysis-history`) and JSON endpoint (`GET /internal/analysis-history`) are live with stage timings and failure reasons; both routes are public (no basic auth), and image previews / feedback display are pending.*
+  - *Status: web UI (`GET /analysis-history`) and JSON endpoint (`GET /internal/analysis-history`) are live with stage timings, failure reasons, input image view and per-call `llm_call` details; both routes are public (no basic auth), and feedback display is pending.*
 - [ ] **Dashboards**:
   - Pretty and comprehensive dashboards for checking analytics for meal analysis, traffic volume, analytics and telemetry.
   - *Status: the analysis-history dashboard (session analytics, status mix, step durations) is live; traffic-volume and telemetry dashboards are pending.*
@@ -158,19 +166,19 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [x] **USDA Embedding Generation CLI**: Implemented in `cmd/usda` (`embed`, `embed --force`) to generate 768-dim embeddings using Ollama (`embeddinggemma-2`).
 - [x] ~~**USDA Batch LLM Normalization (`-normalize -populate_missing`)**~~: *(Not Applicable)* Superseded by dense vector search via EmbeddingGemma-2 & pgvector (Stage 3 architecture), avoiding cost-prohibitive offline batch LLM normalization.
 - [ ] **USDA Retrieval Benchmark / Eval Harness**:
-  - Implement eval CLI tool (`cmd/usda_eval`) to benchmark vector search and top-k retrieval accuracy against the validation meal ingredient corpus.
-  - *Status: datasets and README exist under `backend/evals/`; the `cmd/usda_eval` CLI is absent from the tree. The harness design, including USDA gold labels, is in the [Meal-Analysis Evals plan](../docs/plans/meal-analysis-evals.md).*
+  - Benchmark top-1 retrieval against labelled ingredient names.
+  - *Status: planned as the `usda` eval of `cmd/meal_eval`, including gold labels for `evals/usda-resolver.cases.json`; see the [Meal-Analysis Evals plan](../docs/plans/meal-analysis-evals.md). Nothing is built.*
 - [ ] **Local Meal Analysis CLI**:
-  - Implement an interactive offline CLI (similar to `meal-analysis-cli.ts`) for developer testing of image and text analysis without running the HTTP server.
+  - Implement an interactive CLI for developer testing of image and text analysis without running the HTTP server.
+  - *Status: the planned `e2e` eval runs the pipeline stages without the HTTP server or application database; a single-input mode of that command would cover this.*
 
 ---
 
 ## 11. Database Migrations & Tooling
 
 - [x] **Core Application Schema Migration**: `migrations/calorify/000001_create_user_profile.sql` created for `users`, `health_data`, `meals`, and `meal_analysis`.
-- [x] **USDA Schema Migration**: `migrations/usda/000001_create_usda_tables.sql` created for `usda_foods` with `vector(768)` & HNSW index, `usda_dataset_version`, and fallback tables.
-- [ ] **Automated Migration Runner**:
-  - Integrate an automated migration runner on startup (or via Makefile) for both application and USDA schemas using `golang-migrate`.
+- [x] **USDA Schema Migration**: `migrations/usda/000001_create_usda_tables.sql` created for `usda_foods` with `vector(768)` & HNSW index, `usda_dataset_version`, and fallback tables. It also completes 25 rows published without an energy value (see [docs/usda-database.md](docs/usda-database.md)).
+- [x] **Migration Runner**: Application migrations run on every server start (`database.MigrateCalorify` executes every file in `migrations/calorify/`, so each statement must be repeatable). USDA migrations are applied by `cmd/usda migrate`. A versioned runner (`golang-migrate`) is a deliberate non-goal for now.
 - [ ] **Pending Migrations**:
   - Migration for `ai_summaries` table.
   - Migration for `user_fcm_tokens` table.

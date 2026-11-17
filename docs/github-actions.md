@@ -9,7 +9,7 @@ sequences live in reusable workflows or local composite actions.
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
 | `CI / GitHub Actions` | Relevant pull requests and `main` pushes | Run actionlint and Zizmor over workflows and local actions. |
-| `CI / Backend` | Backend pull requests, manual calls, and reusable calls | Type-check, lint, and test the backend; manual runs also build its production container. |
+| `CI / Backend` | Backend pull requests, manual calls, and reusable calls | Run `go vet`, `go test` and `go build` on the backend; manual runs also build its production container. |
 | `CI / Android debug builds` | Manual | Re-run phone and watch verification, then build their Android debug APKs. |
 | `CI / Generated contracts` | Contract-related pull requests and `main` pushes | Regenerate protobuf outputs and reject stale committed contracts. |
 | `CI / Flutter` | Flutter-related pull requests and `main` pushes | Verify shared packages, phone app, and watch app. |
@@ -61,4 +61,4 @@ go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
 ```
 
 Backend deployment behavior and required environment secrets are documented in
-the [backend deployment runbook](../backend/DEPLOYMENT.md).
+the [backend deployment runbook](../backend/docs/DEPLOYMENT.md).

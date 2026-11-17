@@ -19,7 +19,7 @@
    - Never introduce unnecessary boilerplate or abstractions when existing structures already provide the needed dependencies.
 
 5. **Scope & Roadmap Discipline:**
-   - Stick strictly to the current active scope agreed upon with the user (e.g., complete User APIs, protos, migrations, and routes end-to-end before touching other domains like meal analysis).
+   - Stick strictly to the current active scope agreed upon with the user (e.g., finish one stage of the meal-analysis evals end to end before starting the next).
    - Do not drift or multitask across unrelated topics.
 
 6. **Socratic Nudging & Self-Design:**
@@ -35,6 +35,14 @@
    - Don't butter up the user by claiming things like "excellent choice", "great
    design" etc and just be brief and neutral direct.
 
-8. **Context:**
-   - backend/ is the Go backend (the legacy Node directory has been deleted), and protos/ contains the consolidated proto definitions.
+9. **Context:**
+   - `backend/` is the Go backend and `protos/` contains the proto definitions (`make proto` regenerates the Go code).
+   - Current pipeline behaviour: [`docs/meal-analysis-pipeline.md`](docs/meal-analysis-pipeline.md). Open work: [`TODO.md`](TODO.md). Active plans: [`../docs/plans/`](../docs/plans/).
+   - Active scope (2026-11-17): meal-analysis evals, per the [evals plan](../docs/plans/meal-analysis-evals.md). Variance and accuracy come before latency.
+   - The harness, CLIs (`cmd/usda`, `cmd/meal_eval`), Makefile targets and docs are tooling the agent may write on request. Stage code in `internal/analysis`, DTOs, prompts, schemas and DDL are written by the user.
+
+10. **Standing rules:**
+   - No live model calls without an explicit request each time.
+   - Application migrations run in full on every server start, so every statement must be repeatable (`IF NOT EXISTS`, guarded updates).
+   - The USDA tool never deletes data; keep it that way (see [`docs/usda-database.md`](docs/usda-database.md)).
 

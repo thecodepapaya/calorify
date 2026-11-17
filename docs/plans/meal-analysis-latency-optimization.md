@@ -1,8 +1,24 @@
 # Meal-Analysis Latency Optimization Plan
 
-Status: active plan (agreed 2026-11-14)
+Status: secondary to the [evals plan](meal-analysis-evals.md) since 2026-11-16; variance and accuracy come first. Agreed 2026-11-14.
 Owner: Ashutosh (core logic) + agent (mechanical plumbing, on request)
 Scope: `backend/internal/analysis/` pipeline latency. No pass-1/pass-2 merge; two-pass decomposition is a quality invariant.
+
+## 0. Where this stands (2026-11-17)
+
+| Item | State |
+|---|---|
+| Phase 0, `llm_call` measurement | Done, including reasoning tokens, effort, finish reason, response model and service tier |
+| Phase 1 readout | Done (section 4) |
+| Scenario A, one pass-2 call per component | Done. Five-component meal: pass 2 12.07 s to 6.97 s |
+| Reasoning effort `none` on both passes | Done. Same meal end to end: 19.10 s to 11.03 s; simple meals about halved (parantha 10.55 s to 4.75 s). One possible quality regression seen; to be judged with the evals |
+| L2 prompt caching | Closed. Prompts are under the 1,024-token cache floor, so `cached_tokens` is always 0 |
+| L1 image compression | User-owned, in progress |
+| L3 recipe table | Draft, open decisions listed in L3 |
+| L4 model split, L5 output trim | Not started; both need the evals first |
+| Production re-measure | Not done since the split and the effort change |
+
+Before-and-after records: [pass-2 split evaluation](../../backend/evals/pass2-per-component-split-evaluation.md). The 5 s target applies to cache or recipe hits and is not a hard limit.
 
 ## 1. Objective
 
@@ -26,13 +42,13 @@ The two LLM calls are 96% of wall clock. USDA hydration is already sub-second af
 ## 2. Constraints and standing rules
 
 - **No pass merge.** Two-pass decomposition stays. (User decision, 2026-11-14; backed by the recorded one-call experiment: 28/36 vs 36/36 fixture reliability, see [backend/evals/luna-one-call-meal-analysis-evaluation.md](../../backend/evals/luna-one-call-meal-analysis-evaluation.md).)
-- **No live model calls for validation.** Every output-affecting change is validated offline: eval-harness replay against recorded artifacts, or DB-persisted stage artifacts. Never spend money on live eval runs without an explicit request.
-- **Eval harness is absent.** (Rebuild design: [Meal-Analysis Evals plan](meal-analysis-evals.md).) `cmd/meal_eval` and `cmd/usda_eval` no longer exist in the tree. Historical baselines (recorded 2026-11-01): meal eval 20/36 runs passing, 89.1% hard assertions; USDA resolver top-1 89/115. Any model-level change requires rebuilding the harness first (see L4).
+- **No live model calls without an explicit request.** The evals make direct provider calls, but each live recording is approved by the user; scoring is offline.
+- **Eval harness is absent.** The design is in the [Meal-Analysis Evals plan](meal-analysis-evals.md): four independent evals (`pass1`, `pass2`, `usda`, `e2e`). Historical baselines from the removed harness (2026-11-01): meal eval 20/36 runs passing, 89.1% hard assertions; USDA resolver top-1 89/115. Any output-affecting change (L3, L4, L5, reasoning effort) is judged with that harness.
 - **Mentorship split (backend/AGENTS.md).** The user writes core logic: DDL, DTOs, pipeline code, cache design decisions. The agent handles mechanical work when asked: instrumentation plumbing, dashboards, eval-harness tooling, docs.
 - **No backward compatibility.** Single pre-production deployment state; direct single-path code, no fallback shims.
 - **Single VM, no Redis deployed.** Any "cache" defaults to process-local unless a concrete reason forces otherwise.
 - **Migrations run on every boot, unversioned.** `MigrateCalorify` globs `migrations/calorify/*.sql`, sorts the paths lexicographically, and executes each file in order (`internal/database/database.go:42-79`). There is no version table, so every file re-runs on every startup and each must stay idempotent (`CREATE TABLE IF NOT EXISTS`, guarded `ALTER`s). New DDL can be appended to `000001_create_user_profile.sql` or added as a new numbered file; file count is not the constraint, re-execution is. A versioned runner (golang-migrate) is a deliberate non-goal for now.
-- **Pipeline timeout**: the whole background pipeline runs under a 30 s context (`service.go` runPipeline). Cuts here reduce timeout pressure for free.
+- **Pipeline timeout**: the whole background pipeline runs under a 30 s context (`service.go` runPipeline), reduced from 45 s because the production USDA database is fully indexed and lookups resolve in about 1.5 s or less.
 
 ## 3. Phase 0 - Per-call measurement (agreed design)
 
@@ -83,7 +99,7 @@ Column spec (the user writes the DDL; this is the agreed shape):
 ### 3.4 Phase 0 acceptance
 
 - Table created via startup migration on next deploy; `go vet` / `go test` / `go build` clean.
-- After ~1 day of prod traffic, each completed analysis has 2 `llm_call` rows and the dashboard shows them.
+- After ~1 day of prod traffic, each completed analysis has its `llm_call` rows (one for pass 1 and, since the per-component split, one per component for pass 2) and the dashboard shows them.
 - Prompts/DDL live in one place; no duplicate tracking beyond the agreed timestamp overlap.
 
 ## 4. Phase 1 - Data readout and decision tree
@@ -145,16 +161,18 @@ Findings:
 
 - **Duration is a linear function of completion tokens, not prompt tokens.** Prompt tokens are flat (985-998 on P1, 878-1216 on P2) while duration moves 2.4x and 4.3x.
 - **The cost mix flips with meal size.** Fixed floor share of LLM time: 60% (guava), 36% (parantha), 19% (large). Decode share: 40% / 64% / 81%.
-- **Hydration is a local constant.** 2.76-3.36 s here; 16-analysis average 4.14 s, sd 2.85. That is 13-29% of e2e and far above the 0.46 s prod figure; verify before treating it as out of scope.
+- **Hydration is a local constant.** 2.76-3.36 s here; 16-analysis average 4.14 s, sd 2.85. That is 13-29% of e2e and far above the 0.46 s prod figure. Explained 2026-11-17: the local USDA database is only partly embedded and indexed (138,560 of 455,458 branded rows), while production is fully indexed. Hydration stays out of scope.
 - **`cached_tokens` = 0 on all six calls.** The prompt is ~1k tokens, below the cache floor. Prompt caching cannot help.
 - **P1 is the more expensive call per unit of structure.** 168 completion tokens per component vs 101 per ingredient, and a 0.86 s higher fixed floor. The output is verbose: every portion carries three `per_unit_*: null` fields (`backend/internal/analysis/schema.go:44-53`), and canonical names are long strings.
-- **Possible reasoning tokens in P1.** P1's JSON is 1775 chars for 839 completion tokens (2.1 chars/token) while P2's is 4297 chars for 1415 tokens (3.0 chars/token). If the visible P1 JSON is ~500-590 tokens, roughly 250-350 completion tokens are not visible output, i.e. reasoning. This is a hypothesis; streaming or a trivial-prompt probe would settle it.
+- **Possible reasoning tokens in P1.** P1's JSON is 1775 chars for 839 completion tokens (2.1 chars/token) while P2's is 4297 chars for 1415 tokens (3.0 chars/token). If the visible P1 JSON is ~500-590 tokens, roughly 250-350 completion tokens are not visible output, i.e. reasoning. Settled 2026-11-17: `llm_call` now records `reasoning_tokens`, and both passes run at reasoning effort `none`.
 
 ### 4.2 Scenario calculations, 2026-11-14
 
 Both scenarios use the fitted model `duration = fixed + completion_tokens x ms_per_token`, with P1 = 2.46 s + 8.44 ms/token and P2 = 1.60 s + 7.43 ms/token. Savings are deltas from the measured durations.
 
 #### Scenario A - split pass 2 into one parallel call per component
+
+Implemented 2026-11-15. Measured: 12.07 s to 6.97 s against the 5.35 s predicted below; the slowest call produced 701 output tokens, more than the 505 estimated.
 
 Formula: `wall = fixed + max_i(tokens_i) x 7.43 ms`, where `tokens_i` is the output for component i. The fixed floor is paid once in wall time because the calls overlap, but n times in provider compute.
 
@@ -240,7 +258,9 @@ Attack in this order:
 3. **Measure and attack the fixed floor** (1.6-2.5 s per call). It is half the cost of simple meals. Split TTFT from reasoning with streaming or a trivial-prompt probe before choosing between a faster model and lower reasoning effort.
 4. **Verify hydration.** If local ~3 s is real, it is the third-largest cost; if prod is genuinely 0.46 s, ignore it.
 
-Do not spend effort on prompt trimming or prompt caching. A smaller pass-2 model is plausible but needs an offline eval before it is a decision. Scenario A is the strongest lever for multi-component meals; Scenario B is the only one that helps single-component meals.
+Do not spend effort on prompt trimming or prompt caching. A smaller pass-2 model is plausible but needs an eval before it is a decision. Scenario A is the strongest lever for multi-component meals; Scenario B is the only one that helps single-component meals.
+
+Outcome: Scenario A was implemented, and item 3 was addressed by setting reasoning effort to `none` (section 0). Items 1 and 2 (output-token trims, Scenario B) are open.
 
 
 ## 5. Phase 2 - Levers
@@ -253,7 +273,9 @@ Ordered by expected impact-to-risk ratio, pending Phase 1 data. Each lever state
 - Expected effect: cuts a chunk of pass 1's 5.66 s; magnitude visible in Phase 0 data (pass-1 duration vs pass-2 as the before/after control).
 - Validation: KPI re-measure; pass-2 row as control.
 
-### L2. Prompt-caching fix (measurement-driven, likely small)
+### L2. Prompt-caching fix (closed)
+
+Closed 2026-11-14: both prompts are under the cache floor, so there is nothing to fix. Kept for the record.
 
 - If `cached_tokens` is 0: find why (system prompt under the ~1024-token cache threshold, or dynamic content ahead of the static prefix) and fix ordering so the static prompt + schema hit the cache.
 - Expected effect: reduces TTFT on pass 2 (its system prompt + schema are static consts). Pass 1's image content will never cache; only its static prefix can.
@@ -287,7 +309,7 @@ The USDA Survey file already holds what the table needs, and ingestion drops it 
 | Earlier question | Answer under a fixed table |
 |---|---|
 | Key | Embedding search on the component's canonical name |
-| Hit rate | Measure offline by replaying stored pass-1 outputs |
+| Hit rate | Measure offline by looking up stored pass-1 components in the table |
 | Storage | Table in the USDA database |
 | Staleness of cached pass-2 output | Gone: recipes are fixed data, not model output |
 | Invalidation | Tied to the USDA dataset version |
@@ -355,15 +377,15 @@ Operations:
 6. O1: how ingredient names are shown in other languages.
 7. C1, C4: how deep to expand, and whether single-ingredient dishes count as recipes.
 
-Expected effect: pass-2 cost times (1 - hit rate). The hit rate is unknown until it is replayed against stored pass-1 outputs.
+Expected effect: pass-2 cost times (1 - hit rate). The hit rate is unknown until stored pass-1 components are looked up in the table.
 
-Validation: offline replay of stored pass-1 outputs for hit rate and calorie difference against the pass-2 result; then the [evals plan](meal-analysis-evals.md) for variance and accuracy, comparing recipe hits with pass 2 on the same cases.
+Validation: an offline lookup of stored pass-1 components for hit rate; then the [evals plan](meal-analysis-evals.md), where the `pass2` eval's frozen components give a like-for-like comparison of recipe hits against pass-2 output, and `e2e` gives the effect on totals.
 
 ### L4. Pass-2 model split (prerequisite: eval harness rebuild)
 
 - Thesis: pass 1 is the accuracy-critical vision+reasoning call; pass 2 is schema-constrained JSON extraction. A smaller/faster model may hold pass-2 quality while cutting its 4.84 s substantially.
 - The user's current position: cheaper models degrade accuracy. That claim is untested for pass 2 specifically; the eval harness exists to test exactly this.
-- **Prerequisite: rebuild `cmd/meal_eval`** (offline replay against recorded pass-1 inputs from `meal_analysis.decomposed_component`; no live calls). Historical baseline to beat: 89.1% hard assertions. Harness rebuild is mechanical tooling (agent-owned, on request).
+- **Prerequisite: the `pass2` eval** from the [evals plan](meal-analysis-evals.md). It runs pass 2 on frozen pass-1 components, so two models are compared on identical input, with the model set by a flag. Live recordings need the user's approval.
 - Decision gate: only switch if the eval shows no meaningful regression. If it regresses, the lever is closed and we say so.
 
 ### L5. Output-token trim (data-driven)
@@ -385,14 +407,14 @@ Validation: offline replay of stored pass-1 outputs for hit rate and calorie dif
 | M0 | `llm_call` DDL + `SaveLlmCall` + call-site capture (user) ; dashboard columns (agent) | Deployed; prod rows accumulating. Dashboard panel and per-analysis call list wired 2026-11-14. |
 | M1 | L1 image compression lands (user) | Prod KPI shows pass-1 drop |
 | M2 | Readout: run the decision tree on accumulated rows | Levers picked with evidence |
-| M3 | Chosen levers (subset of L2-L5) implemented and validated offline | Eval replay clean; hit-rate counters if L3 |
+| M3 | Chosen levers (subset of L3-L5) implemented and judged with the evals | No regression against the eval baseline; hit-rate counters if L3 |
 | M4 | Prod re-measure | 7d avg e2e < 10 s; assess distance to 5 s and whether remaining levers are worth it |
 
 M1 can proceed in parallel with M0 since it needs no instrumentation to start, only to verify.
 
 ## 7. Verification loop (applies to every lever)
 
-1. Offline validation first: eval-harness replay against recorded artifacts, or DB-artifact inspection. No live model calls.
+1. Validate with the evals or by inspecting stored stage outputs. Live recordings only on the user's request.
 2. Focused checks: `go vet ./...`, `go test ./...`, `go build ./...` (GOCACHE redirected to /tmp).
 3. Deploy; watch the KPI panel and `llm_call` rows for at least a day of traffic.
 4. Confirm untouched behavior: pass-1/pass-2 stage persistence and the polling endpoint statuses must remain intact; any output-shape change must be checked against both storage shapes (encoding/json stage columns and protojson final response).
@@ -401,8 +423,8 @@ M1 can proceed in parallel with M0 since it needs no instrumentation to start, o
 
 | Risk | Mitigation |
 |---|---|
-| Recipe table returns a wrong or ill-fitting recipe (wrong dish, wrong variant, ignored user changes) | Accept rule decided before shipping L3 (case M1); offline replay and eval comparison against pass 2 |
+| Recipe table returns a wrong or ill-fitting recipe (wrong dish, wrong variant, ignored user changes) | Accept rule decided before shipping L3 (case M1); eval comparison against pass 2 on the same frozen components |
 | Smaller pass-2 model degrades extraction quality | Eval harness gate before any switch; lever closed on regression |
 | Prompt-cache fix breaks structured outputs | Schema/prompt untouched; only message ordering changes; schema test suite |
-| Measurement table grows unbounded | 2 rows per analysis; revisit only if storage is ever observed as a problem |
+| Measurement table grows unbounded | One row per model call (1 plus the component count per analysis); revisit only if storage is ever observed as a problem |
 | 30 s pipeline timeout masks real duration on failures | `error` + duration still recorded on failed calls; timeout untouched by this plan |

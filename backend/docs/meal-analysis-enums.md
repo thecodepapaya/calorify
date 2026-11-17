@@ -1,40 +1,48 @@
 # Meal-Analysis Enum Reference
 
-Canonical reference for enum values serialized and parsed across the meal-analysis workflow in `backend`.
+Enum values used by the meal-analysis pipeline in `backend`. The sources of truth are the struct tags in `internal/analysis/schema.go` (model output) and the proto files under `protos/` (stored and returned records). All values are uppercase.
 
-Codes use uppercase `SCREAMING_SNAKE_CASE` (except legacy compact model origins which retain lowercase compatibility).
+## Model output (pass 1 and pass 2)
 
-## Meal Types & Provenance
-
-| Field | Allowed values |
-| --- | --- |
-| `origin` | `user_text`, `model_inferred` |
-| `meal_type` | `BREAKFAST`, `LUNCH`, `DINNER`, `SNACK`, `UNSPECIFIED` |
-| `portion.kind` | `AMOUNT`, `COUNT` |
-| `preparation.method` | See Preparation Methods table below |
-| `variation_type` | `INGREDIENT_AMOUNT`, `INGREDIENT_VARIANT`, `INGREDIENT_PRESENCE`, `PREPARATION` |
-| `retrieval_intent` | `GENERIC_INGREDIENT`, `BRANDED_PRODUCT`, `AMBIGUOUS` |
-
-## Preparation Methods
-
-Canonical preparation codes used for accurate USDA matching:
-
-| Code | Description | Typical Caloric Impact |
+| Field | Values | Set by |
 | --- | --- | --- |
-| `RAW` | Uncooked / fresh state | Baseline water content |
-| `BOILED` | Boiled or poached in water | Water uptake / nutrient leach |
-| `STEAMED` | Steamed with minimal added fat | Retains water and nutrients |
-| `ROASTED` | Oven roasted / baked dry | Moisture reduction |
-| `GRILLED` | Direct heat grilled | Moisture loss, minimal fat |
-| `FRIED_PAN` | Sautéed or shallow fried | Moderate fat absorption |
-| `FRIED_DEEP` | Submerged deep fried | Significant fat absorption |
-| `BAKED` | Baked in oven | Moisture loss |
-| `DRIED` | Dehydrated / sundried | Concentrated nutrient density |
-| `CANNED` | Preserved in brine / syrup | Moisture and sodium addition |
+| `meal_type` | `UNKNOWN`, `BREAKFAST`, `LUNCH`, `DINNER`, `SNACK` | Pass 1. The server replaces it with a value chosen from the local capture hour, except between 23:00 and 05:00 |
+| `meal_health.health_score` | `NEUTRAL`, `HEALTHY`, `UNHEALTHY` | Pass 1 |
+| `preparation_method` | See below | Pass 1, per component |
+| `portion.kind` | `EXACT`, `BULK`, `PINCH` | Both passes |
+| `portion.origin` | `USER_STATED`, `MODEL_INFERRED` | Both passes |
+| `ingredient_type` | `BASE`, `BRANDED` | Pass 2, per ingredient |
 
-## Retrieval Intent
+### Portion kind
 
-- `GENERIC_INGREDIENT`: Matches generic Foundation and SR Legacy foods in the USDA dataset.
-- `BRANDED_PRODUCT`: Prioritizes Branded food entries in the USDA dataset matching specific product names and manufacturers.
-- `AMBIGUOUS`: Fails closed or asks for user clarification rather than guessing an ungrounded food variant.
+| Value | Meaning | `value`, `min_value`, `max_value` |
+| --- | --- | --- |
+| `EXACT` | Countable food (2 idli, 3 eggs) | A count. Grams come from `per_unit_grams`, which is required |
+| `BULK` | Continuous food (dal, rice, oil) | Grams |
+| `PINCH` | Seasoning | Resolves to 0 g |
 
+### Portion origin
+
+- `USER_STATED`: the user gave the quantity. Minimum, value and maximum are equal.
+- `MODEL_INFERRED`: the model estimated it, with a range. Only these portions can trigger a clarification question.
+
+### Ingredient type
+
+- `BASE`: a commodity. The USDA search prefers Foundation, SR Legacy and Survey rows.
+- `BRANDED`: a packaged product. The search prefers Branded rows.
+
+### Preparation methods
+
+`UNKNOWN`, `RAW`, `BOILED`, `SIMMERED`, `STEAMED`, `PRESSURE_COOKED`, `POACHED`, `BAKED`, `ROASTED`, `GRILLED`, `TOASTED`, `SAUTEED`, `STIR_FRIED`, `SHALLOW_FRIED`, `DEEP_FRIED`, `BLENDED`.
+
+The method is stored and sent to pass 2. It is not used to filter the USDA search.
+
+## Stored and returned records
+
+| Field | Values | Notes |
+| --- | --- | --- |
+| `meal_analysis.status` | `INITIATED`, `COMPONENT_DECOMPOSED`, `INGREDIENT_DECOMPOSED`, `USDA_MACRO_HYDRATED`, `CLARIFICATION_GENERATED`, `CLARIFICATION_RESOLVED`, `PRESENTED`, `FAILED` | `CLARIFICATION_RESOLVED` is defined but never set; there is no answers route |
+| `llm_call.stage` | `PASS_1`, `PASS_2` | |
+| `Clarification.type` | `QUANTITY`, `INGREDIENT_ALTERNATIVE`, `PREPARATION_METHOD` | Only `QUANTITY` is generated |
+
+Retired values that may appear in old rows or in `evals/meal-analysis.cases.json` v3: portion kinds `COUNT` and `AMOUNT`, and lowercase origins `user_text` and `model_inferred`.

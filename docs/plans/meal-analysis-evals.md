@@ -1,7 +1,7 @@
 # Meal-Analysis Evals Plan
 
-Status: plan, self-reviewed against the code (2026-11-16); nothing built.
-Scope: measuring variance and accuracy of `backend/internal/analysis`, and of USDA retrieval.
+Status: high-level plan, revised 2026-11-17; nothing built. Open decisions in section 12.
+Scope: measuring variance and accuracy of `backend/internal/analysis`, per stage and end to end.
 Related: [Meal-Analysis Pipeline](../../backend/docs/meal-analysis-pipeline.md), [eval datasets](../../backend/evals/README.md), [latency plan](meal-analysis-latency-optimization.md) (L4 depends on this harness).
 
 ## 1. Why
@@ -9,73 +9,123 @@ Related: [Meal-Analysis Pipeline](../../backend/docs/meal-analysis-pipeline.md),
 Priority is variance and accuracy, ahead of latency. Today neither can be measured:
 
 - The same input gives different totals. "bread with 2 omlettes" produced 373, 472 and 430 kcal on three consecutive runs of the same code (2026-11-15).
-- No harness exists. `cmd/meal_eval` and `cmd/usda_eval` are absent, and `meal-analysis.cases.json` uses the retired `COUNT`/`AMOUNT` vocabulary.
-- No change to prompts, portions or matching can be judged as better or worse.
+- No harness exists. `cmd/meal_eval` is absent, and `meal-analysis.cases.json` uses the retired `COUNT`/`AMOUNT` vocabulary.
+- A wrong total cannot be traced to the stage that caused it.
 
-The evals must answer four questions:
+## 2. Decisions
 
-1. **Variance:** for a fixed input, how far apart are repeated results, and which stage causes it?
-2. **Structure:** does the pipeline find the right components, keep stated quantities, and choose the right portion kind?
-3. **Accuracy:** is the calorie total inside a sourced reference band?
-4. **Retrieval:** does a canonical name resolve to an acceptable USDA row?
+| Decision | Detail |
+|---|---|
+| Four evals, each runnable alone | `pass1`, `pass2`, `usda`, `e2e` |
+| Direct provider calls | Pass 1 and pass 2 evals call the model through the same request-building code as production, without the application database |
+| Production code may change for reuse | Each stage is split into a core (no storage) and a wrapper that stores (section 4). This replaces the earlier rule of no changes to `internal/analysis` |
+| Live calls need an explicit request | Every live command prints its call count first and needs `--live` to proceed. Scoring is always offline |
+| Evals measure; they do not gate CI | Only the scorer's unit tests run in CI |
+| Text input only in v1 | Images deferred |
 
-## 2. Constraints
-
-- **Live model calls need an explicit request each time.** Recording is the only step that spends money. Scoring is always offline.
-- **No changes to `internal/analysis` production code.** DTOs, DDL and pipeline code are user-owned ([backend/AGENTS.md](../../backend/AGENTS.md)). The harness adds only `_test.go` files there.
-- **The evals measure; they do not gate CI.** No live calls in CI. Only the scorer's unit tests run there.
-- **Text input only in v1.** Image cases are deferred (section 12).
-- **Local application database only.** Recording writes `meal_analysis` and `llm_call` rows.
-
-## 3. Design
-
-Recording and scoring are separate steps, joined by a run directory.
+## 3. The four evals
 
 ```text
-cases (JSON) ──> recorder (live, explicit) ──> run directory ──> scorer (offline) ──> report
-                                                    ^
-                 existing meal_analysis rows ───────┘  (export, free)
+case input ──> [pass 1] ──> components ──> [pass 2] ──> ingredients ──> [usda] ──> macros
+     │             ▲                           ▲                           ▲
+     │        pass1 eval                  pass2 eval                   usda eval
+     │      (live case input)       (frozen components)        (names with gold rows)
+     └──────────────────────────── e2e eval ─────────────────────────────────┘
 ```
+
+| Eval | Input | Calls per run | Needs | Answers |
+|---|---|---|---|---|
+| `pass1` | Case input (text, locale, country, timezone, time) | 1 model call | API key | Right components? Stated quantities kept? Right portion kind and unit weight? How much do these vary? |
+| `pass2` | One frozen pass-1 component plus its case context | 1 model call | API key | Right ingredients? Do ingredient grams add up to the component? How much do names and grams vary on identical input? |
+| `usda` | A canonical name and ingredient type | 0 model calls | Ollama, USDA database | Does the name resolve to an acceptable row? What does name drift cost? |
+| `e2e` | Case input | 1 + one per component | All of the above | Is the calorie total inside the reference band? How wide is the spread? |
+
+**Why frozen input for pass 2:** pass 2's output depends on what pass 1 produced. Feeding every run the same component makes all remaining spread pass 2's own. This replaces the earlier "replay" suite.
+
+**Why e2e still matters:** stage evals cannot show how errors combine. A pass-1 unit weight that is 30% high and a USDA row that is 30% low can cancel or compound.
+
+**One scorer per stage, reused:** an e2e run records every stage's output, so the pass-1, pass-2 and USDA scorers also run on e2e results. The e2e report adds only totals, bands and spread.
+
+No eval writes to the application database. Nothing appears on the dashboard, and no eval user is needed.
+
+## 4. Code changes for reuse
+
+### 4.1 The problem
+
+Each stage function in `service.go` does five things in one body: builds the request, calls the provider, writes `llm_call`, parses and validates, and saves the stage output under an analysis id. An eval needs the first, second and fourth without the storage.
+
+| Function today | Stores | Blocks reuse because |
+|---|---|---|
+| `decomposeComponents` | `llm_call`, `meal_component` | Needs an analysis id and the application database |
+| `decomposeIngredients` | `llm_call` per call, `meal_ingredient` | Same; the per-component call is a closure, so one component cannot be run alone |
+| `enrichUsdaMacro` | `usda_enriched` | Same; lookup of a single name is not callable on its own |
+| `generateClarification`, `prepareFinalResponse` | Their columns | Same |
+
+Model, reasoning effort and both prompts are package constants, so a run cannot compare two models without a code edit.
+
+### 4.2 Target shape
+
+Split each stage into a **core** that takes inputs and returns outputs, and a **wrapper** that calls the core and stores the result. Production behaviour does not change.
+
+| Core (new) | Takes | Returns | Uses |
+|---|---|---|---|
+| Pass 1 | request | `Pass1DTO`, call record | model client |
+| Pass 2, one component | request context, one component | `Pass2CallDTO`, call record | model client |
+| Pass 2, all components | request, `Pass1DTO` | `Pass2DTO`, call records | the one-component core, in parallel |
+| USDA lookup | names with ingredient types | one candidate per name, with similarity | Ollama, USDA database |
+| USDA enrichment | `Pass2DTO` | `UsdaEnriched` | the lookup core, then scaling |
+| Clarification | `Pass1DTO`, `UsdaEnriched`, locale | `Clarifications` | nothing external |
+| Final response | request, stage outputs | `MealPackage` | nothing external |
+
+Rules for a core:
+
+- It never reads or writes `s.DB` and takes no analysis id.
+- It returns its `LlmCallRecord`s, including those of failed calls. The wrapper adds the analysis id and saves them.
+- Validation that fails an analysis today (`pass 1 returned no components`, `EXACT` without per-unit grams, no USDA candidate) stays in the core, so evals see the same failures.
+- Tracing spans stay in the core.
+
+### 4.3 Overrides
+
+Model and reasoning effort become settings on `Service` that default to today's constants, so an eval run can compare two models from flags. Prompts and schemas stay in code; a prompt change is identified by the code hash in the run manifest (section 7).
+
+### 4.4 Tests that should exist before the split
+
+`decomposeIngredients` has no fake-client test today ([TODO.md](../../backend/TODO.md) section 3). The split moves this code, so tests for ordering, nesting, failure cancellation and `llm_call` rows should be written first and stay green through it.
+
+## 5. Harness layout
 
 | Part | Where | Notes |
 |---|---|---|
-| Cases | `backend/evals/*.cases.json` | Versioned inputs and expectations |
-| Pipeline recorder | opt-in test in `internal/analysis` | Calls `runPipeline` synchronously |
-| Pass-2 replay recorder | same | Re-runs `decomposeIngredients` on one stored pass-1 output |
-| Resolver recorder | same | Calls the real `getEmbeddings` and `searchUsda`; no model calls |
-| DB exporter | same | Turns existing rows into a run directory |
-| Scorer | `internal/evals` (pure Go) + `cmd/meal_eval score` | Deterministic; unit-tested with fixtures; reuses `analysis.ParsePass1`, `ParsePass2` and `PortionDTO.Grams` |
+| Cases | `backend/evals/*.json` | Versioned inputs and expectations (section 6) |
+| Runner | `backend/internal/evals` | Loads cases, calls the cores, writes a run directory |
+| Scorer | `backend/internal/evals` | Pure Go; unit-tested with fixtures; reuses `ParsePass1`, `ParsePass2` and `PortionDTO.Grams` |
+| CLI | `backend/cmd/meal_eval` | Subcommands, in the style of `cmd/usda` |
+| Make targets | `backend/Makefile` | `eval-pass1`, `eval-pass2`, `eval-usda`, `eval-e2e`, `eval-score` |
 
-**Why tests for recording:** `runPipeline`, `decomposeIngredients`, `searchUsda` and `getEmbeddings` are unexported. A `cmd` binary would need them exported (a production change) or would copy the SQL (the eval would then test a copy). A `_test.go` file in the package reaches them as they are.
+CLI commands:
 
-**Opt-in, not auto-run:** the existing DB tests run whenever Postgres is reachable. Recorder tests must not: each skips unless its own env variable is set (section 6). They run through Makefile targets that pass `-count=1` (no cached results), `-run` (one test) and `-timeout 60m` (the default 10 minutes is shorter than a baseline).
+| Command | Does |
+|---|---|
+| `pass1`, `pass2`, `usda`, `e2e` | Run that eval and write a run directory. Dry run unless `--live` (not needed for `usda`) |
+| `freeze` | Build the pass-2 input file from a `pass1` run (section 6.2) |
+| `score <run>` | Score a run; `--baseline <run>` adds differences |
 
-## 4. Suites
+Common flags: `--cases`, `--tags`, `--repeats`, `--label`, `--model`, `--reasoning-effort`.
 
-| Suite | Question | Live calls | Repeats |
-|---|---|---|---|
-| `resolver` | Retrieval | none (Ollama + Postgres) | 1 |
-| `structure` | Structure | yes | 3 per case |
-| `variance` | Variance | yes | 5 per case, tagged cases only |
-| `replay` | Which stage causes variance | yes, pass 2 only | 5 per tagged case |
-| `accuracy` | Accuracy | none extra; scored on the same runs | - |
+**Why a binary and not opt-in tests:** the earlier plan used `_test.go` recorders because the stage functions were unexported and tied to storage. With exported cores, a binary is simpler to run and cannot be triggered by `go test ./...`.
 
-## 5. Case files
+## 6. Cases
 
-### 5.1 `meal-analysis.cases.json` v4
+### 6.1 `meal-analysis.cases.json` v4
 
-Changes from v3:
+Used by `pass1` and `e2e`. Changes from v3:
 
 - `portion.kind`: `COUNT` becomes `EXACT`, `AMOUNT` becomes `BULK`; `PINCH` allowed.
 - `origin` values upper-cased to match the DTO (`USER_STATED`, `MODEL_INFERRED`).
 - New `tags` per case: any of `smoke`, `variance`, `accuracy`.
-- New `ingredientKeys` per component: named groups used to line up ingredients across runs. They replace `requiredIngredientGroups`; `diagnosticIngredientGroups` stays.
+- New `ingredientKeys` per component: named groups used to line up ingredients across runs. They replace `requiredIngredientGroups`.
 - New optional `reference` per case: a calorie band with its source.
 - New optional `expectNoFood` for non-food input.
-
-`input` maps to the request as: `text` to `text`, `locale` to `meta_info.locale`, `countryCode` to `country_code`, `timeZone` to `timezone`, `capturedAt` to `timestamp`.
-
-Shape of one case:
 
 ```json
 {
@@ -91,231 +141,188 @@ Shape of one case:
         {"key": "egg", "aliases": ["egg", "eggs"], "required": true},
         {"key": "cooking-fat", "aliases": ["butter", "oil", "ghee"], "required": false}
       ]
-    },
-    {
-      "key": "bread",
-      "aliases": ["bread"],
-      "portion": {"kind": "EXACT", "origin": "MODEL_INFERRED", "estimateMin": 1, "estimateMax": 4, "perUnitGrams": {"estimateMin": 20, "estimateMax": 45}},
-      "ingredientKeys": [{"key": "bread", "aliases": ["bread"], "required": true}]
     }
-  ],
-  "forbiddenIngredientGroups": []
+  ]
 }
 ```
 
-The bands in this example are placeholders to show the shape, not reviewed values.
+The bands in this example show the shape; they are not reviewed values.
 
-### 5.2 Case set
+Target about 30 cases: the 12 existing v3 cases converted, about 8 everyday Indian meals from real local inputs, about 5 with unstated quantities, and about 5 countable-against-continuous probes. About 10 carry the `variance` tag.
 
-Target about 30 cases:
+### 6.2 `pass2-components.json`
 
-| Group | Count | Source |
-|---|---|---|
-| Global stress set | 12 | Existing v3 cases, converted |
-| Everyday Indian meals | about 8 | Real inputs from the local DB (roti, dal, rice, sabzi, raita, paratha, milkshake, guava) |
-| Unstated quantities | about 5 | "bread with 2 omlettes", "roti and sabzi", "dal rice" |
-| Countable vs continuous probes | about 5 | eggs, idli, momos against dal, curry, soup |
+Input for the `pass2` eval. Each entry is one pass-1 component exactly as pass 1 emits it, with the case id, component key and request context.
 
-About 10 cases carry the `variance` tag.
+- **Built by `freeze`** from a `pass1` run: for each case, one run that passed every structure assertion.
+- **Reviewed by the user**, then committed. It changes only when deliberately re-frozen, so pass-2 results stay comparable across prompt changes.
+- **Expectations are not copied.** The scorer looks up `ingredientKeys` in the meal case by case id and component key.
 
-### 5.3 Reference bands
+### 6.3 `usda-resolver.cases.json` v2
 
-A band is only valid with a source. The rule:
-
-- **Source:** a USDA row (`fdcId`) and its portion weights, or a product label.
-- **Computation:** portion range in grams times kcal per 100 g, written out in the `source` field.
-- **Unsourced cases** have no `reference` and are left out of accuracy numbers.
-
-Worked example, "4 roti": survey row "Bread, chappatti or roti" is 299 kcal per 100 g, with a medium roti at 40 g and a large one at 52 g. Band: 4 x 40 g to 4 x 52 g, so 478 to 622 kcal.
-
-Bands are drafted by the agent and reviewed by the user before they count.
-
-**Limit:** bands are built from the same USDA data the pipeline uses. They check portions and matching. They cannot show that a USDA value is itself wrong for a regional dish.
-
-### 5.4 `usda-resolver.cases.json` v2
-
-The file has 115 groups and no expected answers, so a hit cannot be judged today. Add gold labels:
+The file has 115 groups and no expected answers. Add gold labels:
 
 - `acceptableFdcIds`: rows that count as a correct match.
 - `primaryFdcId`: the best row, used for calorie-error reporting.
 - `expectedMiss`: true when the USDA data has no acceptable row.
 
-Labelling: for each group, list the top 5 retrieved rows plus a text search of `usda_foods` for the head noun, so the best row is found even when retrieval misses it. Pick acceptable rows by hand. Unlabelled groups are reported as unjudged. Labels are drafted by the agent and reviewed by the user.
+Labelling: for each group, list the top 5 retrieved rows plus a text search of `usda_foods` for the head noun. Unlabelled groups are reported as unjudged.
 
-`intent` maps to the search type: `BRANDED_PRODUCT` uses `BRANDED`, everything else `BASE`.
+**Second source of names:** the canonical names that `pass2` runs actually produce. `usda` can take a `pass2` run as input and report every distinct name with the row it resolves to. This is the real input distribution; the gold file is the judged subset.
 
-## 6. Recorders
+### 6.4 Reference bands
 
-### 6.1 Pipeline recorder
+A band is valid only with a source: a USDA row and its portion weights, or a product label, with the computation written in the `source` field. Unsourced cases are left out of accuracy numbers.
 
-- Skips unless `CALORIFY_EVAL_RECORD=1`.
-- Inputs by env: cases file, suite, repeats, absolute output directory. Connection settings come from the same variables the server uses.
-- **Dry run first:** prints case count, run count and estimated calls (one plus the expected component count per run), and stops unless `CALORIFY_EVAL_CONFIRM_LIVE=1`.
-- **Local guard:** refuses to run unless the application database host is `localhost` or `127.0.0.1`.
-- Upserts a `users` row with uid `eval-harness` (`meal_analysis.user_uid` references `users.uid`).
-- For each run: `CreateNewAnalysis`, then `runPipeline` synchronously, then read back the `meal_analysis` row and its `llm_call` rows.
-- **Order:** round-robin over cases, one run at a time, so repeats of a case are spread over the session.
-- A failed run is recorded with its `failure_reason`; it never stops the session.
+Worked example, "4 roti": survey row "Bread, chappatti or roti" is 299 kcal per 100 g, with a medium roti at 40 g and a large one at 52 g. Band: 478 to 622 kcal.
 
-### 6.2 Pass-2 replay recorder
+**Limit:** bands are built from the same USDA data the pipeline uses. They check portions and matching, not whether a USDA value is right for a regional dish.
 
-Isolates pass-2 variance. For each `variance` case it takes one stored pass-1 output from a pipeline run, then calls `decomposeIngredients` and `enrichUsdaMacro` on it five times, each under a fresh analysis row. Pass 1 is not called, so a run costs one call per component. Same opt-in, dry run and local guard as 6.1.
+Bands and gold labels are drafted by the agent and reviewed by the user before they count.
 
-Reading the result: spread in a replay run is caused by pass 2 and matching alone. Spread in the full pipeline minus that is pass 1's share.
+## 7. Run directory
 
-### 6.3 Run directory
+`backend/evals/runs/<utc-timestamp>-<eval>-<label>/`, gitignored:
 
-`backend/evals/runs/<utc-timestamp>-<label>/`:
+- `manifest.json`: eval, label, repeats, cases file hash, git commit, model, reasoning effort, embedding model, USDA dataset version, and a **code hash** (SHA-256 over the non-test files in `backend/internal/analysis`). The code hash is the prompt version and reflects uncommitted edits.
+- `results.jsonl`: one line per run with case id, repeat index, status, failure reason, the stage outputs that eval produced, and its call records (tokens, duration, finish reason).
 
-- `manifest.json`:
-  - run id, label, suite, repeats, cases file hash;
-  - git commit;
-  - **code hash:** SHA-256 over the working-tree contents of the non-test files in `backend/internal/analysis`. Prompts, schemas, the model name and reasoning effort all live there, so this is the prompt version. It reflects uncommitted edits, which a commit hash would miss;
-  - model names seen in `llm_call`, embedding model, USDA dataset version and USDA database host (no credentials).
-- `results.jsonl`: one line per run with case id, repeat index, analysis id, status, failure reason, the five stage payloads, stage timestamps and `llm_call` rows.
+Runs go round-robin over cases, so repeats of a case are spread over the session. A failed run is recorded and never stops the session.
 
-Raw runs are gitignored. The baseline report is committed.
+## 8. Scoring
 
-### 6.4 DB exporter
+### 8.1 Alignment (shared)
 
-Builds a run directory from existing rows. It costs nothing and gives the first variance numbers.
+- **Text match:** lower case, strip punctuation, split into words. An alias matches when its words appear as whole words, in order, so "oil" does not match "boiled".
+- **Components** match on `canonical_name` or `name`; **ingredients** match `ingredientKeys` within the matched component.
+- **Ties:** the longest alias wins. A remaining tie is reported as `ambiguous` and counts as unmatched.
+- Every report lists unmatched, extra and ambiguous items per run.
 
-- Groups by identical text, locale, country and timezone.
-- Takes a required time window. Rows carry no code version, so a window is the only way to avoid mixing prompt versions. For "bread with 2 omlettes", the three runs after 2026-11-15 18:59 UTC share one prompt; the run at 18:45 does not.
-- Excludes `eval-harness` rows unless asked.
-- Skips rows that do not parse as the nested shape (rows before commit `7e82690d`) and reports how many.
-- Rows have no case expectations, so only top-level metrics apply. Reports from it are marked indicative.
+### 8.2 Failure classes (shared)
 
-### 6.5 Resolver recorder
+`no_components`, `portion_validation`, `usda_no_match`, `timeout`, `provider`, `other`. `provider` failures (rate limits, API errors) are reported and left out of every rate.
 
-Skips unless `CALORIFY_EVAL_RESOLVER=1`. For each group it embeds every term separately with the production query prefix, calls `searchUsda`, and records the row and similarity. A separate labelling query records the top 5.
+### 8.3 Pass 1
 
-## 7. Scorer
-
-### 7.1 Alignment
-
-- **Text match:** lower case, strip punctuation, split into words. An alias matches when its words appear as whole words, in order. This avoids "oil" matching "boiled" and "egg" matching "eggplant".
-- **Components:** an expected component matches a predicted one when an alias matches its `canonical_name` or `name`. `canonical_name` is always English, so native-script inputs align the same way.
-- **Ties:** when an alias matches more than one predicted component, or two expected components match the same one, the longest alias wins. A tie that remains is reported as `ambiguous` and the component counts as unmatched. Nothing is assigned silently.
-- **Ingredients:** same rule against `ingredientKeys`, within the matched component. Unmatched ingredients are grouped as `other`.
-- Every report lists unmatched, extra and ambiguous items per run, so mislabelling is visible.
-
-### 7.2 Failure classes
-
-Each failed run is classed from `failure_reason`: `no_components`, `portion_validation`, `usda_no_match`, `timeout` (the 30 s pipeline limit), `provider` (model API errors such as rate limits), `other`.
-
-`provider` failures are infrastructure, not pipeline behaviour. They are reported and left out of every rate.
-
-### 7.3 Structure assertions (per run)
+Per run:
 
 | Id | Assertion |
 |---|---|
-| H1 | Run reached `PRESENTED`; or, with `expectNoFood`, failed as `no_components` (today's behaviour for non-food input) |
-| H2 | Every expected component matched |
-| H3 | Where the case gives `exact`: value equals it (counts exactly, grams within 1%), origin is `USER_STATED`, and min equals max equals value |
-| H4 | Portion kind equals the expected kind |
-| H5 | `EXACT` per-unit grams inside the expected band |
-| H6 | Where the case gives `estimateMin` and `estimateMax`: value inside the band, and origin as expected |
-| H7 | Every required ingredient key present |
-| H8 | No forbidden ingredient group present |
+| P1-1 | Call completed; or, with `expectNoFood`, failed as `no_components` |
+| P1-2 | Every expected component matched |
+| P1-3 | Where the case gives `exact`: value equals it, origin is `USER_STATED`, min equals max |
+| P1-4 | Portion kind equals the expected kind |
+| P1-5 | `EXACT` per-unit grams inside the expected band |
+| P1-6 | Where the case gives an estimate band: value inside it, origin as expected |
 
-Reported but not asserted: extra components, diagnostic ingredient groups, and the ratio of ingredient grams to component grams.
+Across repeats, per component: kind agreement, count agreement, preparation-method agreement, canonical-name agreement, and relative range of nominal grams, `(max - min) / median`. Extra components are reported, not asserted.
 
-A run passes when all applicable assertions pass. Report pass rate per assertion and per case. With three repeats a single case's rate is coarse; read the rates across cases.
+### 8.4 Pass 2
 
-### 7.4 Variance metrics (per case)
+Per run:
 
-A case needs at least four completed runs out of five; otherwise it is reported as insufficient. This stops a change that makes hard cases fail from looking less variable.
+| Id | Assertion |
+|---|---|
+| P2-1 | Call completed and every portion validated |
+| P2-2 | Every required ingredient key present |
+| P2-3 | No forbidden ingredient group present |
 
-- **Completion rate:** completed runs over attempted, excluding `provider` failures.
-- **Calorie spread:** relative range, `(max - min) / median` of nominal kcal, plus the coefficient of variation. Relative range grows with the number of runs, so it is only compared at equal repeats.
-- **Per component:** kind agreement, count agreement, preparation-method agreement (each the share of runs matching the most common value), and relative range of nominal grams.
-- **Per ingredient key:** presence rate, relative range of grams, and `fdc_id` agreement.
-- **Clarifications:** agreement on how many questions were asked and on what each was about.
-- **Range self-consistency:** share of runs whose reported `minValue` to `maxValue` contains the case median, reported together with the mean range width, `(maxValue - minValue) / value`. The width is shown because a pipeline could score well here just by reporting very wide ranges.
+Reported: ratio of summed ingredient grams to the component's grams. Across repeats, per ingredient key: presence rate, canonical-name agreement, kind agreement and relative range of grams.
 
-**Suite headline:** the median and the worst per-case calorie spread.
+### 8.5 USDA
 
-**Stage attribution:** the per-component and per-ingredient numbers are descriptive only, because pass 2 depends on what pass 1 produced. The `replay` suite gives the causal split.
+- **Identity hit rate:** top row in `acceptableFdcIds`, on the first term.
+- **Calorie error:** top row's kcal per 100 g against the primary row, as a distribution.
+- **Name-drift agreement:** share of groups where every term resolves to the same row.
+- **False accepts:** for `expectedMiss` groups the pipeline still takes the top row, because `searchUsda` has no similarity floor. Each counts as a wrong match.
+- **Zero-energy matches:** names that resolve to a row with no energy value.
+- **Similarity by outcome:** scores for hits, misses and false accepts, to show whether a floor could separate them.
 
-### 7.5 Accuracy metrics
+### 8.6 End to end
 
-- **In-band rate:** share of runs with nominal kcal inside the reference band.
-- **Distance outside the band:** zero inside; otherwise the signed gap to the nearest edge as a percentage, so over- and under-estimation are visible.
+A case needs at least four completed runs out of five; otherwise it is reported as insufficient, so a change that makes hard cases fail cannot look less variable.
+
+- **Completion rate**, excluding `provider` failures.
+- **Calorie spread:** relative range and coefficient of variation of nominal kcal. Compared only at equal repeats.
+- **In-band rate:** share of runs with nominal kcal inside the reference band, plus the signed distance outside it.
 - **Reference coverage:** share of runs whose reported range overlaps the band.
+- **Range self-consistency:** share of runs whose reported range contains the case median, shown with the mean range width.
+- **`fdc_id` agreement** per ingredient key, and agreement on clarification count and subject.
+- The pass-1, pass-2 and USDA scorers run on the stage outputs of the same runs.
 
-Calories only in v1. Protein, carbohydrate, fat and fibre bands are deferred.
+**Headline:** the median and the worst per-case calorie spread, and the in-band rate.
 
-### 7.6 Resolver metrics
+**Reading the stage split:** e2e spread is the total. `pass1` spread is pass 1's share. `pass2` spread on frozen input is pass 2's share. `usda` name-drift agreement shows how much naming differences change the row.
 
-- **Identity hit rate:** top-1 row in `acceptableFdcIds`, on the first term.
-- **Calorie error:** top-1 kcal per 100 g against the primary row, as a distribution.
-- **Name-drift agreement:** share of groups where every term resolves to the same row. Pass 1 and pass 2 name the same food in different ways, so this measures how much that costs.
-- **False accepts:** for `expectedMiss` groups, production still takes the top row, because `searchUsda` has no similarity floor. Each is counted as a wrong match.
-- **Similarity by outcome:** similarity scores for hits, misses and false accepts, to show whether a floor could separate them.
+## 9. Comparing a change
 
-### 7.7 Output
-
-`report.json` and `report.md` in the run directory. With `--baseline <dir>`, each metric shows the baseline value and the difference.
-
-## 8. Comparing a change
-
-1. Record the baseline twice on unchanged code. Comparing the two shows how much metrics move with no change at all.
+1. Record the baseline twice on unchanged code. The difference between the two is the noise level.
 2. Record the change with the same cases and repeats.
-3. Compare per case, not only in aggregate: report how many cases improved and worsened, and a bootstrap 90% interval over cases for the median difference (fixed seed, offline).
-4. A change counts as an improvement only if that interval excludes zero, the difference is larger than the baseline-to-baseline difference, completion rate is not lower, and no structure pass rate drops by more than the baseline-to-baseline difference.
+3. Compare per case: how many improved and worsened, and a bootstrap 90% interval over cases for the median difference (fixed seed, offline).
+4. A change counts as an improvement only if the interval excludes zero, the difference is larger than the noise level, and completion and assertion pass rates do not drop by more than the noise level.
 
-With about 10 variance cases and five repeats, only large effects are detectable, such as a spread falling from 25% to under 10%. Small differences are not evidence.
+A prompt change to one pass is judged first on that pass's eval, which is cheaper, then confirmed on `e2e`.
 
-## 9. Cost
+With about 10 variance cases and five repeats, only large effects are detectable, such as a spread falling from 25% to under 10%.
 
-A run makes one pass-1 call plus one pass-2 call per component. The table assumes about two components per case (the v3 set has 24 in 12 cases).
+## 10. Cost
 
-| Recording | Runs | Calls (about) |
+| Recording | Runs | Model calls (about) |
 |---|---|---|
-| All 30 cases x 3 | 90 | 270 |
-| 10 variance cases x 2 more | 20 | 60 |
-| One full baseline | 110 | 330 |
-| Baseline twice | 220 | 660 |
-| Replay, 10 cases x 5 | 50 | 100 |
+| `pass1`, 30 cases x 5 | 150 | 150 |
+| `pass2`, about 25 frozen components x 5 | 125 | 125 |
+| `usda` | - | 0 |
+| `e2e`, 30 cases x 3, plus 10 variance cases x 2 more | 110 | 330 |
+| One full baseline | | 605 |
 
-From local `llm_call` rows, a two-component run uses about 2,700 input and 900 to 1,200 output tokens. One baseline is therefore about 300k input and 120k output tokens. At about 10 s per run in sequence, one baseline takes about 20 minutes.
+From local `llm_call` rows: a pass-1 call uses about 900 input tokens and a pass-2 call about 880, with 200 to 600 output tokens each. Stage evals can run several cases at once; `e2e` runs one at a time so that timings stay meaningful.
 
-## 10. Phases
+## 11. Phases
 
 | Phase | Work | Live calls | Done when |
 |---|---|---|---|
-| 1 | Convert cases to v4; add new cases without references | none | File loads in the scorer's case parser; v3 vocabulary gone |
-| 2 | Scorer package and `cmd/meal_eval score`, with fixture tests | none | `go test ./...` green; a hand-built fixture run scores as expected |
-| 3 | DB exporter; score existing rows | none | Report shows the 373, 472 and 430 kcal runs as one group |
-| 4 | Resolver recorder, gold labels, resolver report | none | Every group labelled or marked unjudged; baseline numbers recorded |
-| 5 | Reference bands with sources | none | User has reviewed every band |
-| 6 | Pipeline and replay recorders | smoke only, on request | Three `smoke` cases record and score end to end |
-| 7 | Baseline twice, then replay; record numbers in [backend/evals/README.md](../../backend/evals/README.md) | yes, on request | Baseline metrics and the baseline-to-baseline difference committed |
+| 1 | Fake-client tests for `decomposeIngredients` | none | Ordering, nesting, cancellation and `llm_call` rows covered |
+| 2 | Split stages into cores and wrappers; model and effort settings | none | `go test ./...` green; a local analysis behaves as before |
+| 3 | Cases v4; case loader; scorer with fixture tests; `score` command | none | A hand-built fixture run scores as expected |
+| 4 | `usda` eval: runner, gold labels, baseline | none | Every group labelled or unjudged; numbers recorded |
+| 5 | `pass1` eval and `freeze` | smoke, on request | Three `smoke` cases record and score; pass-2 input file reviewed |
+| 6 | `pass2` eval | smoke, on request | Frozen components record and score |
+| 7 | Reference bands; `e2e` eval | smoke, on request | User has reviewed every band; smoke cases score end to end |
+| 8 | Baseline twice for each eval; numbers in [backend/evals/README.md](../../backend/evals/README.md) | yes, on request | Baseline and noise level committed |
 
-Phases 1 to 5 cost nothing and can start now.
+Phase 4 does not depend on phases 1 and 2 beyond the USDA lookup core, so it can start as soon as that one core exists.
 
-## 11. Ownership
+**Ownership:** phases 1 and 2 are pipeline code and are written by the user ([backend/AGENTS.md](../../backend/AGENTS.md)). The harness (`internal/evals`, `cmd/meal_eval`, Makefile targets), case conversion, draft bands and labels, and reports are written by the agent on request. The user reviews bands and labels and approves each live recording.
 
-- **Agent, on request:** harness code (`internal/evals`, `cmd/meal_eval`, the recorder `_test.go` files, Makefile targets), case conversion, draft references and labels, reports.
-- **User:** review of reference bands and gold labels; approval of each live recording; any change to `internal/analysis` production code.
+## 12. Open decisions
 
-## 12. Deferred
+In the order they block work:
+
+1. **How production and `e2e` share the stage order.** Either each has its own five-line sequence of core calls, or one exported function runs the stages and reports each output to a caller-supplied hook (production saves, the eval collects). The first is simpler; the second cannot drift.
+2. **Where the cores live.** Exported methods on `Service` (built with a nil application pool for evals), or a smaller type holding only the model client, Ollama URL and USDA pool.
+3. **Model and effort overrides.** Fields on `Service` as in 4.3, or keep constants and edit code to compare models.
+4. **Pass-2 input.** Frozen from a `pass1` run as in 6.2, or written by hand.
+5. **Should `e2e` also be able to store runs** in the application database so they show on the dashboard. The plan says no.
+
+## 13. Deferred
 
 - Image inputs.
 - Clarification answers (no answers route yet).
 - Macro bands other than calories.
-- Tip, health score and meal type. Meal type is set from the clock for most hours, so it does not vary.
-- Latency reporting. Timings are captured in each run, but no latency metric is defined here.
+- Tip, health score and meal type.
+- A latency metric. Timings are captured in each run.
+- Exporting existing `meal_analysis` rows into a run directory. It is free, but rows carry no code version and no case expectations.
 
-## 13. Risks
+## 14. Risks
 
 | Risk | Mitigation |
 |---|---|
+| The split changes production behaviour | Tests first (phase 1); cores keep today's validation and failure messages |
+| Eval path drifts from production | Evals call the same cores; open decision 1 |
+| Frozen pass-2 input goes stale after a pass-1 prompt change | Re-freeze deliberately; the manifest records the input file hash |
 | Reference bands or gold labels are wrong | Every band cites a source; user review; unsourced cases excluded |
-| Alias matching mislabels a component | Whole-word matching; ambiguous matches count as unmatched; unmatched and extra items listed per run |
-| Five repeats understate spread | Compare at equal repeats only; baseline recorded twice; per-case comparison |
+| Alias matching mislabels a component | Whole-word matching; ambiguous counts as unmatched; unmatched and extra items listed |
+| Five repeats understate spread | Compare at equal repeats; baseline recorded twice |
 | Failed runs hide variance | Minimum completed runs per case; completion rate must not drop |
-| Eval rows pollute the local dashboard and exporter | Fixed `eval-harness` uid; exporter excludes it; local-only guard |
-| Model provider changes behaviour between recordings | Manifest records model and date; re-record the baseline before comparing after a gap |
-| Recorder runs by accident under `go test ./...` | Each recorder skips without its env variable; live calls need a second variable |
+| Provider changes behaviour between recordings | Manifest records the resolved model and date; re-record the baseline after a gap |
+| Live calls made by accident | Dry run by default; `--live` required; not reachable from `go test` |
