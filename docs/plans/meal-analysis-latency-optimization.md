@@ -21,18 +21,18 @@ The two LLM calls are 96% of wall clock. USDA hydration is already sub-second af
 ### Budget math
 
 - **< 10 s average**: each LLM call needs roughly a 10-15% cut. Achievable with input/prompt trims alone.
-- **~ 5 s average**: two serial calls must average ~2.2 s each (leaving ~0.5 s for hydration + DB writes). That is a 55-60% cut per call and almost certainly requires the recipe cache, the model split, or both — not just trimming.
+- **~ 5 s average**: two serial calls must average ~2.2 s each (leaving ~0.5 s for hydration + DB writes). That is a 55-60% cut per call and almost certainly requires the recipe table (L3), the model split, or both — not just trimming.
 
 ## 2. Constraints and standing rules
 
 - **No pass merge.** Two-pass decomposition stays. (User decision, 2026-11-14; backed by the recorded one-call experiment: 28/36 vs 36/36 fixture reliability, see [backend/evals/luna-one-call-meal-analysis-evaluation.md](../../backend/evals/luna-one-call-meal-analysis-evaluation.md).)
 - **No live model calls for validation.** Every output-affecting change is validated offline: eval-harness replay against recorded artifacts, or DB-persisted stage artifacts. Never spend money on live eval runs without an explicit request.
-- **Eval harness is absent.** `cmd/meal_eval` and `cmd/usda_eval` no longer exist in the tree. Historical baselines (recorded 2026-11-01): meal eval 20/36 runs passing, 89.1% hard assertions; USDA resolver top-1 89/115. Any model-level change requires rebuilding the harness first (see L4).
+- **Eval harness is absent.** (Rebuild design: [Meal-Analysis Evals plan](meal-analysis-evals.md).) `cmd/meal_eval` and `cmd/usda_eval` no longer exist in the tree. Historical baselines (recorded 2026-11-01): meal eval 20/36 runs passing, 89.1% hard assertions; USDA resolver top-1 89/115. Any model-level change requires rebuilding the harness first (see L4).
 - **Mentorship split (backend/AGENTS.md).** The user writes core logic: DDL, DTOs, pipeline code, cache design decisions. The agent handles mechanical work when asked: instrumentation plumbing, dashboards, eval-harness tooling, docs.
 - **No backward compatibility.** Single pre-production deployment state; direct single-path code, no fallback shims.
 - **Single VM, no Redis deployed.** Any "cache" defaults to process-local unless a concrete reason forces otherwise.
 - **Migrations run on every boot, unversioned.** `MigrateCalorify` globs `migrations/calorify/*.sql`, sorts the paths lexicographically, and executes each file in order (`internal/database/database.go:42-79`). There is no version table, so every file re-runs on every startup and each must stay idempotent (`CREATE TABLE IF NOT EXISTS`, guarded `ALTER`s). New DDL can be appended to `000001_create_user_profile.sql` or added as a new numbered file; file count is not the constraint, re-execution is. A versioned runner (golang-migrate) is a deliberate non-goal for now.
-- **Pipeline timeout**: the whole background pipeline runs under a 45 s context (`service.go` runPipeline). Cuts here reduce timeout pressure for free.
+- **Pipeline timeout**: the whole background pipeline runs under a 30 s context (`service.go` runPipeline). Cuts here reduce timeout pressure for free.
 
 ## 3. Phase 0 - Per-call measurement (agreed design)
 
@@ -62,6 +62,12 @@ Column spec (the user writes the DDL; this is the agreed shape):
 | `duration_ms` | wall time measured around the call |
 | `created_at` | per-call timestamp |
 | `error` | NULL on success; error text on failure |
+| `component_id` | Pass-2 component index; NULL for pass 1 (added 2026-11-15) |
+| `reasoning_tokens` | from `res.Usage.CompletionTokensDetails.ReasoningTokens` (added 2026-11-17) |
+| `reasoning_effort` | the effort value sent on the request (added 2026-11-17) |
+| `finish_reason` | first choice's finish reason, e.g. `stop` or `length` (added 2026-11-17) |
+| `response_model` | model id the provider reports having served (added 2026-11-17) |
+| `service_tier` | processing tier the provider reports (added 2026-11-17) |
 
 ### 3.2 Instrumentation at call sites
 
@@ -86,7 +92,7 @@ Read the accumulated `llm_call` rows and branch:
 
 | Observation | Likely cause | Lever |
 |---|---|---|
-| Pass 2 `completion_tokens` high (thousands) | decode time dominates pass 2 | L5 output trim, L3 cache (skip decode entirely on hits) |
+| Pass 2 `completion_tokens` high (thousands) | decode time dominates pass 2 | L5 output trim, L3 recipe table (skip decode entirely on hits) |
 | `cached_tokens` = 0 on either call | static system prompt not hitting OpenAI prompt cache (too short, or prefix varies) | L2 prompt-caching fix |
 | Pass 1 duration >> pass 2 despite similar tokens | image prefill cost | L1 image compression (already in progress) |
 | Both calls have low tokens but multi-second duration | reasoning/model latency floor | L4 model split (pass 2 first) |
@@ -253,20 +259,105 @@ Ordered by expected impact-to-risk ratio, pending Phase 1 data. Each lever state
 - Expected effect: reduces TTFT on pass 2 (its system prompt + schema are static consts). Pass 1's image content will never cache; only its static prefix can.
 - Validation: `cached_tokens > 0` on pass 2 rows; duration delta.
 
-### L3. Pass-2 recipe cache
+### L3. Pass-2 recipe table
 
-Intent: skip the pass-2 LLM call entirely for repeat meals. Saves its full 4.84 s on hits and the cost of the call.
+Status: draft for discussion (2026-11-17). Replaces the earlier "pass-2 recipe cache" idea: a fixed table of known recipes, not a cache of past pass-2 outputs.
 
-Design questions that must be settled before any code (user decisions):
+Intent: when a pass-1 component matches a known recipe, take its ingredients from the table and skip that component's pass-2 call. This saves the call's cost on every hit. It saves wall time only when every component of the meal hits, because pass-2 calls run in parallel and the slowest one sets the time.
 
-1. **Key.** Pass 1 output is nondeterministic; the same photo can produce slightly different components run to run. The key must be a normalized component set (canonical names, sorted; portions rounded or excluded?) plus context (locale, country). Exact normalization rule is a user decision; it determines the hit rate.
-2. **Hit rate.** Before building, measure re-analysis frequency from `meal_analysis` rows (same user, similar component sets). If repeats are rare, the lever is dead — decide from data, not hope.
-3. **Storage.** Process-local, version-keyed map (key includes prompt hash + model version + schema hash so prompt edits invalidate automatically) vs Redis/DB. Default: process-local; the VM has no Redis and one backend process. A DB table is the fallback if persistence across restarts matters.
-4. **Staleness hazard (known from the 2026-11-06 review).** Pass-2 output is not a pure function of components: cooking fats are allocated per cooked dish, and preparation context matters. A cache hit can be subtly different from a fresh call. Accepted-risk decision: is that tolerable? (Earlier review leaned no; the question deserves an explicit yes/no before building.)
-5. **Invalidation.** Version key (prompt hash + model + schema hash) handles prompt changes. Nothing else should need invalidation if the key includes context.
+#### Decided (user, 2026-11-17)
 
-Expected effect: pass-2 latency x (1 - hit rate). At a 30% hit rate, average e2e drops ~1.5 s.
-Validation: hit/miss counter per analysis in the dashboard; eval-replay spot checks on cached outputs.
+- A new table in the USDA database, similar in shape to `usda_foods`.
+- Each row has a description and its ingredients with portions.
+- Lookup is by embedding similarity on the component name, the same way ingredients are matched today.
+- A component with no match goes through pass 2 as it does now.
+- Handling of incorrect matches is deferred, but must be settled before this ships (case M1).
+
+#### Source data
+
+The USDA Survey file already holds what the table needs, and ingestion drops it today:
+
+- 5,431 dishes with a recipe: ingredient lines with gram weights (`inputFoods`).
+- Portions per dish: unit weights such as "1 egg = 55 g", and a default serving when no quantity is given (5,363 dishes).
+- 9,647 alternative names.
+- Nutrients for the finished dish, per 100 g. These rows are already in `usda_foods`.
+
+#### How the earlier cache questions map
+
+| Earlier question | Answer under a fixed table |
+|---|---|
+| Key | Embedding search on the component's canonical name |
+| Hit rate | Measure offline by replaying stored pass-1 outputs |
+| Storage | Table in the USDA database |
+| Staleness of cached pass-2 output | Gone: recipes are fixed data, not model output |
+| Invalidation | Tied to the USDA dataset version |
+
+#### Missed cases
+
+Matching:
+
+| Id | Case | Why it matters |
+|---|---|---|
+| M1 | Every search returns a nearest row | Without an accept rule nothing ever falls through to pass 2. Measured: right and wrong top matches score alike (0.78 to 0.86), so a similarity cutoff alone cannot separate them |
+| M2 | Near-duplicate variants | The Survey has separate omelets "made with butter", "made with oil" and "NS as to fat". Which one wins can flip between runs, which adds variance. A default variant is needed |
+| M3 | Description lacks the common name | "Dal, yellow lentils, cooked" matched "Yellow string beans" on description alone; with the alternative name "daal" embedded it matched "Dal". One vector per name avoids diluting good matches |
+| M4 | Dish not in the table | Raita and most sabzi dishes have no Survey entry, so their nearest row is always wrong. This is M1 again, and it is the common case for Indian meals |
+| M5 | Preparation conflict | Pass 1 may say `DEEP_FRIED` while the matched recipe is boiled. The recipe carries its own preparation |
+| M6 | Branded or restaurant components | "Shin Ramyun 114 g" or a Chipotle bowl must not match a generic recipe |
+| M7 | User-stated changes | "omelette with cheese", "no peanuts", "extra ghee". Pass 2 honours these today; a fixed recipe ignores them |
+
+Quantities:
+
+| Id | Case | Why it matters |
+|---|---|---|
+| Q1 | Which unit weight wins | Pass 1 guessed 70 g and 100 g per omelette on identical input. The recipe says 55 g per egg and 110 g by default. Taking the recipe's weight removes that variance; taking pass 1's keeps it |
+| Q2 | Unit names do not line up | Pass 1 says "2 omelettes"; the recipe's units are "1 egg" and "1 cup". Matching a stated unit to a recipe portion is free-text matching |
+| Q3 | Raw recipe weight is not dish weight | Recipe lines are raw inputs. 816 dishes record a moisture change, so ingredient grams do not sum to the cooked weight pass 1 estimates |
+| Q4 | Source of the totals | The finished dish has its own per-100 g nutrients. Using those avoids Q3; summing scaled ingredients does not |
+| Q5 | Ranges | Pass 2 gives min and max per ingredient, and clarifications depend on them. A recipe gives single values, so ranges must come from the pass-1 portion range |
+
+Recipe content:
+
+| Id | Case | Why it matters |
+|---|---|---|
+| C1 | Nested recipes | 23% of ingredient lines point to another Survey dish. Expand them, or treat them as single ingredients |
+| C2 | Ingredient links | Lines reference ingredients by `ndbNumber`, which ingestion drops. The import must resolve each to an `fdc_id` so hits also skip the USDA search |
+| C3 | Unresolvable lines | 217 lines are fortification entries such as "Vitamin D as ingredient" |
+| C4 | Single-ingredient "recipes" | 1,602 dishes have one ingredient. Roti's only ingredient is commercial roti, with no flour and water split |
+| C5 | Generic ingredients | "Oil or table fat, NFS", "Milk, NFS" |
+| C6 | Long or tiny lines | Biryani has 18 ingredients; salt is 0.3 g. The ingredient list shown to users gets long |
+| C7 | US approximations | The chicken biryani recipe has baked potatoes, basil and jalapeño. Pass 2 uses the request's country; a recipe does not. A hit can lower accuracy while lowering variance |
+
+Output contract:
+
+| Id | Case | Why it matters |
+|---|---|---|
+| O1 | Localised ingredient names | Pass 2 writes display names in the user's language. Recipe ingredients have only USDA English names such as "Eggs, Grade A, Large, egg whole" |
+| O2 | Stored shapes | `decomposed_ingredient` and `usda_enriched` must keep their nested shape so the dashboard and clients keep working |
+| O3 | Portion fields on ingredients | Each ingredient carries `kind`, `value` and `origin`. A recipe ingredient needs values for these; `origin` has no value meaning "from a recipe" |
+| O4 | Observability | No `llm_call` row exists for a hit, so per-analysis averages change meaning. Each component needs a marker for recipe or model, and hits and misses need counting |
+
+Operations:
+
+| Id | Case | Why it matters |
+|---|---|---|
+| P1 | Extra embedding call | Component names must be embedded before pass 2. A meal with hits and misses makes two embedding calls |
+| P2 | Mixed meals | One miss still costs a full pass-2 wait |
+| P3 | Re-ingestion | The table must be rebuilt with the USDA data and recorded against the dataset version |
+
+#### Open decisions, in the order they block work
+
+1. M1: what accepts or rejects a match. Deferred by the user; blocks shipping, not building.
+2. Q1 and Q4: on a hit, do unit weights and totals come from the recipe or from pass 1?
+3. M3: one embedding per recipe, or one per name?
+4. M2: the default variant when the user does not state the fat or method.
+5. M7, M5, M6: which signals force a fall-through to pass 2.
+6. O1: how ingredient names are shown in other languages.
+7. C1, C4: how deep to expand, and whether single-ingredient dishes count as recipes.
+
+Expected effect: pass-2 cost times (1 - hit rate). The hit rate is unknown until it is replayed against stored pass-1 outputs.
+
+Validation: offline replay of stored pass-1 outputs for hit rate and calorie difference against the pass-2 result; then the [evals plan](meal-analysis-evals.md) for variance and accuracy, comparing recipe hits with pass 2 on the same cases.
 
 ### L4. Pass-2 model split (prerequisite: eval harness rebuild)
 
@@ -310,8 +401,8 @@ M1 can proceed in parallel with M0 since it needs no instrumentation to start, o
 
 | Risk | Mitigation |
 |---|---|
-| Recipe cache serves subtly wrong pass-2 output (fat allocation, prep context) | Explicit user decision on staleness before building L3; spot-check eval replay on cache hits |
+| Recipe table returns a wrong or ill-fitting recipe (wrong dish, wrong variant, ignored user changes) | Accept rule decided before shipping L3 (case M1); offline replay and eval comparison against pass 2 |
 | Smaller pass-2 model degrades extraction quality | Eval harness gate before any switch; lever closed on regression |
 | Prompt-cache fix breaks structured outputs | Schema/prompt untouched; only message ordering changes; schema test suite |
 | Measurement table grows unbounded | 2 rows per analysis; revisit only if storage is ever observed as a problem |
-| 45 s pipeline timeout masks real duration on failures | `error` + duration still recorded on failed calls; timeout untouched by this plan |
+| 30 s pipeline timeout masks real duration on failures | `error` + duration still recorded on failed calls; timeout untouched by this plan |

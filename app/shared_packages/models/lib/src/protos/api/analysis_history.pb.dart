@@ -439,6 +439,11 @@ class LlmCallRecord extends $pb.GeneratedMessage {
     $fixnum.Int64? durationMs,
     $core.String? error,
     $core.int? componentId,
+    $fixnum.Int64? reasoningTokens,
+    $core.String? reasoningEffort,
+    $core.String? finishReason,
+    $core.String? responseModel,
+    $core.String? serviceTier,
   }) {
     final result = create();
     if (id != null) result.id = id;
@@ -452,6 +457,11 @@ class LlmCallRecord extends $pb.GeneratedMessage {
     if (durationMs != null) result.durationMs = durationMs;
     if (error != null) result.error = error;
     if (componentId != null) result.componentId = componentId;
+    if (reasoningTokens != null) result.reasoningTokens = reasoningTokens;
+    if (reasoningEffort != null) result.reasoningEffort = reasoningEffort;
+    if (finishReason != null) result.finishReason = finishReason;
+    if (responseModel != null) result.responseModel = responseModel;
+    if (serviceTier != null) result.serviceTier = serviceTier;
     return result;
   }
 
@@ -481,6 +491,11 @@ class LlmCallRecord extends $pb.GeneratedMessage {
     ..aInt64(9, _omitFieldNames ? '' : 'durationMs')
     ..aOS(10, _omitFieldNames ? '' : 'error')
     ..aI(11, _omitFieldNames ? '' : 'componentId')
+    ..aInt64(12, _omitFieldNames ? '' : 'reasoningTokens')
+    ..aOS(13, _omitFieldNames ? '' : 'reasoningEffort')
+    ..aOS(14, _omitFieldNames ? '' : 'finishReason')
+    ..aOS(15, _omitFieldNames ? '' : 'responseModel')
+    ..aOS(16, _omitFieldNames ? '' : 'serviceTier')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -602,6 +617,51 @@ class LlmCallRecord extends $pb.GeneratedMessage {
   $core.bool hasComponentId() => $_has(10);
   @$pb.TagNumber(11)
   void clearComponentId() => $_clearField(11);
+
+  @$pb.TagNumber(12)
+  $fixnum.Int64 get reasoningTokens => $_getI64(11);
+  @$pb.TagNumber(12)
+  set reasoningTokens($fixnum.Int64 value) => $_setInt64(11, value);
+  @$pb.TagNumber(12)
+  $core.bool hasReasoningTokens() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearReasoningTokens() => $_clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.String get reasoningEffort => $_getSZ(12);
+  @$pb.TagNumber(13)
+  set reasoningEffort($core.String value) => $_setString(12, value);
+  @$pb.TagNumber(13)
+  $core.bool hasReasoningEffort() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearReasoningEffort() => $_clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get finishReason => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set finishReason($core.String value) => $_setString(13, value);
+  @$pb.TagNumber(14)
+  $core.bool hasFinishReason() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearFinishReason() => $_clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.String get responseModel => $_getSZ(14);
+  @$pb.TagNumber(15)
+  set responseModel($core.String value) => $_setString(14, value);
+  @$pb.TagNumber(15)
+  $core.bool hasResponseModel() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearResponseModel() => $_clearField(15);
+
+  @$pb.TagNumber(16)
+  $core.String get serviceTier => $_getSZ(15);
+  @$pb.TagNumber(16)
+  set serviceTier($core.String value) => $_setString(15, value);
+  @$pb.TagNumber(16)
+  $core.bool hasServiceTier() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearServiceTier() => $_clearField(16);
 }
 
 class LlmCallPoint extends $pb.GeneratedMessage {

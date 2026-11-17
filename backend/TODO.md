@@ -48,7 +48,16 @@ This document tracks technical debt, implemented functionality, active bug fixes
   - Implement `generateClarification()`: generate atomic option or numeric questions when ingredients, preparation states, or portions have high uncertainty.
   - Implement `sendClarification()` and answer submission route (`POST /users/meals/analysis/{analysis_id}/answers`).
   - Persist questions and answers (`clarification_questions`, `clarification_response`) in `meal_analysis` and resume the pipeline from an interpretation snapshot without re-running LLM decomposition.
-  - *Status: `generateClarification()` is implemented (variance-based quantity questions) and persisted to `generated_clarification`; the answers route and snapshot resume are pending.*
+  - *Status: `generateClarification()` is implemented (two-tier quantity questions, components first, see [the pipeline doc](docs/meal-analysis-pipeline.md)) and persisted to `generated_clarification`; the answers route and snapshot resume are pending.*
+  - Deferred design from the per-component split (not built):
+    - Separate question types for component quantity: one for `BULK` portions (grams, slider or numeric input) and one for `EXACT` portions (count, possibly per-unit grams). Both currently use `QUANTITY` with Small/Medium/Large. They are split because the client UI differs, not the trigger.
+    - Payload fields the client needs to render those inputs: `component_id`, `min_value`, `value`, `max_value` and `unit` ("g" or "piece") on `Clarification`.
+    - Ingredient questions should carry `component_id` and `ingredient_id`; today `Clarification.Id` is only the list index.
+    - A component answer must rescale the component portion and all of its ingredients.
+- [ ] **Pass-2 Per-Component Split: remaining validation**:
+  - Fake-client tests for `decomposeIngredients` (an `httptest.Server` behind the OpenAI client): n components give n calls merged in component order; one failed call fails the analysis and records its `llm_call` row; a parse error fails; an empty ingredient list merges as empty; ids are assigned correctly.
+  - [x] Live comparison run on the three baseline meals, 2026-11-17 (one run each, local): the 5-component meal's pass-2 wall time fell from 12.07 s to 6.97 s and e2e from 24.82 s to 19.10 s; the two single-component meals were unchanged (guava 2.80 s to 2.82 s, parantha 5.49 s to 5.87 s). Pass-2 output tokens for the large meal rose from 1,415 to 1,883 and prompt tokens from 1,216 to 4,388. The slowest call (aloo sabzi, 701 output tokens) sets the wall time; 6 of the meal's 15 ingredients are `PINCH` seasonings that add tokens and no calories. Full record: [evals/pass2-per-component-split-evaluation.md](evals/pass2-per-component-split-evaluation.md).
+  - Error text for a failed pass-2 model call does not name the component (the `llm_call` row has `component_id`; only the portion-validation error names it).
 - [ ] **LLM Nutrition Fallback (`MODEL_INFERRED`)**:
   - When USDA vector cosine similarity falls below threshold or an ingredient is not present in the USDA reference database, trigger a bounded LLM macro fallback rather than failing the entire pipeline.
 - [ ] **Preparation State Filtering & Portion Scaling**:
@@ -58,6 +67,7 @@ This document tracks technical debt, implemented functionality, active bug fixes
 - [ ] **Ingredient Match & Portion Accuracy (case: "4 roti with dal" -> 664-841 kcal vs realistic ~550-660)**:
   - Diagnosis from analysis `e468e798`: (1) canonical "Wheat flour, whole grain" matched "Flour, oat, whole grain" (fdc 2261421, 386 kcal/100g, similarity 0.878) over "Wheat flour, whole-grain" (fdc 168893, 340 kcal/100g) because top-1 cosine search has no threshold or alias guard for commodity confusion (oat vs wheat); (2) pass-2 flour portion of 130-160g for 4 rotis (~36g/roti) vs typical 25-30g atta per roti; (3) meal min/max macros stack per-ingredient worst cases, widening the presented range.
   - Levers: similarity threshold or alias mapping for near-name commodity confusion, and pass-2 portion guidance for flour-based flatbreads (atta grams per roti).
+  - Rows without an energy value can be matched and then count as 0 kcal. Seen 2026-11-17: "Oil, vegetable, sunflower" matched Foundation "Oil, sunflower" (fdc 1750349), losing about 44 kcal. 25 of the 43 such non-branded rows are now completed by the USDA migration from the SR Legacy record of the same food. 18 remain without energy (17 dry-bean records at 0% moisture, and pawpaw), and `searchUsda` still does not filter on `kcal_present`.
 - [ ] **Analysis Feedback & Confirmation**:
   - Add analysis feedback endpoint (`POST /users/meals/analysis/{analysis_id}/feedback`) to record user rating signal (`UP`/`DOWN`).
   - Add meal confirmation endpoint (`POST /users/meals/analysis/{analysis_id}/confirm-log`) linking the analysis result to the logged meal.
@@ -144,12 +154,12 @@ This document tracks technical debt, implemented functionality, active bug fixes
 
 ## 10. USDA Ingestion, Normalization & Evaluation Tooling
 
-- [x] **USDA Raw Dataset Streaming Ingestion**: Implemented in `cmd/usda/main.go -ingest` to stream Foundation, SR Legacy, Survey (FNDDS), and Branded foods from zip archives into `usda_foods`.
-- [x] **USDA Embedding Generation CLI**: Implemented in `cmd/usda/main.go -embed` and `-embed-all` to generate 768-dim embeddings using Ollama (`embeddinggemma-2`).
+- [x] **USDA Raw Dataset Streaming Ingestion**: Implemented in `cmd/usda` (`ingest`) to stream Foundation, SR Legacy, Survey (FNDDS), and Branded foods from zip archives into `usda_foods`.
+- [x] **USDA Embedding Generation CLI**: Implemented in `cmd/usda` (`embed`, `embed --force`) to generate 768-dim embeddings using Ollama (`embeddinggemma-2`).
 - [x] ~~**USDA Batch LLM Normalization (`-normalize -populate_missing`)**~~: *(Not Applicable)* Superseded by dense vector search via EmbeddingGemma-2 & pgvector (Stage 3 architecture), avoiding cost-prohibitive offline batch LLM normalization.
 - [ ] **USDA Retrieval Benchmark / Eval Harness**:
   - Implement eval CLI tool (`cmd/usda_eval`) to benchmark vector search and top-k retrieval accuracy against the validation meal ingredient corpus.
-  - *Status: datasets and README exist under `backend/evals/`; the `cmd/usda_eval` CLI is absent from the tree.*
+  - *Status: datasets and README exist under `backend/evals/`; the `cmd/usda_eval` CLI is absent from the tree. The harness design, including USDA gold labels, is in the [Meal-Analysis Evals plan](../docs/plans/meal-analysis-evals.md).*
 - [ ] **Local Meal Analysis CLI**:
   - Implement an interactive offline CLI (similar to `meal-analysis-cli.ts`) for developer testing of image and text analysis without running the HTTP server.
 

@@ -17,14 +17,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/openai/openai-go"
-	"github.com/openai/openai-go/shared"
+	"github.com/openai/openai-go/v3"
+	"github.com/openai/openai-go/v3/shared"
 )
 
 var ErrorInvalidInput = errors.New("Either text or imageUrl must be provided")
 var ErrorLargeImage = errors.New("Max supported image size 500KiB")
 
 const llm_model = "gpt-6-luna"
+const llmReasoningEffort = shared.ReasoningEffortNone
 const EmbeddingModel = "embeddinggemma-2"
 
 func (s *Service) getEmbeddings(ctx context.Context, texts []string) ([][]float32, error) {
@@ -273,7 +274,7 @@ func buildQuantityClarification(id int32, ingredient *server.EnrichedIngredient,
 func (s *Service) fanOutPass2CallReq(ctx context.Context, userContent string) (*openai.ChatCompletion, error, int64) {
 	llmStart := time.Now()
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
-		ReasoningEffort: shared.ReasoningEffortLow,
+		ReasoningEffort: llmReasoningEffort,
 		Model:           openai.ChatModel(llm_model),
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(pass2Prompt),
@@ -290,6 +291,24 @@ func (s *Service) fanOutPass2CallReq(ctx context.Context, userContent string) (*
 		},
 	})
 	return res, err, time.Since(llmStart).Milliseconds()
+}
+
+// recordLlmUsage copies the usage and response metadata of a completed call
+// onto its llm_call record.
+func recordLlmUsage(call *api.LlmCallRecord, res *openai.ChatCompletion) {
+	call.PromptTokens = &res.Usage.PromptTokens
+	call.CachedTokens = &res.Usage.PromptTokensDetails.CachedTokens
+	call.CompletionTokens = &res.Usage.CompletionTokens
+	call.ReasoningTokens = &res.Usage.CompletionTokensDetails.ReasoningTokens
+	if res.Model != "" {
+		call.ResponseModel = &res.Model
+	}
+	if tier := string(res.ServiceTier); tier != "" {
+		call.ServiceTier = &tier
+	}
+	if len(res.Choices) > 0 && res.Choices[0].FinishReason != "" {
+		call.FinishReason = &res.Choices[0].FinishReason
+	}
 }
 
 type IngredientRef struct {

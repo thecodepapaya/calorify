@@ -18,4 +18,4 @@ coverage/
 .vscode/
 .idea/
 
-usda_data_raw/
+raw_data/

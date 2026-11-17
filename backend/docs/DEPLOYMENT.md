@@ -57,4 +57,5 @@ Application and USDA schemas are managed independently:
 1. **Application Migrations (`migrations/calorify/`)**: Defines tables for `users`, `health_data`, `meals`, and `meal_analysis`.
 2. **USDA Migrations (`migrations/usda/`)**: Defines `usda_foods` with `vector(768)` embedding columns and HNSW indexes (`vector_cosine_ops`).
 
-Migrations are run during container bootstrapping or maintenance jobs using `golang-migrate`.
+- **Application migrations** run automatically each time the server starts. Every file in `migrations/calorify/` is executed in order on every boot, so each statement must be repeatable.
+- **USDA migrations** are not run by the server. They are applied with the USDA tool (`go run ./cmd/usda migrate`, or as the first step of `setup` and `ingest`), which also loads and embeds the data. The production image does not include that tool. See [USDA Database Tool](usda-database.md).

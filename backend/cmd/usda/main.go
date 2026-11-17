@@ -10,6 +10,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -141,18 +142,19 @@ func findPath(candidates []string) (string, error) {
 	return "", fmt.Errorf("file not found in candidates: %v", candidates)
 }
 
-func findDataDir() (string, error) {
-	candidates := []string{
-		"usda_data_raw",
-		"backend/usda_data_raw",
-		"../../usda_data_raw",
+// findDataDir returns the folder holding the USDA zip archives: the explicit
+// --data-dir when given, otherwise the first existing default location.
+func findDataDir(explicit string) (string, error) {
+	candidates := []string{"raw_data", "backend/raw_data", "../../raw_data"}
+	if explicit != "" {
+		candidates = []string{explicit}
 	}
 	for _, c := range candidates {
 		if fi, err := os.Stat(c); err == nil && fi.IsDir() {
 			return c, nil
 		}
 	}
-	return "", fmt.Errorf("usda_data_raw directory not found in candidates: %v", candidates)
+	return "", fmt.Errorf("USDA data directory not found (looked in %v); pass --data-dir", candidates)
 }
 
 func resolveDataType(raw string, defaultType string) string {
@@ -254,6 +256,10 @@ ON CONFLICT (fdc_id) DO UPDATE SET
     fiber_present = EXCLUDED.fiber_present,
     quality_score = EXCLUDED.quality_score,
     quality_flags = EXCLUDED.quality_flags,
+    embedding = CASE
+        WHEN usda_foods.description IS DISTINCT FROM EXCLUDED.description THEN NULL
+        ELSE usda_foods.embedding
+    END,
     updated_at = CURRENT_TIMESTAMP;`
 
 	const batchSize = 2000
@@ -365,63 +371,130 @@ ON CONFLICT (fdc_id) DO UPDATE SET
 		return totalIngested, err
 	}
 
-	datasetVer := strings.TrimSuffix(filepath.Base(zipPath), ".zip")
-	const versionSQL = `
-INSERT INTO usda_dataset_version (
-    dataset_version, source_release_date, checksum, row_count, import_source,
-    is_active, is_materialized, v3_nutrient_presence_materialized
-) VALUES (
-    $1, CURRENT_DATE, $2, $3, $2, FALSE, TRUE, TRUE
-)
-ON CONFLICT (dataset_version) DO UPDATE SET
-    row_count = EXCLUDED.row_count,
-    imported_at = CURRENT_TIMESTAMP,
-    is_active = FALSE,
-    is_materialized = TRUE,
-    v3_nutrient_presence_materialized = TRUE;`
-
-	sourceFile := filepath.Base(zipPath)
-	_, _ = pool.Exec(ctx, versionSQL, datasetVer, sourceFile, totalIngested)
+	if err := recordDatasetFile(ctx, pool, zipPath, totalIngested); err != nil {
+		return totalIngested, err
+	}
 
 	log.Printf("FINISHED %s: Ingested %d items into usda_foods.", spec.Name, totalIngested)
 	return totalIngested, nil
 }
 
-func ingestRawData(ctx context.Context, pool *pgxpool.Pool, skipBranded bool) {
+// datasetVersionName is the usda_dataset_version key for one archive.
+func datasetVersionName(zipPath string) string {
+	return strings.TrimSuffix(filepath.Base(zipPath), ".zip")
+}
+
+// recordDatasetFile marks one archive as ingested. Per-file rows are never the
+// active or materialized dataset; only the combined row written at the end of
+// ingestion is (the table allows a single row of each).
+func recordDatasetFile(ctx context.Context, pool *pgxpool.Pool, zipPath string, rowCount int) error {
+	const versionSQL = `
+INSERT INTO usda_dataset_version (
+    dataset_version, source_release_date, checksum, row_count, import_source,
+    is_active, is_materialized, v3_nutrient_presence_materialized
+) VALUES (
+    $1, CURRENT_DATE, $2, $3, $2, FALSE, FALSE, TRUE
+)
+ON CONFLICT (dataset_version) DO UPDATE SET
+    row_count = EXCLUDED.row_count,
+    imported_at = CURRENT_TIMESTAMP,
+    is_active = FALSE,
+    is_materialized = FALSE,
+    v3_nutrient_presence_materialized = TRUE;`
+	if _, err := pool.Exec(ctx, versionSQL, datasetVersionName(zipPath), filepath.Base(zipPath), rowCount); err != nil {
+		return fmt.Errorf("recording dataset version for %s: %w", filepath.Base(zipPath), err)
+	}
+	return nil
+}
+
+// datasetIngested reports whether an archive is already loaded. An archive with
+// no version row but existing rows of its data type (loaded by an older build of
+// this tool) is adopted: its current row count is recorded and it is not re-read.
+func datasetIngested(ctx context.Context, pool *pgxpool.Pool, zipPath string, spec DatasetSpec) (bool, error) {
+	var recorded int
+	err := pool.QueryRow(ctx, "SELECT row_count FROM usda_dataset_version WHERE dataset_version = $1", datasetVersionName(zipPath)).Scan(&recorded)
+	if err == nil && recorded > 0 {
+		log.Printf("[%s] already ingested (%d rows recorded); skipping. Use --force to re-read the archive.", spec.Name, recorded)
+		return true, nil
+	}
+	if err != nil && err != pgx.ErrNoRows {
+		return false, fmt.Errorf("checking dataset version: %w", err)
+	}
+
+	var existing int
+	if err := pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type = $1", spec.DefaultDataType).Scan(&existing); err != nil {
+		return false, fmt.Errorf("counting %s rows: %w", spec.DefaultDataType, err)
+	}
+	if existing == 0 {
+		return false, nil
+	}
+	if err := recordDatasetFile(ctx, pool, zipPath, existing); err != nil {
+		return false, err
+	}
+	log.Printf("[%s] %d rows already present with no ingest record; recorded and skipping. Use --force to re-read the archive.", spec.Name, existing)
+	return true, nil
+}
+
+// ingestRawData loads the USDA archives into usda_foods. It only inserts and
+// updates rows: nothing is deleted, existing embeddings are kept unless a food's
+// description changed, and archives already loaded are skipped unless force is set.
+func ingestRawData(ctx context.Context, pool *pgxpool.Pool, dataDirFlag string, skipBranded bool, force bool) error {
 	if err := runMigrations(ctx, pool); err != nil {
-		log.Fatalf("Failed to run migrations: %v", err)
+		return err
 	}
 
-	dataDir, err := findDataDir()
+	dataDir, err := findDataDir(dataDirFlag)
 	if err != nil {
-		log.Fatalf("Failed to find data dir: %v", err)
+		return err
 	}
 
-	totalAll := 0
+	ingestedAny := false
 	for _, spec := range datasetSpecs {
 		if skipBranded && spec.DefaultDataType == "branded_food" {
-			log.Printf("Skipping branded foods as requested (-skip-branded).")
+			log.Printf("[%s] skipped (--skip-branded).", spec.Name)
 			continue
 		}
 
 		matches, err := filepath.Glob(filepath.Join(dataDir, spec.Pattern))
 		if err != nil || len(matches) == 0 {
-			log.Printf("No files found matching %s in %s (skipping %s)", spec.Pattern, dataDir, spec.Name)
+			log.Printf("[%s] no archive matching %s in %s; skipping.", spec.Name, spec.Pattern, dataDir)
 			continue
 		}
-
 		zipPath := matches[0]
-		log.Printf("Found %s: %s", spec.Name, zipPath)
 
-		count, err := streamAndIngestZip(ctx, pool, zipPath, spec)
-		if err != nil {
-			log.Fatalf("Failed ingesting %s: %v", spec.Name, err)
+		if !force {
+			done, err := datasetIngested(ctx, pool, zipPath, spec)
+			if err != nil {
+				return err
+			}
+			if done {
+				continue
+			}
 		}
-		totalAll += count
+
+		log.Printf("[%s] ingesting %s", spec.Name, zipPath)
+		if _, err := streamAndIngestZip(ctx, pool, zipPath, spec); err != nil {
+			return fmt.Errorf("ingesting %s: %w", spec.Name, err)
+		}
+		ingestedAny = true
 	}
 
-	activeVersion := "usda-complete-2026-04-30"
-	_, _ = pool.Exec(ctx, "UPDATE usda_dataset_version SET is_active = FALSE WHERE is_active = TRUE")
+	if ingestedAny {
+		// Ingestion rewrites the incomplete records that the migration corrects,
+		// so the corrections are applied again.
+		if err := runMigrations(ctx, pool); err != nil {
+			return err
+		}
+	}
+
+	var total int
+	if err := pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods").Scan(&total); err != nil {
+		return fmt.Errorf("counting usda_foods: %w", err)
+	}
+	const activeVersion = "usda-complete-2026-04-30"
+	if _, err := pool.Exec(ctx, "UPDATE usda_dataset_version SET is_active = FALSE, is_materialized = FALSE WHERE dataset_version <> $1", activeVersion); err != nil {
+		return fmt.Errorf("clearing previous active dataset version: %w", err)
+	}
 	const activeVerSQL = `
 INSERT INTO usda_dataset_version (
     dataset_version, source_release_date, checksum, row_count, import_source,
@@ -435,12 +508,12 @@ ON CONFLICT (dataset_version) DO UPDATE SET
     is_active = TRUE,
     is_materialized = TRUE,
     v3_nutrient_presence_materialized = TRUE;`
-
-	if _, err := pool.Exec(ctx, activeVerSQL, activeVersion, totalAll); err != nil {
-		log.Printf("Warning: failed setting active dataset version: %v", err)
+	if _, err := pool.Exec(ctx, activeVerSQL, activeVersion, total); err != nil {
+		return fmt.Errorf("setting active dataset version: %w", err)
 	}
 
-	log.Printf("SUCCESS: Ingestion complete. Ingested/updated a total of %d foods across all datasets.", totalAll)
+	log.Printf("Ingestion complete: usda_foods holds %d foods.", total)
+	return nil
 }
 
 type EmbedRequest struct {
@@ -608,68 +681,192 @@ func runEmbedding(ctx context.Context, pool *pgxpool.Pool, ollamaURL string, mod
 	log.Printf("SUCCESS: Completed embedding %d foods in %v (%.1f foods/sec).", total, totalDuration.Round(time.Second), float64(total)/totalDuration.Seconds())
 }
 
+const usageText = `USDA database tool. Every command is safe to re-run: nothing is deleted,
+and work that is already done is skipped unless --force is given.
+
+Usage: go run ./cmd/usda <command> [flags]
+
+Commands:
+  status     Show what is loaded, embedded and indexed (default)
+  setup      Do everything needed, in order: migrate, ingest, embed
+  migrate    Create tables and indexes, and apply data corrections
+  ingest     Load the USDA archives into usda_foods
+  embed      Generate embeddings for foods that have none
+  help       Show this text
+
+Flags:
+  ingest, setup:  --data-dir DIR      folder with the USDA zip archives (default: raw_data)
+                  --skip-branded      leave out the branded archive
+                  --force             re-read archives that are already loaded
+  embed, setup:   --include-branded   embed branded foods too
+                  --limit N           embed at most N foods
+                  --batch N           foods per embedding request (default 64)
+                  --ollama URL        Ollama base URL (default http://localhost:11435)
+                  --model NAME        embedding model
+  embed only:     --force             recompute embeddings that already exist
+`
+
+// redactedURL hides the password of a database URL for logging.
+func redactedURL(raw string) string {
+	u, err := url.Parse(raw)
+	if err != nil {
+		return "(unparseable URL)"
+	}
+	return u.Redacted()
+}
+
+// printStatus reports the state of the USDA database without changing it.
+func printStatus(ctx context.Context, pool *pgxpool.Pool) error {
+	var tableExists bool
+	if err := pool.QueryRow(ctx, "SELECT to_regclass('public.usda_foods') IS NOT NULL").Scan(&tableExists); err != nil {
+		return fmt.Errorf("checking for usda_foods: %w", err)
+	}
+	if !tableExists {
+		fmt.Println("usda_foods does not exist yet. Next: go run ./cmd/usda setup")
+		return nil
+	}
+
+	rows, err := pool.Query(ctx, `
+		SELECT COALESCE(data_type, '(none)'), COUNT(*), COUNT(embedding), COUNT(*) FILTER (WHERE NOT kcal_present)
+		FROM usda_foods GROUP BY 1 ORDER BY 1`)
+	if err != nil {
+		return fmt.Errorf("counting foods: %w", err)
+	}
+	fmt.Printf("%-18s %10s %10s %12s\n", "data type", "foods", "embedded", "no energy")
+	total, missingBase := 0, 0
+	for rows.Next() {
+		var dataType string
+		var count, embedded, noEnergy int
+		if err := rows.Scan(&dataType, &count, &embedded, &noEnergy); err != nil {
+			rows.Close()
+			return fmt.Errorf("scanning food counts: %w", err)
+		}
+		fmt.Printf("%-18s %10d %10d %12d\n", dataType, count, embedded, noEnergy)
+		total += count
+		if dataType != "branded_food" {
+			missingBase += count - embedded
+		}
+	}
+	rows.Close()
+	if err := rows.Err(); err != nil {
+		return fmt.Errorf("reading food counts: %w", err)
+	}
+
+	idx, err := pool.Query(ctx, `
+		SELECT c.relname, i.indisvalid
+		FROM pg_index i
+		JOIN pg_class c ON c.oid = i.indexrelid
+		JOIN pg_class t ON t.oid = i.indrelid
+		WHERE t.relname = 'usda_foods' ORDER BY 1`)
+	if err != nil {
+		return fmt.Errorf("listing indexes: %w", err)
+	}
+	indexCount, invalid := 0, []string{}
+	for idx.Next() {
+		var name string
+		var valid bool
+		if err := idx.Scan(&name, &valid); err != nil {
+			idx.Close()
+			return fmt.Errorf("scanning indexes: %w", err)
+		}
+		indexCount++
+		if !valid {
+			invalid = append(invalid, name)
+		}
+	}
+	idx.Close()
+	fmt.Printf("\nindexes: %d", indexCount)
+	if len(invalid) > 0 {
+		fmt.Printf(" (invalid: %s)", strings.Join(invalid, ", "))
+	}
+	fmt.Println()
+
+	var active string
+	_ = pool.QueryRow(ctx, "SELECT dataset_version FROM usda_dataset_version WHERE is_active").Scan(&active)
+	if active == "" {
+		active = "(none recorded)"
+	}
+	fmt.Printf("active dataset: %s\n", active)
+
+	switch {
+	case total == 0:
+		fmt.Println("\nNext: go run ./cmd/usda setup")
+	case missingBase > 0:
+		fmt.Printf("\nNext: go run ./cmd/usda embed   (%d non-branded foods have no embedding)\n", missingBase)
+	default:
+		fmt.Println("\nNon-branded foods are fully embedded. Branded foods: go run ./cmd/usda embed --include-branded")
+	}
+	return nil
+}
+
 func main() {
+	log.SetFlags(log.Ltime)
+
+	command := "status"
+	args := os.Args[1:]
+	if len(args) > 0 && !strings.HasPrefix(args[0], "-") {
+		command, args = args[0], args[1:]
+	}
+
+	fs := flag.NewFlagSet(command, flag.ExitOnError)
+	fs.Usage = func() { fmt.Fprint(os.Stderr, usageText) }
 	var (
-		migrateFlag     = flag.Bool("migrate", false, "Run database migrations for usda_db without ingesting data")
-		ingestFlag      = flag.Bool("ingest", false, "Ingest raw USDA data from zip files into usda_foods")
-		skipBrandedFlag = flag.Bool("skip-branded", false, "Skip ingesting branded foods during ingestion")
-		embedFlag          = flag.Bool("embed", false, "Generate embeddings for foods missing embedding via Ollama")
-		embedAllFlag       = flag.Bool("embed-all", false, "Overwrite existing embeddings for all non-branded foods (or all foods if -include-branded is set)")
-		includeBrandedFlag = flag.Bool("include-branded", false, "Include branded foods during embedding")
-		ollamaURL          = flag.String("ollama", "http://localhost:11435", "Ollama base URL")
-		model              = flag.String("model", analysis.EmbeddingModel, "Embedding model name in Ollama")
-		batchSize          = flag.Int("batch", 64, "Batch size for embedding requests")
-		limit              = flag.Int("limit", 0, "Limit number of foods to embed (0 = unlimited)")
+		dataDir        = fs.String("data-dir", "", "folder with the USDA zip archives")
+		skipBranded    = fs.Bool("skip-branded", false, "leave out the branded archive")
+		includeBranded = fs.Bool("include-branded", false, "embed branded foods too")
+		force          = fs.Bool("force", false, "redo work that is already done")
+		ollamaURL      = fs.String("ollama", "http://localhost:11435", "Ollama base URL")
+		model          = fs.String("model", analysis.EmbeddingModel, "embedding model name in Ollama")
+		batchSize      = fs.Int("batch", 64, "foods per embedding request")
+		limit          = fs.Int("limit", 0, "embed at most this many foods (0 = no limit)")
 	)
-	flag.Parse()
+
+	switch command {
+	case "status", "setup", "migrate", "ingest", "embed":
+	case "help":
+		fmt.Print(usageText)
+		return
+	default:
+		fmt.Fprintf(os.Stderr, "unknown command %q\n\n%s", command, usageText)
+		os.Exit(2)
+	}
+	_ = fs.Parse(args)
+	if fs.NArg() > 0 {
+		fmt.Fprintf(os.Stderr, "unexpected argument %q\n\n%s", fs.Arg(0), usageText)
+		os.Exit(2)
+	}
 
 	ctx := context.Background()
 	cfg := config.Load()
 
-	log.Printf("Connecting to USDA Database at %s...", cfg.UsdaDatabaseURL)
+	log.Printf("Connecting to USDA database at %s", redactedURL(cfg.UsdaDatabaseURL))
 	pool, err := pgxpool.New(ctx, cfg.UsdaDatabaseURL)
 	if err != nil {
 		log.Fatalf("Failed to connect to USDA database: %v", err)
 	}
 	defer pool.Close()
-
 	if err := pool.Ping(ctx); err != nil {
 		log.Fatalf("USDA database ping failed (is docker running?): %v", err)
 	}
 
-	if *migrateFlag {
-		if err := runMigrations(ctx, pool); err != nil {
-			log.Fatalf("Failed to run USDA migrations: %v", err)
+	switch command {
+	case "status":
+		err = printStatus(ctx, pool)
+	case "migrate":
+		err = runMigrations(ctx, pool)
+	case "ingest":
+		err = ingestRawData(ctx, pool, *dataDir, *skipBranded, *force)
+	case "embed":
+		runEmbedding(ctx, pool, *ollamaURL, *model, *batchSize, *limit, *force, *includeBranded)
+	case "setup":
+		// --force applies to ingest only here; forcing a full re-embed is asked
+		// for explicitly with "embed --force".
+		if err = ingestRawData(ctx, pool, *dataDir, *skipBranded, *force); err == nil {
+			runEmbedding(ctx, pool, *ollamaURL, *model, *batchSize, *limit, false, *includeBranded)
+			err = printStatus(ctx, pool)
 		}
-		log.Println("SUCCESS: USDA database migrations applied.")
-		return
 	}
-
-	if *ingestFlag {
-		ingestRawData(ctx, pool, *skipBrandedFlag)
-		return
-	}
-
-	if *embedFlag || *embedAllFlag {
-		runEmbedding(ctx, pool, *ollamaURL, *model, *batchSize, *limit, *embedAllFlag, *includeBrandedFlag)
-		return
-	}
-
-	var totalCount, nonBrandedCount, unEmbeddedCount, unEmbeddedTotal int
-	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods").Scan(&totalCount)
-	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type != 'branded_food'").Scan(&nonBrandedCount)
-	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE data_type != 'branded_food' AND embedding IS NULL").Scan(&unEmbeddedCount)
-	_ = pool.QueryRow(ctx, "SELECT COUNT(*) FROM usda_foods WHERE embedding IS NULL").Scan(&unEmbeddedTotal)
-
-	if totalCount == 0 {
-		log.Println("usda_foods table is empty. Running initial ingestion...")
-		ingestRawData(ctx, pool, *skipBrandedFlag)
-	} else {
-		log.Printf("Status: usda_foods contains %d records (%d non-branded, %d non-branded missing embeddings, %d total missing embeddings).", totalCount, nonBrandedCount, unEmbeddedCount, unEmbeddedTotal)
-		log.Println("To re-ingest all datasets: go run cmd/usda/main.go -ingest")
-		log.Println("To re-ingest non-branded only: go run cmd/usda/main.go -ingest -skip-branded")
-		log.Println("To generate embeddings (missing non-branded): go run cmd/usda/main.go -embed")
-		log.Println("To generate embeddings (including branded): go run cmd/usda/main.go -embed -include-branded")
-		log.Println("To test embedding a small subset: go run cmd/usda/main.go -embed -include-branded -limit 10")
+	if err != nil {
+		log.Fatalf("%s failed: %v", command, err)
 	}
 }

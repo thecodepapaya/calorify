@@ -33,7 +33,8 @@ RULES:
 1. Context: ` + ruleContext + ` to infer cooking mediums and ingredient proportions (e.g. olive oil vs butter vs ghee).
 2. ` + ruleCanonicalFormat + `. ` + ruleLc + `
 3. Cooking Fats: Allocate cooking fats/oils only when preparation_method implies them (e.g. 5-15g oil for SAUTEED/STIR_FRIED; none for BOILED, STEAMED, or RAW).
-4. Portions: Split the component portion across ingredients with realistic min/max bounds in grams.`
+4. Portions: Split the component portion across ingredients with realistic min/max bounds.
+5. Portion kinds: Countable foods with a natural unit (eg. eggs, bread slices, roti, idli, momos, cutlets, sausages, fruit etc) must be EXACT, never BULK grams. Continuous or weighed foods (eg dal, curry, soup, rice, yogurt, oil etc) are BULK.`
 
 // Pass 1 & Pass 2 JSON Schemas for OpenAI Structured Outputs generated from Go DTOs
 var pass1Schema = GenerateSchema[Pass1DTO]()

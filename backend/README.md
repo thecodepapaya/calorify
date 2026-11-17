@@ -14,7 +14,7 @@ High-performance, idiomatic Go API service for user health tracking, USDA-ground
 ## Key Subsystems
 
 - `cmd/server/`: HTTP API server entrypoint.
-- `cmd/usda/`: Ingestion, vector embedding generation, and maintenance CLI for USDA datasets.
+- `cmd/usda/`: CLI that builds and maintains the USDA database (`status`, `setup`, `migrate`, `ingest`, `embed`).
 - `internal/api/`: Request routing and handlers for users, health data, meals, and meal analysis intake.
 - `internal/analysis/`: Two-pass LLM meal decomposition, pgvector similarity lookup, macro hydration, and asynchronous analysis pipeline.
 - `internal/telemetry/`: OpenTelemetry initialization and tracing spans.
@@ -31,23 +31,22 @@ docker compose up -d
 Host ports: calorify DB `5434`, USDA DB `5433`, Ollama `11435`.
 
 ### 2. Run Database Migrations
-Apply schemas to application database:
+Apply the schema to the application database (the USDA schema is applied by `make usda-setup` in the next step):
 ```bash
 # Apply calorify schema
 psql -h localhost -p 5434 -U user -d calorify_db_dev -f migrations/calorify/000001_create_user_profile.sql
-
-# Apply USDA schema with pgvector
-psql -h localhost -p 5433 -U user -d usda_db -f migrations/usda/000001_create_usda_tables.sql
 ```
 
 ### 3. USDA Ingestion & Embeddings
-```bash
-# Ingest raw USDA CSV archives
-go run cmd/usda/main.go -ingest -data_dir=./usda_data_raw
 
-# Generate dense vector embeddings using Ollama
-go run cmd/usda/main.go -embed-all -ollama_url=http://localhost:11435
+Put the USDA zip archives in `raw_data/`, pull the embedding model once, then run one command:
+
+```bash
+docker exec ollama ollama pull embeddinggemma-2
+make usda-setup
 ```
+
+It creates the tables and indexes, loads the archives, applies data corrections and embeds non-branded foods. It is safe to re-run and never deletes anything. `make usda-status` shows the current state. Commands, flags and common tasks are in [`docs/usda-database.md`](docs/usda-database.md).
 
 ### 4. Run the API Server
 ```bash
@@ -58,6 +57,7 @@ go run cmd/server/main.go
 
 - [`docs/README.md`](docs/README.md) — Canonical index for backend documentation.
 - [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — Production VM architecture, Docker Compose topology, and deployment runbook.
+- [`docs/usda-database.md`](docs/usda-database.md) — Building and maintaining the USDA reference database with `cmd/usda`: commands, flags, safety rules, data corrections.
 - [`docs/meal-analysis-pipeline.md`](docs/meal-analysis-pipeline.md) — Two-pass LLM decomposition, USDA pgvector matching, and analysis event lifecycle.
 - [`docs/meal-analysis-enums.md`](docs/meal-analysis-enums.md) — Canonical enum schemas, preparation methods, and variation types.
 - [`docs/observability.md`](docs/observability.md) — OpenTelemetry tracing, planned Prometheus metrics, and operator inspection.

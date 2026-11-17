@@ -299,11 +299,14 @@ func (s *Service) MarkAnalysisFailed(ctx context.Context, id string, reason stri
 func (s *Service) saveLlmCallRecord(ctx context.Context, call *api.LlmCallRecord) {
 	const query = `
 	INSERT INTO llm_call (
-		analysis_id, stage, model, component_id, prompt_tokens, cached_tokens, completion_tokens, duration_ms, error
+		analysis_id, stage, model, component_id, prompt_tokens, cached_tokens, completion_tokens, duration_ms, error,
+		reasoning_tokens, reasoning_effort, finish_reason, response_model, service_tier
 	) VALUES (
-		$1, $2, $3, $4, $5, $6, $7, $8, $9
+		$1, $2, $3, $4, $5, $6, $7, $8, $9,
+		$10, $11, $12, $13, $14
 	)`
-	_, err := s.DB.Exec(ctx, query, call.AnalysisId, call.Stage.String(), call.Model, call.ComponentId, call.PromptTokens, call.CachedTokens, call.CompletionTokens, call.DurationMs, call.Error)
+	_, err := s.DB.Exec(ctx, query, call.AnalysisId, call.Stage.String(), call.Model, call.ComponentId, call.PromptTokens, call.CachedTokens, call.CompletionTokens, call.DurationMs, call.Error,
+		call.ReasoningTokens, call.ReasoningEffort, call.FinishReason, call.ResponseModel, call.ServiceTier)
 	if err != nil {
 		slog.ErrorContext(ctx, "failed to insert llm_call record",
 			"analysis_id", call.GetAnalysisId(),

@@ -387,6 +387,11 @@ type LlmCallRecord struct {
 	DurationMs       int64                  `protobuf:"varint,9,opt,name=duration_ms,json=durationMs,proto3" json:"duration_ms,omitempty"`
 	Error            *string                `protobuf:"bytes,10,opt,name=error,proto3,oneof" json:"error,omitempty"`
 	ComponentId      *int32                 `protobuf:"varint,11,opt,name=component_id,json=componentId,proto3,oneof" json:"component_id,omitempty"`
+	ReasoningTokens  *int64                 `protobuf:"varint,12,opt,name=reasoning_tokens,json=reasoningTokens,proto3,oneof" json:"reasoning_tokens,omitempty"`
+	ReasoningEffort  *string                `protobuf:"bytes,13,opt,name=reasoning_effort,json=reasoningEffort,proto3,oneof" json:"reasoning_effort,omitempty"`
+	FinishReason     *string                `protobuf:"bytes,14,opt,name=finish_reason,json=finishReason,proto3,oneof" json:"finish_reason,omitempty"`
+	ResponseModel    *string                `protobuf:"bytes,15,opt,name=response_model,json=responseModel,proto3,oneof" json:"response_model,omitempty"`
+	ServiceTier      *string                `protobuf:"bytes,16,opt,name=service_tier,json=serviceTier,proto3,oneof" json:"service_tier,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -496,6 +501,41 @@ func (x *LlmCallRecord) GetComponentId() int32 {
 		return *x.ComponentId
 	}
 	return 0
+}
+
+func (x *LlmCallRecord) GetReasoningTokens() int64 {
+	if x != nil && x.ReasoningTokens != nil {
+		return *x.ReasoningTokens
+	}
+	return 0
+}
+
+func (x *LlmCallRecord) GetReasoningEffort() string {
+	if x != nil && x.ReasoningEffort != nil {
+		return *x.ReasoningEffort
+	}
+	return ""
+}
+
+func (x *LlmCallRecord) GetFinishReason() string {
+	if x != nil && x.FinishReason != nil {
+		return *x.FinishReason
+	}
+	return ""
+}
+
+func (x *LlmCallRecord) GetResponseModel() string {
+	if x != nil && x.ResponseModel != nil {
+		return *x.ResponseModel
+	}
+	return ""
+}
+
+func (x *LlmCallRecord) GetServiceTier() string {
+	if x != nil && x.ServiceTier != nil {
+		return *x.ServiceTier
+	}
+	return ""
 }
 
 type LlmCallPoint struct {
@@ -1076,7 +1116,7 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\x0favg_duration_ms\x18\x03 \x01(\x01R\ravgDurationMs\x12*\n" +
 	"\x11avg_prompt_tokens\x18\x04 \x01(\x01R\x0favgPromptTokens\x12*\n" +
 	"\x11avg_cached_tokens\x18\x05 \x01(\x01R\x0favgCachedTokens\x122\n" +
-	"\x15avg_completion_tokens\x18\x06 \x01(\x01R\x13avgCompletionTokens\"\xd0\x04\n" +
+	"\x15avg_completion_tokens\x18\x06 \x01(\x01R\x13avgCompletionTokens\"\x8e\a\n" +
 	"\rLlmCallRecord\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12$\n" +
 	"\vanalysis_id\x18\x02 \x01(\tH\x00R\n" +
@@ -1092,7 +1132,13 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"durationMs\x12\x19\n" +
 	"\x05error\x18\n" +
 	" \x01(\tH\x04R\x05error\x88\x01\x01\x12&\n" +
-	"\fcomponent_id\x18\v \x01(\x05H\x05R\vcomponentId\x88\x01\x01\"9\n" +
+	"\fcomponent_id\x18\v \x01(\x05H\x05R\vcomponentId\x88\x01\x01\x12.\n" +
+	"\x10reasoning_tokens\x18\f \x01(\x03H\x06R\x0freasoningTokens\x88\x01\x01\x12.\n" +
+	"\x10reasoning_effort\x18\r \x01(\tH\aR\x0freasoningEffort\x88\x01\x01\x12(\n" +
+	"\rfinish_reason\x18\x0e \x01(\tH\bR\ffinishReason\x88\x01\x01\x12*\n" +
+	"\x0eresponse_model\x18\x0f \x01(\tH\tR\rresponseModel\x88\x01\x01\x12&\n" +
+	"\fservice_tier\x18\x10 \x01(\tH\n" +
+	"R\vserviceTier\x88\x01\x01\"9\n" +
 	"\x05Stage\x12\v\n" +
 	"\aUNKNOWN\x10\x00\x12\n" +
 	"\n" +
@@ -1105,7 +1151,12 @@ const file_protos_api_analysis_history_proto_rawDesc = "" +
 	"\x0e_cached_tokensB\x14\n" +
 	"\x12_completion_tokensB\b\n" +
 	"\x06_errorB\x0f\n" +
-	"\r_component_id\"]\n" +
+	"\r_component_idB\x13\n" +
+	"\x11_reasoning_tokensB\x13\n" +
+	"\x11_reasoning_effortB\x10\n" +
+	"\x0e_finish_reasonB\x11\n" +
+	"\x0f_response_modelB\x0f\n" +
+	"\r_service_tier\"]\n" +
 	"\fLlmCallPoint\x12*\n" +
 	"\x02at\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x02at\x12!\n" +
 	"\fduration_sec\x18\x02 \x01(\x01R\vdurationSec\"\xe4\b\n" +

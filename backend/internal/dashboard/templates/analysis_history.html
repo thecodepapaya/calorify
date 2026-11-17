@@ -1228,10 +1228,10 @@
                         <div class="comp-name">
                           {{$c.Stage}}
                           {{if $c.ComponentId}}{{with componentName $item.EnrichedComponents $c.GetComponentId}} &middot; {{.}}{{end}}{{end}}
-                          <span class="mono">{{$c.Model}}</span>
+                          <span class="mono">{{if $c.ResponseModel}}{{$c.GetResponseModel}}{{else}}{{$c.Model}}{{end}}</span>
                         </div>
                         <div class="comp-sub mono">
-                          {{$c.DurationMs}} ms &middot; prompt {{$c.GetPromptTokens}} &middot; cached {{$c.GetCachedTokens}} &middot; completion {{$c.GetCompletionTokens}}
+                          {{$c.DurationMs}} ms &middot; prompt {{$c.GetPromptTokens}} &middot; cached {{$c.GetCachedTokens}} &middot; completion {{$c.GetCompletionTokens}}{{if $c.ReasoningTokens}} (reasoning {{$c.GetReasoningTokens}}){{end}}{{if $c.ReasoningEffort}} &middot; effort {{$c.GetReasoningEffort}}{{end}}{{if $c.FinishReason}} &middot; finish {{$c.GetFinishReason}}{{end}}{{if $c.ServiceTier}} &middot; tier {{$c.GetServiceTier}}{{end}}
                         </div>
                         {{if $c.Error}}<div class="fail-reason">{{$c.Error}}</div>{{end}}
                       </div>

@@ -198,6 +198,51 @@ const LlmCallRecord$json = {
       '10': 'componentId',
       '17': true
     },
+    {
+      '1': 'reasoning_tokens',
+      '3': 12,
+      '4': 1,
+      '5': 3,
+      '9': 6,
+      '10': 'reasoningTokens',
+      '17': true
+    },
+    {
+      '1': 'reasoning_effort',
+      '3': 13,
+      '4': 1,
+      '5': 9,
+      '9': 7,
+      '10': 'reasoningEffort',
+      '17': true
+    },
+    {
+      '1': 'finish_reason',
+      '3': 14,
+      '4': 1,
+      '5': 9,
+      '9': 8,
+      '10': 'finishReason',
+      '17': true
+    },
+    {
+      '1': 'response_model',
+      '3': 15,
+      '4': 1,
+      '5': 9,
+      '9': 9,
+      '10': 'responseModel',
+      '17': true
+    },
+    {
+      '1': 'service_tier',
+      '3': 16,
+      '4': 1,
+      '5': 9,
+      '9': 10,
+      '10': 'serviceTier',
+      '17': true
+    },
   ],
   '4': [LlmCallRecord_Stage$json],
   '8': [
@@ -207,6 +252,11 @@ const LlmCallRecord$json = {
     {'1': '_completion_tokens'},
     {'1': '_error'},
     {'1': '_component_id'},
+    {'1': '_reasoning_tokens'},
+    {'1': '_reasoning_effort'},
+    {'1': '_finish_reason'},
+    {'1': '_response_model'},
+    {'1': '_service_tier'},
   ],
 };
 
@@ -230,10 +280,16 @@ final $typed_data.Uint8List llmCallRecordDescriptor = $convert.base64Decode(
     'AVIMcHJvbXB0VG9rZW5ziAEBEigKDWNhY2hlZF90b2tlbnMYByABKANIAlIMY2FjaGVkVG9rZW'
     '5ziAEBEjAKEWNvbXBsZXRpb25fdG9rZW5zGAggASgDSANSEGNvbXBsZXRpb25Ub2tlbnOIAQES'
     'HwoLZHVyYXRpb25fbXMYCSABKANSCmR1cmF0aW9uTXMSGQoFZXJyb3IYCiABKAlIBFIFZXJyb3'
-    'KIAQESJgoMY29tcG9uZW50X2lkGAsgASgFSAVSC2NvbXBvbmVudElkiAEBIjkKBVN0YWdlEgsK'
+    'KIAQESJgoMY29tcG9uZW50X2lkGAsgASgFSAVSC2NvbXBvbmVudElkiAEBEi4KEHJlYXNvbmlu'
+    'Z190b2tlbnMYDCABKANIBlIPcmVhc29uaW5nVG9rZW5ziAEBEi4KEHJlYXNvbmluZ19lZmZvcn'
+    'QYDSABKAlIB1IPcmVhc29uaW5nRWZmb3J0iAEBEigKDWZpbmlzaF9yZWFzb24YDiABKAlICFIM'
+    'ZmluaXNoUmVhc29uiAEBEioKDnJlc3BvbnNlX21vZGVsGA8gASgJSAlSDXJlc3BvbnNlTW9kZW'
+    'yIAQESJgoMc2VydmljZV90aWVyGBAgASgJSApSC3NlcnZpY2VUaWVyiAEBIjkKBVN0YWdlEgsK'
     'B1VOS05PV04QABIKCgZQQVNTXzEQARIKCgZQQVNTXzIQAhILCgdTVU1NQVJZEANCDgoMX2FuYW'
     'x5c2lzX2lkQhAKDl9wcm9tcHRfdG9rZW5zQhAKDl9jYWNoZWRfdG9rZW5zQhQKEl9jb21wbGV0'
-    'aW9uX3Rva2Vuc0IICgZfZXJyb3JCDwoNX2NvbXBvbmVudF9pZA==');
+    'aW9uX3Rva2Vuc0IICgZfZXJyb3JCDwoNX2NvbXBvbmVudF9pZEITChFfcmVhc29uaW5nX3Rva2'
+    'Vuc0ITChFfcmVhc29uaW5nX2VmZm9ydEIQCg5fZmluaXNoX3JlYXNvbkIRCg9fcmVzcG9uc2Vf'
+    'bW9kZWxCDwoNX3NlcnZpY2VfdGllcg==');
 
 @$core.Deprecated('Use llmCallPointDescriptor instead')
 const LlmCallPoint$json = {

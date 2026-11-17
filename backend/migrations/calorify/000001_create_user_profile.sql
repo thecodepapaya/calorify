@@ -207,4 +207,10 @@ END IF;
 
 END $$;
 
-ALTER TABLE llm_call ADD COLUMN IF NOT EXISTS component_id int;
+ALTER TABLE llm_call
+ADD COLUMN IF NOT EXISTS component_id int,
+ADD COLUMN IF NOT EXISTS reasoning_tokens int,
+ADD COLUMN IF NOT EXISTS reasoning_effort VARCHAR(20),
+ADD COLUMN IF NOT EXISTS finish_reason VARCHAR(30),
+ADD COLUMN IF NOT EXISTS response_model VARCHAR(100),
+ADD COLUMN IF NOT EXISTS service_tier VARCHAR(20);

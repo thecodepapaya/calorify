@@ -120,6 +120,11 @@ func TestSaveLlmCallRecord(t *testing.T) {
 	cachedTokens := int64(0)
 	completionTokens := int64(80)
 	errText := "boom"
+	reasoningTokens := int64(32)
+	reasoningEffort := "none"
+	finishReason := "stop"
+	responseModel := "test-model-2026-01-01"
+	serviceTier := "default"
 
 	svc.saveLlmCallRecord(ctx, &api.LlmCallRecord{
 		AnalysisId:       &id,
@@ -131,6 +136,11 @@ func TestSaveLlmCallRecord(t *testing.T) {
 		CompletionTokens: &completionTokens,
 		DurationMs:       1234,
 		Error:            &errText,
+		ReasoningTokens:  &reasoningTokens,
+		ReasoningEffort:  &reasoningEffort,
+		FinishReason:     &finishReason,
+		ResponseModel:    &responseModel,
+		ServiceTier:      &serviceTier,
 	})
 	svc.saveLlmCallRecord(ctx, &api.LlmCallRecord{
 		AnalysisId: &id,
@@ -166,6 +176,34 @@ func TestSaveLlmCallRecord(t *testing.T) {
 	}
 	if dbErr == nil || *dbErr != errText {
 		t.Errorf("expected error %q, got %v", errText, dbErr)
+	}
+
+	var dbReasoning *int64
+	var dbEffort, dbFinish, dbRespModel, dbTier *string
+	err = pool.QueryRow(ctx, `
+		SELECT reasoning_tokens, reasoning_effort, finish_reason, response_model, service_tier
+		FROM llm_call WHERE analysis_id = $1 AND stage = 'PASS_2'`, id).
+		Scan(&dbReasoning, &dbEffort, &dbFinish, &dbRespModel, &dbTier)
+	if err != nil {
+		t.Fatalf("failed to query PASS_2 llm_call metadata: %v", err)
+	}
+	if dbReasoning == nil || *dbReasoning != reasoningTokens {
+		t.Errorf("expected reasoning_tokens %d, got %v", reasoningTokens, dbReasoning)
+	}
+	if dbEffort == nil || *dbEffort != reasoningEffort || dbFinish == nil || *dbFinish != finishReason {
+		t.Errorf("unexpected reasoning_effort/finish_reason: %v/%v", dbEffort, dbFinish)
+	}
+	if dbRespModel == nil || *dbRespModel != responseModel || dbTier == nil || *dbTier != serviceTier {
+		t.Errorf("unexpected response_model/service_tier: %v/%v", dbRespModel, dbTier)
+	}
+
+	var pass1Reasoning *int64
+	err = pool.QueryRow(ctx, `SELECT reasoning_tokens FROM llm_call WHERE analysis_id = $1 AND stage = 'PASS_1'`, id).Scan(&pass1Reasoning)
+	if err != nil {
+		t.Fatalf("failed to query PASS_1 reasoning_tokens: %v", err)
+	}
+	if pass1Reasoning != nil {
+		t.Errorf("expected PASS_1 reasoning_tokens NULL when unset, got %v", *pass1Reasoning)
 	}
 
 	var pass1ComponentID *int32

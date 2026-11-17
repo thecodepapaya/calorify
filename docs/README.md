@@ -9,15 +9,15 @@ Central index for Calorify system architecture, component documentation, technic
 - [Wear OS Companion](../app/watch/README.md) — Smartwatch app, speech capture, and Data Layer synchronization.
 - [Shared Packages](../app/shared_packages/README.md) — Shared domain models, tokens, and utilities.
 - [Backend Development](../backend/README.md) — Go API service, USDA database, and local runners.
-- [Backend Deployment Runbook](../backend/DEPLOYMENT.md) — Production/staging VM deployment, migrations, and rollback.
+- [Backend Deployment Runbook](../backend/docs/DEPLOYMENT.md) — Production/staging VM deployment, migrations, and rollback.
 
 ## Architecture & Plans
 
 - [Meal-Analysis Latency Optimization](plans/meal-analysis-latency-optimization.md) — Active plan to cut analysis e2e latency below 10s: per-call LLM measurement, decision tree, and levers.
-- [Pass-2 Per-Component Split](plans/pass2-per-component-split.md) — Design record for splitting pass 2 into one parallel call per component: payload, storage shape, indices, failure semantics, and work split.
+- [Meal-Analysis Evals](plans/meal-analysis-evals.md) — Plan for measuring variance, structure, accuracy and USDA retrieval: case files, recorders, offline scorer, comparison protocol, cost, and phases (nothing built yet).
 - [Suggested Nutrition Targets](plans/suggested-nutrition-targets.md) — Backend-owned target calculations and client contract (not yet implemented).
 - [Considered Features](plans/considered-features.md) — Accuracy, reliability, and presentation directions considered for meal analysis, with preconditions; not commitments.
-- [Meal-Analysis Pipeline](../backend/docs/meal-analysis-pipeline.md) — Current Go pipeline architecture: two-pass LLM decomposition, USDA vector retrieval, hydration.
+- [Meal-Analysis Pipeline](../backend/docs/meal-analysis-pipeline.md) — Current Go pipeline architecture: pass 1, per-component pass 2, USDA vector retrieval, clarification tiering, storage and observability.
 
 ## Feature Workflows
 
@@ -28,6 +28,7 @@ Central index for Calorify system architecture, component documentation, technic
 
 - [Backend Documentation Index](../backend/docs/README.md) — Index of backend-specific guides and references.
 - [Model & Resolver Evals](../backend/evals/README.md) — Evaluation harness for LLM decomposition and USDA matching.
+- [USDA Database Tool](../backend/docs/usda-database.md) — Commands for loading, embedding and correcting the USDA reference database.
 - [Meal-Analysis Enum Reference](../backend/docs/meal-analysis-enums.md) — Canonical enum values and preparation codes.
 - [Observability & Telemetry](../backend/docs/observability.md) — OpenTelemetry tracing, performance metrics, and analysis session inspection.
 - [Translation Regeneration](../app/shared_packages/i18n/README.md) — Localization management and safe `slang` update procedures.

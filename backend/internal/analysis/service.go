@@ -14,9 +14,8 @@ import (
 	"backend/internal/gen_proto/server"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/openai/openai-go"
-	"github.com/openai/openai-go/option"
-	"github.com/openai/openai-go/shared"
+	"github.com/openai/openai-go/v3"
+	"github.com/openai/openai-go/v3/option"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
@@ -64,7 +63,7 @@ func (s *Service) AnalyzeMeal(ctx context.Context, req *api.MealAnalysisRequest)
 func (s *Service) runPipeline(id string, userUid string, req *api.MealAnalysisRequest) (pipelineErr error) {
 	// TODO: make this pipeline idempotent
 	bgCtx := context.Background()
-	ctx, cancel := context.WithTimeout(bgCtx, 45*time.Second)
+	ctx, cancel := context.WithTimeout(bgCtx, 30*time.Second)
 	defer cancel()
 
 	tr := otel.Tracer("meal_analysis")
@@ -173,9 +172,10 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 		}))
 	}
 
+	reasoningEffort := string(llmReasoningEffort)
 	llmStart := time.Now()
 	res, err := s.LlmClient.Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
-		ReasoningEffort: shared.ReasoningEffortLow,
+		ReasoningEffort: llmReasoningEffort,
 		Model:           openai.ChatModel(llm_model),
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(pass1Prompt),
@@ -192,10 +192,11 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 		},
 	})
 	llmCallData := api.LlmCallRecord{
-		AnalysisId: &id,
-		Stage:      api.LlmCallRecord_PASS_1,
-		Model:      llm_model,
-		DurationMs: time.Since(llmStart).Milliseconds(),
+		AnalysisId:      &id,
+		Stage:           api.LlmCallRecord_PASS_1,
+		Model:           llm_model,
+		DurationMs:      time.Since(llmStart).Milliseconds(),
+		ReasoningEffort: &reasoningEffort,
 	}
 	if err != nil {
 		errAdd := err.Error()
@@ -216,9 +217,7 @@ func (s *Service) decomposeComponents(ctx context.Context, id string, req *api.M
 		span.SetStatus(codes.Error, err.Error())
 		return nil, err
 	}
-	llmCallData.PromptTokens = &res.Usage.PromptTokens
-	llmCallData.CachedTokens = &res.Usage.PromptTokensDetails.CachedTokens
-	llmCallData.CompletionTokens = &res.Usage.CompletionTokens
+	recordLlmUsage(&llmCallData, res)
 	s.saveLlmCallRecord(ctx, &llmCallData)
 
 	rawJson := res.Choices[0].Message.Content
@@ -259,6 +258,7 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 	ingredientCount := 0
 
 	results := make([]Pass2ComponentDTO, len(pass1.Components))
+	reasoningEffort := string(llmReasoningEffort)
 	g, gCtx := errgroup.WithContext(ctx)
 	g.SetLimit(10)
 
@@ -282,11 +282,12 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 
 			res, err, dur := s.fanOutPass2CallReq(gCtx, userContent)
 			llmCallData := api.LlmCallRecord{
-				AnalysisId:  &id,
-				Stage:       api.LlmCallRecord_PASS_2,
-				Model:       llm_model,
-				DurationMs:  dur,
-				ComponentId: &compId,
+				AnalysisId:      &id,
+				Stage:           api.LlmCallRecord_PASS_2,
+				Model:           llm_model,
+				DurationMs:      dur,
+				ComponentId:     &compId,
+				ReasoningEffort: &reasoningEffort,
 			}
 			if err != nil {
 				errAdd := err.Error()
@@ -307,9 +308,7 @@ func (s *Service) decomposeIngredients(ctx context.Context, id string, req *api.
 				span.SetStatus(codes.Error, err.Error())
 				return err
 			}
-			llmCallData.PromptTokens = &res.Usage.PromptTokens
-			llmCallData.CachedTokens = &res.Usage.PromptTokensDetails.CachedTokens
-			llmCallData.CompletionTokens = &res.Usage.CompletionTokens
+			recordLlmUsage(&llmCallData, res)
 			s.saveLlmCallRecord(ctx, &llmCallData)
 
 			rawJson := res.Choices[0].Message.Content
@@ -504,6 +503,10 @@ func (s *Service) generateClarification(ctx context.Context, id string, pass1 *P
 			continue
 		}
 		for _, ing := range comp.Ingredients {
+			// A committed count is already the answer to a quantity question.
+			if ing.GetPortion().GetKind() == "EXACT" {
+				continue
+			}
 			variance := calorieVariance(ing.GetMacros())
 			if variance <= ingredientThreshold {
 				continue

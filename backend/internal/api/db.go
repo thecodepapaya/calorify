@@ -886,7 +886,12 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 			completion_tokens,
 			duration_ms,
 			error,
-			component_id
+			component_id,
+			reasoning_tokens,
+			reasoning_effort,
+			finish_reason,
+			response_model,
+			service_tier
 		FROM llm_call
 		WHERE analysis_id = ANY($1::uuid[])
 		ORDER BY analysis_id, id`
@@ -917,6 +922,11 @@ func (a *App) GetAnalysisHistoryData(ctx context.Context, req *api.AnalysisHisto
 				&rec.DurationMs,
 				&errText,
 				&componentID,
+				&rec.ReasoningTokens,
+				&rec.ReasoningEffort,
+				&rec.FinishReason,
+				&rec.ResponseModel,
+				&rec.ServiceTier,
 			); err != nil {
 				return nil, fmt.Errorf("failed to scan llm call row: %w", err)
 			}
